@@ -8,6 +8,7 @@ import {
   typedSubjectConfirmationMatches,
 } from './launchExperience'
 import { isTechnicalReadinessFailure } from '../components/ReadinessWarnings'
+import { isPhysicallyEmptyReadiness } from './store'
 import type { RunKind } from './types'
 
 assert.equal(PROVIDER_TRANSPARENT_UX_CONTRACT_VERSION, 'provider-transparent-ux/1')
@@ -31,6 +32,20 @@ assert.equal(isTechnicalReadinessFailure([
 assert.equal(isTechnicalReadinessFailure([
   { code: 'zero_files', severity: 'blocker', message: 'no files' },
 ]), false, 'a genuine data blocker keeps the ordinary typed-override UI')
+const reportBase = {
+  ticker: 'KAR', kind: 'full', overall: 'blocked' as const, fileCount: 1, usableCount: 0,
+  entities: [], ts: 1,
+}
+assert.equal(isPhysicallyEmptyReadiness({
+  ...reportBase,
+  physicalPool: { state: 'nonempty', fileCount: 1, nonEmptyFileCount: 1 },
+  issues: [{ code: 'zero_usable_data', severity: 'blocker', message: 'parser could not use it' }],
+}), false, 'a non-empty corrupt or unsupported file is not presented as an empty folder')
+assert.equal(isPhysicallyEmptyReadiness({
+  ...reportBase,
+  physicalPool: { state: 'empty', fileCount: 1, nonEmptyFileCount: 0 },
+  issues: [{ code: 'zero_usable_data', severity: 'blocker', message: 'all files are zero bytes' }],
+}), true, 'a complete all-zero-byte proof is presented as empty')
 
 const launchConfirm = readFileSync(fileURLToPath(new URL('../components/LaunchConfirm.tsx', import.meta.url)), 'utf8')
 assert.doesNotMatch(launchConfirm, /needsTyped\s*=\s*p\.requiresTypedConfirm/,
@@ -41,6 +56,14 @@ assert.match(launchConfirm, /const subject = lc\.selection\.subject/,
 const thesisPanel = readFileSync(fileURLToPath(new URL('../components/ThesisPlanPanel.tsx', import.meta.url)), 'utf8')
 assert.doesNotMatch(thesisPanel, /provider === 'claude' && <div className="tpp__saving">/,
   'the full-run typed-confirmation explanation must be visible under every provider')
+assert.match(thesisPanel, /sourceRunRoots\.includes\(entry\.runRoot\)/,
+  'the old-run action must select only a root named by the plan being shown')
+assert.match(thesisPanel, /\(entry\.swarm \|\| 'research'\) === 'research'/,
+  'legacy resumable rows with an omitted swarm id remain selectable as research runs')
+assert.match(thesisPanel, />\s*Complete old run\s*</,
+  'a multi-root completion offers the exact saved-run action instead of a dead generic launch')
+assert.match(thesisPanel, />\s*Run full\s*</,
+  'a multi-root completion keeps typed Full as the separate alternative')
 
 const storeSource = readFileSync(fileURLToPath(new URL('./store.ts', import.meta.url)), 'utf8')
 const resumeConfirm = readFileSync(fileURLToPath(new URL('../components/ResumeConfirm.tsx', import.meta.url)), 'utf8')

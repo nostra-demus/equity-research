@@ -22,7 +22,7 @@ import {
 } from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
 import type { RunState } from '../src/registry'
-import type { ProviderLaunchContext } from '../src/providers/types'
+import { PROVIDER_NEUTRAL_RUN_ENV_KEYS, type ProviderLaunchContext } from '../src/providers/types'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -166,6 +166,20 @@ try {
     assert.equal(claudeNestedToolEnv(source).CLAUDE_CODE_SUBPROCESS_ENV_SCRUB, '1')
     assert.equal(claudeChildEnv({ ...source, NOSTRA_PUBLICATION_SOCKET: '/tmp/fixture.sock' }).NOSTRA_PUBLICATION_SOCKET,
       '/tmp/fixture.sock')
+  })
+
+  check('every provider and model tool receives the same exact supervisor run-policy controls', () => {
+    const exactPolicy = Object.fromEntries(PROVIDER_NEUTRAL_RUN_ENV_KEYS.map((key, index) => [key, `exact-${index}`]))
+    const source = { PATH: '/bin', ...exactPolicy, NOSTRA_UNREVIEWED_STALE_CONTROL: 'must-not-pass' }
+    for (const env of [claudeChildEnv(source), claudeNestedToolEnv(source), codexChildEnv(source)]) {
+      assert.deepEqual(
+        Object.fromEntries(PROVIDER_NEUTRAL_RUN_ENV_KEYS.map((key) => [key, env[key]])),
+        exactPolicy,
+        'Claude, Claude tools, and Codex keep byte-identical exact-root/frozen-evidence controls',
+      )
+      assert.equal(env.NOSTRA_UNREVIEWED_STALE_CONTROL, undefined,
+        'an unreviewed shell-level NOSTRA value is scrubbed instead of becoming a model control')
+    }
   })
 
   check('tracked Claude accepts only first-party subscription auth and scrubs headless credentials', () => {

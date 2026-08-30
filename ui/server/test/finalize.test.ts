@@ -54,6 +54,9 @@ try {
   // 1. THE regression: clean `result` + clean exit on a full run with NO final deliverables
   //    must end INCOMPLETE, not done (the stream parser used to finish it as done first).
   check('clean result does not finalize; close marks a deliverable-less full run incomplete', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINA_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
     const { run, events } = mkRun('full', 'ZZFINA')
     handleStreamLine(run, cleanResult)
     assert.equal(run.status, 'running', 'clean result must NOT finalize the run')
@@ -65,6 +68,8 @@ try {
     assert.equal(inFlightRunsForSubject('ZZFINA').length, 0, 'subject must be released')
     const evt = events.find((e) => e.type === 'run-error') as any
     assert.equal(evt?.reason, 'incomplete_deliverables')
+    assert.equal(readRunMarker(`analyses/ZZFINA_${DATE}`, '.interrupted')?.reason, 'incomplete_deliverables',
+      'a clean incomplete Claude Full is queued for exact-root autonomous continuation')
   })
 
   // 2. with the deliverables on disk, the same path ends done (and carries the final paths)
@@ -143,6 +148,8 @@ try {
       specialistReasoning: 'xhigh',
     }
     run.module = 'business-model'
+    run.chained = true
+    run.chainId = '11111111-1111-4111-8111-111111111111'
     run.expected = new Map([
       ['business-model/09_moat', {
         key: 'business-model/09_moat', module: 'business-model', name: 'moat', layer: 3,
@@ -171,6 +178,8 @@ try {
     assert.match(String(failed?.message), /native=running/)
     assert.match(String(failed?.message), /Both remain in flight/)
     assert.ok(!events.find((event) => event.type === 'run-done'))
+    assert.equal(readRunMarker(`analyses/ZZCODEX_${DATE}`, '.interrupted')?.reason, 'codex_incomplete_orchestration',
+      'a clean incomplete Codex chain child preserves the exact-root recovery queue')
   })
 
   // 3. a cancel() sets status='cancelled' directly — close must STILL finalize and release the

@@ -83,7 +83,7 @@ You MAY:
 # RUNTIME INPUTS
 
 - `TICKER`
-- `DATA_PATH = data/{TICKER}/`
+- `<DATA_PATH>` — the exact filesystem evidence root injected by the orchestrator; cite files under it logically as `data/{TICKER}/...`
 - `OUTPUT_PATH = analyses/{TICKER}_{DATE}/earnings/08_earnings-red-flags.md`
 - `DATE`
 - `UPSTREAM_INPUTS`:

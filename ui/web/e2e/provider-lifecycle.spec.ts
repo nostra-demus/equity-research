@@ -19,6 +19,9 @@ interface FixtureState {
   partialHashAfter: string | null
   artifacts: Record<string, boolean>
   provenance: { provider?: string; profileKey?: string } | null
+  phase: 'idle' | 'full_first_module_done' | 'full_interrupted' | 'resume_first_module_done' | 'finished' | 'empty_blocked' | 'legacy_nonempty_blocked'
+  active: { runId: string; status: string }[]
+  readinessDecisionPosts: number
 }
 
 async function reset(request: APIRequestContext, provider: Provider): Promise<void> {
@@ -81,6 +84,19 @@ for (const provider of ['claude', 'codex'] as const) {
 
     const deployed = await request.post('http://127.0.0.1:8899/api/e2e/deploy')
     expect(deployed.ok()).toBeTruthy()
+    fixture = await waitForState(request, (value) => value.phase === 'full_first_module_done' && value.active.length === 1)
+    expect(fixture.readinessDecisionPosts).toBe(0)
+
+    // One module has landed. A non-empty shared report cannot interrupt the remaining Full chain, and a
+    // refresh must reconnect to the same live attempt without inventing a data-decision modal.
+    await reloadReady(page)
+    await expect(page.getByText('Business identity').first()).toBeVisible()
+    await expect(page.locator('.rdg')).toHaveCount(0)
+    fixture = await state(request)
+    expect(fixture.readinessDecisionPosts).toBe(0)
+
+    const interrupted = await request.post('http://127.0.0.1:8899/api/e2e/interrupt-full')
+    expect(interrupted.ok()).toBeTruthy()
     fixture = await waitForState(request, (value) => value.spawnCount === 1 && value.resumable.length === 1)
     expect(fixture.sourceRunRoot).toBe('analyses/KAR_2026-08-28')
     expect(fixture.targetRunRoot).toBe(fixture.sourceRunRoot)
@@ -96,6 +112,18 @@ for (const provider of ['claude', 'codex'] as const) {
     await expect(page.getByRole('dialog')).toContainText('Completed work stays intact; only the unfinished work runs.')
     await expect(page.getByRole('dialog')).toContainText(provider === 'claude' ? 'Opus' : 'Sol + Terra')
     await page.getByRole('button', { name: 'Complete remaining work' }).click()
+
+    fixture = await waitForState(request, (value) => value.phase === 'resume_first_module_done' && value.active.length === 1)
+    expect(fixture.readinessDecisionPosts).toBe(0)
+    await reloadReady(page)
+    await expect(page.getByText('Business identity').first()).toBeVisible()
+    await expect(page.locator('.rdg')).toHaveCount(0)
+    fixture = await state(request)
+    expect(fixture.continuationPosts).toBe(1)
+    expect(fixture.readinessDecisionPosts).toBe(0)
+
+    const finished = await request.post('http://127.0.0.1:8899/api/e2e/finish-resume')
+    expect(finished.ok()).toBeTruthy()
 
     // Wait on the handler's LAST mutation, not on counters it bumps on the way in. `continuationPosts`
     // is incremented before the receipt is even validated and `spawnCount` before the fake CLI is awaited,
@@ -116,5 +144,34 @@ for (const provider of ['claude', 'codex'] as const) {
 
     await reloadReady(page)
     await expect(page.locator('.apill').filter({ hasText: 'done' }).first()).toBeVisible()
+
+    // Empty data is the only normal user decision. The elected owner survives refresh as one concise
+    // modal; a zero-data run cannot bypass the gate with "Run anyway".
+    const empty = await request.post('http://127.0.0.1:8899/api/e2e/block-empty')
+    expect(empty.ok()).toBeTruthy()
+    await reloadReady(page)
+    await expect(page.locator('.rdg')).toContainText('No usable data found')
+    await expect(page.locator('.rdg')).toContainText('add company files')
+    await expect(page.locator('.rdg')).not.toContainText('Run anyway')
+    fixture = await state(request)
+    expect(fixture.phase).toBe('empty_blocked')
+    expect(fixture.readinessDecisionPosts).toBe(0)
+
+    // If the resolved frame is lost, polling must reconcile the exact snapshot. A confirmed 404 closes the
+    // stale empty prompt; one transient empty active list alone is never treated as proof.
+    const dropped = await request.post('http://127.0.0.1:8899/api/e2e/drop-active')
+    expect(dropped.ok()).toBeTruthy()
+    await expect(page.locator('.rdg')).toHaveCount(0, { timeout: 8_000 })
+
+    // Deploy skew: an older server can park a chained run on a non-empty parser warning. The browser never
+    // asks the user to override it; it makes one safe pre-spend recheck attempt, then stays visibly in
+    // compatibility recovery while exact status polling continues.
+    const legacy = await request.post('http://127.0.0.1:8899/api/e2e/block-legacy-nonempty')
+    expect(legacy.ok()).toBeTruthy()
+    await reloadReady(page)
+    await expect(page.locator('.rdg')).toHaveCount(0)
+    await expect(page.getByText(/waiting for the engine to finish updating/i).first()).toBeVisible()
+    fixture = await waitForState(request, (value) => value.readinessDecisionPosts === 1)
+    expect(fixture.phase).toBe('legacy_nonempty_blocked')
   })
 }

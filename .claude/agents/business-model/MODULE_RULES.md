@@ -33,9 +33,9 @@ When the deck is bullish and the filing is cautious, trust the filing.
 
 ---
 
-## The supply-chain graph (`_pool_extracts/relationships.json`)
+## The supply-chain graph (`<GENERATION_ROOT>/relationships.json`)
 
-When the pool carries a Capital IQ **Suppliers** or **Customers** export, the extractor emits a deterministic graph of it at `<RUN_ROOT>/_pool_extracts/relationships.json`. `value-chain` and `customer-geography` own it; `capital-allocation-governance` reads its concentration block. Rules for every agent that touches it:
+When the pool carries a Capital IQ **Suppliers** or **Customers** export, the extractor emits a deterministic graph inside the exact generation injected as `<GENERATION_ROOT>/relationships.json`. Every agent reads that immutable file, never a mutable fixed-name projection under `<RUN_ROOT>/_pool_extracts/`. `value-chain` and `customer-geography` own it; `capital-allocation-governance` reads its concentration block. Rules for every agent that touches it:
 
 - **It is a tier-5 vendor export**, not a filing. Cite it as `CIQ <Suppliers|Customers> export ({TICKER}), retrieved {DATE} — vendor export`, and name the disclosing document the graph itself carries (`source_ref`) whenever you rely on a single relationship. Where a filing discloses the same relationship, cite the filing (§4, §5).
 - **Carry the scope.** These views cover only *recently disclosed* relationships — usually a two-year window — for *current subsidiaries*. Quote the graph's `scope_notes` the first time you use it. Never present the list as the company's full supplier or customer base, and never infer that an absent counterparty does not exist.
@@ -161,7 +161,8 @@ Never silently expand scope.
 Every subagent invocation passes:
 
 - `TICKER` — company ticker
-- `DATA_PATH` — `data/{TICKER}/`
+- `DATA_PATH` — exact filesystem evidence root injected by `MODULE_PIPELINE`; cite files under it with the logical label `data/{TICKER}/...`
+- `GENERATION_ROOT` — exact immutable extraction generation injected by `MODULE_PIPELINE`; all manifest, corpus, CIQ, relationship, and extract reads stay inside it
 - `OUTPUT_PATH` — `analyses/{TICKER}_{DATE}/business-model/{NN}_{name}.md`
 - `DATE` — today's date
 - `UPSTREAM_INPUTS` — paths to outputs from agents this one depends on (may be empty)
@@ -198,8 +199,8 @@ Add lines only if applicable:
 
 ## Independent Reads
 
-Each subagent reads `DATA_PATH` independently and extracts what it needs.
-Subagents do NOT share an authoritative manifest.
+Each subagent reads `DATA_PATH` independently and extracts what it needs from the same admitted evidence snapshot.
+Subagents share one authoritative immutable `GENERATION_ROOT` manifest but reach their analytical conclusions independently.
 This means the same number may be cited slightly differently across reports — that's fine.
 The synthesizer reconciles disagreements at the end.
 

@@ -453,7 +453,10 @@ async function classifyFile(dir: string, rel: string): Promise<ClassifiedFile> {
   if (full !== dir && !full.startsWith(dir + path.sep)) throw new Error(`pool path escapes the folder: ${rel}`)
   const base = path.basename(rel)
   const relPosix = rel.split(path.sep).join('/')
-  const st = fs.statSync(full)
+  const st = fs.lstatSync(full)
+  if (!st.isFile() || st.isSymbolicLink() || st.nlink !== 1) {
+    throw new Error(`pool file is not one plain file: ${rel}`)
+  }
   const sniff = await sniffText(full, st.size, st.mtimeMs)
   let { type, confidence, basis } = classify(base, sniff)
   const { hint, ageMonths } = extractPeriod(base, sniff)
@@ -562,26 +565,40 @@ export function parseWireEventNote(text: string, filename: string): { displayNam
 const SIDECAR_SUFFIX = '.source.json'
 
 // external/<provider>/<file> — two levels max (the watcher and this walk agree on that bound)
-function listExternalFiles(tickerDirRaw: string): string[] {
+function insideOrEqual(candidateRaw: string, authorityRaw: string): boolean {
+  const candidate = path.resolve(candidateRaw)
+  const authority = path.resolve(authorityRaw)
+  return candidate === authority || candidate.startsWith(authority + path.sep)
+}
+
+function listExternalFiles(tickerDirRaw: string, authorityRootRaw: string = DATA_DIR): string[] {
   // Inline containment at EVERY derived path, right before its fs use — the shape CodeQL's
   // js/path-injection barrier recognizes (a guard on the parent variable alone, or behind a
   // helper, still left findings on the joined children). No crafted input can escape data/.
-  const root = path.resolve(tickerDirRaw, 'external')
-  if (!root.startsWith(DATA_DIR + path.sep)) return []
+  const tickerRoot = path.resolve(tickerDirRaw)
+  const authorityRoot = path.resolve(authorityRootRaw)
+  const root = path.resolve(tickerRoot, 'external')
+  if (!insideOrEqual(tickerRoot, authorityRoot) || !root.startsWith(tickerRoot + path.sep)) return []
   const out: string[] = []
   try {
     for (const n of fs.readdirSync(root)) {
       if (n.startsWith('.') || n.endsWith(SIDECAR_SUFFIX)) continue
       const full = path.resolve(root, n)
       if (!full.startsWith(root + path.sep)) continue
-      const st = fs.statSync(full)
-      if (st.isFile()) out.push(path.join('external', n))
+      const st = fs.lstatSync(full)
+      if (st.isSymbolicLink()) continue
+      if (st.isFile() && st.nlink === 1) out.push(path.join('external', n))
       else if (st.isDirectory()) {
         for (const m of fs.readdirSync(full)) {
           if (m.startsWith('.') || m.endsWith(SIDECAR_SUFFIX)) continue
           const leaf = path.resolve(full, m)
           if (!leaf.startsWith(full + path.sep)) continue
-          try { if (fs.statSync(leaf).isFile()) out.push(path.join('external', n, m)) } catch {}
+          try {
+            const leafStat = fs.lstatSync(leaf)
+            if (leafStat.isFile() && !leafStat.isSymbolicLink() && leafStat.nlink === 1) {
+              out.push(path.join('external', n, m))
+            }
+          } catch {}
         }
       }
     }
@@ -596,15 +613,16 @@ function listExternalFiles(tickerDirRaw: string): string[] {
 // the top level. This mirrors the extractor's exact skip rules so the two never disagree:
 //   • hidden entries (name starts with '.')            — same as the extractor
 //   • symlinks (files and dirs)                        — extractor walks with followlinks=False
-//   • engine-written output (a folder holding a `.nostradamus_output` sentinel) — the extractor skips a
-//     file whose IMMEDIATE parent holds the sentinel, still descending into any real subfolders below it
+//   • engine-written output (a folder holding a `.nostradamus_output` sentinel) — the whole marked tree
+//     is excluded by the extractor, readiness presence check, and this classifier
 //   • `.source.json` provenance sidecars               — metadata, not documents
 // The external/ subtree is owned by listExternalFiles (provenance-aware, forced to the readiness-neutral
 // 'external_data' type), so it is excluded here to avoid double-listing. Containment is asserted inline at
 // every derived path (the shape CodeQL's js/path-injection barrier recognizes), so nothing escapes DATA_DIR.
-function listPoolFiles(tickerDirRaw: string): string[] {
+function listPoolFiles(tickerDirRaw: string, authorityRootRaw: string = DATA_DIR): string[] {
   const root = path.resolve(tickerDirRaw)
-  if (root !== DATA_DIR && !root.startsWith(DATA_DIR + path.sep)) return []
+  const authorityRoot = path.resolve(authorityRootRaw)
+  if (!insideOrEqual(root, authorityRoot)) return []
   const out: string[] = []
   const walk = (absDir: string, relDir: string): void => {
     // Confine absDir to DATA_DIR IN THIS SCOPE before any fs use — a pure startsWith against the constant
@@ -614,12 +632,13 @@ function listPoolFiles(tickerDirRaw: string): string[] {
     // The ticker dir and every subfolder start with DATA_DIR + sep, so this rejects nothing valid; the
     // functional confinement to the ticker dir is still done by `abs.startsWith(root + path.sep)` on each
     // child below.
-    if (!absDir.startsWith(DATA_DIR + path.sep)) return
+    if (!insideOrEqual(absDir, authorityRoot) || !insideOrEqual(absDir, root)) return
     let names: string[]
     try { names = fs.readdirSync(absDir) } catch { return }
-    // A file whose immediate parent holds the sentinel is engine output, never pool input (launcher.ts
-    // writes it into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
+    // A sentinel marks this complete subtree as engine output, never pool input (launcher.ts writes it
+    // into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
     const isOutputDir = fs.existsSync(path.join(absDir, '.nostradamus_output'))
+    if (isOutputDir) return
     for (const name of names) {
       const abs = path.resolve(absDir, name)
       if (!abs.startsWith(root + path.sep)) continue
@@ -641,7 +660,6 @@ function listPoolFiles(tickerDirRaw: string): string[] {
         walk(abs, relDir ? path.join(relDir, name) : name)
       } else if (st.isFile()) {
         if (name.startsWith('.')) continue // dot-FILE (incl. the .nostradamus_output sentinel) — matches the extractor's basename skip
-        if (isOutputDir) continue // engine-written output folder (.nostradamus_output sentinel) — excluded from the pool
         if (name.toLowerCase().endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document — case-insensitive, matching extract_pool.py's _is_sidecar (name.lower().endswith(...))
         if (st.nlink !== 1) continue // multiply-linked file — the extractor rejects st_nlink != 1 (iter_pool_files)
         if (path.basename(absDir).endsWith('_pool_extracts')) continue // derived extractor cache, not a source doc (extract_pool.py)
@@ -653,16 +671,24 @@ function listPoolFiles(tickerDirRaw: string): string[] {
   return out.sort()
 }
 
-async function classifyExternalFile(tickerDirRaw: string, rel: string): Promise<ClassifiedFile> {
+async function classifyExternalFile(
+  tickerDirRaw: string,
+  rel: string,
+  authorityRootRaw: string = DATA_DIR,
+): Promise<ClassifiedFile> {
   // same inline containment as listExternalFiles (and analyzeTicker): confine the ticker dir to
   // DATA_DIR, then confine the joined document path to the ticker dir, before ANY fs use.
   const tickerDir = path.resolve(tickerDirRaw)
-  if (tickerDir !== DATA_DIR && !tickerDir.startsWith(DATA_DIR + path.sep)) {
+  const authorityRoot = path.resolve(authorityRootRaw)
+  if (!insideOrEqual(tickerDir, authorityRoot)) {
     throw new Error('ticker dir escapes the pool')
   }
   const full = path.resolve(tickerDir, rel)
   if (!full.startsWith(tickerDir + path.sep)) throw new Error(`external path escapes the pool: ${rel}`)
-  const st = fs.statSync(full)
+  const st = fs.lstatSync(full)
+  if (!st.isFile() || st.isSymbolicLink() || st.nlink !== 1) {
+    throw new Error(`external file is not one plain file: ${rel}`)
+  }
   const base = path.basename(rel)
   const sniff = await sniffText(full, st.size, st.mtimeMs)
   // period from the BASENAME + content — a digit-bearing provider slug ('yipit-2024/') must
@@ -1070,7 +1096,17 @@ export function deriveCoverage(files: ClassifiedFile[]): CoverageGroup[] {
   })
 }
 
-export async function analyzeTicker(ticker: string, onProgress?: (update: DataScanUpdate) => void): Promise<DataStatus> {
+export interface AnalyzeTickerOptions {
+  /** Exact immutable subject directory already verified by the readiness coordinator. The normal cockpit
+   * path omits this and continues to classify DATA_DIR/<ticker> exactly as before. */
+  exactDataDir?: string
+}
+
+export async function analyzeTicker(
+  ticker: string,
+  onProgress?: (update: DataScanUpdate) => void,
+  options: AnalyzeTickerOptions = {},
+): Promise<DataStatus> {
   const progress = (update: DataScanUpdate): void => { try { onProgress?.(update) } catch { /* UI reporting is never allowed to stop classification */ } }
   progress({ stage: 'finding', completed: 0, total: 0, currentFile: null })
   // Containment: the /api/data-status route validates TICKER_RE, but that allows dots — a lone '..'
@@ -1084,19 +1120,32 @@ export async function analyzeTicker(ticker: string, onProgress?: (update: DataSc
     progress({ stage: 'checking', completed: 0, total: 0, currentFile: null })
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
-  const dir = path.resolve(DATA_DIR, subject)
+  const dir = options.exactDataDir ? path.resolve(options.exactDataDir) : path.resolve(DATA_DIR, subject)
   // Reserved system folders (e.g. the news-archive mirror) are never companies — refuse to classify them
   // even if hit directly, alongside the path-containment guard ('..' slips through TICKER_RE's dots).
-  if (isReservedDataFolder(subject) || (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
+  if (isReservedDataFolder(subject)
+      || (!options.exactDataDir && dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
     progress({ stage: 'checking', completed: 0, total: 0, currentFile: null })
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
+  if (options.exactDataDir) {
+    let exactRoot: fs.Stats
+    try { exactRoot = fs.lstatSync(dir) } catch {
+      throw new Error('The frozen data snapshot is unavailable.')
+    }
+    if (exactRoot.isSymbolicLink() || !exactRoot.isDirectory()) {
+      throw new Error('The frozen data snapshot is not a plain directory.')
+    }
+  }
   // Recursive: a filing dropped in a "Filings 4/" or "Transcript Digest/" subfolder is real pool data
   // (extract_pool.py walks the whole tree), so the panel, readiness dots, and coverage now reflect it —
   // the user never has to move files to the top level for the cockpit to count what the orbs already read.
-  const rels = listPoolFiles(dir)
-  const externalRels = listExternalFiles(dir)
+  // An exact frozen directory is its own read authority. It was already lstat-verified above and every
+  // descendant walk remains confined below it; the ordinary cockpit path keeps DATA_DIR as its authority.
+  const readAuthority = options.exactDataDir ? dir : DATA_DIR
+  const rels = listPoolFiles(dir, readAuthority)
+  const externalRels = listExternalFiles(dir, readAuthority)
   const total = rels.length + externalRels.length
   // sequential on purpose: one extractor spawn at a time, the same load the sync version put on the
   // Drive mount — the win is that the loop now YIELDS between files, so SSE pings, /api/runs, and a
@@ -1120,7 +1169,7 @@ export async function analyzeTicker(ticker: string, onProgress?: (update: DataSc
     const display = rel.split(path.sep).join('/')
     progress({ stage: 'reading', completed, total, currentFile: display })
     try {
-      files.push(await classifyExternalFile(dir, rel))
+      files.push(await classifyExternalFile(dir, rel, readAuthority))
     } catch (cause) {
       throw new Error(`Could not read ${display}.`, { cause })
     }

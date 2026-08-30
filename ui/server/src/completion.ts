@@ -37,9 +37,14 @@
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
-import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
+import { ANALYSES_DIR, DATA_DIR, REPO_ROOT, STATE_DIR } from './config'
 import { canonicalJsonText } from './canonical-json'
-import { chainedResumePreflight, estimate, type RunProviderSelection } from './launcher'
+import {
+  chainedResumePreflight, durableFrozenGenerationSummaryForRun, estimate, type RunProviderSelection,
+} from './launcher'
+import {
+  readVerifiedOutputLineage, type OutputEvidenceLineageEntry,
+} from './evidence-lineage'
 import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
@@ -144,7 +149,7 @@ export interface ThesisPlan {
 }
 
 export interface ContinuationPlanReceiptPayload {
-  version: 1
+  version: 2
   action: 'continue' | 'complete'
   swarm: string
   subject: string
@@ -159,6 +164,13 @@ export interface ContinuationPlanReceiptPayload {
   reusableOrbKeys: string[]
   payableOrbKeys: string[]
   dataPool: { files: number; newestMs: number; sha256: string }
+  /** Exact immutable evidence generation retained for this saved root. Null only for a fresh/multi-root plan. */
+  evidenceGenerationDigest: string | null
+  /** Protected supervisor lineage for the exact current bytes this plan proposes to reuse. */
+  reusableArtifacts: Pick<OutputEvidenceLineageEntry, 'output_rel' | 'sha256' | 'generation_digest' | 'attempt_id'>[]
+  reusableArtifactsSha256: string
+  /** Digest of the complete protected manifest snapshot (including provider/profile/timestamps). */
+  verifiedLineageSha256: string
   /** Content identity of every existing target byte and every module tree this plan will copy. */
   sourceArtifactsSha256: string
 }
@@ -358,8 +370,31 @@ export function continuationPlanReceiptMatches(
  * folders and write into today's folder. A Continue action is different: it is bound to one saved folder,
  * and both planning and execution must remain inside that exact root.
  */
-export interface ThesisPlanScope {
+interface FrozenGenerationPlanScope {
+  generationDigest: string
+  fileCount: number
+  newestMs: number
+  verifiedLineageDigest: string
+  reusableArtifacts: Pick<OutputEvidenceLineageEntry, 'output_rel' | 'sha256' | 'generation_digest' | 'attempt_id'>[]
+}
+
+export type ThesisPlanScope = {
   continuationRunRoot: string
+  /** Internal supervisor proof. HTTP callers provide only the root; the request planner resolves this from
+   * owner-only state. Keeping it on the scope makes the pure planner testable without ever touching Drive. */
+  frozenGeneration?: FrozenGenerationPlanScope
+  freshRunRoot?: never
+} | {
+  /** Internal supervisor-only scope for revalidating a deferred, already-reviewed fresh Full admission after
+   * midnight. It preserves the original target identity without turning the action into Continue/reuse. */
+  freshRunRoot: string
+  continuationRunRoot?: never
+  /** A pre-spend retry must compare the reviewed receipt with the live pool. Only a chain which already
+   * crossed the paid boundary may resolve the owner-only frozen generation for this exact run root. */
+  recoverFrozenGeneration?: true
+  /** A started fresh Full already paid against one frozen generation. Restart recovery keeps action=Full
+   * while resolving this protected snapshot; it never reopens today's live Drive pool. */
+  frozenGeneration?: FrozenGenerationPlanScope
 }
 
 interface ContinuationReceiptHashes {
@@ -372,6 +407,58 @@ const DEFERRED_RECEIPT_HASHES: ContinuationReceiptHashes = {
   sourceArtifactsSha256: `sha256:${'0'.repeat(64)}`,
 }
 
+function continuationPlanningError(code: string, message: string): Error & { code: string; statusCode: number } {
+  return Object.assign(new Error(message), { code, statusCode: 409 })
+}
+
+function exactFrozenScope(subject: string, scope: ThesisPlanScope): ThesisPlanScope {
+  if (scope.frozenGeneration) return scope
+  const recoverFrozenGeneration = 'recoverFrozenGeneration' in scope
+    && scope.recoverFrozenGeneration === true
+  if (typeof scope.freshRunRoot === 'string' && !recoverFrozenGeneration) return scope
+  const maybeFresh = 'freshRunRoot' in scope ? scope.freshRunRoot : undefined
+  const runRoot = typeof maybeFresh === 'string' ? maybeFresh : scope.continuationRunRoot
+  if (typeof runRoot !== 'string') throw continuationPlanningError(
+    'saved_generation_unavailable', 'This run’s exact data snapshot identity is missing. Nothing was started.',
+  )
+  let summary: ReturnType<typeof durableFrozenGenerationSummaryForRun>
+  try {
+    summary = durableFrozenGenerationSummaryForRun({ ticker: subject, runRoot }, STATE_DIR)
+  } catch (error: any) {
+    const missing = /no frozen generation receipt/i.test(String(error?.message || error))
+    throw continuationPlanningError(
+      missing ? 'legacy_generation_unbound' : 'saved_generation_unavailable',
+      missing
+        ? 'This old run predates safe data snapshots. Start a new Full run; nothing was started.'
+        : 'This saved run’s data snapshot could not be verified. Nothing was started.',
+    )
+  }
+  let snapshot: ReturnType<typeof readVerifiedOutputLineage>
+  try { snapshot = readVerifiedOutputLineage(runRoot) } catch {
+    throw continuationPlanningError(
+      'saved_generation_unavailable',
+      'This saved run’s output record could not be verified. Nothing was started.',
+    )
+  }
+  const reusableArtifacts = snapshot.entries
+    .filter((entry) => entry.generation_digest === summary.generationDigest)
+    .map(({ output_rel, sha256, generation_digest, attempt_id }) => ({
+      output_rel, sha256, generation_digest, attempt_id,
+    }))
+    .sort((left, right) => left.output_rel.localeCompare(right.output_rel))
+  const verifiedLineageDigest = snapshot.verifiedDigest
+  return {
+    ...scope,
+    frozenGeneration: {
+      generationDigest: summary.generationDigest,
+      fileCount: summary.fileCount,
+      newestMs: summary.newestMs,
+      verifiedLineageDigest,
+      reusableArtifacts,
+    },
+  }
+}
+
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
 
 export function todayDate(now: Date = new Date()): string {
@@ -379,6 +466,7 @@ export function todayDate(now: Date = new Date()): string {
 }
 
 interface SynthesisOnDisk { file: string; mtimeMs: number }
+type ReusableOutputProof = (absolutePath: string) => boolean
 
 interface SavedInputCandidate {
   sourceRunRoot: string
@@ -389,7 +477,11 @@ interface SavedInputCandidate {
 
 /** A module folder is current only when the CURRENT discovered synthesis filename passes the shared
  *  mechanical validator. A truncated or legacy `99_old-synthesis.md` must not look complete forever. */
-function currentSynthesis(module: ModuleNode, moduleDirAbs: string): SynthesisOnDisk | null {
+function currentSynthesis(
+  module: ModuleNode,
+  moduleDirAbs: string,
+  reusableOutput?: ReusableOutputProof,
+): SynthesisOnDisk | null {
   let entries: string[]
   try {
     const dir = fs.lstatSync(moduleDirAbs)
@@ -404,6 +496,7 @@ function currentSynthesis(module: ModuleNode, moduleDirAbs: string): SynthesisOn
     try {
       const st = fs.lstatSync(path.join(moduleDirAbs, file))
       if (st.isFile() && !st.isSymbolicLink()
+          && (!reusableOutput || reusableOutput(path.join(moduleDirAbs, file)))
           && validateAgentOutputFile(path.join(moduleDirAbs, file)).valid) {
         return { file, mtimeMs: st.mtimeMs }
       }
@@ -414,8 +507,8 @@ function currentSynthesis(module: ModuleNode, moduleDirAbs: string): SynthesisOn
   return null
 }
 
-function hasSynthesis(module: ModuleNode, moduleDirAbs: string): boolean {
-  return currentSynthesis(module, moduleDirAbs) !== null
+function hasSynthesis(module: ModuleNode, moduleDirAbs: string, reusableOutput?: ReusableOutputProof): boolean {
+  return currentSynthesis(module, moduleDirAbs, reusableOutput) !== null
 }
 
 /** Generic legacy/obsolete synthesis detector, used only to force cleanup and a fresh current synthesis. */
@@ -541,9 +634,13 @@ function reusableSpecialistFacts(module: ModuleNode, facts: Map<string, Speciali
   return [...reusable].sort().map((file) => facts.get(file)!).filter(Boolean)
 }
 
-function specialistFactsInDir(module: ModuleNode, moduleDirAbs: string): Map<string, SpecialistFact> {
+function specialistFactsInDir(
+  module: ModuleNode,
+  moduleDirAbs: string,
+  reusableOutput?: ReusableOutputProof,
+): Map<string, SpecialistFact> {
   const out = new Map<string, SpecialistFact>()
-  for (const file of validAgentOutputs(moduleDirAbs, specialistOutputFiles(module))) {
+  for (const file of validAgentOutputs(moduleDirAbs, specialistOutputFiles(module), reusableOutput)) {
     const abs = path.join(moduleDirAbs, file)
     try {
       const st = fs.lstatSync(abs)
@@ -554,8 +651,14 @@ function specialistFactsInDir(module: ModuleNode, moduleDirAbs: string): Map<str
 }
 
 /** Valid specialist outputs that can safely be reused together from one module folder. */
-function reusableSpecialistOutputs(module: ModuleNode, moduleDirAbs: string, swarmId: string): string[] {
-  return reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs), swarmId).map((fact) => fact.file)
+function reusableSpecialistOutputs(
+  module: ModuleNode,
+  moduleDirAbs: string,
+  swarmId: string,
+  reusableOutput?: ReusableOutputProof,
+): string[] {
+  return reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs, reusableOutput), swarmId)
+    .map((fact) => fact.file)
 }
 
 /** An existing synthesis is structurally old when today's discovered roster differs from the numbered
@@ -567,14 +670,15 @@ function synthesisNeedsRefresh(
   swarmId: string,
   selectedFacts?: SpecialistFact[],
   synthesisProvenance?: { runRoot: string; sourceDate?: string },
+  reusableOutput?: ReusableOutputProof,
 ): boolean {
   const expected = specialistOutputFiles(module)
   let entries: string[]
   try { entries = fs.readdirSync(moduleDirAbs) } catch { return false }
-  const synthesis = currentSynthesis(module, moduleDirAbs)
+  const synthesis = currentSynthesis(module, moduleDirAbs, reusableOutput)
   if (!synthesis) return hasAnySynthesis(moduleDirAbs)
 
-  const local = reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs), swarmId)
+  const local = reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs, reusableOutput), swarmId)
   // A 99 can only have read specialists staged beside it. A matching file in some other run folder may be
   // useful to the new resume, but it cannot retroactively make this historical synthesis structurally whole.
   if (local.length < expected.size) return true
@@ -600,7 +704,11 @@ function synthesisNeedsRefresh(
  *  A filename/header-only count overstates reusable work when a file has an unclosed fence or a trailing
  *  chat-confirmation block: the server would promise 8 executions while the child re-dispatches a ninth.
  *  Prose quality remains a synthesis judgment; it is never a hidden post-approval reason to widen scope. */
-function validAgentOutputs(moduleDirAbs: string, expected?: Set<string>): string[] {
+function validAgentOutputs(
+  moduleDirAbs: string,
+  expected?: Set<string>,
+  reusableOutput?: ReusableOutputProof,
+): string[] {
   let entries: string[]
   try {
     entries = fs.readdirSync(moduleDirAbs)
@@ -613,6 +721,7 @@ function validAgentOutputs(moduleDirAbs: string, expected?: Set<string>): string
       try {
         const st = fs.lstatSync(path.join(moduleDirAbs, f))
         if (!st.isFile() || st.isSymbolicLink()) return false
+        if (reusableOutput && !reusableOutput(path.join(moduleDirAbs, f))) return false
         return validateAgentOutputFile(path.join(moduleDirAbs, f)).valid
       } catch {
         return false
@@ -830,11 +939,15 @@ interface CandidateVintage { sourceRunRoot: string; sourceDate?: string }
 
 /** Vintage of specialist work in one candidate. A completed current synthesis dates to its physical run
  *  (unless it is a whole-module carry); a still-partial resume keeps the older `RESUMED_FROM` floor. */
-function candidateVintage(module: ModuleNode, candidate: RunFolderCandidate): CandidateVintage {
+function candidateVintage(
+  module: ModuleNode,
+  candidate: RunFolderCandidate,
+  reusableOutput?: ReusableOutputProof,
+): CandidateVintage {
   const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
   const carried = carriedVintage(dir)
   if (carried) return { sourceRunRoot: carried.from, sourceDate: carried.date }
-  if (!hasSynthesis(module, dir)) {
+  if (!hasSynthesis(module, dir, reusableOutput)) {
     const resumed = resumedVintage(dir)
     if (resumed) return { sourceRunRoot: resumed.from, sourceDate: resumed.date }
   }
@@ -858,14 +971,15 @@ function mergedSpecialists(
   candidates: RunFolderCandidate[],
   swarmId: string,
   poolNewestDate: string | null,
+  reusableOutput?: ReusableOutputProof,
 ): MergedSpecialists {
   const selected = new Map<string, SpecialistFact>()
   const candidateByRoot = new Map(candidates.map((candidate) => [candidate.runRoot, candidate]))
   for (const candidate of candidates) {
-    const vintage = candidateVintage(module, candidate)
+    const vintage = candidateVintage(module, candidate, reusableOutput)
     if (stalenessOf(vintage.sourceDate, poolNewestDate)) continue
     const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
-    for (const fact of specialistFactsInDir(module, dir).values()) {
+    for (const fact of specialistFactsInDir(module, dir, reusableOutput).values()) {
       if (selected.has(fact.file)) continue
       selected.set(fact.file, { ...fact, runRoot: candidate.runRoot, sourceDate: vintage.sourceDate })
     }
@@ -879,7 +993,7 @@ function mergedSpecialists(
     if (!oldest || (fact.sourceDate && (!oldest.sourceDate || fact.sourceDate < oldest.sourceDate))) oldest = fact
   }
   const oldestCandidate = oldest?.runRoot ? candidateByRoot.get(oldest.runRoot) : undefined
-  const oldestVintage = oldestCandidate ? candidateVintage(module, oldestCandidate) : undefined
+  const oldestVintage = oldestCandidate ? candidateVintage(module, oldestCandidate, reusableOutput) : undefined
   return {
     facts,
     runRoots,
@@ -888,11 +1002,17 @@ function mergedSpecialists(
   }
 }
 
-function newestFreshPartialCandidate(module: ModuleNode, candidates: RunFolderCandidate[], newestDate: string | null): RunFolderCandidate | undefined {
+function newestFreshPartialCandidate(
+  module: ModuleNode,
+  candidates: RunFolderCandidate[],
+  newestDate: string | null,
+  reusableOutput?: ReusableOutputProof,
+): RunFolderCandidate | undefined {
   return candidates.find((candidate) => {
     const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
-    const vintage = candidateVintage(module, candidate)
-    return !stalenessOf(vintage.sourceDate, newestDate) && validAgentOutputs(dir, specialistOutputFiles(module)).length > 0
+    const vintage = candidateVintage(module, candidate, reusableOutput)
+    return !stalenessOf(vintage.sourceDate, newestDate)
+      && validAgentOutputs(dir, specialistOutputFiles(module), reusableOutput).length > 0
   })
 }
 
@@ -924,8 +1044,23 @@ export function thesisPlan(
   const safe = safeSubjectSegment(subject)
 
   let continuationRunRoot: string | undefined
+  let freshRunRoot: string | undefined
+  let reusableOutput: ReusableOutputProof | undefined
   if (scope) {
     if (!isResearch) throw new Error('exact saved-run continuation is supported only for research runs')
+    if ('freshRunRoot' in scope) {
+      const fresh = scope.freshRunRoot
+      if (typeof fresh !== 'string') throw new Error('fresh run root is missing')
+      const match = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(fresh)
+      if (!match || match[1] !== safe) throw new Error('fresh run root does not match this ticker')
+      const parsedDate = new Date(`${match[2]}T00:00:00.000Z`)
+      if (!Number.isFinite(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== match[2]) {
+        throw new Error('fresh run root has an invalid date')
+      }
+      const absolute = path.join(REPO_ROOT, fresh)
+      if (fs.existsSync(absolute)) assertRealRunRootInsideAnalyses(fresh)
+      freshRunRoot = fresh
+    } else {
     const match = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(scope.continuationRunRoot)
     if (!match || match[1] !== safe) throw new Error('saved run root does not match this ticker')
     const parsedDate = new Date(`${match[2]}T00:00:00.000Z`)
@@ -935,13 +1070,36 @@ export function thesisPlan(
     if (!realDirectoryInsideAnalyses(path.join(REPO_ROOT, scope.continuationRunRoot))) {
       throw new Error('saved run root is missing or unsafe')
     }
+    if (!scope.frozenGeneration) {
+      throw continuationPlanningError(
+        'legacy_generation_unbound',
+        'This old run predates safe data snapshots. Start a new Full run; nothing was started.',
+      )
+    }
     continuationRunRoot = scope.continuationRunRoot
+    const exactRunAbs = path.join(REPO_ROOT, continuationRunRoot)
+    const protectedArtifacts = new Map(scope.frozenGeneration.reusableArtifacts
+      .map((artifact) => [artifact.output_rel, artifact]))
+    reusableOutput = (absolutePath) => {
+      const rel = path.relative(exactRunAbs, absolutePath).split(path.sep).join('/')
+      if (!rel || rel.startsWith('../') || path.posix.isAbsolute(rel)) return false
+      const protectedArtifact = protectedArtifacts.get(rel)
+      if (!protectedArtifact
+          || protectedArtifact.generation_digest !== scope.frozenGeneration!.generationDigest) return false
+      try {
+        const info = fs.lstatSync(absolutePath)
+        if (!info.isFile() || info.isSymbolicLink()) return false
+        return `sha256:${createHash('sha256').update(fs.readFileSync(absolutePath)).digest('hex')}`
+          === protectedArtifact.sha256
+      } catch { return false }
+    }
+    }
   }
 
   // Where a completion writes. Research: today's dated folder — the one BOTH full-run paths seed their
   // skip-set from. Any other swarm: its single stable per-subject folder.
   const targetRunRoot = isResearch
-    ? continuationRunRoot ?? `analyses/${safe}_${todayDate()}`
+    ? continuationRunRoot ?? freshRunRoot ?? `analyses/${safe}_${todayDate()}`
     : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
 
   // A hard process stop can land between the two synchronous renames used by partial staging. Restore the
@@ -952,7 +1110,11 @@ export function thesisPlan(
   }
 
   const targetAbs = path.join(REPO_ROOT, targetRunRoot)
-  const pool = dataPoolNewest(safe)
+  // Exact Continue is pinned to the retained immutable generation. It never stats or hashes today's Drive
+  // folder: newer uploads belong to a separately confirmed Full run, not to work already in flight.
+  const pool = scope?.frozenGeneration
+    ? { files: scope.frozenGeneration.fileCount, newestDate: null, newestMs: scope.frozenGeneration.newestMs }
+    : dataPoolNewest(safe)
   const dated = isResearch
     ? (continuationRunRoot
         ? datedRunFoldersFor(safe).filter((candidate) => candidate.runRoot === continuationRunRoot)
@@ -978,17 +1140,19 @@ export function thesisPlan(
     // Merge reusable current-roster specialists across every non-stale candidate, newest valid copy per orb.
     // This is deliberately done before dependency validation: a manually-run 07 in today's sparse folder
     // may depend on 00 in the older complete folder, and together they are a valid resume set.
-    const freshMerged = mergedSpecialists(m, candidates, swarmId, pool.newestDate)
-    const structuralMerged = mergedSpecialists(m, candidates, swarmId, null)
-    const freshPartial = newestFreshPartialCandidate(m, candidates, pool.newestDate)
+    const freshMerged = mergedSpecialists(m, candidates, swarmId, pool.newestDate, reusableOutput)
+    const structuralMerged = mergedSpecialists(m, candidates, swarmId, null, reusableOutput)
+    const freshPartial = newestFreshPartialCandidate(m, candidates, pool.newestDate, reusableOutput)
     const anyPartial = candidates.find((candidate) => validAgentOutputs(
-      path.join(REPO_ROOT, candidate.runRoot, m.name), specialistOutputFiles(m),
+      path.join(REPO_ROOT, candidate.runRoot, m.name), specialistOutputFiles(m), reusableOutput,
     ).length > 0)
-    const finishedIndex = candidates.findIndex((candidate) => hasSynthesis(m, path.join(REPO_ROOT, candidate.runRoot, m.name)))
+    const finishedIndex = candidates.findIndex((candidate) => hasSynthesis(
+      m, path.join(REPO_ROOT, candidate.runRoot, m.name), reusableOutput,
+    ))
     const finished = finishedIndex >= 0 ? candidates[finishedIndex] : undefined
     if (finished) {
       const finishedAbs = path.join(REPO_ROOT, finished.runRoot, m.name)
-      const vintage = candidateVintage(m, finished)
+      const vintage = candidateVintage(m, finished, reusableOutput)
       const sourceRunRoot = vintage.sourceRunRoot
       const sourceDate = vintage.sourceDate
       const staleReason = stalenessOf(sourceDate, pool.newestDate)
@@ -1007,12 +1171,13 @@ export function thesisPlan(
         swarmId,
         staleReason ? structuralMerged.facts : freshMerged.facts,
         { runRoot: finished.runRoot, sourceDate },
+        reusableOutput,
       )
       // A stale old synthesis must not suppress genuinely newer, non-stale partial progress. Ignore the stale
       // base and fall through to the merged partial branch; no byte from the stale folder will be staged.
       // Compare TRUE vintages, not physical folder order: a carried synthesis lives in today's folder (index
       // 0) while its CARRIED_FORWARD stamp can date it earlier than a genuinely fresher prior-folder partial.
-      const freshVintage = freshPartial ? candidateVintage(m, freshPartial) : undefined
+      const freshVintage = freshPartial ? candidateVintage(m, freshPartial, reusableOutput) : undefined
       const newerFreshPartialSupersedes = Boolean(staleReason && freshVintage?.sourceDate
         && (!sourceDate || freshVintage.sourceDate > sourceDate))
       if (!newerFreshPartialSupersedes) {
@@ -1046,7 +1211,7 @@ export function thesisPlan(
           synthesisNeedsRefresh: refreshSynthesis || undefined,
           resumeFromRunRoots: refreshSynthesis && !staleReason ? freshMerged.runRoots : undefined,
         })
-        const synthesis = currentSynthesis(m, finishedAbs)
+        const synthesis = currentSynthesis(m, finishedAbs, reusableOutput)
         if (synthesis && state === 'done') synthesisMeta.set(m.name, {
           runRoot: finished.runRoot,
           sourceDate,
@@ -1062,7 +1227,7 @@ export function thesisPlan(
     if (freshMerged.facts.length > 0) {
       const legacyBase = candidates.find((candidate) => {
         const dir = path.join(REPO_ROOT, candidate.runRoot, m.name)
-        const vintage = candidateVintage(m, candidate)
+        const vintage = candidateVintage(m, candidate, reusableOutput)
         return !stalenessOf(vintage.sourceDate, pool.newestDate) && hasAnySynthesis(dir)
       })
       const base = legacyBase ?? freshPartial!
@@ -1093,9 +1258,11 @@ export function thesisPlan(
     const legacyOnly = candidates.find((candidate) => hasAnySynthesis(path.join(REPO_ROOT, candidate.runRoot, m.name)))
     const fallback = anyPartial ?? legacyOnly
     if (fallback) {
-      const vintage = candidateVintage(m, fallback)
+      const vintage = candidateVintage(m, fallback, reusableOutput)
       const staleReason = stalenessOf(vintage.sourceDate, pool.newestDate)
-      const localDone = reusableSpecialistOutputs(m, path.join(REPO_ROOT, fallback.runRoot, m.name), swarmId)
+      const localDone = reusableSpecialistOutputs(
+        m, path.join(REPO_ROOT, fallback.runRoot, m.name), swarmId, reusableOutput,
+      )
       modules.push({
         module: m.name,
         state: 'partial',
@@ -1143,7 +1310,7 @@ export function thesisPlan(
     entry.resumeFromRunRoots = entry.copyFromRunRoot ? [entry.copyFromRunRoot] : undefined
   }
 
-  const mustReuse = modules
+  let mustReuse = modules
     // Ordinary completion cannot rebuild an in-target synthesis because both historical full launchers skip
     // it. Exact continuation prepares its bound folder before launch, so a stale synthesis is intentionally
     // removable there and must not be forced into reuse.
@@ -1189,13 +1356,34 @@ export function thesisPlan(
   // that is a pre-existing, separately-surfaced limitation, not one this expansion can lift).
   const rebuilding = modules
     .filter((m) => !exactSavedSet.has(m.module)
-      && ((reusableSet.has(m.module) && !chosen.includes(m.module)) || m.synthesisNeedsRefresh))
+      && (continuationRunRoot
+        ? !chosen.includes(m.module)
+        : ((reusableSet.has(m.module) && !chosen.includes(m.module)) || m.synthesisNeedsRefresh)))
     .map((m) => m.module)
   const forcedDownstream = new Set<string>()
   for (const name of rebuilding) {
     for (const d of transitiveDownstreamModules(graph, name)) forcedDownstream.add(d)
   }
   const chosenAfterCascade = chosen.filter((m) => !forcedDownstream.has(m))
+
+  // A downstream module's specialists read the previous upstream synthesis too. Removing only its 99 would
+  // still presence-skip those old specialist bytes and rebuild a new 99 from evidence generated against the
+  // wrong upstream generation. A cascade therefore invalidates the WHOLE descendant module: every specialist
+  // becomes payable, and private/exact preparation removes the old tree before the provider starts.
+  for (const name of forcedDownstream) {
+    const entry = byName.get(name)
+    if (!entry) continue
+    entry.state = 'partial'
+    entry.doneAgents = 0
+    entry.doneOrbKeys = []
+    entry.willRunAgents = entry.totalAgents
+    entry.synthesisNeedsRefresh = true
+    entry.resumeFromRunRoots = undefined
+  }
+  // Ordinary completion cannot safely remove a finished module already in today's target, but exact
+  // Continue activates a privately reconstructed copy of its saved root. That transaction is precisely what
+  // makes a forced in-root descendant removable instead of silently re-locking it through `mustReuse`.
+  if (continuationRunRoot) mustReuse = mustReuse.filter((name) => !forcedDownstream.has(name))
 
   // `mustReuse` is not negotiable — the launcher skips those modules regardless. Fold them in so `run` is
   // exactly what will run, and the price on the button is exactly what the launcher will charge.
@@ -1256,8 +1444,14 @@ export function thesisPlan(
       const man = isResearch
         ? runManifest(targetRunRoot, resolveInsideAnalyses)
         : runManifest(targetRunRoot, resolveInsideRuns, terminalModuleName(swarmId))
-      complete = Boolean(man.finalReport)
-      finalReportPath = man.finalReport?.path ?? null
+      const finalReport = man.finalReport
+      const finalOutputRel = finalReport?.path?.startsWith(`${targetRunRoot}/`)
+        ? finalReport.path.slice(targetRunRoot.length + 1)
+        : null
+      const finalVerified = !continuationRunRoot || (finalOutputRel
+        && reusableOutput?.(path.join(REPO_ROOT, targetRunRoot, finalOutputRel)))
+      complete = Boolean(finalReport && finalVerified)
+      finalReportPath = complete ? (finalReport?.path ?? null) : null
     } catch {
       /* unreadable target root — treat as incomplete */
     }
@@ -1281,13 +1475,42 @@ export function thesisPlan(
   if (!complete) payableOrbKeys.push('master/synthesizer')
   const sourceRunRoots = continuationRunRoot
     ? [continuationRunRoot]
-    : [...new Set(modules
-        .filter((entry) => reuseSet.has(entry.module))
-        .map((entry) => entry.copyFromRunRoot ?? (entry.inTargetRoot ? targetRunRoot : null))
-        .filter((root): root is string => Boolean(root)))]
+    : [...new Set(modules.flatMap((entry) => {
+        if (reuseSet.has(entry.module)) {
+          const root = entry.copyFromRunRoot ?? (entry.inTargetRoot ? targetRunRoot : null)
+          return root ? [root] : []
+        }
+        // A partial module can reuse exact specialists from several physical dated roots. Those roots are
+        // paid-scope inputs just like a whole reused module; omitting them made an old partial-only plan look
+        // like a fresh Full and bypass the exact-root Continue boundary.
+        if (entry.doneOrbKeys.length === 0) return []
+        if (entry.resumeFromRunRoots?.length) return entry.resumeFromRunRoots
+        const root = entry.copyFromRunRoot ?? (entry.inTargetRoot ? targetRunRoot : null)
+        return root ? [root] : []
+      }))]
       .sort()
+  const reusableArtifactPaths = new Set<string>()
+  if (continuationRunRoot && scope?.frozenGeneration) {
+    for (const module of modules) {
+      if (reuseSet.has(module.module)) {
+        const node = graph.modules.find((candidate) => candidate.name === module.module)
+        if (!node) throw new Error(`continuation module disappeared: ${module.module}`)
+        for (const file of [...specialistOutputFiles(node), ...synthesisOutputFiles(node)]) {
+          reusableArtifactPaths.add(`${module.module}/${file}`)
+        }
+      } else {
+        for (const key of module.doneOrbKeys) reusableArtifactPaths.add(`${key}.md`)
+      }
+    }
+    if (complete) reusableArtifactPaths.add('final_thesis.md')
+  }
+  const reusableArtifacts = (scope?.frozenGeneration?.reusableArtifacts ?? [])
+    .filter((artifact) => reusableArtifactPaths.has(artifact.output_rel))
+    .sort((left, right) => left.output_rel.localeCompare(right.output_rel))
+  const reusableArtifactsSha256 = `sha256:${createHash('sha256')
+    .update(canonicalJsonText(reusableArtifacts)).digest('hex')}`
   const receiptPayload: ContinuationPlanReceiptPayload = {
-    version: 1,
+    version: 2,
     action: continuationRunRoot ? 'continue' : 'complete',
     swarm: swarmId,
     subject: safe,
@@ -1304,8 +1527,15 @@ export function thesisPlan(
     dataPool: {
       files: pool.files,
       newestMs: pool.newestMs,
-      sha256: receiptHashes?.dataPoolSha256 ?? continuationDataPoolSha256(safe),
+      sha256: scope?.frozenGeneration
+        ? `sha256:${scope.frozenGeneration.generationDigest}`
+        : receiptHashes?.dataPoolSha256 ?? continuationDataPoolSha256(safe),
     },
+    evidenceGenerationDigest: scope?.frozenGeneration?.generationDigest ?? null,
+    reusableArtifacts,
+    reusableArtifactsSha256,
+    verifiedLineageSha256: scope?.frozenGeneration?.verifiedLineageDigest
+      ?? `sha256:${createHash('sha256').update(canonicalJsonText([])).digest('hex')}`,
     sourceArtifactsSha256: receiptHashes?.sourceArtifactsSha256
       ?? continuationSourceArtifactsSha256(targetRunRoot, carry),
   }
@@ -1358,11 +1588,14 @@ export async function thesisPlanForRequest(
   selection: RunProviderSelection = { provider: 'claude' },
   scope?: ThesisPlanScope,
 ): Promise<ThesisPlan> {
+  const trustedScope = scope ? exactFrozenScope(subject, scope) : undefined
   const plan = thesisPlan(
-    subject, swarmId, reuseOverride, exactModule, selection, scope, DEFERRED_RECEIPT_HASHES,
+    subject, swarmId, reuseOverride, exactModule, selection, trustedScope, DEFERRED_RECEIPT_HASHES,
   )
   const [dataPoolSha256, sourceArtifactsSha256] = await Promise.all([
-    continuationDataPoolSha256Async(plan.subject),
+    trustedScope?.frozenGeneration
+      ? Promise.resolve(`sha256:${trustedScope.frozenGeneration.generationDigest}`)
+      : continuationDataPoolSha256Async(plan.subject),
     continuationSourceArtifactsSha256Async(plan.targetRunRoot, plan.carry),
   ])
   const { fingerprint: _ignored, ...deferred } = plan.continuationReceipt
@@ -1390,7 +1623,8 @@ export function thesisPlanForScopeGuard(
   selection: RunProviderSelection = { provider: 'claude' },
   scope?: ThesisPlanScope,
 ): ThesisPlan {
-  return thesisPlan(subject, swarmId, reuseOverride, exactModule, selection, scope, DEFERRED_RECEIPT_HASHES)
+  const trustedScope = scope ? exactFrozenScope(subject, scope) : undefined
+  return thesisPlan(subject, swarmId, reuseOverride, exactModule, selection, trustedScope, DEFERRED_RECEIPT_HASHES)
 }
 
 // ---- carry-forward -------------------------------------------------------------------------------
@@ -2000,6 +2234,117 @@ export interface PrivateThesisPlanPreparation extends FullContinuationPreparatio
 }
 
 /**
+ * A saved run root is provider-writable. Exact continuation may retain only its immutable extraction cache
+ * and module directories that are reconstructed below from protected output lineage. Every root-level memo,
+ * metadata, audit, admission/projection file, marker, metric, and unknown directory is untrusted ambient
+ * state: leaving even RUN_METADATA.md lets the master read stale instructions and presence-skip regeneration.
+ *
+ * This runs only in the private transaction copy. The canonical interrupted root (including its supervisor
+ * marker) stays untouched until atomic activation, and is restored wholesale if no paid child starts.
+ */
+function sanitizePrivateContinuationRoot(stagingRootAbs: string, moduleNames: ReadonlySet<string>): void {
+  for (const entry of fs.readdirSync(stagingRootAbs, { withFileTypes: true })) {
+    if (entry.isDirectory() && (entry.name === '_pool_extracts' || moduleNames.has(entry.name))) continue
+    const target = path.join(stagingRootAbs, entry.name)
+    const info = fs.lstatSync(target)
+    if (info.isSymbolicLink()) throw new Error(`private continuation root contains an unsafe link: ${entry.name}`)
+    fs.rmSync(target, { recursive: info.isDirectory(), force: true })
+  }
+}
+
+export interface RecoverableChainSanitizerInput {
+  runRoot: string
+  reviewedPlan: ThesisPlan
+  doneOrbKeys: string[]
+  completed: { module: string; artifacts: { outputRel: string; sha256: string }[] }[]
+}
+
+/**
+ * A server crash can leave valid-looking markdown from an unsealed provider process in the canonical root.
+ * The restarted command must not presence-skip that ambient work. Rebuild every module directory through
+ * the existing crash-recoverable swap primitive from only (a) original prepared reusable orbs and (b)
+ * synthesis hashes durably sealed in the chain intent. Everything else is payable again.
+ */
+export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInput): void {
+  const runAbs = assertRealRunRootInsideAnalyses(input.runRoot)
+  if (input.reviewedPlan.targetRunRoot !== input.runRoot || input.reviewedPlan.swarm !== RESEARCH_SWARM_ID) {
+    throw new Error('recoverable chain sanitizer received the wrong reviewed root')
+  }
+  const graph = buildSwarmGraph(RESEARCH_SWARM_ID)
+  const modules = new Set(graph.modules.map((module) => module.name))
+  const reusable = new Map(input.reviewedPlan.continuationReceipt.reusableArtifacts
+    .map((artifact) => [artifact.output_rel, artifact]))
+  const allowed = new Map<string, string>()
+  for (const key of input.doneOrbKeys) {
+    const outputRel = `${key}.md`
+    const artifact = reusable.get(outputRel)
+    if (!artifact) throw new Error(`recoverable chain lost prepared lineage for ${outputRel}`)
+    allowed.set(outputRel, artifact.sha256)
+  }
+  for (const entry of input.completed) {
+    if (!modules.has(entry.module) || entry.artifacts.length === 0) {
+      throw new Error(`recoverable chain has invalid completed module ${entry.module}`)
+    }
+    for (const artifact of entry.artifacts) {
+      if (!artifact.outputRel.startsWith(`${entry.module}/`) || !/^sha256:[a-f0-9]{64}$/.test(artifact.sha256)) {
+        throw new Error(`recoverable chain has an invalid completed artifact for ${entry.module}`)
+      }
+      allowed.set(artifact.outputRel, artifact.sha256)
+    }
+  }
+
+  // Verify every protected source before mutating a single directory.
+  for (const [outputRel, expected] of allowed) {
+    const source = path.join(runAbs, outputRel)
+    const info = fs.lstatSync(source)
+    if (!info.isFile() || info.isSymbolicLink()) throw new Error(`recoverable chain artifact is unsafe: ${outputRel}`)
+    const actual = `sha256:${createHash('sha256').update(fs.readFileSync(source)).digest('hex')}`
+    if (actual !== expected) throw new Error(`recoverable chain artifact changed: ${outputRel}`)
+  }
+
+  for (const module of [...modules].sort()) {
+    recoverInterruptedResumeSwap(input.runRoot, module)
+    const tmpAbs = path.join(ANALYSES_DIR, `.chain-recovery-${path.basename(input.runRoot)}-${module}-${process.pid}-${carrySeq++}`)
+    const dstAbs = path.join(runAbs, module)
+    const backupAbs = resumeSwapBackupAbs(input.runRoot, module)
+    fs.mkdirSync(tmpAbs, { mode: 0o700 })
+    try {
+      for (const [outputRel] of [...allowed].filter(([rel]) => rel.startsWith(`${module}/`))) {
+        const file = outputRel.slice(module.length + 1)
+        if (!file || file.includes('/') || file.includes('\\') || file === '.' || file === '..') {
+          throw new Error(`recoverable chain artifact escaped its module: ${outputRel}`)
+        }
+        fs.copyFileSync(path.join(runAbs, outputRel), path.join(tmpAbs, file), fs.constants.COPYFILE_EXCL)
+      }
+      if (fs.existsSync(backupAbs)) throw new Error(`recoverable chain swap is already pending for ${module}`)
+      let moved = false
+      if (fs.existsSync(dstAbs)) {
+        assertContainedTargetModuleOrMissing(input.runRoot, module)
+        fs.renameSync(dstAbs, backupAbs)
+        moved = true
+      }
+      try { fs.renameSync(tmpAbs, dstAbs) } catch (error) {
+        if (moved && fs.existsSync(backupAbs) && !fs.existsSync(dstAbs)) fs.renameSync(backupAbs, dstAbs)
+        throw error
+      }
+      if (moved) fs.rmSync(backupAbs, { recursive: true, force: true })
+    } finally {
+      fs.rmSync(tmpAbs, { recursive: true, force: true })
+    }
+  }
+
+  // Root provider outputs are regenerated by the remaining chain/master. The frozen data capability and
+  // transaction journal live outside this provider-writable directory.
+  for (const entry of fs.readdirSync(runAbs, { withFileTypes: true })) {
+    if (entry.name === '_pool_extracts' || modules.has(entry.name)) continue
+    const target = path.join(runAbs, entry.name)
+    const info = fs.lstatSync(target)
+    if (info.isSymbolicLink()) throw new Error(`recoverable chain root contains an unsafe link: ${entry.name}`)
+    fs.rmSync(target, { recursive: info.isDirectory(), force: true })
+  }
+}
+
+/**
  * Build the exact post-admission run root outside Git. The canonical analyses tree is read-only here.
  * A caller may later activate this complete tree with the durable transaction in run-plan-transaction.ts.
  */
@@ -2036,6 +2381,9 @@ export function prepareThesisPlanPrivately(
   const ranClean: string[] = []
 
   try {
+    if (plan.continuationReceipt.action === 'continue') {
+      sanitizePrivateContinuationRoot(stagingRootAbs, new Set(moduleByName.keys()))
+    }
     for (const carry of plan.carry) {
       const module = moduleByName.get(carry.module)
       if (!module || !plan.reuse.includes(carry.module)) throw new Error(`private carry scope changed: ${carry.module}`)
@@ -2058,6 +2406,62 @@ export function prepareThesisPlanPrivately(
     }
 
     if (plan.continuationReceipt.action === 'continue') {
+      // A saved root can contain provider-authored bytes that are absent from, tampered against, or bound to
+      // another frozen generation in the protected supervisor record. Presence must never make the command
+      // skip payable work. Build each unfinished module from only the exact attested specialists and let the
+      // transaction swap this private tree in atomically.
+      const protectedArtifacts = new Map(plan.continuationReceipt.reusableArtifacts
+        .map((artifact) => [artifact.output_rel, artifact]))
+
+      // Wholly reused modules are just as security-sensitive as partial ones. The canonical saved root can
+      // contain stale exports, obsolete-roster markdown, or unbound files beside the valid 99. Rebuild each
+      // reused module from only the CURRENT roster outputs explicitly bound to this frozen generation; no
+      // ambient byte is allowed to hitch a ride into the paid continuation or final synthesis.
+      for (const name of plan.reuse) {
+        const module = moduleByName.get(name)
+        if (!module) throw new Error(`private reused module changed: ${name}`)
+        const moduleAbs = path.join(stagingRootAbs, name)
+        if (!fs.existsSync(moduleAbs)) throw new Error(`planned reused module disappeared: ${name}`)
+        assertCopyableTree(moduleAbs)
+        const rosterFiles = [...specialistOutputFiles(module), ...synthesisOutputFiles(module)].sort()
+        // An exact standalone module consumes upstream syntheses, not a promise that every historical
+        // specialist in those input folders matches today's expanded roster. Retain only current-roster
+        // files that are individually bound to this frozen generation, and require the synthesis itself.
+        // A whole-module Continue remains stricter: every roster output must be protected.
+        const exactSavedInput = plan.exactModuleScope?.savedInputs.includes(name) === true
+        const expectedFiles = exactSavedInput
+          ? rosterFiles.filter((file) => {
+              const artifact = protectedArtifacts.get(`${name}/${file}`)
+              return artifact?.generation_digest === plan.continuationReceipt.evidenceGenerationDigest
+            })
+          : rosterFiles
+        if (exactSavedInput && ![...synthesisOutputFiles(module)].some((file) => expectedFiles.includes(file))) {
+          throw new Error(`protected exact-module input synthesis changed for ${name}`)
+        }
+        const cleanModuleAbs = path.join(stagingRootAbs, `.${name}.verified-${process.pid}-${carrySeq++}`)
+        fs.mkdirSync(cleanModuleAbs, { mode: 0o700 })
+        try {
+          for (const file of expectedFiles) {
+            const outputRel = `${name}/${file}`
+            const protectedArtifact = protectedArtifacts.get(outputRel)
+            if (!protectedArtifact || protectedArtifact.generation_digest
+                !== plan.continuationReceipt.evidenceGenerationDigest) {
+              throw new Error(`protected reused-module lineage changed for ${outputRel}`)
+            }
+            const source = path.join(moduleAbs, file)
+            const info = fs.lstatSync(source)
+            if (!info.isFile() || info.isSymbolicLink()) throw new Error(`reused module output is unsafe: ${outputRel}`)
+            const sha256 = `sha256:${createHash('sha256').update(fs.readFileSync(source)).digest('hex')}`
+            if (sha256 !== protectedArtifact.sha256) throw new Error(`reused module output changed: ${outputRel}`)
+            fs.copyFileSync(source, path.join(cleanModuleAbs, file), fs.constants.COPYFILE_EXCL)
+          }
+          fs.rmSync(moduleAbs, { recursive: true, force: true })
+          fs.renameSync(cleanModuleAbs, moduleAbs)
+        } finally {
+          if (fs.existsSync(cleanModuleAbs)) fs.rmSync(cleanModuleAbs, { recursive: true, force: true })
+        }
+      }
+
       for (const name of plan.run) {
         const entry = planByName.get(name)
         const module = moduleByName.get(name)
@@ -2071,13 +2475,41 @@ export function prepareThesisPlanPrivately(
           }
           continue
         }
-        if (entry.state !== 'partial' || entry.doneOrbKeys.length === 0) continue
-        if (!fs.existsSync(moduleAbs)) throw new Error(`planned reusable orbs disappeared from ${name}`)
         const reusableFiles = new Set(entry.doneOrbKeys.map((key) => {
           const prefix = `${name}/`
           if (!key.startsWith(prefix)) throw new Error(`reusable orb escaped ${name}`)
           return `${key.slice(prefix.length)}.md`
         }))
+        const cleanModuleAbs = path.join(stagingRootAbs, `.${name}.verified-${process.pid}-${carrySeq++}`)
+        fs.mkdirSync(cleanModuleAbs, { mode: 0o700 })
+        try {
+          if (reusableFiles.size > 0 && !fs.existsSync(moduleAbs)) {
+            throw new Error(`planned reusable orbs disappeared from ${name}`)
+          }
+          for (const file of [...reusableFiles].sort()) {
+            const outputRel = `${name}/${file}`
+            const protectedArtifact = protectedArtifacts.get(outputRel)
+            const source = path.join(moduleAbs, file)
+            if (!protectedArtifact || protectedArtifact.generation_digest
+                !== plan.continuationReceipt.evidenceGenerationDigest) {
+              throw new Error(`protected reusable-orb lineage changed for ${outputRel}`)
+            }
+            const info = fs.lstatSync(source)
+            if (!info.isFile() || info.isSymbolicLink()) throw new Error(`reusable orb is unsafe: ${outputRel}`)
+            const sha256 = `sha256:${createHash('sha256').update(fs.readFileSync(source)).digest('hex')}`
+            if (sha256 !== protectedArtifact.sha256) throw new Error(`reusable orb changed: ${outputRel}`)
+            fs.copyFileSync(source, path.join(cleanModuleAbs, file), fs.constants.COPYFILE_EXCL)
+          }
+          if (fs.existsSync(moduleAbs)) {
+            assertCopyableTree(moduleAbs)
+            fs.rmSync(moduleAbs, { recursive: true, force: true })
+            if (reusableFiles.size === 0) ranClean.push(name)
+          }
+          if (reusableFiles.size > 0) fs.renameSync(cleanModuleAbs, moduleAbs)
+        } finally {
+          if (fs.existsSync(cleanModuleAbs)) fs.rmSync(cleanModuleAbs, { recursive: true, force: true })
+        }
+        if (entry.state !== 'partial' || reusableFiles.size === 0) continue
         invalidateOutdatedSynthesis(module, moduleAbs, reusableFiles, swarmId, stagingRootAbs)
         const stagedKeys = orbKeys(name, reusableSpecialistOutputs(module, moduleAbs, swarmId))
         const expectedKeys = [...entry.doneOrbKeys].sort()
@@ -2108,6 +2540,43 @@ export function prepareThesisPlanPrivately(
     fs.rmSync(stagingRootAbs, { recursive: true, force: true })
     throw error
   }
+}
+
+/**
+ * Prepare one exact saved-root module Continue without mutating its canonical run. The parent plan may name
+ * other unfinished modules because it is also used by the full-thesis panel; this scoped transaction keeps
+ * only the reviewed saved inputs plus the selected module in its mutation set. Unrelated module folders are
+ * left byte-for-byte intact, while the selected module and every input it may read are rebuilt solely from
+ * same-generation protected lineage.
+ */
+export function prepareExactModuleContinuationPrivately(
+  subject: string,
+  module: string,
+  plan: ThesisPlan,
+  transactionDir: string,
+): PrivateThesisPlanPreparation {
+  if (plan.continuationReceipt.action !== 'continue'
+      || plan.exactModuleScope?.module !== module
+      || !plan.run.includes(module)) {
+    throw new Error('private exact-module continuation does not match its reviewed plan')
+  }
+  const scope = new Set([...plan.exactModuleScope.savedInputs, module])
+  const scopedModules = plan.modules.filter((entry) => scope.has(entry.module))
+  if (!scopedModules.some((entry) => entry.module === module)
+      || plan.exactModuleScope.savedInputs.some((name) => !scopedModules.some((entry) => entry.module === name))) {
+    throw new Error('private exact-module continuation lost a reviewed input')
+  }
+  const scopedPlan: ThesisPlan = {
+    ...plan,
+    modules: scopedModules,
+    reusable: plan.exactModuleScope.savedInputs,
+    mustReuse: plan.exactModuleScope.savedInputs.filter((name) => plan.mustReuse.includes(name)),
+    reuse: [...plan.exactModuleScope.savedInputs],
+    run: [module],
+    carry: plan.carry.filter((entry) => plan.exactModuleScope!.savedInputs.includes(entry.module)),
+    master: { state: 'blocked', blockedBy: [module] },
+  }
+  return prepareThesisPlanPrivately(subject, scopedPlan, transactionDir)
 }
 
 /**

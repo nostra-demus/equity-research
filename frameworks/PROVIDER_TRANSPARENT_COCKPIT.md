@@ -1,6 +1,6 @@
 # Provider-Transparent Cockpit Contract
 
-Contract version: `provider-transparent-ux/1`
+Contract version: `provider-transparent-ux/2`
 
 This is the permanent product contract for every tracked cockpit run. Claude and Codex are execution
 adapters behind one research product. Selecting a provider changes the execution profile; it does not
@@ -22,6 +22,27 @@ Every provider follows the same user-visible sequence:
    explicit and recorded as mixed-provider provenance.
 9. Validate and expose the same required artifacts. Filesystem artifacts, not provider prose, are completion
    truth.
+
+## Unattended Full and Continue
+
+A Full or Continue request has one data-readiness admission for the whole logical chain. The supervisor runs
+that assessment once before the first paid child, binds the result, exact run root, complete input inventory,
+and immutable extraction-generation digest to the chain, and every module reuses it. A child module may
+re-invoke the canonical extractor only to verify and reuse that frozen generation; it may never traverse the
+live Drive pool again, rebuild the extracts, reopen admission, or pause later work for another data decision.
+Parallel children share one single-flight assessment and, when the pool is actually empty, one visible
+decision owner; refresh or reconnect must not reveal hidden sibling gates.
+
+Only a proven empty pool or a pool with zero non-empty inputs may ask the user to act. Missing document types,
+partially unreadable files, entity warnings, and module insufficiency are research findings: they continue into
+the declared triage, conviction caps, and—when evidence cannot carry a rating—`Insufficient Data — Refuse To
+Rate`. A technical checker failure receives bounded, no-spend retries. If a parser-free inventory proves that
+non-empty user files exist but no immutable generation can be verified, the chain fails visibly before spend;
+it does not ask for a human data decision, fall back to live files, or describe the files as bad or absent.
+
+This rule is provider-neutral and applies equally to fresh Full runs, exact-root Continue, cross-midnight
+recovery, and queued post-update admission. It removes human data-check babysitting; it does not fabricate
+success or silently retry a paid provider call when an external provider fails.
 
 ## Provider-owned model profiles
 

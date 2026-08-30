@@ -1406,6 +1406,7 @@ export type PipelineAuditEvent =
 export interface ActiveRunLite {
   runId: string
   kind: string
+  continuation?: boolean
   ticker: string
   module?: string
   status: string
@@ -2476,6 +2477,12 @@ export interface ReadinessReport {
   overall: 'clean' | 'degraded' | 'blocked'
   fileCount: number
   usableCount: number
+  physicalPool?: {
+    state: 'empty' | 'nonempty' | 'unknown'
+    fileCount: number
+    nonEmptyFileCount: number
+    reason?: string
+  }
   entities: { file: string; entity: string }[]
   issues: ReadinessIssue[]
   ts: number
@@ -2493,7 +2500,7 @@ export interface RunActivity {
 }
 
 export type SseEvent = (
-  | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; ts: number }
+  | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; continuation?: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
@@ -3251,7 +3258,7 @@ export interface ThesisPlan {
 }
 
 export interface ContinuationPlanReceipt {
-  version: 1
+  version: 2
   action: 'continue' | 'complete'
   swarm: string
   subject: string
@@ -3266,6 +3273,15 @@ export interface ContinuationPlanReceipt {
   reusableOrbKeys: string[]
   payableOrbKeys: string[]
   dataPool: { files: number; newestMs: number; sha256: string }
+  evidenceGenerationDigest: string | null
+  reusableArtifacts: {
+    output_rel: string
+    sha256: string
+    generation_digest: string
+    attempt_id: string
+  }[]
+  reusableArtifactsSha256: string
+  verifiedLineageSha256: string
   sourceArtifactsSha256: string
   fingerprint: string
 }

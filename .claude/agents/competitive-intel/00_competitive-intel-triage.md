@@ -44,19 +44,17 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER` (the SUBJECT), `DATA_PATH = data/{TICKER}/`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/00_competitive-intel-triage.md`, `DATE`
+- `TICKER` (the SUBJECT), `DATA_PATH` (resolved below; logical citation label `data/{TICKER}/`), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/00_competitive-intel-triage.md`, `DATE`
 - Cross-module context: `Business-model cross-module path:` and `Earnings cross-module path:` sentences (may be absent under a standalone raw-data run).
+
+# EVIDENCE BINDING — BEFORE ANY POOL READ
+
+Apply `frameworks/MODULE_PIPELINE.md` Step 1.5. If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete `NOSTRA_FROZEN_POOL_DATA_PATH` / `NOSTRA_FROZEN_POOL_OUT_DIR` / `NOSTRA_FROZEN_POOL_GENERATION` / `NOSTRA_FROZEN_EVIDENCE_ROOT` quartet. It is an isolated supervisor-verified read capability: do not run `extract_pool.py`, rebuild extraction, or read live `data/{TICKER}/`, any sibling live pool, or the original `<RUN_ROOT>/_pool_extracts/` tree. `DATA_PATH` is only `NOSTRA_FROZEN_EVIDENCE_ROOT`; `GENERATION_ROOT` is `$NOSTRA_FROZEN_POOL_OUT_DIR/.extract-generations/$NOSTRA_FROZEN_POOL_GENERATION`; and manifest, corpus, CIQ, relationships, and extract reads use that exact capability generation. Live paths are citation labels only. Without the frozen binding, retain standalone behavior: `DATA_PATH=data/{TICKER}/`, run the canonical extractor, capture its digest, and consume the exact generation it published. Any incomplete or mismatched frozen binding is a hard stop, never a live-data fallback.
 
 # WORKFLOW
 
 1. Read the repo-root `CLAUDE.md` (especially §27, §9, §11) and `.claude/agents/competitive-intel/MODULE_RULES.md` (the five guardrails, the timing rule, the coverage-of-exposure rule), and apply both.
-2. **Pre-extract the pool** (idempotent — safe to re-run):
-
-   ```bash
-   python3 .claude/tools/extract_pool.py "data/{TICKER}/" "analyses/{TICKER}_{DATE}/_pool_extracts"
-   ```
-
-   Then inventory `data/{TICKER}/external/**` — the peer transcripts MUST live here to be auditable, because `extract_pool.py` and `verify-evidence` cover only `data/{TICKER}/` (MODULE_RULES Auditable-corpus rule). Read `_pool_extracts/manifest.json`: a source whose `status` is `fail`/`fallback-text`/`missing-dependency` counts as NOT present. If a peer's call is found only in a sibling `data/<PEER>/` pool, record it as a POINTER and flag that it must be copied into the subject's `external/` area to be citable — a sibling-pool quote is not in this run's audit corpus and cannot lift the read-through weight.
+2. **Pre-extract the pool.** Resolve the EVIDENCE BINDING above. It is the only permitted path selection; only standalone mode invokes the extractor. Then inventory `DATA_PATH/external/**` — cited logically as `data/{TICKER}/external/**`. Peer transcripts must be inside this bound subject snapshot to be auditable. Read only `GENERATION_ROOT/manifest.json`: a source whose `status` is `fail`/`fallback-text`/`missing-dependency` counts as NOT present. In a frozen chain, never search a sibling live `data/<PEER>/` pool. In standalone mode only, a peer call found solely in a sibling pool may be recorded as a POINTER and flagged for copying into the subject's `external/` area before the next run; it cannot lift this run's read-through weight.
 3. **Resolve the peer set.** Prefer the named competitors in `business-model/08_competitive-map.md` (cross-module). If absent, self-select from the peer transcripts present and the subject's filings, and flag it (binds the self-selected cap). For each peer transcript, identify the peer from the transcript's OWN content (company name / speaker list) and match it to the peer set. A transcript for a company NOT in the peer set is a candidate end-market peer (add, flagged self-selected) or off-topic (note and skip). Never invent a peer or a transcript.
 4. **Establish the subject's next filing** (from `earnings/*` or the subject's pool): the period, the basis (standalone / cumulative), and the calendar window it covers — the target the read-through will aim at (§27).
 5. **Build the per-peer reporting-calendar map (G1 + Timing Rule).** For EACH peer transcript record: listing jurisdiction, reporting standard (US GAAP / IFRS / Ind AS / local), currency, fiscal-year end, native fiscal label of the most-recent call, the normalised calendar window, the interim basis (standalone / cumulative), the language (read + translate non-English — §27, never "missing"), and its Timing-Rule state vs the subject's window: **reported-full / reported-sub-window / not-yet**.

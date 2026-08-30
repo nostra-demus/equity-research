@@ -66,7 +66,7 @@ The master synthesizer reads each module's synthesis output (including this modu
 
 ## Independent reads
 
-Each sub-agent reads `data/{TICKER}/` independently and extracts what it needs. No shared manifest. Inconsistencies between sub-agents on the same number are reconciled by `99_business-model-synthesis.md`.
+Each sub-agent reads the injected `<DATA_PATH>` independently and extracts what it needs from the same authoritative immutable `<GENERATION_ROOT>` manifest. Files are cited with the logical label `data/{TICKER}/...`; in a frozen chain that label is never a live filesystem fallback. Analytical disagreements between sub-agents are reconciled by `99_business-model-synthesis.md`.
 
 ## Stopping early
 

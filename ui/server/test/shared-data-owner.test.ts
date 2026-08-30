@@ -107,10 +107,14 @@ const spawnBody = source.slice(spawnStart, spawnEnd)
 assert.match(spawnBody, /currentSharedDataPoolConflict\(run\.swarmId, run\.subjectId, run\.kind, run\.runId\)/,
   'the final paid-process CAS includes generic shared-pool ownership')
 const buildLaunch = spawnBody.indexOf('launchSpec = await adapter.buildLaunch(')
-const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildLaunch)
-const paidSpawn = spawnBody.indexOf('child = execa(launchSpec.command', finalCas)
+const memoryProof = spawnBody.indexOf('await verifyResearchMemoryBeforeSpawn(run)', buildLaunch)
+const finalCas = spawnBody.indexOf('const finalSpawnBinding = changedLaunchBinding()', memoryProof)
+const finalScopeCas = spawnBody.indexOf('const finalSpawnGuard = evaluatePreSpawnGuard(', finalCas)
+const paidSpawn = spawnBody.indexOf('child = execa(gatedCommand', finalScopeCas)
 assert.ok(buildLaunch >= 0 && buildLaunch < finalCas && finalCas < paidSpawn,
   'shared-pool ownership is rechecked after the provider launch probe and immediately before paid execa')
+assert.ok(memoryProof > buildLaunch && memoryProof < finalCas && finalCas < finalScopeCas && finalScopeCas < paidSpawn,
+  'shared-pool and exact-scope CAS both run after every asynchronous memory/journal proof')
 const targetLookup = spawnBody.indexOf('const target = sharedPoolTargetByRun.get(run)')
 const targetOwners = spawnBody.indexOf('listFinishedIntakeOwners(target.subject)', targetLookup)
 assert.ok(targetLookup >= 0 && targetOwners > targetLookup && targetOwners < buildLaunch,

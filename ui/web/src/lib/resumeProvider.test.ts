@@ -47,6 +47,7 @@ const originalLaunch = api.launch
 const originalLaunchSignal = api.launchSignal
 const originalThesisPlan = api.thesisPlan
 const originalRunThesisPlan = api.runThesisPlan
+const originalRunThesisPlanModule = api.runThesisPlanModule
 const originalPendingAdmissions = api.pendingAdmissions
 
 try {
@@ -54,34 +55,50 @@ try {
   let runSelection: any = null
   let completionLaunches = 0
   let completionSourceRoot: string | undefined
+  let plannedFingerprint = `sha256:${'a'.repeat(64)}`
+  let planReads = 0
+  let submittedReceipt: any = null
   api.launch = (async (body: any) => {
     runLaunches++
     runSelection = body.selection
     throw new Error('fixture stop after request capture')
   }) as typeof api.launch
-  api.thesisPlan = (async (_ticker: string, _selection: any, _swarm?: string, _reuse?: string[], _module?: string, runRoot?: string) => ({
+  api.thesisPlan = (async (_ticker: string, _selection: any, _swarm?: string, _reuse?: string[], module?: string, runRoot?: string) => {
+    planReads++
+    return {
     moduleResumeVersion: 2, swarm: 'research', subject: 'KAR', targetRunRoot: runRoot!, complete: false,
     continuationReceipt: {
-      version: 1, action: 'continue', swarm: 'research', subject: 'KAR', sourceRunRoots: [runRoot!],
+      version: 2, action: 'continue', swarm: 'research', subject: 'KAR', sourceRunRoots: [runRoot!],
       targetRunRoot: runRoot!, provider: { id: 'claude', model: 'sonnet', reasoningLevel: 'default', profileKey: sonnetProfile.key },
       reusableOrbKeys: [], payableOrbKeys: ['master/synthesizer'],
       dataPool: { files: 1, newestMs: 0, sha256: `sha256:${'c'.repeat(64)}` },
+      evidenceGenerationDigest: 'd'.repeat(64), reusableArtifacts: [],
+      reusableArtifactsSha256: `sha256:${'e'.repeat(64)}`,
+      verifiedLineageSha256: `sha256:${'f'.repeat(64)}`,
       sourceArtifactsSha256: `sha256:${'b'.repeat(64)}`,
-      fingerprint: `sha256:${'a'.repeat(64)}`,
+      fingerprint: plannedFingerprint,
     },
-    finalReportPath: null, modules: [], reusable: ['business-model'], mustReuse: ['business-model'],
+    exactModuleScope: module ? { module, savedInputs: ['business-model'] } : undefined,
+    finalReportPath: null, modules: module ? [{
+      module, state: 'partial', sourceRunRoot: runRoot, sourceDate: '2026-08-27', inTargetRoot: true,
+      doneAgents: 1, totalAgents: 2, blockedBy: [], runnable: true, willRunAgents: 1,
+      doneOrbKeys: [`${module}/01_done`], synthesisNeedsRefresh: true,
+    }] : [], reusable: ['business-model'], mustReuse: ['business-model'],
     reuse: ['business-model'], run: ['earnings'], carry: [], master: { state: 'blocked', blockedBy: ['earnings'] },
     dataPool: { files: 1, newestDate: null, newestMs: 0 }, preflight: {} as any, fullPreflight: {} as any,
     canCarry: true,
-  })) as typeof api.thesisPlan
+  }} ) as typeof api.thesisPlan
   api.runThesisPlan = (async (
     _ticker: string, _reuse: string[], _swarm: string, selection: any,
-    _requestId: string, _receipt: any, sourceRunRoot?: string,
+    _requestId: string, receipt: any, sourceRunRoot?: string,
   ) => {
     completionLaunches++
     runSelection = selection
     completionSourceRoot = sourceRunRoot
-    throw new Error('fixture stop after request capture')
+    submittedReceipt = receipt
+    throw Object.assign(new Error('The reviewed continuation plan changed. Nothing was started.'), {
+      body: { code: 'plan_changed' }, statusCode: 409,
+    })
   }) as typeof api.runThesisPlan
 
   useStore.setState({
@@ -103,15 +120,53 @@ try {
   assert.equal(resumeExecutionDisposition(dialog!.records, dialog!.selection).disposition, 'profile-drift')
   assert.match(manualResumeConfirmation(dialog!.records, dialog!.selection) || '', /mixed-profile/i)
 
-  useStore.getState().changeResumeProfile(sonnetProfile.key)
+  await useStore.getState().changeResumeProfile(sonnetProfile.key)
   dialog = useStore.getState().resumeConfirm
   assert.equal(dialog?.selection.expectedProfileKey, sonnetProfile.key)
   assert.equal(resumeExecutionDisposition(dialog!.records, dialog!.selection).disposition, 'exact')
+  const reviewedFullReceipt = dialog?.kind === 'run' ? dialog.reviewedPlan?.continuationReceipt : undefined
+  const planReadsAtFullConsent = planReads
+  plannedFingerprint = `sha256:${'9'.repeat(64)}` // saved artifact changed after the modal opened
   await useStore.getState().confirmResume()
   assert.equal(runLaunches, 0, 'research Continue never uses generic /api/launch')
   assert.equal(completionLaunches, 1)
   assert.equal(completionSourceRoot, partialRun.runRoot, 'the selected saved root reaches the plan-run POST')
   assert.equal(runSelection.expectedProfileKey, sonnetProfile.key, 'confirm submits the exact model shown in the chooser')
+  assert.equal(planReads, planReadsAtFullConsent,
+    'full Continue confirm never re-fetches and silently widens the payable plan shown in the modal')
+  assert.equal(submittedReceipt, reviewedFullReceipt,
+    'full Continue submits the exact reviewed receipt; server-side drift returns 409 before writes/spend')
+
+  let moduleLaunches = 0
+  let submittedModuleReceipt: any = null
+  api.runThesisPlanModule = (async (
+    _ticker: string, _module: string, _reuse: string[], _swarm: string, _willRun: number,
+    _done: string[], _target: string, _files: number, _newest: number, _selection: any,
+    _sourceRoot?: string, _requestId?: string, receipt?: any,
+  ) => {
+    moduleLaunches++
+    submittedModuleReceipt = receipt
+    throw Object.assign(new Error('The reviewed continuation plan changed. Nothing was started.'), {
+      body: { code: 'plan_changed' }, statusCode: 409,
+    })
+  }) as typeof api.runThesisPlanModule
+  plannedFingerprint = `sha256:${'6'.repeat(64)}`
+  const partialModule = {
+    ...partialRun, kind: 'module' as const, module: 'earnings', doneCount: 1, totalCount: 2,
+    unit: 'agent' as const,
+  }
+  useStore.setState({ resumeConfirm: null, launchPending: null })
+  await useStore.getState().resumeRun(partialModule)
+  dialog = useStore.getState().resumeConfirm
+  const reviewedModuleReceipt = dialog?.kind === 'run' ? dialog.reviewedPlan?.continuationReceipt : undefined
+  const planReadsAtModuleConsent = planReads
+  plannedFingerprint = `sha256:${'7'.repeat(64)}` // one saved module artifact changed after consent
+  await useStore.getState().confirmResume()
+  assert.equal(moduleLaunches, 1)
+  assert.equal(planReads, planReadsAtModuleConsent,
+    'module Continue confirm never re-fetches and silently widens its exact remaining-orb scope')
+  assert.equal(submittedModuleReceipt, reviewedModuleReceipt,
+    'module Continue submits the exact reviewed receipt; server-side drift returns 409 before writes/spend')
 
   useStore.setState({ resumeConfirm: null, launchPending: null, runProvider: 'claude', runProfileKeys: { claude: opusProfile.key, codex: CODEX_EXECUTION_PROFILE.key } })
   await useStore.getState().resumeRun(partialRun)
@@ -215,6 +270,7 @@ try {
   api.launchSignal = originalLaunchSignal
   api.thesisPlan = originalThesisPlan
   api.runThesisPlan = originalRunThesisPlan
+  api.runThesisPlanModule = originalRunThesisPlanModule
   api.pendingAdmissions = originalPendingAdmissions
   ;(globalThis as any).window = previousWindow
   ;(globalThis as any).document = previousDocument

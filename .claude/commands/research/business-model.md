@@ -21,13 +21,13 @@ capture `<DATE>`.
 
 ## 2. Verify the data pool
 
-Check that `data/$ARGUMENTS/` exists and contains at least one file:
-
-```
-ls -1 data/$ARGUMENTS/ 2>/dev/null | head -n 1
-```
-
-If the directory is missing or empty, STOP. Tell the user: "No data found at `data/$ARGUMENTS/`. Populate the Drive folder for this ticker and re-run."
+Treat `data/$ARGUMENTS/` as the logical citation label. If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require
+the complete four-variable frozen binding named in `frameworks/MODULE_PIPELINE.md` Step 1.5, set the
+filesystem `<DATA_PATH>` to that immutable evidence root, and **do not read `data/$ARGUMENTS/` at all**.
+Otherwise set `<DATA_PATH>` to `data/$ARGUMENTS/` for this standalone workflow. Check that the resolved
+`<DATA_PATH>` exists and contains at least one non-empty regular file. If not, STOP and report: "No data
+found for `$ARGUMENTS`. Populate the Drive folder for this ticker and re-run." Step 4 performs the
+canonical generation verification before any agent reads evidence.
 
 ## 3. Create the run root folder
 

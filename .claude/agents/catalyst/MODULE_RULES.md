@@ -184,7 +184,8 @@ If the invocation asks for anything outside this module's scope — a fair value
 ## Inputs Every Subagent Receives
 
 - `TICKER` — company ticker
-- `DATA_PATH` — `data/{TICKER}/`
+- `DATA_PATH` — exact filesystem evidence root injected by `MODULE_PIPELINE`; cite files under it with the logical label `data/{TICKER}/...`
+- `GENERATION_ROOT` — exact immutable extraction generation injected by `MODULE_PIPELINE`; all manifest, corpus, CIQ, relationship, and extract reads stay inside it
 - `OUTPUT_PATH` — `analyses/{TICKER}_{DATE}/catalyst/{NN}_{name}.md`
 - `DATE` — today's date
 - `UPSTREAM_INPUTS` / cross-module context — paths passed in the invocation message (may be empty)

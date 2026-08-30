@@ -20,10 +20,12 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
@@ -169,6 +171,690 @@ def test_machine_json_stdout_contract() -> None:
               "WARNING" not in listed.stdout and listed_payload.get("status") == "ok",
               listed.stdout[:240])
 
+        # The deterministic facts/relationship readers call ciq.read_sheets
+        # directly, outside the CLI descriptor shield.  This proves that reader
+        # itself passes an explicit stderr logfile instead of inheriting xlrd's
+        # import-time stdout default.
+        ciq_direct = subprocess.run(
+            [
+                sys.executable, "-c",
+                (
+                    "import json,sys; "
+                    f"sys.path.insert(0, {str(_HERE)!r}); "
+                    "from pathlib import Path; "
+                    "from ciq import read_sheets; "
+                    "print(json.dumps(sorted(read_sheets(Path(sys.argv[1])))))"
+                ),
+                str(noisy),
+            ],
+            capture_output=True, text=True, timeout=120,
+        )
+        try:
+            ciq_payload = json.loads(ciq_direct.stdout)
+        except Exception as exc:
+            ciq_payload = None
+            ciq_error = f"{exc}: {ciq_direct.stdout[:240]!r}"
+        else:
+            ciq_error = ""
+        check("CIQ reader: xlrd warning cannot use its default stdout logfile",
+              ciq_direct.returncode == 0 and ciq_payload == ["Balance Sheet", "Income Statement"]
+              and "WARNING" not in ciq_direct.stdout,
+              ciq_error or ciq_direct.stderr[-500:])
+
+
+def test_concurrent_shared_output() -> None:
+    """Concurrent module gates publish one complete shared extraction cache."""
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "data" / "SHARED"
+        out = root / "analyses" / "SHARED_2099-01-01" / "_pool_extracts"
+        pool.mkdir(parents=True)
+        out.mkdir(parents=True)
+
+        # Enough independent workbooks to keep both forced children alive long
+        # enough to exercise the held lease.  The separate protocol test above
+        # owns the noisy legacy-BIFF case; keeping these bytes clean makes a
+        # concurrency failure's output readable.
+        raw = (_FX / "ciq_synth.xls").read_bytes()
+        for index in range(12):
+            (pool / f"capital-iq-{index:02d}.xls").write_bytes(raw)
+
+        # Seed a valid generation.  While the forced rebuilds run, an unlocked
+        # reader must always see this full generation or a later full one.
+        seed = ep.extract_pool(str(pool), str(out), force=True, vision=False)
+        check("shared cache: seed manifest covers every workbook",
+              seed.get("totals", {}).get("workbooks") == 12)
+
+        command = [
+            sys.executable, str(_HERE / "extract_pool.py"),
+            "--readiness-json", str(pool), str(out), "--force",
+        ]
+        with ep._pool_output_lease(str(out)):
+            children = [
+                subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                for _ in range(2)
+            ]
+            time.sleep(0.4)
+            check("shared cache: concurrent extractors wait behind the retained lease",
+                  all(child.poll() is None for child in children),
+                  str([child.poll() for child in children]))
+
+        invalid_reads = []
+        while any(child.poll() is None for child in children):
+            try:
+                json.loads((out / "manifest.json").read_text())
+            except Exception as exc:
+                invalid_reads.append(str(exc))
+                break
+            time.sleep(0.002)
+
+        results = [child.communicate(timeout=120) for child in children]
+        payloads = []
+        for child, (stdout, stderr) in zip(children, results):
+            try:
+                payloads.append(json.loads(stdout))
+            except Exception as exc:
+                payloads.append({"parse_error": str(exc), "stdout": stdout[:240], "stderr": stderr[-500:]})
+
+        final_manifest = json.loads((out / "manifest.json").read_text())
+        extracts = [
+            sheet["extract"]
+            for source in final_manifest.get("sources", [])
+            for sheet in source.get("sheets", [])
+        ]
+        pending = list(out.glob("*.pending")) + list(out.glob(".*.pending"))
+        check("shared cache: both concurrent readiness calls return valid complete JSON",
+              all(child.returncode == 0 for child in children)
+              and all(payload.get("file_count") == 12 for payload in payloads),
+              repr(payloads))
+        check("shared cache: manifest is never observed truncated during replacement",
+              not invalid_reads, repr(invalid_reads))
+        check("shared cache: final manifest and every referenced extract are complete",
+              final_manifest.get("totals", {}).get("workbooks") == 12
+              and len(extracts) == 24
+              and all((out / name).is_file() and (out / name).stat().st_size > 0 for name in extracts)
+              and not pending,
+              f"extracts={len(extracts)} pending={pending}")
+
+
+def test_transactional_inventory_and_frozen_generation() -> None:
+    """A generation is complete, immutable, retryable, and reusable without Drive."""
+    import errno as _errno
+
+    numeric_binding = {
+        "binding_format": ep._GENERATION_BINDING_FORMAT,
+        "entities": [{"score": 5.0, "tiny": 1e-7, "\ue000": "private", "😀": "face"}],
+    }
+    numeric_binding_json = ep._generation_binding_json(numeric_binding)
+    check("generation binding: Python's exact float/exponent spelling is retained",
+          '"score":5.0' in numeric_binding_json
+          and '"tiny":1e-07' in numeric_binding_json,
+          numeric_binding_json)
+    check("generation binding: Unicode keys use Python code-point ordering",
+          numeric_binding_json.index('"\ue000"') < numeric_binding_json.index('"😀"'),
+          numeric_binding_json)
+    check("generation binding: digest hashes the retained exact UTF-8 bytes",
+          ep._generation_digest(numeric_binding)
+          == ep._generation_digest_from_json(numeric_binding_json))
+
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "data" / "TXN"
+        out = root / "analyses" / "TXN_2099-01-01" / "_pool_extracts"
+        pool.mkdir(parents=True)
+        out.mkdir(parents=True)
+        source = pool / "report.xls"
+        note = pool / "note.txt"
+        original = (_FX / "mislabeled.xls").read_text()
+        source.write_text(original)
+        note.write_text("Frozen plain-text evidence")
+        old_note_ns = 1_577_836_800_000_000_000
+        os.utime(note, ns=(old_note_ns, old_note_ns))
+
+        engine_output = pool / "Memos 2026-08"
+        nested_output = engine_output / "archive"
+        nested_output.mkdir(parents=True)
+        (engine_output / ".nostradamus_output").write_text("engine output")
+        (nested_output / "nested-output.md").write_text("must never enter the pool")
+        check("transaction: an output marker excludes its complete nested subtree",
+              not any("nested-output.md" in path for path in ep._complete_pool_inventory(str(pool))))
+
+        # A failed branch lookup is a technical error, never a zero-file pool.
+        real_lstat = ep.os.lstat
+
+        def failing_lstat(path, *args, **kwargs):
+            if os.path.basename(os.fspath(path)) == source.name:
+                raise OSError(_errno.EIO, "fixture traversal failure")
+            return real_lstat(path, *args, **kwargs)
+
+        ep.os.lstat = failing_lstat
+        try:
+            try:
+                list(ep.iter_pool_files(str(pool)))
+                traversal_result = "returned"
+            except Exception as exc:  # noqa: BLE001
+                traversal_result = type(exc)
+        finally:
+            ep.os.lstat = real_lstat
+        check("transaction: incomplete traversal raises instead of reporting zero files",
+              traversal_result is ep.PoolInventoryError, repr(traversal_result))
+        check("transaction: traversal failure publishes no fake empty manifest",
+              not (out / "manifest.json").exists())
+
+        seed = ep.extract_pool(str(pool), str(out), force=True, vision=False)
+        seed_manifest_bytes = (out / "manifest.json").read_bytes()
+        seed_extract = next(row["extract"] for row in seed["sources"]
+                            if row["file"] == source.name)
+        seed_extract_bytes = (out / seed_extract).read_bytes()
+
+        # Mutate at every final comparison. Both bounded transaction attempts
+        # must abort, leaving the previously committed generation untouched.
+        real_revalidate = ep._revalidate_pool_inventory
+        mutation_calls = {"n": 0}
+
+        def always_mutate(data_path, captured):
+            mutation_calls["n"] += 1
+            source.write_text(original.replace("Sniff Test Revenue", f"RACE-{mutation_calls['n']}"))
+            return real_revalidate(data_path, captured)
+
+        ep._revalidate_pool_inventory = always_mutate
+        try:
+            try:
+                ep.extract_pool(str(pool), str(out), force=True, vision=False)
+                mutation_result = "published"
+            except Exception as exc:  # noqa: BLE001
+                mutation_result = type(exc)
+        finally:
+            ep._revalidate_pool_inventory = real_revalidate
+        check("transaction: a pool that never settles fails after bounded retry",
+              mutation_result is ep.PoolChangedDuringExtraction, repr(mutation_result))
+        check("transaction: failed retry leaves old manifest and extract byte-identical",
+              (out / "manifest.json").read_bytes() == seed_manifest_bytes
+              and (out / seed_extract).read_bytes() == seed_extract_bytes)
+        check("transaction: failed retry leaves no private build directory",
+              not list(out.glob(".extract-build-*")), repr(list(out.iterdir())))
+
+        # A single mutation is retried as one whole snapshot. The successful
+        # manifest must reference a different immutable generation while the
+        # old manifest's referenced bytes remain readable and unchanged.
+        source.write_text(original)
+        mutation_calls["n"] = 0
+
+        def mutate_once(data_path, captured):
+            mutation_calls["n"] += 1
+            if mutation_calls["n"] == 1:
+                source.write_text(original.replace("Sniff Test Revenue", "SETTLED NEW REVENUE"))
+            return real_revalidate(data_path, captured)
+
+        ep._revalidate_pool_inventory = mutate_once
+        try:
+            settled = ep.extract_pool(str(pool), str(out), force=True, vision=False)
+        finally:
+            ep._revalidate_pool_inventory = real_revalidate
+        settled_extract = next(row["extract"] for row in settled["sources"]
+                               if row["file"] == source.name)
+        check("transaction: one mutation retries and publishes only the settled snapshot",
+              mutation_calls["n"] == 2
+              and "SETTLED NEW REVENUE" in (out / settled_extract).read_text(),
+              f"calls={mutation_calls['n']} extract={settled_extract}")
+        check("transaction: old and new manifests reference separate immutable extract bytes",
+              settled_extract != seed_extract
+              and (out / seed_extract).read_bytes() == seed_extract_bytes)
+
+        digest = settled["generation"]["digest"]
+        generation_manifest = out / ep._GENERATION_DIR_NAME / digest / "manifest.json"
+        check("transaction: readiness receipt has an immutable generation manifest",
+              len(digest) == 64 and generation_manifest.is_file())
+        generation_payload = json.loads(generation_manifest.read_text())
+        raw_prefix = generation_payload["generation"]["raw_prefix"]
+        raw_note_rel = f"{raw_prefix}/note.txt"
+        raw_note = generation_manifest.parent / raw_note_rel
+        source_references = [
+            reference
+            for row in generation_payload["sources"]
+            for reference in (
+                [row.get("extract")]
+                + [sheet.get("extract") for sheet in row.get("sheets", [])]
+            )
+            if reference is not None
+        ]
+        check("transaction: exact raw inputs are retained and digest-bound in generation v2",
+              generation_payload["generation"]["schema_version"] == "pool-generation/v2"
+              and raw_note.read_bytes() == note.read_bytes()
+              and generation_payload["generation"]["artifacts"][raw_note_rel]
+                  == generation_payload["generation"]["inputs"]["note.txt"])
+        check("transaction: raw snapshot preserves the source mtime used for readiness age",
+              raw_note.stat().st_mtime_ns == old_note_ns,
+              f"snapshot={raw_note.stat().st_mtime_ns} source={old_note_ns}")
+        retained_binding = generation_payload["generation"].get("binding_json")
+        check("transaction: receipt retains the exact Python binding bytes it hashes",
+              isinstance(retained_binding, str)
+              and ep._generation_digest_from_json(retained_binding) == digest
+              and json.loads(retained_binding).get("binding_format")
+                  == ep._GENERATION_BINDING_FORMAT,
+              repr(retained_binding))
+        check("transaction: every source extract names one exact bound generation",
+              source_references
+              and all(ref.startswith(f"{ep._GENERATION_DIR_NAME}/{digest}/")
+                      for ref in source_references), repr(source_references))
+        generation_stat = generation_manifest.stat()
+        deterministic = ep.extract_pool(
+            str(pool), str(out), force=True, vision=False, ocr_budget_s=0,
+        )
+        check("transaction: published generation files and directories are OS read-only",
+              os.name == "nt" or (
+                  generation_manifest.stat().st_mode & 0o222 == 0
+                  and generation_manifest.parent.stat().st_mode & 0o222 == 0
+                  and raw_note.stat().st_mode & 0o222 == 0
+              ))
+        check("transaction: forced deterministic rebuild verifies and reuses sealed bytes",
+              deterministic["generation"]["digest"] == digest
+              and generation_manifest.stat().st_ino == generation_stat.st_ino
+              and generation_manifest.stat().st_mtime_ns == generation_stat.st_mtime_ns)
+
+        # First-generation v2 receipts did not retain binding_json.  They must
+        # be treated as stale and rebuilt into the new content address, not
+        # accepted or collide with the new immutable directory.
+        legacy_binding = json.loads(retained_binding)
+        legacy_binding.pop("binding_format")
+        legacy_binding_json = ep._generation_binding_json(legacy_binding)
+        legacy_digest = ep._generation_digest_from_json(legacy_binding_json)
+        legacy_dir = out / ep._GENERATION_DIR_NAME / legacy_digest
+        shutil.copytree(generation_manifest.parent, legacy_dir)
+        for member in legacy_dir.rglob("*"):
+            member.chmod(0o755 if member.is_dir() else 0o644)
+        legacy_dir.chmod(0o755)
+        legacy_manifest = json.loads(generation_manifest.read_text())
+        legacy_manifest["generation"]["digest"] = legacy_digest
+        legacy_manifest["generation"].pop("binding_json", None)
+        for row in legacy_manifest["sources"]:
+            owners = [row, *(row.get("sheets") or [])]
+            for owner in owners:
+                reference = owner.get("extract")
+                if isinstance(reference, str):
+                    owner["extract"] = reference.replace(digest, legacy_digest, 1)
+        ep._atomic_json(str(legacy_dir / "manifest.json"), legacy_manifest)
+        ep._seal_generation_tree(str(legacy_dir))
+        ep._atomic_json(str(out / "manifest.json"), legacy_manifest)
+        future_cache_time = max(time.time(), Path(ep.__file__).stat().st_mtime) + 2
+        os.utime(out / "manifest.json", (future_cache_time, future_cache_time))
+        rebuilt_legacy = ep.extract_pool(
+            str(pool), str(out), vision=False, ocr_budget_s=0,
+        )
+        check("transaction: legacy v2 without exact binding bytes rebuilds automatically",
+              rebuilt_legacy["generation"]["digest"] == digest
+              and isinstance(rebuilt_legacy["generation"].get("binding_json"), str),
+              repr(rebuilt_legacy.get("generation")))
+
+        # Once the supervisor binds the receipt, even a changed live Drive pool
+        # and an enumerator that would explode cannot affect child extraction.
+        source.write_text("LIVE DRIVE CHANGED AFTER ADMISSION")
+        frozen_env = {
+            ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
+            ep.FROZEN_POOL_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_GENERATION_ENV: digest,
+        }
+        prior_env = {name: os.environ.get(name) for name in frozen_env}
+        os.environ.update(frozen_env)
+        real_inventory = ep._complete_pool_inventory
+        ep._complete_pool_inventory = lambda _path: (_ for _ in ()).throw(
+            AssertionError("frozen reuse touched live Drive")
+        )
+        frozen_corpus = root / "frozen-corpus.txt"
+        try:
+            reused = ep.extract_pool(
+                str(pool), str(out), corpus_path=str(frozen_corpus), vision=False,
+            )
+            frozen_readiness = ep.readiness_summary(str(pool), str(out))
+        finally:
+            ep._complete_pool_inventory = real_inventory
+            for name, value in prior_env.items():
+                if value is None:
+                    os.environ.pop(name, None)
+                else:
+                    os.environ[name] = value
+        check("frozen reuse: exact admitted generation is returned without reading Drive",
+              reused["generation"]["digest"] == digest
+              and frozen_readiness.get("generation_digest") == digest)
+        check("frozen reuse: post-admission Drive changes cannot enter the reused corpus",
+              "SETTLED NEW REVENUE" in frozen_corpus.read_text()
+              and "LIVE DRIVE CHANGED" not in frozen_corpus.read_text())
+
+        # Frozen reuse is a receipt, not a cache hint.  Every malformed,
+        # mismatched, or corrupted binding must stop before the live pool can
+        # be enumerated; silently rebuilding would let different children in
+        # one admitted chain observe different data.
+        frozen_names = (
+            ep.FROZEN_POOL_DATA_PATH_ENV,
+            ep.FROZEN_POOL_OUT_DIR_ENV,
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV,
+            ep.FROZEN_POOL_GENERATION_ENV,
+        )
+
+        def frozen_attempt(bindings, *, requested_pool=pool, requested_out=out, force=False):
+            saved = {name: os.environ.get(name) for name in frozen_names}
+            for name in frozen_names:
+                os.environ.pop(name, None)
+            os.environ.update(bindings)
+            original_inventory = ep._complete_pool_inventory
+            ep._complete_pool_inventory = lambda _path: (_ for _ in ()).throw(
+                AssertionError("failed frozen reuse fell back to live Drive")
+            )
+            try:
+                try:
+                    ep.extract_pool(
+                        str(requested_pool), str(requested_out),
+                        force=force, vision=False,
+                    )
+                    return "reused"
+                except Exception as exc:  # noqa: BLE001
+                    return type(exc)
+            finally:
+                ep._complete_pool_inventory = original_inventory
+                for name, value in saved.items():
+                    if value is None:
+                        os.environ.pop(name, None)
+                    else:
+                        os.environ[name] = value
+
+        partial_result = frozen_attempt({
+            ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
+        })
+        bad_digest_result = frozen_attempt({
+            ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
+            ep.FROZEN_POOL_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_GENERATION_ENV: "0" * 64,
+        })
+        wrong_path_result = frozen_attempt(
+            frozen_env, requested_out=out / "different-run",
+        )
+        forced_result = frozen_attempt(frozen_env, force=True)
+        wrong_logical_out_result = frozen_attempt({
+            **frozen_env,
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out / "wrong-logical-binding"),
+        })
+        check("frozen reuse: partial, unknown, mismatched, and forced bindings fail closed",
+              all(result is ep.FrozenPoolGenerationError for result in (
+                  partial_result, bad_digest_result, wrong_path_result, forced_result,
+                  wrong_logical_out_result,
+              )),
+              repr((partial_result, bad_digest_result, wrong_path_result, forced_result,
+                    wrong_logical_out_result)))
+
+        isolated_out = root / "isolated-capability" / "pool"
+        isolated_generation = isolated_out / ep._GENERATION_DIR_NAME / digest
+        isolated_generation.parent.mkdir(parents=True)
+        shutil.copytree(generation_manifest.parent, isolated_generation, copy_function=shutil.copy2)
+        relocated_result = frozen_attempt({
+            ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
+            ep.FROZEN_POOL_OUT_DIR_ENV: str(isolated_out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_GENERATION_ENV: digest,
+        }, requested_out=isolated_out)
+        check("frozen reuse: isolated physical capability retains the original logical binding",
+              relocated_result == "reused", repr(relocated_result))
+
+        generation_manifest_bytes = generation_manifest.read_bytes()
+        entity_tamper = json.loads(generation_manifest_bytes)
+        entity_tamper["entities"] = [{"file": "fake", "entity": "Wrong Company Limited"}]
+        if os.name != "nt":
+            generation_manifest.chmod(0o644)
+        generation_manifest.write_text(json.dumps(entity_tamper))
+        if os.name != "nt":
+            generation_manifest.chmod(0o444)
+        entity_tamper_result = frozen_attempt(frozen_env)
+        if os.name != "nt":
+            generation_manifest.chmod(0o644)
+        generation_manifest.write_bytes(generation_manifest_bytes)
+        if os.name != "nt":
+            generation_manifest.chmod(0o444)
+        check("frozen reuse: canonical entities are part of the generation digest",
+              entity_tamper_result is ep.FrozenPoolGenerationError,
+              repr(entity_tamper_result))
+
+        reference_tamper = json.loads(generation_manifest_bytes)
+        referenced = next(row for row in reference_tamper["sources"] if row.get("extract"))
+        referenced["extract"] = f"{ep._GENERATION_DIR_NAME}/{'0' * 64}/outside.txt"
+        if os.name != "nt":
+            generation_manifest.chmod(0o644)
+        generation_manifest.write_text(json.dumps(reference_tamper))
+        if os.name != "nt":
+            generation_manifest.chmod(0o444)
+        reference_tamper_result = frozen_attempt(frozen_env)
+        if os.name != "nt":
+            generation_manifest.chmod(0o644)
+        generation_manifest.write_bytes(generation_manifest_bytes)
+        if os.name != "nt":
+            generation_manifest.chmod(0o444)
+        check("frozen reuse: extract references cannot escape the bound digest or artifact set",
+              reference_tamper_result is ep.FrozenPoolGenerationError,
+              repr(reference_tamper_result))
+
+        artifact_rel = next(iter(generation_payload["generation"]["artifacts"]))
+        artifact_path = generation_manifest.parent / artifact_rel
+        artifact_bytes = artifact_path.read_bytes()
+        if os.name != "nt":
+            artifact_path.chmod(0o644)
+        artifact_path.write_bytes(artifact_bytes + b"\nCORRUPTED")
+        try:
+            corrupt_result = frozen_attempt(frozen_env)
+        finally:
+            artifact_path.write_bytes(artifact_bytes)
+            if os.name != "nt":
+                artifact_path.chmod(0o444)
+        check("frozen reuse: a changed immutable artifact fails closed without live fallback",
+              corrupt_result is ep.FrozenPoolGenerationError, repr(corrupt_result))
+
+        outside = root / "outside-raw.txt"
+        outside.write_bytes(raw_note.read_bytes())
+        raw_note_bytes = raw_note.read_bytes()
+        if os.name != "nt":
+            raw_note.parent.chmod(0o755)
+        raw_note.unlink()
+        raw_note.symlink_to(outside)
+        try:
+            symlink_result = frozen_attempt(frozen_env)
+        finally:
+            raw_note.unlink()
+            raw_note.write_bytes(raw_note_bytes)
+            if os.name != "nt":
+                raw_note.chmod(0o444)
+                raw_note.parent.chmod(0o555)
+        check("frozen reuse: a symlinked raw member fails closed even with matching bytes",
+              symlink_result is ep.FrozenPoolGenerationError, repr(symlink_result))
+
+        # A legacy flat/root-only cache must be upgraded, and a later root-only
+        # status/entity edit must never become readiness truth.
+        legacy = json.loads((out / "manifest.json").read_text())
+        legacy.pop("generation", None)
+        legacy.pop("offline_extraction_complete", None)
+        (out / "manifest.json").write_text(json.dumps(legacy))
+        future = time.time() + 2
+        os.utime(out / "manifest.json", (future, future))
+        upgraded = ep.extract_pool(
+            str(pool), str(out), vision=False, ocr_budget_s=0,
+        )
+        check("transaction: a timestamp-fresh legacy manifest is rebuilt as generation v2",
+              upgraded.get("generation", {}).get("schema_version") == "pool-generation/v2"
+              and upgraded.get("offline_extraction_complete") is True)
+
+        trusted_usable = sum(
+            row.get("status") in ep.USABLE_STATUSES for row in upgraded["sources"]
+        )
+        tampered_root = json.loads((out / "manifest.json").read_text())
+        tampered_root["entities"] = [{"file": "fake", "entity": "Wrong Company Limited"}]
+        tampered_root["sources"][0]["status"] = "fail"
+        (out / "manifest.json").write_text(json.dumps(tampered_root))
+        os.utime(out / "manifest.json", (future + 1, future + 1))
+        trusted_summary = ep.readiness_summary(str(pool), str(out))
+        check("transaction: root-only status/entity tamper cannot influence readiness",
+              trusted_summary["usable_count"] == trusted_usable
+              and trusted_summary["entities"] == upgraded["entities"],
+              repr(trusted_summary))
+        ep._atomic_json(str(out / "manifest.json"), upgraded)
+
+        # The immutable generation may finish just before a process crash, but
+        # the public root pointer is the commit marker and must remain old.
+        old_root_bytes = (out / "manifest.json").read_bytes()
+        note.write_text("new bytes whose publication crashes")
+        real_atomic_json = ep._atomic_json
+        pointer_prerequisites = []
+
+        def crash_before_root_pointer(path, payload):
+            if os.path.abspath(path) == os.path.abspath(out / "manifest.json"):
+                generation_dir = (
+                    out / ep._GENERATION_DIR_NAME / payload["generation"]["digest"]
+                )
+                projections_match = (
+                    (out / "manifest.md").read_text() == ep._manifest_md(payload)
+                    and all(
+                        not (generation_dir / name).is_file()
+                        or ((out / name).read_bytes() == (generation_dir / name).read_bytes())
+                        for name in ("ciq_facts.json", "relationships.json")
+                    )
+                )
+                pointer_prerequisites.append(projections_match)
+                raise RuntimeError("fixture crash before root pointer")
+            return real_atomic_json(path, payload)
+
+        ep._atomic_json = crash_before_root_pointer
+        try:
+            try:
+                ep.extract_pool(
+                    str(pool), str(out), force=True, vision=False, ocr_budget_s=0,
+                )
+                crash_result = "published"
+            except Exception as exc:  # noqa: BLE001
+                crash_result = type(exc)
+        finally:
+            ep._atomic_json = real_atomic_json
+        check("transaction: crash before root pointer preserves the prior committed manifest",
+              crash_result is RuntimeError
+              and (out / "manifest.json").read_bytes() == old_root_bytes,
+              repr(crash_result))
+        check("transaction: root manifest is the last public publish step",
+              pointer_prerequisites == [True], repr(pointer_prerequisites))
+
+
+def test_output_lease_is_bounded_and_cancellable() -> None:
+    """A live lock holder cannot wedge later extraction forever."""
+    with tempfile.TemporaryDirectory() as out:
+        with ep._pool_output_lease(out):
+            started = time.monotonic()
+            try:
+                with ep._pool_output_lease(out, timeout_s=0.08):
+                    timeout_result = "acquired"
+            except Exception as exc:  # noqa: BLE001
+                timeout_result = type(exc)
+            elapsed = time.monotonic() - started
+            check("output lease: contention times out within a bounded interval",
+                  timeout_result is TimeoutError and elapsed < 0.75,
+                  f"result={timeout_result!r} elapsed={elapsed:.3f}")
+
+            try:
+                with ep._pool_output_lease(out, timeout_s=1, cancelled=lambda: True):
+                    cancel_result = "acquired"
+            except Exception as exc:  # noqa: BLE001
+                cancel_result = type(exc)
+            check("output lease: caller cancellation aborts the wait immediately",
+                  cancel_result is InterruptedError, repr(cancel_result))
+
+
+def test_provenance_is_parsed_from_the_captured_snapshot() -> None:
+    """A Drive swap before capture cannot pair new evidence with old metadata."""
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "data" / "SNAPPROV"
+        out = root / "out"
+        external = pool / "external" / "vendor"
+        external.mkdir(parents=True)
+        out.mkdir()
+        document = external / "channel-note.txt"
+        sidecar = external / "channel-note.txt.source.json"
+        document.write_text("OLD EVIDENCE")
+        sidecar.write_text(json.dumps({
+            "provider": "Old Provider",
+            "source_type": "external_other",
+            "tier": 9,
+        }))
+
+        real_capture = ep._capture_pool_snapshot
+        captures = {"n": 0}
+
+        def replace_before_capture(*args, **kwargs):
+            captures["n"] += 1
+            if captures["n"] == 1:
+                # This is the precise historical window: provenance had
+                # already been read, but the input snapshot had not.
+                document.write_text("NEW EVIDENCE")
+                sidecar.write_text(json.dumps({
+                    "provider": "New Provider",
+                    "source_type": "external_other",
+                    "tier": 9,
+                }))
+            return real_capture(*args, **kwargs)
+
+        ep._capture_pool_snapshot = replace_before_capture
+        corpus = root / "corpus.txt"
+        try:
+            manifest = ep.extract_pool(
+                str(pool), str(out), force=True, corpus_path=str(corpus),
+                vision=False, ocr_budget_s=0,
+            )
+        finally:
+            ep._capture_pool_snapshot = real_capture
+        row = next(item for item in manifest["sources"]
+                   if item["file"] == "channel-note.txt")
+        check("snapshot provenance: payload and sidecar come from the same captured generation",
+              captures["n"] == 1
+              and row.get("provenance", {}).get("provider") == "New Provider"
+              and "NEW EVIDENCE" in corpus.read_text()
+              and "OLD EVIDENCE" not in corpus.read_text(),
+              f"captures={captures['n']} row={row}")
+
+
+def test_readiness_replaces_partial_ocr_before_freezing() -> None:
+    """A Node/env deadline can never become a frozen child generation."""
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "data" / "LOCALREAD"
+        out = root / "out"
+        pool.mkdir(parents=True)
+        out.mkdir()
+        (pool / "scan.png").write_bytes(b"synthetic image fixture")
+        observed_deadlines = []
+        real_reader = ep._read_image_file
+
+        def fake_local_reader(_path):
+            observed_deadlines.append(ep._ocr_deadline)
+            if ep._ocr_deadline is not None:
+                return "", None, "image — visual read deferred (pre-flight time budget)"
+            return "COMPLETE LOCAL OCR", "OCR'd image", None
+
+        ep._read_image_file = fake_local_reader
+        try:
+            partial = ep.extract_pool(
+                str(pool), str(out), force=True, vision=False, ocr_budget_s=1,
+            )
+            summary = ep.readiness_summary(str(pool), str(out))
+            complete = json.loads((out / "manifest.json").read_text())
+        finally:
+            ep._read_image_file = real_reader
+        check("readiness OCR: a bounded partial generation is never reused for admission",
+              partial.get("offline_extraction_complete") is False
+              and complete.get("offline_extraction_complete") is True
+              and partial["generation"]["digest"] != complete["generation"]["digest"]
+              and observed_deadlines[0] is not None
+              and observed_deadlines[-1] is None,
+              repr(observed_deadlines))
+        check("readiness OCR: complete provider-neutral local result is frozen and usable",
+              summary["usable_count"] == 1
+              and summary["generation_digest"] == complete["generation"]["digest"]
+              and complete.get("vision_mode") is False,
+              repr(summary))
+
 
 def test_durable_relationship_artifact() -> None:
     """The chain graph must cross the git/deployment boundary, not live only in ignored cache."""
@@ -232,6 +918,8 @@ def test_pipeline() -> None:
         check("pipeline: unchanged guarded extracts are cache-eligible",
               ep.is_fresh(td, str(_FX), str(_HERE / "extract_pool.py")) is not None)
         html_extract = next(s["extract"] for s in manifest["sources"] if s["file"] == "mislabeled.xls")
+        if os.name != "nt":
+            (Path(td) / html_extract).chmod(0o644)
         (Path(td) / html_extract).write_text("What I Learned This Week — stale derived output")
         check("pipeline: tampered/stale derived text invalidates the cached manifest",
               ep.is_fresh(td, str(_FX), str(_HERE / "extract_pool.py")) is None)
@@ -772,9 +1460,13 @@ def test_v2_projection_is_anchored_to_current() -> None:
                 payload_path.write_bytes(original_payload)
             raced_row = next(source for source in raced["sources"]
                              if source["file"] == "sealed_2026-08-01.json")
-            check("v2 projection: a post-verification snapshot race fails before parsing with old provenance",
+            check("v2 projection: a post-verification race never parses under old provenance",
                   raced_row.get("status") == "fail"
-                  and "changed after provenance verification" in raced_row.get("error", ""),
+                  and raced_row.get("provenance") == {"integrity_status": "failed", "usable": False}
+                  and any(reason in raced_row.get("error", "") for reason in (
+                      "changed after provenance verification",
+                      "does not match sidecar content_sha256",
+                  )),
                   str(raced_row))
             # Restore the clean manifest/cache baseline so the following cache
             # invalidation checks still test their named condition independently.
@@ -1289,6 +1981,16 @@ def main() -> int:
     test_readers()
     print("== machine JSON protocol stays clean under noisy parsers ==")
     test_machine_json_stdout_contract()
+    print("== concurrent module gates share one atomic extraction cache ==")
+    test_concurrent_shared_output()
+    print("== transactional inventory + immutable frozen generation ==")
+    test_transactional_inventory_and_frozen_generation()
+    print("== provenance is resolved from the captured snapshot ==")
+    test_provenance_is_parsed_from_the_captured_snapshot()
+    print("== readiness freezes only complete provider-neutral OCR ==")
+    test_readiness_replaces_partial_ocr_before_freezing()
+    print("== extraction output lease is bounded and cancellable ==")
+    test_output_lease_is_bounded_and_cancellable()
     print("== supply-chain relationship graph crosses the cache/deployment boundary ==")
     test_durable_relationship_artifact()
     print("== full extract_pool pipeline (statuses + corpus) ==")

@@ -31,7 +31,7 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER` (the SUBJECT), `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/01_peer-claim-extraction.md`, `DATE`
+- `TICKER` (the SUBJECT), `<DATA_PATH>` (exact injected evidence root), `<GENERATION_ROOT>` (exact immutable extraction generation), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/01_peer-claim-extraction.md`, `DATE`
 - `UPSTREAM_INPUTS`:
   - `analyses/{TICKER}_{DATE}/competitive-intel/00_competitive-intel-triage.md` — REQUIRED (the peer set + per-peer calendar map)
 
@@ -55,7 +55,7 @@ Extract each peer on the SAME list, so the matrix can align them: **demand** (di
 # WHAT TO READ (priority)
 
 - **The triage (`00`)** — peer set + calendar map.
-- **Each peer transcript** in `data/{TICKER}/external/**` — the auditable corpus; management prepared remarks + Q&A. A transcript found only in a sibling `data/<PEER>/` pool is a POINTER, not a citable source — it is absent from this run's `_pool_extracts` / verify-evidence corpus (MODULE_RULES Auditable-corpus rule), so it must be routed into the subject's `external/` before any claim or number is taken from it. Never cite a sibling-pool file in place.
+- **Each peer transcript** under the injected `<DATA_PATH>/external/**` filesystem root — cite it logically as `data/{TICKER}/external/**`; management prepared remarks + Q&A. A transcript found only in a sibling `data/<PEER>/` pool is a POINTER, not a citable source — it is absent from this run's exact `<GENERATION_ROOT>/manifest.json` / verify-evidence corpus, so it must be routed into the subject's `external/` before a future generation is admitted. Never read or cite a sibling-pool file in place.
 - **Any peer results release / press release** in `external/**` — the peer's reported figures anchor (source hierarchy); the release wins over the call for numbers.
 - **`business-model/08_competitive-map`** — peer profiles (scale, where they compete) to set the scope tags.
 
@@ -107,7 +107,7 @@ List the analyst questions / assertions you EXCLUDED (with the peer), so the rea
 - [ ] Every peer in the triage's set has a claim block (or is listed as no-transcript).
 - [ ] Every claim is a MANAGEMENT statement; analyst questions/assertions are excluded and listed in the strip section (G5).
 - [ ] Every number literally appears in the cited source (§5); nothing inferred or invented. A peer's reported figure is taken from its results RELEASE where the pool holds one (source hierarchy), the transcript used for commentary — not re-cited as the source of a figure the release carries.
-- [ ] Every cited quote/number traces to a document under `data/{TICKER}/` (top-level or `external/**`) — no sibling `data/<PEER>/` file is cited in place (it is a pointer until routed into the subject's `external/`).
+- [ ] Every cited quote/number traces to a document under the injected `<DATA_PATH>` (top-level or `external/**`) and is cited logically as `data/{TICKER}/...` — no sibling `data/<PEER>/` file is read or cited in place (it is a pointer until routed into the subject's `external/` and admitted in a later generation).
 - [ ] A broker-paraphrase-only pool produced a weight-capped, verdict-stripped read (`via unverified sell-side paraphrase`), NOT an Insufficient stop; Insufficient is reserved for no usable call at all.
 - [ ] Each claim carries scope tags, normalised window + native period, and currency (G1, G4).
 - [ ] Non-English calls are read + translated with figures verbatim (§27); a FAILED extraction is the only thing marked a gap.

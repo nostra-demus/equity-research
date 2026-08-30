@@ -30,7 +30,7 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/05_customer-geography.md`, `DATE`
+- `TICKER`, `<DATA_PATH>` (exact injected evidence root), `<GENERATION_ROOT>` (exact immutable extraction generation), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/05_customer-geography.md`, `DATE`
 - `UPSTREAM_INPUTS` — none
 
 # WORKFLOW
@@ -44,7 +44,7 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
-- **`<RUN_ROOT>/_pool_extracts/relationships.json`** — when the pool carries a Capital IQ **Customers** export, this names actual customers (with listing, industry, and the filing that disclosed each). Use it to put real names into the Customer Map instead of only categories. Per MODULE_RULES: it is a tier-5 vendor export, it covers only recently disclosed relationships (quote its `scope_notes`), only `third_party` rows are outside customers — a `group`/`likely_group` row is the company selling to itself, which belongs in the related-party read, never in a customer-concentration claim — and a named customer is NOT a disclosed revenue share. Where a filing quantifies a customer, the filing wins (§4).
+- **`<GENERATION_ROOT>/relationships.json`** — when the exact admitted generation carries a Capital IQ **Customers** export, this names actual customers (with listing, industry, and the filing that disclosed each). Never read a mutable fixed-name `_pool_extracts` projection. Use it to put real names into the Customer Map instead of only categories. Per MODULE_RULES: it is a tier-5 vendor export, it covers only recently disclosed relationships (quote its `scope_notes`), only `third_party` rows are outside customers — a `group`/`likely_group` row is the company selling to itself, which belongs in the related-party read, never in a customer-concentration claim — and a named customer is NOT a disclosed revenue share. Where a filing quantifies a customer, the filing wins (§4).
 - **Customer concentration disclosure** — usually under Risk Factors or in segment notes; sometimes in Note on revenue
 - **Geographic information note** in the latest annual filing (often Note 5–7)
 - **Risk factors** section — language about customer dependency

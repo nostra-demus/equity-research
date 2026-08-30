@@ -31,7 +31,7 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER` (the SUBJECT), `DATA_PATH = data/{TICKER}/`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/03_readthrough-to-subject.md`, `DATE`
+- `TICKER` (the SUBJECT), `<DATA_PATH>` (the exact filesystem evidence root injected by the orchestrator; cite it logically as `data/{TICKER}/`), `<GENERATION_ROOT>` (the exact immutable extraction generation), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/competitive-intel/03_readthrough-to-subject.md`, `DATE`
 - `UPSTREAM_INPUTS` (all OPTIONAL — this agent degrades gracefully):
   - `analyses/{TICKER}_{DATE}/competitive-intel/02_dimension-matrix.md` — the aligned peer × dimension matrix, when the full module ran. PREFER it when present.
   - `analyses/{TICKER}_{DATE}/competitive-intel/01_peer-claim-extraction.md` — the per-peer standardised claims, when present.
@@ -48,7 +48,7 @@ You DO NOT:
 # WORKFLOW
 
 1. Read the repo-root `CLAUDE.md` (cross-cutting doctrine), then `.claude/agents/competitive-intel/MODULE_RULES.md` (this module's rules — especially the FIVE GUARDRAILS), and apply both.
-2. **Find the peer transcripts.** Look in `data/{TICKER}/external/**` — the auditable location (`extract_pool.py` + `verify-evidence` cover only `data/{TICKER}/`; MODULE_RULES Auditable-corpus rule). If `analyses/{TICKER}_{DATE}/_pool_extracts/manifest.md` exists, use it to find the external transcript extracts. A peer call found only in a sibling `data/<PEER>/` pool is a POINTER, not a citable source — it must be routed into the subject's `external/` area to be used; a quote taken from an un-routed sibling pool is unverifiable and cannot lift the weight. Identify each peer from the transcript's OWN content (company name / speaker list) and cross-check against `competitive-map`. Never invent a peer, quote, or number.
+2. **Find the peer transcripts.** Read only the injected `<DATA_PATH>/external/**` filesystem root and the exact `<GENERATION_ROOT>/manifest.json`; cite those subject-pool documents logically as `data/{TICKER}/external/**`. Never consume a mutable fixed-name `_pool_extracts` projection. A peer call found only in a sibling `data/<PEER>/` pool is a POINTER, not a citable source — do not read it in place; it must be routed into the subject's `external/` area before a future generation is admitted. Identify each peer from the transcript's OWN content (company name / speaker list) and cross-check against `competitive-map`. Never invent a peer, quote, or number.
 3. **Establish the subject's next filing (the target).** From `earnings/*` or the subject's pool, state what period the subject will FILE next, on what basis (standalone / cumulative), and the calendar window it covers. The read-through targets THAT print.
 4. **Normalise every peer's most-recent call to a common calendar window (G1) and classify its timing.** Record each peer's native fiscal label, interim basis, reporting currency/standard, and its Timing-Rule state against the SUBJECT's next-filing window: **reported — full window**, **reported — partial / sub-window** (e.g. a peer's standalone quarter inside the subject's cumulative half — reads into the covered sub-period only, flagged; reconstruct the full window with §27 stub arithmetic if the earlier stub call is in the pool), or **not yet reported — context only**. Only the first two feed the current read-through; the third is context.
 5. **State coverage of the subject's exposure (Coverage-of-Exposure rule).** Using `segment-map`, state what share of the subject's revenue / segments / geographies the reporting peer set actually spans, and name the uncovered majority. Where a dominant segment or geography has no reporting-peer vantage, its read-through is *Not assessable* and the net weight is capped — say so.
@@ -61,8 +61,8 @@ You DO NOT:
 # WHAT TO READ (priority)
 
 - **`02_dimension-matrix` / `01_peer-claim-extraction`** when present — the aligned peer claims; build on them.
-- **The peer transcripts themselves** (`data/{TICKER}/external/**` ONLY — never a sibling `data/<PEER>/` pool, which is a pointer, not a citable source; see Workflow step 2) — management prepared remarks + Q&A. This is the evidence for commentary.
-- **Any peer results release / press release** in `data/{TICKER}/external/**` — the peer's reported figures anchor (source hierarchy, §4/§5); the release wins over the call for numbers.
+- **The peer transcripts themselves** under injected `<DATA_PATH>/external/**` ONLY (cited logically as `data/{TICKER}/external/**`; never read a sibling `data/<PEER>/` pool, which is a pointer, not a citable source) — management prepared remarks + Q&A. This is the evidence for commentary.
+- **Any peer results release / press release** under injected `<DATA_PATH>/external/**` (cited logically as `data/{TICKER}/external/**`) — the peer's reported figures anchor (source hierarchy, §4/§5); the release wins over the call for numbers.
 - **`business-model/08_competitive-map`** — named peers and their profiles.
 - **`business-model/03_segment-map`** — the subject's segments, for scope-matching.
 - **`earnings/04_guidance-consensus` / `05_beat-miss-setup`** when present — the subject's next-filing basis and the consensus bar the read-through informs.
@@ -165,7 +165,7 @@ Restate, for each material read-through, the TESTABLE confirm/falsify boundary f
 - [ ] **Direction ceiling** — no read-through's Direction confidence exceeds "Likely (60–75%)"; corroboration raised Weight, not the direction ceiling (G2/§6).
 - [ ] **Coverage of exposure** — Section 0 states what share of the subject the reporting peer set spans and names the uncovered majority; any dominant segment/geography with no peer vantage is marked Not assessable and caps the net weight.
 - [ ] **Two axes** — every Section-2 row carries BOTH a §10 Direction-confidence band AND a High/Med/Low Weight; the two are not merged; caps act on Weight, not on the §10 band.
-- [ ] Every peer claim, quote, and number literally appears in **its cited pool source** — a transcript for management commentary, OR the peer's results release where a reported figure is taken from the release (the source hierarchy prefers the release for numbers; the fallback path may cite it directly) — under `data/{SUBJECT}/` (§5). Nothing invented; the check is "appears in the cited source", not "appears in a transcript".
+- [ ] Every peer claim, quote, and number literally appears in **its cited pool source** — a transcript for management commentary, OR the peer's results release where a reported figure is taken from the release (the source hierarchy prefers the release for numbers; the fallback path may cite it directly) — under injected `<DATA_PATH>` and cited logically as `data/{SUBJECT}/...` (§5). Nothing invented; the check is "appears in the cited source", not "appears in a transcript".
 - [ ] Every direction-confidence band states its basis (empirical with N + window / named base-rate / judgment) per §10 — a cross-company peer read is judgment.
 - [ ] Each material read-through states a TESTABLE confirm/falsify condition — the subject line-item, an explicit directional or numeric boundary, its like-for-like comparable (year-ago, same basis — §17), and the reporting basis — not merely the line-item name; a reader can score it against the print with no further judgement.
 - [ ] Non-English peer calls were read and translated, figures verbatim (§27) — not marked missing.

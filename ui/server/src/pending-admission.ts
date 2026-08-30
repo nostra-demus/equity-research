@@ -109,10 +109,10 @@ function validString(value: unknown, max = 500): value is string {
   return typeof value === 'string' && value.length > 0 && value.length <= max && value === value.trim()
 }
 
-function validReceipt(value: unknown): value is ContinuationPlanReceipt {
+export function validPendingContinuationReceipt(value: unknown): value is ContinuationPlanReceipt {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const receipt = value as Record<string, any>
-  return receipt.version === 1
+  return receipt.version === 2
     && (receipt.action === 'continue' || receipt.action === 'complete')
     && validString(receipt.swarm, 40)
     && TICKER.test(String(receipt.subject))
@@ -123,6 +123,17 @@ function validReceipt(value: unknown): value is ContinuationPlanReceipt {
     && Array.isArray(receipt.payableOrbKeys) && receipt.payableOrbKeys.every((k: unknown) => typeof k === 'string')
     && receipt.dataPool && Number.isInteger(receipt.dataPool.files) && Number.isFinite(receipt.dataPool.newestMs)
     && FINGERPRINT.test(String(receipt.dataPool.sha256))
+    && (receipt.evidenceGenerationDigest === null || /^[a-f0-9]{64}$/.test(String(receipt.evidenceGenerationDigest)))
+    && Array.isArray(receipt.reusableArtifacts)
+    && receipt.reusableArtifacts.every((entry: unknown) => {
+      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return false
+      const artifact = entry as Record<string, unknown>
+      return validString(artifact.output_rel, 500) && FINGERPRINT.test(String(artifact.sha256))
+        && /^[a-f0-9]{64}$/.test(String(artifact.generation_digest))
+        && validString(artifact.attempt_id, 200)
+    })
+    && FINGERPRINT.test(String(receipt.reusableArtifactsSha256))
+    && FINGERPRINT.test(String(receipt.verifiedLineageSha256))
     && FINGERPRINT.test(String(receipt.sourceArtifactsSha256))
     && FINGERPRINT.test(String(receipt.fingerprint))
 }
@@ -135,7 +146,7 @@ function validRecord(value: unknown): value is PendingAdmissionRecord {
       || (row.action !== 'continue' && row.action !== 'full') || !STATUSES.has(row.status)
       || (row.provider !== 'claude' && row.provider !== 'codex') || !Array.isArray(row.reuse)
       || row.reuse.some((name: unknown) => typeof name !== 'string' || !MODULE.test(name))
-      || !validReceipt(row.originalPlan) || !validString(row.createdAt) || !validString(row.updatedAt)) return false
+      || !validPendingContinuationReceipt(row.originalPlan) || !validString(row.createdAt) || !validString(row.updatedAt)) return false
   if (row.sourceRunRoot !== undefined && (typeof row.sourceRunRoot !== 'string' || !RUN_ROOT.test(row.sourceRunRoot))) return false
   if (row.action === 'continue' && (!row.sourceRunRoot || row.originalPlan.action !== 'continue'
       || row.originalPlan.targetRunRoot !== row.sourceRunRoot)) return false
@@ -143,6 +154,23 @@ function validRecord(value: unknown): value is PendingAdmissionRecord {
   if (row.originalPlan.subject !== row.ticker || row.originalPlan.provider.id !== row.provider) return false
   if (row.requestedDeployCommit !== null && (typeof row.requestedDeployCommit !== 'string' || !SHA.test(row.requestedDeployCommit))) return false
   return true
+}
+
+/** One shared drain boundary for the server-issued v2 continuation receipt. Keeping the version and exact
+ * action/root/provider checks beside the durable record validator prevents a schema upgrade from silently
+ * stranding every queued launch in Needs attention. */
+export function pendingReceiptMatchesIntent(
+  record: Pick<PendingAdmissionRecord, 'action' | 'ticker' | 'sourceRunRoot' | 'provider'>,
+  value: unknown,
+  plannedComplete: boolean,
+): value is ContinuationPlanReceipt {
+  if (!validPendingContinuationReceipt(value)) return false
+  const expectedAction = record.action === 'continue' ? 'continue' : 'complete'
+  return value.action === expectedAction
+    && value.subject === record.ticker
+    && value.provider.id === record.provider
+    && (record.action !== 'continue'
+      || (value.targetRunRoot === record.sourceRunRoot && plannedComplete === false))
 }
 
 function readFileAt(requestId: string, directory: string): PendingAdmissionRecord | null {

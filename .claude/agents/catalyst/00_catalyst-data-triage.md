@@ -40,19 +40,17 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/catalyst/00_catalyst-data-triage.md`, `DATE`
+- `TICKER`, `DATA_PATH` (resolved below; logical citation label `data/{TICKER}/`), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/catalyst/00_catalyst-data-triage.md`, `DATE`
 - Cross-module context: `<Dep> cross-module path:` sentences for business-model, earnings, balance-sheet-survival, management-governance, valuation (may be absent under a standalone raw-data run).
+
+# EVIDENCE BINDING — BEFORE ANY POOL READ
+
+Apply `frameworks/MODULE_PIPELINE.md` Step 1.5. If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete `NOSTRA_FROZEN_POOL_DATA_PATH` / `NOSTRA_FROZEN_POOL_OUT_DIR` / `NOSTRA_FROZEN_POOL_GENERATION` / `NOSTRA_FROZEN_EVIDENCE_ROOT` quartet. It is an isolated supervisor-verified read capability: do not run `extract_pool.py`, rebuild extraction, or read live `data/{TICKER}/` or the original `<RUN_ROOT>/_pool_extracts/` tree. `DATA_PATH` is only `NOSTRA_FROZEN_EVIDENCE_ROOT`; `GENERATION_ROOT` is `$NOSTRA_FROZEN_POOL_OUT_DIR/.extract-generations/$NOSTRA_FROZEN_POOL_GENERATION`; and manifest, corpus, CIQ, relationships, and extract reads use that exact capability generation. `data/{TICKER}/` is a citation label only. Without the frozen binding, retain standalone behavior: `DATA_PATH=data/{TICKER}/`, run the canonical extractor, capture its digest, and consume the exact generation it published. Any incomplete or mismatched frozen binding is a hard stop, never a live-data fallback.
 
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md` (especially §17 Catalyst Discipline) and `.claude/agents/catalyst/MODULE_RULES.md`, and apply both.
-2. Pre-extract the pool, then inventory it for scheduled-event signals (see the checklist below). Multi-tab workbooks can hide dated events (results dates, AGM/record dates, capital-return schedules) in non-first tabs, so first run the engine's canonical extractor (idempotent — safe to re-run):
-
-   ```bash
-   python3 .claude/tools/extract_pool.py "data/{TICKER}/" "analyses/{TICKER}_{DATE}/_pool_extracts"
-   ```
-
-   Read `_pool_extracts/manifest.md` and the per-tab extracts as part of the inventory; no workbook tab is skipped.
+2. Pre-extract the pool, then inventory it for scheduled-event signals (see the checklist below). Multi-tab workbooks can hide dated events (results dates, AGM/record dates, capital-return schedules) in non-first tabs. Resolve the EVIDENCE BINDING above. It is the only permitted path selection; only standalone mode invokes the extractor. Read `GENERATION_ROOT/manifest.json` and only its exact-generation per-tab extract references; no workbook tab is skipped.
 3. Detect and record the listing jurisdiction (US SEC / India SEBI-LODR / UK / Other), the reporting standard (US GAAP / IFRS / Ind AS), and the reporting currency, so downstream agents apply the right local-equivalent document map (`CLAUDE.md` §27, MODULE_RULES Jurisdiction-Aware Sourcing).
 4. Note which upstream module outputs exist in this run (each contributes catalysts).
 5. Issue a Sufficient / Partial / Insufficient read for the calendar — but do not abort.
@@ -87,7 +85,7 @@ Detect and record each document's language. A filing in the company's home langu
 
 ## External data (frameworks/EXTERNAL_DATA.md)
 
-The pool may carry externally sourced research under `data/{TICKER}/external/<provider>/` — paid alt-data panels, expert-call notes, the user's own channel checks, broker research, paid-API pulls. Each such document's manifest row carries `external: true` and (when a `.source.json` sidecar exists) a `provenance` object: provider, source_type, CLAUDE.md §4 tier, as-of, license.
+The pool may carry externally sourced research under `DATA_PATH/external/<provider>/`, cited logically as `data/{TICKER}/external/<provider>/` — paid alt-data panels, expert-call notes, the user's own channel checks, broker research, paid-API pulls. Each such document's manifest row carries `external: true` and (when a `.source.json` sidecar exists) a `provenance` object: provider, source_type, CLAUDE.md §4 tier, as-of, license.
 
 - **Inventory every external document as its own row**, with `Provider · source_type · §4 tier · as-of` in the Notes column (fall back to the folder name as the provider when no sidecar exists). When any external documents exist, add a short `## 1A. External Data` table right after the File Inventory listing exactly those rows.
 - **External data never moves the sufficiency verdict.** It is enrichment: it can sharpen downstream analysis, but it never fills a filing/transcript/deck slot in the sufficiency rule, and its absence is never a gap.
@@ -129,7 +127,7 @@ State plainly whether the calendar will be able to carry proven dates, or will b
 
 - [ ] Jurisdiction, reporting standard, and reporting currency are detected (Section 0) so downstream agents apply the right local-equivalent source map (§27).
 - [ ] Every category row has an explicit Y/N.
-- [ ] Multi-tab workbooks were pre-extracted (`_pool_extracts/manifest.md`); no tab was skipped in the scheduled-event scan.
+- [ ] Multi-tab workbooks were pre-extracted and reconciled to `GENERATION_ROOT/manifest.json`; no tab was skipped in the scheduled-event scan.
 - [ ] Upstream-module availability is recorded.
 - [ ] The verdict is one of Sufficient / Partial / Insufficient.
 - [ ] No fail-fast abort is issued, even on Insufficient.

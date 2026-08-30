@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import enum
 import math
+import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -83,7 +84,11 @@ def read_sheets(path: Path, fmt: CiqFormat | None = None) -> dict[str, list[list
             import xlrd  # type: ignore[import-untyped]
         except ImportError as exc:
             raise CiqParseError(f"{path.name}: legacy .xls needs `xlrd` (pip install xlrd)") from exc
-        book = xlrd.open_workbook(str(path))
+        # xlrd binds its default logfile to the process' original stdout at
+        # import time.  Passing stderr explicitly is mandatory: this reader is
+        # called while building the readiness JSON sidecars, and one legacy BIFF
+        # warning must never become a byte in that machine protocol.
+        book = xlrd.open_workbook(str(path), logfile=sys.stderr)
         return {s.name: [s.row_values(r) for r in range(s.nrows)] for s in book.sheets()}
     if fmt is CiqFormat.OOXML:
         try:

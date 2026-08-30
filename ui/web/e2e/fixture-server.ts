@@ -80,9 +80,15 @@ interface FixtureState {
     addedPayableOrbKeys: string[]
     removedPayableOrbKeys: string[]
   }
+  phase: 'idle' | 'full_first_module_done' | 'full_interrupted' | 'resume_first_module_done' | 'finished' | 'empty_blocked' | 'legacy_nonempty_blocked'
+  active: any[]
+  activeSnapshot: any | null
+  readinessDecisionPosts: number
 }
 
 let state = freshState('claude')
+let releaseFull: (() => void) | null = null
+let releaseResume: (() => void) | null = null
 
 function profile(provider: Provider) {
   return provider === 'claude' ? CLAUDE_PROFILE : CODEX_PROFILE
@@ -103,6 +109,10 @@ function freshState(provider: Provider): FixtureState {
     partialHashBefore: null,
     partialHashAfter: null,
     lastPlanDifference: null,
+    phase: 'idle',
+    active: [],
+    activeSnapshot: null,
+    readinessDecisionPosts: 0,
   }
 }
 
@@ -164,10 +174,14 @@ function continuationReceipt(provider: Provider) {
   const sourceArtifactsSha256 = `sha256:${'2'.repeat(64)}`
   const fingerprint = `sha256:${createHash('sha256').update(JSON.stringify({ provider, fields, reusableOrbKeys, payable, dataPool, sourceArtifactsSha256, root: SOURCE_RUN_ROOT })).digest('hex')}`
   return {
-    version: 1, action: 'continue', swarm: 'research', subject: SUBJECT,
+    version: 2, action: 'continue', swarm: 'research', subject: SUBJECT,
     sourceRunRoots: [SOURCE_RUN_ROOT], targetRunRoot: TARGET_RUN_ROOT,
     provider: { id: provider, model: fields.model, reasoningLevel: fields.reasoningLevel, profileKey: fields.profileKey },
-    reusableOrbKeys, payableOrbKeys: payable, dataPool, sourceArtifactsSha256, fingerprint,
+    reusableOrbKeys, payableOrbKeys: payable, dataPool,
+    evidenceGenerationDigest: '3'.repeat(64), reusableArtifacts: [],
+    reusableArtifactsSha256: `sha256:${'4'.repeat(64)}`,
+    verifiedLineageSha256: `sha256:${'5'.repeat(64)}`,
+    sourceArtifactsSha256, fingerprint,
   }
 }
 
@@ -277,14 +291,87 @@ function resumable() {
   }
 }
 
+function firstModuleSnapshot(runId: string, phase: 'full' | 'resume') {
+  const fields = providerFields(state.provider)
+  const chainId = `fixture-${state.provider}-${phase}-chain`
+  const startedAt = Date.now() - 1_000
+  const doneAt = Date.now() - 200
+  return {
+    runId, kind: 'full', ticker: SUBJECT, swarmId: 'research', status: 'running',
+    runRoot: SOURCE_RUN_ROOT, chainId, startedAt, willCommitToMain: true,
+    ...fields,
+    expected: [
+      { key: 'business-model/identity', name: 'Business identity', module: 'business-model', layer: 1 },
+      { key: 'earnings/earnings-quality', name: 'Earnings quality', module: 'earnings', layer: 1 },
+    ],
+    agents: [
+      { key: 'business-model/identity', name: 'Business identity', module: 'business-model', layer: 1, status: 'done', verdict: 'Sufficient', outputPath: `${SOURCE_RUN_ROOT}/business-model/identity.md`, startedAt, endedAt: doneAt },
+      { key: 'earnings/earnings-quality', name: 'Earnings quality', module: 'earnings', layer: 1, status: 'queued', verdict: null, outputPath: null },
+    ],
+    // A non-empty shared report is chain-internal truth, not a browser decision. The UI must reconnect
+    // without inventing a modal after the first module has landed.
+    readiness: {
+      ticker: SUBJECT, kind: 'full', overall: 'degraded', fileCount: 12, usableCount: 12,
+      entities: [], issues: [{ code: 'module_insufficient', severity: 'degrade', message: 'One optional source is missing.' }], ts: Date.now(),
+    },
+  }
+}
+
+function exposeFirstModule(phase: 'full' | 'resume'): Promise<void> {
+  const runId = `fixture-${state.provider}-${phase}-${randomUUID()}`
+  const snapshot = firstModuleSnapshot(runId, phase)
+  state.activeSnapshot = snapshot
+  state.active = [{
+    runId, kind: snapshot.kind, ticker: SUBJECT, swarmId: 'research', status: 'running',
+    startedAt: snapshot.startedAt, chainId: snapshot.chainId, ...providerFields(state.provider),
+  }]
+  state.phase = phase === 'full' ? 'full_first_module_done' : 'resume_first_module_done'
+  return new Promise<void>((resolve) => {
+    if (phase === 'full') releaseFull = resolve
+    else releaseResume = resolve
+  })
+}
+
+function exposeEmptyDecisionOwner(): void {
+  const runId = `fixture-${state.provider}-empty-${randomUUID()}`
+  const snapshot = firstModuleSnapshot(runId, 'full')
+  snapshot.status = 'awaiting-readiness-decision'
+  snapshot.agents = []
+  snapshot.readiness = {
+    ticker: SUBJECT, kind: 'full', overall: 'blocked', fileCount: 0, usableCount: 0,
+    physicalPool: { state: 'empty', fileCount: 0, nonEmptyFileCount: 0 },
+    entities: [], issues: [{ code: 'zero_files', severity: 'blocker', message: 'No files found.' }], ts: Date.now(),
+  }
+  state.activeSnapshot = snapshot
+  state.active = [{
+    runId, kind: snapshot.kind, ticker: SUBJECT, swarmId: 'research', status: snapshot.status,
+    startedAt: snapshot.startedAt, chainId: snapshot.chainId, ...providerFields(state.provider),
+  }]
+  state.phase = 'empty_blocked'
+}
+
+function exposeLegacyNonEmptyDecisionOwner(): void {
+  exposeEmptyDecisionOwner()
+  state.activeSnapshot.readiness = {
+    ticker: SUBJECT, kind: 'full', overall: 'blocked', fileCount: 1, usableCount: 0,
+    physicalPool: { state: 'nonempty', fileCount: 1, nonEmptyFileCount: 1 },
+    entities: [], issues: [{ code: 'zero_usable_data', severity: 'blocker', message: 'Unsupported but non-empty file.' }], ts: Date.now(),
+  }
+  state.phase = 'legacy_nonempty_blocked'
+}
+
 async function admitQueued(): Promise<void> {
   const queued = state.pending[0]
   if (!queued) return
   state.pending = []
+  await exposeFirstModule('full')
   await runProvider('interrupt')
   state.partialHashBefore = aggregatePartialHash()
   state.activity = [activityRow('error')]
   state.resumable = [resumable()]
+  state.active = []
+  state.activeSnapshot = null
+  state.phase = 'full_interrupted'
 }
 
 function artifactTruth() {
@@ -312,6 +399,9 @@ function publicState() {
     artifacts: artifactTruth(),
     provenance,
     lastPlanDifference: state.lastPlanDifference,
+    phase: state.phase,
+    active: state.active,
+    readinessDecisionPosts: state.readinessDecisionPosts,
   }
 }
 
@@ -324,6 +414,8 @@ const server = http.createServer(async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/e2e/reset') {
       const body = await readBody(req)
       if (body.provider !== 'claude' && body.provider !== 'codex') return json(res, 400, { error: 'provider required' })
+      releaseFull?.(); releaseFull = null
+      releaseResume?.(); releaseResume = null
       removePhysicalRoot()
       state = freshState(body.provider)
       return json(res, 200, publicState())
@@ -331,11 +423,38 @@ const server = http.createServer(async (req, res) => {
     if (method === 'GET' && url.pathname === '/api/e2e/state') return json(res, 200, publicState())
     if (method === 'POST' && url.pathname === '/api/e2e/deploy') {
       state.updating = false
-      await admitQueued()
+      void admitQueued()
+      return json(res, 200, publicState())
+    }
+    if (method === 'POST' && url.pathname === '/api/e2e/interrupt-full') {
+      releaseFull?.(); releaseFull = null
+      return json(res, 200, publicState())
+    }
+    if (method === 'POST' && url.pathname === '/api/e2e/finish-resume') {
+      releaseResume?.(); releaseResume = null
+      return json(res, 200, publicState())
+    }
+    if (method === 'POST' && url.pathname === '/api/e2e/block-empty') {
+      exposeEmptyDecisionOwner()
+      return json(res, 200, publicState())
+    }
+    if (method === 'POST' && url.pathname === '/api/e2e/block-legacy-nonempty') {
+      exposeLegacyNonEmptyDecisionOwner()
+      return json(res, 200, publicState())
+    }
+    if (method === 'POST' && url.pathname === '/api/e2e/drop-active') {
+      state.active = []
+      state.activeSnapshot = null
+      state.phase = 'finished'
       return json(res, 200, publicState())
     }
     if (method === 'GET' && url.pathname === '/api/whoami') return json(res, 200, { user: 'fixture@local', userVia: 'local' })
-    if (method === 'GET' && url.pathname === '/api/runs') return json(res, 200, { active: [] })
+    if (method === 'GET' && url.pathname === '/api/runs') return json(res, 200, { active: state.active })
+    if (method === 'GET' && /^\/api\/runs\/[^/]+$/.test(url.pathname)) {
+      const runId = decodeURIComponent(url.pathname.split('/')[3])
+      if (!state.activeSnapshot || state.activeSnapshot.runId !== runId) return json(res, 404, { error: 'no such run' })
+      return json(res, 200, state.activeSnapshot)
+    }
     if (method === 'GET' && url.pathname === '/api/activity') {
       return json(res, 200, {
         rows: state.activity, total: state.activity.length, allTime: state.activity.length,
@@ -387,10 +506,14 @@ const server = http.createServer(async (req, res) => {
           || body.continuationReceipt?.targetRunRoot !== SOURCE_RUN_ROOT) {
         return json(res, 409, { code: 'plan_changed', error: 'exact continuation receipt changed' })
       }
+      await exposeFirstModule('resume')
       await runProvider('success')
       state.partialHashAfter = aggregatePartialHash()
       state.resumable = []
       state.activity = [activityRow('done')]
+      state.active = []
+      state.activeSnapshot = null
+      state.phase = 'finished'
       return json(res, 200, {
         runId: state.activity[0].runId,
         preflight: preflight(state.provider, expected.payableOrbKeys.length),
@@ -398,6 +521,10 @@ const server = http.createServer(async (req, res) => {
         chained: true, skipped: ['business-model:identity'], planned: expected.payableOrbKeys,
         resumed: true, ...providerFields(state.provider),
       })
+    }
+    if (method === 'POST' && /^\/api\/runs\/[^/]+\/readiness-decision$/.test(url.pathname)) {
+      state.readinessDecisionPosts += 1
+      return json(res, 409, { error: 'the non-empty shared report never needs a browser decision' })
     }
     if (method === 'GET' && /^\/api\/runs\/[^/]+\/events$/.test(url.pathname)) {
       // Ending the stream immediately makes EventSource treat it as a dropped connection and

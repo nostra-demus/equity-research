@@ -128,6 +128,9 @@ export function ThesisPlanPanel() {
   const ticker = useStore((s) => s.selectedTicker)
   const close = useStore((s) => s.closeThesisPlan)
   const complete = useStore((s) => s.completeThesis)
+  const requestFull = useStore((s) => s.requestFull)
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const resumeRun = useStore((s) => s.resumeRun)
   const launchPending = useStore((s) => s.launchPending)
   // The scoping intake applied (if any): keep the finished modules the new evidence doesn't touch, re-run
   // only the affected ones. Null = the honest floor (no plan, or it didn't narrow anything).
@@ -190,6 +193,17 @@ export function ThesisPlanPanel() {
   // Launching a completion is research-only for now. Match POSITIVELY on 'research': during a deploy the new
   // bundle can talk to the old engine, and a field that is merely absent must never read as "allowed".
   const canRun = plan?.swarm === 'research'
+  const exactSourceRequired = Boolean(plan?.continuationReceipt?.action === 'complete'
+    && plan.continuationReceipt.sourceRunRoots.length > 0)
+  const exactSavedRun = ticker
+    ? resumableRuns
+      .filter((entry) => entry.kind === 'full' && entry.subject === ticker
+        && (entry.swarm || 'research') === 'research'
+        && plan?.continuationReceipt?.sourceRunRoots.includes(entry.runRoot))
+      // Run roots carry an ISO date suffix, so lexical order is also chronological. Pick one exact root
+      // deterministically instead of depending on whichever Activity response happened to arrive first.
+      .sort((left, right) => right.runRoot.localeCompare(left.runRoot))[0]
+    : undefined
 
   return (
     <div className="scrim" onClick={close}>
@@ -372,9 +386,25 @@ export function ThesisPlanPanel() {
               </div>
             )}
 
+            {canRun && exactSourceRequired && (
+              <div className="tpp__carry tpp__carry--warn">
+                Saved work belongs to an older run. Pick that exact run to continue, or start a new Full run. The system will not mix run folders.
+              </div>
+            )}
+
             <div className="modal__actions">
               <button className="btn btn--ghost" disabled={starting} onClick={close}>{canRun ? 'Cancel' : 'Close'}</button>
-              {canRun && (
+              {canRun && exactSourceRequired && exactSavedRun && (
+                <button className="btn btn--ghost" disabled={busyOnTicker} onClick={() => { close(); void resumeRun(exactSavedRun) }}>
+                  Complete old run
+                </button>
+              )}
+              {canRun && exactSourceRequired && (
+                <button className="btn btn--amber" disabled={busyOnTicker || !!providerProblem} onClick={() => { close(); void requestFull() }}>
+                  Run full
+                </button>
+              )}
+              {canRun && !exactSourceRequired && (
                 <button className="btn btn--amber" disabled={busyOnTicker || pricing || !!providerProblem} title={providerProblem || undefined} onClick={() => void complete()}>
                   {starting ? <><Spin /> Starting…</> : runCount === 0 ? 'Write the memo' : 'Complete the thesis'}
                 </button>

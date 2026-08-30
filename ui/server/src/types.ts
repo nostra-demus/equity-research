@@ -379,6 +379,22 @@ export interface ReadinessIssue {
   capIfProceeded?: string      // the cap that binds if the user proceeds anyway
 }
 
+/**
+ * Parser-free observation of the physical company-data pool.
+ *
+ * `empty` is a positive, complete directory-walk proof that no non-empty user
+ * payload exists (the directory has no input files, or every input is zero
+ * bytes). `unknown` means the walk could not complete (Drive hydration,
+ * permissions, a concurrent rename, etc.) and must never be treated as
+ * absence. Counts on an unknown observation are diagnostic partial counts only.
+ */
+export interface PhysicalPoolPresence {
+  state: 'empty' | 'nonempty' | 'unknown'
+  fileCount: number
+  nonEmptyFileCount: number
+  reason?: string
+}
+
 export interface ReadinessReport {
   ticker: string
   kind: RunKind
@@ -386,6 +402,20 @@ export interface ReadinessReport {
   overall: 'clean' | 'degraded' | 'blocked'   // blocked if any blocker; degraded if any degrade; else clean
   fileCount: number
   usableCount: number
+  // Optional only for rolling compatibility with already-persisted Activity
+  // events. Every newly generated report carries this explicit proof object.
+  physicalPool?: PhysicalPoolPresence
+  /** Immutable extractor generation admitted by a successful pre-spend check. Legacy/technical reports
+   * may omit it, but a non-empty full chain fails before provider spend when it is absent. */
+  frozenPool?: {
+    dataPath: string
+    outDir: string
+    generationDigest: string
+    /** Exact immutable directory produced and verified by the extractor. */
+    generationDir: string
+    /** Only evidence tree exposed to the provider for this chain. */
+    evidenceRoot: string
+  }
   entities: { file: string; entity: string }[]   // surface-and-confirm (compared against the ticker by the UI)
   issues: ReadinessIssue[]
   ts: number
@@ -436,7 +466,7 @@ export interface RunActivity {
 }
 
 export type SseEvent = (
-  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; swarm?: string; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; cliVersion?: string; ts: number }
+  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; continuation?: boolean; swarm?: string; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; cliVersion?: string; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }

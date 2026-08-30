@@ -60,9 +60,9 @@ A rejected thesis is a valid output.
 
 ---
 
-# ACTUAL REPO PATHS
+# ACTUAL REPO PATHS AND EVIDENCE BINDING
 
-The real repository paths are:
+The logical repository paths are:
 
 - `data/{TICKER}/`
 - `analyses/{TICKER}_{DATE}/`
@@ -74,6 +74,28 @@ At runtime, the orchestrator will usually provide a message like:
 “Synthesize the analyses in `analyses/{TICKER}_{DATE}/`. Output the final thesis to `analyses/{TICKER}_{DATE}/final_thesis.md`.”
 
 Use the exact input path and output path provided in the invocation message.
+
+## Frozen Full/Continue evidence (hard rule)
+
+`data/{TICKER}/` is always the citation label, but it is not always the filesystem evidence root. Resolve
+the evidence binding before reading any raw source or deterministic sidecar:
+
+- If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete supervisor quartet
+  `NOSTRA_FROZEN_POOL_DATA_PATH`, `NOSTRA_FROZEN_POOL_OUT_DIR`,
+  `NOSTRA_FROZEN_POOL_GENERATION`, and `NOSTRA_FROZEN_EVIDENCE_ROOT`. This is the exact isolated read
+  capability the supervisor verified before provider start. Do not run `extract_pool.py`, rebuild the
+  extraction, or inspect live/original extraction paths in this mode. Set `<RAW_DATA_PATH>` to
+  `NOSTRA_FROZEN_EVIDENCE_ROOT`, `<GENERATION_ROOT>` to
+  `$NOSTRA_FROZEN_POOL_OUT_DIR/.extract-generations/$NOSTRA_FROZEN_POOL_GENERATION`, and
+  `<CIQ_FACTS_PATH>` to `<GENERATION_ROOT>/ciq_facts.json`.
+- In that frozen mode, never list, stat, grep, open, or otherwise read live `data/{TICKER}/`. Never consume
+  the original `<RUN_ROOT>/_pool_extracts/` namespace or any child/sibling created under it (including
+  `manifest.json`, `manifest.md`, `ciq_facts.json`, `relationships.json`, or flat extracts). Use only the
+  provided capability's exact immutable generation and its `raw_prefix`. Keep citations written as logical
+  `data/{TICKER}/...` labels.
+- Otherwise this is a standalone workflow: set `<RAW_DATA_PATH>` to live `data/{TICKER}/` and
+  `<CIQ_FACTS_PATH>` to `<RUN_ROOT>/_pool_extracts/ciq_facts.json`, preserving the ordinary freshness
+  behavior.
 
 If no output path is provided, default to:
 
@@ -113,7 +135,7 @@ Before writing the final dossier, read inputs in this priority order:
 
    **Carried-forward modules (vintage travels with the number).** A module folder in this run root may contain a `CARRIED_FORWARD.md` stamp. That module was NOT re-run for this run: its outputs were copied verbatim from an earlier dated run of the same subject, because a completed synthesis already existed and the data pool had gained no newer file since. Read the stamp. It names the source run and its date.
 
-   For every such module: use its verdict, scores, and red flags exactly as you would a freshly-run module — a carried module is a completed module, not a degraded one — but **carry its vintage with it**. When a figure from a carried module reaches the §2 Scorecard, the Scenario Model, or the `decision_record`, its evidence was read against the data pool as it stood on the SOURCE run's date, not today's. Say so where it matters (§5: vintage travels with the number), and record every carried module and its source date in `RUN_METADATA.md` and in `missing_data` if any of them predates a material filing you can see in `data/{TICKER}/`. Do not silently age a carried conclusion forward. If a carried module's date is materially stale against the evidence in front of you, treat that as a data-sufficiency input (§11) and lower confidence — then say that the module should be re-run.
+   For every such module: use its verdict, scores, and red flags exactly as you would a freshly-run module — a carried module is a completed module, not a degraded one — but **carry its vintage with it**. When a figure from a carried module reaches the §2 Scorecard, the Scenario Model, or the `decision_record`, its evidence was read against the data pool as it stood on the SOURCE run's date, not today's. Say so where it matters (§5: vintage travels with the number), and record every carried module and its source date in `RUN_METADATA.md` and in `missing_data` if any of them predates a material filing you can see under `<RAW_DATA_PATH>` (cited as `data/{TICKER}/...`). Do not silently age a carried conclusion forward. If a carried module's date is materially stale against the evidence in front of you, treat that as a data-sufficiency input (§11) and lower confidence — then say that the module should be re-run.
 
 ## SECONDARY INPUTS (read for verification, override, and dossier appendices)
 
@@ -122,7 +144,7 @@ Before writing the final dossier, read inputs in this priority order:
    - Override the module synthesis ONLY if a sub-agent's evidence directly contradicts it
    - Include as Module Appendix material in the final dossier
 
-5. **Raw data** — files inside `data/{TICKER}/`. Includes filings, transcripts, presentations, annual/quarterly reports, investor decks, user notes, Capital IQ exports, IBKR screenshots, options data, and positioning data.
+5. **Raw data** — files inside the resolved `<RAW_DATA_PATH>`, cited under the logical label `data/{TICKER}/`. Includes filings, transcripts, presentations, annual/quarterly reports, investor decks, user notes, Capital IQ exports, IBKR screenshots, options data, and positioning data. In frozen mode this means only the admitted generation's immutable raw snapshot, never live Drive.
 
 6. **Prior runs** — if `analyses/{TICKER}_*` folders exist from earlier dates, note them. You may reference whether the verdict has changed since the prior run, but do not reach into a prior-run folder and pull its content into the current dossier — each dated run is a frozen snapshot. If prior dated runs exist, compare only high-level verdict changes unless explicitly asked for a full run-over-run diff. Never overwrite or modify files in prior-run folders.
 
@@ -130,7 +152,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 7. **Latest calibration summary** — `Glob analyses/performance/*_calibration_summary.json`, filtered to files dated on or before today, latest wins. This is the Phase 6 calibration-feedback input (`frameworks/DECISION_LEDGER.md` §18) — read it before the Pre-Write Gate, since gate step 4C needs it. If none exists yet, that is expected and non-blocking (the ledger has no resolved history yet); proceed and record that honestly.
 
-8. **Deterministic CIQ facts** — `<RUN_ROOT>/_pool_extracts/ciq_facts.json`, the source-bound sidecar of the key CIQ numbers (net/total debt, EBITDA, OCF, FCF, interest coverage, EV/EBITDA + own-history percentile, P/E, consensus, insider net buy/sell, institutional concentration/trend), each `present` (with an exact `source_ref`), `unknown`, or `missing` — never fabricated. **If this file is present,** for every headline anchor in the §2 Scorecard and the `decision_record` that it reports as `present`, its `value` is the authoritative READ of the CIQ workbook: the anchor must tie to it, and if a module synthesis carried a different figure, reconcile — a gap is a module misread of the workbook, so prefer the sidecar **unless the module's figure is from a higher-tier source per §4** (ANY §4 tier above the data vendor beats the vendor workbook — an audited annual filing, an interim/quarterly filing, the notes, or the proxy — not only an audited annual report; then cite that filing for the filing's own number, §5). Where a fact is `unknown`/`missing` or the file is absent, use the module's sourced figure. This pins the anchors; it never invents a number and never relaxes a §11 data-sufficiency cap.
+8. **Deterministic CIQ facts** — the resolved `<CIQ_FACTS_PATH>`, the source-bound sidecar of the key CIQ numbers (net/total debt, EBITDA, OCF, FCF, interest coverage, EV/EBITDA + own-history percentile, P/E, consensus, insider net buy/sell, institutional concentration/trend), each `present` (with an exact `source_ref`), `unknown`, or `missing` — never fabricated. In frozen mode only `<GENERATION_ROOT>/ciq_facts.json` is admissible; the mutable root projection is forbidden. **If this file is present,** for every headline anchor in the §2 Scorecard and the `decision_record` that it reports as `present`, its `value` is the authoritative READ of the CIQ workbook: the anchor must tie to it, and if a module synthesis carried a different figure, reconcile — a gap is a module misread of the workbook, so prefer the sidecar **unless the module's figure is from a higher-tier source per §4** (ANY §4 tier above the data vendor beats the vendor workbook — an audited annual filing, an interim/quarterly filing, the notes, or the proxy — not only an audited annual report; then cite that filing for the filing's own number, §5). Where a fact is `unknown`/`missing` or the file is absent, use the module's sourced figure. This pins the anchors; it never invents a number and never relaxes a §11 data-sufficiency cap.
 
 9. **Prior decision memory for this exact issuer and listing** — list ALL earlier `analyses/{TICKER}_*/decision_record.json` candidates newest first, then verify identity before reading any lesson. A ticker match alone is never enough: compare each candidate's `company_name`, `exchange`, and `currency` with the legal issuer, venue, and reporting currency proven for THIS run. Exclude a different issuer, venue, or currency even when the ticker text is identical. If any identity field needed to distinguish two candidates is missing or ambiguous, do not import the lesson and do not apply the memory cap; record that exact-listing memory was not proven. From the identity-matched runs, keep the newest earlier run as the current prior call. Then search those matched runs newest-to-oldest for the latest append-only `reviews/*_decision_review*.json`; do not stop merely because the newest prior run is unreviewed. If the newest prior run has no completed review but an older matched run does, read BOTH the newest frozen call and the newest older reviewed lesson, exactly as the chat memory shelf does. Read only the frozen original call and the review's `decision_quality`, `error_taxonomy`, `lessons`, `learning`, `action_now`, `confidence_update`, and `next_check` fields. This is PROCESS MEMORY, not a source for current company facts: it may tell you which assumption this run must test, but every factual answer still needs evidence in the current run. Never copy a post-outcome fact into the original decision-date evidence set, never attach an older review to the newer call, and never rewrite what either earlier rating was. Only after searching every identity-matched earlier run may you state that the exact-listing memory check has no reviewed data yet.
 
@@ -417,7 +439,7 @@ Before writing `final_thesis.md`, run this gate and carry its results into the o
 5. **Contradiction audit.** Find module contradictions; state which evidence wins and why. Record as the Decision Audit Trail — at least 3 real decision-driver rows, each with a genuine (non-blank, non-placeholder) Bull Evidence, Bear Evidence, Which Side Wins, and Why cell; an empty or token table is exactly the "summarize, don't adjudicate" failure §22 bans. The eval harness mechanically checks this shape (check AJ) for runs dated on/after 2026-07-10 — an empty or thin table now fails CI instead of shipping silently.
 6. **Variant-perception audit (per `CLAUDE.md` §7).** Separate known facts from actual edge across all four parts: what everyone knows → what is priced in → what the engine thinks is missed → **what evidence would prove the engine is actually different** (§7 item 4). Then score it: set **`edge_score` (0–100)** = how well evidence *proves* the engine is different (not whether an edge story can be told), and write the falsifiable **`edge_proof`** (the §7 item-4 test, checkable at a later review). Restated consensus ⇒ `edge_score` near 0 and `edge_proof` `""`. If no edge: "There is no proven variant perception yet." **This binds confidence** — see the Confidence Scoring Rules edge gate.
 
-   **External evidence is admissible edge (per `frameworks/EXTERNAL_DATA.md`).** Externally ingested pool evidence — a licensed alt-data panel, a channel check, an expert call under `data/{TICKER}/external/` — is precisely the class of evidence that can carry §7 items 3–4, PROVIDED it is quantified against the consensus it departs from: the divergence stated in numbers, the panel's as-of fresher than the consensus data-as-of, and the vendor's stated error margin smaller than the divergence it is being asked to prove. Cite it at its mapped §4 tier with provider + as-of; a tier-9 note (channel check, expert call, N=1) can RAISE the edge hypothesis but cannot alone carry `edge_score` ≥ 50 — corroborate it with tier-5-or-better evidence or say plainly that the edge rests on anecdote. Licensed (`subscriber-only`) material: cite individual figures with attribution; never reproduce the vendor's tables or pages into the thesis or memo.
+   **External evidence is admissible edge (per `frameworks/EXTERNAL_DATA.md`).** Externally ingested pool evidence — a licensed alt-data panel, a channel check, or an expert call under `<RAW_DATA_PATH>/external/` (cited as `data/{TICKER}/external/...`) — is precisely the class of evidence that can carry §7 items 3–4, PROVIDED it is quantified against the consensus it departs from: the divergence stated in numbers, the panel's as-of fresher than the consensus data-as-of, and the vendor's stated error margin smaller than the divergence it is being asked to prove. Cite it at its mapped §4 tier with provider + as-of; a tier-9 note (channel check, expert call, N=1) can RAISE the edge hypothesis but cannot alone carry `edge_score` ≥ 50 — corroborate it with tier-5-or-better evidence or say plainly that the edge rests on anecdote. Licensed (`subscriber-only`) material: cite individual figures with attribution; never reproduce the vendor's tables or pages into the thesis or memo.
 7. **Thesis-type classification (per `CLAUDE.md` §14).** If the thesis is really macro/commodity/policy-driven, say so and downgrade conviction.
 8. **Math validation.** Scenario probabilities sum to 100%; probability-weighted target price and expected return reconcile; risk/reward via the WORKFLOW Step 4 formula; if price is missing, do not fake precision.
 9. **Kill criteria.** State what evidence would make the thesis wrong and what would force downgrade, exit, or rejection (record in Thesis Kill Criteria).

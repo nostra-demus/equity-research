@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, isOrblessRun, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
-import { LIVEISH, pendingForScope, runsForScope } from '../lib/runScope'
+import { LIVEISH, pendingForScope, runLabel, runsForScope } from '../lib/runScope'
 import { Spin } from './Spin'
 import { providerLabel } from '../lib/provider'
 
@@ -13,9 +13,6 @@ const dotColor: Record<string, string> = {
   failed: 'var(--bad)',
   queued: 'var(--accent-deep)',
 }
-
-const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
-  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
 
 const runExecutionLabel = (run: { provider?: 'claude' | 'codex'; profileKey?: string; executionProfile?: { key: string }; model?: string; reasoningLevel?: string }): string =>
   run.provider
@@ -61,11 +58,11 @@ const PAUSED_TONE = 'var(--warn, #d8a656)'
  *   • live, paused on the user → full and STATIC in the paused tone: stopped, not working, not finished
  *   • finished                 → full, in its outcome's colour
  */
-function RunProgressBar({ pct, running, status, measurable, reported }: { pct: number; running: boolean; status: string; measurable: boolean; reported: boolean }) {
+function RunProgressBar({ pct, running, status, measurable, reported, waitingOnDecision = false }: { pct: number; running: boolean; status: string; measurable: boolean; reported: boolean; waitingOnDecision?: boolean }) {
   const tone = TERMINAL_TONE[status]
   // Paused at the readiness gate: the run is live but waiting on a human decision. Animating it would
   // claim work that isn't happening — the one live state that must NOT sweep.
-  const paused = status === 'awaiting-readiness-decision'
+  const paused = status === 'awaiting-readiness-decision' || waitingOnDecision
   // Nothing to take a fraction OF (orbless), or nothing has reported against the denominator yet (the
   // pre-spawn gate phases, and the window before the first orb speaks).
   const indeterminate = running && !paused && (!measurable || !reported)
@@ -119,6 +116,9 @@ export function RunNowSection() {
   const stoppingRuns = useStore((s) => s.stoppingRuns)
   const pendingAdmissions = useStore((s) => s.pendingAdmissions)
   const cancelPendingAdmission = useStore((s) => s.cancelPendingAdmission)
+  const readinessGate = useStore((s) => s.readinessGate)
+  const readinessGateQueue = useStore((s) => s.readinessGateQueue)
+  const readinessRecovery = useStore((s) => s.readinessRecovery)
 
   // run-adaptive expected duration per orb class (gate / specialist / synthesis), learned from finished orbs
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => { const n = nodesByKey.get(k); return n ? orbClass(n) : 'specialist' })), [nodeRuntime, nodesByKey])
@@ -199,14 +199,29 @@ export function RunNowSection() {
           const etaLow = run.kind === 'full' ? 20 : Math.max(1, Math.ceil(total * 0.3))
           const etaHigh = run.kind === 'full' ? 40 : Math.max(2, Math.ceil(total * 0.8))
           const etaText = rt.fraction > 0 && rt.etaRemainingMs != null ? fmtEtaLeft(rt.etaRemainingMs) : `~${etaLow}–${etaHigh} min`
+          const ownsRun = (gate: NonNullable<typeof readinessGate>) => gate.runId === run.runId
+            || gate.memberRunIds?.includes(run.runId)
+            || (!!run.chainId && gate.chainId === run.chainId)
+          const queuedDecision = readinessGateQueue.some(ownsRun)
+          const chainHasDecision = !!run.chainId
+            && [readinessGate, ...readinessGateQueue].some((gate) => gate?.chainId === run.chainId)
+          const waitingOnSharedDecision = run.status === 'readiness-checking'
+            && chainHasDecision
+          const recovery = readinessRecovery[run.runId]
+          const phaseLabel = recovery?.message
+            ?? (queuedDecision
+            ? 'Paused — decision safely queued'
+            : waitingOnSharedDecision
+              ? 'Waiting for the one shared data decision…'
+              : PHASE_LABEL[run.status])
           return (
             <div key={run.runId} className="sidepanel__runcard" style={{ borderBottom: '1px solid var(--hairline)', paddingBottom: 8, marginBottom: 6 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px 4px' }}>
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <div className="sidepanel__title" style={{ fontSize: 13 }}>{runLabel(run)}</div>
                   <div className="sidepanel__meta">
-                    {PHASE_LABEL[run.status]
-                      ? PHASE_LABEL[run.status] + (running ? ` · ${fmtClock(elapsedMs)}` : '')
+                    {phaseLabel
+                      ? phaseLabel + (running ? ` · ${fmtClock(elapsedMs)}` : '')
                       : isOrblessRun(run.kind)
                         // an orbless run (a sweep, or a doc-intake new-data read) has no orbs — a "0/0 orbs"
                         // line would read as broken. Show the clock (and, once done, the plain status) instead;
@@ -236,7 +251,7 @@ export function RunNowSection() {
                 )
               })()}
               <div style={{ padding: '0 16px 6px' }}>
-                <RunProgressBar pct={pct} running={running} status={run.status} measurable={total > 0} reported={rows.length > 0} />
+                <RunProgressBar pct={pct} running={running} status={run.status} measurable={total > 0} reported={rows.length > 0} waitingOnDecision={waitingOnSharedDecision} />
               </div>
               <AnimatePresence initial={false}>
                 {rows.map((r) => {
@@ -265,7 +280,10 @@ export function RunNowSection() {
               </AnimatePresence>
               {running && rows.length === 0 && (
                 <div className="sidepanel__empty">
-                  {run.status === 'readiness-checking' ? 'Checking the data pool — extracting and validating every file. The run starts the moment it passes.'
+                  {recovery ? recovery.message
+                    : queuedDecision ? 'Another data decision is on screen. This one is queued and cannot be lost.'
+                    : waitingOnSharedDecision ? 'Waiting for the one data decision on screen. Every module continues automatically after it is resolved.'
+                      : run.status === 'readiness-checking' ? 'Checking the data pool — extracting and validating every file. The run starts the moment it passes.'
                     : run.status === 'awaiting-readiness-decision' ? 'The data check needs your decision — see the panel that opened.'
                     : 'Starting the engine… the first orb will report in a moment.'}
                 </div>

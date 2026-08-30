@@ -8,7 +8,7 @@ import {
   cancelPendingAdmission, deploymentFailedAfter, deploymentSucceededAfter, enqueuePendingAdmission, listPendingAdmissions,
   markPendingAdmissionAdmitting, markPendingAdmissionNeedsAttention,
   markPendingAdmissionStarted, pendingDeployCommit, pendingPlanDifference,
-  pendingPlanMayAutoStart,
+  pendingPlanMayAutoStart, pendingReceiptMatchesIntent,
   readPendingAdmission,
 } from '../src/pending-admission'
 import type { ContinuationPlanReceipt } from '../src/completion'
@@ -16,7 +16,7 @@ import type { ContinuationPlanReceipt } from '../src/completion'
 function receipt(action: 'continue' | 'complete', payable: string[]): ContinuationPlanReceipt {
   const root = 'analyses/KAR_2026-08-28'
   return {
-    version: 1,
+    version: 2,
     action,
     swarm: 'research',
     subject: 'KAR',
@@ -26,6 +26,10 @@ function receipt(action: 'continue' | 'complete', payable: string[]): Continuati
     reusableOrbKeys: ['business-model/01_identity'],
     payableOrbKeys: payable,
     dataPool: { files: 12, newestMs: 123, sha256: `sha256:${'a'.repeat(64)}` },
+    evidenceGenerationDigest: action === 'continue' ? 'e'.repeat(64) : null,
+    reusableArtifacts: [],
+    reusableArtifactsSha256: `sha256:${'f'.repeat(64)}`,
+    verifiedLineageSha256: `sha256:${'9'.repeat(64)}`,
     sourceArtifactsSha256: `sha256:${'b'.repeat(64)}`,
     fingerprint: `sha256:${(payable.length ? 'c' : 'd').repeat(64)}`,
   }
@@ -88,6 +92,23 @@ try {
   assert.equal(pendingPlanMayAutoStart('continue', difference), false, 'new paid continuation work requires a fresh review')
   assert.equal(pendingPlanMayAutoStart('continue', pendingPlanDifference(original, receipt('continue', ['master/synthesizer']))), true,
     'an update that only removes paid work may start once')
+
+  const queuedContinue = { action: 'continue' as const, ticker: 'KAR', sourceRunRoot: original.targetRunRoot, provider: 'codex' as const }
+  assert.equal(pendingReceiptMatchesIntent(queuedContinue, original, false), true,
+    'an unchanged v2 queued Continue passes the real drain receipt boundary')
+  assert.equal(pendingReceiptMatchesIntent(queuedContinue, { ...original, version: 1 }, false), false,
+    'legacy receipts cannot enter the v2 drain')
+  assert.equal(pendingReceiptMatchesIntent(queuedContinue, original, true), false,
+    'a completed saved root cannot be restarted as Continue')
+  assert.equal(pendingReceiptMatchesIntent(queuedContinue, { ...original, targetRunRoot: 'analyses/KAR_2026-08-29' }, false), false,
+    'queued Continue stays bound to its exact saved root')
+
+  const queuedFull = { action: 'full' as const, ticker: 'KAR', provider: 'codex' as const }
+  const fullReceipt = receipt('complete', ['business-model/01_identity', 'master/synthesizer'])
+  assert.equal(pendingReceiptMatchesIntent(queuedFull, fullReceipt, false), true,
+    'an unchanged v2 queued Full passes the same drain receipt boundary')
+  assert.equal(pendingPlanMayAutoStart('full', pendingPlanDifference(fullReceipt, fullReceipt)), true,
+    'the unchanged queued Full proceeds from validation to one automatic admission')
 
   const intentFile = path.join(state, 'provider-deploy-pending')
   fs.writeFileSync(intentFile, `${'e'.repeat(40)} 123\n`, { mode: 0o600 })

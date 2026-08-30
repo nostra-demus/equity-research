@@ -30,13 +30,13 @@ SINGLE SOURCE OF TRUTH. Consumers:
   - Layer-0 `*-data-triage` agents  -> run at ingestion, list every tab as a row
   - commands/research/verify-evidence.md -> post-hoc corpus build (--corpus)
   - ui/server/src/data-status.ts     -> cockpit tab listing (--list-json)
-  - ui/server/src/readiness.ts       -> pre-flight data-readiness gate (--readiness-json; vision OFF)
+  - ui/server/src/readiness.ts       -> pre-flight gate (--readiness-json; complete offline read, vision OFF)
 
 USAGE
   python3 extract_pool.py <DATA_PATH> <OUT_DIR> [--force] [--corpus PATH] [--vision|--no-vision]
   python3 extract_pool.py --list-json <FILE>     # print one file's sheets as JSON; no writes
   # Vision (image-only PDFs + images) defaults to EXTRACT_VISION (=claude); the pre-flight gate forces
-  # it off (no token spend before the user proceeds). Env: EXTRACT_VISION, EXTRACT_VISION_MODEL,
+  # it off and completes the provider-neutral local read without a pool deadline. Env: EXTRACT_VISION, EXTRACT_VISION_MODEL,
   # EXTRACT_OCR_MAX_PAGES, EXTRACT_OCR_DPI, EXTRACT_OCR_FILE_TIMEOUT_S, EXTRACT_OCR_BUDGET_S.
 
 OUTPUTS (in OUT_DIR)
@@ -56,6 +56,7 @@ import os
 import re
 import io
 import errno
+import fcntl
 import json
 import glob
 import shutil
@@ -64,6 +65,7 @@ import hashlib
 import stat
 import subprocess
 import tempfile
+from contextlib import contextmanager
 import urllib.request
 import urllib.error
 import time as _time  # NB: `from datetime import ... time` below would shadow a bare `import time`
@@ -380,15 +382,11 @@ def _read_pool_regular_bytes(data_path, rel):
 
 
 def _snapshot_pool_file(data_path, rel, snapshot_pool, attested_sha256=None):
-    """Snapshot one pool file for parsing, bound to the digest its provenance attested.
+    """Snapshot one pool file for parsing, optionally bound to an attested digest.
 
-    `_collect_sidecars` verifies a projection's bytes against `content_sha256` (and, for a v2
-    projection, against canonical current / the committed vintage) EARLIER than this snapshot read.
-    Without re-checking here, a Drive projection that is re-synced or tampered with in between is
-    read fresh, parsed, and emitted into the manifest under the earlier trusted provenance — the
-    sealed source's attribution applied to bytes it never attested. Re-hashing the snapshot against
-    the attested digest closes that window: a projection that changed after verification now FAILS
-    this row (`unsafe-input`) instead of inheriting someone else's provenance.
+    Full-pool extraction snapshots every input first and subsequently parses
+    both evidence and provenance from those same captured bytes.  The optional
+    digest remains useful to direct callers that already hold an attestation.
     """
     raw = _read_pool_regular_bytes(data_path, rel)
     if attested_sha256 is not None:
@@ -467,7 +465,8 @@ def _v2_projection_manifest(data_path, rel):
     return owners[0] if owners else None
 
 
-def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
+def _verify_v2_projection(
+        data_path, rel, parsed, manifest, decision_at, *, canonical_data_path=None):
     """Return ``current``, ``expired``, ``disputed``, or ``superseded`` for an exact projection."""
     if SCRIPTS_DIR not in sys.path:
         sys.path.insert(0, SCRIPTS_DIR)
@@ -477,9 +476,14 @@ def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
     from connector_vintages import vintage_is_eligible_at
     import run_connectors
 
+    # `data_path` may be the private byte snapshot used by one extraction
+    # transaction.  Canonical connector heads/blobs remain rooted beside the
+    # real subject pool, while the materialized projection and sidecar are
+    # deliberately read only from that immutable snapshot.
     pool_root = os.path.realpath(data_path)
-    subject = os.path.basename(pool_root)
-    data_root = os.path.dirname(pool_root)
+    canonical_pool_root = os.path.realpath(canonical_data_path or data_path)
+    subject = os.path.basename(canonical_pool_root)
+    data_root = os.path.dirname(canonical_pool_root)
     rel_posix = rel.replace(os.sep, "/")
     expected_legacy_path = f"{subject}/{rel_posix}"
     if parsed.get("connector_id") != manifest["id"]:
@@ -554,10 +558,17 @@ def _verify_v2_projection(data_path, rel, parsed, manifest, decision_at):
     return "superseded"
 
 
-def _collect_sidecars(data_path, decision_at):
-    """{document relpath -> parsed sidecar dict} for every readable `<doc>.source.json`."""
+def _collect_sidecars(data_path, decision_at, inventory=None, *, canonical_data_path=None):
+    """Return provenance parsed from one exact pool snapshot.
+
+    ``data_path`` and ``inventory`` identify the bytes being extracted.  When
+    they point at a private snapshot, ``canonical_data_path`` keeps connector
+    registry/current lookups anchored beside the real subject pool without
+    reopening either the live projected document or its live sidecar.
+    """
     out = {}
-    for p in iter_pool_files(data_path):
+    inventory = tuple(inventory) if inventory is not None else _complete_pool_inventory(data_path)
+    for p in inventory:
         base = os.path.basename(p)
         if not _is_sidecar(base):
             continue
@@ -578,7 +589,7 @@ def _collect_sidecars(data_path, decision_at):
             }
             rel = os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]
             try:
-                owner = _v2_projection_manifest(data_path, rel)
+                owner = _v2_projection_manifest(canonical_data_path or data_path, rel)
             except Exception as exc:
                 owner = None
                 parsed = {**parsed, "_integrity_error": f"bad connector projection: {exc}"}
@@ -610,6 +621,7 @@ def _collect_sidecars(data_path, decision_at):
                 try:
                     projection_state = _verify_v2_projection(
                         data_path, rel, parsed, owner, decision_at,
+                        canonical_data_path=canonical_data_path,
                     )
                     # Carry the digest this verification actually attested, so the later
                     # _snapshot_pool_file read can be bound to THESE bytes rather than trusting that
@@ -644,7 +656,7 @@ def _collect_sidecars(data_path, decision_at):
     # view of canonical current, so accepting the payload alone would turn a broken canonical projection into
     # an unrelated tier-9 document. Scan documents after sidecars so missing, invalid-JSON, and non-object
     # sidecars all fail closed when (and only when) a valid v2 manifest owns that exact projection path.
-    for p in iter_pool_files(data_path):
+    for p in inventory:
         base = os.path.basename(p)
         if _is_sidecar(base):
             continue
@@ -652,7 +664,7 @@ def _collect_sidecars(data_path, decision_at):
         if not _is_external_rel(rel) or rel in out:
             continue
         try:
-            owner = _v2_projection_manifest(data_path, rel)
+            owner = _v2_projection_manifest(canonical_data_path or data_path, rel)
         except Exception as exc:
             out[rel] = {"_integrity_error": f"bad connector projection: {exc}"}
             continue
@@ -1034,8 +1046,9 @@ def _read_pdf_py(path, max_pages=None):
 #   2. else tesseract OCR (offline floor; garbles complex tables but better than nothing).
 # The result is cached ONCE per (file identity + method + model) under .ocr-cache, so a --force
 # re-check and every module's run reuse it — the cost (and any token spend) is paid once, ever.
-# Vision is OFF in the readiness pre-flight (it must not spend tokens before the user proceeds);
-# the in-run extraction turns it on, so the gate stays free while the actual run reads everything.
+# Vision is OFF in readiness (it must not spend tokens before the user proceeds). Readiness gives
+# local OCR no pool-wide deadline and freezes both raw bytes and every completed local result, so
+# later children reuse that exact provider-neutral generation rather than upgrading it in-run.
 
 def _env_int(name, default):
     try:
@@ -1048,9 +1061,8 @@ _OCR_ENABLED = os.environ.get("EXTRACT_OCR", "1") != "0"
 _OCR_MAX_PAGES = _env_int("EXTRACT_OCR_MAX_PAGES", 30)   # first N pages carry the statements/notes we cite
 _OCR_DPI = _env_int("EXTRACT_OCR_DPI", 200)              # 200 dpi is ample for machine text, ~2x faster than 300
 _OCR_PER_FILE_TIMEOUT = _env_int("EXTRACT_OCR_FILE_TIMEOUT_S", 300)
-# Optional pool-wide visual-read wall-clock budget. The readiness pre-flight sets it (via the child
-# env) so a first check on a fresh scan can't hang past its own Node timeout; whatever completes is
-# cached, and the (uncapped) in-run extraction finishes the rest. 0 = unbounded.
+# Optional pool-wide visual-read wall-clock budget for non-admission callers. Readiness explicitly
+# overrides it to 0 (unbounded) because a frozen generation may not defer work to later children.
 _OCR_POOL_BUDGET_S = _env_int("EXTRACT_OCR_BUDGET_S", 0)
 _OCR_CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".ocr-cache")
 _ocr_deadline = None  # monotonic deadline for the pool budget; set per extract_pool() call
@@ -1178,7 +1190,7 @@ def _cache_read(cache):
 def _cache_write(cache, txt):
     if cache:
         try:
-            open(cache, "w", encoding="utf-8").write(txt)
+            _atomic_text(cache, txt)
         except Exception:
             pass
 
@@ -1542,12 +1554,108 @@ def sniff_text(path, max_chars=16000):
 
 # ---------- full pool extract ----------
 
+_OUTPUT_LOCK_NAME = ".extract-pool.flock"
+_GENERATION_DIR_NAME = ".extract-generations"
+_GENERATION_BINDING_FORMAT = "python-json-sort-keys-compact-utf8/v1"
+_LOCK_TIMEOUT_ENV = "EXTRACT_POOL_LOCK_TIMEOUT_S"
+_DEFAULT_LOCK_TIMEOUT_S = 120.0
+_SNAPSHOT_ATTEMPTS = 2
+
+# A full-run supervisor can bind every later child to the exact pool generation
+# admitted by the chain root.  All four variables are required together.  When
+# present, ``extract_pool`` validates and reuses that immutable generation
+# without enumerating or reading the live Drive pool.
+FROZEN_POOL_DATA_PATH_ENV = "NOSTRA_FROZEN_POOL_DATA_PATH"
+FROZEN_POOL_OUT_DIR_ENV = "NOSTRA_FROZEN_POOL_OUT_DIR"
+FROZEN_POOL_BINDING_OUT_DIR_ENV = "NOSTRA_FROZEN_POOL_BINDING_OUT_DIR"
+FROZEN_POOL_GENERATION_ENV = "NOSTRA_FROZEN_POOL_GENERATION"
+
+
+class PoolInventoryError(RuntimeError):
+    """The pool could not be traversed completely, so an empty verdict is unsafe."""
+
+
+class PoolChangedDuringExtraction(RuntimeError):
+    """The complete pool changed between snapshot and publication."""
+
+
+class FrozenPoolGenerationError(RuntimeError):
+    """A supervisor-bound immutable pool generation is absent or does not verify."""
+
+
+@contextmanager
+def _pool_output_lease(out_dir, timeout_s=None, cancelled=None):
+    """Serialize every publisher targeting one extraction directory.
+
+    Full-run module children share ``<RUN_ROOT>/_pool_extracts``.  Without one
+    retained kernel lease, two extractors can both miss the freshness cache and
+    truncate the same manifest/extract files while the other is still reading
+    or writing them.  The lock inode is persistent: a process exit releases the
+    lease in the kernel, so no stale PID file can wedge later work.
+    """
+    os.makedirs(out_dir, exist_ok=True)
+    directory = os.path.realpath(os.path.abspath(out_dir))
+    lock_path = os.path.join(directory, _OUTPUT_LOCK_NAME)
+    flags = os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0)
+    fd = None
+    try:
+        fd = os.open(lock_path, flags, 0o600)
+        opened = os.fstat(fd)
+        named = os.lstat(lock_path)
+        if (not stat.S_ISREG(opened.st_mode)
+                or stat.S_ISLNK(named.st_mode)
+                or opened.st_uid != os.getuid()
+                or opened.st_nlink != 1
+                or stat.S_IMODE(opened.st_mode) & 0o077
+                or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+            raise RuntimeError(f"unsafe extraction lock at {lock_path}")
+        if timeout_s is None:
+            raw_timeout = os.environ.get(_LOCK_TIMEOUT_ENV, str(_DEFAULT_LOCK_TIMEOUT_S))
+            try:
+                timeout_s = float(raw_timeout)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"{_LOCK_TIMEOUT_ENV} must be a finite non-negative number") from exc
+        if not isinstance(timeout_s, (int, float)) or timeout_s < 0 or timeout_s != timeout_s:
+            raise ValueError("extraction lock timeout must be a finite non-negative number")
+        # Never inherit an unbounded wait from a caller or environment typo.  A
+        # crashed holder releases flock in the kernel; a live but wedged holder
+        # must surface as a technical failure instead of freezing every module.
+        timeout_s = min(float(timeout_s), 300.0)
+        deadline = _time.monotonic() + timeout_s
+        while True:
+            if cancelled is not None and cancelled():
+                raise InterruptedError("extraction lock wait cancelled")
+            try:
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                break
+            except OSError as exc:
+                if exc.errno not in (errno.EACCES, errno.EAGAIN):
+                    raise
+                remaining = deadline - _time.monotonic()
+                if remaining <= 0:
+                    raise TimeoutError(
+                        f"timed out after {timeout_s:g}s waiting for extraction lock at {lock_path}"
+                    ) from None
+                _time.sleep(min(0.05, remaining))
+        yield
+    finally:
+        if fd is not None:
+            os.close(fd)
+
 # v3: _file_guard_identity dropped ctime_ns (a Drive xattr touch on one file was discarding the
 # whole cached manifest). The shape changed, so every v2 guard must be treated as stale rather than
 # compared field-by-field against a differently-shaped dict.
 _CACHE_GUARD_VERSION = 3
 
-def iter_pool_files(data_path):
+def _complete_pool_inventory(data_path):
+    """Return every safe pool file, or fail if traversal was incomplete.
+
+    An I/O error is not an empty directory.  The old generator swallowed root,
+    walk, directory-lstat, and file-lstat failures, allowing a transient Drive
+    problem to collapse a populated pool into ``zero_files``.  This routine
+    completes traversal before returning anything and surfaces every uncertain
+    branch as a technical error.
+    """
     # Resolve the configured root once (the root itself may intentionally be a
     # Drive symlink), then never recurse through a descendant symlink. Yield
     # the caller's lexical root so existing relpath/provenance labels remain
@@ -1556,23 +1664,41 @@ def iter_pool_files(data_path):
     real_root = os.path.realpath(lexical_root)
     try:
         root_info = os.lstat(real_root)
-    except OSError:
-        return
+    except OSError as exc:
+        raise PoolInventoryError(f"cannot inspect pool root {real_root}: {exc}") from exc
     if stat.S_ISLNK(root_info.st_mode) or not stat.S_ISDIR(root_info.st_mode):
-        return
+        raise PoolInventoryError(f"pool root is not a directory: {real_root}")
 
     def _raise_walk_error(exc):
         raise exc
 
+    inventory = []
     try:
         walker = os.walk(real_root, topdown=True, followlinks=False, onerror=_raise_walk_error)
         for directory, dirs, files in walker:
+            rel_directory = os.path.relpath(directory, real_root)
+            lexical_directory = lexical_root if rel_directory == "." else os.path.join(
+                lexical_root, rel_directory,
+            )
+            marker = os.path.join(lexical_directory, ".nostradamus_output")
+            try:
+                os.lstat(marker)
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                raise PoolInventoryError(f"cannot inspect output marker {marker}: {exc}") from exc
+            else:
+                # The sentinel owns the whole output subtree. Pruning here keeps
+                # extractor, readiness presence, and cockpit classification identical.
+                dirs[:] = []
+                continue
             safe_dirs = []
             for name in sorted(dirs):
+                candidate = os.path.join(directory, name)
                 try:
-                    info = os.lstat(os.path.join(directory, name))
-                except OSError:
-                    continue
+                    info = os.lstat(candidate)
+                except OSError as exc:
+                    raise PoolInventoryError(f"cannot inspect pool directory {candidate}: {exc}") from exc
                 if stat.S_ISDIR(info.st_mode) and not stat.S_ISLNK(info.st_mode):
                     safe_dirs.append(name)
             dirs[:] = safe_dirs
@@ -1580,23 +1706,460 @@ def iter_pool_files(data_path):
                 real_path = os.path.join(directory, name)
                 try:
                     info = os.lstat(real_path)
-                except OSError:
-                    continue
+                except OSError as exc:
+                    raise PoolInventoryError(f"cannot inspect pool file {real_path}: {exc}") from exc
                 if (stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode)
                         or info.st_nlink != 1):
                     continue
                 rel = os.path.relpath(real_path, real_root)
                 if any(part in {"", ".", ".."} for part in rel.split(os.sep)):
-                    continue
+                    raise PoolInventoryError(f"unsafe relative path discovered in pool: {rel!r}")
                 p = os.path.join(lexical_root, rel)
-                # skip engine-written output folders (the memos/thesis/dossier saved back into the company's
-                # Drive folder), marked by a .nostradamus_output sentinel — so a run never re-ingests its own
-                # prior research as input data and contaminates the new analysis.
-                if os.path.exists(os.path.join(os.path.dirname(p), ".nostradamus_output")):
-                    continue
-                yield p
-    except OSError:
+                inventory.append(p)
+    except PoolInventoryError:
+        raise
+    except OSError as exc:
+        raise PoolInventoryError(f"pool traversal failed under {real_root}: {exc}") from exc
+    return tuple(inventory)
+
+
+def iter_pool_files(data_path):
+    """Iterate only after a complete, error-aware traversal has succeeded."""
+    yield from _complete_pool_inventory(data_path)
+
+
+def _pool_rel(data_path, path):
+    rel = os.path.relpath(path, os.path.abspath(data_path))
+    if any(part in {"", ".", ".."} for part in rel.split(os.sep)):
+        raise PoolInventoryError(f"unsafe pool-relative path: {rel!r}")
+    return rel
+
+
+def _capture_pool_snapshot(data_path, inventory, snapshot_pool):
+    """Copy the already-complete inventory once and bind every byte by SHA-256."""
+    captured = []
+    for path in inventory:
+        rel = _pool_rel(data_path, path)
+        try:
+            snapshot_path = _snapshot_pool_file(data_path, rel, snapshot_pool)
+            with open(snapshot_path, "rb") as handle:
+                raw = handle.read()
+            live = os.stat(path, follow_symlinks=False)
+            # Classification falls back to mtime when a document has no parseable
+            # period. Keep the source timestamp on the immutable raw snapshot so
+            # extraction time can never make an old undated document look current.
+            os.utime(
+                snapshot_path,
+                ns=(live.st_atime_ns, live.st_mtime_ns),
+                follow_symlinks=False,
+            )
+        except (OSError, ValueError) as exc:
+            raise PoolChangedDuringExtraction(
+                f"pool changed or became unreadable while snapshotting {rel}: {exc}"
+            ) from exc
+        captured.append({
+            "path": path,
+            "rel": rel.replace(os.sep, "/"),
+            "snapshot_path": snapshot_path,
+            "sha256": hashlib.sha256(raw).hexdigest(),
+            "size": len(raw),
+            "mtime_ns": live.st_mtime_ns,
+        })
+    return tuple(captured)
+
+
+def _revalidate_pool_inventory(data_path, captured):
+    """Prove the complete live inventory still equals the captured transaction."""
+    current_paths = _complete_pool_inventory(data_path)
+    expected = [entry["rel"] for entry in captured]
+    current_rels = [_pool_rel(data_path, path).replace(os.sep, "/") for path in current_paths]
+    if current_rels != expected:
+        raise PoolChangedDuringExtraction(
+            "pool file set changed during extraction "
+            f"(captured={expected!r}, current={current_rels!r})"
+        )
+
+    verified = []
+    for path, captured_entry in zip(current_paths, captured):
+        rel = captured_entry["rel"]
+        try:
+            raw = _read_pool_regular_bytes(data_path, rel)
+            live = os.stat(path, follow_symlinks=False)
+        except (OSError, ValueError) as exc:
+            raise PoolChangedDuringExtraction(
+                f"pool changed or became unreadable before publication at {rel}: {exc}"
+            ) from exc
+        digest = hashlib.sha256(raw).hexdigest()
+        if len(raw) != captured_entry["size"] or digest != captured_entry["sha256"]:
+            raise PoolChangedDuringExtraction(f"pool bytes changed during extraction at {rel}")
+        verified.append({
+            **captured_entry,
+            "path": path,
+            "size": len(raw),
+            "mtime_ns": live.st_mtime_ns,
+        })
+    return tuple(verified)
+
+
+def _generation_reference(generation_digest, local_name):
+    local = str(local_name).replace(os.sep, "/").lstrip("/")
+    if any(part in {"", ".", ".."} for part in local.split("/")):
+        raise ValueError(f"unsafe generation artifact name: {local_name!r}")
+    return f"{_GENERATION_DIR_NAME}/{generation_digest}/{local}"
+
+
+def _localize_generation_sources(sources):
+    """Copy sources and strip a generation prefix for digest calculation."""
+    cloned = json.loads(json.dumps(sources, default=str))
+    for source in cloned:
+        names = [(source, "extract")]
+        names.extend((sheet, "extract") for sheet in (source.get("sheets") or []) if isinstance(sheet, dict))
+        for owner, key in names:
+            value = owner.get(key)
+            if not isinstance(value, str) or value == "(original)":
+                continue
+            parts = value.replace(os.sep, "/").split("/")
+            if len(parts) >= 3 and parts[0] == _GENERATION_DIR_NAME:
+                owner[key] = "/".join(parts[2:])
+    return cloned
+
+
+def _localize_original_sources(sources, raw_prefix):
+    """Give in-place text an immutable local artifact instead of a Drive sentinel."""
+    cloned = json.loads(json.dumps(sources, default=str))
+    for source in cloned:
+        if not isinstance(source, dict) or source.get("extract") != "(original)":
+            continue
+        rel = str(source.get("path") or source.get("file") or "").replace(os.sep, "/")
+        if not rel or any(part in {"", ".", ".."} for part in rel.split("/")):
+            raise ValueError(f"unsafe in-place source path: {rel!r}")
+        source["extract"] = f"{raw_prefix.rstrip('/')}/{rel}"
+    return cloned
+
+
+def _prefix_generation_sources(sources, generation_digest):
+    cloned = json.loads(json.dumps(sources, default=str))
+    for source in cloned:
+        names = [(source, "extract")]
+        names.extend((sheet, "extract") for sheet in (source.get("sheets") or []) if isinstance(sheet, dict))
+        for owner, key in names:
+            value = owner.get(key)
+            if isinstance(value, str):
+                owner[key] = _generation_reference(generation_digest, value)
+    return cloned
+
+
+def _hash_generation_artifacts(directory):
+    artifacts = {}
+    for root, dirs, files in os.walk(directory, topdown=True, followlinks=False):
+        dirs[:] = sorted(d for d in dirs if not os.path.islink(os.path.join(root, d)))
+        for name in sorted(files):
+            path = os.path.join(root, name)
+            info = os.lstat(path)
+            if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode):
+                raise ValueError(f"unsafe staged generation artifact: {path}")
+            rel = os.path.relpath(path, directory).replace(os.sep, "/")
+            with open(path, "rb") as handle:
+                artifacts[rel] = hashlib.sha256(handle.read()).hexdigest()
+    return artifacts
+
+
+def _generation_binding_payload(
+        data_path, out_dir, captured, sources, entities, artifacts, vision_mode,
+        offline_extraction_complete, raw_prefix):
+    return {
+        "schema_version": "pool-generation/v2",
+        # This deliberately changes the content address from the first v2
+        # receipts, which did not retain the bytes Python hashed.  A stale v2
+        # cache therefore rebuilds into a new directory instead of colliding
+        # with an unverifiable legacy directory at the old digest.
+        "binding_format": _GENERATION_BINDING_FORMAT,
+        "data_path": os.path.abspath(data_path),
+        "out_dir": os.path.abspath(out_dir),
+        "vision_mode": bool(vision_mode),
+        "offline_extraction_complete": bool(offline_extraction_complete),
+        "raw_prefix": raw_prefix,
+        "inputs": {entry["rel"]: entry["sha256"] for entry in captured},
+        "sources": _localize_generation_sources(sources),
+        "entities": entities,
+        "artifacts": dict(sorted(artifacts.items())),
+    }
+
+
+def _generation_binding_json(payload):
+    """Return the exact Python JSON text used as the generation content address.
+
+    Keep these bytes in the receipt.  Another runtime can hash and parse them,
+    but must not try to reproduce Python's number spelling (for example 5.0 or
+    1e-07) with its own JSON serializer.
+    """
+    return json.dumps(
+        payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False,
+        allow_nan=False,
+    )
+
+
+def _generation_digest_from_json(binding_json):
+    if not isinstance(binding_json, str):
+        raise ValueError("generation binding JSON must be text")
+    return hashlib.sha256(binding_json.encode("utf-8")).hexdigest()
+
+
+def _generation_digest(payload):
+    return _generation_digest_from_json(_generation_binding_json(payload))
+
+
+def _frozen_pool_binding_from_env():
+    values = {
+        "data_path": os.environ.get(FROZEN_POOL_DATA_PATH_ENV),
+        "out_dir": os.environ.get(FROZEN_POOL_OUT_DIR_ENV),
+        "binding_out_dir": os.environ.get(FROZEN_POOL_BINDING_OUT_DIR_ENV),
+        "generation": os.environ.get(FROZEN_POOL_GENERATION_ENV),
+    }
+    present = [value is not None for value in values.values()]
+    if not any(present):
+        return None
+    if not all(present):
+        raise FrozenPoolGenerationError(
+            "frozen pool reuse requires all of "
+            f"{FROZEN_POOL_DATA_PATH_ENV}, {FROZEN_POOL_OUT_DIR_ENV}, "
+            f"{FROZEN_POOL_BINDING_OUT_DIR_ENV}, "
+            f"and {FROZEN_POOL_GENERATION_ENV}"
+        )
+    if not re.fullmatch(r"[0-9a-f]{64}", values["generation"] or ""):
+        raise FrozenPoolGenerationError("frozen pool generation must be a lowercase SHA-256 digest")
+    return values
+
+
+def _assert_plain_directory(path, label, *, read_only=False):
+    try:
+        info = os.lstat(path)
+    except OSError as exc:
+        raise FrozenPoolGenerationError(f"{label} is unavailable") from exc
+    if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
+        raise FrozenPoolGenerationError(f"{label} is not a plain directory")
+    if read_only and os.name != "nt" and info.st_mode & 0o222:
+        raise FrozenPoolGenerationError(f"{label} is writable")
+
+
+def _plain_generation_artifact(generation_dir, rel, *, require_read_only=True):
+    """Resolve one manifest member without following any symlink component."""
+    if (not isinstance(rel, str) or rel.startswith("/")
+            or any(part in {"", ".", ".."} for part in rel.split("/"))):
+        raise FrozenPoolGenerationError("frozen pool artifact path is malformed")
+    current = generation_dir
+    for part in rel.split("/")[:-1]:
+        current = os.path.join(current, part)
+        _assert_plain_directory(
+            current, f"frozen pool artifact directory {rel}",
+            read_only=require_read_only,
+        )
+    path = os.path.join(generation_dir, *rel.split("/"))
+    try:
+        info = os.lstat(path)
+    except OSError as exc:
+        raise FrozenPoolGenerationError(f"frozen pool artifact is missing: {rel}") from exc
+    if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode):
+        raise FrozenPoolGenerationError(f"frozen pool artifact is not a plain file: {rel}")
+    if require_read_only and os.name != "nt" and info.st_mode & 0o222:
+        raise FrozenPoolGenerationError(f"frozen pool artifact is writable: {rel}")
+    return path
+
+
+def _read_plain_generation_artifact(generation_dir, rel, *, require_read_only=True):
+    """Read one plain generation member from a pinned file descriptor.
+
+    ``_plain_generation_artifact`` rejects an existing symlink, but a path can
+    still be replaced between that lstat and a later ``open``.  Open the final
+    component with ``O_NOFOLLOW`` where the platform supports it, validate the
+    descriptor itself, and read from that descriptor.  Callers still compare
+    the returned bytes with the generation's digest binding.
+    """
+    path = _plain_generation_artifact(
+        generation_dir, rel, require_read_only=require_read_only,
+    )
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    try:
+        fd = os.open(path, flags)
+    except OSError as exc:
+        raise FrozenPoolGenerationError(
+            f"frozen pool artifact is unavailable: {rel}"
+        ) from exc
+    try:
+        info = os.fstat(fd)
+        if not stat.S_ISREG(info.st_mode):
+            raise FrozenPoolGenerationError(
+                f"frozen pool artifact is not a plain file: {rel}"
+            )
+        if require_read_only and os.name != "nt" and info.st_mode & 0o222:
+            raise FrozenPoolGenerationError(
+                f"frozen pool artifact is writable: {rel}"
+            )
+        chunks = []
+        while True:
+            chunk = os.read(fd, 1024 * 1024)
+            if not chunk:
+                break
+            chunks.append(chunk)
+        return b"".join(chunks)
+    finally:
+        os.close(fd)
+
+
+def _seal_generation_tree(generation_dir):
+    """Make one published content-addressed generation OS read-only."""
+    if os.name == "nt":
         return
+    for root, dirs, files in os.walk(generation_dir, topdown=False, followlinks=False):
+        for name in files:
+            path = os.path.join(root, name)
+            info = os.lstat(path)
+            if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode):
+                raise ValueError(f"unsafe generation member while sealing: {path}")
+            os.chmod(path, 0o444, follow_symlinks=False)
+        for name in dirs:
+            path = os.path.join(root, name)
+            info = os.lstat(path)
+            if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
+                raise ValueError(f"unsafe generation directory while sealing: {path}")
+            os.chmod(path, 0o555, follow_symlinks=False)
+        os.chmod(root, 0o555, follow_symlinks=False)
+
+
+def _verified_generation_manifest(
+        data_path, out_dir, digest, *, require_read_only=True, require_complete=False,
+        binding_out_dir=None):
+    """Load and verify one immutable generation without touching the live pool."""
+    generation_parent = os.path.join(os.path.abspath(out_dir), _GENERATION_DIR_NAME)
+    generation_dir = os.path.join(generation_parent, digest)
+    _assert_plain_directory(generation_parent, "frozen pool generation parent")
+    _assert_plain_directory(
+        generation_dir, "frozen pool generation", read_only=require_read_only,
+    )
+    try:
+        manifest = json.loads(_read_plain_generation_artifact(
+            generation_dir, "manifest.json", require_read_only=require_read_only,
+        ).decode("utf-8"))
+    except Exception as exc:
+        raise FrozenPoolGenerationError(
+            f"frozen pool generation {digest} is unavailable or unreadable"
+        ) from exc
+    generation = manifest.get("generation") if isinstance(manifest, dict) else None
+    if not isinstance(generation, dict) or generation.get("digest") != digest:
+        raise FrozenPoolGenerationError("frozen pool manifest generation does not match its binding")
+    if generation.get("schema_version") != "pool-generation/v2":
+        raise FrozenPoolGenerationError("frozen pool generation uses an unsupported legacy schema")
+    if require_complete and manifest.get("offline_extraction_complete") is not True:
+        raise FrozenPoolGenerationError("frozen pool generation contains a time-budgeted partial extraction")
+    if os.path.abspath(str(manifest.get("data_path", ""))) != os.path.abspath(data_path):
+        raise FrozenPoolGenerationError("frozen pool manifest is bound to a different data path")
+    logical_out_dir = os.path.abspath(binding_out_dir or out_dir)
+    if os.path.abspath(str(manifest.get("out_dir", ""))) != logical_out_dir:
+        raise FrozenPoolGenerationError("frozen pool manifest is bound to a different output path")
+    artifacts = generation.get("artifacts")
+    inputs = generation.get("inputs")
+    raw_prefix = generation.get("raw_prefix")
+    binding_json = generation.get("binding_json")
+    if (not isinstance(artifacts, dict) or not isinstance(inputs, dict)
+            or not isinstance(raw_prefix, str) or not isinstance(binding_json, str)
+            or any(part in {"", ".", ".."} for part in raw_prefix.split("/"))):
+        raise FrozenPoolGenerationError("frozen pool manifest lacks its immutable binding")
+    for rel, expected in artifacts.items():
+        if (not isinstance(rel, str) or not isinstance(expected, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", expected)):
+            raise FrozenPoolGenerationError("frozen pool artifact binding is malformed")
+        content = _read_plain_generation_artifact(
+            generation_dir, rel, require_read_only=require_read_only,
+        )
+        actual = hashlib.sha256(content).hexdigest()
+        if actual != expected:
+            raise FrozenPoolGenerationError(f"frozen pool artifact changed: {rel}")
+    for rel, expected in inputs.items():
+        if (not isinstance(rel, str) or not isinstance(expected, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", expected)):
+            raise FrozenPoolGenerationError("frozen pool input binding is malformed")
+        raw_rel = f"{raw_prefix}/{rel}"
+        if artifacts.get(raw_rel) != expected:
+            raise FrozenPoolGenerationError(f"frozen pool raw input is not exactly bound: {rel}")
+    exact_prefix = f"{_GENERATION_DIR_NAME}/{digest}/"
+    for source in manifest.get("sources") or []:
+        if not isinstance(source, dict):
+            raise FrozenPoolGenerationError("frozen pool source binding is malformed")
+        references = [source.get("extract")]
+        references.extend(
+            sheet.get("extract") for sheet in (source.get("sheets") or [])
+            if isinstance(sheet, dict)
+        )
+        for reference in references:
+            if reference is None:
+                continue
+            if not isinstance(reference, str) or not reference.startswith(exact_prefix):
+                raise FrozenPoolGenerationError("frozen pool extract escapes its bound generation")
+            local = reference[len(exact_prefix):]
+            if artifacts.get(local) is None:
+                raise FrozenPoolGenerationError("frozen pool extract is not a bound artifact")
+    payload = {
+        "schema_version": generation.get("schema_version"),
+        "binding_format": _GENERATION_BINDING_FORMAT,
+        "data_path": os.path.abspath(data_path),
+        "out_dir": logical_out_dir,
+        "vision_mode": bool(manifest.get("vision_mode")),
+        "offline_extraction_complete": bool(manifest.get("offline_extraction_complete")),
+        "raw_prefix": raw_prefix,
+        "inputs": inputs,
+        "sources": _localize_generation_sources(manifest.get("sources") or []),
+        "entities": manifest.get("entities") or [],
+        "artifacts": dict(sorted(artifacts.items())),
+    }
+    try:
+        parsed_binding = json.loads(binding_json)
+    except (TypeError, ValueError) as exc:
+        raise FrozenPoolGenerationError(
+            "frozen pool generation binding JSON is unreadable"
+        ) from exc
+    # The digest authenticates the exact retained UTF-8 bytes.  The two
+    # comparisons then prove those bytes are Python's canonical spelling of
+    # the independently reconstructed manifest/artifact/input/source/entity
+    # binding.  In particular, int/float spelling cannot disappear behind
+    # Python's loose ``5 == 5.0`` equality.
+    if _generation_digest_from_json(binding_json) != digest:
+        raise FrozenPoolGenerationError("frozen pool generation digest does not verify")
+    if parsed_binding != payload or binding_json != _generation_binding_json(payload):
+        raise FrozenPoolGenerationError("frozen pool generation binding does not match its manifest")
+    return manifest
+
+
+def _read_bound_generation_artifact(out_dir, manifest, rel):
+    """Re-read and verify a generation member immediately before projection."""
+    generation = manifest.get("generation") if isinstance(manifest, dict) else None
+    digest = generation.get("digest") if isinstance(generation, dict) else None
+    artifacts = generation.get("artifacts") if isinstance(generation, dict) else None
+    expected = artifacts.get(rel) if isinstance(artifacts, dict) else None
+    if (not isinstance(digest, str) or not isinstance(expected, str)
+            or not re.fullmatch(r"[0-9a-f]{64}", expected)):
+        raise FrozenPoolGenerationError(
+            f"frozen pool artifact is not bound by the generation: {rel}"
+        )
+    generation_dir = os.path.join(out_dir, _GENERATION_DIR_NAME, digest)
+    content = _read_plain_generation_artifact(generation_dir, rel)
+    if hashlib.sha256(content).hexdigest() != expected:
+        raise FrozenPoolGenerationError(f"frozen pool artifact changed: {rel}")
+    return content
+
+
+def _reuse_frozen_generation(
+        data_path, out_dir, digest, corpus_path=None, binding_out_dir=None):
+    manifest = _verified_generation_manifest(
+        data_path, out_dir, digest, require_complete=True,
+        binding_out_dir=binding_out_dir,
+    )
+    if corpus_path:
+        _atomic_bytes(
+            corpus_path,
+            _read_bound_generation_artifact(out_dir, manifest, "corpus.txt"),
+        )
+    print(f"[extract_pool] frozen generation {digest} reused; live pool was not read")
+    return manifest
 
 
 def _file_guard_identity(path, *, content_hash=False):
@@ -1643,7 +2206,7 @@ def _tool_guard_identity(name):
         return {"path": os.path.realpath(path), "unreadable": True}
 
 
-def _cache_guard_snapshot(data_path, out_dir, manifest):
+def _cache_guard_snapshot(data_path, out_dir, manifest, *, captured=None, extract_root=None):
     """Identity inputs which can change a cached manifest's evidence verdict.
 
     Raw pool inputs use size + nanosecond mtime/ctime so an ordinary edit is
@@ -1655,9 +2218,21 @@ def _cache_guard_snapshot(data_path, out_dir, manifest):
     """
     pool_inputs = {}
     visual_caches = {}
-    for path in iter_pool_files(data_path):
-        rel = os.path.relpath(path, data_path).replace(os.sep, "/")
-        pool_inputs[rel] = _file_guard_identity(path)
+    inventory_rows = captured
+    if inventory_rows is None:
+        inventory_rows = tuple({
+            "path": path,
+            "rel": os.path.relpath(path, data_path).replace(os.sep, "/"),
+            "snapshot_path": path,
+            **_file_guard_identity(path),
+        } for path in _complete_pool_inventory(data_path))
+    for entry in inventory_rows:
+        path = entry.get("snapshot_path") or entry["path"]
+        rel = entry["rel"]
+        pool_inputs[rel] = {
+            "size": entry["size"],
+            "mtime_ns": entry["mtime_ns"],
+        }
         if _is_sidecar(os.path.basename(path)):
             continue
         ext = path.lower().rsplit(".", 1)[-1] if "." in os.path.basename(path) else ""
@@ -1680,7 +2255,13 @@ def _cache_guard_snapshot(data_path, out_dir, manifest):
             if isinstance(sheet_extract, str) and sheet_extract.endswith(".txt"):
                 names.append(sheet_extract)
         for name in names:
-            path = os.path.join(out_dir, name)
+            if extract_root is not None:
+                local = name.replace(os.sep, "/").split("/")
+                if len(local) >= 3 and local[0] == _GENERATION_DIR_NAME:
+                    local = local[2:]
+                path = os.path.join(extract_root, *local)
+            else:
+                path = os.path.join(out_dir, name)
             if not os.path.isfile(path):
                 approved_extracts[name] = {"missing": True}
             else:
@@ -1796,11 +2377,38 @@ def is_fresh(out_dir, data_path, script_path, now=None):
             cached = json.load(open(man))
         except Exception:  # noqa
             return None
-        guard = cached.get("cache_guard") if isinstance(cached, dict) else None
-        if not isinstance(guard, dict) or guard.get("version") != _CACHE_GUARD_VERSION:
+        generation = cached.get("generation") if isinstance(cached, dict) else None
+        digest = generation.get("digest") if isinstance(generation, dict) else None
+        # A legacy flat cache is not an admission receipt.  Rebuild it into an
+        # immutable raw+derived generation before any caller can treat it as
+        # fresh, even when its old timestamps and guard still happen to match.
+        if (not isinstance(generation, dict)
+                or generation.get("schema_version") != "pool-generation/v2"
+                or not isinstance(generation.get("raw_prefix"), str)
+                or not isinstance(digest, str)
+                or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                or not os.path.isfile(os.path.join(
+                    out_dir, _GENERATION_DIR_NAME, digest, "manifest.json",
+                ))):
+            return None
+        pointer_guard = cached.get("cache_guard") if isinstance(cached, dict) else None
+        try:
+            # Root manifest.json is only a replaceable pointer.  Statuses,
+            # entities, provenance and source references used by readiness must
+            # come from the self-verifying immutable generation, never from a
+            # root-only edit that happens to preserve timestamps/cache shape.
+            cached = _verified_generation_manifest(data_path, out_dir, digest)
+        except FrozenPoolGenerationError:
+            return None
+        if (not isinstance(pointer_guard, dict)
+                or pointer_guard.get("version") != _CACHE_GUARD_VERSION):
             return None
         try:
-            if guard != _cache_guard_snapshot(data_path, out_dir, cached):
+            # The mutable root pointer may carry current mtime freshness (a
+            # deterministic rebuild can reuse the same immutable digest after
+            # Drive rewrites identical bytes). Recompute it from trusted
+            # generation references, but never consume root statuses/entities.
+            if pointer_guard != _cache_guard_snapshot(data_path, out_dir, cached):
                 return None
         except Exception:
             return None
@@ -1810,7 +2418,45 @@ def is_fresh(out_dir, data_path, script_path, now=None):
     return None
 
 
-def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None, now=None):
+def extract_pool(
+        data_path, out_dir, force=False, corpus_path=None, vision=None, now=None,
+        ocr_budget_s=None):
+    """Build or reuse one pool extraction under its output-directory lease."""
+    frozen = _frozen_pool_binding_from_env()
+    if frozen is not None:
+        if os.path.abspath(data_path) != os.path.abspath(frozen["data_path"]):
+            raise FrozenPoolGenerationError("extractor data path differs from supervisor frozen binding")
+        if os.path.abspath(out_dir) != os.path.abspath(frozen["out_dir"]):
+            raise FrozenPoolGenerationError("extractor output path differs from supervisor frozen binding")
+        if force:
+            raise FrozenPoolGenerationError("a frozen pool generation cannot be force-rebuilt")
+        return _reuse_frozen_generation(
+            data_path, out_dir, frozen["generation"], corpus_path=corpus_path,
+            binding_out_dir=frozen["binding_out_dir"],
+        )
+    with _pool_output_lease(out_dir):
+        for attempt in range(_SNAPSHOT_ATTEMPTS):
+            try:
+                return _extract_pool_locked(
+                    data_path, out_dir, force=force, corpus_path=corpus_path,
+                    vision=vision, now=now, ocr_budget_s=ocr_budget_s,
+                )
+            except PoolChangedDuringExtraction:
+                # Python 3.14 can retain the exception frame long enough that
+                # TemporaryDirectory finalizers have not run before the next
+                # bounded snapshot attempt.  Remove only this extractor's
+                # private direct-child build directories while the output
+                # lease is still held.
+                for pending in glob.glob(os.path.join(out_dir, ".extract-build-*")):
+                    shutil.rmtree(pending)
+                if attempt + 1 >= _SNAPSHOT_ATTEMPTS:
+                    raise
+                print("[extract_pool] pool changed during snapshot; retrying one complete transaction")
+
+
+def _extract_pool_locked(
+        data_path, out_dir, force=False, corpus_path=None, vision=None, now=None,
+        ocr_budget_s=None):
     script_path = os.path.abspath(__file__)
     decision_at = _decision_time_utc(now)
     # Vision (Claude) reads image-only PDFs + images. OFF in the readiness pre-flight (vision=False,
@@ -1818,12 +2464,24 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
     # the offline floor either way.
     global _ocr_deadline, _vision_on
     _vision_on = _VISION_ON_ENV if vision is None else bool(vision)
-    # Arm the pool-wide visual-read budget for this pass (readiness pre-flight sets EXTRACT_OCR_BUDGET_S;
-    # the in-run extraction leaves it 0 = unbounded so every scan/image gets read + cached).
-    _ocr_deadline = (_time.monotonic() + _OCR_POOL_BUDGET_S) if _OCR_POOL_BUDGET_S > 0 else None
+    # A caller can explicitly request 0 = unbounded.  Readiness does so because
+    # its generation becomes the immutable input for every later child; it may
+    # never freeze a "deferred until the run" OCR row.  Other callers retain the
+    # configured pool budget when this argument is omitted.
+    effective_ocr_budget_s = (
+        _OCR_POOL_BUDGET_S if ocr_budget_s is None else max(0, float(ocr_budget_s))
+    )
+    _ocr_deadline = (
+        _time.monotonic() + effective_ocr_budget_s
+        if effective_ocr_budget_s > 0 else None
+    )
     if not force:
         cached = is_fresh(out_dir, data_path, script_path, now=decision_at)
         if cached:
+            needs_complete_offline = (
+                effective_ocr_budget_s == 0
+                and cached.get("offline_extraction_complete") is not True
+            )
             # A manifest built WITHOUT vision (e.g. the tesseract-only pre-flight gate) must be rebuilt
             # when Claude vision is now AVAILABLE (key present) and there are visual sources to UPGRADE —
             # otherwise the run would silently reuse the gate's tesseract text and never call vision. Gate
@@ -1834,29 +2492,57 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 or str(s.get("note") or "").startswith("OCR")
                 or (s.get("kind") == "pdf" and s.get("status") == "fail")
                 for s in cached.get("sources", []))
-            if not needs_vision_upgrade:
+            if not needs_vision_upgrade and not needs_complete_offline:
                 t = cached.get("totals", {})
                 print(f"[extract_pool] fresh — {t.get('tabs',0)} tabs across "
                       f"{t.get('workbooks',0)} workbook(s), {t.get('extracts_written',0)} "
                       f"extract(s) already in {out_dir} (use --force to rebuild)")
                 _ensure_durable_relationships(data_path, out_dir)
                 if corpus_path:
-                    _write_corpus(out_dir, data_path, corpus_path, cached)
+                    digest = (cached.get("generation") or {}).get("digest")
+                    if isinstance(digest, str):
+                        frozen = _verified_generation_manifest(data_path, out_dir, digest)
+                        _atomic_bytes(
+                            corpus_path,
+                            _read_bound_generation_artifact(out_dir, frozen, "corpus.txt"),
+                        )
+                    else:
+                        _write_corpus(out_dir, data_path, corpus_path, cached)
                 return cached
-            print("[extract_pool] upgrading image-only/scanned sources to Claude vision (was OCR/unread)")
+            if needs_complete_offline:
+                print("[extract_pool] replacing time-budgeted visual read with a complete offline pass")
+            else:
+                print("[extract_pool] upgrading image-only/scanned sources to Claude vision (was OCR/unread)")
 
     os.makedirs(out_dir, exist_ok=True)
-    snapshot_context = tempfile.TemporaryDirectory(prefix="nostra-pool-snapshot-")
-    snapshot_pool = os.path.join(
-        snapshot_context.name,
-        os.path.basename(os.path.realpath(os.path.abspath(data_path))) or "pool",
-    )
+    # Complete traversal is a transaction precondition.  Nothing is extracted
+    # until this returns successfully, so an unreadable branch can never be
+    # mistaken for an empty pool.
+    inventory = _complete_pool_inventory(data_path)
+    build_context = tempfile.TemporaryDirectory(prefix=".extract-build-", dir=out_dir)
+    build_out_dir = build_context.name
+    raw_subject = os.path.basename(os.path.realpath(os.path.abspath(data_path))) or "pool"
+    if raw_subject in {".", ".."} or os.sep in raw_subject:
+        raise PoolInventoryError(f"unsafe pool subject name: {raw_subject!r}")
+    raw_prefix = f"raw/{raw_subject}"
+    # The exact captured inputs are part of the immutable generation.  They
+    # remain available to every frozen child and are hashed alongside all
+    # derived artifacts instead of disappearing with a temporary snapshot.
+    snapshot_pool = os.path.join(build_out_dir, *raw_prefix.split("/"))
     os.makedirs(snapshot_pool)
     used = set()
     sources = []
+    # Capture the whole, already-enumerated pool before interpreting anything.
+    # Provenance and payload verification below consume these same immutable
+    # bytes, eliminating the old sidecar-before-snapshot race where new payload
+    # bytes could inherit provenance parsed from an earlier Drive state.
+    captured = _capture_pool_snapshot(data_path, inventory, snapshot_pool)
+    snapshot_inventory = tuple(entry["snapshot_path"] for entry in captured)
     prov_map = _collect_sidecars(
-        data_path, decision_at,
+        snapshot_pool, decision_at, inventory=snapshot_inventory,
+        canonical_data_path=data_path,
     )  # external provenance sidecars (EXTERNAL_DATA.md)
+    snapshot_by_rel = {entry["rel"]: entry for entry in captured}
     methodology_only_rels = set()
     rel = None
 
@@ -1888,33 +2574,20 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
 
     n_workbooks = n_tabs = n_written = n_fail = 0
 
-    for p in iter_pool_files(data_path):
-        base = os.path.basename(p)
-        if base.startswith(".") or os.path.dirname(p).rstrip("/").endswith("_pool_extracts"):
+    for entry in captured:
+        source_path = entry["path"]
+        base = os.path.basename(source_path)
+        if (base.startswith(".")
+                or os.path.dirname(source_path).rstrip("/").endswith("_pool_extracts")):
             continue
         if _is_sidecar(base):
             continue  # metadata, folded into its document's row via prov_map — never a source
-        rel = os.path.relpath(p, data_path)
+        rel = entry["rel"].replace("/", os.sep)
         ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
         stem = _sanitize(base.rsplit(".", 1)[0] if "." in base else base, "file")
-
-        # Parse a private byte-for-byte snapshot opened through the pinned pool
-        # hierarchy. A descendant path swap can therefore only make this row
-        # fail; it can never redirect a parser or corpus read outside the pool.
-        try:
-            # Bind the snapshot to the digest _collect_sidecars actually attested for this path, so a
-            # projection re-synced or tampered with after verification cannot be parsed under the
-            # earlier sealed provenance (it fails this row instead).
-            _attested = (prov_map.get(rel) or {}).get("_verified_content_sha256")
-            p = _snapshot_pool_file(
-                data_path, rel, snapshot_pool,
-                _attested if isinstance(_attested, str) else None,
-            )
-        except (OSError, ValueError) as exc:
-            n_fail += 1
-            _add({"file": base, "ext": ext or "(none)", "kind": "unsafe-input",
-                  "status": "fail", "error": f"pool input rejected: {exc}"})
-            continue
+        # Every parser sees only the immutable byte snapshot captured before
+        # extraction began; no child is allowed to wander back to live Drive.
+        p = snapshot_by_rel[entry["rel"]]["snapshot_path"]
 
         provenance = prov_map.get(rel) or {}
         if provenance.get("_projection_state") == "superseded":
@@ -1990,7 +2663,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                     if _reject_extracted_methodology(base, ext, txt, provenance):
                         continue
                     out_name = _unique(used, stem) + ".txt"
-                    open(os.path.join(out_dir, out_name), "w").write(txt)
+                    _atomic_text(os.path.join(build_out_dir, out_name), txt)
                     n_written += 1
                     _add({"file": base, "ext": ext, "kind": "document",
                                     "status": "ok",
@@ -2015,8 +2688,10 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
             sheet_meta = []
             for i, (nm, nr, nc, rows) in enumerate(sheets, 1):
                 out_name = _unique(used, f"{stem}__{_sanitize(nm, f'sheet{i}')}") + ".txt"
-                open(os.path.join(out_dir, out_name), "w").write(
-                    _tab_text(base, nm, i, len(sheets), rows, nc))
+                _atomic_text(
+                    os.path.join(build_out_dir, out_name),
+                    _tab_text(base, nm, i, len(sheets), rows, nc),
+                )
                 n_written += 1
                 n_tabs += 1
                 sheet_meta.append({"name": nm, "rows": nr, "cols": nc,
@@ -2040,7 +2715,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 if _reject_extracted_methodology(base, ext, txt, provenance):
                     continue
                 out_name = _unique(used, stem) + ".txt"
-                open(os.path.join(out_dir, out_name), "w").write(txt)
+                _atomic_text(os.path.join(build_out_dir, out_name), txt)
                 n_written += 1
                 src = {"file": base, "ext": ext, "kind": kind, "status": "ok",
                        "extract": out_name, "chars": len(txt)}
@@ -2068,7 +2743,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 if _reject_extracted_methodology(base, ext or "(none)", txt, provenance):
                     continue
                 out_name = _unique(used, stem) + ".txt"
-                open(os.path.join(out_dir, out_name), "w").write(txt)
+                _atomic_text(os.path.join(build_out_dir, out_name), txt)
                 n_written += 1
                 src = {"file": base, "ext": ext or "(none)", "kind": kind, "status": "ok",
                        "extract": out_name, "chars": len(txt)}
@@ -2106,7 +2781,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 if _reject_extracted_methodology(base, ext or "(none)", txt, provenance):
                     continue
                 out_name = _unique(used, stem) + ".txt"
-                open(os.path.join(out_dir, out_name), "w").write(txt)
+                _atomic_text(os.path.join(build_out_dir, out_name), txt)
                 n_written += 1
                 _add({"file": base, "ext": ext or "(none)", "kind": "document",
                                 "status": "ok", "note": "unrecognized binary — read via textutil",
@@ -2115,28 +2790,123 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 _add({"file": base, "ext": ext or "(none)", "kind": "other",
                                 "status": "skipped", "error": f"unrecognized format ({fmt}); {derr}"})
 
+    # Everything below is still private.  Derived artifacts and the corpus are
+    # built from the immutable snapshot, never from a second live-pool walk.
+    entities = _entities_from_paths(
+        snapshot_pool, tuple(entry["snapshot_path"] for entry in captured),
+    )
     manifest = {
         "data_path": os.path.abspath(data_path),
         "out_dir": os.path.abspath(out_dir),
         "generated_by": "extract_pool.py",
         "vision_mode": bool(_vision_on and _vision_configured()),  # were visual sources read by Claude vision?
+        # True means every local reader was allowed to finish or reach its own
+        # explicit file-level outcome; no pool-wide deadline deferred work.
+        "offline_extraction_complete": _ocr_deadline is None,
         "sources": sources,
+        "entities": entities,
         "totals": {"sources": len(sources), "workbooks": n_workbooks,
                    "tabs": n_tabs, "extracts_written": n_written, "failures": n_fail},
     }
-    manifest["cache_guard"] = _cache_guard_snapshot(data_path, out_dir, manifest)
-    json.dump(manifest, open(os.path.join(out_dir, "manifest.json"), "w"), indent=2)
-    open(os.path.join(out_dir, "manifest.md"), "w").write(_manifest_md(manifest))
-    _write_ciq_facts(snapshot_pool, out_dir)  # B3: deterministic CIQ facts sidecar, best-effort (never blocks extraction)
-    _write_relationships(snapshot_pool, out_dir)  # supply-chain graph sidecar, best-effort (never blocks extraction)
-    if corpus_path:
-        _write_corpus(out_dir, snapshot_pool, corpus_path, manifest, methodology_only_rels)
+    _write_ciq_facts(snapshot_pool, build_out_dir)
+    _write_relationships(snapshot_pool, build_out_dir)
+    # Always retain a frozen corpus so a later supervisor-bound child can reuse
+    # this generation without reopening in-place text files on Drive.
+    _write_corpus(
+        build_out_dir, snapshot_pool, os.path.join(build_out_dir, "corpus.txt"),
+        manifest, methodology_only_rels,
+    )
+    artifacts = _hash_generation_artifacts(build_out_dir)
+    local_sources = _localize_original_sources(sources, raw_prefix)
+    binding = _generation_binding_payload(
+        data_path, out_dir, captured, local_sources, entities, artifacts,
+        manifest["vision_mode"], manifest["offline_extraction_complete"], raw_prefix,
+    )
+    generation_binding_json = _generation_binding_json(binding)
+    generation_digest = _generation_digest_from_json(generation_binding_json)
+    manifest["sources"] = _prefix_generation_sources(local_sources, generation_digest)
+    manifest["generation"] = {
+        "schema_version": "pool-generation/v2",
+        "digest": generation_digest,
+        "binding_json": generation_binding_json,
+        "raw_prefix": raw_prefix,
+        "inputs": binding["inputs"],
+        "artifacts": artifacts,
+    }
+    # Compute every non-pool guard before the final live comparison.  Then
+    # replace only the cheap pool metadata rows with the just-verified values,
+    # keeping revalidation immediately adjacent to publication.
+    manifest["cache_guard"] = _cache_guard_snapshot(
+        data_path, out_dir, manifest, captured=captured, extract_root=build_out_dir,
+    )
+    verified = _revalidate_pool_inventory(data_path, captured)
+    manifest["cache_guard"]["pool_inputs"] = {
+        entry["rel"]: {"size": entry["size"], "mtime_ns": entry["mtime_ns"]}
+        for entry in verified
+    }
 
-    snapshot_context.cleanup()
+    generation_parent = os.path.join(out_dir, _GENERATION_DIR_NAME)
+    generation_dir = os.path.join(generation_parent, generation_digest)
+    os.makedirs(generation_parent, exist_ok=True)
+    _atomic_json(os.path.join(build_out_dir, "manifest.json"), manifest)
+    if os.path.exists(generation_dir):
+        # Content-addressed generations are immutable.  A matching one may
+        # already exist after a forced deterministic rebuild; verify it and
+        # discard the private duplicate rather than overwriting files a reader
+        # may hold through an older manifest.
+        # Recover safely if a process died after atomic rename but before the
+        # chmod seal: verify content without trusting it, seal, then verify all
+        # hashes and modes again. A normal forced deterministic rebuild takes
+        # this same path and never rewrites the existing generation.
+        _verified_generation_manifest(
+            data_path, out_dir, generation_digest, require_read_only=False,
+        )
+        _seal_generation_tree(generation_dir)
+        _verified_generation_manifest(data_path, out_dir, generation_digest)
+        build_context.cleanup()
+    else:
+        os.replace(build_out_dir, generation_dir)
+        _seal_generation_tree(generation_dir)
+        _verified_generation_manifest(data_path, out_dir, generation_digest)
+        if os.name != "nt":
+            parent_fd = os.open(generation_parent, os.O_RDONLY)
+            try:
+                os.fsync(parent_fd)
+            finally:
+                os.close(parent_fd)
+
+    # Prepare every mutable compatibility projection first and publish root
+    # manifest.json LAST as the transaction's single commit marker.  Both old
+    # and new pointers reference immutable generation directories, so a reader
+    # that loaded the old pointer can never observe new extract bytes.
+    _atomic_text(os.path.join(out_dir, "manifest.md"), _manifest_md(manifest))
+
+    # Fixed-name compatibility artifacts are projections of the immutable
+    # generation, not its commit marker.  Consumers that need transactional
+    # binding use manifest.generation/artifacts; legacy readers keep working.
+    for name in ("ciq_facts.json", "relationships.json"):
+        if name in manifest["generation"]["artifacts"]:
+            _atomic_bytes(
+                os.path.join(out_dir, name),
+                _read_bound_generation_artifact(out_dir, manifest, name),
+            )
+    if (os.path.basename(os.path.normpath(out_dir)) == "_pool_extracts"
+            and "relationships.json" in manifest["generation"]["artifacts"]):
+        _atomic_bytes(
+            os.path.join(os.path.dirname(out_dir), "relationships.json"),
+            _read_bound_generation_artifact(out_dir, manifest, "relationships.json"),
+        )
+    if corpus_path:
+        _atomic_bytes(
+            corpus_path,
+            _read_bound_generation_artifact(out_dir, manifest, "corpus.txt"),
+        )
+    _atomic_json(os.path.join(out_dir, "manifest.json"), manifest)
 
     print(f"[extract_pool] {len(sources)} source(s) | {n_workbooks} workbook(s) "
           f"-> {n_tabs} tab(s) | {n_written} extract(s) written | {n_fail} failure(s)")
     print(f"[extract_pool] manifest: {os.path.join(out_dir, 'manifest.md')}")
+    print(f"[extract_pool] generation: {generation_digest}")
     return manifest
 
 
@@ -2151,7 +2921,7 @@ def _write_ciq_facts(data_path, out_dir):
         from ciq_facts import build_facts  # same tools dir (on sys.path when run as a script)
         ticker = os.path.basename(os.path.normpath(data_path))
         facts = build_facts(_Path(data_path), ticker)
-        json.dump(facts, open(os.path.join(out_dir, "ciq_facts.json"), "w"), indent=2, default=str)
+        _atomic_json(os.path.join(out_dir, "ciq_facts.json"), facts)
         n_present = sum(1 for v in facts.get("facts", {}).values() if v.get("status") == "present")
         print(f"[extract_pool] ciq_facts.json: {n_present} source-bound fact(s) "
               f"({facts.get('concepts_resolved', 0)} CIQ concepts resolved)")
@@ -2168,20 +2938,31 @@ def _relationship_artifact_paths(out_dir):
     return paths
 
 
-def _atomic_json(path, value):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    fd, tmp = tempfile.mkstemp(prefix=".relationships-", suffix=".json", dir=os.path.dirname(path))
+def _atomic_bytes(path, value):
+    """Durably replace one cache artifact without exposing partial bytes."""
+    directory = os.path.dirname(path) or "."
+    os.makedirs(directory, exist_ok=True)
+    old_mode = 0o644
     try:
-        with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            json.dump(value, handle, indent=2, default=str)
-            handle.write("\n")
+        existing = os.stat(path, follow_symlinks=False)
+        if stat.S_ISREG(existing.st_mode):
+            old_mode = stat.S_IMODE(existing.st_mode)
+    except FileNotFoundError:
+        pass
+    fd, tmp = tempfile.mkstemp(
+        prefix=f".{os.path.basename(path)}.", suffix=".pending", dir=directory,
+    )
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(value)
+            os.fchmod(handle.fileno(), old_mode)
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(tmp, path)
         tmp = None
         # Windows cannot open/fsync directories; file fsync + os.replace above remain portable.
         if os.name != "nt":
-            dir_fd = os.open(os.path.dirname(path), os.O_RDONLY)
+            dir_fd = os.open(directory, os.O_RDONLY)
             try:
                 os.fsync(dir_fd)
             finally:
@@ -2189,6 +2970,14 @@ def _atomic_json(path, value):
     finally:
         if tmp and os.path.exists(tmp):
             os.unlink(tmp)
+
+
+def _atomic_text(path, value):
+    _atomic_bytes(path, value.encode("utf-8"))
+
+
+def _atomic_json(path, value):
+    _atomic_text(path, json.dumps(value, indent=2, default=str) + "\n")
 
 
 def _ensure_durable_relationships(data_path, out_dir):
@@ -2321,7 +3110,7 @@ def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None)
             # labelled distinctly, or verify-evidence attributes greps to the wrong source.
             parts.append(f"\n===== SOURCE: {rel} =====\n")
             parts.append(body)
-    open(corpus_path, "w").write("".join(parts))
+    _atomic_text(corpus_path, "".join(parts))
     print(f"[extract_pool] corpus: {corpus_path} ({sum(len(x) for x in parts)} chars)")
 
 
@@ -2663,6 +3452,29 @@ def entity_from_filename(name):
     return ""
 
 
+def _entities_from_paths(data_path, paths):
+    """Read entity signals from one already-selected inventory."""
+    entities = []
+    for p in paths:
+        base = os.path.basename(p)
+        rel = os.path.relpath(p, data_path)
+        # External documents are deliberately multi-company; sidecars are
+        # metadata rather than entity evidence.
+        if _is_external_rel(rel) or _is_sidecar(base):
+            continue
+        if _NON_FILING_NAME.search(base):
+            continue
+        fn = entity_from_filename(base)
+        if fn:
+            entities.append({"file": base, "entity": fn})
+        if sniff_format(p) not in ("pdf", "mime", "rtf", "html", "ole2", "zip"):
+            continue
+        name = entity_from_header(sniff_text(p, 2500))
+        if name:
+            entities.append({"file": base, "entity": name})
+    return entities
+
+
 def readiness_summary(data_path, out_dir, force=False):
     """Deterministic pre-flight summary for the data-readiness gate. No LLM.
     Returns {file_count, usable_count, issues[], entities[]}."""
@@ -2673,9 +3485,12 @@ def readiness_summary(data_path, out_dir, force=False):
     _saved_stdout = sys.stdout
     sys.stdout = sys.stderr
     try:
-        # vision=False: the pre-flight gate must NOT spend tokens before the user proceeds. tesseract is
-        # still the free floor here; the in-run extraction upgrades image-only/scanned sources to Claude.
-        manifest = extract_pool(data_path, out_dir, force=force, vision=False)
+        # Admission is provider-neutral and complete: never spend research-provider tokens, but let
+        # every local reader finish (or record its exact file-level failure) before freezing this
+        # generation. Later children reuse it and never perform a hidden vision/OCR upgrade.
+        manifest = extract_pool(
+            data_path, out_dir, force=force, vision=False, ocr_budget_s=0,
+        )
         sources = manifest.get("sources", [])
         usable = [s for s in sources if s.get("status") in USABLE_STATUSES]
         issues = []
@@ -2699,31 +3514,12 @@ def readiness_summary(data_path, out_dir, force=False):
         # Allow documents (pdf/mhtml/rtf/html) AND workbooks/Word docs (ole2/zip) — CIQ data exports carry
         # a clean "{Company} (EXCH:TICKER)" subject header (entity_from_header checks it first). Still skip
         # peer-listing non-filings by name (transcripts/decks/comparables) via _NON_FILING_NAME.
-        entities = []
-        for p in iter_pool_files(data_path):
-            base = os.path.basename(p)
-            rel = os.path.relpath(p, data_path)
-            # External documents (data/<T>/external/…) are DELIBERATELY multi-company — a cloud
-            # panel covering AMZN+MSFT+GOOGL, a peer channel check — and each also carries a
-            # .source.json twin, so one foreign name would clear the >=2-file threshold and raise
-            # a FALSE contamination blocker. Skip them here (frameworks/EXTERNAL_DATA.md §6): a
-            # genuinely mis-routed external file is caught by the triage inventory + its sidecar's
-            # tickers[], not by this gate. Sidecars themselves are metadata, never entity evidence.
-            if _is_external_rel(rel) or _is_sidecar(base):
-                continue
-            if _NON_FILING_NAME.search(base):
-                continue
-            # (a) the FILE NAME as an entity signal — catches a wrong-entity file whose content hides it
-            # (a demerged entity whose cover still says the former parent's name). Works for any format.
-            fn = entity_from_filename(base)
-            if fn:
-                entities.append({"file": base, "entity": fn})
-            # (b) the CONTENT header — documents + workbooks (CIQ exports carry a "{Company} (EXCH:TICKER)").
-            if sniff_format(p) not in ("pdf", "mime", "rtf", "html", "ole2", "zip"):
-                continue
-            name = entity_from_header(sniff_text(p, 2500))
-            if name:
-                entities.append({"file": base, "entity": name})
+        entities = manifest.get("entities")
+        if not isinstance(entities, list):
+            # Backward compatibility for one legacy flat generation.  New
+            # manifests always carry entities from their frozen snapshot, so a
+            # supervisor-bound reuse never comes back to live Drive here.
+            entities = _entities_from_paths(data_path, _complete_pool_inventory(data_path))
         _evid = _entity_evidence(entities)
         _level = _entity_conflict(entities)
         if _level == "blocker":
@@ -2747,6 +3543,7 @@ def readiness_summary(data_path, out_dir, force=False):
             "usable_count": len(usable),
             "issues": issues,
             "entities": entities,       # the launcher confirms these against the ticker (surface-and-confirm)
+            "generation_digest": (manifest.get("generation") or {}).get("digest"),
         }
     finally:
         sys.stdout = _saved_stdout

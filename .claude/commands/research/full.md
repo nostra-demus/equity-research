@@ -30,15 +30,28 @@ Also capture `<STARTED_AT>` from `date -u +%Y-%m-%dT%H:%M:%SZ` for the metadata 
 
 ---
 
-## 2. Verify the data pool
+## 2. Bind and verify the data pool
 
-Check that `data/$ARGUMENTS/` exists and contains at least one file:
+Treat `data/$ARGUMENTS/` as `<LOGICAL_DATA_PATH>`, the stable citation label. Resolve `<DATA_PATH>` before
+reading any evidence:
 
-```
-ls -1 data/$ARGUMENTS/ 2>/dev/null | head -n 1
-```
+- If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete supervisor binding:
+  `NOSTRA_FROZEN_POOL_DATA_PATH`, `NOSTRA_FROZEN_POOL_OUT_DIR`,
+  `NOSTRA_FROZEN_POOL_GENERATION`, and `NOSTRA_FROZEN_EVIDENCE_ROOT`. This is an isolated,
+  supervisor-verified read capability. Do not run `extract_pool.py`, rebuild the extraction, or inspect
+  the live data/original extraction paths in this mode. Set
+  `<GENERATION_ROOT>` to
+  `$NOSTRA_FROZEN_POOL_OUT_DIR/.extract-generations/$NOSTRA_FROZEN_POOL_GENERATION` and `<DATA_PATH>` to
+  `$NOSTRA_FROZEN_EVIDENCE_ROOT`; require that evidence root to equal the verified generation manifest's
+  `raw_prefix` inside that exact generation. In frozen mode, never list, stat, grep, open, or otherwise read
+  `<LOGICAL_DATA_PATH>` or the original `<RUN_ROOT>/_pool_extracts/` tree — they are outside the capability,
+  and there is no live-pool fallback.
+- Otherwise set `<DATA_PATH>` to `<LOGICAL_DATA_PATH>` for the normal standalone workflow.
 
-If the directory is missing or empty, STOP. Tell the user: "No data found at `data/$ARGUMENTS/`. Populate the Drive folder for this ticker and re-run." Do not proceed to any later step.
+Check that the resolved `<DATA_PATH>` exists and contains at least one file. If it is missing or empty, STOP.
+Tell the user: "No data found for `$ARGUMENTS`. Populate the Drive folder for this ticker and re-run." Do not
+proceed to any later step. Every later reference to the data pool means `<DATA_PATH>`; citations still use
+logical `data/$ARGUMENTS/...` labels.
 
 ---
 
@@ -145,12 +158,14 @@ only the final recovery/status fields after the immutable validation succeeds:
 - started_at: <STARTED_AT>
 - orchestrator: /research:full
 - repo_sha: <REPO_SHA>
-- data_folder: data/$ARGUMENTS/
+- data_folder: data/$ARGUMENTS/ (logical citation label)
+- evidence_root: <DATA_PATH>
+- evidence_generation: <GENERATION_ROOT or standalone-pending>
 - prior_run: <PRIOR_RUN>
 
 ## Source files
 
-<one line per file from `ls -1 data/$ARGUMENTS/`>
+<one line per file from the resolved `<DATA_PATH>`; never inspect the live logical path in frozen mode>
 
 ## Modules planned
 

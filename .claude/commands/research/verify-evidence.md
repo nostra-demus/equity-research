@@ -26,14 +26,14 @@ Parse `$ARGUMENTS` as `RUN_OR_TICKER`:
 - otherwise treat it as a ticker → latest run via `ls -1d analyses/<ARG>_*/ 2>/dev/null | sort -r | head -n 1`;
 - empty → the most recent finished run: `ls -1d analyses/*/ | sort -r` and pick the first that contains `final_thesis.md`.
 
-Confirm `<RUN_ROOT>/final_thesis.md` exists; if not, STOP and report "No finished run at `<RUN_ROOT>` (no final_thesis.md)." Capture `<TICKER>` (from the folder name or `decision_record.json`), `<RUN_DATE>` (from the folder name), and the data pool `data/<TICKER>/`.
+Confirm `<RUN_ROOT>/final_thesis.md` exists; if not, STOP and report "No finished run at `<RUN_ROOT>` (no final_thesis.md)." Capture `<TICKER>` (from the folder name or `decision_record.json`), `<RUN_DATE>` (from the folder name), and `<LOGICAL_DATA_PATH>` as `data/<TICKER>/`. That logical path is a citation label; Step 1b resolves the only filesystem evidence root.
 
 If `<RUN_ROOT>/idea_projection_manifest.json` or `<RUN_ROOT>/idea_admission.json` already exists, STOP
 before writing a new audit. That run's canonical audit set is sealed; appending a newer audit version would
 correctly invalidate its live admission. New analysis belongs in a new dated run, while a discovered error
 belongs in the append-only correction ledger. Never weaken this guard by deleting the seal.
 
-Read (read-only): `final_thesis.md`, `decision_record.json` (if present), every `<RUN_ROOT>/*/99_*-synthesis.md`, `RUN_METADATA.md`, and the specific module sub-agent files and `data/<TICKER>/` sources you need to check a claim.
+Read (read-only): `final_thesis.md`, `decision_record.json` (if present), every `<RUN_ROOT>/*/99_*-synthesis.md`, `RUN_METADATA.md`, and the specific module sub-agent files needed to check a claim. Do not read raw evidence until Step 1b binds `<DATA_PATH>`.
 
 ## 1b. Build a searchable corpus from the data pool (text AND binary files)
 
@@ -45,19 +45,48 @@ Many pools — especially Indian / NSE Capital IQ exports — store the cited fi
 - `.pdf` — **`pdftotext`** (or a Python PDF lib).
 - `.rtf` — `textutil -convert txt` (macOS) or `strings`.
 
-Build the corpus with the engine's **canonical pool extractor** — the SAME `.claude/tools/extract_pool.py` the Layer-0 `*-data-triage` agents run at ingestion (CLAUDE.md §2, reuse not recreate), so the audit greps exactly what the specialists read. It splits every multi-tab `.xls`/`.xlsx` into one extract per tab, extracts `.pdf`/`.rtf`, and concatenates everything (plus the pool's `.txt` files) into one searchable corpus. It is tolerant of missing tools and idempotent:
+Build the corpus with the engine's **canonical pool extractor** — the SAME `.claude/tools/extract_pool.py` the Layer-0 `*-data-triage` agents run at ingestion (CLAUDE.md §2, reuse not recreate), so the audit greps exactly what the specialists read.
 
-```bash
-python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts" --corpus /tmp/corpus.txt
-```
+Resolve one generation before reading any evidence:
 
-If the finished run already has `<RUN_ROOT>/_pool_extracts/` from ingestion, extraction is skipped and only the combined corpus is rebuilt. Per-tab extracts live in `<RUN_ROOT>/_pool_extracts/` (each `<workbook>__<tab>.txt`); the combined searchable corpus is `/tmp/corpus.txt`; `<RUN_ROOT>/_pool_extracts/manifest.json` records every source, tab, and any extraction failure.
+- If `NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete quartet
+  `NOSTRA_FROZEN_POOL_DATA_PATH`, `NOSTRA_FROZEN_POOL_OUT_DIR`,
+  `NOSTRA_FROZEN_POOL_GENERATION`, and `NOSTRA_FROZEN_EVIDENCE_ROOT`. The supervisor has already verified
+  this isolated read capability immediately before provider start. Do not run `extract_pool.py`, rebuild
+  extraction output, or inspect live/original extraction paths in this mode. Set `<EXTRACT_OUT>` to
+  `$NOSTRA_FROZEN_POOL_OUT_DIR`, `<GENERATION_ROOT>` to
+  `<EXTRACT_OUT>/.extract-generations/$NOSTRA_FROZEN_POOL_GENERATION`, `<DATA_PATH>` to
+  `$NOSTRA_FROZEN_EVIDENCE_ROOT`, and `<CORPUS_PATH>` to `<GENERATION_ROOT>/corpus.txt`. Require
+  `<DATA_PATH>` to be the generation manifest's exact `raw_prefix` inside `<GENERATION_ROOT>`. A partial,
+  mismatched, symlinked, unreadable, or tampered binding is a hard stop. Never read
+  `<LOGICAL_DATA_PATH>` or the original `<RUN_ROOT>/_pool_extracts/` tree in this mode — they remain outside
+  the capability, and the logical data path is only the label printed in citations.
+- Otherwise (standalone audit), set `<DATA_PATH>` to `<LOGICAL_DATA_PATH>`, `<EXTRACT_OUT>` to
+  `<RUN_ROOT>/_pool_extracts`, and create a unique audit corpus with
+  `mktemp "${TMPDIR:-/tmp}/nostra-evidence-<TICKER>.XXXXXX"`. Pass that exact path to `--corpus`; never use
+  a shared `/tmp/corpus.txt`:
 
-Run all Section-A citation checks (and the Section-C anchor checks) against this corpus (`/tmp/corpus.txt`), not just the raw `.txt`. A figure absent from the corpus AND the raw filings is genuinely `unsupported`; a figure absent only because its file type could not be extracted (record which file/why from `<RUN_ROOT>/_pool_extracts/manifest.json` — any source whose `status` is `fail` or `fallback-text`) is `unverified (extraction unavailable)` — not a fabrication.
+  ```bash
+  python3 .claude/tools/extract_pool.py "<DATA_PATH>" "<EXTRACT_OUT>" --corpus "<CORPUS_PATH>"
+  ```
+
+  Capture `generation.digest` from the published manifest, set `<GENERATION_ROOT>` to
+  `<EXTRACT_OUT>/.extract-generations/<digest>`, and verify that exact generation with the canonical
+  extractor. The unique corpus is the extractor's byte copy of `<GENERATION_ROOT>/corpus.txt`; delete only
+  that unique temporary file when the audit finishes.
+
+For either mode, set `<MANIFEST_PATH>` to `<GENERATION_ROOT>/manifest.json`, `<CIQ_FACTS_PATH>` to
+`<GENERATION_ROOT>/ciq_facts.json`, and `<RELATIONSHIPS_PATH>` to
+`<GENERATION_ROOT>/relationships.json`. Resolve every manifest `extract` reference through
+`<EXTRACT_OUT>` and require it to begin exactly `.extract-generations/<digest>/`. Never consume mutable
+fixed-name projections. Run all Section-A citation checks (and Section-C anchor checks) against
+`<CORPUS_PATH>`. A figure absent from the corpus and the cited raw file under `<DATA_PATH>` is genuinely
+`unsupported`; a figure absent because the cited source failed extraction (record the literal reason from
+`<MANIFEST_PATH>`) is `unverified (extraction unavailable)` — not a fabrication.
 
 ## 1c. Deterministic CIQ cross-check (a machine ground-truth for the key numbers)
 
-Step 1b's extractor also emits `<RUN_ROOT>/_pool_extracts/ciq_facts.json` — a DETERMINISTIC, source-bound parse of the CIQ workbooks (net debt, total debt, LTM EBITDA / OCF, FCF, interest coverage, EV/EBITDA + own-history percentile, P/E, segments, geography, margin trend, consensus, surprise, revisions). Each fact is `present` (with `source_ref` = the exact sheet / row / period it came from), `unknown` (looked-for, absent), or `missing` (whole CIQ export absent) — a number is never fabricated. Read it if present; **best-effort — if the file is absent or empty, skip this step and note `ciq_facts unavailable`.**
+Step 1b's exact generation may contain `<CIQ_FACTS_PATH>` — a DETERMINISTIC, source-bound parse of the CIQ workbooks (net debt, total debt, LTM EBITDA / OCF, FCF, interest coverage, EV/EBITDA + own-history percentile, P/E, segments, geography, margin trend, consensus, surprise, revisions). Each fact is `present` (with `source_ref` = the exact sheet / row / period it came from), `unknown` (looked-for, absent), or `missing` (whole CIQ export absent) — a number is never fabricated. Read it if present; **best-effort — if the file is absent or empty, skip this step and note `ciq_facts unavailable`.**
 
 The money facts (keys ending `_m`) are in **millions of the run's `currency` field** — the workbook's *reported* currency (e.g. `INR`/`GBP`), NOT necessarily USD. Compare only against a thesis figure in the same currency and scale; a currency/scale mismatch (e.g. INR-crore thesis vs INR-million fact) is a unit error to flag, not a value disagreement to average.
 
@@ -76,7 +105,7 @@ Select the **material claims** to check: per `CLAUDE.md` §6, the 5–10 claims 
 **Resolve mechanically FIRST — do not eyeball this (fix F05).** You are an LLM; "grep it yourself" is exactly the step that gets skipped, and the committed HCG v2→v3 correction proves this auditor has over-credited figures before. Collect every figure your selected claims rest on into a JSON list and run the deterministic resolver against the corpus:
 
 ```bash
-python3 .claude/tools/resolve_citations.py /tmp/corpus.txt --json '[{"label":"net debt","value":"30711"},{"label":"ROIC","value":"4.6"}, ...]'
+python3 .claude/tools/resolve_citations.py "<CORPUS_PATH>" --json '[{"label":"net debt","value":"30711"},{"label":"ROIC","value":"4.6"}, ...]'
 ```
 
 It returns, per figure, a machine `hit_count` (token-matched, so `2442` never matches inside `0.092442` or `12442`; comma- and trailing-zero-tolerant so `4.6` matches `4.60`) and `scaled_hit_count` (hits found ONLY at a ×1000 / ÷1000 scale — a likely unit mismatch, crore vs million). **Your `status` must reconcile with the tool, not your recollection:**
@@ -88,7 +117,7 @@ It returns, per figure, a machine `hit_count` (token-matched, so `2442` never ma
 
 For each selected claim:
 - find its citation `[Source, Period, Page/Section]`;
-- confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `/tmp/corpus.txt`, which now covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly. **Count a hit ONLY on a literal match confirmed by surrounding context** (the right line item / label, with or without comma formatting). The digits appearing inside a larger number or a ratio (e.g. `2442` inside `-0.092442`), or a mere tolerance / near / magnitude-variant match, is **NOT** a hit — verify the figure, not a coincidental substring. **The hit must be in the CITED source's own extract, not merely somewhere in the pool** — a figure that appears in the corpus but NOT in the cited document/period is `miscited`, never `verified` (the common case: a data-vendor figure — e.g. an EBITDA found only in a Capital IQ export — attached to a filing citation; CLAUDE.md §5). Where the citation maps to a known extract (the annual-report `.txt`, a specific workbook tab), grep THAT file; if you cannot isolate the cited source's extract, read the cited section directly to confirm the number is actually there;
+- confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `<CORPUS_PATH>`, which covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly under the bound `<DATA_PATH>`. **Count a hit ONLY on a literal match confirmed by surrounding context** (the right line item / label, with or without comma formatting). The digits appearing inside a larger number or a ratio (e.g. `2442` inside `-0.092442`), or a mere tolerance / near / magnitude-variant match, is **NOT** a hit — verify the figure, not a coincidental substring. **The hit must be in the CITED source's own exact-generation extract, not merely somewhere in the pool** — a figure that appears in the corpus but NOT in the cited document/period is `miscited`, never `verified` (the common case: a data-vendor figure — e.g. an EBITDA found only in a Capital IQ export — attached to a filing citation; CLAUDE.md §5). Where the citation maps to a known extract (the annual-report `.txt`, a specific workbook tab), resolve and grep that manifest-bound extract; if you cannot isolate the cited source's extract, read the cited section directly under `<DATA_PATH>` to confirm the number is actually there;
 - classify `status`:
   - **verified** — the figure appears in the cited source/period;
   - **inference-labeled** — explicitly labeled inference/estimate/indicative (allowed under §3; note it);

@@ -3,18 +3,18 @@ import assert from 'node:assert/strict'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
-import { REPO_ROOT } from '../src/config'
+import { REPO_ROOT, STATE_DIR } from '../src/config'
 import {
   artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
-  projectionLineageRows, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
+  projectionLineageRows, readLastProviderSelection, readProviderInterruptionAuthority, readProviderPreSpawnFailureAuthority,
   recordAdmittedProviderSelection, releaseExecutionEpochAfterPublication,
   sealProviderPreSpawnFailureAuthority,
 } from '../src/execution-provenance'
 import { createRun, finishRun } from '../src/registry'
 import { writeRunMarker } from '../src/outputs'
 import {
-  __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier,
-  drainPublicationIntents, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
+  __setPostReviewCalibration, __setPublicationAuthoritySealer, __setSupervisorCommitter, __setSupervisorCommitVerifier,
+  drainPublicationIntents, finalizeRunOnClose, queuePublicationIntent, recoverReadyPublications, requiresSupervisorPublication,
   supervisePublication,
 } from '../src/launcher'
 
@@ -359,6 +359,95 @@ try {
     __setSupervisorCommitter(failedRecoveryCommitter)
     __setSupervisorCommitVerifier(recoveryVerifier)
     finishRun(recoveryRun, 'error')
+  }
+
+  // Commit verification can succeed and the process can die before the provider/profile publication seal.
+  // The ready receipt must still exist at that point. Startup recovers from it without another provider,
+  // writes the durable published authority, and only then clears the receipt.
+  const postCommitRoot = `${root}_postcommit`
+  extraCleanup.push(path.join(REPO_ROOT, postCommitRoot))
+  const postCommitRelative = `${postCommitRoot}/reviews/2099-01-04_post_commit_crash_review.json`
+  const postCommitAbsolute = path.join(REPO_ROOT, postCommitRelative)
+  fs.mkdirSync(path.dirname(postCommitAbsolute), { recursive: true })
+  const postCommitRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: postCommitRoot, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(postCommitAbsolute)], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  postCommitRun.publicationToken = randomUUID()
+  beginExecutionAttempt(postCommitRun)
+  fs.writeFileSync(postCommitAbsolute, '{"verdict":"post-commit crash fixture"}\n')
+  let directCommits = 0
+  let providerCalls = 0 // this test never invokes launch/build/spawn; recovery is supervisor-only
+  const postCommitCommitter = __setSupervisorCommitter(async () => {
+    directCommits++
+    return 'COMMIT_SHA=4444444444444444444444444444444444444444'
+  })
+  const postCommitVerifier = __setSupervisorCommitVerifier(async () => {})
+  const postCommitSealer = __setPublicationAuthoritySealer(() => {
+    throw new Error('fixture crash before publication authority fsync')
+  })
+  try {
+    await queuePublicationIntent(postCommitRun.runId, postCommitRun.publicationToken, {
+      phase: 'commit', message: 'post-commit crash fixture', pathspecs: [postCommitRelative],
+    })
+    await assert.rejects(drainPublicationIntents(postCommitRun), /fixture crash before publication authority fsync/)
+    assert.equal(directCommits, 1, 'the immutable snapshot was already verified by Git before the crash')
+    assert.equal(postCommitRun.publicationCompleted, false,
+      'commit success is provisional until provider/profile publication authority is durable')
+    assert.equal(postCommitRun.publicationPhase, 'terminal-failed')
+    assert.match(postCommitRun.publicationError ?? '', /publication authority could not be sealed/)
+    assert.equal(readLastProviderSelection(postCommitRoot, 'published'), null,
+      'the injected crash happened before durable published provider authority')
+
+    finalizeRunOnClose(postCommitRun, { exitCode: 0, failed: false }, '')
+    assert.notEqual(postCommitRun.status, 'done',
+      'provider close cannot terminalize a publication whose protected authority failed to fsync')
+
+    // Two startup/test workers may both observe the same directory entry. Deterministically remove it
+    // after readdir but before open: the losing reader skips an atomically consumed receipt, while the
+    // restored identical receipt below remains available for the real providerless recovery assertion.
+    const readyPath = path.join(STATE_DIR, 'publication-ready', `${postCommitRun.runId}.json`)
+    const heldReadyPath = `${readyPath}.race-held`
+    const originalOpenSync = fs.openSync.bind(fs)
+    let removedBeforeOpen = false
+    ;(fs as any).openSync = (target: fs.PathLike, ...args: any[]) => {
+      if (!removedBeforeOpen && path.resolve(String(target)) === path.resolve(readyPath)) {
+        fs.renameSync(readyPath, heldReadyPath)
+        removedBeforeOpen = true
+      }
+      return (originalOpenSync as any)(target, ...args)
+    }
+    try {
+      assert.equal(await recoverReadyPublications(), 0,
+        'a receipt consumed between directory scan and open is a safe skip, not engine failure')
+      assert.equal(removedBeforeOpen, true)
+    } finally {
+      ;(fs as any).openSync = originalOpenSync
+      if (fs.existsSync(heldReadyPath)) fs.renameSync(heldReadyPath, readyPath)
+    }
+
+    __setPublicationAuthoritySealer(postCommitSealer)
+    let recoveryCommits = 0
+    const recoveryCommitter = __setSupervisorCommitter(async () => {
+      recoveryCommits++
+      return 'COMMIT_SHA=5555555555555555555555555555555555555555'
+    })
+    try {
+      assert.equal(await recoverReadyPublications(), 1,
+        'startup finds the still-retained ready receipt and seals the exact snapshot')
+      assert.equal(recoveryCommits, 1)
+      assert.equal(providerCalls, 0, 'provider recovery is never involved in the publication crash window')
+      assert.equal(readLastProviderSelection(postCommitRoot, 'published')?.profileKey, profile.key)
+      assert.equal(await recoverReadyPublications(), 0, 'the receipt clears only after authority is durable')
+    } finally { __setSupervisorCommitter(recoveryCommitter) }
+  } finally {
+    __setPublicationAuthoritySealer(postCommitSealer)
+    __setSupervisorCommitter(postCommitCommitter)
+    __setSupervisorCommitVerifier(postCommitVerifier)
+    finishRun(postCommitRun, 'error')
   }
 
   const configuredRoot = `${root}_configured-carry`

@@ -372,6 +372,22 @@ try {
   assert.equal(useStore.getState().activeRunsByTicker.has('GOLD'), false, 'picker dots are scoped to the active swarm')
   assert.equal(useStore.getState().globalActive.length, 1, 'global Activity remains complete')
 
+  api.activeRuns = async () => ({ active: [] })
+  api.runSnapshot = async () => { throw Object.assign(new Error('missing after restart'), { status: 404 }) }
+  useStore.setState({
+    activeSwarm: 'research', constellationSwarm: 'research', selectedTicker: 'NU', selectToken: 10621,
+    activeRuns: {
+      'stale-after-restart': { runId: 'stale-after-restart', kind: 'full', ticker: 'NU', status: 'running', swarmId: 'research' },
+    },
+    activeRunsByTicker: new Set(['NU']), globalActive: [],
+  })
+  await useStore.getState().refreshActiveRuns()
+  await new Promise((resolve) => setTimeout(resolve, 0))
+  assert.equal(useStore.getState().activeRuns['stale-after-restart'], undefined,
+    'an authoritative missing snapshot clears a locally-running card after an engine restart')
+  assert.equal(useStore.getState().activeRunsByTicker.has('NU'), false,
+    'the running subject indicator follows the empty active-run list')
+
   // Screener orb keys repeat for every signal. A late/background SSE frame is owned by the run's frozen
   // subject, never by whichever signal happens to be selected when it arrives.
   useStore.setState({

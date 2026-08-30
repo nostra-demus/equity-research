@@ -46,6 +46,14 @@ function checkerFailureReport(): ReadinessReport {
   }
 }
 
+function physicallyEmptyReport(): ReadinessReport {
+  return {
+    ticker: 'TEST', kind: 'full', overall: 'blocked', fileCount: 0, usableCount: 0,
+    physicalPool: { state: 'empty', fileCount: 0, nonEmptyFileCount: 0 }, entities: [],
+    issues: [{ code: 'zero_files', severity: 'blocker', message: 'no files' }], ts: Date.now(),
+  }
+}
+
 function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boolean } {
   let spawned = false
   const run = createRun({
@@ -146,6 +154,20 @@ async function main() {
     const okCount = results.filter((r) => r.ok).length
     ok(spawns === 1 && okCount === 1, 'concurrent decisions spawn the engine exactly once (no double-spawn race)')
   }
+  // An empty full/continue chain cannot spend through a direct API call. It can
+  // only be rechecked after files arrive or cancelled. Standalone typed override
+  // remains covered above for its existing behavior.
+  {
+    const { run, spawned } = mkAwaiting(physicallyEmptyReport())
+    run.chained = true
+    run.chainId = `empty-decision-${process.pid}`
+    const proceed = await decideReadiness(run.runId, 'proceed', 'admin')
+    ok(!proceed.ok && proceed.httpStatus === 409 && !spawned(),
+      'a physically empty chain rejects direct proceed and does not spawn')
+    const override = await decideReadiness(run.runId, 'override', 'admin', 'TEST')
+    ok(!override.ok && override.httpStatus === 409 && !spawned(),
+      'a physically empty chain rejects typed override and does not spawn')
+  }
 
   // 11. a gate-paused run is IN-FLIGHT for admission (HIGH-severity audit fix) — both pre-spawn gate
   //     states must be in IN_FLIGHT_STATUSES so a paused run still holds its ticker claim + a slot
@@ -232,7 +254,19 @@ async function main() {
     ok(run.status === 'readiness-checking', 'recheck claims the run synchronously (readiness-checking) before its async re-check')
     const concurrent = await decideReadiness(run.runId, 'proceed', 'local') // sees readiness-checking -> entry guard
     ok(!concurrent.ok && concurrent.httpStatus === 409 && !spawned(), 'a concurrent decision during the recheck window is rejected — no second spawn')
-    await p.catch(() => {}) // drain the recheck (runReadiness on the no-data TEST ticker -> blocker -> re-opens)
+    await p.catch(() => {}) // response ACK is intentionally early; the outcome arrives over SSE
+    const deadline = Date.now() + 10_000
+    while (run.status === 'readiness-checking' && Date.now() < deadline) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 25))
+    }
+    const reblocked = run.eventLog.filter((event: any) => event.type === 'readiness-blocked').at(-1)
+    ok(run.status === 'awaiting-readiness-decision' && reblocked?.runId === run.runId,
+      'a recheck that is still empty re-emits readiness-blocked so refresh/SSE restores the one gate')
+    // The route intentionally ACKs before its detached recheck settles. Explicitly cancel the restored
+    // gate and yield once before fixture teardown, otherwise the detached finally/relationship publisher
+    // can recreate R17 after the test removed it and leave untracked research debris in the worktree.
+    await decideReadiness(run.runId, 'cancel', 'local')
+    await new Promise<void>((resolve) => setImmediate(resolve))
   }
 
   console.log(`\n  ${pass} checks passed`)

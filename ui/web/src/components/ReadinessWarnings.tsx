@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useStore } from '../lib/store'
+import { isPhysicallyEmptyReadiness, readinessDecisionWaitsForSse, useStore } from '../lib/store'
 import { Spin } from './Spin'
 import type { ReadinessIssue } from '../lib/types'
 
@@ -29,16 +29,22 @@ export function isTechnicalReadinessFailure(issues: ReadinessIssue[]): boolean {
 
 export function ReadinessWarnings() {
   const gate = useStore((s) => s.readinessGate)
+  const queuedGates = useStore((s) => s.readinessGateQueue)
   const decide = useStore((s) => s.decideReadiness)
   const [typed, setTyped] = useState('')
   const [pending, setPending] = useState<Action | null>(null)
 
-  // Re-enable the buttons whenever the gate's run or report changes (a re-check came back, possibly
-  // still-not-clean) or the panel closes — so the buttons never get stuck disabled. `store.decideReadiness`
-  // handles the STALE case (409/404 → it closes this panel), so a dead dialog can't strand the user.
+  // Re-enable the local request latch only when SSE advances the lifecycle. In particular, the recheck
+  // POST now acknowledges early, before the scan finishes; clearing `pending` on that HTTP response made
+  // a second click race the live scan and receive a misleading 409. Once readiness-checking arrives the
+  // store-owned spinner takes over; report/blocked/resolved then finishes the cycle.
   const runId = gate?.runId
   const reportTs = gate?.report.ts
-  useEffect(() => { setPending(null) }, [runId, reportTs])
+  const gateRechecking = !!gate?.rechecking
+  useEffect(() => { setPending(null) }, [runId, reportTs, gateRechecking])
+  // Typed override consent belongs to one exact report. A promoted FIFO gate (or a changed report for the
+  // same ticker) must never inherit an already-armed Run-anyway button from the previous decision.
+  useEffect(() => { setTyped('') }, [runId, reportTs])
 
   if (!gate) return null
 
@@ -47,6 +53,10 @@ export function ReadinessWarnings() {
   const degrades = report.issues.filter((i) => i.severity === 'degrade')
   const hasBlocker = blockers.length > 0
   const checkerFailed = isTechnicalReadinessFailure(report.issues)
+  // Only the server's complete parser-free proof may remove the override. A
+  // legacy/standalone `zero_usable_data` result can mean corrupt or unsupported
+  // non-empty files, which is not the same as an empty folder.
+  const emptyPool = isPhysicallyEmptyReadiness(report)
   const ticker = report.ticker
   const ackOk = typed.trim().toUpperCase() === ticker.toUpperCase()
   const entityNames = Array.from(new Set(report.entities.map((e) => e.entity).filter(Boolean)))
@@ -60,16 +70,24 @@ export function ReadinessWarnings() {
   const act = async (action: Action) => {
     if (busy) return
     setPending(action)
+    let outcome: Awaited<ReturnType<typeof decide>> = 'failed'
     try {
-      await decide(gate.runId, action, action === 'override' ? typed.trim() : undefined)
+      outcome = await decide(gate.runId, action, action === 'override' ? typed.trim() : undefined)
     } finally {
-      setPending((p) => (p === action ? null : p))
+      // An accepted/already-active recheck is not complete at HTTP ACK. Keep the button latched until
+      // readiness-checking/report/blocked/resolved SSE moves the gate. Errors clear immediately so retry
+      // remains possible when no lifecycle event will follow.
+      if (!readinessDecisionWaitsForSse(action, outcome)) {
+        setPending((p) => (p === action ? null : p))
+      }
     }
   }
 
   // a plain-English headline: prefer the entity-mismatch story, otherwise a generic summary. For the
   // mismatch we LIST the detected names rather than assert which one is wrong (the engine can't know).
-  const lede = checkerFailed ? (
+  const lede = emptyPool ? (
+    <>No usable company data was found. Add at least one readable filing, transcript, spreadsheet, or note before starting.</>
+  ) : checkerFailed ? (
     <>The safety checker had a <b>technical error</b>. This does not mean your files are missing or bad. The research engine has not started.</>
   ) : !hasBlocker ? (
     <>The data is usable but <b>weaker than ideal</b> — the run can still proceed, with the caveats below.</>
@@ -90,8 +108,8 @@ export function ReadinessWarnings() {
         <div className="rdg-head">
           <div className={`rdg-hicon ${hasBlocker ? 'rdg-hicon--bad' : 'rdg-hicon--warn'}`}>⚠</div>
           <div>
-            <div className="modal__title">{checkerFailed ? 'Safety check unavailable' : hasBlocker ? 'Data check found a problem' : 'Data check — minor issues'}</div>
-            <div className="rdg-sub">{ticker} · {report.kind} run · no tokens spent yet</div>
+            <div className="modal__title">{emptyPool ? 'No usable data found' : checkerFailed ? 'Safety check unavailable' : hasBlocker ? 'Data check found a problem' : 'Data check — minor issues'}</div>
+            <div className="rdg-sub">{ticker} · {report.kind} run · this step has not started</div>
           </div>
         </div>
 
@@ -100,8 +118,13 @@ export function ReadinessWarnings() {
           <b>Recommended:</b>{' '}
           {checkerFailed
             ? 'try the check once more. If it returns, the checker needs repair — do not change your files.'
-            : hasBlocker ? 'fix the files, then re-check. Only run anyway if you’re sure.' : 'you can proceed, or add the missing data and re-check for a stronger run.'}
+            : emptyPool ? 'add company files, wait for them to appear in the Data pool, then re-check.'
+              : hasBlocker ? 'fix the files, then re-check. Only run anyway if you’re sure.' : 'you can proceed, or add the missing data and re-check for a stronger run.'}
         </div>
+
+        {queuedGates.length > 0 && (
+          <div className="rdg-rec">One check is shown at a time. {queuedGates.length} more check{queuedGates.length === 1 ? ' is' : 's are'} safely queued and will appear next.</div>
+        )}
 
         {rechecking && (
           <div className="rdg-checking"><Spin /> Re-checking the data pool… scanned PDFs are being read (OCR) — this can take a moment the first time.</div>
@@ -137,7 +160,7 @@ export function ReadinessWarnings() {
           )}
         </div>
 
-        {hasBlocker && !checkerFailed && (
+        {hasBlocker && !checkerFailed && !emptyPool && (
           <div className="rdg-danger">
             <div className="rdg-danger__h"><b>Run anyway</b> (not recommended) — type the ticker <b style={{ color: 'var(--accent-bright)' }}>{ticker}</b> to confirm you understand the result may be wrong:</div>
             <div className="rdg-danger__row">

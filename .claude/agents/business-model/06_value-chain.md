@@ -30,7 +30,7 @@ You DO NOT:
 
 # RUNTIME INPUTS
 
-- `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/06_value-chain.md`, `DATE`
+- `TICKER`, `<DATA_PATH>` (exact injected evidence root), `<GENERATION_ROOT>` (exact immutable extraction generation), `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/06_value-chain.md`, `DATE`
 - `UPSTREAM_INPUTS`:
   - `analyses/{TICKER}_{DATE}/business-model/02_business-identity.md` — REQUIRED
 
@@ -52,7 +52,7 @@ If `02_business-identity.md` is missing, write at the top:
 # WHAT TO READ (priority for this agent)
 
 - **Upstream business-identity output** — what the company actually does
-- **`<RUN_ROOT>/_pool_extracts/relationships.json`** — the deterministic supply-chain graph, when the pool carries a Capital IQ Suppliers/Customers export. This is the only place the chain is NAMED; read it before the prose sources so you argue about real counterparties instead of categories. Follow the MODULE_RULES section on it: tier-5 vendor export, carry its `scope_notes`, only `third_party` rows are outside parties, and it proves a relationship EXISTS but never how big it is.
+- **`<GENERATION_ROOT>/relationships.json`** — the deterministic supply-chain graph from the exact admitted generation, when the pool carries a Capital IQ Suppliers/Customers export. Never read a mutable fixed-name `_pool_extracts` projection. This is the only place the chain is NAMED; read it before the prose sources so you argue about real counterparties instead of categories. Follow the MODULE_RULES section on it: tier-5 vendor export, carry its `scope_notes`, only `third_party` rows are outside parties, and it proves a relationship EXISTS but never how big it is.
 - **Supplier risk** in Risk Factors
 - **Raw material / input cost** disclosures in MD&A
 - **Pass-through pricing clauses** in segment notes or MD&A
@@ -109,7 +109,7 @@ Then one paragraph: does the company pass input cost increases to customers, wit
 
 **Supplier / input concentration (quantify).** Beyond pass-through, size the supply-side dependency — the share of COGS or purchases from the largest supplier and the top 3 (where disclosed), any single-source / sole-source inputs or key components, and concentration in a critical raw material. Flag a single supplier or input that is a *material* dependency: this is the supply-side parallel to customer concentration, and a material single-source dependency is itself a bargaining risk to carry into §5. Where the disclosure does not quantify it, say so — do not invent a percentage.
 
-## 2A. Named Counterparties (only when `_pool_extracts/relationships.json` exists)
+## 2A. Named Counterparties (only when `<GENERATION_ROOT>/relationships.json` exists)
 
 Omit this section entirely when the pool carries no Capital IQ Suppliers/Customers export — do NOT write an empty table or a placeholder.
 

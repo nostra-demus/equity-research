@@ -7,6 +7,7 @@
 // Isolated in a temp repo so a fake 2-module research graph drives it. Run: npx tsx test/completion.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -76,9 +77,39 @@ write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
 const {
   capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
-  carryForwardModules, dataPoolNewest, prepareFullContinuation, prepareModuleResume,
+  carryForwardModules, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareFullContinuation,
+  prepareModuleResume, prepareThesisPlanPrivately,
 } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
+
+function exactScope(runRoot: string) {
+  const generationDigest = 'a'.repeat(64)
+  const root = path.join(REPO, runRoot)
+  const reusableArtifacts: {
+    output_rel: string; sha256: string; generation_digest: string; attempt_id: string
+  }[] = []
+  const visit = (directory: string): void => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const absolute = path.join(directory, entry.name)
+      if (entry.isDirectory()) visit(absolute)
+      else if (entry.isFile() && entry.name.endsWith('.md')) reusableArtifacts.push({
+        output_rel: path.relative(root, absolute).split(path.sep).join('/'),
+        sha256: `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`,
+        generation_digest: generationDigest,
+        attempt_id: 'fixture-attempt',
+      })
+    }
+  }
+  visit(root)
+  return {
+    continuationRunRoot: runRoot,
+    frozenGeneration: {
+      generationDigest, fileCount: 1, newestMs: 1,
+      verifiedLineageDigest: `sha256:${'b'.repeat(64)}`,
+      reusableArtifacts,
+    },
+  }
+}
 
 // ---- 1. cross-folder reuse: the money test -------------------------------------------------------
 {
@@ -151,6 +182,19 @@ const { buildSwarmGraph } = await import('../src/roster')
   })
   assert.notEqual(profileChanged.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint)
   console.log('✅ receipt binds exact roots, artifacts, pool bytes, work identities, and provider profile')
+}
+
+// ---- 1c. partial-only reuse names every physical source root --------------------------------------
+{
+  const root = `analyses/PARTSRC_${YESTERDAY}`
+  write(`${root}/beta/01_beta-thing.md`, '# reusable partial beta\n')
+  poolFile('PARTSRC', 'filing.pdf', -3)
+  const plan = thesisPlan('PARTSRC')
+  assert.deepEqual(plan.modules.find((entry) => entry.module === 'beta')?.doneOrbKeys, ['beta/01_beta-thing'])
+  assert.deepEqual(plan.continuationReceipt.sourceRunRoots, [root],
+    'a generic completion cannot hide the old physical root supplying a reused partial orb')
+  assert.equal(plan.continuationReceipt.action, 'complete')
+  console.log('✅ partial-orb source roots are bound so generic completion must choose one exact saved run')
 }
 
 // ---- 2. staleness demotes a finished module ------------------------------------------------------
@@ -472,6 +516,12 @@ const { buildSwarmGraph } = await import('../src/roster')
   const cascaded = thesisPlan('CASCADE', undefined, ['beta'])
   assert.ok(!cascaded.reuse.includes('beta'), 'beta is forced back into the run set — its upstream is rebuilding')
   assert.deepEqual(cascaded.run.sort(), ['alpha', 'beta'], 'both alpha (chosen) and beta (cascaded) run')
+  const beta = cascaded.modules.find((entry) => entry.module === 'beta')!
+  assert.deepEqual(beta.doneOrbKeys, [], 'a forced descendant cannot presence-skip specialists built against the old upstream')
+  assert.equal(beta.doneAgents, 0)
+  assert.equal(beta.willRunAgents, beta.totalAgents)
+  assert.ok(cascaded.continuationReceipt.payableOrbKeys.includes('beta/01_beta-thing'))
+  assert.ok(cascaded.continuationReceipt.payableOrbKeys.includes('beta/99_beta-synthesis'))
   console.log('✅ rebuilding an upstream module cascades the rebuild to its reuse-eligible descendants')
 }
 
@@ -1223,7 +1273,7 @@ const { buildSwarmGraph } = await import('../src/roster')
   const alphaBefore = fs.readFileSync(path.join(REPO, root, 'alpha/99_alpha-synthesis.md'), 'utf8')
 
   const plan = thesisPlan('EXACTPART', undefined, undefined, undefined, { provider: 'claude' }, {
-    continuationRunRoot: root,
+    ...exactScope(root),
   })
   assert.equal(plan.targetRunRoot, root, 'Continue targets the saved folder, not today')
   assert.deepEqual(plan.reuse, ['alpha'], 'finished valid module remains reusable')
@@ -1240,17 +1290,158 @@ const { buildSwarmGraph } = await import('../src/roster')
 
   const staleRoot = `analyses/EXACTSTALE_${YESTERDAY}`
   write(`${staleRoot}/alpha/01_alpha-thing.md`, '# stale specialist\n')
+  write(`${staleRoot}/alpha/02_alpha-new-check.md`, '# second specialist\n')
+  write(`${staleRoot}/alpha/03_alpha-dependent-check.md`, '# dependent specialist\n')
   write(`${staleRoot}/alpha/99_alpha-synthesis.md`, '# stale synthesis\n')
   poolFile('EXACTSTALE', 'new-filing.pdf', 0)
   const stalePlan = thesisPlan('EXACTSTALE', undefined, undefined, undefined, { provider: 'claude' }, {
-    continuationRunRoot: staleRoot,
+    ...exactScope(staleRoot),
   })
-  assert.ok(stalePlan.run.includes('alpha'), 'an in-root stale synthesis is no longer forced into reuse')
-  assert.ok(!stalePlan.mustReuse.includes('alpha'))
+  assert.ok(stalePlan.reuse.includes('alpha'), 'Continue ignores newer live data and keeps its frozen-generation output')
+  assert.ok(!stalePlan.run.includes('alpha'))
   const stalePrepared = prepareFullContinuation('EXACTSTALE', stalePlan)
-  assert.ok(stalePrepared.ranClean.includes('alpha'))
-  assert.ok(!fs.existsSync(path.join(REPO, staleRoot, 'alpha')), 'stale module bytes are removed before rerun')
-  console.log('✅ exact-root continuation keeps valid hashes, resumes partial orbs, and discards stale work')
+  assert.ok(!stalePrepared.ranClean.includes('alpha'))
+  assert.ok(fs.existsSync(path.join(REPO, staleRoot, 'alpha')), 'frozen-generation output survives newer live data')
+  console.log('✅ exact-root continuation keeps valid hashes, resumes partial orbs, and ignores newer live data')
+}
+
+// ---- 22. exact Continue is lineage-bound, autonomous, and never widens to Full -------------------
+{
+  const root = `analyses/LINEAGE_${YESTERDAY}`
+  write(`${root}/alpha/01_alpha-thing.md`, '# bound alpha\n')
+  write(`${root}/alpha/02_alpha-new-check.md`, '# bound alpha two\n')
+  write(`${root}/alpha/03_alpha-dependent-check.md`, '# bound alpha three\n')
+  write(`${root}/alpha/99_alpha-synthesis.md`, '# bound alpha synthesis\n')
+  write(`${root}/alpha/obsolete-review.md`, '# protected non-roster output\n')
+  write(`${root}/beta/01_beta-thing.md`, '# bound beta\n')
+  write(`${root}/RUN_METADATA.md`, '# stale provider-authored metadata\n')
+  write(`${root}/memo.md`, '# stale memo\n')
+  write(`${root}/audit_dossier.md`, '# stale audit\n')
+  write(`${root}/idea_3_6m.json`, '{}\n')
+  write(`${root}/verification_report.json`, '{}\n')
+  write(`${root}/reviews/stale.json`, '{}\n')
+  write(`${root}/_pool_extracts/.extract-generations/fixture/manifest.json`, '{}\n')
+  const reviewedScope = exactScope(root)
+  write(`${root}/alpha/unbound-notes.md`, '# current bytes with no protected lineage\n')
+
+  // Drive can vanish or gain files after the run started. Exact planning remains tied to the retained
+  // snapshot injected above and does not consult the mutable pool.
+  fs.rmSync(path.join(REPO, 'data/LINEAGE'), { recursive: true, force: true })
+  const reviewed = thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, reviewedScope)
+  assert.equal(reviewed.continuationReceipt.action, 'continue')
+  assert.equal(reviewed.targetRunRoot, root)
+  assert.equal(reviewed.continuationReceipt.evidenceGenerationDigest, reviewedScope.frozenGeneration.generationDigest)
+  assert.deepEqual(reviewed.reuse, ['alpha'])
+  assert.deepEqual(reviewed.modules.find((entry) => entry.module === 'beta')!.doneOrbKeys, ['beta/01_beta-thing'])
+
+  const reviewedModule = thesisPlan(
+    'LINEAGE', undefined, undefined, 'beta', { provider: 'claude' }, reviewedScope,
+  )
+  const moduleTx = fs.mkdtempSync(path.join(REPO, '.lineage-module-private-'))
+  const preparedModule = prepareExactModuleContinuationPrivately('LINEAGE', 'beta', reviewedModule, moduleTx)
+  assert.deepEqual(preparedModule.doneOrbKeys, ['beta/01_beta-thing'],
+    'module-only private preparation retains only the reviewed target orb')
+  assert.ok(fs.existsSync(path.join(preparedModule.stagingRootAbs, 'alpha/99_alpha-synthesis.md')),
+    'the exact module input is rebuilt inside the private transaction')
+  assert.ok(!fs.existsSync(path.join(preparedModule.stagingRootAbs, 'RUN_METADATA.md')),
+    'stale root metadata cannot cross the exact module transaction')
+  assert.ok(fs.existsSync(path.join(REPO, root, 'RUN_METADATA.md')),
+    'pre-spend module preparation never mutates the canonical saved root')
+  fs.rmSync(moduleTx, { recursive: true, force: true })
+
+  // The protected record still names beta, but its current bytes no longer match. It becomes payable in the
+  // SAME root; no generic Full target is created and no presence-skip survives private preparation.
+  write(`${root}/beta/01_beta-thing.md`, '# tampered beta\n')
+  const changed = thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, reviewedScope)
+  assert.equal(changed.targetRunRoot, root)
+  assert.equal(changed.continuationReceipt.action, 'continue')
+  assert.deepEqual(changed.modules.find((entry) => entry.module === 'beta')!.doneOrbKeys, [])
+  assert.ok(changed.continuationReceipt.payableOrbKeys.includes('beta/01_beta-thing'))
+  assert.notEqual(changed.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+    'GET→POST byte/lineage change changes the CAS receipt before spend')
+
+  const changedProtectedManifest = thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, {
+    ...reviewedScope,
+    frozenGeneration: {
+      ...reviewedScope.frozenGeneration,
+      verifiedLineageDigest: `sha256:${'c'.repeat(64)}`,
+    },
+  })
+  assert.notEqual(changedProtectedManifest.continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+    'any protected lineage snapshot change between GET and POST changes the CAS receipt before spend')
+
+  const tx = fs.mkdtempSync(path.join(REPO, '.lineage-private-'))
+  const prepared = prepareThesisPlanPrivately('LINEAGE', changed, tx)
+  assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, 'beta')),
+    'unbound current bytes are absent from the privately prepared root, so the provider cannot skip them')
+  assert.ok(fs.existsSync(path.join(prepared.stagingRootAbs, 'alpha/99_alpha-synthesis.md')),
+    'same-generation finished work stays intact')
+  assert.deepEqual(fs.readdirSync(path.join(prepared.stagingRootAbs, 'alpha')).sort(), [
+    '01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md', '99_alpha-synthesis.md',
+  ], 'a wholly reused module is reconstructed from current-roster protected outputs only')
+  for (const stale of [
+    'RUN_METADATA.md', 'memo.md', 'audit_dossier.md', 'idea_3_6m.json',
+    'verification_report.json', 'reviews',
+  ]) {
+    assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, stale)),
+      `unbound root artifact ${stale} is absent so the resumed master regenerates current output`)
+  }
+  assert.ok(fs.existsSync(path.join(
+    prepared.stagingRootAbs, '_pool_extracts/.extract-generations/fixture/manifest.json',
+  )), 'the exact frozen extraction cache survives root sanitization')
+  assert.ok(!changed.continuationReceipt.reusableArtifacts.some((entry) => entry.output_rel.endsWith('obsolete-review.md')),
+    'obsolete protected markdown is not part of the reusable receipt')
+  fs.rmSync(tx, { recursive: true, force: true })
+
+  const codex = thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'codex' }, reviewedScope)
+  assert.deepEqual(codex.run, changed.run, 'Claude and Codex receive the identical exact continuation scope')
+  assert.deepEqual(codex.continuationReceipt.payableOrbKeys, changed.continuationReceipt.payableOrbKeys)
+
+  assert.throws(
+    () => thesisPlan('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, {
+      continuationRunRoot: root,
+    }),
+    (error: any) => error?.code === 'legacy_generation_unbound',
+    'a pre-upgrade root without a frozen receipt fails before any preparation or launch',
+  )
+  await assert.rejects(
+    () => thesisPlanForRequest('LINEAGE', undefined, undefined, undefined, { provider: 'claude' }, {
+      continuationRunRoot: root,
+    }),
+    (error: any) => error?.code === 'legacy_generation_unbound',
+    'the HTTP planner returns the same fresh-Full-required upgrade boundary before spend',
+  )
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/LINEAGE_${TODAY}`)),
+    'Continue never widens into a new Full-run root')
+  console.log('✅ exact Continue is frozen-generation/lineage bound, sanitizes payable bytes, and never widens')
+}
+
+// ---- 23. exact Continue invalidates every downstream specialist when its upstream changes ----------
+{
+  const root = `analyses/DOWNLINE_${YESTERDAY}`
+  for (const file of ['01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md']) {
+    write(`${root}/alpha/${file}`, `# protected ${file}\n`)
+  }
+  write(`${root}/alpha/99_alpha-synthesis.md`, '# protected alpha synthesis\n')
+  write(`${root}/beta/01_beta-thing.md`, '# protected beta specialist\n')
+  write(`${root}/beta/99_beta-synthesis.md`, '# protected beta synthesis\n')
+  const scope = exactScope(root)
+  write(`${root}/alpha/01_alpha-thing.md`, '# changed upstream specialist\n')
+
+  const plan = thesisPlan('DOWNLINE', undefined, undefined, undefined, { provider: 'codex' }, scope)
+  const beta = plan.modules.find((entry) => entry.module === 'beta')!
+  assert.ok(plan.run.includes('alpha'))
+  assert.ok(plan.run.includes('beta'))
+  assert.deepEqual(beta.doneOrbKeys, [], 'the downstream specialist is payable, not reused against a new upstream')
+  assert.ok(plan.continuationReceipt.payableOrbKeys.includes('beta/01_beta-thing'))
+  assert.deepEqual(plan.continuationReceipt.sourceRunRoots, [root], 'exact Continue stays bound to the same saved root')
+
+  const tx = fs.mkdtempSync(path.join(REPO, '.downline-private-'))
+  const prepared = prepareThesisPlanPrivately('DOWNLINE', plan, tx)
+  assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, 'beta')),
+    'private staging removes the whole downstream module so no old specialist can presence-skip')
+  fs.rmSync(tx, { recursive: true, force: true })
+  console.log('✅ upstream generation changes make every downstream orb payable in the same exact root')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })
