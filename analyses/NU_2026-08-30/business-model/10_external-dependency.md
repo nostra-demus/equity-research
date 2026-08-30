@@ -1,0 +1,41 @@
+# External Dependency Check — NU
+
+## 1. Dependency Table
+
+| External Variable | Dependency Level (Low / Mid / High) | Why It Matters | Evidence |
+|---|---|---|---|
+| Interest rates | High | Rates affect consumer spending, credit demand, deposit/funding cost and borrowers’ ability to pay. The earnings effect is not one-way: higher rates can lift interest income but can also reduce payment-fee income and raise funding cost and defaults. Brazilian RDB deposits pay 100% of CDI after 30 days (except fixed-term RDBs), which ties a material funding cost to the local rate. | [FY25 Form 20-F, pp. 132, 166–67, 232]; [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 22, p.31] |
+| FX | Mid | NU presents in US dollars while its Brazilian, Mexican and Colombian operating entities use BRL, MXN and COP. This creates translation volatility. The June 2026 filing says a portion of the Brazilian net investment is hedged, while FX expenses such as cloud infrastructure are also hedged; it does not establish full protection for the group’s local-currency earnings or equity. | [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 2, pp.12–13; Notes 20 and 32, pp.27–30, 42] |
+| Government policy | Mid | Brazil’s consumption-tax reform introduces a new financial-services tax regime from 2027, and government monetary, fiscal and exchange-control actions can affect credit availability, funding, consumer purchasing power and cross-border cash flows. The company says the reform’s impact remains under assessment. | [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 1.1, p.12]; [FY25 Form 20-F, pp.131–32] |
+| Regulation | High | Financial-services operations are regulated in Brazil, Mexico and Colombia. Rules can change capital, liquidity, product and reporting requirements; the interim filing also says local requirements restrict the group’s ability to move assets freely between regulated entities. | [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 3, p.14]; [FY25 Form 20-F, Item 3.D, pp.114–15, 165] |
+| Consumer cycle | High | The filing states that spending, employment, wages, interest rates and consumer-credit expansion/retraction determine transaction number and value. Brazil supplied US$11.038bn of FY25 revenue out of US$12.084bn total: US$11.038bn / (US$11.038bn + US$0.808bn + US$0.237bn) = 91.4%. That leaves the group highly exposed to Brazilian household credit conditions. | [FY25 Form 20-F, pp.53, 166–67]. CIQ workbook read reconciles after rounding: Brazil US$11,038m (91%), Mexico US$808m (7%) and other countries US$237m (2%) of US$12,084m total. [CIQ Financials→Segments, Geographic Segment → Revenues, 12 months Dec-31-2025 — vendor export] |
+| Geopolitics / country risk | Mid | Political, fiscal and social instability in Brazil, Mexico and Colombia can impair local demand, credit performance, funding access and the market price of Brazilian securities. The filing specifically flags Brazil’s October 2026 presidential election as a source of policy uncertainty. | [FY25 Form 20-F, Item 3.D, pp.131–37] |
+| Third-party payment and cloud infrastructure | Mid | NU uses Amazon Web Services as its primary third-party cloud provider and incurs Mastercard network/license costs. Service disruption or adverse commercial terms could affect operations; spend, substitutability and supplier concentration are not disclosed, so a High score is not proven. | [FY25 Form 20-F, Item 4.B, Technology—Cloud-Based Architecture; Item 5.A, pp.170–71] |
+
+No direct commodity, freight/logistics, weather or industrial-cycle sensitivity was identified in the filings reviewed. Those variables are not scored Low by default. The CIQ relationship graph covers only recently disclosed customers and suppliers for current subsidiaries. It names AWS and Mastercard but gives no relationship size, contract term or concentration; it therefore cannot support a supplier-concentration conclusion. [CIQ Suppliers/Customers export (NU), retrieved 2026-08-30 — vendor export; `scope_notes` and relationship rows]
+
+## 1A. Named Policy & Subsidy Register — current status as of 2026-08-30
+
+| Programme (local name + English) | Status as of 2026-08-30 | Terms in the reference period | Terms NOW (or successor programme) | Change, quantified | Stated end date? | Source + date |
+|---|---|---|---|---|---|---|
+| Reforma Tributária do Consumo — Consumption Tax Reform: IBS/CBS/IS, Complementary Law 214/2025 as supplemented by Complementary Law 227/2026 | **In force (amended — terms changed)** | PIS/Pasep, Cofins and ISS are the current consumption taxes to be gradually replaced; the interim filing does not disclose a comparable prior effective rate for NU. | Testing begins in 2026. Financial services enter the specific IBS/CBS regime on 2027-01-01 at an estimated 10.85%, rising gradually to 12.50% in 2033; NU says the impact is under assessment. | Stated future rate path: 10.85% initially to 12.50% in 2033 (+165bp). The company does not disclose an old-versus-new effective-tax comparison, so the profit effect is not quantifiable. | No end date stated in the cited sources. | [Brazil Federal Revenue, *Legislação da Reforma Tributária do Consumo*, updated 2026-08-18 — official]; [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 1.1, p.12] |
+| Resolução BCB nº 246 — Central Bank of Brazil interchange-fee limits | **In force (unchanged)** | The cited disclosure does not provide the prior interchange ceilings or their effect on NU revenue. | A 0.50% maximum applies to domestic debit/deposit-account arrangements; a 0.70% maximum applies to domestic prepaid-payment-account arrangements. The latter provisions took effect 2023-04-01. | 0.50% debit/deposit and 0.70% prepaid ceilings. Change versus the prior regime and NU’s dollar impact are not disclosed. | No end date stated in the official norm. | [Banco Central do Brasil, Resolução BCB nº 246, 2022-09-26, official normative record accessed 2026-08-30]; [FY25 Form 20-F, Item 3.D, p.115] |
+
+## 2. Sensitivity, If Disclosed
+
+| Exposure | Disclosed sensitivity | Reported impact | Evidence |
+|---|---|---|---|
+| Interest-rate market value | 1bp parallel upward shift in the stated curve; values are US$000 and represent fair-value changes, not an earnings forecast. | As of 2026-06-30: BRL curve (685), COP curve (415), TRY curve (125), MXN curve (59), and US curve +2. | [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 32, p.42] |
+| FX translation of investments | As of 2025-12-31, a 17.8% USD/BRL shock for Brazilian investments and 10% standard shocks for other currencies. This is an annual-filed sensitivity, not a current unhedged-loss forecast. | FIP Brazil: US$1,369.778m possible change; all listed subsidiaries: US$1,509.598m possible change. The later interim filing designates US$1,370.159m of Brazilian net investment as hedged, but does not publish a replacement FX shock table. | [FY25 Form 20-F, pp.233–34]; [H1 FY26 Interim Condensed Consolidated Financial Statements, Note 20, pp.29–30] |
+
+## 3. Classification
+
+**Partly externally driven.** Country macro conditions, consumer credit and regulation are material because 91.4% of FY25 revenue came from Brazil. NU has genuine but partial levers: interest-rate hedges for specified government-bond positions, FX hedges for forecast costs, and a designated hedge for part of the Brazilian net investment. Those measures do not remove dependence on household demand, default conditions, public policy or regulation. [FY25 Form 20-F, pp.53, 166–67]; [H1 FY26 Interim Condensed Consolidated Financial Statements, Notes 20 and 32, pp.27–30, 42]
+
+## 4. External Dependency Risk Score
+
+**59/100 — INVERTED: higher = worse.** The score reflects High exposure to rates, consumer credit and regulation, moderated by disclosed hedging and by the absence of a proven direct commodity, freight or weather dependency. It is an external-dependency score, not a forecast of earnings or credit losses.
+
+## 5. The Single Biggest Lever
+
+**Brazilian consumer-credit conditions:** a 20% adverse deterioration in borrowers’ capacity to pay would most directly increase expected credit loss and reduce payment activity; the filing does not quantify that 20% scenario. [FY25 Form 20-F, pp.131–32, 166–67, 170–71]

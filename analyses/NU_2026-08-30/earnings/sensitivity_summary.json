@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NU",
+  "as_of": "2026-08-30",
+  "currency": "USD",
+  "base_metric": "reported_net_income_usd_m",
+  "base_value": 1932.52,
+  "base_value_source": "H1 FY2026 Unaudited Interim Condensed Consolidated Financial Statements, Statement of Income, p.5",
+  "base_period": "H1 FY2026",
+  "revenue_base": 10481.175,
+  "revenue_period": "H1 FY2026",
+  "base_value_note": "Reported IFRS net income; no reported EBITDA is available. The sole clean per-unit coefficient below moves financial-instrument fair value, not reported net income, so the deterministic engine must withhold a new income level and margin.",
+  "sensitivities": [
+    {
+      "variable": "parallel_interest_rate_curves",
+      "label": "Parallel interest-rate curves",
+      "unit": "bp",
+      "base_value": null,
+      "coefficient": -1.282,
+      "impact_metric": "financial_instruments_fair_value_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {
+        "low": -1,
+        "high": 1
+      },
+      "non_linearity": "The disclosed whole-position DV01 is symmetric for a ±1bp parallel shift in the Brazilian, Turkish, US, Mexican and Colombian curves and includes the current hedge posture. It is a fair-value sensitivity, not an earnings or EBITDA sensitivity; linear scaling outside ±1bp is not validated.",
+      "source": "H1 FY2026 Unaudited Interim Condensed Consolidated Financial Statements, Note 32, p.42: 06/30/2026 DV01s of −US$0.685m BRL, −US$0.125m TRY, +US$0.002m US, −US$0.059m MXN and −US$0.415m COP = −US$1.282m per +1bp parallel shift"
+    }
+  ]
+}
