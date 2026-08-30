@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T09:14:40Z",
+  "generated_at": "2026-08-30T09:19:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1924,47 +1924,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260830-147",
-      "headline": "Temasek-backed Country Delight scouts investment banks for potential $300 million IPO",
+      "inbox_id": "INB-20260830-175",
+      "headline": "Indian Bank to add 100 branches, increase headcount by 2,500 in FY27",
       "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/country-delight-ipo-200-300-million-india-listing-11788068529581.html",
-      "source_name": "Mint",
+      "url": "https://www.thehindubusinessline.com/money-and-banking/indian-bank-to-add-100-branches-increase-headcount-by-2500-in-fy27/article71407337.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:13:33Z",
+      "found_at": "2026-08-30T09:12:37Z",
       "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Country Delight is exploring a potential $300 million IPO, which is a significant capital market event.",
+      "prelim_note": "Indian Bank announced a capacity expansion plan to add 100 branches and 2,500 employees by FY27.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Country Delight is exploring a potential $300 million IPO, which is a significant capital market event.",
+      "triage_reason": "Indian Bank announced a capacity expansion plan to add 100 branches and 2,500 employees by FY27.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
+        "event": 6,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
+        "materiality_label_floor": 20,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "capex",
         "size_bucket": "mid"
       },
       "event_types": [
-        "capital_actions"
+        "capex",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Country Delight",
+          "name": "Indian Bank",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -113903,9 +113904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1406,
-    "news_picked_today": 253,
-    "news_dropped_today": 1153
+    "news_seen_today": 1417,
+    "news_picked_today": 257,
+    "news_dropped_today": 1160
   },
   "book_momentum": {
     "live_count": 8,
