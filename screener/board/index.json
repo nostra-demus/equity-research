@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T07:20:22Z",
+  "generated_at": "2026-08-30T07:25:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1241,6 +1241,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-129",
+      "headline": "Chairman Exit, CEO Departure, US Lawsuit: What’s Going On At HDFC Bank?",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/chairman-exit-ceo-departure-us-lawsuit-whats-going-on-at-hdfc-bank",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:48:59Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The combination of executive departures and a US lawsuit creates significant management and legal risk for the bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The combination of executive departures and a US lawsuit creates significant management and legal risk for the bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-093",
       "headline": "PSU Lenders To Challenge NCLT Order, Oppose Subhash Chandra’s ₹6.5-Crore Repayment Plan",
       "headline_en": null,
@@ -1841,6 +1891,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-130",
+      "headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
+      "headline_en": null,
+      "url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T07:19:28Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Positive mid-stage clinical trial results for a drug candidate represent a potential future revenue driver for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Positive mid-stage clinical trial results for a drug candidate represent a potential future revenue driver for the company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-106",
       "headline": "VIDEO: Massive Fire Breaks Out At Company In Navi Mumbai’s Rabale MIDC; Firefighting Operations Underway",
       "headline_en": null,
@@ -1879,99 +1978,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-083",
-      "headline": "ASIC micro-cap probe widens to at least three stocks, two brokers",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/asic-micro-cap-probe-widens-to-at-least-three-stocks-two-brokers-20260828-p60sfu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:54:22Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The expansion of an ASIC investigation into micro-cap stocks and brokers increases regulatory and operational risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The expansion of an ASIC investigation into micro-cap stocks and brokers increases regulatory and operational risk for the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-081",
-      "headline": "ComfortDelGro tie-up with French firm RATP Dev to run Copenhagen Metro from Sept 2027",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/comfortdelgro-tie-french-firm-ratp-dev-run-copenhagen-metro-sept-2027",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:37:32Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "ComfortDelGro has secured a contract to operate the Copenhagen Metro starting in 2027, representing a new international revenue stream.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "ComfortDelGro has secured a contract to operate the Copenhagen Metro starting in 2027, representing a new international revenue stream.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ComfortDelGro",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113691,9 +113697,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1061,
-    "news_picked_today": 180,
-    "news_dropped_today": 881
+    "news_seen_today": 1074,
+    "news_picked_today": 184,
+    "news_dropped_today": 890
   },
   "book_momentum": {
     "live_count": 8,
