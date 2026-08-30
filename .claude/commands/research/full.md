@@ -741,6 +741,32 @@ viol.extend(sic.eval_bc_probability_basis_stated(_live_date, scen, d.get("foreca
 # §24/§13/AI/AK/AP/§10 above, for the one remaining check that had it. Uses `_live_date` for the
 # same reason AT/AU/AV/BC do (a rerun re-checks what SHIPS on this execution, not when the thesis
 # was first decided).
+#
+# check BA (companion) — kill_criteria CONTAINER presence (live pre-publish). eval_ba below returns
+# N/A (None) for an absent / null / empty / non-list kill_criteria, EXACTLY as its retrospective twin
+# does: eval.py defers those shapes to schema check B (kill_criteria ∈ REQ ∩ ARRAYS — a present list)
+# and check P (disconfirmation: "a thesis needs at least one falsification trigger"). But the live gate
+# mirrors NEITHER B nor P for kill_criteria, so without this guard an absent / null / [] / non-list
+# kill_criteria (a whole thesis with NO falsification trigger) sails past eval_ba's `or []` and prints
+# GATE: PASS — the §8 / HARD GATE 11 hole check BA exists to close, left open for the one shape BA is
+# deliberately silent on. Faithful to check P's `_kc_text`: a plain-string row OR a {condition,...}
+# object row both count as present; a list of only-blank entries counts as empty. Gated on SCEN_DATE
+# via `_live_date`, exactly as check P is gated on ddte and AT/AU/AV/BC/BA are gated live.
+_BA_SCEN_DATE = "2026-06-08"   # eval.py SCEN_DATE — check P's forward-looking floor for the disconfirmation gate
+def _kc_present_text(k):        # mirrors eval.py check P's _kc_text: pull the trigger text from a str OR dict row
+    if isinstance(k, str): return k.strip()
+    if isinstance(k, dict):
+        for f in ("condition", "criterion", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
+            v = k.get(f)
+            if isinstance(v, str) and v.strip(): return v.strip()
+        return " ".join(str(v) for v in k.values() if isinstance(v, str)).strip()
+    return ""
+if _isdate(_live_date) and _live_date >= _BA_SCEN_DATE:
+    _kc_live = d.get("kill_criteria")
+    if not isinstance(_kc_live, list) or not [t for t in (_kc_present_text(k) for k in _kc_live) if t]:
+        viol.append("kill_criteria is absent/empty/non-list — §8 disconfirmation / HARD GATE 11 requires at least "
+                    "one falsification trigger; the live gate had no kill_criteria-presence check, so an omitted/empty "
+                    "array printed GATE: PASS (mirrors eval.py schema check B + check P)")
 viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_criteria")) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
@@ -749,7 +775,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria trigger-test schema presence all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
 PY
 ```
 

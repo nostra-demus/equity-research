@@ -245,7 +245,8 @@ def eval_ba_kill_criteria_trigger_test(decision_date, kill_criteria):
             issues.append(f"kill_criteria[{i}] is a plain string — HARD GATE 11 requires comparable_basis "
                            f"and fired_last_two_periods fields, which only an object row can carry")
             continue
-        cb = e.get("comparable_basis"); fl = e.get("fired_last_two_periods")
+        cb = e.get("comparable_basis")
+        fl = e.get("fired_last_two_periods")
         if not (isinstance(cb, str) and cb.strip()):
             issues.append(f"kill_criteria[{i}] missing comparable_basis — the like-for-like period/basis "
                            f"this trigger is measured against (HARD GATE 11 check 1)")
