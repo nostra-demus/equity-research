@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:30:24Z",
+  "generated_at": "2026-08-30T01:34:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -815,6 +815,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-033",
+      "headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:31:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "This is an analytical opinion piece regarding the bank's strategic turnaround rather than a specific corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "This is an analytical opinion piece regarding the bank's strategic turnaround rather than a specific corporate event.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-020",
       "headline": "Iran parliament speaker says new regional pacts can 'herald a new stage’",
       "headline_en": null,
@@ -1233,6 +1282,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-034",
+      "headline": "Colombia Ends Talks with Rebels In Blow to Petro Peace Process",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-30/colombia-ends-talks-with-rebels-in-blow-to-petro-peace-process",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:32:56Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The collapse of peace talks with rebel groups represents a significant escalation in geopolitical risk for Colombia, impacting sovereign stability and investment climate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "The collapse of peace talks with rebel groups represents a significant escalation in geopolitical risk for Colombia, impacting sovereign stability and investment climate.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -111448,7 +111540,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1813,
+    "inbox_unconsumed": 1815,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111457,9 +111549,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 161,
-    "news_picked_today": 33,
-    "news_dropped_today": 128
+    "news_seen_today": 170,
+    "news_picked_today": 35,
+    "news_dropped_today": 135
   },
   "book_momentum": {
     "live_count": 8,
