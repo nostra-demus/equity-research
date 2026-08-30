@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-08-30T00:10:31Z",
+  "generated_at": "2026-08-30T00:15:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-006",
+      "headline": "Iran war live: Tehran stands firm over US sanctions; settlers besiege Qusra",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/30/iran-war-live-iran-pledges-to-stand-firm-against-unjust-us-sanctions?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and US sanctions poses a significant risk to global energy markets and regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Geopolitical escalation involving Iran and US sanctions poses a significant risk to global energy markets and regional stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-004",
       "headline": "SpaceX and Rivals Dodge Traffic as Satellites, Debris Crowd Low-Earth Orbit",
@@ -41,6 +84,55 @@
       "companies": [
         {
           "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-007",
+      "headline": "Temasek backs Singapore Airlines to fly long haul with Air India",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/temasek-backs-singapore-airlines-to-fly-long-haul-with-air-india/articleshow/133618473.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Temasek's investment in Air India supports its long-haul expansion strategy, signaling institutional confidence in the carrier's growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Temasek's investment in Air India supports its long-haul expansion strategy, signaling institutional confidence in the carrier's growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
           "ticker": null,
           "listing_country": null
         }
@@ -109882,7 +109974,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1787,
+    "inbox_unconsumed": 1789,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -109891,9 +109983,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 27,
-    "news_picked_today": 6,
-    "news_dropped_today": 21
+    "news_seen_today": 38,
+    "news_picked_today": 8,
+    "news_dropped_today": 30
   },
   "book_momentum": {
     "live_count": 8,
