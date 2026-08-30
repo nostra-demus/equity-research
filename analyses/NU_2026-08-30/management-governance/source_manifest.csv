@@ -1,0 +1,18 @@
+table,governance_need_or_source,best_available_source_or_period,period_or_as_of,confidence_1_to_5_or_age,missing_or_stale,replacement_source_or_impact
+source_coverage_matrix,Board composition,FY25 Form 20-F Item 6A,FY25 / updated CIQ current,5,N,CIQ Board Members
+source_coverage_matrix,Compensation,FY25 Form 20-F Item 6B; Note 28(b),FY25,4,N — individual weights limited,AGM materials / issuer remuneration detail
+source_coverage_matrix,Ownership,FY25 Form 20-F Item 7A,2025-12-31 / 2026-03-01 share base,5,N,CIQ Ownership Detailed/History
+source_coverage_matrix,Insider trades,CIQ Insider Trading / Form 4,through 2026-08-26,4,N,SEC Form 4 originals
+source_coverage_matrix,Related-party transactions,FY25 Form 20-F Note 28 and Item 7B,FY25,5,N,audit committee RPT approvals
+source_coverage_matrix,Auditor report,FY25 Form 20-F; Q2 interim review,FY25 / H1 2026,5,N,CIQ Auditors
+source_coverage_matrix,Secretarial / compliance report,not applicable under regime,N/A,5,N/A,SEC/NYSE/Brazilian regulator releases
+source_coverage_matrix,AGM voting,AGM event/call only,2026-08-06,2,Y — itemised outcomes absent,company/SEC voting results
+source_coverage_matrix,Capital-allocation history,"20-Fs, timeline and CIQ financial exports",FY21–2026,5,N,business-model/11
+source_coverage_matrix,Legal / regulatory cases,annual filing ordinary-course disclosure; no separate legal database sweep yet,FY25,3,Partial,Agent 12 regulator/court sweep
+data_freshness,FY25 Form 20-F,FY ended 2025-12-31,2026-04-08,4.7 months,No,"Primary governance, ownership and audit base"
+data_freshness,Q2 2026 interim statements / 6-K,H1 ended 2026-06-30,2026-08-13/14,0.5 months,No,Current financial and audit-review context
+data_freshness,Q2 2026 earnings call,Q2 2026,2026-08-13,0.5 months,No,CFO transition and current candor source
+data_freshness,Insider trade export,Form 4 events,2026-08-26,0.1 months,No,Current insider behaviour
+data_freshness,CIQ ownership summary,top-holder dates to 2026-08-25,2026-08-29 export,0.2 months,No,Current ownership cross-check
+data_freshness,Corporate timeline,last six months,2026-08-13 latest event,0.6 months,No,Management-change and capital-action context
+data_freshness,Prior 20-F set,FY21–FY24,2022–2025 filings,16–52 months,Not stale for historical scorecard,Supports multi-year tests only
