@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T03:50:08Z",
+  "generated_at": "2026-08-30T03:54:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1050,6 +1050,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-067",
+      "headline": "Samsung Electronics, SK hynix's corporate tax tops 11 tln won in H1",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260830001800320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:49:06Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Samsung Electronics and SK hynix reported a combined corporate tax expense of 11 trillion won for the first half of the year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Samsung Electronics and SK hynix reported a combined corporate tax expense of 11 trillion won for the first half of the year.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-050",
       "headline": "INTCO Medical rapporteert omzetgroei van 40,6% in de eerste helft van 2026, breidt de grootste wegwerphandschoenencapaciteit ter wereld uit tot 107 miljard stuks",
       "headline_en": "INTCO Medical reports 40.6% revenue growth in the first half of 2026, expands the world's largest disposable glove capacity to 107 billion units",
@@ -1838,49 +1892,6 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-051",
-      "headline": "Iran war live: Tehran insists Strait of Hormuz is closed, and is in no rush to reopen",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/iran-us-israel-war-live-latest-updates",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:38:09Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The closure of the Strait of Hormuz represents a major global commodity supply shock for oil and gas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "The closure of the Strait of Hormuz represents a major global commodity supply shock for oil and gas.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -113235,9 +113246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 438,
-    "news_picked_today": 73,
-    "news_dropped_today": 365
+    "news_seen_today": 443,
+    "news_picked_today": 74,
+    "news_dropped_today": 369
   },
   "book_momentum": {
     "live_count": 8,
