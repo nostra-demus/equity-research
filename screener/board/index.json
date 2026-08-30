@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T09:09:50Z",
+  "generated_at": "2026-08-30T09:14:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1334,6 +1334,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-173",
+      "headline": "PetroChina First-Half Profit Rises 22% on Higher Oil Prices",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-30/petrochina-first-half-profit-rises-22-on-higher-oil-prices",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:40:49Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "PetroChina reported a 22% increase in first-half profit driven by higher oil prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "PetroChina reported a 22% increase in first-half profit driven by higher oil prices.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PetroChina",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-131",
       "headline": "HDFC CEO Sashidhar Jagdishan to not seek reappointment, set to step down in October",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
           "name": "Country Delight",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-115",
-      "headline": "Sintex Industries: NCLAT upholds clean slate principle, rejects shareholder's plea for compensation",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/sintex-industries-nclat-upholds-clean-slate-principle-rejects-shareholders-plea-for-compensation/article71407118.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T06:28:33Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The NCLAT ruling confirms the loss of shareholder value in the insolvency process for Sintex Industries.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The NCLAT ruling confirms the loss of shareholder value in the insolvency process for Sintex Industries.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sintex Industries",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -113903,9 +113903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1395,
-    "news_picked_today": 252,
-    "news_dropped_today": 1143
+    "news_seen_today": 1406,
+    "news_picked_today": 253,
+    "news_dropped_today": 1153
   },
   "book_momentum": {
     "live_count": 8,
