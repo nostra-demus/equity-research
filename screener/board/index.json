@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T00:59:47Z",
+  "generated_at": "2026-08-30T01:04:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-021",
+      "headline": "Trump’s anti-wind crusade helps Dorrell’s Stonepeak net $1.3b windfall",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/north-america/trump-s-anti-wind-crusade-helps-dorrell-s-stonepeak-net-1-3b-payday-20260829-p60slh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:01:57Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Stonepeak realized a $1.3 billion windfall from an investment exit related to the wind energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Stonepeak realized a $1.3 billion windfall from an investment exit related to the wind energy sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stonepeak",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -738,6 +787,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-023",
+      "headline": "Rescuers dig into tunnel as missing toll from Nepal and China flood nears 3,000",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/08/30/asia-pacific/rescuers-tunnel-nepal-china-flood/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:57:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Major natural disaster in Nepal and China with nearly 3,000 missing, indicating significant regional economic disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Major natural disaster in Nepal and China with nearly 3,000 missing, indicating significant regional economic disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -110853,7 +110945,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1802,
+    "inbox_unconsumed": 1804,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -110862,9 +110954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 114,
-    "news_picked_today": 21,
-    "news_dropped_today": 93
+    "news_seen_today": 123,
+    "news_picked_today": 24,
+    "news_dropped_today": 99
   },
   "book_momentum": {
     "live_count": 8,
