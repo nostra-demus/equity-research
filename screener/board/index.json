@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T17:34:13Z",
+  "generated_at": "2026-08-30T17:39:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-247",
+      "headline": "Bancos centrales de EAU y Egipto coordinan acciones por Banque Misr tras sanción de EEUU",
+      "headline_en": "Central banks of UAE and Egypt coordinate actions for Banque Misr after US sanction",
+      "url": "https://www.reuters.com/es/negocio/X4JUVG2ICBIM5EHMN76LEDANBQ-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T17:34:13Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Central banks are coordinating actions following a US sanction on a financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Central banks are coordinating actions following a US sanction on a financial institution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Misr",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-192",
-      "headline": "SHENGRONG HLDG (00834): VOLUNTARY DELISTING OF SHARES FROM THE MAIN BOARD OF THE SINGAPORE EXCHANGE SECURITIES TRADING LIMITED",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T10:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Shengrong Holdings is voluntarily delisting from the Singapore Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Shengrong Holdings is voluntarily delisting from the Singapore Exchange.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shengrong Holdings",
-          "ticker": "00834",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114934,9 +114935,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3118,
-    "news_picked_today": 573,
-    "news_dropped_today": 2545
+    "news_seen_today": 3126,
+    "news_picked_today": 576,
+    "news_dropped_today": 2550
   },
   "book_momentum": {
     "live_count": 8,
