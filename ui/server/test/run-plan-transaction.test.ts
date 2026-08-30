@@ -710,6 +710,24 @@ try {
   assert.equal(await readDeferredPreSpendRetry(deferredRequest, state), null,
     'a released exact child removes the record from the waiting lane')
 
+  // A zero-spend retry whose already-rolled-back prepared tree is absent is stale, not a reason to
+  // take the whole engine offline during startup recovery.
+  const missingPlan = freshPlan('ZZTXNM')
+  const missingRequest = newRequestId()
+  const missing = await prepareRunPlanTransaction(missingRequest, 'ZZTXNM', missingPlan, {}, state)
+  await missing.activate()
+  await missing.deferPreSpendRetry(retryAuthority())
+  const missingTarget = path.join(REPO_ROOT, missingPlan.targetRunRoot)
+  fs.rmSync(missing.preparation.stagingRootAbs, { recursive: true, force: true })
+  fs.rmSync(missingTarget, { recursive: true, force: true })
+  assert.equal(fs.existsSync(missing.preparation.stagingRootAbs), false)
+  assert.equal(fs.existsSync(missingTarget), false)
+  const missingRecovery = await recoverRunPlanTransactions(state)
+  assert.ok(missingRecovery.rolledBack.includes(missingRequest))
+  assert.equal(missingRecovery.waitingPreSpendRetry.includes(missingRequest), false)
+  assert.equal(await readDeferredPreSpendRetry(missingRequest, state), null)
+  assert.equal(fs.existsSync(missingTarget), false)
+
   // A prior canonical root is restored byte-for-byte while the new exact tree waits privately.
   const restoredPlan = freshPlan('ZZTXNS')
   const restoredTarget = path.join(REPO_ROOT, restoredPlan.targetRunRoot)
