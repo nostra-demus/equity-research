@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T07:04:33Z",
+  "generated_at": "2026-08-30T07:09:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1390,6 +1390,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-123",
+      "headline": "DGCA flagged safety issues with Tecnam aircraft before Kanpur crash",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/dgca-flagged-safety-issues-with-tecnam-aircraft-before-kanpur-crash/article71407172.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T07:01:50Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The DGCA identified safety concerns regarding Tecnam aircraft prior to a fatal crash, creating potential regulatory and operational risk for operators of these aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The DGCA identified safety concerns regarding Tecnam aircraft prior to a fatal crash, creating potential regulatory and operational risk for operators of these aircraft.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Tecnam",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-102",
       "headline": "Ray White Capital, Mallesons, Keyview sued over developer loan",
       "headline_en": null,
@@ -1893,49 +1943,6 @@
       "launched_signal_id": null,
       "triage_score": 83,
       "triage_reason": "A lookout notice against a suspended official suggests potential legal and regulatory scrutiny, which could lead to financial or reputational damage.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-066",
-      "headline": "NIA Court Rejects Bail Cancellation Plea Against Sudha Bharadwaj, 3 Others In Elgar Parishad Case",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/nia-court-rejects-bail-cancellation-plea-against-sudha-bharadwaj-3-others-in-elgar-parishad-case",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T03:28:17Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The rejection of a bail cancellation plea in a significant case like Elgar Parishad indicates ongoing legal proceedings that could have implications for the individuals involved and potentially their associated entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The rejection of a bail cancellation plea in a significant case like Elgar Parishad indicates ongoing legal proceedings that could have implications for the individuals involved and potentially their associated entities.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -113679,9 +113686,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1019,
-    "news_picked_today": 172,
-    "news_dropped_today": 847
+    "news_seen_today": 1032,
+    "news_picked_today": 173,
+    "news_dropped_today": 859
   },
   "book_momentum": {
     "live_count": 8,
