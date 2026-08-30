@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:50:04Z",
+  "generated_at": "2026-08-30T05:00:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -939,6 +939,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-083",
+      "headline": "ASIC micro-cap probe widens to at least three stocks, two brokers",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/asic-micro-cap-probe-widens-to-at-least-three-stocks-two-brokers-20260828-p60sfu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:54:22Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The expansion of an ASIC investigation into micro-cap stocks and brokers increases regulatory and operational risk for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The expansion of an ASIC investigation into micro-cap stocks and brokers increases regulatory and operational risk for the sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,49 +1929,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-080",
-      "headline": "Islande-Une courte majorité défavorable aux discussions d'adhésion à l'UE, le décompte se poursuit",
-      "headline_en": "Iceland - A narrow majority unfavorable to EU accession talks, the count continues",
-      "url": "https://www.reuters.com/fr/affaires/islande-une-courte-majorit-dfavorable-aux-discussions-dadhsion-lue-le-dcompte-se-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:31:53Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Icelandic public sentiment regarding EU accession remains divided, impacting long-term geopolitical and economic alignment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Icelandic public sentiment regarding EU accession remains divided, impacting long-term geopolitical and economic alignment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113490,9 +113491,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 564,
-    "news_picked_today": 99,
-    "news_dropped_today": 465
+    "news_seen_today": 570,
+    "news_picked_today": 100,
+    "news_dropped_today": 470
   },
   "book_momentum": {
     "live_count": 8,
