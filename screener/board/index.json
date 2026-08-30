@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T02:20:19Z",
+  "generated_at": "2026-08-30T02:25:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-046",
@@ -1380,6 +1380,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-048",
+      "headline": "With no heirs, Kuehne’s foundation gets his $49bn fortune",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/with-no-heirs-kuehnes-foundation-gets-his-49bn-fortune/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:00:25Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The transfer of a $49bn fortune to a foundation is a private wealth event with no immediate impact on the operations of Kuehne + Nagel.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "The transfer of a $49bn fortune to a foundation is a private wealth event with no immediate impact on the operations of Kuehne + Nagel.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kuehne + Nagel",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-036",
       "headline": "MSME ministry plans to triple raw material assistance for small businesses by FY30",
       "headline_en": null,
@@ -1806,55 +1855,6 @@
       "companies": [
         {
           "name": "Pakistan Hospital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-024",
-      "headline": "Bhopal Municipal Corporation Invites Bids For ‘Son Chiraiya’ Despite Council Deferring Proposal; Commissioner Orders Cancellation",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/bhopal-municipal-corporation-invites-bids-for-son-chiraiya-despite-council-deferring-proposal-commissioner-orders-cancellation",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A local municipal administrative dispute regarding a specific project bid cancellation is not material to broader investment markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "A local municipal administrative dispute regarding a specific project bid cancellation is not material to broader investment markets.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bhopal Municipal Corporation",
           "ticker": null,
           "listing_country": null
         }
@@ -112325,9 +112325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248,
-    "news_picked_today": 48,
-    "news_dropped_today": 200
+    "news_seen_today": 259,
+    "news_picked_today": 49,
+    "news_dropped_today": 210
   },
   "book_momentum": {
     "live_count": 8,
