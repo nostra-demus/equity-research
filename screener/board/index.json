@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:24:38Z",
+  "generated_at": "2026-08-30T06:29:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -441,6 +441,56 @@
           "name": "Glencore",
           "ticker": "GLEN",
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-114",
+      "headline": "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bkt-to-foray-into-car-tyres-in-november-aims-to-double-revenue-to-23000-crore-by-fy30/article71405934.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T06:21:35Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "BKT announced a new product line entry and a long-term revenue growth target of ₹23,000 crore by FY30.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "BKT announced a new product line entry and a long-term revenue growth target of ₹23,000 crore by FY30.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Balkrishna Industries",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1892,55 +1942,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-096",
-      "headline": "‎Knowledge Tower secures educational curricula contract from Maarif Education",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1932555",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:35:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Knowledge Tower secured a contract for educational curricula, which is a direct revenue-generating event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Knowledge Tower secured a contract for educational curricula, which is a direct revenue-generating event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Knowledge Tower",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -113647,9 +113648,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 798,
-    "news_picked_today": 147,
-    "news_dropped_today": 651
+    "news_seen_today": 812,
+    "news_picked_today": 149,
+    "news_dropped_today": 663
   },
   "book_momentum": {
     "live_count": 8,
