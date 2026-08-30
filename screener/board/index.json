@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T11:09:54Z",
+  "generated_at": "2026-08-30T11:20:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-206",
@@ -1690,6 +1690,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-211",
+      "headline": "TIANJUDIHE (02479): CHANGE OF CHAIRMAN, EXECUTIVE DIRECTORS, CHIEF EXECUTIVE OFFICER, COMPANY SECRETARY, CHIEF FINANCIAL OFFICER, MEMBERS OF BOARD COMMITTEES AND AUTHORISED REPRESENTATIVE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000357.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T11:10:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The company announced a wholesale change of its entire C-suite and board leadership, indicating significant internal instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company announced a wholesale change of its entire C-suite and board leadership, indicating significant internal instability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TIANJUDIHE",
+          "ticker": "02479",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-204",
       "headline": "MABWELL-B (02493): (1) ENTERING INTO THE LICENSE AGREEMENT AND RELATED-PARTY TRANSACTION WITH SYNUSIGHT; (2) JOINT APPLICATION FOR A SCIENCE AND TECHNOLOGY PROJECT WITH SYNUSIGHT AND RELATED-PARTY TRANSACTION; (3) PROPOSED CHANGE IN SCOPE OF BUSINESS, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION AND REGISTRATION OF INDUSTRIAL AND COMMERCIAL CHANGES; AND (4) NOTICE OF EGM",
       "headline_en": null,
@@ -1933,55 +1983,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-173",
-      "headline": "PetroChina First-Half Profit Rises 22% on Higher Oil Prices",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-30/petrochina-first-half-profit-rises-22-on-higher-oil-prices",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:40:49Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "PetroChina reported a 22% increase in first-half profit driven by higher oil prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "PetroChina reported a 22% increase in first-half profit driven by higher oil prices.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PetroChina",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91709,76 +91710,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-00d8e75528b1",
-      "idea_version": "IDEAV-894653a9197177b3",
-      "idea_version_started_at": "2026-08-27T13:17:25Z",
-      "ticker": "DG",
-      "company": "Dollar General",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual comparable sales forecast, indicating that its value-oriented retail model is capturing market share as consumers trade down.",
-      "why_now": "The positive guidance revision was released today, August 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ed7ecef7754"
-      ],
-      "primary_source_event_id": "EVT-9ed7ecef7754",
-      "source_headlines": [
-        "Dollar General raises annual comparable sales forecast on steady demand, shares jump"
-      ],
-      "source_headline": "Dollar General raises annual comparable sales forecast on steady demand, shares jump",
-      "source_url": "https://www.reuters.com/business/retail-consumer/dollar-general-raises-annual-comparable-sales-forecast-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T11:11:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T13:17:25Z",
-      "updated_at": "2026-08-27T13:17:25Z",
-      "decay_at": "2026-08-28T23:11:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-9f3cc317a5c3678e",
       "idea_version_started_at": "2026-08-30T01:25:26Z",
@@ -95765,7 +95696,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 189,
+      "file_count": 190,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -100824,8 +100755,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T23:11:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-30T11:20:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114791,9 +114722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1923,
-    "news_picked_today": 346,
-    "news_dropped_today": 1577
+    "news_seen_today": 1957,
+    "news_picked_today": 352,
+    "news_dropped_today": 1605
   },
   "book_momentum": {
     "live_count": 8,
