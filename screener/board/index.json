@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T03:19:53Z",
+  "generated_at": "2026-08-30T03:34:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-062",
+      "headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"AXISCADES Technologies to Acquire Cloud Wave Technologies, Accelerating Entry into Aerospace Manufacturing\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AXISCADES_30082026085222_PressRelease30082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T03:30:53Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "AXISCADES Technologies announced the acquisition of Cloud Wave Technologies to expand into aerospace manufacturing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AXISCADES Technologies announced the acquisition of Cloud Wave Technologies to expand into aerospace manufacturing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AXISCADES Technologies Limited",
+          "ticker": "532395",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-046",
       "headline": "US to take 35% stake in Venezuelan mogul Betancourt's oil venture, WSJ reports",
@@ -1837,49 +1886,6 @@
       },
       "event_types": [
         "management"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-010",
-      "headline": "Another hooch tragedy in Gujarat exposes flaws in prohibition laws",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/gujarat/another-hooch-tragedy-in-gujarat-exposes-flaws-in-prohibition-laws-4128390",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:19:19Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A recurring public health and regulatory failure in Gujarat highlights ongoing enforcement challenges regarding prohibition laws.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "A recurring public health and regulatory failure in Gujarat highlights ongoing enforcement challenges regarding prohibition laws.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -87464,76 +87470,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-865901eb21c3",
-      "idea_version": "IDEAV-1a2f2037ab34fb0c",
-      "idea_version_started_at": "2026-08-29T23:48:06Z",
-      "ticker": "PYPL",
-      "company": "PayPal Holdings, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "PayPal shares crashed 13% after reports that the Advent-Stripe consortium walked away from a potential bid, removing a significant M&A premium.",
-      "why_now": "The news of the consortium walking away from a bid on August 28, 2026, directly impacted the stock price, indicating a live catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b268ee617228"
-      ],
-      "primary_source_event_id": "EVT-b268ee617228",
-      "source_headlines": [
-        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
-      ],
-      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
-      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T15:19:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T13:40:33Z",
-      "updated_at": "2026-08-29T23:48:06Z",
-      "decay_at": "2026-08-30T03:19:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ab6392d211fe",
       "idea_version": "IDEAV-9c3b865caa21cfaf",
       "idea_version_started_at": "2026-08-29T23:08:40Z",
@@ -87598,76 +87534,6 @@
       "surfaced_at": "2026-08-27T11:49:33Z",
       "updated_at": "2026-08-29T23:08:40Z",
       "decay_at": "2026-08-31T01:14:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a9e3b13426c6",
-      "idea_version": "IDEAV-9f3cc317a5c3678e",
-      "idea_version_started_at": "2026-08-30T01:25:26Z",
-      "ticker": "MRNA",
-      "company": "Moderna",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The issuance of $2.6 billion in convertible notes will cause significant dilution to existing shareholders and increases the company's debt burden.",
-      "why_now": "The announcement was made on 2026-08-28 and the market is currently digesting the impact of the capital raise.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff322e2ccd41"
-      ],
-      "primary_source_event_id": "EVT-ff322e2ccd41",
-      "source_headlines": [
-        "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes"
-      ],
-      "source_headline": "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes",
-      "source_url": "https://www.nasdaq.com/articles/moderna-stock-falls-6-announcement-26-bln-private-offering-convertible-senior-notes",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T15:28:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:17:28Z",
-      "updated_at": "2026-08-30T01:25:26Z",
-      "decay_at": "2026-08-30T03:28:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87808,76 +87674,6 @@
       "surfaced_at": "2026-08-30T00:06:22Z",
       "updated_at": "2026-08-30T00:06:22Z",
       "decay_at": "2026-08-30T04:26:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c559ff4a8d85",
-      "idea_version": "IDEAV-fac930fbf4d23738",
-      "idea_version_started_at": "2026-08-30T00:06:22Z",
-      "ticker": "FLR",
-      "company": "Fluor Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
-      "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a225fc453d91"
-      ],
-      "primary_source_event_id": "EVT-a225fc453d91",
-      "source_headlines": [
-        "Fluor to wrap $5B Alabama plant construction"
-      ],
-      "source_headline": "Fluor to wrap $5B Alabama plant construction",
-      "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
-      "source_name": "Construction Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T15:27:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T13:40:33Z",
-      "updated_at": "2026-08-30T00:06:22Z",
-      "decay_at": "2026-08-30T03:27:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89603,6 +89399,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-865901eb21c3",
+      "idea_version": "IDEAV-1a2f2037ab34fb0c",
+      "idea_version_started_at": "2026-08-29T23:48:06Z",
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "PayPal shares crashed 13% after reports that the Advent-Stripe consortium walked away from a potential bid, removing a significant M&A premium.",
+      "why_now": "The news of the consortium walking away from a bid on August 28, 2026, directly impacted the stock price, indicating a live catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b268ee617228"
+      ],
+      "primary_source_event_id": "EVT-b268ee617228",
+      "source_headlines": [
+        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
+      ],
+      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:19:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T23:48:06Z",
+      "decay_at": "2026-08-30T03:19:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ec44c459bda",
       "idea_version": "IDEAV-3565ea007ab7c9de",
       "idea_version_started_at": "2026-08-29T22:28:34Z",
@@ -90788,6 +90654,146 @@
       "surfaced_at": "2026-08-27T08:58:33Z",
       "updated_at": "2026-08-27T08:58:33Z",
       "decay_at": "2026-08-28T17:23:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a9e3b13426c6",
+      "idea_version": "IDEAV-9f3cc317a5c3678e",
+      "idea_version_started_at": "2026-08-30T01:25:26Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The issuance of $2.6 billion in convertible notes will cause significant dilution to existing shareholders and increases the company's debt burden.",
+      "why_now": "The announcement was made on 2026-08-28 and the market is currently digesting the impact of the capital raise.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff322e2ccd41"
+      ],
+      "primary_source_event_id": "EVT-ff322e2ccd41",
+      "source_headlines": [
+        "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes"
+      ],
+      "source_headline": "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes",
+      "source_url": "https://www.nasdaq.com/articles/moderna-stock-falls-6-announcement-26-bln-private-offering-convertible-senior-notes",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:28:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:17:28Z",
+      "updated_at": "2026-08-30T01:25:26Z",
+      "decay_at": "2026-08-30T03:28:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c559ff4a8d85",
+      "idea_version": "IDEAV-fac930fbf4d23738",
+      "idea_version_started_at": "2026-08-30T00:06:22Z",
+      "ticker": "FLR",
+      "company": "Fluor Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
+      "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a225fc453d91"
+      ],
+      "primary_source_event_id": "EVT-a225fc453d91",
+      "source_headlines": [
+        "Fluor to wrap $5B Alabama plant construction"
+      ],
+      "source_headline": "Fluor to wrap $5B Alabama plant construction",
+      "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
+      "source_name": "Construction Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:27:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-30T00:06:22Z",
+      "decay_at": "2026-08-30T03:27:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94654,18 +94660,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 246,
-    "shown_count": 246,
+    "total_count": 249,
+    "shown_count": 249,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 114,
-        "shown_count": 114,
+        "total_count": 115,
+        "shown_count": 115,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 132,
-        "shown_count": 132,
+        "total_count": 134,
+        "shown_count": 134,
         "hidden_count": 0
       }
     },
@@ -94685,6 +94691,225 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a9e3b13426c6",
+        "idea_version": "IDEAV-9f3cc317a5c3678e",
+        "idea_version_started_at": "2026-08-30T01:25:26Z",
+        "ticker": "MRNA",
+        "company": "Moderna",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The issuance of $2.6 billion in convertible notes will cause significant dilution to existing shareholders and increases the company's debt burden.",
+        "why_now": "The announcement was made on 2026-08-28 and the market is currently digesting the impact of the capital raise.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff322e2ccd41"
+        ],
+        "primary_source_event_id": "EVT-ff322e2ccd41",
+        "source_headlines": [
+          "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes"
+        ],
+        "source_headline": "Moderna Stock Falls 6% On Announcement Of $2.6 Bln Private Offering Of Convertible Senior Notes",
+        "source_url": "https://www.nasdaq.com/articles/moderna-stock-falls-6-announcement-26-bln-private-offering-convertible-senior-notes",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T15:28:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T14:17:28Z",
+        "updated_at": "2026-08-30T01:25:26Z",
+        "decay_at": "2026-08-30T03:28:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T03:28:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c559ff4a8d85",
+        "idea_version": "IDEAV-fac930fbf4d23738",
+        "idea_version_started_at": "2026-08-30T00:06:22Z",
+        "ticker": "FLR",
+        "company": "Fluor Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
+        "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a225fc453d91"
+        ],
+        "primary_source_event_id": "EVT-a225fc453d91",
+        "source_headlines": [
+          "Fluor to wrap $5B Alabama plant construction"
+        ],
+        "source_headline": "Fluor to wrap $5B Alabama plant construction",
+        "source_url": "https://www.constructiondive.com/news/fluor-alabama-plant-construction-novelis/829026/",
+        "source_name": "Construction Dive",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T15:27:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T13:40:33Z",
+        "updated_at": "2026-08-30T00:06:22Z",
+        "decay_at": "2026-08-30T03:27:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T03:27:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-865901eb21c3",
+        "idea_version": "IDEAV-1a2f2037ab34fb0c",
+        "idea_version_started_at": "2026-08-29T23:48:06Z",
+        "ticker": "PYPL",
+        "company": "PayPal Holdings, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "PayPal shares crashed 13% after reports that the Advent-Stripe consortium walked away from a potential bid, removing a significant M&A premium.",
+        "why_now": "The news of the consortium walking away from a bid on August 28, 2026, directly impacted the stock price, indicating a live catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b268ee617228"
+        ],
+        "primary_source_event_id": "EVT-b268ee617228",
+        "source_headlines": [
+          "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
+        ],
+        "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+        "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T15:19:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T13:40:33Z",
+        "updated_at": "2026-08-29T23:48:06Z",
+        "decay_at": "2026-08-30T03:19:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T03:19:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-017f4db87209",
         "idea_version": "IDEAV-5f777a7efbcea721",
@@ -112918,7 +113143,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 280,
-    "live_count": 32,
+    "live_count": 29,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -112937,9 +113162,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 379,
-    "news_picked_today": 66,
-    "news_dropped_today": 313
+    "news_seen_today": 407,
+    "news_picked_today": 67,
+    "news_dropped_today": 340
   },
   "book_momentum": {
     "live_count": 8,
