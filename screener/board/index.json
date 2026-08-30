@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T10:10:26Z",
+  "generated_at": "2026-08-30T10:14:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-193",
+      "headline": "PETROCHINA (00857): RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T10:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "PetroChina released its H1 2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PetroChina released its H1 2026 financial results.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PetroChina",
+          "ticker": "00857",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-062",
       "headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"AXISCADES Technologies to Acquire Cloud Wave Technologies, Accelerating Entry into Aerospace Manufacturing\".",
@@ -1141,6 +1190,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-192",
+      "headline": "SHENGRONG HLDG (00834): VOLUNTARY DELISTING OF SHARES FROM THE MAIN BOARD OF THE SINGAPORE EXCHANGE SECURITIES TRADING LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T10:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Shengrong Holdings is voluntarily delisting from the Singapore Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Shengrong Holdings is voluntarily delisting from the Singapore Exchange.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shengrong Holdings",
+          "ticker": "00834",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-039",
       "headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
       "headline_en": null,
@@ -1638,6 +1736,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-195",
+      "headline": "‎Taqa board OKs ADX delisting",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932609",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T13:09:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Taqa board approved the delisting of its shares from the Abu Dhabi Securities Exchange (ADX).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Taqa board approved the delisting of its shares from the Abu Dhabi Securities Exchange (ADX).",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taqa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-165",
       "headline": "Smartworks to invest Rs 600cr in FY27 to expand biz, meet rising demand for managed office spaces",
       "headline_en": null,
@@ -1829,154 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-187",
-      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES FIRST PARTICIPANT DOSED IN A GLOBAL PHASE III CLINICAL PROGRAM OF ONCE-DAILY ORAL SMALL MOLECULE GLP-1 RECEPTOR AGONIST ASC30 FOR CHRONIC WEIGHT MANAGEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T10:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Ascletis-B has initiated a global Phase III clinical trial for its oral GLP-1 agonist ASC30, a significant milestone in its drug development pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ascletis-B has initiated a global Phase III clinical trial for its oral GLP-1 agonist ASC30, a significant milestone in its drug development pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ascletis Pharma",
-          "ticker": "01672",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-182",
-      "headline": "Frasers Property shareholders approve S$2.1 billion hospitality portfolio revamp",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/frasers-property-shareholders-approve-s2-1-billion-hospitality-portfolio-revamp",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:48:27Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Shareholders approved a S$2.1 billion hospitality portfolio revamp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Shareholders approved a S$2.1 billion hospitality portfolio revamp.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Frasers Property",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-178",
-      "headline": "CXMT joins growing list of Chinese tech firms suing US Pentagon over blacklists",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3365751/cxmt-joins-growing-list-chinese-tech-firms-suing-us-pentagon-over-blacklists?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:46:26Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "CXMT is suing the US Pentagon to challenge its inclusion on a blacklist, which impacts its regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CXMT is suing the US Pentagon to challenge its inclusion on a blacklist, which impacts its regulatory and operational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ChangXin Memory Technologies",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114639,9 +114638,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1700,
-    "news_picked_today": 295,
-    "news_dropped_today": 1405
+    "news_seen_today": 1725,
+    "news_picked_today": 302,
+    "news_dropped_today": 1423
   },
   "book_momentum": {
     "live_count": 8,
