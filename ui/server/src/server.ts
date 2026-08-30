@@ -1918,6 +1918,7 @@ app.get('/api/runs/:runId', async (req, reply) => {
   return {
     runId: run.runId,
     kind: run.kind,
+    continuation: run.continuation,
     ticker: run.ticker,
     module: run.module,
     agent: run.agent,
@@ -4239,6 +4240,7 @@ app.get('/api/runs', async (req) => {
       // name-guess (§26); startedAt drives the "running Nm" readout on the resume affordance.
       .map((r) => ({
         runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status,
+        continuation: r.continuation,
         swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt,
         provider: r.provider, executionProfile: r.executionProfile,
       })),

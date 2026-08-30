@@ -24,9 +24,10 @@ assert.equal(reconcileRunIdentity(adopted, {
 
 const snapshot = {
   ...adopted,
+  continuation: true,
   status: 'running', agents: [], expected: [],
 }
-assert.ok(normalizeRunSnapshotIdentity(snapshot, { runId: 'run-1', ticker: 'AAA', swarmId: 'research' }))
+assert.equal(normalizeRunSnapshotIdentity(snapshot, { runId: 'run-1', ticker: 'AAA', swarmId: 'research' })?.continuation, true)
 assert.equal(normalizeRunSnapshotIdentity({ ...snapshot, runId: 'other' }, { runId: 'run-1', ticker: 'AAA', swarmId: 'research' }), null)
 assert.equal(normalizeRunSnapshotIdentity({ ...snapshot, ticker: 'BBB' }, { runId: 'run-1', ticker: 'AAA', swarmId: 'research' }), null)
 assert.equal(normalizeRunSnapshotIdentity({ ...snapshot, swarmId: 'commodity' }, { runId: 'run-1', ticker: 'AAA', swarmId: 'research' }), null)

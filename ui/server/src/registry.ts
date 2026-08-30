@@ -119,6 +119,9 @@ export interface RunState {
    *  child ever exists; never serialized or exposed through the API. */
   onNoChildTerminal?: (status: RunStatus) => void
   chained?: boolean // this run is a step of a chained full run — cancelling it must also halt the chain
+  /** This run continues one exact saved root. Kept on the supervisor-owned run identity so every UI
+   * reconnect can distinguish "Complete old run" from a fresh Full without inferring from orb counts. */
+  continuation?: boolean
   /** Immutable id shared by every step of one chained full run. Cancellation is scoped to this id. */
   chainId?: string
   startedAt: number

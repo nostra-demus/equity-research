@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, isOrblessRun, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
-import { LIVEISH, pendingForScope, runsForScope } from '../lib/runScope'
+import { LIVEISH, pendingForScope, runLabel, runsForScope } from '../lib/runScope'
 import { Spin } from './Spin'
 import { providerLabel } from '../lib/provider'
 
@@ -13,9 +13,6 @@ const dotColor: Record<string, string> = {
   failed: 'var(--bad)',
   queued: 'var(--accent-deep)',
 }
-
-const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
-  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
 
 const runExecutionLabel = (run: { provider?: 'claude' | 'codex'; profileKey?: string; executionProfile?: { key: string }; model?: string; reasoningLevel?: string }): string =>
   run.provider

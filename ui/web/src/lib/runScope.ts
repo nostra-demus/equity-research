@@ -9,17 +9,28 @@
 type ScopedRun = { ticker: string; status: string; startedAt?: number }
 type ScopedPending = { ticker: string } | null | undefined
 
+/** Plain-English title for the live Activity card. A continuation is still internally a full-pipeline
+ * run because it must reach the memo, but it must never be presented as a fresh Full to the user. */
+export function runLabel(run: { kind: string; continuation?: boolean; module?: string; agent?: string }): string {
+  return run.kind === 'full' ? (run.continuation ? 'Completing old run' : 'Full run')
+    : run.kind === 'sweep' ? 'News scan'
+      : run.kind === 'module' ? `${run.module} module`
+        : run.kind === 'rerun' ? `Re-run · ${run.agent}`
+          : run.kind === 'doc-intake' ? 'New-data read'
+            : run.agent || 'Agent'
+}
+
 /** Every in-flight server status, including the pre-spawn gate phases an early-acked launch surfaces —
  *  a gate-parked run is still live: it keeps its card, its Cancel, and its progress bar. */
 export const LIVEISH: ReadonlySet<string> = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 
-/** The runs for the current scope (live + just-finished), oldest first. Research keys on the selected
+/** The runs for the current scope (live + just-finished), newest first. Research keys on the selected
  *  company; a flow swarm's unit of work is a signal or a sweep, whose `ticker` is a SIG- id or the literal
  *  'sweep' — filtering those by the research `selectedTicker` would hide a running scan entirely. */
 export function runsForScope<T extends ScopedRun>(activeRuns: Record<string, T>, activeSwarm: string, ticker: string | null): T[] {
   return Object.values(activeRuns)
     .filter((r) => (activeSwarm === 'screener' ? r.ticker === 'sweep' || r.ticker.startsWith('SIG-') : r.ticker === ticker))
-    .sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0))
+    .sort((a, b) => (b.startedAt ?? 0) - (a.startedAt ?? 0))
 }
 
 /** A launch fired for THIS subject whose server ack hasn't landed yet — so the dock opens in the same frame

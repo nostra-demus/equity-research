@@ -1406,6 +1406,7 @@ export type PipelineAuditEvent =
 export interface ActiveRunLite {
   runId: string
   kind: string
+  continuation?: boolean
   ticker: string
   module?: string
   status: string
@@ -2499,7 +2500,7 @@ export interface RunActivity {
 }
 
 export type SseEvent = (
-  | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; ts: number }
+  | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; continuation?: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }

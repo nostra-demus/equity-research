@@ -423,6 +423,7 @@ const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun {
   runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; swarmId?: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number
+  continuation?: boolean
   // this run's OWN folder, captured from the run-started event — lets the run-done/run-error refresh target
   // exactly the run that finished, instead of resolving by ticker to the (possibly older) standing run
   runRoot?: string | null
@@ -2433,7 +2434,7 @@ export const useStore = create<State>((set, get) => ({
           plannedKeys = nodes.map((n) => n.key) // no split (monolithic full, or an older engine) — run all
         }
         if (runId && onScreen) {
-          beginRun(set, get, runId, { subject: info.subject, swarmId: info.swarm || 'research', execution, kind: info.kind, module: info.module, willCommitToMain: true }, plannedKeys, doneKeys)
+          beginRun(set, get, runId, { subject: info.subject, swarmId: info.swarm || 'research', execution, kind: info.kind, continuation: true, module: info.module, willCommitToMain: true }, plannedKeys, doneKeys)
         } else if (runId) {
           connectRun(get, runId)
           void get().refreshActiveRuns()
@@ -4610,8 +4611,10 @@ export const useStore = create<State>((set, get) => ({
     const upsertRow = (runId: string, key: string, name: string, module: string, layer: number, status: NodeStatus, verdict?: string | null) => {
       const i = stream.findIndex((r) => r.key === key)
       const row: StreamRow = { runId, ticker: evTicker || selected || '', key, name, module, layer, status, verdict, ts: Date.now() }
-      if (i >= 0) stream[i] = row
-      else stream.unshift(row)
+      // Activity is a live feed: whichever row changed most recently belongs at the top. Replacing it in
+      // its old slot left current work underneath older completed work.
+      if (i >= 0) stream.splice(i, 1)
+      stream.unshift(row)
     }
 
     switch (e.type) {
@@ -4671,7 +4674,7 @@ export const useStore = create<State>((set, get) => ({
         // re-run writes a new dated folder with no decision record; a by-ticker (preferComplete) refresh
         // would otherwise roll the cockpit back to the older complete run and hide what just landed.
         const r = get().activeRuns[e.runId]
-        if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, ...(e.runRoot ? { runRoot: e.runRoot } : {}), provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch } }
+        if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, ...(e.runRoot ? { runRoot: e.runRoot } : {}), continuation: e.continuation ?? r.continuation, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch } }
         break
       }
       case 'run-done': {
@@ -6839,8 +6842,8 @@ export const useStore = create<State>((set, get) => ({
     const upsert = (runId: string, key: string, name: string, module: string, layer: number, status: NodeStatus, verdict?: string | null) => {
       const i = stream.findIndex((r) => r.key === key)
       const row: StreamRow = { runId, ticker: eventSubject || 'screener', key, name, module, layer, status, verdict, ts: Date.now() }
-      if (i >= 0) stream[i] = row
-      else stream.unshift(row)
+      if (i >= 0) stream.splice(i, 1)
+      stream.unshift(row)
     }
     switch (e.type) {
       case 'agent-started':
@@ -7214,7 +7217,7 @@ function beginRun(
   set: any,
   get: () => State,
   runId: string,
-  info: { subject: string; swarmId: string; execution: FrozenProviderLaunch; kind: string; module?: string; agent?: string; willCommitToMain?: boolean },
+  info: { subject: string; swarmId: string; execution: FrozenProviderLaunch; kind: string; continuation?: boolean; module?: string; agent?: string; willCommitToMain?: boolean },
   plannedKeys: string[],
   doneKeys: string[] = [],
 ) {
@@ -7237,7 +7240,7 @@ function beginRun(
   // the run belongs to the selection's swarm (constellationSwarm at launch), so the run-done refresh
   // can resolve the manifest/decision against the run's OWN run root (e.g. commodity/runs/<subject>)
   activeRuns[runId] = {
-    runId, ticker, swarmId, kind: info.kind, module: info.module, agent: info.agent,
+    runId, ticker, swarmId, kind: info.kind, continuation: info.continuation, module: info.module, agent: info.agent,
     willCommitToMain: info.willCommitToMain,
     provider: info.execution.provider,
     executionProfile: info.execution.executionProfile,
@@ -7424,7 +7427,7 @@ async function reconnectRunOnce(
       if (a.status !== 'queued') stream.unshift({ runId, ticker: identity.ticker, key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
     }
     const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
-    const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
+    const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, continuation: identity.continuation ?? snap.continuation, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
     const report = snap.readiness as ReadinessReport | undefined
     if (snap.status === 'awaiting-readiness-decision' && report?.ticker === identity.ticker && Array.isArray(report.issues)) {
       if (identity.chainId && !isPhysicallyEmptyReadiness(report)) {
@@ -7752,6 +7755,7 @@ async function reconnectScreenerRun(get: () => State, runId: string, subject: st
         [runId]: {
           ...identity,
           kind: identity.kind || snap.kind,
+          continuation: identity.continuation ?? snap.continuation,
           module: identity.module || snap.module,
           agent: identity.agent || snap.agent,
           status: snap.status,

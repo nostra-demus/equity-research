@@ -10,6 +10,7 @@ export interface ImmutableRunIdentity {
   ticker: string
   swarmId: string
   kind?: string
+  continuation?: boolean
   module?: string
   agent?: string
   runRoot?: string | null
@@ -47,6 +48,11 @@ export function reconcileRunIdentity<T extends ImmutableRunIdentity>(existing: T
     const value = text(row[key])
     if (!value || (existing[key] !== undefined && existing[key] !== value)) return null
     ;(next as any)[key] = value
+  }
+  if (own(row, 'continuation')) {
+    if (typeof row.continuation !== 'boolean'
+        || (existing.continuation !== undefined && existing.continuation !== row.continuation)) return null
+    next.continuation = row.continuation
   }
   if (own(row, 'runRoot')) {
     // null means the supervisor has not allocated/published a folder yet; it is not an identity value.

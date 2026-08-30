@@ -5609,6 +5609,7 @@ async function launchRegistered(params: LaunchParams): Promise<LaunchResult> {
       releaseDeployBarrier,
       expected,
       chained: params.chained,
+      continuation: params.continuation === true,
       chainId: params.chainId,
       onTerminal: params.onTerminal,
       parityCanary: Boolean(params.parityCanary),
@@ -8515,6 +8516,7 @@ async function spawnEngine(run: RunState): Promise<void> {
     emit(run, {
       type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker,
       runRoot: run.runRoot, willCommitToMain: run.willCommitToMain,
+      continuation: run.continuation,
       provider: run.provider, executionProfile: run.executionProfile, profileKey: run.profileKey,
       model: run.model, reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion,
       ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now(),
