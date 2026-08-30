@@ -2422,6 +2422,13 @@ def extract_pool(
                     vision=vision, now=now, ocr_budget_s=ocr_budget_s,
                 )
             except PoolChangedDuringExtraction:
+                # Python 3.14 can retain the exception frame long enough that
+                # TemporaryDirectory finalizers have not run before the next
+                # bounded snapshot attempt.  Remove only this extractor's
+                # private direct-child build directories while the output
+                # lease is still held.
+                for pending in glob.glob(os.path.join(out_dir, ".extract-build-*")):
+                    shutil.rmtree(pending)
                 if attempt + 1 >= _SNAPSHOT_ATTEMPTS:
                     raise
                 print("[extract_pool] pool changed during snapshot; retrying one complete transaction")
