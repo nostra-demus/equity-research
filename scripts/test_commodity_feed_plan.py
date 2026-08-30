@@ -59,6 +59,22 @@ aluminium = next(plan for plan in plans if plan["commodity"] == "ALUMINIUM")
 for need in ("aluminium-lme-investment-fund-positioning", "aluminium-primary-production"):
     row = next(item for item in aluminium["rows"] if item["need_id"] == need)
     assert row["status"] == "build_needed" and row["incompatibility_reasons"]
+for need, rule_id, provider in (
+    (
+        "aluminium-lme-investment-fund-positioning",
+        "aluminium-lme-investment-fund-positioning",
+        "London Metal Exchange Aluminium Commitments of Traders",
+    ),
+    (
+        "aluminium-shfe-positioning",
+        "aluminium-shfe-positioning",
+        "Shanghai Futures Exchange Aluminium Daily Ranking",
+    ),
+):
+    row = next(item for item in aluminium["rows"] if item["need_id"] == need)
+    assert row["source_rule_id"] == rule_id
+    assert {authority["provider"] for authority in row["authorities"]} == {provider}
+    assert row["capital_iq_use"] == "not_permitted"
 for plan in (copper, aluminium):
     row = next(item for item in plan["rows"] if "prepolicy-supply" in item["need_id"])
     assert row["source_rule_id"] == "metals-fundamentals"
@@ -74,6 +90,20 @@ for commodity, need in (
     assert {authority["provider"] for authority in row["authorities"]} == {
         "USDA Foreign Agricultural Service",
     }
+wheat_global_shipments = next(
+    item for item in next(plan for plan in plans if plan["commodity"] == "WHEAT")["rows"]
+    if item["need_id"] == "wheat-major-origin-shipments"
+)
+assert wheat_global_shipments["source_rule_id"] == "wheat-major-origin-shipments"
+assert wheat_global_shipments["route_kind"] == "composite"
+assert wheat_global_shipments["capital_iq_use"] == "not_permitted"
+assert {
+    "European Commission cereals customs surveillance",
+    "Canadian Grain Commission grain export statistics",
+    "Australian Bureau of Statistics International Trade in Goods",
+    "Argentina INDEC foreign-trade database",
+    "UN Comtrade official reporter customs submissions",
+} == {authority["provider"] for authority in wheat_global_shipments["authorities"]}
 soy_china = next(
     item for item in next(plan for plan in plans if plan["commodity"] == "SOYBEANS")["rows"]
     if item["need_id"] == "soybeans-china-import-arrivals"
@@ -112,6 +142,17 @@ assert next(
     item for item in next(plan for plan in plans if plan["commodity"] == "COCOA")["rows"]
     if item["need_id"] == "cocoa-stocks-grindings"
 )["capital_iq_use"] == "not_permitted"
+cocoa_disease = next(
+    item for item in next(plan for plan in plans if plan["commodity"] == "COCOA")["rows"]
+    if item["need_id"] == "cocoa-disease-pressure"
+)
+assert cocoa_disease["source_rule_id"] == "cocoa-disease-pressure"
+assert cocoa_disease["route_kind"] == "manual_official"
+assert cocoa_disease["capital_iq_use"] == "not_permitted"
+assert {
+    "Ghana Cocoa Board Cocoa Health and Extension Division",
+    "Cote d'Ivoire Conseil du Cafe-Cacao swollen-shoot programme",
+} == {authority["provider"] for authority in cocoa_disease["authorities"]}
 natural_gas = next(plan for plan in plans if plan["commodity"] == "NATURAL-GAS")
 for need in (
     "natural-gas-lng-export-capacity-availability",

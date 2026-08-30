@@ -57,6 +57,28 @@
       "capital_iq_fallback": "A licensed capacity or output series is a cross-check only. Decision-grade evidence must retain the dated capacity cap, hydro availability, grid curtailment instruction, affected smelting capacity, geography and primary publisher; estimates cannot replace those releases."
     },
     {
+      "id": "aluminium-lme-investment-fund-positioning",
+      "need_pattern": "^aluminium-lme-investment-fund-positioning$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_lme_aluminium_cotr",
+      "authorities": [
+        {"provider": "London Metal Exchange Aluminium Commitments of Traders", "url": "https://www.lme.com/en/Market-Data/Reports-and-data/Commitments-of-traders/LME-Aluminium", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this exchange-specific series. Preserve the LME Aluminium contract, investment-fund long and short positions, open interest, position date, publication date and revised report; if three lawful years cannot be obtained, leave the series unavailable."
+    },
+    {
+      "id": "aluminium-shfe-positioning",
+      "need_pattern": "^aluminium-shfe-positioning$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_shfe_aluminium_daily_ranking",
+      "authorities": [
+        {"provider": "Shanghai Futures Exchange Aluminium Daily Ranking", "url": "https://www.shfe.com.cn/eng/reports/StatisticalData/DailyData/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this exchange-specific series. Preserve SHFE product code AL, contract month, ranked member long and short positions, changes, total open interest, trade date and publication date; LME or CFTC data cannot substitute, and missing lawful history remains unavailable."
+    },
+    {
       "id": "official-policy-events",
       "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
       "route_kind": "official_event",
@@ -114,6 +136,18 @@
       "capital_iq_fallback": "Use a licensed official-reserves series only when its country coverage, unit, reporting lag, and revisions are preserved in each sealed vintage."
     },
     {
+      "id": "cocoa-disease-pressure",
+      "need_pattern": "^cocoa-disease-pressure$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_primary_west_african_cocoa_disease_surveillance",
+      "authorities": [
+        {"provider": "Ghana Cocoa Board Cocoa Health and Extension Division", "url": "https://cocobod.gh/subsidiaries-and-divisions/cocoa-health-and-extension-division", "access": "public"},
+        {"provider": "Cote d'Ivoire Conseil du Cafe-Cacao swollen-shoot programme", "url": "https://conseilcafecacao.ci/index.php?Itemid=202&id=123&option=com_content&view=article", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required surveillance series. Preserve disease name, affected area or tree count, survey geography, observation period, publication date, treatment status and regulator; weather, production estimates and old undated incidence cannot substitute for a current regional observation."
+    },
+    {
       "id": "weather-crop-condition",
       "need_pattern": "(climate|weather|enso|phenology|crop-progress|crop-condition|disease)",
       "route_kind": "official_observation",
@@ -147,6 +181,21 @@
         {"provider": "USDA Foreign Agricultural Service", "url": "https://apps.fas.usda.gov/opendatawebV2/", "access": "public"}
       ],
       "capital_iq_fallback": "A licensed export is only a fallback; keep USDA gross sales, net sales, reductions/adjustments, shipments, destination, market year and release date as separate fields."
+    },
+    {
+      "id": "wheat-major-origin-shipments",
+      "need_pattern": "^wheat-major-origin-shipments$",
+      "route_kind": "composite",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "composite_primary_major_origin_customs_and_port_shipments",
+      "authorities": [
+        {"provider": "European Commission cereals customs surveillance", "url": "https://agriculture.ec.europa.eu/data-and-analysis/markets/overviews/market-observatories/crops/cereals-statistics_en", "access": "public"},
+        {"provider": "Canadian Grain Commission grain export statistics", "url": "https://www.grainscanada.gc.ca/en/grain-research/statistics/index.html", "access": "public"},
+        {"provider": "Australian Bureau of Statistics International Trade in Goods", "url": "https://www.abs.gov.au/statistics/economy/international-trade/international-trade-goods", "access": "public"},
+        {"provider": "Argentina INDEC foreign-trade database", "url": "https://comex.indec.gob.ar/", "access": "public"},
+        {"provider": "UN Comtrade official reporter customs submissions", "url": "https://comtrade.un.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this primary trade-flow series. Keep Russia, the EU, Canada, Australia and Argentina as separate reporters with wheat HS code, quantity, unit, destination, shipment month, release date and revision status; USDA U.S. export sales or forecast balances cannot substitute, and every missing origin must remain explicit."
     },
     {
       "id": "soybeans-board-crush",
