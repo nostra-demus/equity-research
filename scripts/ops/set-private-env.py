@@ -13,14 +13,17 @@ import re
 import secrets
 import sqlite3
 import stat
+import sys
 import tempfile
 import time
 import uuid
 from pathlib import Path
 
 KEY_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+CONNECTOR_SECRET_RE = re.compile(r"^CONNECTOR_[A-Z0-9_]+_API_KEY$")
 LINE_RE = re.compile(r"^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=")
 MAX_BYTES = 1024 * 1024
+MAX_STDIN_SECRET_BYTES = 64 * 1024
 MANAGED_KEY_NAME = "Nostra scanner (managed no-log)"
 MANAGED_KEY_MACHINE_ID = "nostra-scanner"
 DEFAULT_OMNIROUTE_MODEL = "auto/coding:free"
@@ -237,6 +240,21 @@ def set_values(path: Path, updates: dict[str, str]) -> bool:
 
 def set_value(path: Path, key: str, value: str) -> bool:
     return set_values(path, {key: value})
+
+
+def read_stdin_secret() -> str:
+    """Read one bounded secret from stdin without placing it in argv or output."""
+    raw = sys.stdin.buffer.read(MAX_STDIN_SECRET_BYTES + 1)
+    if len(raw) > MAX_STDIN_SECRET_BYTES:
+        raise RuntimeError("stdin secret is too large")
+    if raw.endswith(b"\r\n"):
+        raw = raw[:-2]
+    elif raw.endswith(b"\n"):
+        raw = raw[:-1]
+    value = raw.decode("utf-8")
+    if not value or any(char in value for char in "\r\n\0"):
+        raise RuntimeError("stdin secret is invalid")
+    return value
 
 
 def secure_database(path: Path) -> tuple[sqlite3.Connection, tuple[int, int]]:
@@ -523,6 +541,7 @@ def main() -> int:
     parser.add_argument("--file", required=True)
     parser.add_argument("--key")
     parser.add_argument("--value")
+    parser.add_argument("--value-stdin", action="store_true")
     parser.add_argument("--database")
     parser.add_argument("--after")
     args = parser.parse_args()
@@ -547,7 +566,8 @@ def main() -> int:
             print(contract_fingerprint(text, include_enabled=args.action == "state-fingerprint"))
             return 0
         if args.action == "migrate-default-model":
-            if any(value is not None for value in (args.key, args.value, args.database, args.after)):
+            if (args.value_stdin
+                    or any(value is not None for value in (args.key, args.value, args.database, args.after))):
                 raise SystemExit(2)
             current = current_value(text, "NEWS_OMNIROUTE_MODEL")
             # This migration owns only the old managed default (or an installation that never wrote the
@@ -564,7 +584,8 @@ def main() -> int:
             print(value)
             return 0
         if args.action in {"ensure-no-log-key", "no-log-key-healthy", "verify-no-body-log"}:
-            if not args.database or args.key is not None or args.value is not None:
+            if (args.value_stdin or not args.database or args.key is not None
+                    or args.value is not None):
                 raise SystemExit(2)
             database = Path(args.database)
             if args.action == "ensure-no-log-key":
@@ -576,8 +597,17 @@ def main() -> int:
             if not args.after:
                 raise SystemExit(2)
             return 0 if verify_no_body_log(text, database, args.after) else 1
-        if (args.key not in SETTABLE_BOOL_KEYS or args.value not in {"0", "1"}
-                or args.database is not None or args.after is not None):
+        if args.database is not None or args.after is not None:
+            raise SystemExit(2)
+        if args.value_stdin:
+            if (args.action != "set" or args.value is not None
+                    or not args.key or not CONNECTOR_SECRET_RE.fullmatch(args.key)):
+                raise SystemExit(2)
+            value = read_stdin_secret()
+            changed = set_value(path, args.key, value)
+            print("updated" if changed else "unchanged")
+            return 0
+        if args.key not in SETTABLE_BOOL_KEYS or args.value not in {"0", "1"}:
             raise SystemExit(2)
         if args.action == "matches":
             return 0 if current_value(text, args.key) == args.value else 1

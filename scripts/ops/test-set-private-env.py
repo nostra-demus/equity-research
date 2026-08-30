@@ -56,6 +56,20 @@ class PrivateEnvTest(unittest.TestCase):
             check=False,
         )
 
+    def run_secret_setter(
+        self, value: str, key: str = "CONNECTOR_NOAA_CDO_API_KEY",
+    ) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            [sys.executable, "-I", str(SETTER), "set", "--file", str(self.env),
+             "--key", key, "--value-stdin"],
+            input=value,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+
     def create_database(
         self, *, preexpanded_fallbacks: bool = False, include_scopes: bool = True,
     ) -> sqlite3.Connection:
@@ -153,6 +167,46 @@ class PrivateEnvTest(unittest.TestCase):
         unknown = self.run_setter("set", "1", "ENGINE_UNREVIEWED_FLAG")
         self.assertEqual(unknown.returncode, 2)
         self.assertNotIn("ENGINE_UNREVIEWED_FLAG", self.env.read_text(encoding="utf-8"))
+
+    def test_connector_secret_is_read_from_stdin_without_echoing_it(self) -> None:
+        secret = "private-noaa-token-1234567890"
+        self.write_env("EXISTING_PROVIDER_KEY=must-stay-byte-for-byte\n")
+
+        result = self.run_secret_setter(secret + "\n")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "updated\n")
+        self.assertNotIn(secret, result.stdout + result.stderr)
+        payload = self.env.read_text(encoding="utf-8")
+        self.assertIn("EXISTING_PROVIDER_KEY=must-stay-byte-for-byte\n", payload)
+        self.assertIn(f"CONNECTOR_NOAA_CDO_API_KEY={secret}\n", payload)
+        self.assertEqual(stat.S_IMODE(self.env.stat().st_mode), 0o600)
+
+        unchanged = self.run_secret_setter(secret)
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual(unchanged.stdout, "unchanged\n")
+
+    def test_connector_secret_stdin_rejects_unsafe_inputs_and_names(self) -> None:
+        for value in ("", "line-one\nline-two", "x" * (64 * 1024 + 1)):
+            result = self.run_secret_setter(value)
+            self.assertNotEqual(result.returncode, 0)
+            if value:
+                self.assertNotIn(value[:100], result.stdout + result.stderr)
+
+        unknown = self.run_secret_setter("secret", "UNREVIEWED_API_KEY")
+        self.assertEqual(unknown.returncode, 2)
+        self.assertFalse(self.env.exists())
+
+        argv_secret = subprocess.run(
+            [sys.executable, "-I", str(SETTER), "set", "--file", str(self.env),
+             "--key", "CONNECTOR_NOAA_CDO_API_KEY", "--value", "never-allow-this"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        self.assertEqual(argv_secret.returncode, 2)
+        self.assertNotIn("never-allow-this", argv_secret.stdout + argv_secret.stderr)
 
     def test_set_collapses_duplicate_flag_but_matches_rejects_ambiguity(self) -> None:
         self.write_env(
