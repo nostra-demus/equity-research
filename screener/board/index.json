@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T15:44:55Z",
+  "generated_at": "2026-08-30T15:45:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -87423,6 +87423,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-cd9532d864b1",
+      "idea_version": "IDEAV-c959bbe94b436257",
+      "idea_version_started_at": "2026-08-30T15:45:17Z",
+      "ticker": "AON",
+      "company": "Aon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+      "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T15:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T15:45:17Z",
+      "updated_at": "2026-08-30T15:45:17Z",
+      "decay_at": "2026-09-01T03:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3d9be100b359",
       "idea_version": "IDEAV-52d7e610638c04e4",
       "idea_version_started_at": "2026-08-30T15:25:18Z",
@@ -114707,8 +114777,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 315,
-    "live_count": 57,
+    "surfaced_total": 316,
+    "live_count": 58,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
