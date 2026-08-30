@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:20:57Z",
+  "generated_at": "2026-08-30T05:25:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-090",
+      "headline": "Jindal Stainless expanding coin blanks manufacturing capacity by 20% to meet demand",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/jindal-stainless-expanding-coin-blanks-manufacturing-capacity-by-20-to-meet-demand/article71407049.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:18:08Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Jindal Stainless is expanding its coin blanks manufacturing capacity by 20% to meet demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jindal Stainless is expanding its coin blanks manufacturing capacity by 20% to meet demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jindal Stainless",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,55 +1930,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-054",
-      "headline": "American Express to discontinue Reward Multiplier in India after 6 years — Here's what cardholders need to know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/money/personal-finance/american-express-to-discontinue-reward-multiplier-in-india-after-6-years-heres-what-cardholders-need-to-know-11788054591758.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:54:09Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "American Express is discontinuing a significant customer loyalty program in the Indian market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "American Express is discontinuing a significant customer loyalty program in the Indian market.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Express",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113418,9 +113418,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 630,
-    "news_picked_today": 110,
-    "news_dropped_today": 520
+    "news_seen_today": 639,
+    "news_picked_today": 111,
+    "news_dropped_today": 528
   },
   "book_momentum": {
     "live_count": 8,
