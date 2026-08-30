@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T11:50:47Z",
+  "generated_at": "2026-08-30T11:54:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-221",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Prior Intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_30082026171746_Intimationof6thCoCMeetingunderReg30ofLODR30082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T11:48:04Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a corporate insolvency resolution process, which is a survival-level event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a corporate insolvency resolution process, which is a survival-level event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-206",
       "headline": "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-204",
-      "headline": "MABWELL-B (02493): (1) ENTERING INTO THE LICENSE AGREEMENT AND RELATED-PARTY TRANSACTION WITH SYNUSIGHT; (2) JOINT APPLICATION FOR A SCIENCE AND TECHNOLOGY PROJECT WITH SYNUSIGHT AND RELATED-PARTY TRANSACTION; (3) PROPOSED CHANGE IN SCOPE OF BUSINESS, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION AND REGISTRATION OF INDUSTRIAL AND COMMERCIAL CHANGES; AND (4) NOTICE OF EGM",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000137.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T10:24:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Mabwell-B entered into a license agreement and related-party transaction with Synusight, alongside proposed corporate governance changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Mabwell-B entered into a license agreement and related-party transaction with Synusight, alongside proposed corporate governance changes.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mabwell-B",
-          "ticker": "02493",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114642,9 +114641,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2075,
-    "news_picked_today": 381,
-    "news_dropped_today": 1694
+    "news_seen_today": 2092,
+    "news_picked_today": 382,
+    "news_dropped_today": 1710
   },
   "book_momentum": {
     "live_count": 8,
