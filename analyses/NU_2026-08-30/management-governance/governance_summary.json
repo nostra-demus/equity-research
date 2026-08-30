@@ -1,0 +1,87 @@
+{
+  "ticker": "NU",
+  "date": "2026-08-30",
+  "mode": "full_nine_component",
+  "verdict": "Standard / mixed",
+  "gate": {
+    "status": "PASS",
+    "tripping_fact": null,
+    "conditions": {
+      "hard_disqualifier": false,
+      "critical_red_flag": false,
+      "disqualifying_gate_person": false,
+      "material_undisclosed_legal_matter": false
+    }
+  },
+  "hard_disqualifier": {
+    "flagged": false,
+    "verbatim": "Any disqualifier triggered: N"
+  },
+  "scores": {
+    "management_quality": 68,
+    "capital_allocation": 65,
+    "incentive_alignment": 52,
+    "ownership_alignment_upstream": 46,
+    "board_shareholder_rights_upstream": 46,
+    "shareholder_friendliness": 46,
+    "disclosure_candor": 68,
+    "people_network_integrity_raw": 58,
+    "people_network_integrity_applied": 55,
+    "audit_assurance_quality": 53,
+    "rpt_leakage_risk_inverted": 36,
+    "contingent_liability_risk_inverted": 27,
+    "accounting_forensics_risk_inverted": 29,
+    "legal_regulatory_risk_inverted": 40,
+    "governance_risk_inverted": 55,
+    "data_quality": 74,
+    "overall_usefulness": 72
+  },
+  "checklist_risk": {
+    "value": 40,
+    "binding_component": "legal_regulatory_risk"
+  },
+  "governance_score": {
+    "unrounded": 57.13,
+    "reported": 57
+  },
+  "confidence_score": 68,
+  "confidence_adjusted_governance_score": {
+    "unrounded": 38.85,
+    "reported": 39
+  },
+  "governance_rating": "Watchlist",
+  "red_flags": {
+    "unique_count": 2,
+    "critical_count": 0,
+    "ids": [
+      "RF-DISC-002",
+      "RF-AUD-007"
+    ]
+  },
+  "checklist_coverage": {
+    "total": 179,
+    "answered": 114,
+    "percent": 63.7,
+    "green": 31,
+    "amber": 77,
+    "red": 6,
+    "insufficient": 47,
+    "not_applicable": 18,
+    "not_available_total": 65
+  },
+  "caps_applied": [
+    {
+      "trigger": "Legal/person databases coverage-limited",
+      "effect": "Legal risk floor 40; Confidence max 70; People max 65"
+    },
+    {
+      "trigger": "Overall query-budget exhaustion with unswept E-A/Tier-A-controlled branches",
+      "effect": "People max 55; Confidence max 75"
+    }
+  ],
+  "output_quality_issues": [
+    "00 supplied no Universal Findings Table",
+    "05 supplied a reduced six-column Universal Findings Table and non-canonical pseudo red-flag IDs",
+    "03 and 12 supplied multiple detail rows for four single registry items; primary aggregate rows selected"
+  ]
+}
