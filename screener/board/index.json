@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T16:54:59Z",
+  "generated_at": "2026-08-30T16:55:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -88328,6 +88328,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-91e5824ed7dd",
+      "idea_version": "IDEAV-96812f8704292485",
+      "idea_version_started_at": "2026-08-30T16:55:17Z",
+      "ticker": "INDIAPOWER",
+      "company": "India Power Corporation Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is entering the 6th meeting of the Committee of Creditors under the Corporate Insolvency Resolution Process, indicating severe distress and a high probability of significant equity wipeout or restructuring.",
+      "why_now": "The 6th meeting of the Committee of Creditors is a specific, dated procedural step in the insolvency process reported on August 30, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-916c868bad32"
+      ],
+      "primary_source_event_id": "EVT-916c868bad32",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Prior Intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Prior Intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_30082026171746_Intimationof6thCoCMeetingunderReg30ofLODR30082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T11:48:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T16:55:17Z",
+      "updated_at": "2026-08-30T16:55:17Z",
+      "decay_at": "2026-08-31T23:48:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-94673fd188cf",
       "idea_version": "IDEAV-6612f3ddaaf6c670",
       "idea_version_started_at": "2026-08-30T14:35:23Z",
@@ -114837,8 +114909,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 317,
-    "live_count": 59,
+    "surfaced_total": 318,
+    "live_count": 60,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
