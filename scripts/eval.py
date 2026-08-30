@@ -1362,44 +1362,10 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
     return None if r is None else [x["description"] for x in r]
 
 # ── Check BA (§17 / HARD GATE 11 — kill-criteria trigger test) ──────────────────────────────────
-# WHY: synthesizer.md HARD GATE 11 requires three things per Thesis Kill Criteria row before it can
-# publish: (1) a like-for-like comparable — same period a year earlier, same reporting basis — (2)
-# the implied stub arithmetic where part of the period has already reported, and (3) whether the
-# trigger would have fired on the last two reported periods (the "capable of failing" test). The
-# markdown table even has a dedicated "Measured against" column. But `decision_record.json`'s
-# `kill_criteria[]` (DECISION_LEDGER.md §5) was always a flat array of strings/loose dicts — none of
-# HARD GATE 11's three checks ever survived into the machine-readable record, so nothing this harness
-# (or the finish-gate) can see confirms the sweep happened. The named worked failure this rule exists
-# for: a "gross margin holding at or above 26.3%" trigger that was silently benchmarked against the
-# PRIOR FULL YEAR instead of the correct year-ago HALF, which the trigger could clear while margin was
-# still falling year on year — the opposite of what it claimed to test.
-# This is the presence/shape half only, matching the AZ/AT precedent: whether a stated comparable_basis
-# is GENUINELY like-for-like stays the authoring LLM's judgment call (verify-evidence Section B/C
-# already audits period-basis mismatches on request); this check only stops a future run from silently
-# omitting the two structured fields HARD GATE 11 says every row must carry.
-BA_DATE="2026-08-22"
-def eval_ba_kill_criteria_trigger_test(decision_date, kill_criteria):
-    """Core of check BA. Returns None (N/A — pre-gate, or no kill_criteria to test) or a list of
-    violation strings (empty list = every row passes). Side-effect-free + module-level so the
-    selftest drives every branch fixture-free."""
-    if not (isdate(decision_date) and decision_date>=BA_DATE):
-        return None
-    if not isinstance(kill_criteria, list) or not kill_criteria:
-        return None  # T flags a non-list kill_criteria; an empty list has nothing to trigger-test
-    issues=[]
-    for i,e in enumerate(kill_criteria):
-        if not isinstance(e, dict):
-            issues.append(f"kill_criteria[{i}] is a plain string — HARD GATE 11 requires comparable_basis "
-                           f"and fired_last_two_periods fields, which only an object row can carry")
-            continue
-        cb=e.get("comparable_basis"); fl=e.get("fired_last_two_periods")
-        if not (isinstance(cb,str) and cb.strip()):
-            issues.append(f"kill_criteria[{i}] missing comparable_basis — the like-for-like period/basis "
-                           f"this trigger is measured against (HARD GATE 11 check 1)")
-        if not isinstance(fl,bool):
-            issues.append(f"kill_criteria[{i}] missing fired_last_two_periods (bool) — whether this trigger "
-                           f"would have fired on the last two reported periods (HARD GATE 11 check 3)")
-    return issues
+# Detection logic lives in scripts/scenario_integrity_checks.py (imported below, alongside
+# AT/AU/AV/BC) so the SAME function also runs LIVE in the /research:full Step 10B.1 finish-gate —
+# previously it was defined here only, so eval.py graded it retrospectively but the live gate could
+# never call it. See that module's check-BA comment block for the full doctrine rationale.
 
 
 # ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────
@@ -1414,6 +1380,8 @@ from scenario_integrity_checks import (
     eval_au_sign_check_recorded,
     eval_av_conjunction_disclosure,
     eval_bc_probability_basis_stated,
+    eval_ba_kill_criteria_trigger_test,
+    BA_DATE,
 )
 
 

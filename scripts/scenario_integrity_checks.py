@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """§10 scenario-integrity detectors: the span check and the conjunction-disclosure check
 (CLAUDE.md §10), plus the cross-module sign-check presence gate (synthesizer.md Step 3b /
-HARD GATE 7).
+HARD GATE 7), the §10 HARD GATE 13 probability-basis presence/form check, and the HARD GATE 11
+kill-criteria trigger-test schema-presence check (check BA — moved here from `scripts/eval.py`,
+where it was defined but never imported into the live gate; see that check's own comment block
+below for why).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks
 AT/AU/AV) so the SAME detection functions can run in TWO places instead of one:
@@ -198,6 +201,58 @@ def eval_av_conjunction_disclosure(decision_date, scenarios):
                        f"field for scenarios with 2+ simultaneous conditions; a value here either misuses "
                        f"the field or hides an undisclosed second condition")
     return out
+
+
+# ---- check BA: every kill_criteria row must carry the HARD GATE 11 trigger-test fields ------------
+# synthesizer.md HARD GATE 11 requires three things per Thesis Kill Criteria row before it can publish:
+# (1) a like-for-like comparable — same period a year earlier, same reporting basis — (2) the implied
+# stub arithmetic where part of the period has already reported, and (3) whether the trigger would have
+# fired on the last two reported periods (the "capable of failing" test). The markdown table even has a
+# dedicated "Measured against" column. But `decision_record.json`'s `kill_criteria[]` (DECISION_LEDGER.md
+# §5) was always a flat array of strings/loose dicts — none of HARD GATE 11's three checks ever survived
+# into the machine-readable record, so nothing this harness (or the finish-gate) can see confirms the
+# sweep happened. The named worked failure this rule exists for: a "gross margin holding at or above
+# 26.3%" trigger that was silently benchmarked against the PRIOR FULL YEAR instead of the correct
+# year-ago HALF, which the trigger could clear while margin was still falling year on year — the
+# opposite of what it claimed to test.
+#
+# This is the presence/shape half only, matching the AT precedent: whether a stated comparable_basis is
+# GENUINELY like-for-like stays the authoring LLM's judgment call (verify-evidence Section B/C already
+# audits period-basis mismatches on request); this check only stops a future run from silently omitting
+# the two structured fields HARD GATE 11 says every row must carry.
+#
+# check BA existed in `scripts/eval.py` since 2026-08-22 and graded every committed run retrospectively
+# — but, unlike AT/AU/AV/BC, it was defined directly inside eval.py rather than in this importable
+# module, so it was never available to the LIVE finish-gate (`/research:full` Step 10B.1). A run could
+# ship a kill_criteria[] row missing comparable_basis or fired_last_two_periods, print the live gate's
+# `GATE: PASS`, and commit straight to `main` (CLAUDE.md §25/§28) — the exact same class of hole AT/AU/AV
+# closed for the §10 scenario checks and BC closed for HARD GATE 13, left open here by an accident of
+# which file the function happened to be written in. Moving it here (eval.py now imports it from this
+# module, same as AT/AU/AV/BC) closes that hole without changing its logic or its retrospective grading.
+BA_DATE = "2026-08-22"
+
+def eval_ba_kill_criteria_trigger_test(decision_date, kill_criteria):
+    """Core of check BA. Returns None (N/A — pre-gate, or no kill_criteria to test) or a list of
+    violation strings (empty list = every row passes). Side-effect-free + module-level so the
+    selftest drives every branch fixture-free."""
+    if not (_isdate(decision_date) and decision_date >= BA_DATE):
+        return None
+    if not isinstance(kill_criteria, list) or not kill_criteria:
+        return None  # T flags a non-list kill_criteria; an empty list has nothing to trigger-test
+    issues = []
+    for i, e in enumerate(kill_criteria):
+        if not isinstance(e, dict):
+            issues.append(f"kill_criteria[{i}] is a plain string — HARD GATE 11 requires comparable_basis "
+                           f"and fired_last_two_periods fields, which only an object row can carry")
+            continue
+        cb = e.get("comparable_basis"); fl = e.get("fired_last_two_periods")
+        if not (isinstance(cb, str) and cb.strip()):
+            issues.append(f"kill_criteria[{i}] missing comparable_basis — the like-for-like period/basis "
+                           f"this trigger is measured against (HARD GATE 11 check 1)")
+        if not isinstance(fl, bool):
+            issues.append(f"kill_criteria[{i}] missing fired_last_two_periods (bool) — whether this trigger "
+                           f"would have fired on the last two reported periods (HARD GATE 11 check 3)")
+    return issues
 
 
 # ---- check BC: every stated probability must declare its BASIS (empirical / base rate / judgment) ----
