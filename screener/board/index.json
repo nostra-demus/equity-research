@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T02:00:28Z",
+  "generated_at": "2026-08-30T02:04:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-041",
+      "headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/article/3365657/jdcoms-us13b-expansion-could-test-hong-kongs-footfall-driven-retail-property-model?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:00:16Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "JD.com is undertaking a US$1.3 billion expansion project in Hong Kong.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JD.com is undertaking a US$1.3 billion expansion project in Hong Kong.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JD.com",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-019",
       "headline": "Glencore took US$480 million provision on Radiant World exposure: sources",
@@ -389,49 +438,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260830-011",
-      "headline": "Iran war live: Tehran to stand firm to US sanctions; settlers besiege Qusra",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/8/30/iran-war-live-iran-pledges-to-stand-firm-against-unjust-us-sanctions?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-30T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Ongoing geopolitical conflict and sanctions escalation in Iran pose risks to regional stability and global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Ongoing geopolitical conflict and sanctions escalation in Iran pose risks to regional stability and global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260830-031",
       "headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
       "headline_en": "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates",
@@ -569,6 +575,103 @@
       "companies": [
         {
           "name": "Air India",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-040",
+      "headline": "Australia could make social media algorithms optional and follow UK ban on pornography depicting strangulation",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/aug/30/australia-could-make-social-media-algorithms-optional-and-follow-uk-ban-on-pornography-depicting-strangulation",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:49:30Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Proposed Australian regulations on social media algorithms could impact the operational model of major tech platforms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Proposed Australian regulations on social media algorithms could impact the operational model of major tech platforms.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-042",
+      "headline": "Firmus, Nvidia, and the circular AI money machine coming to the ASX",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/firmus-nvidia-and-the-circular-ai-money-machine-coming-to-the-asx-20260828-p60si7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Firmus is partnering with Nvidia to expand AI infrastructure, which may impact ASX market dynamics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Firmus is partnering with Nvidia to expand AI infrastructure, which may impact ASX market dynamics.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Firmus",
           "ticker": null,
           "listing_country": null
         }
@@ -872,6 +975,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-043",
+      "headline": "Etihad Rail sees strong demand as residents return from summer holidays",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/uae/etihad-rail-strong-demand-residents-summer-holidays",
+      "source_name": "Khaleej Times — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Etihad Rail reports strong demand, indicating positive operational momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Etihad Rail reports strong demand, indicating positive operational momentum.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Etihad Rail",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-015",
       "headline": "FIR Filed Against Mamata Banerjee Over Alleged Violation Of Calcutta HC Order During TMC Students’ Wing Rally",
       "headline_en": null,
@@ -1035,6 +1187,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-044",
+      "headline": "Trump’s oil deal riles both sides of Venezuelan political divide",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/08/30/world/politics/trump-oil-deal-venezuela-divide/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:16:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Political controversy surrounding oil deals in Venezuela creates geopolitical and supply risk for energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Political controversy surrounding oil deals in Venezuela creates geopolitical and supply risk for energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -1425,92 +1620,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-032",
-      "headline": "Nepal death toll now 676, 3000 still missing",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/australian-news-live-august-30-2026-20260830-p60spq?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T01:23:18Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A major natural disaster in Nepal has resulted in 676 confirmed deaths and 3000 people missing, indicating a significant humanitarian and economic impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A major natural disaster in Nepal has resulted in 676 confirmed deaths and 3000 people missing, indicating a significant humanitarian and economic impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-013",
-      "headline": "At least 37 killed in drone attack on ammunition warehouse in Myla; Zelenskyy responds",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/at-least-37-killed-in-drone-attack-on-ammunition-warehouse-in-myla-zelenskyy-responds-11788049311832.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:33:42Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -87471,75 +87580,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1ec44c459bda",
-      "idea_version": "IDEAV-3565ea007ab7c9de",
-      "idea_version_started_at": "2026-08-29T22:28:34Z",
-      "ticker": "TMQ",
-      "company": "Trilogy Metals",
-      "exchange": "NYSE MKT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The U.S. government is providing a $35.6 million strategic equity investment to support the company's critical mineral extraction projects in Alaska.",
-      "why_now": "The investment was officially announced on August 28, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff99b800ac73"
-      ],
-      "primary_source_event_id": "EVT-ff99b800ac73",
-      "source_headlines": [
-        "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
-      ],
-      "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T14:00:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T22:28:34Z",
-      "updated_at": "2026-08-29T22:28:34Z",
-      "decay_at": "2026-08-30T02:00:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-9f3cc317a5c3678e",
       "idea_version_started_at": "2026-08-30T01:25:26Z",
@@ -89248,77 +89288,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-edbe01539b46",
-      "idea_version": "IDEAV-22278f4180300b49",
-      "idea_version_started_at": "2026-08-29T18:43:39Z",
-      "ticker": "TMX",
-      "company": "Trilogy Metals",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Department of War is making a strategic equity investment in Trilogy Metals to secure critical mineral supplies, which should boost the company's financial standing and operational capacity.",
-      "why_now": "The announcement of the investment was made on August 28, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff99b800ac73"
-      ],
-      "primary_source_event_id": "EVT-ff99b800ac73",
-      "source_headlines": [
-        "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
-      ],
-      "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T14:00:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T18:43:39Z",
-      "updated_at": "2026-08-29T18:43:39Z",
-      "decay_at": "2026-08-30T02:00:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cfa708bb1644",
       "idea_version": "IDEAV-0b058ce756b409b2",
       "idea_version_started_at": "2026-08-29T18:23:37Z",
@@ -89675,77 +89644,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-13e8568c29b3",
-      "idea_version": "IDEAV-6e813d9d0fba047d",
-      "idea_version_started_at": "2026-08-29T10:08:49Z",
-      "ticker": "ALCO",
-      "company": "Alcoa Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The U.S. Department of War is investing $100 million in Atalco, the sole remaining domestic alumina refinery, securing a critical supply chain asset for aluminum production where Alcoa is the primary U.S. producer and likely strategic partner.",
-      "why_now": "Official DoD announcement today (2026-08-28) confirms the equity investment and strategic rationale for domestic alumina security.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2da990ee974d"
-      ],
-      "primary_source_event_id": "EVT-2da990ee974d",
-      "source_headlines": [
-        "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery"
-      ],
-      "source_headline": "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585310/department-of-war-announces-a-100-million-follow-on-equity-investment-in-atalco/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T14:00:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:08:49Z",
-      "updated_at": "2026-08-29T10:08:49Z",
-      "decay_at": "2026-08-30T02:00:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0ecd9c1748cf",
       "idea_version": "IDEAV-602a188bece7f17c",
       "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -89816,6 +89714,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-1ec44c459bda",
+      "idea_version": "IDEAV-3565ea007ab7c9de",
+      "idea_version_started_at": "2026-08-29T22:28:34Z",
+      "ticker": "TMQ",
+      "company": "Trilogy Metals",
+      "exchange": "NYSE MKT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The U.S. government is providing a $35.6 million strategic equity investment to support the company's critical mineral extraction projects in Alaska.",
+      "why_now": "The investment was officially announced on August 28, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff99b800ac73"
+      ],
+      "primary_source_event_id": "EVT-ff99b800ac73",
+      "source_headlines": [
+        "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
+      ],
+      "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:00:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T22:28:34Z",
+      "updated_at": "2026-08-29T22:28:34Z",
+      "decay_at": "2026-08-30T02:00:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-90b902d53889",
@@ -91866,6 +91833,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-edbe01539b46",
+      "idea_version": "IDEAV-22278f4180300b49",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "TMX",
+      "company": "Trilogy Metals",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Department of War is making a strategic equity investment in Trilogy Metals to secure critical mineral supplies, which should boost the company's financial standing and operational capacity.",
+      "why_now": "The announcement of the investment was made on August 28, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff99b800ac73"
+      ],
+      "primary_source_event_id": "EVT-ff99b800ac73",
+      "source_headlines": [
+        "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
+      ],
+      "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:00:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T02:00:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-32354a5c12db",
       "idea_version": "IDEAV-0855353b72e21970",
       "idea_version_started_at": "2026-08-29T18:23:37Z",
@@ -92572,6 +92610,77 @@
       "surfaced_at": "2026-08-29T10:43:25Z",
       "updated_at": "2026-08-29T10:43:25Z",
       "decay_at": "2026-08-30T00:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-13e8568c29b3",
+      "idea_version": "IDEAV-6e813d9d0fba047d",
+      "idea_version_started_at": "2026-08-29T10:08:49Z",
+      "ticker": "ALCO",
+      "company": "Alcoa Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The U.S. Department of War is investing $100 million in Atalco, the sole remaining domestic alumina refinery, securing a critical supply chain asset for aluminum production where Alcoa is the primary U.S. producer and likely strategic partner.",
+      "why_now": "Official DoD announcement today (2026-08-28) confirms the equity investment and strategic rationale for domestic alumina security.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2da990ee974d"
+      ],
+      "primary_source_event_id": "EVT-2da990ee974d",
+      "source_headlines": [
+        "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery"
+      ],
+      "source_headline": "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4585310/department-of-war-announces-a-100-million-follow-on-equity-investment-in-atalco/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:00:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:08:49Z",
+      "updated_at": "2026-08-29T10:08:49Z",
+      "decay_at": "2026-08-30T02:00:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94235,13 +94344,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 236,
-    "shown_count": 236,
+    "total_count": 239,
+    "shown_count": 239,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 108,
-        "shown_count": 108,
+        "total_count": 111,
+        "shown_count": 111,
         "hidden_count": 0
       },
       "short": {
@@ -94266,6 +94375,226 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1ec44c459bda",
+        "idea_version": "IDEAV-3565ea007ab7c9de",
+        "idea_version_started_at": "2026-08-29T22:28:34Z",
+        "ticker": "TMQ",
+        "company": "Trilogy Metals",
+        "exchange": "NYSE MKT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The U.S. government is providing a $35.6 million strategic equity investment to support the company's critical mineral extraction projects in Alaska.",
+        "why_now": "The investment was officially announced on August 28, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff99b800ac73"
+        ],
+        "primary_source_event_id": "EVT-ff99b800ac73",
+        "source_headlines": [
+          "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
+        ],
+        "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T14:00:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T22:28:34Z",
+        "updated_at": "2026-08-29T22:28:34Z",
+        "decay_at": "2026-08-30T02:00:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T02:00:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-edbe01539b46",
+        "idea_version": "IDEAV-22278f4180300b49",
+        "idea_version_started_at": "2026-08-29T18:43:39Z",
+        "ticker": "TMX",
+        "company": "Trilogy Metals",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The Department of War is making a strategic equity investment in Trilogy Metals to secure critical mineral supplies, which should boost the company's financial standing and operational capacity.",
+        "why_now": "The announcement of the investment was made on August 28, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff99b800ac73"
+        ],
+        "primary_source_event_id": "EVT-ff99b800ac73",
+        "source_headlines": [
+          "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska"
+        ],
+        "source_headline": "Department of War Announces $35.6 Million Strategic Equity Investment in Trilogy Metals to Secure Critical Copper, Cobalt, and Germanium Supplies in Northwest Alaska",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4585334/department-of-war-announces-356-million-strategic-equity-investment-in-trilogy/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T14:00:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T18:43:39Z",
+        "updated_at": "2026-08-29T18:43:39Z",
+        "decay_at": "2026-08-30T02:00:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T02:00:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-13e8568c29b3",
+        "idea_version": "IDEAV-6e813d9d0fba047d",
+        "idea_version_started_at": "2026-08-29T10:08:49Z",
+        "ticker": "ALCO",
+        "company": "Alcoa Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The U.S. Department of War is investing $100 million in Atalco, the sole remaining domestic alumina refinery, securing a critical supply chain asset for aluminum production where Alcoa is the primary U.S. producer and likely strategic partner.",
+        "why_now": "Official DoD announcement today (2026-08-28) confirms the equity investment and strategic rationale for domestic alumina security.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2da990ee974d"
+        ],
+        "primary_source_event_id": "EVT-2da990ee974d",
+        "source_headlines": [
+          "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery"
+        ],
+        "source_headline": "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4585310/department-of-war-announces-a-100-million-follow-on-equity-investment-in-atalco/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T14:00:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:08:49Z",
+        "updated_at": "2026-08-29T10:08:49Z",
+        "decay_at": "2026-08-30T02:00:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T02:00:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-39a2052bc383",
         "idea_version": "IDEAV-c2649f388f3e14e6",
@@ -111761,7 +112090,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 275,
-    "live_count": 37,
+    "live_count": 34,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -111771,7 +112100,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1820,
+    "inbox_unconsumed": 1822,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111780,9 +112109,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 215,
-    "news_picked_today": 40,
-    "news_dropped_today": 175
+    "news_seen_today": 230,
+    "news_picked_today": 45,
+    "news_dropped_today": 185
   },
   "book_momentum": {
     "live_count": 8,
