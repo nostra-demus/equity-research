@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T11:04:43Z",
+  "generated_at": "2026-08-30T11:09:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-206",
@@ -1597,6 +1597,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-207",
+      "headline": "Dissenting creditors alleged family-linked entities cast 61.78 pc votes that cleared Subhash Chandra's insolvency plan",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/dissenting-creditors-alleged-family-linked-entities-cast-61-78-pc-votes-that-cleared-subhash-chandras-insolvency-plan/articleshow/133627829.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T10:54:22Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Allegations of fraudulent voting practices in a 61.78% approval of an insolvency plan create significant legal and governance risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Allegations of fraudulent voting practices in a 61.78% approval of an insolvency plan create significant legal and governance risk for the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-035",
       "headline": "War weighs on Iran’s economy as U.S. intensifies sanctions",
       "headline_en": null,
@@ -1930,55 +1979,6 @@
           "name": "PetroChina",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-131",
-      "headline": "HDFC CEO Sashidhar Jagdishan to not seek reappointment, set to step down in October",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/hdfc-ceo-sashidhar-jagdishan-to-not-seek-reappointment-set-to-step-down-in-october-101788072876875.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T07:25:33Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "CEO Sashidhar Jagdishan will not seek reappointment and will step down in October, representing a major leadership change for HDFC Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "CEO Sashidhar Jagdishan will not seek reappointment and will step down in October, representing a major leadership change for HDFC Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -114791,9 +114791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1909,
-    "news_picked_today": 345,
-    "news_dropped_today": 1564
+    "news_seen_today": 1923,
+    "news_picked_today": 346,
+    "news_dropped_today": 1577
   },
   "book_momentum": {
     "live_count": 8,
