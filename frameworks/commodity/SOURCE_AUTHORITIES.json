@@ -304,6 +304,28 @@
       "capital_iq_fallback": "A licensed series may be a cross-check only. The decision-grade series must preserve AGSI+ working gas, technical capacity, fill percentage, geography, gas day and retrieval vintage."
     },
     {
+      "id": "copper-refined-balance",
+      "need_pattern": "^copper-refined-balance$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_icsg_primary_balance",
+      "authorities": [
+        {"provider": "International Copper Study Group", "url": "https://icsg.org/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required primary refined-copper balance. Preserve monthly production, use, stock change, geography, revisions and publication vintage from ICSG or an equivalent primary publisher; otherwise leave the series unavailable."
+    },
+    {
+      "id": "aluminium-primary-production",
+      "need_pattern": "^aluminium-primary-production$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_entitled_iai_primary_production",
+      "authorities": [
+        {"provider": "International Aluminium Institute", "url": "https://international-aluminium.org/statistics/primary-aluminium-production/", "access": "restricted"}
+      ],
+      "capital_iq_fallback": "Not permitted for the entitled IAI series. Use the dated IAI publication through the attested manual-ingest route, retain world and China values plus revisions, and leave the series unavailable when the required history or entitlement is absent."
+    },
+    {
       "id": "inventory-balance",
       "need_pattern": "(inventory|storage|stocks-use|stocks-grindings|balance|inventory-days-cover|stock-change)",
       "route_kind": "single_source",

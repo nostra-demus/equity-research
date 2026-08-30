@@ -58,6 +58,7 @@ const tmp = () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-')); 
 // CNBC's last_time carries a UTC offset ("-0400") — 07:59:02-0400 is 11:59:02Z.
 const GC_ROW = { symbol: '@GC.1', name: "Gold COMEX (Aug'26)", last: '3,340.50', previous_day_closing: '3,325.00', last_time: '2026-07-08T07:59:02.000-0400' }
 const SB_ROW = { symbol: '@SB.1', name: "Sugar #11 (Oct'26)", last: '14.86', last_time: '2026-07-08T07:59:02.000-0400' } // no previous_day_closing
+const SB_NO_TIME_ROW = { symbol: '@SB.1', name: "Sugar #11 (Oct'26)", last: '14.86' }
 const NG_DEAD_ROW = { symbol: '@NG.1', name: "Natural Gas (Nov'20)" } // dead contract: no last / no time
 const cnbcBody = (rows: unknown) => JSON.stringify({ FormattedQuoteResult: { FormattedQuote: rows } })
 
@@ -350,6 +351,36 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
     fs.existsSync(path.join(stateDir, 'commodity-pulse-history')), false,
     'ordinary cockpit polling does not create an unbounded point-in-time archive',
   )
+})
+
+await check('a quote without last_time is stamped at its archived price snapshot, never after it', async () => {
+  const repoNoTime = makeRepo()
+  const stateNoTime = tmp()
+  const manifestNoTime = makeManifest('pulse-no-last-time')
+  const fetchNoTime = (async (input: any) => {
+    const host = new URL(String(input)).host
+    if (host === 'quote.cnbc.com') {
+      return new Response(cnbcBody([GC_ROW, SB_NO_TIME_ROW]), { status: 200 })
+    }
+    if (host === 'publicreporting.cftc.gov') {
+      return new Response(JSON.stringify(COT_ROWS), { status: 200 })
+    }
+    throw new Error(`unexpected url: ${String(input)}`)
+  }) as typeof fetch
+  let clockReads = 0
+  const advancingNow = () => new Date(clockReads++ < 3 ? T0 : T0 + 5_000)
+  const snap = await getPulse('pulse-no-last-time', {
+    manifest: manifestNoTime, fetchFn: fetchNoTime, now: advancingNow,
+    stateDir: stateNoTime, repoRoot: repoNoTime, requirePriceHistory: true,
+  })
+  assert.ok(snap)
+  assert.equal(snap!.subjects.SUGAR.price!.as_of, new Date(T0).toISOString())
+  const historyDir = path.join(
+    stateNoTime, 'commodity-pulse-history', createHash('sha256').update('pulse-no-last-time').digest('hex'),
+  )
+  const historical = JSON.parse(fs.readFileSync(path.join(historyDir, fs.readdirSync(historyDir)[0]), 'utf8'))
+  assert.equal(historical.priceAt, T0)
+  assert.ok(Date.parse(historical.prices.SUGAR.as_of) <= historical.priceAt)
 })
 
 await check('headless preflight archives exactly the within-TTL price half it will use', async () => {

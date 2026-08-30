@@ -75,6 +75,22 @@ for need, rule_id, provider in (
     assert row["source_rule_id"] == rule_id
     assert {authority["provider"] for authority in row["authorities"]} == {provider}
     assert row["capital_iq_use"] == "not_permitted"
+aluminium_production = next(
+    row for row in aluminium["rows"] if row["need_id"] == "aluminium-primary-production"
+)
+assert aluminium_production["source_rule_id"] == "aluminium-primary-production"
+assert aluminium_production["route_kind"] == "manual_official"
+assert aluminium_production["capital_iq_use"] == "not_permitted"
+assert {authority["provider"] for authority in aluminium_production["authorities"]} == {
+    "International Aluminium Institute",
+}
+copper_balance = next(row for row in copper["rows"] if row["need_id"] == "copper-refined-balance")
+assert copper_balance["source_rule_id"] == "copper-refined-balance"
+assert copper_balance["route_kind"] == "manual_official"
+assert copper_balance["capital_iq_use"] == "not_permitted"
+assert {authority["provider"] for authority in copper_balance["authorities"]} == {
+    "International Copper Study Group",
+}
 for plan in (copper, aluminium):
     row = next(item for item in plan["rows"] if "prepolicy-supply" in item["need_id"])
     assert row["source_rule_id"] == "metals-fundamentals"

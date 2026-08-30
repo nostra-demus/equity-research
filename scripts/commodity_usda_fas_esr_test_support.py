@@ -2,6 +2,7 @@
 """Synthetic contract test shared by USDA FAS ESR connector wrappers."""
 from __future__ import annotations
 
+import copy
 import json
 import os
 import sys
@@ -183,6 +184,18 @@ def run_fixture(fetch_file: str) -> None:
     assert len({row["date"] for row in payload["observations"]}) == 312
     assert payload["observations"][-1]["markets"][-1]["totals"]["sales_reductions_or_adjustments"] > 0
     assert "api_key" not in json.dumps([payload, sidecar]).casefold()
+    if config.get("required_country_codes"):
+        incomplete = copy.deepcopy(_captures(config))
+        required = set(config["required_country_codes"])
+        for capture in incomplete["exports"]:
+            capture["document"] = [
+                row for row in capture["document"] if row["countryCode"] not in required
+            ]
+        try:
+            feed.build(manifest, config, incomplete)
+            raise AssertionError("missing required destination history must fail closed")
+        except RuntimeError as error:
+            assert "required destination history" in str(error)
     _header_credential_contract(manifest)
     _parallel_fetch_contract(manifest, config)
     print(f"PASS: {manifest['id']}")

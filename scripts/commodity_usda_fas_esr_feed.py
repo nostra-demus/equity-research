@@ -56,12 +56,14 @@ VALUE_FIELDS = {
 def load_config(fetch_file: str) -> dict[str, Any]:
     path = Path(fetch_file).resolve().parent / "feed.json"
     value = json.loads(path.read_text(encoding="utf-8"))
+    required_fields = {
+        "config_version", "subject", "commodity", "provider_slug",
+        "filename_stem", "note", "commodity_codes",
+    }
     if (
         not isinstance(value, dict)
-        or set(value) != {
-            "config_version", "subject", "commodity", "provider_slug",
-            "filename_stem", "note", "commodity_codes",
-        }
+        or not required_fields.issubset(value)
+        or not set(value).issubset(required_fields | {"required_country_codes"})
         or value.get("config_version") != 1
         or value.get("subject") not in {"CORN", "SOYBEANS", "WHEAT", "COTTON"}
         or value.get("commodity") != value.get("subject")
@@ -73,6 +75,16 @@ def load_config(fetch_file: str) -> dict[str, Any]:
         or not value["commodity_codes"]
     ):
         raise RuntimeError("USDA FAS export-sales feed configuration is malformed")
+    required_country_codes = value.get("required_country_codes", [])
+    if (
+        not isinstance(required_country_codes, list)
+        or any(
+            not isinstance(code, int) or isinstance(code, bool) or code <= 0
+            for code in required_country_codes
+        )
+        or len(required_country_codes) != len(set(required_country_codes))
+    ):
+        raise RuntimeError("USDA FAS required destination configuration is malformed")
     seen: set[int] = set()
     for identity in value["commodity_codes"]:
         if (
@@ -273,6 +285,9 @@ def build(
         captures["countries"], code_field="countryCode", name_field="countryName",
         label="country",
     )
+    required_country_codes = set(config.get("required_country_codes", []))
+    if not required_country_codes.issubset(country_lookup):
+        raise RuntimeError("USDA FAS country metadata omitted a required destination")
     unit_lookup = _lookup(
         captures["units"], code_field="unitId", name_field="unitNames", label="unit",
     )
@@ -301,6 +316,7 @@ def build(
         raise RuntimeError("USDA FAS captures do not match the reviewed market-year plan")
 
     grouped: dict[tuple[str, int], list[dict[str, Any]]] = defaultdict(list)
+    required_destination_dates: dict[tuple[int, int], set[str]] = defaultdict(set)
     identities: set[tuple[int, int, int, str]] = set()
     source_urls = list(METADATA_URLS.values())
     for capture in exports:
@@ -324,6 +340,19 @@ def build(
                 raise RuntimeError("USDA FAS export-sales response contains a duplicate row")
             identities.add(identity)
             grouped[(day, market_year)].append(record)
+            if record["country_code"] in required_country_codes:
+                required_destination_dates[(code, record["country_code"])].add(day)
+
+    for commodity_code in configured:
+        for country_code in required_country_codes:
+            destination_dates = sorted(required_destination_dates[(commodity_code, country_code)])
+            if (
+                len(destination_dates) < MINIMUM_DATES
+                or (
+                    date.fromisoformat(destination_dates[-1]) - date.fromisoformat(destination_dates[0])
+                ).days < MINIMUM_SPAN_DAYS
+            ):
+                raise RuntimeError("USDA FAS required destination history is incomplete")
 
     markets_by_day: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for day, market_year in sorted(grouped):

@@ -429,7 +429,7 @@ async function refreshPrices(entry: CacheEntry, cfg: PulseSourcesConfig, fetchFn
       prev_close: q.prevClose,
       change_pct: prev !== null ? round2(((q.last - prev) / prev) * 100) : null,
       unit: src.unit || '',
-      as_of: q.asOf ?? now().toISOString(),
+      as_of: q.asOf ?? new Date(nowMs).toISOString(),
       source: 'cnbc',
       ...(q.name ? { label: q.name } : {}), // the front-month contract label, when CNBC names it
     }
