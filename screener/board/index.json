@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:59:54Z",
+  "generated_at": "2026-08-30T02:00:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -87190,6 +87190,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-f706760db176",
+      "idea_version": "IDEAV-9db919d9eab10fe3",
+      "idea_version_started_at": "2026-08-30T02:00:09Z",
+      "ticker": "GLNCY",
+      "company": "Glencore",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The US$480 million provision for Radiant World exposure indicates a significant impairment of assets and potential underlying credit risk in the company's trading portfolio.",
+      "why_now": "The news of the provision was reported on 2026-08-30, signaling an immediate hit to earnings and balance sheet quality.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b83aab6465d2"
+      ],
+      "primary_source_event_id": "EVT-b83aab6465d2",
+      "source_headlines": [
+        "Glencore books US$480 million provision covering entire Radiant World exposure: sources"
+      ],
+      "source_headline": "Glencore books US$480 million provision covering entire Radiant World exposure: sources",
+      "source_url": "https://www.businesstimes.com.sg/international/global/glencore-books-us480-million-provision-covering-entire-radiant-world-exposure-sources",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T00:57:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T16:24:18Z",
+      "updated_at": "2026-08-30T02:00:09Z",
+      "decay_at": "2026-08-31T12:57:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-ac20fff1a86eead0",
       "idea_version_started_at": "2026-08-29T23:48:06Z",
@@ -87464,76 +87534,6 @@
       "surfaced_at": "2026-08-29T22:28:34Z",
       "updated_at": "2026-08-29T22:28:34Z",
       "decay_at": "2026-08-30T02:00:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f706760db176",
-      "idea_version": "IDEAV-8fa012042ebf2f14",
-      "idea_version_started_at": "2026-08-29T16:24:18Z",
-      "ticker": "GLNCY",
-      "company": "Glencore",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $480 million provision for Radiant World exposure indicates unexpected credit losses and potential counterparty risk management failures.",
-      "why_now": "The provision was disclosed in news reports on August 29, 2026, signaling immediate earnings pressure.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-48237898a4f4"
-      ],
-      "primary_source_event_id": "EVT-48237898a4f4",
-      "source_headlines": [
-        "Glencore Took $480 Million Provision on Radiant World Exposure"
-      ],
-      "source_headline": "Glencore Took $480 Million Provision on Radiant World Exposure",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-08-29/glencore-took-480-million-provision-on-radiant-world-exposure",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:54:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T16:24:18Z",
-      "updated_at": "2026-08-29T16:24:18Z",
-      "decay_at": "2026-08-31T03:54:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89746,6 +89746,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ecd9c1748cf",
+      "idea_version": "IDEAV-602a188bece7f17c",
+      "idea_version_started_at": "2026-08-30T02:00:09Z",
+      "ticker": "000720",
+      "company": "Hyundai Engineering & Construction",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 1.4 trillion KRW redevelopment project, which provides a clear, multi-year revenue stream and improves the order backlog.",
+      "why_now": "The contract win was announced on 2026-08-30, providing immediate visibility into future construction revenue.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-21dff51e73d2"
+      ],
+      "primary_source_event_id": "EVT-21dff51e73d2",
+      "source_headlines": [
+        "Lotte and Hyundai E&C win 1.4 trillion KRW Anyang Chung-hun-bu public redevelopment project"
+      ],
+      "source_headline": "롯데·현대건설, 1조4000억 규모 안양 충훈부 공공재개발 수주",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275803",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-30T00:56:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T02:00:09Z",
+      "updated_at": "2026-08-30T02:00:09Z",
+      "decay_at": "2026-08-31T12:56:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-0bcded37d55b17e7",
       "idea_version_started_at": "2026-08-29T13:02:30Z",
@@ -90862,76 +90934,6 @@
       "surfaced_at": "2026-08-27T08:58:33Z",
       "updated_at": "2026-08-27T08:58:33Z",
       "decay_at": "2026-08-28T17:23:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-baf9e41cf166",
-      "idea_version": "IDEAV-e630aa4f46b33c69",
-      "idea_version_started_at": "2026-08-27T03:27:43Z",
-      "ticker": "KKR",
-      "company": "KKR & Co. Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "KKR settled a US antitrust case for $250 million, which will directly impact its financial results through a significant one-time expense.",
-      "why_now": "Reuters reported on August 27, 2026, that KKR has settled the antitrust case for $250 million, making this a live and quantifiable negative event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88dbe8597df3"
-      ],
-      "primary_source_event_id": "EVT-88dbe8597df3",
-      "source_headlines": [
-        "KKR settles US antitrust case accusing it of merger filing violations for $250 million"
-      ],
-      "source_headline": "KKR settles US antitrust case accusing it of merger filing violations for $250 million",
-      "source_url": "https://www.reuters.com/legal/litigation/kkr-settles-us-antitrust-case-accusing-it-merger-filing-violations-250-million-2026-08-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T01:51:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T03:27:43Z",
-      "updated_at": "2026-08-27T03:27:43Z",
-      "decay_at": "2026-08-28T13:51:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94227,7 +94229,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 175,
+      "file_count": 176,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -98853,8 +98855,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T13:51:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-30T02:00:15Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -111758,8 +111760,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 274,
-    "live_count": 36,
+    "surfaced_total": 275,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
