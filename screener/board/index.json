@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T07:54:38Z",
+  "generated_at": "2026-08-30T07:59:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -788,6 +788,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-139",
+      "headline": "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/essilorluxottica-clans-us47-billion-rift-grows-heirs-exit-ray-ban-maker",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T07:55:37Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A major internal rift involving the controlling family of EssilorLuxottica, a US$47 billion entity, creates governance and strategic uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A major internal rift involving the controlling family of EssilorLuxottica, a US$47 billion entity, creates governance and strategic uncertainty.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EssilorLuxottica",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1822,55 +1872,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-138",
-      "headline": "EssilorLuxottica Clan’s €40 Billion Rift Grows With Heir’s Exit",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-30/essilorluxottica-clan-s-40-billion-rift-grows-with-heir-s-exit",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A 40 billion euro rift within the controlling family of EssilorLuxottica creates significant governance and strategic uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "A 40 billion euro rift within the controlling family of EssilorLuxottica creates significant governance and strategic uncertainty.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EssilorLuxottica",
-          "ticker": "EL",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113768,9 +113769,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1154,
-    "news_picked_today": 199,
-    "news_dropped_today": 955
+    "news_seen_today": 1162,
+    "news_picked_today": 200,
+    "news_dropped_today": 962
   },
   "book_momentum": {
     "live_count": 8,
