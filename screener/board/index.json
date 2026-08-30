@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T13:35:02Z",
+  "generated_at": "2026-08-30T13:40:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-227",
+      "headline": "Banque Misr, Egypt’s second-largest, hit by US sanctions: What to know",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/8/30/banque-misr-egypts-second-largest-hit-by-us-sanctions-what-to-know?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-30T13:23:48Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Banque Misr, Egypt's second-largest bank, has been hit by US sanctions, which could significantly impact its operations and financial standing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Banque Misr, Egypt's second-largest bank, has been hit by US sanctions, which could significantly impact its operations and financial standing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Misr",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,50 +1983,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-035",
-      "headline": "War weighs on Iran’s economy as U.S. intensifies sanctions",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/30/world/war-iran-economy-us-sanctions/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:15:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Intensified US sanctions on Iran represent a significant geopolitical escalation affecting regional economic stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Intensified US sanctions on Iran represent a significant geopolitical escalation affecting regional economic stability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -114789,9 +114795,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2412,
-    "news_picked_today": 445,
-    "news_dropped_today": 1967
+    "news_seen_today": 2434,
+    "news_picked_today": 446,
+    "news_dropped_today": 1988
   },
   "book_momentum": {
     "live_count": 8,
