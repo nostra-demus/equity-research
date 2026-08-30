@@ -19,6 +19,7 @@ import {
   durableFrozenGenerationReceiptPathForTest,
   frozenEvidenceBindingForRunForTest,
   FROZEN_EVIDENCE_ROOT_ENV,
+  FROZEN_POOL_BINDING_OUT_DIR_ENV,
   FROZEN_POOL_DATA_PATH_ENV,
   FROZEN_POOL_GENERATION_ENV,
   FROZEN_POOL_OUT_DIR_ENV,
@@ -566,6 +567,7 @@ async function coordinatorChecks() {
   const frozenEnv = applyRunPolicyEnvForTest({
     [FROZEN_POOL_DATA_PATH_ENV]: '/stale/injected/data',
     [FROZEN_POOL_OUT_DIR_ENV]: '/stale/injected/out',
+    [FROZEN_POOL_BINDING_OUT_DIR_ENV]: '/stale/injected/binding-out',
     [FROZEN_POOL_GENERATION_ENV]: 'f'.repeat(64),
     [FROZEN_EVIDENCE_ROOT_ENV]: '/stale/injected/evidence',
   }, envRun)
@@ -574,6 +576,8 @@ async function coordinatorChecks() {
   const isolatedEvidence = frozenEvidenceBindingForRunForTest(envRun)!
   assert.equal(frozenEnv[FROZEN_POOL_DATA_PATH_ENV], frozenReport.frozenPool!.dataPath)
   assert.equal(frozenEnv[FROZEN_POOL_OUT_DIR_ENV], isolatedEvidence.capability.poolOutDir)
+  assert.equal(frozenEnv[FROZEN_POOL_BINDING_OUT_DIR_ENV], frozenReport.frozenPool!.outDir,
+    'the relocated capability retains the original logical generation binding')
   assert.equal(frozenEnv[FROZEN_POOL_GENERATION_ENV], frozenReport.frozenPool!.generationDigest,
     'the provider gets the supervisor receipt, never stale shell-level frozen values')
   assert.equal(frozenEnv[FROZEN_EVIDENCE_ROOT_ENV], isolatedEvidence.capability.evidenceRoot,

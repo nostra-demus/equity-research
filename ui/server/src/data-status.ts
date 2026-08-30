@@ -613,8 +613,8 @@ function listExternalFiles(tickerDirRaw: string, authorityRootRaw: string = DATA
 // the top level. This mirrors the extractor's exact skip rules so the two never disagree:
 //   • hidden entries (name starts with '.')            — same as the extractor
 //   • symlinks (files and dirs)                        — extractor walks with followlinks=False
-//   • engine-written output (a folder holding a `.nostradamus_output` sentinel) — the extractor skips a
-//     file whose IMMEDIATE parent holds the sentinel, still descending into any real subfolders below it
+//   • engine-written output (a folder holding a `.nostradamus_output` sentinel) — the whole marked tree
+//     is excluded by the extractor, readiness presence check, and this classifier
 //   • `.source.json` provenance sidecars               — metadata, not documents
 // The external/ subtree is owned by listExternalFiles (provenance-aware, forced to the readiness-neutral
 // 'external_data' type), so it is excluded here to avoid double-listing. Containment is asserted inline at
@@ -635,9 +635,10 @@ function listPoolFiles(tickerDirRaw: string, authorityRootRaw: string = DATA_DIR
     if (!insideOrEqual(absDir, authorityRoot) || !insideOrEqual(absDir, root)) return
     let names: string[]
     try { names = fs.readdirSync(absDir) } catch { return }
-    // A file whose immediate parent holds the sentinel is engine output, never pool input (launcher.ts
-    // writes it into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
+    // A sentinel marks this complete subtree as engine output, never pool input (launcher.ts writes it
+    // into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
     const isOutputDir = fs.existsSync(path.join(absDir, '.nostradamus_output'))
+    if (isOutputDir) return
     for (const name of names) {
       const abs = path.resolve(absDir, name)
       if (!abs.startsWith(root + path.sep)) continue
@@ -659,7 +660,6 @@ function listPoolFiles(tickerDirRaw: string, authorityRootRaw: string = DATA_DIR
         walk(abs, relDir ? path.join(relDir, name) : name)
       } else if (st.isFile()) {
         if (name.startsWith('.')) continue // dot-FILE (incl. the .nostradamus_output sentinel) — matches the extractor's basename skip
-        if (isOutputDir) continue // engine-written output folder (.nostradamus_output sentinel) — excluded from the pool
         if (name.toLowerCase().endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document — case-insensitive, matching extract_pool.py's _is_sidecar (name.lower().endswith(...))
         if (st.nlink !== 1) continue // multiply-linked file — the extractor rejects st_nlink != 1 (iter_pool_files)
         if (path.basename(absDir).endsWith('_pool_extracts')) continue // derived extractor cache, not a source doc (extract_pool.py)

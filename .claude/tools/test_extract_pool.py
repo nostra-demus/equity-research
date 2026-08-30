@@ -308,6 +308,16 @@ def test_transactional_inventory_and_frozen_generation() -> None:
         original = (_FX / "mislabeled.xls").read_text()
         source.write_text(original)
         note.write_text("Frozen plain-text evidence")
+        old_note_ns = 1_577_836_800_000_000_000
+        os.utime(note, ns=(old_note_ns, old_note_ns))
+
+        engine_output = pool / "Memos 2026-08"
+        nested_output = engine_output / "archive"
+        nested_output.mkdir(parents=True)
+        (engine_output / ".nostradamus_output").write_text("engine output")
+        (nested_output / "nested-output.md").write_text("must never enter the pool")
+        check("transaction: an output marker excludes its complete nested subtree",
+              not any("nested-output.md" in path for path in ep._complete_pool_inventory(str(pool))))
 
         # A failed branch lookup is a technical error, never a zero-file pool.
         real_lstat = ep.os.lstat
@@ -413,6 +423,9 @@ def test_transactional_inventory_and_frozen_generation() -> None:
               and raw_note.read_bytes() == note.read_bytes()
               and generation_payload["generation"]["artifacts"][raw_note_rel]
                   == generation_payload["generation"]["inputs"]["note.txt"])
+        check("transaction: raw snapshot preserves the source mtime used for readiness age",
+              raw_note.stat().st_mtime_ns == old_note_ns,
+              f"snapshot={raw_note.stat().st_mtime_ns} source={old_note_ns}")
         retained_binding = generation_payload["generation"].get("binding_json")
         check("transaction: receipt retains the exact Python binding bytes it hashes",
               isinstance(retained_binding, str)
@@ -479,6 +492,7 @@ def test_transactional_inventory_and_frozen_generation() -> None:
         frozen_env = {
             ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
             ep.FROZEN_POOL_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
             ep.FROZEN_POOL_GENERATION_ENV: digest,
         }
         prior_env = {name: os.environ.get(name) for name in frozen_env}
@@ -514,6 +528,7 @@ def test_transactional_inventory_and_frozen_generation() -> None:
         frozen_names = (
             ep.FROZEN_POOL_DATA_PATH_ENV,
             ep.FROZEN_POOL_OUT_DIR_ENV,
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV,
             ep.FROZEN_POOL_GENERATION_ENV,
         )
 
@@ -549,17 +564,37 @@ def test_transactional_inventory_and_frozen_generation() -> None:
         bad_digest_result = frozen_attempt({
             ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
             ep.FROZEN_POOL_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
             ep.FROZEN_POOL_GENERATION_ENV: "0" * 64,
         })
         wrong_path_result = frozen_attempt(
             frozen_env, requested_out=out / "different-run",
         )
         forced_result = frozen_attempt(frozen_env, force=True)
+        wrong_logical_out_result = frozen_attempt({
+            **frozen_env,
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out / "wrong-logical-binding"),
+        })
         check("frozen reuse: partial, unknown, mismatched, and forced bindings fail closed",
               all(result is ep.FrozenPoolGenerationError for result in (
                   partial_result, bad_digest_result, wrong_path_result, forced_result,
+                  wrong_logical_out_result,
               )),
-              repr((partial_result, bad_digest_result, wrong_path_result, forced_result)))
+              repr((partial_result, bad_digest_result, wrong_path_result, forced_result,
+                    wrong_logical_out_result)))
+
+        isolated_out = root / "isolated-capability" / "pool"
+        isolated_generation = isolated_out / ep._GENERATION_DIR_NAME / digest
+        isolated_generation.parent.mkdir(parents=True)
+        shutil.copytree(generation_manifest.parent, isolated_generation, copy_function=shutil.copy2)
+        relocated_result = frozen_attempt({
+            ep.FROZEN_POOL_DATA_PATH_ENV: str(pool),
+            ep.FROZEN_POOL_OUT_DIR_ENV: str(isolated_out),
+            ep.FROZEN_POOL_BINDING_OUT_DIR_ENV: str(out),
+            ep.FROZEN_POOL_GENERATION_ENV: digest,
+        }, requested_out=isolated_out)
+        check("frozen reuse: isolated physical capability retains the original logical binding",
+              relocated_result == "reused", repr(relocated_result))
 
         generation_manifest_bytes = generation_manifest.read_bytes()
         entity_tamper = json.loads(generation_manifest_bytes)

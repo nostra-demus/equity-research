@@ -1562,11 +1562,12 @@ _DEFAULT_LOCK_TIMEOUT_S = 120.0
 _SNAPSHOT_ATTEMPTS = 2
 
 # A full-run supervisor can bind every later child to the exact pool generation
-# admitted by the chain root.  All three variables are required together.  When
+# admitted by the chain root.  All four variables are required together.  When
 # present, ``extract_pool`` validates and reuses that immutable generation
 # without enumerating or reading the live Drive pool.
 FROZEN_POOL_DATA_PATH_ENV = "NOSTRA_FROZEN_POOL_DATA_PATH"
 FROZEN_POOL_OUT_DIR_ENV = "NOSTRA_FROZEN_POOL_OUT_DIR"
+FROZEN_POOL_BINDING_OUT_DIR_ENV = "NOSTRA_FROZEN_POOL_BINDING_OUT_DIR"
 FROZEN_POOL_GENERATION_ENV = "NOSTRA_FROZEN_POOL_GENERATION"
 
 
@@ -1675,6 +1676,22 @@ def _complete_pool_inventory(data_path):
     try:
         walker = os.walk(real_root, topdown=True, followlinks=False, onerror=_raise_walk_error)
         for directory, dirs, files in walker:
+            rel_directory = os.path.relpath(directory, real_root)
+            lexical_directory = lexical_root if rel_directory == "." else os.path.join(
+                lexical_root, rel_directory,
+            )
+            marker = os.path.join(lexical_directory, ".nostradamus_output")
+            try:
+                os.lstat(marker)
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                raise PoolInventoryError(f"cannot inspect output marker {marker}: {exc}") from exc
+            else:
+                # The sentinel owns the whole output subtree. Pruning here keeps
+                # extractor, readiness presence, and cockpit classification identical.
+                dirs[:] = []
+                continue
             safe_dirs = []
             for name in sorted(dirs):
                 candidate = os.path.join(directory, name)
@@ -1698,18 +1715,6 @@ def _complete_pool_inventory(data_path):
                 if any(part in {"", ".", ".."} for part in rel.split(os.sep)):
                     raise PoolInventoryError(f"unsafe relative path discovered in pool: {rel!r}")
                 p = os.path.join(lexical_root, rel)
-                # Skip engine-written output folders (the memos/thesis/dossier saved back into the
-                # company's Drive folder), marked by a .nostradamus_output sentinel.  A marker lookup
-                # that fails for any reason other than absence makes the inventory uncertain.
-                marker = os.path.join(os.path.dirname(p), ".nostradamus_output")
-                try:
-                    os.lstat(marker)
-                except FileNotFoundError:
-                    pass
-                except OSError as exc:
-                    raise PoolInventoryError(f"cannot inspect output marker {marker}: {exc}") from exc
-                else:
-                    continue
                 inventory.append(p)
     except PoolInventoryError:
         raise
@@ -1740,6 +1745,14 @@ def _capture_pool_snapshot(data_path, inventory, snapshot_pool):
             with open(snapshot_path, "rb") as handle:
                 raw = handle.read()
             live = os.stat(path, follow_symlinks=False)
+            # Classification falls back to mtime when a document has no parseable
+            # period. Keep the source timestamp on the immutable raw snapshot so
+            # extraction time can never make an old undated document look current.
+            os.utime(
+                snapshot_path,
+                ns=(live.st_atime_ns, live.st_mtime_ns),
+                follow_symlinks=False,
+            )
         except (OSError, ValueError) as exc:
             raise PoolChangedDuringExtraction(
                 f"pool changed or became unreadable while snapshotting {rel}: {exc}"
@@ -1900,6 +1913,7 @@ def _frozen_pool_binding_from_env():
     values = {
         "data_path": os.environ.get(FROZEN_POOL_DATA_PATH_ENV),
         "out_dir": os.environ.get(FROZEN_POOL_OUT_DIR_ENV),
+        "binding_out_dir": os.environ.get(FROZEN_POOL_BINDING_OUT_DIR_ENV),
         "generation": os.environ.get(FROZEN_POOL_GENERATION_ENV),
     }
     present = [value is not None for value in values.values()]
@@ -1909,6 +1923,7 @@ def _frozen_pool_binding_from_env():
         raise FrozenPoolGenerationError(
             "frozen pool reuse requires all of "
             f"{FROZEN_POOL_DATA_PATH_ENV}, {FROZEN_POOL_OUT_DIR_ENV}, "
+            f"{FROZEN_POOL_BINDING_OUT_DIR_ENV}, "
             f"and {FROZEN_POOL_GENERATION_ENV}"
         )
     if not re.fullmatch(r"[0-9a-f]{64}", values["generation"] or ""):
@@ -2012,7 +2027,8 @@ def _seal_generation_tree(generation_dir):
 
 
 def _verified_generation_manifest(
-        data_path, out_dir, digest, *, require_read_only=True, require_complete=False):
+        data_path, out_dir, digest, *, require_read_only=True, require_complete=False,
+        binding_out_dir=None):
     """Load and verify one immutable generation without touching the live pool."""
     generation_parent = os.path.join(os.path.abspath(out_dir), _GENERATION_DIR_NAME)
     generation_dir = os.path.join(generation_parent, digest)
@@ -2037,7 +2053,8 @@ def _verified_generation_manifest(
         raise FrozenPoolGenerationError("frozen pool generation contains a time-budgeted partial extraction")
     if os.path.abspath(str(manifest.get("data_path", ""))) != os.path.abspath(data_path):
         raise FrozenPoolGenerationError("frozen pool manifest is bound to a different data path")
-    if os.path.abspath(str(manifest.get("out_dir", ""))) != os.path.abspath(out_dir):
+    logical_out_dir = os.path.abspath(binding_out_dir or out_dir)
+    if os.path.abspath(str(manifest.get("out_dir", ""))) != logical_out_dir:
         raise FrozenPoolGenerationError("frozen pool manifest is bound to a different output path")
     artifacts = generation.get("artifacts")
     inputs = generation.get("inputs")
@@ -2085,7 +2102,7 @@ def _verified_generation_manifest(
         "schema_version": generation.get("schema_version"),
         "binding_format": _GENERATION_BINDING_FORMAT,
         "data_path": os.path.abspath(data_path),
-        "out_dir": os.path.abspath(out_dir),
+        "out_dir": logical_out_dir,
         "vision_mode": bool(manifest.get("vision_mode")),
         "offline_extraction_complete": bool(manifest.get("offline_extraction_complete")),
         "raw_prefix": raw_prefix,
@@ -2130,9 +2147,11 @@ def _read_bound_generation_artifact(out_dir, manifest, rel):
     return content
 
 
-def _reuse_frozen_generation(data_path, out_dir, digest, corpus_path=None):
+def _reuse_frozen_generation(
+        data_path, out_dir, digest, corpus_path=None, binding_out_dir=None):
     manifest = _verified_generation_manifest(
         data_path, out_dir, digest, require_complete=True,
+        binding_out_dir=binding_out_dir,
     )
     if corpus_path:
         _atomic_bytes(
@@ -2413,6 +2432,7 @@ def extract_pool(
             raise FrozenPoolGenerationError("a frozen pool generation cannot be force-rebuilt")
         return _reuse_frozen_generation(
             data_path, out_dir, frozen["generation"], corpus_path=corpus_path,
+            binding_out_dir=frozen["binding_out_dir"],
         )
     with _pool_output_lease(out_dir):
         for attempt in range(_SNAPSHOT_ATTEMPTS):

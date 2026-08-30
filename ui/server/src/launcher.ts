@@ -6049,6 +6049,7 @@ export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactMod
 export const PARITY_CANARY_CONTINUATION_ENV = PROVIDER_NEUTRAL_RUN_ENV.parityCanaryContinuation
 export const FROZEN_POOL_DATA_PATH_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolDataPath
 export const FROZEN_POOL_OUT_DIR_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolOutDir
+export const FROZEN_POOL_BINDING_OUT_DIR_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolBindingOutDir
 export const FROZEN_POOL_GENERATION_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolGeneration
 export const FROZEN_EVIDENCE_ROOT_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenEvidenceRoot
 // Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
@@ -6154,6 +6155,7 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
   delete env[PARITY_CANARY_CONTINUATION_ENV]
   delete env[FROZEN_POOL_DATA_PATH_ENV]
   delete env[FROZEN_POOL_OUT_DIR_ENV]
+  delete env[FROZEN_POOL_BINDING_OUT_DIR_ENV]
   delete env[FROZEN_POOL_GENERATION_ENV]
   delete env[FROZEN_EVIDENCE_ROOT_ENV]
   if (run.memoryRuntime && run.memoryRuntime.mode !== 'off') {
@@ -6164,6 +6166,7 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
   if (frozenEvidence) {
     env[FROZEN_POOL_DATA_PATH_ENV] = frozenEvidence.frozenPool.dataPath
     env[FROZEN_POOL_OUT_DIR_ENV] = frozenEvidence.capability.poolOutDir
+    env[FROZEN_POOL_BINDING_OUT_DIR_ENV] = frozenEvidence.frozenPool.outDir
     env[FROZEN_POOL_GENERATION_ENV] = frozenEvidence.frozenPool.generationDigest
     env[FROZEN_EVIDENCE_ROOT_ENV] = frozenEvidence.capability.evidenceRoot
   }

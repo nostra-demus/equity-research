@@ -16,6 +16,7 @@ export const PROVIDER_NEUTRAL_RUN_ENV = Object.freeze({
   parityCanaryContinuation: 'NOSTRA_PARITY_CANARY_CONTINUATION',
   frozenPoolDataPath: 'NOSTRA_FROZEN_POOL_DATA_PATH',
   frozenPoolOutDir: 'NOSTRA_FROZEN_POOL_OUT_DIR',
+  frozenPoolBindingOutDir: 'NOSTRA_FROZEN_POOL_BINDING_OUT_DIR',
   frozenPoolGeneration: 'NOSTRA_FROZEN_POOL_GENERATION',
   frozenEvidenceRoot: 'NOSTRA_FROZEN_EVIDENCE_ROOT',
 } as const)

@@ -36,6 +36,7 @@ write('Transcript Digest/Q4 2025 Earnings Call.rtf')                 // deeper-n
 // engine-written output folder — its files must be EXCLUDED exactly as extract_pool.py excludes them
 write('Memos 2026-08/thesis.md', '# thesis')
 write('Memos 2026-08/.nostradamus_output', 'engine output — excluded from the pool')
+write('Memos 2026-08/archive/nested-output.md', 'nested engine output — also excluded')
 // externally-ingested doc — owned by listExternalFiles (typed external_data), never double-listed
 write('external/yipit/panel.txt', 'alt-data panel body')
 
@@ -109,6 +110,8 @@ async function main() {
 
   await check('engine-written output (a folder with .nostradamus_output) is EXCLUDED', () => {
     assert.equal(byPath('Memos 2026-08/thesis.md'), undefined, 'the engine\'s own thesis is not re-ingested')
+    assert.equal(byPath('Memos 2026-08/archive/nested-output.md'), undefined,
+      'the marker excludes the complete output subtree')
     assert.ok(!status.files.some((f) => f.filename === 'thesis.md'), 'not present under any path either')
   })
 

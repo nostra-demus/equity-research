@@ -225,6 +225,8 @@ check('inspectPoolPresence: proves real non-empty inputs without counting metada
     fs.mkdirSync(output)
     fs.writeFileSync(path.join(output, '.nostradamus_output'), '')
     fs.writeFileSync(path.join(output, 'final_thesis.md'), 'must not be re-ingested')
+    fs.mkdirSync(path.join(output, 'archive'))
+    fs.writeFileSync(path.join(output, 'archive', 'nested-output.md'), 'must also stay excluded')
     assert.deepEqual(inspectPoolPresence(root), { state: 'nonempty', fileCount: 2, nonEmptyFileCount: 1 })
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
