@@ -26,7 +26,6 @@ ATTRIBUTION = "This product uses the NASS API but is not endorsed or certified b
 MINIMUM_DATES = 260
 MINIMUM_SPAN_DAYS = 3650
 YEARS_OF_HISTORY = 11
-YEAR_CHUNK = 3
 MAX_RESPONSE_BYTES = 12 * 1024 * 1024
 SUPPRESSED_VALUES = {"", "(D)", "(NA)", "(S)", "(X)", "(Z)"}
 ROW_FIELDS = {
@@ -58,7 +57,7 @@ def load_config(fetch_file: str) -> dict[str, Any]:
     return value
 
 
-def query_url(commodity: str, statistic: str, start_year: int, end_year: int) -> str:
+def query_url(commodity: str, statistic: str, year: int) -> str:
     if statistic not in STATISTICS or not re.fullmatch(r"[A-Z]+", commodity):
         raise RuntimeError("USDA crop-progress query identity is malformed")
     query = urllib.parse.urlencode({
@@ -69,8 +68,9 @@ def query_url(commodity: str, statistic: str, start_year: int, end_year: int) ->
         "domain_desc": "TOTAL",
         "agg_level_desc": "STATE",
         "freq_desc": "WEEKLY",
-        "year__GE": str(start_year),
-        "year__LE": str(end_year),
+        # QuickStats does not reliably combine lower and upper operators for the
+        # same field. Exact years keep every response bounded and unambiguous.
+        "year": str(year),
         "format": "JSON",
     })
     return f"https://{HOST}{API_PATH}?{query}"
@@ -81,11 +81,8 @@ def source_urls(commodity: str, *, current_year: int | None = None) -> list[str]
     start = end - YEARS_OF_HISTORY
     urls: list[str] = []
     for statistic in STATISTICS:
-        chunk_start = start
-        while chunk_start <= end:
-            chunk_end = min(chunk_start + YEAR_CHUNK - 1, end)
-            urls.append(query_url(commodity, statistic, chunk_start, chunk_end))
-            chunk_start = chunk_end + 1
+        for year in range(start, end + 1):
+            urls.append(query_url(commodity, statistic, year))
     return urls
 
 
@@ -138,7 +135,15 @@ def _record(row: object, commodity: str, statistic: str) -> tuple[str, dict[str,
         parsed_day = date.fromisoformat(day)
     except (TypeError, ValueError) as error:
         raise RuntimeError("USDA crop-progress week_ending is malformed") from error
-    if parsed_day.isoformat() != day or row.get("year") != str(parsed_day.year):
+    reported_year = row.get("year")
+    year_matches = (
+        isinstance(reported_year, int) and not isinstance(reported_year, bool)
+        and parsed_day.year in {reported_year - 1, reported_year, reported_year + 1}
+    )
+    if (
+        parsed_day.isoformat() != day
+        or not year_matches
+    ):
         raise RuntimeError("USDA crop-progress year conflicts with week_ending")
     state_alpha, state_name = row.get("state_alpha"), row.get("state_name")
     if (
@@ -154,7 +159,7 @@ def _record(row: object, commodity: str, statistic: str) -> tuple[str, dict[str,
     if (
         not all(isinstance(value, str) and value for value in (class_desc, unit_desc, short_desc, reference, load_time))
         or not unit_desc.startswith("PCT ")
-        or re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", load_time) is None
+        or re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(?:\.\d{3})?", load_time) is None
     ):
         raise RuntimeError("USDA crop-progress semantic fields changed")
     value = _percent(row.get("Value"))
@@ -251,11 +256,14 @@ def self_test(fetch_file: str) -> None:
     manifest = load_manifest(fetch_file)
     config = load_config(fetch_file)
     current_year = datetime.now(timezone.utc).year
+    for url in source_urls(config["commodity"], current_year=current_year):
+        query = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        assert set(field for field in query if field.startswith("year")) == {"year"}
     captures: list[tuple[str, str, object]] = []
     for url in source_urls(config["commodity"], current_year=current_year):
         query = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
         statistic = query["statisticcat_desc"][0]
-        start, end = int(query["year__GE"][0]), int(query["year__LE"][0])
+        start = end = int(query["year"][0])
         rows = []
         for year in range(start, end + 1):
             first = date(year, 1, 5)
@@ -268,9 +276,9 @@ def self_test(fetch_file: str) -> None:
                     "unit_desc": "PCT GOOD" if statistic == "CONDITION" else "PCT PLANTED",
                     "short_desc": f"{config['commodity']} - {statistic}", "domain_desc": "TOTAL",
                     "domaincat_desc": "NOT SPECIFIED", "agg_level_desc": "STATE",
-                    "state_alpha": "IA", "state_name": "IOWA", "year": str(year),
+                    "state_alpha": "IA", "state_name": "IOWA", "year": year,
                     "freq_desc": "WEEKLY", "reference_period_desc": "WEEK #01",
-                    "week_ending": day, "load_time": f"{day} 16:00:00", "Value": "75",
+                    "week_ending": day, "load_time": f"{day} 16:00:00.000", "Value": "75",
                 })
         captures.append((url, statistic, {"data": rows}))
     as_of, payload, sidecar = build(manifest, config, captures)
@@ -280,6 +288,21 @@ def self_test(fetch_file: str) -> None:
         raise AssertionError(defects)
     assert len(payload["observations"]) >= MINIMUM_DATES
     assert "key=" not in json.dumps([payload, sidecar])
+    rollover_row = {
+        **captures[0][2]["data"][0],
+        "week_ending": date(current_year + 1, 4, 26).isoformat(),
+        "year": current_year,
+    }
+    assert _record(rollover_row, config["commodity"], captures[0][1]) is not None
+    rollover_row["week_ending"] = date(current_year - 1, 9, 28).isoformat()
+    assert _record(rollover_row, config["commodity"], captures[0][1]) is not None
+    rollover_row["week_ending"] = date(current_year + 2, 1, 2).isoformat()
+    try:
+        _record(rollover_row, config["commodity"], captures[0][1])
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("two-year crop-season rollover did not fail closed")
     malformed = list(captures)
     bad_document = {"data": [{**captures[0][2]["data"][0], "unit_desc": "ACRES"}]}
     malformed[0] = (captures[0][0], captures[0][1], bad_document)
