@@ -586,7 +586,7 @@ const sorted = (a: string[]) => [...a].sort()
     }
     const carriedModule = modules[0]!.name
     const missingModule = modules[1]!.name
-    const runRoot = `analyses/ZZPREPAREDGEN_${Date.now()}`
+    const runRoot = 'analyses/ZZPREPAREDGEN_' + randomUUID()
     const durable = makeDurableChainFake(runRoot, () => false)
     fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
     writeSynthesis(runRoot, graph, carriedModule)
