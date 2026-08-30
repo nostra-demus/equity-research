@@ -6372,7 +6372,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
               (body as { outputRel: string }).outputRel,
               (body as { use: Record<string, unknown> }).use,
             )
-            : Promise.resolve(researchMemoryTaskStatus(
+            : Promise.resolve().then(() => researchMemoryTaskStatus(
                 run,
                 (body as { agentKey: string }).agentKey,
                 (body as { outputRel: string }).outputRel,

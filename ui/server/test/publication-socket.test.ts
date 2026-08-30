@@ -57,6 +57,12 @@ try {
   assert.equal((await request(publication.socketPath, { body: '{broken' })).status, 400)
   assert.equal((await request(publication.socketPath, { body: '{"phase":"stamp","forged":true}' })).status, 400)
   assert.equal((await request(publication.socketPath, { body: JSON.stringify({ padding: 'x'.repeat(70_000) }) })).status, 413)
+  const missingMemory = await request(publication.socketPath, {
+    path: '/memory/status',
+    body: JSON.stringify({ agentKey: 'business-model/01_test', outputRel: 'business-model/01_test.md' }),
+  })
+  assert.equal(missingMemory.status, 409, 'missing memory is a bounded request rejection, never a process exception')
+  assert.equal(missingMemory.body.error, 'memory request rejected')
   for (let attempt = 0; attempt < 2; attempt++) {
     const result = await request(publication.socketPath, { body: '{"phase":"stamp"}' })
     assert.equal(result.status, 200, `attempt ${attempt}: ${JSON.stringify(result.body)}`)

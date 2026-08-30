@@ -2169,9 +2169,16 @@ export const useStore = create<State>((set, get) => ({
           }
         }
         // A resolved/terminal frame can be lost across an edge or engine restart. `/api/runs` omitting the
-        // old id is not enough by itself (the list can race a restart), so ask the exact snapshot; only its
-        // status or authoritative 404 may close the decision/recovery state.
-        for (const runId of watchedDecisionIds) {
+        // old id is not enough by itself (the list can race a restart), so ask the exact snapshot for every
+        // locally-live run in this cockpit; only its terminal status or authoritative 404 may clear the card.
+        // Decision/recovery owners remain included even if their local card has already disappeared.
+        const missingLocalIds = new Set([
+          ...watchedDecisionIds,
+          ...Object.values(get().activeRuns)
+            .filter((run) => LIVE_RUN.has(run.status) && runMatchesSubject(run, sel, activeSwarm))
+            .map((run) => run.runId),
+        ])
+        for (const runId of missingLocalIds) {
           if (activeIds.has(runId)) continue
           const local = get().activeRuns[runId]
           if (local && runMatchesSubject(local, sel, activeSwarm)) {
