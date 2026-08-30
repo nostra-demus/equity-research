@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:20:47Z",
+  "generated_at": "2026-08-30T04:21:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -89343,6 +89343,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-95ab488fa436",
+      "idea_version": "IDEAV-379f8af00a349b86",
+      "idea_version_started_at": "2026-08-30T04:21:03Z",
+      "ticker": "SGR",
+      "company": "Sheffield Green",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is pivoting from a pure manpower model to higher-margin wind power maintenance through an active acquisition strategy.",
+      "why_now": "Management's public confirmation of the acquisition hunt on August 30, 2026, signals imminent capital deployment and a shift in business mix.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f059d1b79e31"
+      ],
+      "primary_source_event_id": "EVT-f059d1b79e31",
+      "source_headlines": [
+        "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower"
+      ],
+      "source_headline": "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/sheffield-green-hunt-acquisitions-wind-power-maintenance-it-diversifies-beyond-manpower",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-08-30T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T04:21:03Z",
+      "updated_at": "2026-08-30T04:21:03Z",
+      "decay_at": "2026-08-31T16:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52c417019222",
       "idea_version": "IDEAV-5f1026b2b2688024",
       "idea_version_started_at": "2026-08-30T02:40:35Z",
@@ -113230,8 +113303,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 281,
-    "live_count": 29,
+    "surfaced_total": 282,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
