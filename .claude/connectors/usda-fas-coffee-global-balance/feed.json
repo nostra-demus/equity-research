@@ -1,0 +1,20 @@
+{
+  "config_version": 1,
+  "subject": "COFFEE",
+  "commodity_code": "0711100",
+  "commodity_description": "Coffee, Green",
+  "dataset_filename": "psd_coffee_csv.zip",
+  "zip_member": "psd_coffee.csv",
+  "provider_slug": "usda",
+  "filename_stem": "coffee_global_balance",
+  "history_years": 30,
+  "attributes": [
+    {"id": "028", "description": "Production", "target": "production_thousand_60kg_bags"},
+    {"id": "029", "description": "Arabica Production", "target": "arabica_production_thousand_60kg_bags"},
+    {"id": "053", "description": "Robusta Production", "target": "robusta_production_thousand_60kg_bags"},
+    {"id": "056", "description": "Other Production", "target": "other_production_thousand_60kg_bags"},
+    {"id": "125", "description": "Domestic Consumption", "target": "consumption_thousand_60kg_bags"},
+    {"id": "176", "description": "Ending Stocks", "target": "ending_stocks_thousand_60kg_bags"}
+  ],
+  "note": "USDA FAS PSD current coffee balance with country detail and computed global totals."
+}

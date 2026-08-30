@@ -19,7 +19,8 @@
 // pulseCotTtlHours), with a single-flight guard so concurrent requests share one fetch, and the last
 // good snapshot persisted under STATE_DIR so a restart doesn't open with an empty pulse. On a fetch
 // failure the previous data for that half is kept and the snapshot says `stale: true`. Reports and
-// verdicts are recomputed every call (pure local reads, cheap). Never throws.
+// verdicts are recomputed every call (pure local reads, cheap). UI calls never throw; the headless
+// research refresh fails when it cannot preserve the exact price snapshot needed at decision time.
 //
 // Security posture: the HOSTS are hardcoded here (quote.cnbc.com, publicreporting.cftc.gov).
 // The config file (frameworks/commodity/pulse_sources.json, path declared by the swarm manifest's
@@ -28,7 +29,9 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { NEWS, STATE_DIR, REPO_ROOT } from '../config'
+import { canonicalJsonText } from '../canonical-json'
 import { swarmById, runRootForSubject } from '../swarms'
 import type { SwarmManifest } from '../types'
 import { BROWSER_UA, buildCnbcQuoteUrl, parseCnbcRows } from './cnbc-quote'
@@ -49,6 +52,9 @@ export interface PulseDeps {
   stateDir?: string
   repoRoot?: string
   manifest?: { id: string; wire?: { pulse?: string }; runRootTemplate?: string; placeholder?: string }
+  // Headless research must prove the point-in-time price archive landed before it dispatches orbs.
+  // The ordinary UI keeps best-effort persistence so a local disk problem does not break the wire.
+  requirePriceHistory?: boolean
 }
 
 // ---- config (frameworks/commodity/pulse_sources.json) ----
@@ -315,6 +321,54 @@ interface CacheEntry {
 const memCache = new Map<string, CacheEntry>()
 
 const persistFile = (stateDir: string) => path.join(stateDir, 'commodity-pulse.json')
+let persistSequence = 0
+
+function atomicJsonReplace(file: string, value: unknown): void {
+  const dir = path.dirname(file)
+  fs.mkdirSync(dir, { recursive: true })
+  const temporary = path.join(dir, `.${path.basename(file)}.${process.pid}.${++persistSequence}.tmp`)
+  try {
+    const descriptor = fs.openSync(temporary, 'wx', 0o600)
+    try {
+      fs.writeFileSync(descriptor, `${JSON.stringify(value, null, 2)}\n`)
+      fs.fsyncSync(descriptor)
+    } finally {
+      fs.closeSync(descriptor)
+    }
+    fs.renameSync(temporary, file)
+  } finally {
+    try { fs.unlinkSync(temporary) } catch { /* renamed or never created */ }
+  }
+}
+
+/**
+ * Keep the price half explicitly requested by a headless research preflight under a content-addressed
+ * filename before the mutable warm-start file changes. Ordinary cockpit polling never calls this path,
+ * so UI refreshes cannot create an unbounded archive. A research run can still recover its exact cutoff.
+ */
+function persistPriceHistory(stateDir: string, swarmId: string, entry: CacheEntry): void {
+  if (!Number.isSafeInteger(entry.price.at) || entry.price.at <= 0) return
+  const material = { swarm: swarmId, priceAt: entry.price.at, prices: entry.price.data }
+  const digest = createHash('sha256').update(canonicalJsonText(material), 'utf8').digest('hex')
+  const directory = path.join(
+    stateDir, 'commodity-pulse-history', createHash('sha256').update(swarmId, 'utf8').digest('hex'),
+  )
+  const target = path.join(directory, `${entry.price.at}-${digest}.json`)
+  const snapshot = { schema_version: 1, ...material, snapshot_sha256: `sha256:${digest}` }
+  if (fs.existsSync(target)) {
+    const existing = JSON.parse(fs.readFileSync(target, 'utf8'))
+    if (canonicalJsonText(existing) !== canonicalJsonText(snapshot)) {
+      throw new Error(`commodity pulse history target is not the expected immutable snapshot: ${target}`)
+    }
+    return
+  }
+  atomicJsonReplace(target, snapshot)
+}
+
+function archivePriceHistory(stateDir: string, swarmId: string, entry: CacheEntry, required: boolean): void {
+  if (!required) return
+  try { persistPriceHistory(stateDir, swarmId, entry) } catch (error) { if (required) throw error }
+}
 
 function loadPersisted(stateDir: string, swarmId: string): CacheEntry {
   const empty: CacheEntry = { price: { at: 0, data: {} }, cot: { at: 0, data: {} }, inflight: null }
@@ -332,14 +386,18 @@ function loadPersisted(stateDir: string, swarmId: string): CacheEntry {
   }
 }
 
-function persist(stateDir: string, swarmId: string, entry: CacheEntry): void {
+function persist(stateDir: string, swarmId: string, entry: CacheEntry, requirePriceHistory: boolean): void {
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     let j: Record<string, unknown> = {}
     try { j = JSON.parse(fs.readFileSync(persistFile(stateDir), 'utf8')) || {} } catch { /* first write */ }
     j[swarmId] = { priceAt: entry.price.at, prices: entry.price.data, cotAt: entry.cot.at, cots: entry.cot.data }
-    fs.writeFileSync(persistFile(stateDir), JSON.stringify(j, null, 2) + '\n')
-  } catch { /* persistence is best-effort — the in-memory snapshot still serves */ }
+    if (requirePriceHistory) persistPriceHistory(stateDir, swarmId, entry)
+    atomicJsonReplace(persistFile(stateDir), j)
+  } catch (error) {
+    if (requirePriceHistory) throw error
+    // UI persistence is best-effort — the in-memory snapshot still serves.
+  }
 }
 
 // ---- the two refreshes (each replaces its WHOLE half only on a successful fetch) ----
@@ -371,7 +429,7 @@ async function refreshPrices(entry: CacheEntry, cfg: PulseSourcesConfig, fetchFn
       prev_close: q.prevClose,
       change_pct: prev !== null ? round2(((q.last - prev) / prev) * 100) : null,
       unit: src.unit || '',
-      as_of: q.asOf ?? now().toISOString(),
+      as_of: q.asOf ?? new Date(nowMs).toISOString(),
       source: 'cnbc',
       ...(q.name ? { label: q.name } : {}), // the front-month contract label, when CNBC names it
     }
@@ -402,7 +460,8 @@ async function refreshCot(entry: CacheEntry, cfg: PulseSourcesConfig, fetchFn: t
 /**
  * Build the pulse snapshot for a swarm. Returns null when the swarm doesn't exist, declares no
  * `wire.pulse`, its config is unreadable, or NEWS.pulseEnabled is off — the route treats null as
- * "this swarm has no pulse". Never throws.
+ * "this swarm has no pulse". Ordinary UI calls never throw. A headless research call with
+ * `requirePriceHistory` throws when its point-in-time archive cannot be written.
  */
 export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<PulseSnapshot | null> {
   try {
@@ -437,12 +496,15 @@ export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<P
         if (priceStale) tasks.push(refreshPrices(e, cfg, fetchFn, now, NEWS.pulseTimeoutMs))
         if (cotStale) tasks.push(refreshCot(e, cfg, fetchFn, now, NEWS.pulseTimeoutMs))
         e.inflight = Promise.all(tasks)
-          .then(() => persist(stateDir, manifest.id, e))
-          .catch(() => { /* refreshes never throw, but never let a rejection escape the guard */ })
+          .then(() => persist(stateDir, manifest.id, e, deps.requirePriceHistory === true))
+          .catch((error) => { if (deps.requirePriceHistory) throw error })
           .finally(() => { e.inflight = null })
       }
       await entry.inflight
     }
+    // A within-TTL refresh may only read a legacy mutable warm-start file. Archive that exact price
+    // half too, so the /commodity:full preflight always leaves a point-in-time snapshot behind.
+    archivePriceHistory(stateDir, manifest.id, entry, deps.requirePriceHistory === true)
 
     // reports + verdicts are pure local reads — recomputed every call, never cached
     const subjectsSource = (manifest as { subjectsSource?: string }).subjectsSource
@@ -477,7 +539,8 @@ export async function getPulse(swarmId: string, deps: PulseDeps = {}): Promise<P
     // and we are serving the previous data — or nothing at all). Fresh halves ⇒ false.
     const stale = nowMs - entry.price.at > priceTtlMs || nowMs - entry.cot.at > cotTtlMs
     return { swarm: manifest.id, as_of: new Date(nowMs).toISOString(), stale, subjects }
-  } catch {
+  } catch (error) {
+    if (deps.requirePriceHistory) throw error
     return null // never throws — the route treats null as "no pulse available"
   }
 }

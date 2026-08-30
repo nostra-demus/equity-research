@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "eia-crude-refinery-demand",
+  "dataset_id": "eia.petroleum.weekly-refinery-demand",
+  "series_id": "crude-oil.refinery-throughput-product-demand",
+  "series": "EIA weekly US refinery gross inputs and major petroleum products supplied",
+  "satisfies": ["crude-oil-refinery-throughput-product-demand"],
+  "subjects": ["CRUDE-OIL"],
+  "provider": "US Energy Information Administration",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "us_government_public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.eia.gov/about/copyrights_reuse.php"},
+  "host_allowlist": ["api.eia.gov"],
+  "credential_env": ["CONNECTOR_EIA_CRUDE_REFINERY_DEMAND_API_KEY"],
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 5, "grace_days": 9, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/eia/refinery_demand_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "geography": "string",
+    "observations": [{
+      "date": "date",
+      "refinery_gross_inputs_thousand_bpd": "int",
+      "total_products_supplied_thousand_bpd": "int",
+      "gasoline_supplied_thousand_bpd": "int",
+      "distillate_supplied_thousand_bpd": "int",
+      "jet_fuel_supplied_thousand_bpd": "int"
+    }],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "observations[].refinery_gross_inputs_thousand_bpd": "thousand_barrels_per_day",
+    "observations[].total_products_supplied_thousand_bpd": "thousand_barrels_per_day",
+    "observations[].gasoline_supplied_thousand_bpd": "thousand_barrels_per_day",
+    "observations[].distillate_supplied_thousand_bpd": "thousand_barrels_per_day",
+    "observations[].jet_fuel_supplied_thousand_bpd": "thousand_barrels_per_day"
+  },
+  "minimum_history": {"observations": 150, "path": "observations"}
+}

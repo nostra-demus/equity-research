@@ -197,6 +197,18 @@ const unknownRoot = clone(referenceRaw); unknownRoot.surprise = true
 check('v2 rejects unknown top-level fields', parsedV2(unknownRoot) === null)
 const unknownRelease = clone(referenceRaw); unknownRelease.release.surprise = true
 check('v2 rejects unknown release fields', parsedV2(unknownRelease) === null)
+const seasonalRelease = clone(referenceRaw); seasonalRelease.release.active_months = [4, 5, 6, 7, 8, 9, 10, 11]
+check('v2 accepts sorted unique active release months for a calendar cadence',
+  parsedV2(seasonalRelease)?.release.active_months?.join(',') === '4,5,6,7,8,9,10,11')
+const unsortedSeasonalRelease = clone(seasonalRelease); unsortedSeasonalRelease.release.active_months = [5, 4]
+check('v2 rejects unsorted active release months', parsedV2(unsortedSeasonalRelease) === null)
+const eventSeasonalRelease = clone(seasonalRelease); eventSeasonalRelease.release.cadence = 'event_driven'
+check('v2 rejects active release months for an event-driven connector', parsedV2(eventSeasonalRelease) === null)
+const extendedAttempt = clone(referenceRaw); extendedAttempt.attempt_timeout_seconds = 180
+check('v2 accepts a bounded reviewed multi-request attempt deadline',
+  parsedV2(extendedAttempt)?.attempt_timeout_seconds === 180)
+const unboundedAttempt = clone(referenceRaw); unboundedAttempt.attempt_timeout_seconds = 301
+check('v2 rejects an attempt deadline above the bounded contract', parsedV2(unboundedAttempt) === null)
 const unknownMinimumHistory = clone(referenceRaw); unknownMinimumHistory.minimum_history.surprise = true
 check('v2 rejects unknown minimum_history fields', parsedV2(unknownMinimumHistory) === null)
 const blankSubject = clone(referenceRaw); blankSubject.subjects.push('')

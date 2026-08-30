@@ -1,0 +1,10 @@
+{
+  "config_version": 1,
+  "subject": "CORN",
+  "commodity": "CORN",
+  "provider_slug": "usda_fas",
+  "filename_stem": "export_sales",
+  "note": "Official US corn export-sales history by destination; China remains an explicit destination record.",
+  "required_country_codes": [5700],
+  "commodity_codes": [{"code": 401, "name": "Corn", "unit_id": 1}]
+}

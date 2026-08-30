@@ -166,6 +166,7 @@ check("full sweep writes running progress and a reconciled completion heartbeat"
 for _excluded_args in (
     ["--data-root", _status_main_root, "--dry-run"],
     ["--data-root", _status_main_root, "--only", "one-connector"],
+    ["--data-root", _status_main_root, "--subject", "AAA"],
 ):
     _excluded_rc, _excluded_statuses = _exercise_main_status(_excluded_args, _status_fake_run)
     check(f"{_excluded_args[-1]} invocation does not publish scheduled-service telemetry",
@@ -450,6 +451,33 @@ for _argv_suffix in (("--dry-run",), ("--only", "one-connector")):
         m.run = _old_run
     check(f"{' '.join(_argv_suffix)} remains operator-scoped outside scheduled topology",
           _scoped_rc == 0 and _scoped_seen == {"topology": 0, "run": 1})
+
+# A scoped refresh must never report success when a scheduled sweep owns the
+# writer lock: callers would immediately preflight stale or empty evidence.
+_old_topology_acquire = m.acquire_scheduled_topology_lease
+_old_lock_acquire = m.acquire_lock
+_old_run = m.run
+_busy_seen = {"topology": 0, "run": 0}
+m.acquire_scheduled_topology_lease = lambda _root: (
+    _busy_seen.__setitem__("topology", _busy_seen["topology"] + 1), None
+)[1]
+m.acquire_lock = lambda: None
+m.run = lambda *_args, **_kwargs: (
+    _busy_seen.__setitem__("run", _busy_seen["run"] + 1),
+    {"rows": [], "skipped_manifests": []},
+)[1]
+_old_argv = sys.argv
+try:
+    sys.argv = ["run_connectors.py", "--data-root", tempfile.gettempdir(), "--subject", "AAA"]
+    _busy_rc = m.main()
+finally:
+    sys.argv = _old_argv
+    m.acquire_scheduled_topology_lease = _old_topology_acquire
+    m.acquire_lock = _old_lock_acquire
+    m.run = _old_run
+check("a lock-busy scoped refresh exits retryably before fetch or preflight",
+      _busy_rc == m.SCOPED_LOCK_BUSY_EXIT
+      and _busy_seen == {"topology": 0, "run": 0})
 
 # The role is an asynchronous kill switch: a demotion that lands while the
 # retained autonomy lease is held is noticed before the next external process
@@ -850,6 +878,15 @@ shutil.rmtree(root)
 
 # 6. malformed manifests skipped with reasons; healthy connector still processes
 root, croot, data = make_repo()
+os.makedirs(os.path.join(data, "BBB"))
+make_connector(croot, "stub-subject", subjects=("AAA", "BBB"))
+res = m.run(data, dry_run=True, subject_filter="bbb", connectors_root=croot)
+check("--subject limits an interactive sweep to one subject",
+      rows_for(res, "stub-subject", "BBB") and not rows_for(res, "stub-subject", "AAA"))
+shutil.rmtree(root)
+
+# 6. malformed manifests skipped with reasons; healthy connector still processes
+root, croot, data = make_repo()
 make_connector(croot, "stub-a")
 make_connector(croot, "wrong-id", dirname="not-wrong-id")
 bad = make_connector(croot, "no-entry")
@@ -889,6 +926,17 @@ try:
         ok, attempts, code, msg = m.run_fetch("/nonexistent", {"entry": "fetch.py"}, "AAA", "/tmp")
         check(f"run_fetch clean exit, {label} → ok, no crash, message {want!r}",
               ok is True and code == 0 and msg == want, f"got msg {msg!r}")
+    captured_timeouts = []
+    def _capture_timeout(*_args, **kwargs):
+        captured_timeouts.append(kwargs.get("timeout"))
+        return _FakeProc(0, "ok")
+    m.subprocess.run = _capture_timeout
+    m.run_fetch(
+        "/nonexistent", {"entry": "fetch.py", "attempt_timeout_seconds": 180},
+        "AAA", "/tmp",
+    )
+    check("a reviewed multi-request connector owns a longer but bounded attempt deadline",
+          captured_timeouts == [180])
 finally:
     m.subprocess.run = _orig_run
 
@@ -1821,6 +1869,26 @@ reacquired_repo_lock = m._acquire_repo_mutation_lock_early(repo_lock_root)
 check("repository mutation lock is released with its descriptor", reacquired_repo_lock is not None)
 if reacquired_repo_lock is not None:
     os.close(reacquired_repo_lock)
+
+# The production bootstrap must preserve scoped/full semantics before any
+# repository module import. Exercise a copied CLI in a real temporary Git repo.
+bootstrap_cli = os.path.join(repo_lock_root, ".claude", "tools", "run_connectors.py")
+os.makedirs(os.path.dirname(bootstrap_cli), exist_ok=True)
+shutil.copyfile(os.path.join(HERE, "run_connectors.py"), bootstrap_cli)
+held_bootstrap_lock = m._acquire_repo_mutation_lock_early(repo_lock_root)
+scoped_bootstrap = subprocess.run(
+    [sys.executable, bootstrap_cli, "--subject", "AAA"], capture_output=True, text=True,
+)
+full_bootstrap = subprocess.run(
+    [sys.executable, bootstrap_cli], capture_output=True, text=True,
+)
+check("bootstrap lock contention is retryable for a scoped refresh but skippable for a full sweep",
+      held_bootstrap_lock is not None
+      and scoped_bootstrap.returncode == m.SCOPED_LOCK_BUSY_EXIT
+      and full_bootstrap.returncode == 0
+      and "retry this scoped sweep" in scoped_bootstrap.stdout)
+if held_bootstrap_lock is not None:
+    os.close(held_bootstrap_lock)
 shutil.rmtree(repo_lock_root)
 shutil.rmtree(lock_dir)
 shutil.rmtree(root)
@@ -1838,6 +1906,8 @@ for label, mutate in (
     ("credential-bearing licensing terms URL",
      lambda x: x["licensing"].update({"terms_url": "https://user:secret@example.test/terms"})),
     ("credential name without CONNECTOR_* prefix", lambda x: x.update({"credential_env": ["VENDOR_API_KEY"]})),
+    ("invalid seasonal release months", lambda x: x["release"].update({"active_months": [0, 12, 12]})),
+    ("unbounded connector attempt timeout", lambda x: x.update({"attempt_timeout_seconds": 301})),
     ("unknown minimum_history field", lambda x: x["minimum_history"].update({"surprise": True})),
     ("unsupported compact-schema token", lambda x: x["output_schema"].update({"bad": "number"})),
     ("multi-item compact-schema array", lambda x: x["output_schema"].update({"bad": ["string", "int"]})),
@@ -1875,6 +1945,9 @@ check("projection ownership normalizes dot and case aliases from unchecked calle
 nullable_enum = json.loads(json.dumps(base))
 nullable_enum["output_schema"]["optional_state"] = "enum:on|off|null"
 check("compact-schema enums may explicitly allow null", not m.validate_manifest(base["id"], d, nullable_enum))
+bounded_attempt = json.loads(json.dumps(base)); bounded_attempt["attempt_timeout_seconds"] = 180
+check("a reviewed connector may declare a bounded longer attempt",
+      not m.validate_manifest(base["id"], d, bounded_attempt))
 payload = {"series": base["series"], "as_of": "2099-01-01",
            "rows": [{"period": "2099-01-01", "value": 1.0}]}
 sidecar = {"provider": base["provider"], "source_type": base["source_type"], "tier": base["tier"],
@@ -1914,6 +1987,21 @@ clock_man["release"].update({"cadence": "monthly", "timezone": "UTC", "expected_
 monthly_before = m.release_is_due(clock_man, datetime(2026, 3, 24, 23, 59, tzinfo=timezone.utc), date(2026, 1, 31))[0]
 monthly_at = m.release_is_due(clock_man, datetime(2026, 3, 25, 0, 0, tzinfo=timezone.utc), date(2026, 1, 31))[0]
 check("monthly cadence advances calendar-aware before adding lag", not monthly_before and monthly_at)
+clock_man["release"].update({
+    "cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1,
+    "grace_days": 6, "active_months": [4, 5, 6, 7, 8, 9, 10, 11],
+})
+offseason_due = m.release_is_due(
+    clock_man, datetime(2027, 2, 1, 12, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)[0]
+opening_due, opening_grace = m.release_is_due(
+    clock_man, datetime(2027, 4, 12, 4, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)
+_, after_opening_grace = m.release_is_due(
+    clock_man, datetime(2027, 4, 13, 4, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)
+check("seasonal weekly cadence stays quiet off-season and becomes due at the next active release",
+      not offseason_due and opening_due and opening_grace and not after_opening_grace)
 shutil.rmtree(root)
 
 # 24. Every accepted unchanged pull advances code/retrieval identity; as_of can never roll backward.

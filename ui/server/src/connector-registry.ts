@@ -82,6 +82,7 @@ export function canonicalSchemaMatches(value: any, schema: any): boolean {
   }
   if (typeof value === 'number' && Number.isFinite(value)) {
     if (schema.minimum != null && value < Number(schema.minimum)) return false
+    if (schema.maximum != null && value > Number(schema.maximum)) return false
     if (schema.exclusiveMinimum != null && value <= Number(schema.exclusiveMinimum)) return false
   }
   if (Array.isArray(value)) {
@@ -152,6 +153,7 @@ export interface ConnectorManifest {
   staleness_sla_days: number | null
   entry: string // the fetcher, relative to dir (e.g. "fetch.py")
   verify: string // e.g. "fetch.py --verify"
+  attempt_timeout_seconds?: number
   host_allowlist: string[]
   output_path: string
   output_schema: unknown
@@ -164,6 +166,7 @@ export interface ConnectorManifest {
     timezone: string
     expected_lag_days: number
     grace_days: number
+    active_months?: number[]
     revision_policy: 'revisable' | 'append_only'
   }
   minimum_history: { observations: number; path?: string }
@@ -346,6 +349,7 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
   const priorityN = Number(raw.provider_priority ?? 100)
   const lagN = Number(releaseRaw.expected_lag_days ?? 0)
   const graceN = Number(releaseRaw.grace_days ?? slaN)
+  const activeMonths = releaseRaw.active_months
   const timezone = String(releaseRaw.timezone ?? 'UTC')
   const revisionPolicy = String(releaseRaw.revision_policy ?? 'revisable')
   const minimumRaw = raw.minimum_history && typeof raw.minimum_history === 'object' && !Array.isArray(raw.minimum_history) ? raw.minimum_history : {}
@@ -365,6 +369,13 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
   const validSla = Number.isFinite(slaN) && slaN > 0
   if (manifestVersion === 1 && !validSla) return null
   if (!Number.isFinite(lagN) || lagN < 0 || !Number.isFinite(graceN) || graceN < 0) return null
+  if (activeMonths != null && (
+    !new Set(['daily', 'weekly', 'monthly', 'quarterly', 'semiannual', 'annual']).has(cadence)
+    || !Array.isArray(activeMonths) || activeMonths.length === 0
+    || activeMonths.some((month: unknown) => !Number.isInteger(month) || typeof month === 'boolean'
+      || Number(month) < 1 || Number(month) > 12)
+    || activeMonths.some((month: number, index: number) => index > 0 && activeMonths[index - 1] >= month)
+  )) return null
   // Event-driven releases have no predictable release interval to which a lag could be added. Their
   // bounded recheck window is expressed solely by grace_days (§7.1); accepting a lag here would create
   // a second, inconsistent freshness clock in TypeScript.
@@ -405,7 +416,9 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
     if (!unitPathRe || Object.keys(raw.units ?? {}).some((key) => !unitPathRe!.test(key))
         || !validSchemaContract(raw.output_schema) || !validUnitContract(raw.output_schema, raw.units)) return null
     const releaseKeys = Object.keys(releaseRaw).sort().join(',')
-    if (releaseKeys !== ['cadence', 'expected_lag_days', 'grace_days', 'revision_policy', 'timezone'].sort().join(',')) return null
+    const allowedReleaseKeys = ['cadence', 'expected_lag_days', 'grace_days', 'revision_policy', 'timezone',
+      ...(activeMonths == null ? [] : ['active_months'])].sort().join(',')
+    if (releaseKeys !== allowedReleaseKeys) return null
     const outputPath = String(raw.output_path ?? '')
     const basename = path.posix.basename(outputPath)
     if (!canonicalOutputPath(outputPath) || outputPath.split('<SUBJECT>').length !== 2
@@ -445,6 +458,9 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
     staleness_sla_days: manifestVersion === 1 && validSla ? slaN : null,
     entry,
     verify: String(raw.verify ?? `${entry} --verify`),
+    ...(raw.attempt_timeout_seconds == null ? {} : {
+      attempt_timeout_seconds: Number(raw.attempt_timeout_seconds),
+    }),
     host_allowlist,
     output_path: String(raw.output_path ?? ''),
     output_schema: raw.output_schema ?? {},
@@ -455,6 +471,7 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
       ? { file_arg: String(raw.manual_ingest.file_arg ?? '') } : null,
     release: {
       cadence, timezone, expected_lag_days: lagN, grace_days: graceN,
+      ...(activeMonths == null ? {} : { active_months: activeMonths.slice() }),
       revision_policy: revisionPolicy as 'revisable' | 'append_only',
     },
     minimum_history: { observations: minimumN, ...(minimumRaw.path ? { path: minimumRaw.path } : {}) },

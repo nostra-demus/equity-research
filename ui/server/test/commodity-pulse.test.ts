@@ -12,8 +12,10 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { NEWS } from '../src/config'
+import { canonicalJsonText } from '../src/canonical-json'
 import {
   getPulse,
   loadPulseConfig,
@@ -56,6 +58,7 @@ const tmp = () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-')); 
 // CNBC's last_time carries a UTC offset ("-0400") — 07:59:02-0400 is 11:59:02Z.
 const GC_ROW = { symbol: '@GC.1', name: "Gold COMEX (Aug'26)", last: '3,340.50', previous_day_closing: '3,325.00', last_time: '2026-07-08T07:59:02.000-0400' }
 const SB_ROW = { symbol: '@SB.1', name: "Sugar #11 (Oct'26)", last: '14.86', last_time: '2026-07-08T07:59:02.000-0400' } // no previous_day_closing
+const SB_NO_TIME_ROW = { symbol: '@SB.1', name: "Sugar #11 (Oct'26)", last: '14.86' }
 const NG_DEAD_ROW = { symbol: '@NG.1', name: "Natural Gas (Nov'20)" } // dead contract: no last / no time
 const cnbcBody = (rows: unknown) => JSON.stringify({ FormattedQuoteResult: { FormattedQuote: rows } })
 
@@ -344,6 +347,55 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
   assert.equal(calls.cftc, 1)
   const persisted = JSON.parse(fs.readFileSync(path.join(stateDir, 'commodity-pulse.json'), 'utf8'))
   assert.ok(persisted['pulse-test']?.prices?.GOLD, 'snapshot persisted under the state dir for restart warm-start')
+  assert.equal(
+    fs.existsSync(path.join(stateDir, 'commodity-pulse-history')), false,
+    'ordinary cockpit polling does not create an unbounded point-in-time archive',
+  )
+})
+
+await check('a quote without last_time is stamped at its archived price snapshot, never after it', async () => {
+  const repoNoTime = makeRepo()
+  const stateNoTime = tmp()
+  const manifestNoTime = makeManifest('pulse-no-last-time')
+  const fetchNoTime = (async (input: any) => {
+    const host = new URL(String(input)).host
+    if (host === 'quote.cnbc.com') {
+      return new Response(cnbcBody([GC_ROW, SB_NO_TIME_ROW]), { status: 200 })
+    }
+    if (host === 'publicreporting.cftc.gov') {
+      return new Response(JSON.stringify(COT_ROWS), { status: 200 })
+    }
+    throw new Error(`unexpected url: ${String(input)}`)
+  }) as typeof fetch
+  let clockReads = 0
+  const advancingNow = () => new Date(clockReads++ < 3 ? T0 : T0 + 5_000)
+  const snap = await getPulse('pulse-no-last-time', {
+    manifest: manifestNoTime, fetchFn: fetchNoTime, now: advancingNow,
+    stateDir: stateNoTime, repoRoot: repoNoTime, requirePriceHistory: true,
+  })
+  assert.ok(snap)
+  assert.equal(snap!.subjects.SUGAR.price!.as_of, new Date(T0).toISOString())
+  const historyDir = path.join(
+    stateNoTime, 'commodity-pulse-history', createHash('sha256').update('pulse-no-last-time').digest('hex'),
+  )
+  const historical = JSON.parse(fs.readFileSync(path.join(historyDir, fs.readdirSync(historyDir)[0]), 'utf8'))
+  assert.equal(historical.priceAt, T0)
+  assert.ok(Date.parse(historical.prices.SUGAR.as_of) <= historical.priceAt)
+})
+
+await check('headless preflight archives exactly the within-TTL price half it will use', async () => {
+  const snap = await getPulse('pulse-test', { ...deps(T0 + 30_000), requirePriceHistory: true })
+  assert.ok(snap)
+  const historyDir = path.join(
+    stateDir, 'commodity-pulse-history', createHash('sha256').update('pulse-test').digest('hex'),
+  )
+  const historyFiles = fs.readdirSync(historyDir)
+  assert.equal(historyFiles.length, 1, 'the exact price half is retained for point-in-time research')
+  const historical = JSON.parse(fs.readFileSync(path.join(historyDir, historyFiles[0]), 'utf8'))
+  const material = { swarm: historical.swarm, priceAt: historical.priceAt, prices: historical.prices }
+  const digest = createHash('sha256').update(canonicalJsonText(material)).digest('hex')
+  assert.equal(historical.snapshot_sha256, `sha256:${digest}`)
+  assert.equal(historyFiles[0], `${T0}-${digest}.json`, 'the immutable filename binds time and content')
 })
 
 await check('getPulse serves the cache within TTL — no refetch', async () => {
@@ -379,6 +431,46 @@ await check('getPulse single-flight: two concurrent calls share ONE fetch per so
   assert.equal(f2.calls.cnbc, 1, 'one batch call for two concurrent callers')
   assert.equal(f2.calls.cftc, 1, 'one CFTC fetch for two concurrent callers')
   assert.deepEqual(a!.subjects.GOLD.price, b!.subjects.GOLD.price)
+})
+
+await check('headless refresh fails closed before replacing the mutable cache when price history cannot be archived', async () => {
+  const repo3 = makeRepo()
+  const state3 = tmp()
+  fs.writeFileSync(path.join(state3, 'commodity-pulse-history'), 'not a directory')
+  const m3 = makeManifest('pulse-history-fail')
+  const f3 = makeFetch()
+  await assert.rejects(
+    getPulse('pulse-history-fail', {
+      manifest: m3, fetchFn: f3.fetchFn, now: at(T0), stateDir: state3, repoRoot: repo3,
+      requirePriceHistory: true,
+    }),
+    /not a directory|ENOTDIR/i,
+  )
+  assert.equal(
+    fs.existsSync(path.join(state3, 'commodity-pulse.json')), false,
+    'the warm-start cache cannot become the only surviving copy of the refreshed price half',
+  )
+})
+
+await check('headless refresh rejects an existing malformed content-addressed history target', async () => {
+  const repo4 = makeRepo()
+  const state4 = tmp()
+  const m4 = makeManifest('pulse-history-corrupt')
+  const f4 = makeFetch()
+  const base: PulseDeps = {
+    manifest: m4, fetchFn: f4.fetchFn, now: at(T0), stateDir: state4, repoRoot: repo4,
+    requirePriceHistory: true,
+  }
+  assert.ok(await getPulse('pulse-history-corrupt', base))
+  const historyDir = path.join(
+    state4, 'commodity-pulse-history', createHash('sha256').update('pulse-history-corrupt').digest('hex'),
+  )
+  const target = path.join(historyDir, fs.readdirSync(historyDir)[0])
+  fs.writeFileSync(target, '{"wrong":true}\n')
+  await assert.rejects(
+    getPulse('pulse-history-corrupt', { ...base, now: at(T0 + 60_000), requirePriceHistory: true }),
+    /not the expected immutable snapshot/,
+  )
 })
 
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })

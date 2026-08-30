@@ -96,7 +96,7 @@ def write_feed(data_root: str, observations: list[tuple[str, float]]) -> str:
         "source_type": "official_data",
         "tier": 5,
         "as_of": as_of,
-        "received": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d"),
+        "received": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "source_url": SOURCE_URL,
         "license": "public_domain",
         "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed",

@@ -427,6 +427,31 @@ def main() -> int:
         usable_record, usable_artifact, usable_digest,
         coverage_resolver=matching_resolver, frozen_coverage=True,
     ) == []
+    assert validate_decision_record(
+        usable_record, usable_artifact, usable_digest, requirements,
+        lambda *_args: {
+            **matching_resolver(),
+            "vintage": {
+                **matching_resolver()["vintage"],
+                "acquisition": "manual", "tier": 5,
+                "source_type": "vendor_export",
+                "licensing": {"access": "licensed", "use": "entitlement_required"},
+                "manual_input": {"content_sha256": "sha256:" + "c" * 64},
+            },
+        },
+    ) == []
+    assert any("does not resolve" in error for error in validate_decision_record(
+        usable_record, usable_artifact, usable_digest, requirements,
+        lambda *_args: {
+            **matching_resolver(),
+            "vintage": {
+                **matching_resolver()["vintage"],
+                "acquisition": "manual", "tier": 5,
+                "source_type": "vendor_export",
+                "licensing": {"access": "licensed", "use": "entitlement_required"},
+            },
+        },
+    ))
     assert any("digest does not match" in error for error in validate_decision_record(
         usable_record, usable_artifact, "sha256:" + "0" * 64,
         coverage_resolver=matching_resolver, frozen_coverage=True,

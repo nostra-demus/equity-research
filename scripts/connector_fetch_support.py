@@ -34,13 +34,19 @@ def fetch_bytes(
     *,
     max_bytes: int,
     timeout: int = 20,
+    accept: str | None = None,
 ) -> bytes:
+    if accept not in {None, "*/*", "text/csv"}:
+        raise RuntimeError("connector Accept header is outside the reviewed safe values")
+    headers = {
+        "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
+        "X-Nostra-Connector": manifest["id"],
+    }
+    if accept:
+        headers["Accept"] = accept
     request = urllib.request.Request(
         url,
-        headers={
-            "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
-            "X-Nostra-Connector": manifest["id"],
-        },
+        headers=headers,
     )
     with open_allowed_https(request, manifest["host_allowlist"], timeout=timeout) as response:
         if response.status != 200:
@@ -88,6 +94,34 @@ def fetch_bytes_with_query_credential(
         request, manifest["host_allowlist"], timeout=timeout,
         credential_query_keys=frozenset({query_key}),
     ) as response:
+        if response.status != 200:
+            raise RuntimeError(f"HTTP {response.status} from {manifest['provider']}")
+        return read_bounded_response(response, max_bytes=max_bytes)
+
+
+def fetch_bytes_with_header_credential(
+    source_url: str,
+    manifest: dict[str, Any],
+    *,
+    header_name: str,
+    credential: str,
+    max_bytes: int,
+    timeout: int = 20,
+) -> bytes:
+    """Fetch one allowlisted API without putting its header credential in a durable URL."""
+    if not isinstance(credential, str) or not credential or credential.strip() != credential:
+        raise RuntimeError("connector header credential is missing or malformed")
+    if header_name.casefold() != "x-api-key":
+        raise RuntimeError("connector header credential name is outside the reviewed safe values")
+    request = urllib.request.Request(
+        source_url,
+        headers={
+            "User-Agent": "NostraResearch/1.0 (+https://github.com/nostra-demus/equity-research)",
+            "X-Nostra-Connector": manifest["id"],
+            header_name: credential,
+        },
+    )
+    with open_allowed_https(request, manifest["host_allowlist"], timeout=timeout) as response:
         if response.status != 200:
             raise RuntimeError(f"HTTP {response.status} from {manifest['provider']}")
         return read_bounded_response(response, max_bytes=max_bytes)

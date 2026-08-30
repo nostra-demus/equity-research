@@ -499,9 +499,14 @@ def _coverage_errors(
                 expected_resolver_kind = resolver_kinds.get(str(row.get("series_id")))
                 acquisition = vintage.get("acquisition") if isinstance(vintage, dict) else None
                 tier = vintage.get("tier") if isinstance(vintage, dict) else None
+                if acquisition == "manual":
+                    from commodity_profile_coverage import decision_grade_manual_vintage
+                    manual_allowed = decision_grade_manual_vintage(vintage)
+                else:
+                    manual_allowed = False
                 rank_allowed = (
                     isinstance(tier, int) and not isinstance(tier, bool) and tier <= 10
-                    and acquisition != "manual"
+                    and (acquisition != "manual" or manual_allowed)
                     and (
                         # Frozen replay proves that the exact source identity still
                         # resolves from the point-in-time data pool. It deliberately

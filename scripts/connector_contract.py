@@ -224,25 +224,78 @@ def methodology_only_nested_reason(value: Any, label: str = "runtime input") -> 
     return None
 
 
-def advance_release_period(observed: date, cadence: str) -> date | None:
+def advance_release_period(
+    observed: date, cadence: str, active_months: list[int] | None = None,
+) -> date | None:
     """Advance an observation date by its declared calendar period.
 
     Month-based cadences preserve the day of month where possible and cap at
     the target month's end (for example, Jan 31 quarterly -> Apr 30).  The
     caller handles retrieval-clock cadences separately.
     """
-    months = CALENDAR_CADENCE_MONTHS.get(cadence)
-    if months is not None:
-        month_index = observed.year * 12 + observed.month - 1 + months
-        year, zero_month = divmod(month_index, 12)
-        month = zero_month + 1
-        day = min(observed.day, calendar.monthrange(year, month)[1])
-        return date(year, month, day)
-    if cadence == "weekly":
-        return observed + timedelta(days=7)
-    if cadence == "daily":
-        return observed + timedelta(days=1)
-    return None
+    def advance_once(value: date) -> date | None:
+        months = CALENDAR_CADENCE_MONTHS.get(cadence)
+        if months is not None:
+            month_index = value.year * 12 + value.month - 1 + months
+            year, zero_month = divmod(month_index, 12)
+            month = zero_month + 1
+            day = min(value.day, calendar.monthrange(year, month)[1])
+            return date(year, month, day)
+        if cadence == "weekly":
+            return value + timedelta(days=7)
+        if cadence == "daily":
+            return value + timedelta(days=1)
+        return None
+
+    candidate = advance_once(observed)
+    if candidate is None or active_months is None:
+        return candidate
+    if (
+        not isinstance(active_months, list) or not active_months
+        or any(isinstance(month, bool) or not isinstance(month, int) or not 1 <= month <= 12 for month in active_months)
+    ):
+        raise ValueError("active_months must contain calendar months 1 through 12")
+    allowed = set(active_months)
+    for _ in range(370):
+        if candidate.month in allowed:
+            return candidate
+        candidate = advance_once(candidate)
+        if candidate is None:
+            return None
+    raise ValueError("active_months could not produce a bounded next release")
+
+
+def release_contract_window(
+    release: dict[str, Any], observed: date, retrieved_at: str | datetime | None = None,
+) -> tuple[datetime, datetime]:
+    """Return one manifest release's next due instant and grace deadline."""
+    zone = ZoneInfo(str(release["timezone"]))
+    cadence = release["cadence"]
+    base = datetime(observed.year, observed.month, observed.day, tzinfo=zone)
+    retrieved = None
+    if retrieved_at:
+        try:
+            parsed = (
+                retrieved_at if isinstance(retrieved_at, datetime)
+                else datetime.fromisoformat(str(retrieved_at).replace("Z", "+00:00"))
+            )
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=timezone.utc)
+            retrieved = parsed.astimezone(zone)
+        except (TypeError, ValueError):
+            retrieved = None
+    next_date = advance_release_period(observed, cadence, release.get("active_months"))
+    if next_date is not None:
+        next_period = datetime(next_date.year, next_date.month, next_date.day, tzinfo=zone)
+    elif cadence == "twelve_hourly":
+        next_period = (retrieved or base) + timedelta(hours=12)
+    elif cadence == "event_driven":
+        next_period = (retrieved or base) + timedelta(days=float(release["grace_days"]))
+        return next_period, next_period
+    else:
+        raise ValueError(f"unsupported connector release cadence: {cadence!r}")
+    due = next_period + timedelta(days=float(release["expected_lag_days"]))
+    return due, due + timedelta(days=float(release["grace_days"]))
 
 
 def _canonical_schema() -> dict[str, Any]:
@@ -570,6 +623,8 @@ def _validate_json_schema(value: Any, schema: Any, where: str = "$") -> list[str
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         if "minimum" in schema and value < schema["minimum"]:
             errors.append(f"{where} is below minimum {schema['minimum']}")
+        if "maximum" in schema and value > schema["maximum"]:
+            errors.append(f"{where} is above maximum {schema['maximum']}")
         if "exclusiveMinimum" in schema and value <= schema["exclusiveMinimum"]:
             errors.append(f"{where} must be > {schema['exclusiveMinimum']}")
     if isinstance(value, list):
@@ -778,6 +833,14 @@ def validate_manifest(dirname: str, connector_dir: str, raw: Any) -> list[str]:
         value = release.get(field)
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)) or value < 0:
             errors.append(f"release.{field} must be a finite number >= 0")
+    active_months = release.get("active_months")
+    if active_months is not None and (
+        release.get("cadence") not in {"daily", "weekly", *CALENDAR_CADENCE_MONTHS}
+        or not isinstance(active_months, list) or not active_months
+        or any(isinstance(month, bool) or not isinstance(month, int) or not 1 <= month <= 12 for month in active_months)
+        or active_months != sorted(set(active_months))
+    ):
+        errors.append("release.active_months must be sorted unique months for a calendar cadence")
     if (release.get("cadence") == "event_driven"
             and release.get("expected_lag_days") != 0):
         errors.append("event-driven release.expected_lag_days must be 0")

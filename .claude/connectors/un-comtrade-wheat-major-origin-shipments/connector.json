@@ -1,0 +1,93 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "un-comtrade-wheat-major-origin-shipments",
+  "dataset_id": "un.comtrade.data-v1.wheat-major-origin-shipments",
+  "series_id": "wheat.major-origin-shipments",
+  "series": "UN Comtrade monthly wheat exports from Russia, the EU, Canada, Australia and Argentina",
+  "satisfies": ["wheat-major-origin-shipments"],
+  "subjects": ["WHEAT"],
+  "provider": "United Nations Statistics Division — UN Comtrade",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "UN Comtrade free basic individual access; source attribution and fair-use limits apply",
+  "licensing": {
+    "access": "public",
+    "use": "allowed",
+    "redistribution": "allowed",
+    "terms_url": "https://uncomtrade.org/docs/policy-on-use-and-re-dissemination/"
+  },
+  "host_allowlist": ["comtradeapi.un.org"],
+  "credential_env": ["CONNECTOR_UN_COMTRADE_API_KEY"],
+  "release": {
+    "cadence": "monthly",
+    "timezone": "UTC",
+    "expected_lag_days": 45,
+    "grace_days": 30,
+    "revision_policy": "revisable"
+  },
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "attempt_timeout_seconds": 300,
+  "output_path": "data/<SUBJECT>/external/un_comtrade/wheat_major_origin_shipments_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "commodity": "string",
+    "frequency": "string",
+    "hs_code": "string",
+    "flow": "string",
+    "quantity_basis": "string",
+    "period_window": {"start": "YYYY-MM", "end": "YYYY-MM", "expected_months_per_origin": "int"},
+    "observations": [{
+      "date": "date",
+      "period": "YYYY-MM",
+      "observed_origins": "int",
+      "missing_origins": "int",
+      "estimated_origins": "int",
+      "origins": [{
+        "origin": "string",
+        "reporter_code": "int",
+        "status": "enum:observed|missing",
+        "exports_metric_tonnes": "float|null",
+        "trade_value_usd": "float|null",
+        "classification_code": "string|null",
+        "supplementary_quantity_unit_code": "int|null",
+        "net_weight_estimated": "bool|null",
+        "legacy_estimation_flag": "int|null",
+        "reported_line": "bool|null",
+        "aggregated_hs_line": "bool|null",
+        "missing_reason": "string|null"
+      }]
+    }],
+    "origin_coverage": [{
+      "origin": "string",
+      "reporter_code": "int",
+      "expected_months": "int",
+      "observed_months": "int",
+      "missing_months": "int",
+      "first_observed": "date|null",
+      "last_observed": "date|null"
+    }],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "period_window.expected_months_per_origin": "calendar_months",
+    "observations[].observed_origins": "origin_count",
+    "observations[].missing_origins": "origin_count",
+    "observations[].estimated_origins": "origin_count",
+    "observations[].origins[].reporter_code": "identifier",
+    "observations[].origins[].supplementary_quantity_unit_code": "UN_Comtrade_quantity_unit_code",
+    "observations[].origins[].legacy_estimation_flag": "UN_Comtrade_legacy_estimation_flag",
+    "observations[].origins[].exports_metric_tonnes": "metric_tonnes",
+    "observations[].origins[].trade_value_usd": "USD",
+    "origin_coverage[].reporter_code": "identifier",
+    "origin_coverage[].expected_months": "calendar_months",
+    "origin_coverage[].observed_months": "calendar_months",
+    "origin_coverage[].missing_months": "calendar_months"
+  },
+  "minimum_history": {"observations": 61, "path": "observations"}
+}

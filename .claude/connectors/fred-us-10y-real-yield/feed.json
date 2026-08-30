@@ -1,0 +1,31 @@
+{
+  "config_version": 1,
+  "format": "csv",
+  "source_url_template": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10&cosd={start_date}",
+  "lookback_days": 1830,
+  "max_bytes": 4194304,
+  "csv": {
+    "delimiter": ",",
+    "header": ["observation_date", "DFII10"],
+    "allow_extra_columns": false
+  },
+  "columns": [
+    {"source": "observation_date", "target": "date", "type": "date"},
+    {
+      "source": "DFII10",
+      "target": "percent",
+      "type": "float",
+      "missing_values": ["", "."],
+      "missing_action": "skip_row",
+      "minimum": -10,
+      "maximum": 20
+    }
+  ],
+  "records_field": "observations",
+  "as_of_field": "date",
+  "static_fields": {"fred_series_id": "DFII10"},
+  "source_url_field": "source_url",
+  "provider_slug": "fred",
+  "filename_stem": "us_10y_real_yield",
+  "note": "Official FRED daily 10-year real-yield history."
+}

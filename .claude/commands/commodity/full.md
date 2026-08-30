@@ -29,10 +29,51 @@ If there is no `## <COMMODITY>` section AND no `data/<COMMODITY>/` folder, STOP:
 ## 3. Create the run root
 
 ```
-mkdir -p "commodity/runs/<COMMODITY>"
+mkdir -p "commodity/runs/<COMMODITY>" "data/<COMMODITY>"
 ```
 
 Capture `commodity/runs/<COMMODITY>` as `<RUN_ROOT>`. (One stable run folder per commodity — NOT date-stamped; a re-run refreshes it in place and resumes past finished modules.)
+The validated foreground commodity flow also creates its subject pool so a first automatic refresh can
+publish. This does not weaken the background runner's pool gate; background sweeps still cannot invent subjects.
+
+## 3.5. Refresh feeds + evidence preflight before any orb dispatch
+
+Refresh only the automatic connectors declared for this commodity, then refresh its quote:
+
+```bash
+python3 .claude/tools/run_connectors.py --subject "<COMMODITY>"
+bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"
+```
+
+If the connector refresh exits `75`, another sweep owns the connector lock. STOP this invocation and retry
+Step 3.5 after that sweep finishes. Never continue to the pulse refresh or evidence preflight after exit `75`:
+the scoped refresh did not run, so preflight could otherwise reject usable evidence that is still being published.
+
+Connector failures are not permission to substitute an unreviewed scrape. They remain visible as missing,
+stalled, suspect, or unavailable evidence. Now freeze the separate pre-orb evidence snapshot and run the
+evidence delta in ONE Bash invocation at one captured UTC cutoff:
+
+```bash
+PREFLIGHT_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --preflight --decision-time "$PREFLIGHT_TIME" &&
+python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME" --use-preflight --write-state
+```
+
+The coverage preflight writes `required_series_preflight_coverage.json` and its hash-bound
+`required_series_preflight_sources.json`; it never replaces the terminal coverage artifacts. The later terminal
+step validates and promotes these exact frozen bytes, so a same-day shared-market or quote refresh cannot enter
+after an owner orb has run. After a successful preflight, the delta command writes only the run-scoped state
+described below. If preflight exits `2`, zero
+required series are usable: STOP before every research orb, report the exact status counts and affected owner orbs,
+and point the user to `python3 scripts/commodity_feed_plan.py "<COMMODITY>" --gaps-only`. Spending the full
+swarm budget cannot turn zero evidence into a forecast. Exit `0` permits the run to continue; partial evidence
+remains subject to the terminal sufficiency caps and can still end in `Research More`.
+
+When preflight exits `0`, the second command compares that exact decision-time view with the prior frozen
+coverage before any resume decision. If either command fails, STOP. Print the changed need IDs, owner orbs,
+and invalidated modules from its JSON output. The command atomically writes the same validated JSON to
+`<RUN_ROOT>/commodity_preflight_state.json`. That run-scoped artifact is the durable evidence-staleness floor
+for every later Bash invocation; never rely on a shell variable surviving into another command block.
 
 ## 4. Discover modules + dependency order
 
@@ -44,19 +85,24 @@ For each module in topo order:
 
 1. **Resume check — COMPLETE and CURRENT, not merely present.** A module is skippable only when a prior run genuinely finished the work this run would do. "Its synthesis file exists" is not that test, and using it let a module stay `done` forever: the GOLD run's `supply-demand` and `commodity-thesis` syntheses were written before `04_commodity-supply-security` and `02_commodity-cost-curve-fair-value` existed, so every later `/commodity:full GOLD` skipped both modules and those two orbs never ran — while the dossier's own pre-mortem was separately noting the cost-curve orb's absence as a reason its margin of safety was not durable. A stale module survives precisely because it is stale.
 
-   Skip the module ONLY if ALL FOUR hold; otherwise re-run it in full:
+   Skip the module ONLY if ALL FIVE hold; otherwise re-run it in full:
    - (a) `<RUN_ROOT>/<module>/99_<module>-synthesis.md` exists and is non-empty;
    - (b) **every orb the module currently declares** has a non-empty output in the run folder — derived from the discovered roster (`.claude/agents/commodity/<module>/[0-9][0-9]_*.md`, excluding `99_`), never a hardcoded list, so an orb added later invalidates the module automatically with no edit here (§26);
    - (c) the synthesis is **at least as new as** every one of those orb outputs and every dependency module's synthesis — so an orb re-run on its own (`/commodity:rerun`), or an upstream module re-run in this pass, forces this module to be re-adjudicated instead of leaving a synthesis that never saw its own inputs.
    - (d) every orb declaring `emits_signal_evidence: true` has its sibling `.signals.json`, and that
      sidecar is not newer than the synthesis. A legacy markdown-only orb is incomplete under the current
      contract and must rerun; a refreshed sidecar must flow through synthesis before the module is current.
+   - (e) `<module>` is absent from the `modules` array in the validated
+     `<RUN_ROOT>/commodity_preflight_state.json`. A new vintage, changed usability state,
+     or removed profile need invalidates its owning module even when old output files are newer on disk.
 
    (b) is the load-bearing test and is fully durable: it compares file EXISTENCE against the live roster. (c) compares mtimes, which are **not durable across a fresh clone** (every file lands with the checkout time), so on a freshly cloned tree (c) simply never fires and the check degrades to (a)+(b) — weaker, never wrong. On the persistent checkout the engine actually runs from, mtimes are real and (c) does its job.
 
 ```bash
 # prints SKIP or RERUN:<reason> for <module>
 MOD=<module>; RR=<RUN_ROOT>; SYN="$RR/$MOD/99_$MOD-synthesis.md"
+EVIDENCE_STATE="$(python3 scripts/commodity_evidence_delta.py "$RR" --module-status "$MOD")" || exit $?
+case "$EVIDENCE_STATE" in RERUN:evidence-changed) echo "$EVIDENCE_STATE";; CLEAR)
 if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
   reason=""
   for f in .claude/agents/commodity/"$MOD"/[0-9][0-9]_*.md; do
@@ -73,19 +119,29 @@ if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
   done
   [ -n "$reason" ] && echo "RERUN:$reason" || echo "SKIP"
 fi
+;; *) echo "EVIDENCE-DELTA-FAIL: invalid persisted module status"; exit 1;; esac
 ```
 
-   Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. Note also that `/commodity:intake` covers the OTHER staleness axis (new documents landing in `data/<COMMODITY>/`) and writes a scoped rerun plan; this check covers structural staleness — orbs and upstream syntheses — and neither substitutes for the other.
+   Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. The evidence delta covers accepted profile-series changes; `/commodity:intake` separately covers user documents and notes landing in `data/<COMMODITY>/`. Neither substitutes for the other.
 2. **Cross-module context:** build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A specifies — one sentence per dependency module that is DONE in this run, `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (capitalize the dep's first letter). If the module has no deps, set it to `none`.
 3. **Run the module pipeline:** follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = the module, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, and `<CROSS_MODULE_CONTEXT>` as built. **Commodity deviations:** (a) SKIP Step 1.5 (`extract_pool.py`) unless `data/<COMMODITY>/` exists with files; (b) in the Step 4A Task message the "Data pool path: data/<COMMODITY>/" line is fine — agents read the profile, consume current accepted connector vintages and lawful shared market routes first, and use live public facts only as explicitly unvintaged context. Connector existence or URL reachability never raises sufficiency. WILTW and report-derived assertions are forbidden runtime inputs.
 4. **Compile evidence; freeze coverage once for the terminal:** after every module decision, including
    `SKIP`, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Any
    `SIGNAL-EVIDENCE-FAIL` stops before the next module. Immediately BEFORE the terminal synthesis resume
-   decision, run `bash scripts/refresh-swarm-pulse.sh commodity "<COMMODITY>"` to refresh the same
-   persisted pulse snapshot used by the cockpit. `PULSE-MISSING` is honest absence, not a reason to
-   fabricate or scrape a replacement. Then run `python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time
-   "$(date -u +%Y-%m-%dT%H:%M:%SZ)"` exactly once. It binds every profile-required series to a vintage
-   knowable at that cutoff. Compute its byte digest. If an existing `decision_record.json` does not carry
+   decision, do NOT refresh feeds or the pulse again: admitting evidence after its owner module ran would
+   bind fresh vintages to stale conclusions. Read the cutoff from durable state and compile in the SAME Bash
+   invocation:
+
+```bash
+PREFLIGHT_TIME="$(python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --read-decision-time)" || exit $?
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --promote-preflight --decision-time "$PREFLIGHT_TIME"
+```
+
+   Run that promotion exactly once. It validates the pre-orb snapshot, replays immutable connector vintages,
+   and writes the terminal coverage artifacts from the same evidence view used by the staleness check. It must
+   never reread mutable shared-market or quote state. Compute its byte digest.
+   The terminal record's `decision_date` must equal the UTC date inside this frozen `decision_time`. If an
+   existing `decision_record.json` does not carry
    that exact digest, force the terminal module to `RERUN:coverage-changed` even when its ordinary mtime
    checks said `SKIP`. Do NOT regenerate the coverage artifact after terminal synthesis: the terminal
    hashes those exact bytes. Any `PROFILE-COVERAGE-FAIL` stops before terminal synthesis. Incomplete
@@ -161,6 +217,9 @@ Print a final summary:
 
 - Do not hardcode module or agent names — everything is discovered from the folders + frontmatter, exactly like `/research:full` and `frameworks/MODULE_PIPELINE.md`.
 - Adding a new module folder `.claude/agents/commodity/<new>/` (with a `99_<new>-synthesis.md` carrying `depends_on`) must require zero changes to this command.
-- Write only inside `commodity/runs/<COMMODITY>/`. Do not touch other commodities or any company run.
+- Research outputs write only inside `commodity/runs/<COMMODITY>/`. The sole exception is step 3.5's
+  reviewed connector publisher, scoped by `--subject <COMMODITY>`; it may update only that commodity's
+  canonical feed vintages/projections and connector health ledger. Do not touch other commodity pools or
+  any company run.
 - After the terminal module writes `decision_record.json`, only step 5.5 may mutate it: first the deterministic
   pre-mortem cap, then immutable archive/publication. `commodity:pre-mortem.md` itself stays read-only.

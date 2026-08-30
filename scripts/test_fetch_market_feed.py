@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import json
 import os
 import sys
@@ -59,6 +60,8 @@ def test_it_writes_the_shape_the_readers_expect() -> None:
             sidecar = json.load(fh)
         assert sidecar["as_of"] == "2026-08-24"
         assert sidecar["license"] == "public_domain"
+        received = dt.datetime.fromisoformat(sidecar["received"].replace("Z", "+00:00"))
+        assert sidecar["received"].endswith("Z") and received.tzinfo is not None
 
 
 def test_the_host_is_pinned() -> None:

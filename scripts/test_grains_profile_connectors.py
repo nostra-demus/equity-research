@@ -23,18 +23,22 @@ CONNECTORS = {
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-wheat-export-sales": "wheat-export-sales-shipments",
+        "un-comtrade-wheat-major-origin-shipments": "wheat-major-origin-shipments",
     },
     "CORN": {
         "cftc-cot-corn": "corn-managed-money-positioning",
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-corn-export-sales": "corn-export-sales-china-demand",
     },
     "SOYBEANS": {
         "cftc-cot-soybeans": "soybeans-managed-money-positioning",
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-soybeans-export-sales": "soybeans-us-export-sales-shipments",
     },
 }
 FORBIDDEN = ("wiltw", "what i learned this week", "gold nostra report", "/downloads/")
@@ -112,6 +116,13 @@ assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-boar
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-biofuel-physical-use")["owner"] == "commodity-demand-inventory"
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-biofuel-policy")["owner"] == "commodity-supply-security"
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-stocks-use")["quality"]["min_span_days"] == 3650
+for commodity, need in (
+    ("WHEAT", "wheat-export-sales-shipments"),
+    ("CORN", "corn-export-sales-china-demand"),
+    ("SOYBEANS", "soybeans-us-export-sales-shipments"),
+):
+    quality = next(row for row in profiles[commodity] if row["need"] == need)["quality"]
+    assert quality["min_observations"] == 260 and quality["min_span_days"] == 1825
 assert all(
     next(row for row in profiles[commodity] if row["need"].endswith("cost-export-parity-range")
          or row["need"].endswith("cost-value-range") or row["need"].endswith("cost-crush-value-range"))["owner"]
@@ -165,6 +176,30 @@ wasde = all_manifests["usda-wasde-grains-balance"]
 assert wasde["dataset_id"] == "usda.waob.wasde-xml"
 assert set(wasde["subjects"]) == set(CONNECTORS)
 assert wasde["release"]["revision_policy"] == "revisable"
+publisher_paths = set(json.load(open(
+    os.path.join(REPO, "frameworks", "connector-publisher-files.json"), encoding="utf-8",
+))["paths"])
+assert {
+    "scripts/commodity_bis_fx_feed.py",
+    "scripts/commodity_un_comtrade_wheat_shipments_feed.py",
+    "scripts/commodity_usda_crop_progress_feed.py",
+    "scripts/commodity_usda_fas_esr_feed.py",
+    "scripts/commodity_usda_psd_feed.py",
+} <= publisher_paths
+
+global_wheat = all_manifests["un-comtrade-wheat-major-origin-shipments"]
+assert global_wheat["credential_env"] == ["CONNECTOR_UN_COMTRADE_API_KEY"]
+assert global_wheat["host_allowlist"] == ["comtradeapi.un.org"]
+assert global_wheat["acquisition"] == "free_key_api"
+global_wheat_quality = next(
+    row["quality"] for row in profiles["WHEAT"]
+    if row["need"] == "wheat-major-origin-shipments"
+)
+assert global_wheat_quality == {
+    "path": "observations", "min_observations": 61,
+    "min_span_days": 1825, "date_field": "date", "max_staleness_days": 75,
+    "required_field": "missing_origins", "required_value": 0,
+}
 
 cftc_contracts = {
     "cftc-cot-wheat-srw": ("WHEAT-SRW", "001602"),
@@ -186,6 +221,12 @@ discovered_ids = {manifest["id"] for manifest in discovered}
 assert set(all_manifests) <= discovered_ids, {
     "missing": sorted(set(all_manifests) - discovered_ids), "skipped": skipped,
 }
+for crop_connector in (
+    "usda-nass-corn-crop-progress", "usda-nass-soybeans-crop-progress",
+    "usda-nass-wheat-crop-progress", "usda-nass-cotton-crop-progress",
+):
+    crop_manifest = next(manifest for manifest in discovered if manifest["id"] == crop_connector)
+    assert crop_manifest["release"]["active_months"] == [4, 5, 6, 7, 8, 9, 10, 11]
 with tempfile.TemporaryDirectory() as temp:
     empty = Path(temp)
     for commodity in CONNECTORS:

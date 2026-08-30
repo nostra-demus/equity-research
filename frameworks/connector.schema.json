@@ -64,11 +64,23 @@
         "timezone": { "type": "string", "minLength": 1 },
         "expected_lag_days": { "type": "number", "minimum": 0 },
         "grace_days": { "type": "number", "minimum": 0 },
+        "active_months": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 1, "maximum": 12 }
+        },
         "revision_policy": { "enum": ["revisable", "append_only"] }
       }
     },
     "entry": { "const": "fetch.py" },
     "verify": { "const": "fetch.py --verify" },
+    "attempt_timeout_seconds": {
+      "type": "integer",
+      "minimum": 60,
+      "maximum": 300,
+      "description": "Optional bounded per-attempt runner deadline for reviewed multi-request transforms."
+    },
     "output_path": {
       "type": "string",
       "description": "Canonical POSIX-relative projection path. Lowercase ASCII segments only; no empty, dot, backslash, percent-encoded, or filesystem-normalizing aliases.",

@@ -1,0 +1,388 @@
+{
+  "schema_version": 2,
+  "purpose": "Routing guide only. A source becomes evidence only after a reviewed connector publishes a valid immutable vintage.",
+  "selection_order": [
+    "Free primary authority with lawful machine-readable access",
+    "Free primary authority with an operator-supplied official file",
+    "Licensed Capital IQ export supplied by an entitled user",
+    "Refuse to rate when none of those routes can meet the profile contract"
+  ],
+  "capital_iq": {
+    "provider": "S&P Capital IQ Pro",
+    "access": "licensed",
+    "terms_url": "https://www.capitaliq.spglobal.com/cache/Documents/msa4.pdf",
+    "route": "manual_csv_export",
+    "rule": "Never scrape a signed-in page or store credentials. Export CSV under the user's entitlement, ingest it through the attested manual connector path, and preserve redistribution restrictions."
+  },
+  "rules": [
+    {
+      "id": "natural-gas-capacity-availability",
+      "need_pattern": "^(natural-gas-lng-export-capacity-availability|natural-gas-russian-pipeline-availability)$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_composite_energy_authorities_and_primary_operator_files",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/naturalgas/", "access": "public"},
+        {"provider": "Federal Energy Regulatory Commission", "url": "https://www.ferc.gov/natural-gas/lng", "access": "public"},
+        {"provider": "U.S. Department of Energy natural-gas import/export reports", "url": "https://www.energy.gov/hgeo/listings/monthly-natural-gas-reports", "access": "public"},
+        {"provider": "ENTSOG Transparency Platform and primary transmission operators", "url": "https://transparency.entsog.eu/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may fill one leg, but the connector must preserve installed and commissioned LNG capacity, terminal outages, pipeline technical and available capacity, nominations, physical flows, and restriction notices as separate dated fields."
+    },
+    {
+      "id": "crop-biofuel-physical-demand",
+      "need_pattern": "^(corn-ethanol-demand|soybeans-biofuel-physical-use)$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_composite_eia_usda_physical_biofuel_demand",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration petroleum and biofuels data", "url": "https://www.eia.gov/biofuels/", "access": "public"},
+        {"provider": "USDA NASS Grain Crushings and Co-Products Production", "url": "https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Grain_Crushings/", "access": "public"},
+        {"provider": "USDA NASS Fats and Oils: Oilseed Crushings, Production, Consumption and Stocks", "url": "https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Fats_and_Oils/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may fill one exact parent only. Keep ethanol output and stocks, corn grind, soybean-oil biofuel use, feedstock share, margin inputs, units, periods and release vintages as separate fields; policy and fuel prices cannot substitute for realised physical use."
+    },
+    {
+      "id": "aluminium-china-capacity-power",
+      "need_pattern": "^aluminium-china-capacity-power$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "primary_china_capacity_hydro_grid_and_producer_releases",
+      "authorities": [
+        {"provider": "National Development and Reform Commission of China", "url": "https://en.ndrc.gov.cn/", "access": "mixed"},
+        {"provider": "National Energy Administration of China", "url": "https://english.www.gov.cn/state_council/2014/10/01/content_281474991089761.htm", "access": "mixed"},
+        {"provider": "Yunnan provincial energy authorities", "url": "https://www.yn.gov.cn/", "access": "mixed"},
+        {"provider": "China Southern Power Grid and primary aluminium producers", "url": "https://eng.csg.cn/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed capacity or output series is a cross-check only. Decision-grade evidence must retain the dated capacity cap, hydro availability, grid curtailment instruction, affected smelting capacity, geography and primary publisher; estimates cannot replace those releases."
+    },
+    {
+      "id": "aluminium-lme-investment-fund-positioning",
+      "need_pattern": "^aluminium-lme-investment-fund-positioning$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_lme_aluminium_cotr",
+      "authorities": [
+        {"provider": "London Metal Exchange Aluminium Commitments of Traders", "url": "https://www.lme.com/en/Market-Data/Reports-and-data/Commitments-of-traders/LME-Aluminium", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this exchange-specific series. Preserve the LME Aluminium contract, investment-fund long and short positions, open interest, position date, publication date and revised report; if three lawful years cannot be obtained, leave the series unavailable."
+    },
+    {
+      "id": "aluminium-shfe-positioning",
+      "need_pattern": "^aluminium-shfe-positioning$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_shfe_aluminium_daily_ranking",
+      "authorities": [
+        {"provider": "Shanghai Futures Exchange Aluminium Daily Ranking", "url": "https://www.shfe.com.cn/eng/reports/StatisticalData/DailyData/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this exchange-specific series. Preserve SHFE product code AL, contract month, ranked member long and short positions, changes, total open interest, trade date and publication date; LME or CFTC data cannot substitute, and missing lawful history remains unavailable."
+    },
+    {
+      "id": "official-policy-events",
+      "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
+      "route_kind": "official_event",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_official_event",
+      "authorities": [
+        {"provider": "Issuing government, regulator, ministry, customs authority, or producer group", "url": "https://www.opec.org/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use dated primary-source event records or news linked to the original notice; never treat an unsourced headline as the policy fact."
+    },
+    {
+      "id": "derived-cost-value",
+      "need_pattern": "(cost|parity|replacement|switching|incentive)",
+      "route_kind": "derived",
+      "capital_iq_use": "raw_parent_only",
+      "preferred_route": "derived_from_primary_inputs",
+      "authorities": [
+        {"provider": "EIA, USDA, USGS, official FX/rate publishers, and relevant exchanges", "url": "https://www.eia.gov/opendata/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ only for licensed raw input series. Keep formulas, units, assumptions, and parent vintage IDs in the derived record."
+    },
+    {
+      "id": "futures-positioning",
+      "need_pattern": "(managed-money|positioning|investment-fund)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_official_api_or_exchange_file",
+      "authorities": [
+        {"provider": "U.S. Commodity Futures Trading Commission", "url": "https://publicreporting.cftc.gov/", "access": "public"},
+        {"provider": "Relevant futures exchange", "url": "https://www.cmegroup.com/market-data.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a licensed positioning export only when the exchange/regulator does not publish the required contract or history."
+    },
+    {
+      "id": "fund-holdings-flows",
+      "need_pattern": "(etf|etn|fund-flow|issuer)",
+      "route_kind": "issuer_only",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "automatic_issuer_file",
+      "authorities": [
+        {"provider": "Fund issuer daily holdings/creation files", "url": "https://www.ishares.com/us/products/239561/ishares-gold-trust-fund", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Not permitted for these issuer-only series. If lawful issuer or sponsor history cannot supply the defined series, leave it manual or unavailable."
+    },
+    {
+      "id": "official-sector-reserves",
+      "need_pattern": "official-reserve",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_or_manual_imf_central_bank_release",
+      "authorities": [
+        {"provider": "International Monetary Fund Data", "url": "https://data.imf.org/", "access": "public"},
+        {"provider": "Reporting central bank or monetary authority", "url": "https://www.bis.org/cbanks.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed official-reserves series only when its country coverage, unit, reporting lag, and revisions are preserved in each sealed vintage."
+    },
+    {
+      "id": "cocoa-disease-pressure",
+      "need_pattern": "^cocoa-disease-pressure$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_primary_west_african_cocoa_disease_surveillance",
+      "authorities": [
+        {"provider": "Ghana Cocoa Board Cocoa Health and Extension Division", "url": "https://cocobod.gh/subsidiaries-and-divisions/cocoa-health-and-extension-division", "access": "public"},
+        {"provider": "Cote d'Ivoire Conseil du Cafe-Cacao swollen-shoot programme", "url": "https://conseilcafecacao.ci/index.php?Itemid=202&id=123&option=com_content&view=article", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required surveillance series. Preserve disease name, affected area or tree count, survey geography, observation period, publication date, treatment status and regulator; weather, production estimates and old undated incidence cannot substitute for a current regional observation."
+    },
+    {
+      "id": "weather-crop-condition",
+      "need_pattern": "(climate|weather|enso|phenology|crop-progress|crop-condition|disease)",
+      "route_kind": "official_observation",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_government_api_or_file",
+      "authorities": [
+        {"provider": "NOAA Climate Prediction Center", "url": "https://www.cpc.ncep.noaa.gov/", "access": "public"},
+        {"provider": "USDA National Agricultural Statistics Service", "url": "https://quickstats.nass.usda.gov/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Capital IQ may fill a market series, but it does not replace NOAA/USDA weather and crop observations when those are required."
+    },
+    {
+      "id": "us-macro-rates-dollar",
+      "need_pattern": "(real-yield|broad-usd|us-10y)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_government_api_or_csv",
+      "authorities": [
+        {"provider": "U.S. Treasury", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates", "access": "public"},
+        {"provider": "Federal Reserve / FRED", "url": "https://fred.stlouisfed.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ only as an explicit fallback provider with the same series definition and units."
+    },
+    {
+      "id": "usda-export-sales",
+      "need_pattern": "(corn-export-sales-china-demand|soybeans-us-export-sales-shipments|wheat-export-sales-shipments|cotton-export-shipments)",
+      "route_kind": "single_source",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_usda_fas_export_sales_api",
+      "authorities": [
+        {"provider": "USDA Foreign Agricultural Service", "url": "https://apps.fas.usda.gov/opendatawebV2/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export is only a fallback; keep USDA gross sales, net sales, reductions/adjustments, shipments, destination, market year and release date as separate fields."
+    },
+    {
+      "id": "wheat-major-origin-shipments",
+      "need_pattern": "^wheat-major-origin-shipments$",
+      "route_kind": "composite",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "composite_primary_major_origin_customs_and_port_shipments",
+      "authorities": [
+        {"provider": "European Commission cereals customs surveillance", "url": "https://agriculture.ec.europa.eu/data-and-analysis/markets/overviews/market-observatories/crops/cereals-statistics_en", "access": "public"},
+        {"provider": "Canadian Grain Commission grain export statistics", "url": "https://www.grainscanada.gc.ca/en/grain-research/statistics/index.html", "access": "public"},
+        {"provider": "Australian Bureau of Statistics International Trade in Goods", "url": "https://www.abs.gov.au/statistics/economy/international-trade/international-trade-goods", "access": "public"},
+        {"provider": "Argentina INDEC foreign-trade database", "url": "https://comex.indec.gob.ar/", "access": "public"},
+        {"provider": "UN Comtrade official reporter customs submissions", "url": "https://comtrade.un.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for this primary trade-flow series. Keep Russia, the EU, Canada, Australia and Argentina as separate reporters with wheat HS code, quantity, unit, destination, shipment month, release date and revision status; USDA U.S. export sales or forecast balances cannot substitute, and every missing origin must remain explicit."
+    },
+    {
+      "id": "soybeans-board-crush",
+      "need_pattern": "^soybeans-board-crush$",
+      "route_kind": "derived",
+      "capital_iq_use": "raw_parent_only",
+      "preferred_route": "derived_from_aligned_cme_settlements",
+      "authorities": [
+        {"provider": "CME Group CBOT soybean, soybean-meal, and soybean-oil settlements", "url": "https://www.cmegroup.com/market-data/settlements.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed export may supply the exact CME settlement legs, but all three contracts must use aligned months and preserve the stated conversion yields, fees, units, formulas, and parent vintage IDs."
+    },
+    {
+      "id": "china-activity-trade",
+      "need_pattern": "(china-industrial|china-import|china-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_or_manual_government_release",
+      "authorities": [
+        {"provider": "National Bureau of Statistics of China", "url": "https://www.stats.gov.cn/english/", "access": "mixed"},
+        {"provider": "General Administration of Customs of China", "url": "https://english.customs.gov.cn/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a dated Capital IQ export when the official release is not lawfully machine-readable; retain the official series name and release period."
+    },
+    {
+      "id": "global-activity",
+      "need_pattern": "global-activity",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_multilateral_api",
+      "authorities": [
+        {"provider": "OECD Data Explorer", "url": "https://data-explorer.oecd.org/", "access": "public"},
+        {"provider": "World Bank Data", "url": "https://data.worldbank.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed, named macro series only if it preserves the same definition and release vintage."
+    },
+    {
+      "id": "fx",
+      "need_pattern": "(trade-fx|exporter-fx)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_central_bank_or_multilateral_api",
+      "authorities": [
+        {"provider": "Relevant central bank, Federal Reserve, BIS, or IMF", "url": "https://www.bis.org/statistics/full_data_sets.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed spot/real-effective FX series with the currency pair, fixing time, and rate convention stated."
+    },
+    {
+      "id": "gold-comex-inventory-deliveries",
+      "need_pattern": "^gold-comex-inventory-deliveries$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_cme_official_report",
+      "authorities": [
+        {"provider": "CME Group COMEX official inventory and delivery reports", "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/nymex-delivery-notices.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Not permitted for this CME-only series. If no stable lawful machine route exists, ingest the dated CME official report manually or leave the series unavailable."
+    },
+    {
+      "id": "exchange-price-structure",
+      "need_pattern": "(curve|cash-price|spot-price|spread|basis|premium|arbitrage|delivery|certified-stock|visible-inventory)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "official_exchange_file_or_licensed_export",
+      "authorities": [
+        {"provider": "Relevant futures/physical exchange or benchmark administrator", "url": "https://www.cmegroup.com/market-data.html", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Capital IQ is the normal licensed fallback for curves and cash series. Export all required contracts/tenors together so curve math is point-in-time consistent."
+    },
+    {
+      "id": "crude-oil-oecd-global-inventory-days-cover",
+      "need_pattern": "^crude-oil-oecd-global-inventory-days-cover$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "composite_iea_oecd_eia_inventory_and_demand",
+      "authorities": [
+        {"provider": "International Energy Agency Oil Market Report", "url": "https://www.iea.org/reports/oil-market-report", "access": "mixed"},
+        {"provider": "OECD Data Explorer", "url": "https://data-explorer.oecd.org/", "access": "public"},
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/opendata/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may supply one exact inventory or demand parent only. Days cover must retain the OECD/global geography, demand denominator, unit, period and release vintage; US stocks cannot substitute."
+    },
+    {
+      "id": "cocoa-stocks-grindings",
+      "need_pattern": "^cocoa-stocks-grindings$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_primary_cocoa_body_releases",
+      "authorities": [
+        {"provider": "International Cocoa Organization", "url": "https://www.icco.org/statistics/", "access": "mixed"},
+        {"provider": "European Cocoa Association", "url": "https://www.eurococoa.com/", "access": "public"},
+        {"provider": "National Confectioners Association", "url": "https://candyusa.com/", "access": "mixed"},
+        {"provider": "Cocoa Association of Asia", "url": "https://cocoaasia.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required primary grindings series. Preserve each region, quarter, revision and publisher; otherwise leave the series unavailable."
+    },
+    {
+      "id": "natural-gas-europe-storage-balance",
+      "need_pattern": "^natural-gas-europe-storage-balance$",
+      "route_kind": "single_source",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_gie_agsi_storage_api",
+      "authorities": [
+        {"provider": "Gas Infrastructure Europe AGSI+", "url": "https://agsi.gie.eu/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed series may be a cross-check only. The decision-grade series must preserve AGSI+ working gas, technical capacity, fill percentage, geography, gas day and retrieval vintage."
+    },
+    {
+      "id": "copper-refined-balance",
+      "need_pattern": "^copper-refined-balance$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_icsg_primary_balance",
+      "authorities": [
+        {"provider": "International Copper Study Group", "url": "https://icsg.org/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required primary refined-copper balance. Preserve monthly production, use, stock change, geography, revisions and publication vintage from ICSG or an equivalent primary publisher; otherwise leave the series unavailable."
+    },
+    {
+      "id": "aluminium-primary-production",
+      "need_pattern": "^aluminium-primary-production$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_entitled_iai_primary_production",
+      "authorities": [
+        {"provider": "International Aluminium Institute", "url": "https://international-aluminium.org/statistics/primary-aluminium-production/", "access": "restricted"}
+      ],
+      "capital_iq_fallback": "Not permitted for the entitled IAI series. Use the dated IAI publication through the attested manual-ingest route, retain world and China values plus revisions, and leave the series unavailable when the required history or entitlement is absent."
+    },
+    {
+      "id": "inventory-balance",
+      "need_pattern": "(inventory|storage|stocks-use|stocks-grindings|balance|inventory-days-cover|stock-change)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_authority_api_or_file",
+      "authorities": [
+        {"provider": "EIA for energy; USDA for crops; exchange/industry body for metals and softs", "url": "https://www.eia.gov/opendata/", "access": "mixed"},
+        {"provider": "USDA Economics, Statistics, and Market Information System", "url": "https://usda.library.cornell.edu/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a dated licensed balance/inventory export only when the primary publisher route is unavailable. Preserve revisions as new vintages."
+    },
+    {
+      "id": "agriculture-fundamentals",
+      "need_pattern": "^(corn|soybeans|wheat|cotton|sugar|coffee|cocoa|grains)-.*(acreage|yield|production|export|import|shipment|port-arrival|mill|crush|ethanol|biofuel|farmgate|physical-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_or_manual_agency_release",
+      "authorities": [
+        {"provider": "USDA FAS, NASS, WAOB, and the relevant national crop authority", "url": "https://www.fas.usda.gov/data", "access": "public"},
+        {"provider": "USDA NASS Quick Stats", "url": "https://quickstats.nass.usda.gov/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use a licensed export only for the exact crop/country/marketing-year series; do not mix crop years or units."
+    },
+    {
+      "id": "energy-fundamentals",
+      "need_pattern": "(crude-oil|natural-gas|lng|refinery|dry-production|sector-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "automatic_energy_authority_api",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/opendata/", "access": "public"},
+        {"provider": "OPEC official publications", "url": "https://www.opec.org/opec_web/en/publications/338.htm", "access": "public"}
+      ],
+      "capital_iq_fallback": "Use Capital IQ for licensed global or non-public histories, with geography, unit, frequency, and release period fixed in the connector contract."
+    },
+    {
+      "id": "metals-fundamentals",
+      "need_pattern": "(mine|primary-production|capacity-power|bauxite|alumina|concentrate|scrap|supply|end-use|energy-transition)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "official_geological_or_industry_release",
+      "authorities": [
+        {"provider": "U.S. Geological Survey", "url": "https://www.usgs.gov/centers/national-minerals-information-center", "access": "public"},
+        {"provider": "Relevant national geological survey or recognized commodity study group", "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "Use a licensed industry series when the primary body restricts machine access; label estimates and keep each release vintage."
+    },
+    {
+      "id": "generic-authoritative-fallback",
+      "need_pattern": ".*",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
+      "preferred_route": "manual_source_review_then_connector",
+      "authorities": [
+        {"provider": "Commodity regulator, exchange, ministry, statistical agency, or recognized industry body", "url": "https://unstats.un.org/unsd/methodology/m49/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "If no lawful primary route exists, use a licensed Capital IQ CSV export. If neither can satisfy the exact profile definition, leave the series unavailable."
+    }
+  ]
+}

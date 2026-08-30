@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "fred-us-10y-real-yield",
+  "dataset_id": "fred.dfii10",
+  "series_id": "macro.us-10y-real-yield",
+  "series": "10-Year Treasury Inflation-Indexed Security, Constant Maturity (DFII10), percent",
+  "satisfies": ["macro-us-10y-real-yield"],
+  "subjects": ["ALUMINIUM", "COPPER"],
+  "provider": "Federal Reserve Bank of St. Louis (FRED)",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "Federal Reserve public statistical data; series-specific notes apply",
+  "licensing": {
+    "access": "public",
+    "use": "allowed",
+    "redistribution": "allowed",
+    "terms_url": "https://fred.stlouisfed.org/legal/"
+  },
+  "host_allowlist": ["fred.stlouisfed.org"],
+  "credential_env": [],
+  "release": {
+    "cadence": "daily",
+    "timezone": "America/New_York",
+    "expected_lag_days": 1,
+    "grace_days": 4,
+    "revision_policy": "revisable"
+  },
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/fred/us_10y_real_yield_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "fred_series_id": "string",
+    "observations": [{"date": "date", "percent": "float"}],
+    "source_url": "string"
+  },
+  "units": {"observations[].percent": "percent"},
+  "minimum_history": {"observations": 750, "path": "observations"}
+}

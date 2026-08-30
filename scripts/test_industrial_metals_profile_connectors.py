@@ -26,11 +26,13 @@ CONNECTORS = {
     "COPPER": {
         "cftc-cot-copper": "copper-managed-money-positioning",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
+        "fred-us-10y-real-yield": "macro-us-10y-real-yield",
     },
     "ALUMINIUM": {
         "lme-cotr-aluminium": "aluminium-lme-investment-fund-positioning",
         "iai-primary-aluminium-production": "aluminium-primary-production",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
+        "fred-us-10y-real-yield": "macro-us-10y-real-yield",
     },
 }
 FORBIDDEN = ("wiltw", "what i learned this week", "gold nostra report", "/downloads/")
@@ -120,6 +122,9 @@ assert cftc["dataset_id"] == "cftc.disaggregated-cot-futures-only"
 fetch_text = open(os.path.join(CONNECTOR_ROOT, "cftc-cot-copper", "fetch.py"), encoding="utf-8").read()
 assert "from cftc_disaggregated_cot import" in fetch_text
 assert 'contract="COPPER- #1"' in fetch_text and 'contract_code="085692"' in fetch_text
+real_yield = all_manifests["fred-us-10y-real-yield"]
+assert real_yield["series_id"] == "macro.us-10y-real-yield"
+assert set(real_yield["subjects"]) == {"ALUMINIUM", "COPPER"}
 
 lme_quality = next(row for row in aluminium if row["need"] == "aluminium-lme-investment-fund-positioning")["quality"]
 assert lme_quality["min_observations"] == 150 and lme_quality["min_span_days"] == 1000
@@ -144,17 +149,13 @@ assert set(all_manifests) <= discovered_ids, {
     "missing": sorted(set(all_manifests) - discovered_ids), "skipped": skipped,
 }
 
-def unexpected_reader(*_args, **_kwargs):
-    raise AssertionError("manual context-only connectors must never invoke the point-in-time reader")
-
-
 for series_id in ("aluminium.investment-fund-positioning", "aluminium.primary-production"):
     contextual = resolve_profile_series(
         series_id, "ALUMINIUM", "2026-08-10T12:00:00Z",
-        manifests=discovered, reader=unexpected_reader,
+        manifests=discovered, reader=lambda *_args, **_kwargs: None,
     )
     assert contextual and contextual["usable"] is False and contextual["status"] == "manual"
-    assert contextual["reason"] == "manual capture is context-only"
+    assert contextual["reason"] == "no sealed manual vintage was knowable at decision time"
 
 with tempfile.TemporaryDirectory() as temp:
     empty = Path(temp)

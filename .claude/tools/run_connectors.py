@@ -33,14 +33,14 @@ CONTRACT
   Ledger — every (connector × subject) decision appends one NDJSON row to
     <data-root>/_connectors/run_ledger.ndjson (the data/_market-style reserved
     lane). --dry-run writes nothing, ledger included.
-  Service status — a full automatic sweep (never --dry-run, --only, or manual
-    ingest) atomically refreshes <data-root>/_connectors/runner_status.json at
+  Service status — a full automatic sweep (never --dry-run, --only, --subject,
+    or manual ingest) atomically refreshes <data-root>/_connectors/runner_status.json at
     start, after each decision row, and at completion/fatal exit. It contains
     no URLs, credentials, messages, or exception text. Status I/O is best effort
     and can never change a publication outcome.
 
 USAGE
-  python3 -I run_connectors.py [--data-root data] [--only <connector-id>] [--force] [--dry-run]
+  python3 -I run_connectors.py [--data-root data] [--only <connector-id>] [--subject <SUBJECT>] [--force] [--dry-run]
   Run from anywhere (the due-aware launchd timer com.nostradamus.connectors does every 15 minutes).
 """
 from __future__ import annotations
@@ -141,12 +141,22 @@ def _acquire_repo_mutation_lock_early(repo_root: str) -> int | None:
 # Unit tests import under a module name and exercise the helper explicitly;
 # the isolated production CLI acquires and retains the descriptor to exit.
 _EARLY_REPO_MUTATION_LOCK_FD: int | None = None
+SCOPED_LOCK_BUSY_EXIT = 75
 if __name__ == "__main__":
     _bootstrap_repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     _EARLY_REPO_MUTATION_LOCK_FD = _acquire_repo_mutation_lock_early(_bootstrap_repo)
     if _EARLY_REPO_MUTATION_LOCK_FD is None:
-        print("[run_connectors] repository mutation lock is held or unsafe — skipping this sweep")
-        raise SystemExit(0)
+        _bootstrap_scoped = any(
+            argument in {"--subject", "--only", "--manual-file"}
+            or any(argument.startswith(f"{option}=") for option in ("--subject", "--only", "--manual-file"))
+            for argument in sys.argv[1:]
+        )
+        print(
+            "[run_connectors] repository mutation lock is held or unsafe — retry this scoped sweep"
+            if _bootstrap_scoped
+            else "[run_connectors] repository mutation lock is held or unsafe — skipping this sweep"
+        )
+        raise SystemExit(SCOPED_LOCK_BUSY_EXIT if _bootstrap_scoped else 0)
 
 _ephemeral_pycache_prefix = _bootstrap_sys.pycache_prefix
 if (_ephemeral_pycache_prefix
@@ -168,7 +178,6 @@ try:
     from connector_contract import (  # noqa: E402
         STABLE_READ_ATTEMPTS as _STABLE_READ_ATTEMPTS,
         TRANSIENT_READ_ERRNOS as _TRANSIENT_READ_ERRNOS,
-        advance_release_period,
         canonical_json_bytes,
         connector_storage_paths,
         content_identity as _content_identity,
@@ -177,6 +186,7 @@ try:
         no_symlink_path,
         normalise_manifest,
         publisher_owned_sidecar_fields,
+        release_contract_window,
         reread_digest_matches as _reread_digest_matches,
         stable_read_backoff as _stable_read_backoff,
         validate_manifest,
@@ -1001,34 +1011,7 @@ def latest_as_of(man: dict, data_root: str, subject: str):
 
 def release_window(man: dict, as_of: date, retrieved_at: str | datetime | None = None) -> tuple[datetime, datetime]:
     """Return the next due instant and grace deadline in the declared release timezone."""
-    release = man["release"]
-    zone = ZoneInfo(release["timezone"])
-    cadence = release["cadence"]
-    base = datetime(as_of.year, as_of.month, as_of.day, tzinfo=zone)
-    retrieved = None
-    if retrieved_at:
-        try:
-            retrieved = (retrieved_at if isinstance(retrieved_at, datetime)
-                         else datetime.fromisoformat(str(retrieved_at).replace("Z", "+00:00")))
-            if retrieved.tzinfo is None:
-                retrieved = retrieved.replace(tzinfo=timezone.utc)
-            retrieved = retrieved.astimezone(zone)
-        except (TypeError, ValueError):
-            retrieved = None
-    next_date = advance_release_period(as_of, cadence)
-    if next_date is not None:
-        next_period = datetime(next_date.year, next_date.month, next_date.day, tzinfo=zone)
-    elif cadence == "twelve_hourly":
-        next_period = (retrieved or base) + timedelta(hours=12)
-    elif cadence == "event_driven":
-        # Event-driven feeds have no predictable observation period: recheck
-        # from the accepted retrieval using their declared grace interval.
-        next_period = (retrieved or base) + timedelta(days=float(release["grace_days"]))
-        return next_period, next_period
-    else:
-        raise ValueError(f"unsupported connector release cadence: {cadence!r}")
-    due = next_period + timedelta(days=float(release["expected_lag_days"]))
-    return due, due + timedelta(days=float(release["grace_days"]))
+    return release_contract_window(man["release"], as_of, retrieved_at)
 
 
 def release_is_due(man: dict, now: datetime, as_of: date, retrieved_at: str | datetime | None = None) -> tuple[bool, bool]:
@@ -1413,9 +1396,21 @@ def staged_contains_credential(value: object, man: dict) -> bool:
     return False
 
 
+def connector_attempt_timeout(man: dict) -> int:
+    """Return the manifest-owned bounded deadline for one complete fetch transform."""
+    value = man.get("attempt_timeout_seconds", ATTEMPT_TIMEOUT_S)
+    if (
+        isinstance(value, bool) or not isinstance(value, int)
+        or value < ATTEMPT_TIMEOUT_S or value > 300
+    ):
+        raise ValueError("attempt_timeout_seconds must be an integer from the default timeout through 300")
+    return value
+
+
 def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: list[str] | None = None):
     """Returns (ok, attempts, exit_code, message)."""
     exit_code, message = None, ""
+    attempt_timeout = connector_attempt_timeout(man)
     for attempt, pause in enumerate(BACKOFF_S, start=1):
         _require_scheduled_topology(data_root=data_root)
         if pause:
@@ -1430,7 +1425,7 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
         ]
         try:
             _require_scheduled_topology(data_root=data_root)
-            p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=ATTEMPT_TIMEOUT_S,
+            p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=attempt_timeout,
                                env=connector_child_env(man))
             exit_code = p.returncode
             if p.returncode == 0:
@@ -1440,7 +1435,7 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
                 return True, attempt, 0, safe_line[-400:]
             message = redact_credentials((p.stderr or p.stdout or "").strip(), man)[-400:]
         except subprocess.TimeoutExpired:
-            exit_code, message = None, f"timeout after {ATTEMPT_TIMEOUT_S}s"
+            exit_code, message = None, f"timeout after {attempt_timeout}s"
         finally:
             shutil.rmtree(pycache_root, ignore_errors=True)
     return False, len(BACKOFF_S), exit_code, message
@@ -1532,6 +1527,7 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
             "message": "missing declared credential environment: " + ", ".join(missing_credentials),
         }
     exit_code, message, outcome = None, "", "fetch_error"
+    attempt_timeout = connector_attempt_timeout(man)
     for attempt, pause in enumerate(BACKOFF_S, start=1):
         _require_scheduled_topology(data_root=data_root)
         if pause:
@@ -1560,11 +1556,11 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
                     os.path.join(cdir, man["entry"]), "--subject", subject,
                     "--data-root", stage_root, *(extra_args or []),
                 ], cwd=cdir, capture_output=True, text=True,
-                timeout=ATTEMPT_TIMEOUT_S, env=connector_child_env(man),
+                timeout=attempt_timeout, env=connector_child_env(man),
             )
         except subprocess.TimeoutExpired:
             shutil.rmtree(stage_root, ignore_errors=True)
-            exit_code, message, outcome = None, f"timeout after {ATTEMPT_TIMEOUT_S}s", "timeout"
+            exit_code, message, outcome = None, f"timeout after {attempt_timeout}s", "timeout"
             continue
         except Exception as exc:
             shutil.rmtree(stage_root, ignore_errors=True)
@@ -2918,8 +2914,13 @@ def _report_sweep_progress(progress_callback, row: dict | None, skipped_count: i
 
 
 def run(data_root: str, only: str | None = None, force: bool = False, dry_run: bool = False,
+        subject_filter: str | None = None,
         connectors_root: str = CONNECTORS_ROOT, now: datetime | None = None,
         progress_callback=None):
+    if subject_filter is not None:
+        subject_filter = subject_filter.upper()
+        if re.fullmatch(r"[A-Z0-9][A-Z0-9._-]*", subject_filter) is None or ".." in subject_filter:
+            raise ValueError("subject_filter must be an uppercase-safe subject identifier")
     valid, skipped = discover(connectors_root)
     for name, reason in skipped:
         _log(f"skip manifest {name}: {reason}")
@@ -2946,6 +2947,8 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
         transform_hash = connector_fingerprint(cdir)
         code_ok, code_error, publisher_hash = production_code_state(cdir, connectors_root)
         for subject in man["subjects"]:
+            if subject_filter is not None and subject != subject_filter:
+                continue
             today = (now.astimezone(ZoneInfo(man["release"]["timezone"])).date()
                      if man.get("manifest_version") == 2 else host_today)
             latest = latest_as_of(man, data_root, subject)
@@ -3433,7 +3436,10 @@ def run_manual_ingest(
 
 
 def _is_full_scheduled_sweep(args: argparse.Namespace) -> bool:
-    return not args.dry_run and args.only is None and args.manual_file is None
+    return (
+        not args.dry_run and args.only is None and args.manual_file is None
+        and args.subject is None
+    )
 
 
 def _fatal_status_code(exc: BaseException) -> str:
@@ -3452,7 +3458,7 @@ def main() -> int:
     ap.add_argument("--force", action="store_true", help="ignore the release gate (still respects the pool gate)")
     ap.add_argument("--dry-run", action="store_true", help="print the freshness/decision table; execute nothing")
     ap.add_argument("--manual-file", help="operator-supplied source file; requires --only and --subject")
-    ap.add_argument("--subject", help="subject for --manual-file")
+    ap.add_argument("--subject", help="limit an interactive sweep to one subject; required by --manual-file")
     a = ap.parse_args()
     if a.manual_file and (not a.only or not a.subject or a.dry_run):
         ap.error("--manual-file requires --only <manual-connector> and --subject, and cannot be dry-run")
@@ -3472,10 +3478,14 @@ def main() -> int:
     if not a.dry_run:
         lock = acquire_lock()
         if lock is None:
-            _log("another runner instance holds the lock — skipping this sweep")
+            scoped = a.subject is not None or a.only is not None or a.manual_file is not None
+            _log(
+                "another runner instance holds the lock — retry this scoped sweep"
+                if scoped else "another runner instance holds the lock — skipping this sweep"
+            )
             if topology is not None:
                 topology.close()
-            return 0
+            return SCOPED_LOCK_BUSY_EXIT if scoped else 0
     if topology is not None:
         # Re-attest after the local wait/exclusion point and only then make the
         # guard visible to the first status publication and acquisition.
@@ -3507,6 +3517,7 @@ def main() -> int:
             result = (run_manual_ingest(a.data_root, a.only, a.subject, a.manual_file)
                       if a.manual_file else run(
                           a.data_root, only=a.only, force=a.force, dry_run=a.dry_run,
+                          subject_filter=a.subject,
                           progress_callback=record_progress if scheduled_full_sweep else None,
                       ))
         except ScheduledTopologyLost:

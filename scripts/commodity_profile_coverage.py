@@ -13,10 +13,10 @@ from pathlib import Path
 from typing import Any, Callable
 
 from canonical_json import canonical_json_bytes
-from connector_contract import load_valid_manifests
+from connector_contract import load_valid_manifests, release_contract_window
 from connector_vintages import read_point_in_time, resolve_vintage_id
 from market_prices import load_feed
-from repo_mutation import atomic_write_json
+from repo_mutation import atomic_write_json, atomic_write_text
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -33,9 +33,12 @@ STATUSES = {"usable", "missing", "manual", "unavailable", "suspect"}
 RESOLVER_KINDS = {"connector", "shared_market", "pulse_quote", "derived"}
 QUALITY_KEYS = {
     "path", "min_observations", "min_span_days", "date_field", "max_staleness_days",
-    "max_parent_gap_days",
+    "max_parent_gap_days", "required_field", "required_value",
 }
 FUTURES_PRICE_BASES = {"front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted"}
+PULSE_HISTORY_FILE_RE = re.compile(r"^(?P<price_at>\d+)-(?P<digest>[0-9a-f]{64})\.json$")
+PREFLIGHT_COVERAGE_NAME = "required_series_preflight_coverage.json"
+PREFLIGHT_SOURCES_NAME = "required_series_preflight_sources.json"
 
 
 def _utc(value: str | None) -> dt.datetime:
@@ -137,9 +140,19 @@ def structured_profile(
             value = quality.get(field)
             if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 1):
                 raise ValueError(f"structured profile requirement {index} has invalid {field}")
-        for field in ("path", "date_field"):
+        for field in ("path", "date_field", "required_field"):
             if field in quality and (not isinstance(quality[field], str) or not quality[field].strip()):
                 raise ValueError(f"structured profile requirement {index} has invalid {field}")
+        required_filter = ("required_field" in quality, "required_value" in quality)
+        if required_filter[0] != required_filter[1] or (required_filter[0] and "path" not in quality):
+            raise ValueError(f"structured profile requirement {index} has an incomplete required-row filter")
+        if "required_value" in quality:
+            required_value = quality["required_value"]
+            if (
+                required_value is None or isinstance(required_value, (dict, list))
+                or (isinstance(required_value, float) and not math.isfinite(required_value))
+            ):
+                raise ValueError(f"structured profile requirement {index} has invalid required_value")
         if quality.get("min_span_days") is not None and (
             quality.get("min_observations") is None or quality.get("date_field") is None
         ):
@@ -208,13 +221,22 @@ def profile_snapshot_sha256(
     commodity: str, *, profile_path: Path = PROFILE_PATH,
     structured_root: Path = STRUCTURED_PROFILE_ROOT,
 ) -> str:
-    """Hash the exact human + structured profile bytes used by a coverage compilation."""
+    """Hash the shared doctrine plus only this commodity's human/structured profile bytes."""
     commodity = commodity.upper()
     structured = Path(structured_root) / f"{commodity}.json"
     # Validate the pair before it can become replay authority.
     structured_profile(commodity, profile_path=Path(profile_path), structured_root=Path(structured_root))
+    markdown = Path(profile_path).read_bytes()
+    first_section = re.search(rb"(?m)^## \S", markdown)
+    selected_section = re.search(
+        rb"(?ms)^## " + re.escape(commodity.encode("ascii")) + rb"[ \t]*\r?$\n.*?(?=^## \S|\Z)",
+        markdown,
+    )
+    if first_section is None or selected_section is None:
+        raise ValueError(f"profile has no exact ## {commodity} section")
+    scoped_markdown = markdown[:first_section.start()] + selected_section.group(0)
     identity = {
-        "markdown_sha256": hashlib.sha256(Path(profile_path).read_bytes()).hexdigest(),
+        "markdown_sha256": hashlib.sha256(scoped_markdown).hexdigest(),
         "structured_sha256": hashlib.sha256(structured.read_bytes()).hexdigest(),
     }
     return "sha256:" + hashlib.sha256(canonical_json_bytes(identity)).hexdigest()
@@ -231,10 +253,20 @@ def _value_at(value: Any, dotted_path: str | None) -> Any:
     return current
 
 
-def _quality_error(payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt.datetime) -> str | None:
+def _quality_error(
+    payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt.datetime, *,
+    release: dict[str, Any] | None = None, retrieved_at: str | None = None,
+) -> str | None:
     observed = _value_at(payload, quality.get("path")) if quality.get("path") else (
         payload.get("points") if isinstance(payload, dict) else None
     )
+    if isinstance(observed, list) and quality.get("required_field") is not None:
+        required_field = quality["required_field"]
+        required_value = quality["required_value"]
+        observed = [
+            item for item in observed
+            if isinstance(item, dict) and item.get(required_field) == required_value
+        ]
     minimum = quality.get("min_observations")
     if minimum is not None and (not isinstance(observed, list) or len(observed) < minimum):
         return f"history has fewer than {minimum} required observations"
@@ -255,6 +287,13 @@ def _quality_error(payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt
         return "as-of is missing or after the decision time"
     max_staleness = quality.get("max_staleness_days")
     if max_staleness is not None and (cutoff - as_of_time).total_seconds() > max_staleness * 86400:
+        if isinstance(release, dict) and release.get("active_months"):
+            try:
+                _due, grace_end = release_contract_window(release, as_of_time.date(), retrieved_at)
+            except (KeyError, TypeError, ValueError):
+                return "seasonal release contract is invalid"
+            if cutoff <= grace_end.astimezone(dt.timezone.utc):
+                return None
         return f"as-of is more than {max_staleness} days stale"
     return None
 
@@ -275,6 +314,22 @@ def _resolved(
         "vintage_id": vintage_id, "selected_provider": provider,
         "usable": True, "health": "current", "identity": identity,
     }
+
+
+def decision_grade_manual_vintage(vintage: Any) -> bool:
+    """Return whether one sealed manual vintage may carry a decision."""
+    if not isinstance(vintage, dict) or vintage.get("acquisition") != "manual":
+        return False
+    tier = vintage.get("tier")
+    licensing = vintage.get("licensing")
+    return (
+        isinstance(tier, int) and not isinstance(tier, bool) and tier <= 5
+        and vintage.get("source_type") in {"official_data", "vendor_export", "paid_api"}
+        and isinstance(licensing, dict)
+        and licensing.get("use") in {"allowed", "entitlement_required"}
+        and licensing.get("access") in {"public", "licensed", "restricted"}
+        and isinstance(vintage.get("manual_input"), dict)
+    )
 
 
 def _market_sidecars(
@@ -365,17 +420,77 @@ def _resolve_pulse(
     requirement: dict[str, Any], commodity: str, cutoff: dt.datetime, state_root: Path,
 ) -> dict[str, Any]:
     resolver = requirement["resolver"]
+    swarm_id = resolver["swarm"]
+    candidates: list[tuple[dt.datetime, dict[str, Any], str]] = []
+    current_exists = False
     try:
         state = json.loads((state_root / "commodity-pulse.json").read_text(encoding="utf-8"))
-        swarm = state[resolver["swarm"]]
+        current_exists = True
+        swarm = state[swarm_id]
         price_at = dt.datetime.fromtimestamp(float(swarm["priceAt"]) / 1000, dt.timezone.utc)
-        quote = swarm["prices"][commodity]
-    except (OSError, ValueError, OverflowError, TypeError, KeyError, json.JSONDecodeError):
+        if price_at <= cutoff and isinstance(swarm.get("prices"), dict):
+            candidates.append((price_at, swarm, "current"))
+    except (OSError, ValueError, OverflowError, TypeError, KeyError, json.JSONDecodeError, AttributeError):
+        pass
+
+    history_root = state_root / "commodity-pulse-history" / hashlib.sha256(swarm_id.encode("utf-8")).hexdigest()
+    history_defect: str | None = None
+    try:
+        names = sorted(
+            (path.name for path in history_root.iterdir() if path.is_file() and not path.is_symlink()),
+            reverse=True,
+        )
+    except OSError:
+        names = []
+    for name in names:
+        match = PULSE_HISTORY_FILE_RE.fullmatch(name)
+        if not match:
+            continue
+        try:
+            price_at_ms = int(match.group("price_at"))
+            price_at = dt.datetime.fromtimestamp(price_at_ms / 1000, dt.timezone.utc)
+        except (ValueError, OverflowError, OSError):
+            continue
+        if price_at > cutoff:
+            continue
+        try:
+            envelope = json.loads((history_root / name).read_text(encoding="utf-8"))
+            if not isinstance(envelope, dict) or set(envelope) != {
+                "schema_version", "swarm", "priceAt", "prices", "snapshot_sha256",
+            }:
+                raise ValueError("invalid pulse history envelope")
+            material = {
+                "swarm": envelope["swarm"], "priceAt": envelope["priceAt"], "prices": envelope["prices"],
+            }
+            actual = hashlib.sha256(canonical_json_bytes(material)).hexdigest()
+            if (
+                envelope["schema_version"] != 1 or envelope["swarm"] != swarm_id
+                or envelope["priceAt"] != price_at_ms or not isinstance(envelope["prices"], dict)
+                or envelope["snapshot_sha256"] != "sha256:" + actual or actual != match.group("digest")
+            ):
+                raise ValueError("pulse history identity or content hash failed")
+            candidates.append((price_at, {"priceAt": price_at_ms, "prices": envelope["prices"]}, "history"))
+        except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError):
+            history_defect = "point-in-time pulse history identity or content hash failed"
+        break
+
+    if not candidates:
+        if history_defect:
+            return {"usable": False, "status": "suspect", "reason": history_defect}
+        if current_exists:
+            return {"usable": False, "status": "suspect", "reason": "pulse quote point-in-time boundary failed"}
         return {"usable": False, "status": "missing", "reason": "pulse quote snapshot is absent"}
+
+    candidates.sort(key=lambda item: (item[0], item[2] == "history"), reverse=True)
+    price_at, swarm, _source = candidates[0]
+    try:
+        quote = swarm["prices"][commodity]
+    except (TypeError, KeyError):
+        return {"usable": False, "status": "missing", "reason": "pulse quote snapshot has no commodity price"}
     quote_at = _parse_instant(quote.get("as_of")) if isinstance(quote, dict) else None
     value = quote.get("last") if isinstance(quote, dict) else None
     if (
-        not isinstance(quote, dict) or price_at > cutoff or quote_at is None or quote_at > price_at
+        not isinstance(quote, dict) or quote_at is None or quote_at > price_at
         or quote.get("symbol") != resolver.get("symbol") or quote.get("source") != resolver.get("source")
         or not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or value <= 0
     ):
@@ -405,30 +520,51 @@ def _resolve_connector(
         manifest for manifest in manifests
         if commodity in manifest.get("subjects", []) and requirement["need"] in manifest.get("satisfies", [])
     ]
-    if len(owners) > 1:
-        return {"usable": False, "status": "suspect", "reason": "more than one connector claims this need"}
     if not owners:
         return {"usable": False, "status": "unavailable", "reason": "no connector claims the profile-owned series"}
-    manifest = owners[0]
-    if manifest.get("series_id") != requirement["series"]:
+    if any(manifest.get("series_id") != requirement["series"] for manifest in owners):
         return {"usable": False, "status": "suspect", "reason": "connector series identity conflicts with the profile"}
-    if manifest.get("acquisition") == "manual" or manifest.get("manual") is True:
-        return {
-            "usable": False, "status": "manual", "reason": "manual capture is context-only",
-            "manifest": manifest,
-        }
+    primaries = [manifest for manifest in owners if not manifest.get("fallback_for")]
+    if len(primaries) != 1 or any(
+        manifest.get("fallback_for") not in {None, primaries[0].get("id")}
+        for manifest in owners
+    ):
+        return {"usable": False, "status": "suspect", "reason": "connector provider group is ambiguous"}
+    manifest = primaries[0]
     result = reader(
         str(data_root), requirement["series"], commodity, _iso(cutoff),
         connectors_root=str(connectors_root), manifests=manifests,
     )
     if result is None:
-        return {"usable": False, "status": "missing", "reason": "no eligible immutable vintage was knowable at decision time", "manifest": manifest}
+        manual_only = all(
+            owner.get("acquisition") == "manual" or owner.get("manual") is True
+            for owner in owners
+        )
+        return {
+            "usable": False, "status": "manual" if manual_only else "missing",
+            "reason": (
+                "no sealed manual vintage was knowable at decision time"
+                if manual_only else "no eligible immutable vintage was knowable at decision time"
+            ),
+            "manifest": manifest,
+        }
     vintage = result.get("vintage") if isinstance(result, dict) else None
     if not isinstance(result, dict) or result.get("usable") is not True or result.get("health") != "current" or not isinstance(vintage, dict):
         return {"usable": False, "status": "suspect", "reason": "point-in-time reader rejected the available vintage", "manifest": manifest}
-    if vintage.get("acquisition") == "manual" or not isinstance(vintage.get("tier"), int) or vintage.get("tier") > 5:
+    tier = vintage.get("tier")
+    if not isinstance(tier, int) or isinstance(tier, bool) or tier > 5:
         return {"usable": False, "status": "manual", "reason": "selected vintage is not eligible primary/provider evidence", "manifest": manifest}
-    defect = _quality_error(result.get("payload"), vintage.get("as_of"), requirement["quality"], cutoff)
+    if vintage.get("acquisition") == "manual":
+        if not decision_grade_manual_vintage(vintage):
+            return {
+                "usable": False, "status": "manual",
+                "reason": "sealed manual vintage is not eligible official/provider evidence",
+                "manifest": manifest,
+            }
+    defect = _quality_error(
+        result.get("payload"), vintage.get("as_of"), requirement["quality"], cutoff,
+        release=vintage.get("release"), retrieved_at=vintage.get("retrieved_at"),
+    )
     if defect:
         return {"usable": False, "status": "suspect", "reason": defect, "manifest": manifest}
     return result
@@ -619,6 +755,20 @@ def compile_coverage(
     return artifact
 
 
+def coverage_status_counts(artifact: dict[str, Any]) -> dict[str, int]:
+    """Return an explicit status census for operator preflight and tests."""
+    rows = artifact.get("rows") if isinstance(artifact, dict) else None
+    if not isinstance(rows, list):
+        raise ValueError("coverage artifact rows are missing")
+    counts = {status: 0 for status in sorted(STATUSES)}
+    for row in rows:
+        status = row.get("status") if isinstance(row, dict) else None
+        if status not in STATUSES:
+            raise ValueError("coverage artifact contains an unknown status")
+        counts[status] += 1
+    return counts
+
+
 def frozen_source_resolver(
     snapshot: dict[str, Any], coverage: dict[str, Any], *, data_root: Path = REPO / "data",
 ) -> Callable[[str, str, str], dict[str, Any] | None]:
@@ -708,6 +858,80 @@ def frozen_source_resolver(
     return resolve
 
 
+def write_preflight_bundle(
+    run_root: Path, coverage: dict[str, Any], sources: dict[str, Any],
+) -> None:
+    """Freeze the pre-orb evidence view without replacing terminal decision artifacts."""
+    run_root.mkdir(parents=True, exist_ok=True)
+    # Sources first, then the coverage file that binds their digest. A crash can
+    # leave an orphan source snapshot, never an apparently complete coverage pair.
+    atomic_write_json(str(run_root / PREFLIGHT_SOURCES_NAME), sources)
+    atomic_write_json(str(run_root / PREFLIGHT_COVERAGE_NAME), coverage)
+
+
+def load_preflight_bundle(
+    run_root: Path, *, commodity: str, decision_time: str,
+    profile_path: Path = PROFILE_PATH, structured_root: Path = STRUCTURED_PROFILE_ROOT,
+    data_root: Path = REPO / "data", validate_connector_rows: bool = False,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Load and verify the exact evidence view frozen before analytical work began."""
+    commodity = commodity.upper()
+    cutoff = _iso(_utc(decision_time))
+    coverage_path = run_root / PREFLIGHT_COVERAGE_NAME
+    sources_path = run_root / PREFLIGHT_SOURCES_NAME
+    try:
+        coverage_text = coverage_path.read_text(encoding="utf-8")
+        sources_text = sources_path.read_text(encoding="utf-8")
+        coverage = json.loads(coverage_text)
+        sources = json.loads(sources_text)
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError("preflight evidence snapshot is missing or invalid") from error
+    rows = coverage.get("rows") if isinstance(coverage, dict) else None
+    if (
+        not isinstance(coverage, dict) or coverage.get("schema_version") != 3
+        or coverage.get("commodity") != commodity or coverage.get("decision_time") != cutoff
+        or coverage.get("profile_snapshot_sha256") != profile_snapshot_sha256(
+            commodity, profile_path=profile_path, structured_root=structured_root,
+        )
+        or not isinstance(rows, list)
+        or coverage.get("required_count") != len(rows)
+        or coverage.get("usable_count") != sum(
+            isinstance(row, dict) and row.get("status") == "usable" for row in rows
+        )
+        or coverage.get("complete") is not all(
+            isinstance(row, dict) and row.get("status") == "usable" for row in rows
+        )
+        or coverage.get("unresolved_need_ids") != [
+            row.get("need_id") for row in rows
+            if isinstance(row, dict) and row.get("status") != "usable"
+        ]
+        or not isinstance(sources, dict) or sources.get("schema_version") != 1
+        or sources.get("commodity") != commodity or sources.get("decision_time") != cutoff
+        or coverage_text != json.dumps(coverage, indent=2, ensure_ascii=False) + "\n"
+        or sources_text != source_snapshot_bytes(sources).decode("utf-8")
+        or source_snapshot_sha256(sources) != coverage.get("source_snapshot_sha256")
+    ):
+        raise ValueError("preflight evidence snapshot identity or counts failed")
+    # This checks the snapshot-to-coverage bijection immediately. Non-connector
+    # rows must replay wholly from frozen bytes; connector rows may additionally
+    # be resolved from their immutable lane at terminal promotion.
+    resolver = frozen_source_resolver(sources, coverage, data_root=data_root)
+    seen: set[str] = set()
+    for row in rows:
+        series = row.get("series_id") if isinstance(row, dict) else None
+        if not isinstance(series, str) or not series or series in seen:
+            raise ValueError("preflight coverage series identities are invalid or duplicated")
+        seen.add(series)
+        if row.get("status") != "usable" or (
+            isinstance(row.get("connector_id"), str) and not validate_connector_rows
+        ):
+            continue
+        result = resolver(series, commodity, cutoff)
+        if not isinstance(result, dict) or result.get("vintage_id") != row.get("vintage_id"):
+            raise ValueError(f"preflight evidence vintage cannot be replayed: {series}")
+    return coverage, sources
+
+
 def artifact_sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -722,20 +946,64 @@ def main() -> int:
     parser.add_argument("--data-root", type=Path, default=REPO / "data")
     parser.add_argument("--market-root", type=Path, default=MARKET_ROOT)
     parser.add_argument("--state-root", type=Path, default=STATE_ROOT)
+    snapshot_mode = parser.add_mutually_exclusive_group()
+    snapshot_mode.add_argument(
+        "--preflight", action="store_true",
+        help="report coverage and freeze a separate pre-orb evidence snapshot",
+    )
+    snapshot_mode.add_argument(
+        "--promote-preflight", action="store_true",
+        help="validate and promote the exact pre-orb snapshot to terminal artifacts",
+    )
     args = parser.parse_args()
     try:
         run_root = args.run_root.resolve()
         commodity = run_root.name.upper()
         decision_time = _iso(_utc(args.decision_time))
-        artifact, sources = compile_coverage_bundle(
-            commodity=commodity, decision_time=decision_time, profile_path=args.profile,
-            structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
-            data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
-        )
+        if args.preflight:
+            artifact, sources = compile_coverage_bundle(
+                commodity=commodity, decision_time=decision_time, profile_path=args.profile,
+                structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
+                data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
+            )
+            write_preflight_bundle(run_root, artifact, sources)
+            counts = coverage_status_counts(artifact)
+            affected_orbs = sorted({
+                row["owner_orb"] for row in artifact["rows"] if row["status"] != "usable"
+            })
+            print(
+                f"PROFILE-PREFLIGHT: usable={counts['usable']}/{artifact['required_count']} "
+                f"missing={counts['missing']} manual={counts['manual']} "
+                f"unavailable={counts['unavailable']} suspect={counts['suspect']} "
+                f"affected_orbs={','.join(affected_orbs) or 'none'}"
+            )
+            return 2 if counts["usable"] == 0 else 0
+        if args.promote_preflight:
+            artifact, sources = load_preflight_bundle(
+                run_root, commodity=commodity, decision_time=decision_time,
+                profile_path=args.profile, structured_root=args.structured_profile_root,
+                data_root=args.data_root, validate_connector_rows=True,
+            )
+        else:
+            artifact, sources = compile_coverage_bundle(
+                commodity=commodity, decision_time=decision_time, profile_path=args.profile,
+                structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
+                data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
+            )
         output = run_root / "required_series_coverage.json"
         source_output = run_root / "required_series_sources.json"
-        atomic_write_json(str(source_output), sources)
-        atomic_write_json(str(output), artifact)
+        if args.promote_preflight:
+            atomic_write_text(
+                str(source_output),
+                (run_root / PREFLIGHT_SOURCES_NAME).read_text(encoding="utf-8"),
+            )
+            atomic_write_text(
+                str(output),
+                (run_root / PREFLIGHT_COVERAGE_NAME).read_text(encoding="utf-8"),
+            )
+        else:
+            atomic_write_json(str(source_output), sources)
+            atomic_write_json(str(output), artifact)
         digest = artifact_sha256(output)
     except (OSError, RuntimeError, ValueError) as error:
         print(f"PROFILE-COVERAGE-FAIL: {error}")

@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "oecd-global-industrial-production",
+  "dataset_id": "oecd.kei.oecd-total-industrial-production",
+  "series_id": "macro.global-activity-demand-proxy",
+  "series": "OECD Total industrial production volume index, monthly, seasonally adjusted",
+  "satisfies": ["macro-global-activity-demand-proxy"],
+  "subjects": ["ALUMINIUM", "COPPER", "COTTON", "CRUDE-OIL"],
+  "provider": "Organisation for Economic Co-operation and Development",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "OECD Data permitted use with attribution; dataset-specific third-party restrictions may apply",
+  "licensing": {
+    "access": "public",
+    "use": "allowed",
+    "redistribution": "allowed",
+    "terms_url": "https://www.oecd.org/en/about/terms-conditions.html"
+  },
+  "host_allowlist": ["sdmx.oecd.org"],
+  "credential_env": [],
+  "release": {
+    "cadence": "monthly",
+    "timezone": "Europe/Paris",
+    "expected_lag_days": 45,
+    "grace_days": 30,
+    "revision_policy": "revisable"
+  },
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/oecd/global_industrial_production_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "oecd_dataflow": "string",
+    "reference_area": "string",
+    "measure": "string",
+    "adjustment": "string",
+    "observations": [{
+      "date": "date",
+      "index": "float",
+      "status": "string",
+      "base_period": "string"
+    }],
+    "source_url": "string"
+  },
+  "units": {"observations[].index": "index"},
+  "minimum_history": {"observations": 120, "path": "observations"}
+}
