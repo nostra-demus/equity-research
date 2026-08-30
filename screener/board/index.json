@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:24:56Z",
+  "generated_at": "2026-08-30T04:29:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -190,6 +190,55 @@
           "name": "Glencore",
           "ticker": "GLEN",
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-078",
+      "headline": "Reliance Jio IPO: Google, Meta among 6 investors to retain stakes in Rs 37,700 crore offer",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/reliance-jio-ipo-google-meta-among-6-investors-to-retain-stakes-in-rs-37700-crore-offer/slideshow/133622985.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:06:14Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Reliance Jio is preparing for an IPO valued at Rs 37,700 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Reliance Jio is preparing for an IPO valued at Rs 37,700 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1786,6 +1835,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-079",
+      "headline": "Claridge’s operator bets on US and UK visitors to offset Middle East",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a1bfac83-5310-4fdb-bbc7-1efb983a83a0?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Claridge's operator is adjusting its geographic focus to mitigate regional demand weakness.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Claridge's operator is adjusting its geographic focus to mitigate regional demand weakness.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maybourne Hotel Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-073",
       "headline": "Venezuela’s interim president says US oil deal will last 25 years",
       "headline_en": null,
@@ -1820,92 +1918,6 @@
       },
       "event_types": [
         "commercial",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-049",
-      "headline": "Presidenta encargada de Venezuela dice que acuerdo petrolero con EEUU será por 25 años",
-      "headline_en": "Acting President of Venezuela says oil agreement with the US will be for 25 years",
-      "url": "https://www.reuters.com/es/mundo/VAHPCTN2NFPL3F5RCWFJ23VV2Y-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:23:48Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The Venezuelan acting president announced a 25-year oil agreement with the US, signaling a potential long-term shift in energy supply and geopolitical relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "The Venezuelan acting president announced a 25-year oil agreement with the US, signaling a potential long-term shift in energy supply and geopolitical relations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-014",
-      "headline": "Iran war news LIVE Updates: Oil ‘normally’ transiting southern Strait of Hormuz route? Tehran questions US claim",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-news-live-updates-us-donald-trump-oil-strait-of-hormuz-route-tehran-questions-us-claim-oman-deal-iraq-pakistan-11788048822918.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:30:42Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Heightened tensions regarding the Strait of Hormuz pose a direct risk to global oil supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Heightened tensions regarding the Strait of Hormuz pose a direct risk to global oil supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -87561,76 +87573,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4f1853282799",
-      "idea_version": "IDEAV-4fa1ad7c93e37aba",
-      "idea_version_started_at": "2026-08-30T00:06:22Z",
-      "ticker": "KVUE",
-      "company": "Kenvue Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
-      "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9bf4b4652007"
-      ],
-      "primary_source_event_id": "EVT-9bf4b4652007",
-      "source_headlines": [
-        "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
-      ],
-      "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
-      "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T16:26:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T00:06:22Z",
-      "updated_at": "2026-08-30T00:06:22Z",
-      "decay_at": "2026-08-30T04:26:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9dc53bf2a68a",
       "idea_version": "IDEAV-c16f9785c3c6ba07",
       "idea_version_started_at": "2026-08-29T23:27:48Z",
@@ -90889,6 +90831,76 @@
       "surfaced_at": "2026-08-29T14:17:28Z",
       "updated_at": "2026-08-30T01:05:10Z",
       "decay_at": "2026-08-30T03:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4f1853282799",
+      "idea_version": "IDEAV-4fa1ad7c93e37aba",
+      "idea_version_started_at": "2026-08-30T00:06:22Z",
+      "ticker": "KVUE",
+      "company": "Kenvue Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
+      "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9bf4b4652007"
+      ],
+      "primary_source_event_id": "EVT-9bf4b4652007",
+      "source_headlines": [
+        "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
+      ],
+      "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
+      "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T16:26:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T00:06:22Z",
+      "updated_at": "2026-08-30T00:06:22Z",
+      "decay_at": "2026-08-30T04:26:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94753,13 +94765,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 250,
-    "shown_count": 250,
+    "total_count": 251,
+    "shown_count": 251,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 115,
-        "shown_count": 115,
+        "total_count": 116,
+        "shown_count": 116,
         "hidden_count": 0
       },
       "short": {
@@ -94784,6 +94796,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4f1853282799",
+        "idea_version": "IDEAV-4fa1ad7c93e37aba",
+        "idea_version_started_at": "2026-08-30T00:06:22Z",
+        "ticker": "KVUE",
+        "company": "Kenvue Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
+        "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9bf4b4652007"
+        ],
+        "primary_source_event_id": "EVT-9bf4b4652007",
+        "source_headlines": [
+          "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
+        ],
+        "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
+        "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T16:26:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T00:06:22Z",
+        "updated_at": "2026-08-30T00:06:22Z",
+        "decay_at": "2026-08-30T04:26:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T04:26:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3bb4c249dc6a",
         "idea_version": "IDEAV-078fb60274d1af85",
@@ -113309,7 +113394,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 282,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -113328,9 +113413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 505,
-    "news_picked_today": 88,
-    "news_dropped_today": 417
+    "news_seen_today": 525,
+    "news_picked_today": 94,
+    "news_dropped_today": 431
   },
   "book_momentum": {
     "live_count": 8,
