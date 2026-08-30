@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T00:19:42Z",
+  "generated_at": "2026-08-30T00:24:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-006",
@@ -241,6 +241,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-009",
+      "headline": "Inside Trump’s Plan to Give the Pentagon a Stake in Venezuela’s Oil Riches",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/inside-trumps-plan-to-give-the-pentagon-a-stake-in-venezuelas-oil-riches-f054cdc2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Proposed geopolitical policy involving the Pentagon and Venezuelan oil assets could significantly impact regional energy supply and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Proposed geopolitical policy involving the Pentagon and Venezuelan oil assets could significantly impact regional energy supply and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -87658,77 +87701,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8b68f20f17c3",
-      "idea_version": "IDEAV-cf3677a0ed88dfc6",
-      "idea_version_started_at": "2026-08-29T21:13:33Z",
-      "ticker": "01255",
-      "company": "TATA HEALTH",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "TATA HEALTH issued a profit warning, indicating that its upcoming earnings will be lower than previously expected, which will negatively impact its profitability.",
-      "why_now": "The company released an inside information clarification announcement regarding the profit warning on August 28, 2026, making this a live catalyst for its near-term financial outlook.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-430beb9e0fe4"
-      ],
-      "primary_source_event_id": "EVT-430beb9e0fe4",
-      "source_headlines": [
-        "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING"
-      ],
-      "source_headline": "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802456.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:43:25Z",
-      "updated_at": "2026-08-29T21:13:33Z",
-      "decay_at": "2026-08-30T00:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-017f4db87209",
       "idea_version": "IDEAV-5f777a7efbcea721",
       "idea_version_started_at": "2026-08-29T19:04:06Z",
@@ -90561,6 +90533,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8b68f20f17c3",
+      "idea_version": "IDEAV-cf3677a0ed88dfc6",
+      "idea_version_started_at": "2026-08-29T21:13:33Z",
+      "ticker": "01255",
+      "company": "TATA HEALTH",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "TATA HEALTH issued a profit warning, indicating that its upcoming earnings will be lower than previously expected, which will negatively impact its profitability.",
+      "why_now": "The company released an inside information clarification announcement regarding the profit warning on August 28, 2026, making this a live catalyst for its near-term financial outlook.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-430beb9e0fe4"
+      ],
+      "primary_source_event_id": "EVT-430beb9e0fe4",
+      "source_headlines": [
+        "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING"
+      ],
+      "source_headline": "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802456.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T21:13:33Z",
+      "decay_at": "2026-08-30T00:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8c0df7c727b4",
       "idea_version": "IDEAV-f1311c301d8cfdf9",
       "idea_version_started_at": "2026-08-29T21:13:33Z",
@@ -92858,8 +92901,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 231,
-    "shown_count": 231,
+    "total_count": 232,
+    "shown_count": 232,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -92868,8 +92911,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 123,
-        "shown_count": 123,
+        "total_count": 124,
+        "shown_count": 124,
         "hidden_count": 0
       }
     },
@@ -92889,6 +92932,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8b68f20f17c3",
+        "idea_version": "IDEAV-cf3677a0ed88dfc6",
+        "idea_version_started_at": "2026-08-29T21:13:33Z",
+        "ticker": "01255",
+        "company": "TATA HEALTH",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "TATA HEALTH issued a profit warning, indicating that its upcoming earnings will be lower than previously expected, which will negatively impact its profitability.",
+        "why_now": "The company released an inside information clarification announcement regarding the profit warning on August 28, 2026, making this a live catalyst for its near-term financial outlook.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-430beb9e0fe4"
+        ],
+        "primary_source_event_id": "EVT-430beb9e0fe4",
+        "source_headlines": [
+          "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING"
+        ],
+        "source_headline": "TATA HEALTH (01255): INSIDE INFORMATION CLARIFICATION ANNOUNCEMENT IN RELATION TO PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802456.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:24:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:43:25Z",
+        "updated_at": "2026-08-29T21:13:33Z",
+        "decay_at": "2026-08-30T00:24:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:24:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1089cf77cf0a",
         "idea_version": "IDEAV-20ea7d2ea26e7534",
@@ -110013,7 +110130,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 274,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -110023,7 +110140,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1790,
+    "inbox_unconsumed": 1791,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -110032,9 +110149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46,
-    "news_picked_today": 9,
-    "news_dropped_today": 37
+    "news_seen_today": 56,
+    "news_picked_today": 10,
+    "news_dropped_today": 46
   },
   "book_momentum": {
     "live_count": 8,
