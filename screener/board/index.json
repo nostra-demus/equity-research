@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T08:24:42Z",
+  "generated_at": "2026-08-30T08:29:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1778,6 +1778,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-150",
+      "headline": "Tata's TCE wants private sector to take the nuclear power baton from DAE",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/tatas-tce-wants-private-sector-to-take-the-nuclear-power-baton-from-dae/articleshow/133626106.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:20:58Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Tata Consulting Engineers is advocating for a major policy shift to allow private sector participation in nuclear power, which could open a new market segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Tata Consulting Engineers is advocating for a major policy shift to allow private sector participation in nuclear power, which could open a new market segment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consulting Engineers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-143",
       "headline": "Dental Boutique seeks growth partner at $500m-plus valuation",
       "headline_en": null,
@@ -1920,56 +1969,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-123",
-      "headline": "DGCA flagged safety issues with Tecnam aircraft before Kanpur crash",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/dgca-flagged-safety-issues-with-tecnam-aircraft-before-kanpur-crash/article71407172.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T07:01:50Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The DGCA identified safety concerns regarding Tecnam aircraft prior to a fatal crash, creating potential regulatory and operational risk for operators of these aircraft.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The DGCA identified safety concerns regarding Tecnam aircraft prior to a fatal crash, creating potential regulatory and operational risk for operators of these aircraft.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Tecnam",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113830,9 +113829,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1228,
-    "news_picked_today": 215,
-    "news_dropped_today": 1013
+    "news_seen_today": 1241,
+    "news_picked_today": 218,
+    "news_dropped_today": 1023
   },
   "book_momentum": {
     "live_count": 8,
