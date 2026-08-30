@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T00:15:28Z",
+  "generated_at": "2026-08-30T00:19:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-006",
@@ -138,6 +138,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-008",
+      "headline": "John Ternus Becomes Apple's CEO on Sept. 1. Here's What History Says the First Year Does to the Stock.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/29/john-ternus-becomes-apple-s-ceo-on-sept-1-here-s-what-history-says-the-first-year-does-to-the-stock/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T23:41:01Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The headline discusses a CEO transition at Apple, but the content is historical analysis rather than a new strategic announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The headline discusses a CEO transition at Apple, but the content is historical analysis rather than a new strategic announcement.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109974,7 +110023,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1789,
+    "inbox_unconsumed": 1790,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -109983,9 +110032,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 38,
-    "news_picked_today": 8,
-    "news_dropped_today": 30
+    "news_seen_today": 46,
+    "news_picked_today": 9,
+    "news_dropped_today": 37
   },
   "book_momentum": {
     "live_count": 8,
