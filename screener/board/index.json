@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:00:26Z",
+  "generated_at": "2026-08-30T10:04:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-186",
+      "headline": "Bira 91 faces insolvency push as HNGIL seeks Rs 11.8 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/bira-91-faces-insolvency-push-as-hngil-seeks-rs-11-8-crore/articleshow/133626897.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:37:34Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Bira 91 is facing an insolvency petition for an unpaid debt of Rs 11.8 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bira 91 is facing an insolvency petition for an unpaid debt of Rs 11.8 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bira 91",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-152",
-      "headline": "Anchorage in driver’s seat for NRMA’s SIXT Australia",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/anchorage-in-driver-s-seat-for-nrma-s-sixt-australia-20260830-p60srl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:31:34Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Anchorage Capital is positioned to acquire the SIXT Australia franchise from NRMA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Anchorage Capital is positioned to acquire the SIXT Australia franchise from NRMA.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NRMA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114640,9 +114640,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1663,
-    "news_picked_today": 286,
-    "news_dropped_today": 1377
+    "news_seen_today": 1675,
+    "news_picked_today": 289,
+    "news_dropped_today": 1386
   },
   "book_momentum": {
     "live_count": 8,
