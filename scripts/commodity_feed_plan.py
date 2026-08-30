@@ -27,7 +27,7 @@ def load_authorities(path: Path = AUTHORITY_PATH) -> dict[str, Any]:
         not isinstance(value, dict) or set(value) != {
             "schema_version", "purpose", "selection_order", "capital_iq", "rules",
         }
-        or value.get("schema_version") != 1
+        or value.get("schema_version") != 2
         or not isinstance(value.get("purpose"), str) or not value["purpose"]
         or not isinstance(value.get("selection_order"), list) or not value["selection_order"]
         or not all(isinstance(item, str) and item for item in value["selection_order"])
@@ -38,8 +38,18 @@ def load_authorities(path: Path = AUTHORITY_PATH) -> dict[str, Any]:
     for index, rule in enumerate(value["rules"]):
         if (
             not isinstance(rule, dict)
-            or set(rule) != {"id", "need_pattern", "preferred_route", "authorities", "capital_iq_fallback"}
+            or set(rule) != {
+                "id", "need_pattern", "route_kind", "capital_iq_use", "preferred_route",
+                "authorities", "capital_iq_fallback",
+            }
             or not isinstance(rule.get("id"), str) or rule["id"] in seen
+            or rule.get("route_kind") not in {
+                "single_source", "composite", "derived", "official_event",
+                "official_observation", "issuer_only", "manual_official",
+            }
+            or rule.get("capital_iq_use") not in {
+                "full_fallback", "partial_input", "raw_parent_only", "not_permitted",
+            }
             or not isinstance(rule.get("preferred_route"), str) or not rule["preferred_route"]
             or not isinstance(rule.get("capital_iq_fallback"), str) or not rule["capital_iq_fallback"]
             or not isinstance(rule.get("authorities"), list) or not rule["authorities"]
@@ -182,6 +192,7 @@ def build_plan(
             "conflicting_connector_ids": [owner["id"] for owner in conflicts],
             "primary_connector_id": primary.get("id") if isinstance(primary, dict) else None,
             "source_rule_id": rule["id"], "preferred_route": rule["preferred_route"],
+            "route_kind": rule["route_kind"], "capital_iq_use": rule["capital_iq_use"],
             "authorities": rule["authorities"],
             "capital_iq_fallback": rule["capital_iq_fallback"],
         })
@@ -189,8 +200,16 @@ def build_plan(
         "implemented_automatic", "implemented_manual", "build_needed", "contract_conflict",
         "profile_route",
     )}
+    gap_routes = {
+        mode: sum(
+            row["status"] == "build_needed" and row["capital_iq_use"] == mode
+            for row in rows
+        )
+        for mode in ("full_fallback", "partial_input", "raw_parent_only", "not_permitted")
+    }
     return {
-        "schema_version": 1, "commodity": commodity, "counts": counts,
+        "schema_version": 2, "commodity": commodity, "counts": counts,
+        "gap_routes": gap_routes,
         "capital_iq_policy": guide["capital_iq"], "rows": rows,
     }
 
@@ -228,7 +247,11 @@ def main() -> int:
             f"{plan['commodity']}: automatic={counts['implemented_automatic']} "
             f"manual={counts['implemented_manual']} gaps={counts['build_needed']} "
             f"conflicts={counts['contract_conflict']} "
-            f"profile_routes={counts['profile_route']}"
+            f"profile_routes={counts['profile_route']} "
+            f"ciq_full={plan['gap_routes']['full_fallback']} "
+            f"ciq_partial={plan['gap_routes']['partial_input']} "
+            f"ciq_parents={plan['gap_routes']['raw_parent_only']} "
+            f"official_only={plan['gap_routes']['not_permitted']}"
         )
         for row in plan["rows"]:
             if args.gaps_only or row["status"] in {"build_needed", "contract_conflict"}:

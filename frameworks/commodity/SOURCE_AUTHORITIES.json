@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "purpose": "Routing guide only. A source becomes evidence only after a reviewed connector publishes a valid immutable vintage.",
   "selection_order": [
     "Free primary authority with lawful machine-readable access",
@@ -18,6 +18,8 @@
     {
       "id": "natural-gas-capacity-availability",
       "need_pattern": "^(natural-gas-lng-export-capacity-availability|natural-gas-russian-pipeline-availability)$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
       "preferred_route": "automatic_composite_energy_authorities_and_primary_operator_files",
       "authorities": [
         {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/naturalgas/", "access": "public"},
@@ -30,6 +32,8 @@
     {
       "id": "official-policy-events",
       "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
+      "route_kind": "official_event",
+      "capital_iq_use": "not_permitted",
       "preferred_route": "manual_official_event",
       "authorities": [
         {"provider": "Issuing government, regulator, ministry, customs authority, or producer group", "url": "https://www.opec.org/", "access": "mixed"}
@@ -39,6 +43,8 @@
     {
       "id": "derived-cost-value",
       "need_pattern": "(cost|parity|replacement|switching|incentive)",
+      "route_kind": "derived",
+      "capital_iq_use": "raw_parent_only",
       "preferred_route": "derived_from_primary_inputs",
       "authorities": [
         {"provider": "EIA, USDA, USGS, official FX/rate publishers, and relevant exchanges", "url": "https://www.eia.gov/opendata/", "access": "public"}
@@ -48,6 +54,8 @@
     {
       "id": "futures-positioning",
       "need_pattern": "(managed-money|positioning|investment-fund)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_official_api_or_exchange_file",
       "authorities": [
         {"provider": "U.S. Commodity Futures Trading Commission", "url": "https://publicreporting.cftc.gov/", "access": "public"},
@@ -58,6 +66,8 @@
     {
       "id": "fund-holdings-flows",
       "need_pattern": "(etf|etn|fund-flow|issuer)",
+      "route_kind": "issuer_only",
+      "capital_iq_use": "not_permitted",
       "preferred_route": "automatic_issuer_file",
       "authorities": [
         {"provider": "Fund issuer daily holdings/creation files", "url": "https://www.ishares.com/us/products/239561/ishares-gold-trust-fund", "access": "mixed"}
@@ -67,6 +77,8 @@
     {
       "id": "official-sector-reserves",
       "need_pattern": "official-reserve",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_or_manual_imf_central_bank_release",
       "authorities": [
         {"provider": "International Monetary Fund Data", "url": "https://data.imf.org/", "access": "public"},
@@ -77,6 +89,8 @@
     {
       "id": "weather-crop-condition",
       "need_pattern": "(climate|weather|enso|phenology|crop-progress|crop-condition|disease)",
+      "route_kind": "official_observation",
+      "capital_iq_use": "partial_input",
       "preferred_route": "automatic_government_api_or_file",
       "authorities": [
         {"provider": "NOAA Climate Prediction Center", "url": "https://www.cpc.ncep.noaa.gov/", "access": "public"},
@@ -87,6 +101,8 @@
     {
       "id": "us-macro-rates-dollar",
       "need_pattern": "(real-yield|broad-usd|us-10y)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_government_api_or_csv",
       "authorities": [
         {"provider": "U.S. Treasury", "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates", "access": "public"},
@@ -97,6 +113,8 @@
     {
       "id": "usda-china-crop-trade",
       "need_pattern": "(corn-export-sales-china-demand|soybeans-china-imports-export-sales)",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
       "preferred_route": "automatic_composite_usda_fas_and_china_customs",
       "authorities": [
         {"provider": "USDA Foreign Agricultural Service", "url": "https://www.fas.usda.gov/data", "access": "public"},
@@ -107,6 +125,8 @@
     {
       "id": "soybeans-board-crush",
       "need_pattern": "^soybeans-board-crush$",
+      "route_kind": "derived",
+      "capital_iq_use": "raw_parent_only",
       "preferred_route": "derived_from_aligned_cme_settlements",
       "authorities": [
         {"provider": "CME Group CBOT soybean, soybean-meal, and soybean-oil settlements", "url": "https://www.cmegroup.com/market-data/settlements.html", "access": "mixed"}
@@ -116,6 +136,8 @@
     {
       "id": "china-activity-trade",
       "need_pattern": "(china-industrial|china-import|china-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_or_manual_government_release",
       "authorities": [
         {"provider": "National Bureau of Statistics of China", "url": "https://www.stats.gov.cn/english/", "access": "mixed"},
@@ -126,6 +148,8 @@
     {
       "id": "global-activity",
       "need_pattern": "global-activity",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_multilateral_api",
       "authorities": [
         {"provider": "OECD Data Explorer", "url": "https://data-explorer.oecd.org/", "access": "public"},
@@ -136,6 +160,8 @@
     {
       "id": "fx",
       "need_pattern": "(trade-fx|exporter-fx)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_central_bank_or_multilateral_api",
       "authorities": [
         {"provider": "Relevant central bank, Federal Reserve, BIS, or IMF", "url": "https://www.bis.org/statistics/full_data_sets.htm", "access": "public"}
@@ -145,6 +171,8 @@
     {
       "id": "gold-comex-inventory-deliveries",
       "need_pattern": "^gold-comex-inventory-deliveries$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
       "preferred_route": "manual_cme_official_report",
       "authorities": [
         {"provider": "CME Group COMEX official inventory and delivery reports", "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/nymex-delivery-notices.html", "access": "mixed"}
@@ -154,6 +182,8 @@
     {
       "id": "exchange-price-structure",
       "need_pattern": "(curve|cash-price|spot-price|spread|basis|premium|arbitrage|delivery|certified-stock|visible-inventory)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "official_exchange_file_or_licensed_export",
       "authorities": [
         {"provider": "Relevant futures/physical exchange or benchmark administrator", "url": "https://www.cmegroup.com/market-data.html", "access": "mixed"}
@@ -163,6 +193,8 @@
     {
       "id": "inventory-balance",
       "need_pattern": "(inventory|storage|stocks-use|stocks-grindings|balance|inventory-days-cover|stock-change)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_authority_api_or_file",
       "authorities": [
         {"provider": "EIA for energy; USDA for crops; exchange/industry body for metals and softs", "url": "https://www.eia.gov/opendata/", "access": "mixed"},
@@ -173,6 +205,8 @@
     {
       "id": "agriculture-fundamentals",
       "need_pattern": "^(corn|soybeans|wheat|cotton|sugar|coffee|cocoa|grains)-.*(acreage|yield|production|export|import|shipment|port-arrival|mill|crush|ethanol|biofuel|farmgate|physical-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_or_manual_agency_release",
       "authorities": [
         {"provider": "USDA FAS, NASS, WAOB, and the relevant national crop authority", "url": "https://www.fas.usda.gov/data", "access": "public"},
@@ -183,6 +217,8 @@
     {
       "id": "energy-fundamentals",
       "need_pattern": "(crude-oil|natural-gas|lng|refinery|dry-production|sector-demand)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "automatic_energy_authority_api",
       "authorities": [
         {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/opendata/", "access": "public"},
@@ -193,6 +229,8 @@
     {
       "id": "metals-fundamentals",
       "need_pattern": "(mine|primary-production|capacity-power|bauxite|alumina|concentrate|scrap|supply|end-use|energy-transition)",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "official_geological_or_industry_release",
       "authorities": [
         {"provider": "U.S. Geological Survey", "url": "https://www.usgs.gov/centers/national-minerals-information-center", "access": "public"},
@@ -203,6 +241,8 @@
     {
       "id": "generic-authoritative-fallback",
       "need_pattern": ".*",
+      "route_kind": "single_source",
+      "capital_iq_use": "full_fallback",
       "preferred_route": "manual_source_review_then_connector",
       "authorities": [
         {"provider": "Commodity regulator, exchange, ministry, statistical agency, or recognized industry body", "url": "https://unstats.un.org/unsd/methodology/m49/", "access": "mixed"}

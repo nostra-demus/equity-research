@@ -6,11 +6,13 @@ from commodity_feed_plan import STRUCTURED_PROFILE_ROOT, build_plan, load_author
 
 
 guide = load_authorities()
+assert guide["schema_version"] == 2
 assert guide["capital_iq"]["route"] == "manual_csv_export"
 plans = [build_plan(path.stem) for path in sorted(STRUCTURED_PROFILE_ROOT.glob("*.json"))]
 assert plans and all(plan["rows"] for plan in plans)
 for plan in plans:
     assert sum(plan["counts"].values()) == len(plan["rows"])
+    assert sum(plan["gap_routes"].values()) == plan["counts"]["build_needed"]
     assert plan["counts"]["contract_conflict"] == 0
     assert all(row["source_rule_id"] and row["authorities"] for row in plan["rows"])
     assert all(
@@ -74,6 +76,8 @@ assert {authority["provider"] for authority in board_crush["authorities"]} == {
     "CME Group CBOT soybean, soybean-meal, and soybean-oil settlements",
 }
 assert "aligned months" in board_crush["capital_iq_fallback"]
+assert board_crush["route_kind"] == "derived"
+assert board_crush["capital_iq_use"] == "raw_parent_only"
 fund_rows = [
     row for plan in plans for row in plan["rows"]
     if row["source_rule_id"] == "fund-holdings-flows"
@@ -81,6 +85,16 @@ fund_rows = [
 assert fund_rows
 assert all("issuer" in row["lawful_source_policy"].lower() for row in fund_rows)
 assert all("not permitted" in row["capital_iq_fallback"].lower() for row in fund_rows)
+assert all(row["route_kind"] == "issuer_only" for row in fund_rows)
+assert all(row["capital_iq_use"] == "not_permitted" for row in fund_rows)
+gas_capacity = next(
+    row for row in natural_gas["rows"]
+    if row["need_id"] == "natural-gas-lng-export-capacity-availability"
+)
+assert gas_capacity["route_kind"] == "composite"
+assert gas_capacity["capital_iq_use"] == "partial_input"
+assert comex["route_kind"] == "manual_official"
+assert comex["capital_iq_use"] == "not_permitted"
 
 expected_automatic_routes = {
     ("CORN", "corn-crop-progress-condition"): "usda-nass-corn-crop-progress",

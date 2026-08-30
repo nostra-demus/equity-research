@@ -76,18 +76,20 @@ semantic series to both COPPER and ALUMINIUM without commodity-specific engine c
 
 ## Official API feeds
 
-Some free government APIs require a free key. Put each key in the connector's named environment variable;
-never put it in a manifest, command, log, or committed file.
+Some free government APIs require a free key. The scheduled runner reads connector keys only from the
+owner-only `~/.config/nostra-engine/providers.env` file (directory mode `0700`, file mode `0600`). Add the
+exact `NAME=value` lines below without `export`. Never put a key in a manifest, command, log, or committed
+file. For a one-off operator-run `--verify`, exporting the same named variable overrides the file.
 
 ```bash
 # Free keys: https://quickstats.nass.usda.gov/api
-export CONNECTOR_USDA_NASS_CORN_CROP_PROGRESS_API_KEY="<key>"
-export CONNECTOR_USDA_NASS_COTTON_CROP_PROGRESS_API_KEY="<key>"
-export CONNECTOR_USDA_NASS_SOYBEANS_CROP_PROGRESS_API_KEY="<key>"
-export CONNECTOR_USDA_NASS_WHEAT_CROP_PROGRESS_API_KEY="<key>"
+CONNECTOR_USDA_NASS_CORN_CROP_PROGRESS_API_KEY=<key>
+CONNECTOR_USDA_NASS_COTTON_CROP_PROGRESS_API_KEY=<key>
+CONNECTOR_USDA_NASS_SOYBEANS_CROP_PROGRESS_API_KEY=<key>
+CONNECTOR_USDA_NASS_WHEAT_CROP_PROGRESS_API_KEY=<key>
 
 # Free key: https://www.eia.gov/opendata/register.php
-export CONNECTOR_EIA_CRUDE_REFINERY_DEMAND_API_KEY="<key>"
+CONNECTOR_EIA_CRUDE_REFINERY_DEMAND_API_KEY=<key>
 ```
 
 The four USDA NASS crop connectors share `scripts/commodity_usda_crop_progress_feed.py`. Commodity-specific
@@ -144,3 +146,13 @@ The planner matches every need to the ordered source policy in `SOURCE_AUTHORITI
 authority first, lawful official file second, licensed Capital IQ CSV third, and refusal last. New profiles,
 shared series, fallback providers, and declarative feeds are discovered from their contracts; the cockpit
 server and web app need no commodity switch or wiring change.
+
+For every missing connector, the plan also states one machine-readable Capital IQ rule:
+
+- `full_fallback`: one exact licensed export may close the full gap;
+- `partial_input`: Capital IQ may fill only a named leg of a composite;
+- `raw_parent_only`: Capital IQ may supply raw parents, but the sealed derivation must do the math; or
+- `not_permitted`: only the named official/issuer route can meet the evidence definition.
+
+This prevents a licensed market series from being mistaken for official weather, policy, issuer, or
+exchange-delivery evidence.
