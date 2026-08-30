@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-30T07:00:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-a7ea89bdd163",
+    "idea_version": "IDEAV-1c9d085f078f439d",
+    "idea_version_started_at": "2026-08-27T07:19:10Z",
+    "ticker": "DHER",
+    "company": "Delivery Hero",
+    "exchange": "Xetra",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company raised its financial guidance citing stronger-than-expected growth trends.",
+    "why_now": "The guidance update was released today, August 27, 2026.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 18,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-82134eab73d0"
+    ],
+    "primary_source_event_id": "EVT-82134eab73d0",
+    "source_headlines": [
+      "Delivery Hero Lifts Guidance on Increased Growth"
+    ],
+    "source_headline": "Delivery Hero Lifts Guidance on Increased Growth",
+    "source_url": "https://www.wsj.com/business/retail/delivery-hero-lifts-guidance-on-increased-growth-4991f823?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-27T06:47:00Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/DHER_2026-08-12",
+      "latest_decision": "Avoid",
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-08-27T07:19:10Z",
+    "updated_at": "2026-08-27T07:19:10Z",
+    "decay_at": "2026-08-28T18:47:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
