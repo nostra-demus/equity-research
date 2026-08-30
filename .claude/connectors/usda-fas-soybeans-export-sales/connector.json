@@ -1,0 +1,73 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "usda-fas-soybeans-export-sales",
+  "dataset_id": "usda.fas.esr.soybeans-export-sales",
+  "series_id": "soybeans.us-export-sales-shipments",
+  "series": "USDA FAS weekly US soybean export sales, adjustments and shipments by destination",
+  "satisfies": ["soybeans-us-export-sales-shipments"],
+  "subjects": ["SOYBEANS"],
+  "provider": "USDA Foreign Agricultural Service",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "us_government_public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://apps.fas.usda.gov/opendatawebV2/"},
+  "host_allowlist": ["api.fas.usda.gov"],
+  "credential_env": ["CONNECTOR_USDA_FAS_SOYBEANS_EXPORT_SALES_API_KEY"],
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 7, "grace_days": 7, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/usda_fas/export_sales_<as_of>.json",
+  "output_schema": {
+    "series": "string", "as_of": "date", "commodity": "string",
+    "release_timestamp": "string", "units": ["string"],
+    "observations": [{
+      "date": "date", "markets": [{"market_year": "int",
+      "totals": {
+        "weekly_exports": "int", "accumulated_exports": "int", "outstanding_sales": "int",
+        "gross_new_sales": "int", "current_market_year_net_sales": "int",
+        "current_market_year_total_commitment": "int",
+        "next_market_year_outstanding_sales": "int", "next_market_year_net_sales": "int",
+        "sales_reductions_or_adjustments": "int"
+      },
+      "records": [{
+        "commodity_code": "int", "market_year": "int", "country_code": "int", "country": "string",
+        "weekly_exports": "int", "accumulated_exports": "int", "outstanding_sales": "int",
+        "gross_new_sales": "int", "current_market_year_net_sales": "int",
+        "current_market_year_total_commitment": "int",
+        "next_market_year_outstanding_sales": "int", "next_market_year_net_sales": "int",
+        "sales_reductions_or_adjustments": "int"
+      }]
+      }]
+    }],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "observations[].markets[].market_year": "calendar_year",
+    "observations[].markets[].totals.weekly_exports": "metric_tonnes",
+    "observations[].markets[].totals.accumulated_exports": "metric_tonnes",
+    "observations[].markets[].totals.outstanding_sales": "metric_tonnes",
+    "observations[].markets[].totals.gross_new_sales": "metric_tonnes",
+    "observations[].markets[].totals.current_market_year_net_sales": "metric_tonnes",
+    "observations[].markets[].totals.current_market_year_total_commitment": "metric_tonnes",
+    "observations[].markets[].totals.next_market_year_outstanding_sales": "metric_tonnes",
+    "observations[].markets[].totals.next_market_year_net_sales": "metric_tonnes",
+    "observations[].markets[].totals.sales_reductions_or_adjustments": "metric_tonnes",
+    "observations[].markets[].records[].commodity_code": "identifier",
+    "observations[].markets[].records[].market_year": "calendar_year",
+    "observations[].markets[].records[].country_code": "identifier",
+    "observations[].markets[].records[].weekly_exports": "metric_tonnes",
+    "observations[].markets[].records[].accumulated_exports": "metric_tonnes",
+    "observations[].markets[].records[].outstanding_sales": "metric_tonnes",
+    "observations[].markets[].records[].gross_new_sales": "metric_tonnes",
+    "observations[].markets[].records[].current_market_year_net_sales": "metric_tonnes",
+    "observations[].markets[].records[].current_market_year_total_commitment": "metric_tonnes",
+    "observations[].markets[].records[].next_market_year_outstanding_sales": "metric_tonnes",
+    "observations[].markets[].records[].next_market_year_net_sales": "metric_tonnes",
+    "observations[].markets[].records[].sales_reductions_or_adjustments": "metric_tonnes"
+  },
+  "minimum_history": {"observations": 260, "path": "observations"}
+}

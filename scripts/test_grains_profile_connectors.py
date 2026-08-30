@@ -23,18 +23,21 @@ CONNECTORS = {
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-wheat-export-sales": "wheat-export-sales-shipments",
     },
     "CORN": {
         "cftc-cot-corn": "corn-managed-money-positioning",
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-corn-export-sales": "corn-export-sales-china-demand",
     },
     "SOYBEANS": {
         "cftc-cot-soybeans": "soybeans-managed-money-positioning",
         "noaa-cpc-oni": "climate-enso-oni",
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
+        "usda-fas-soybeans-export-sales": "soybeans-us-export-sales-shipments",
     },
 }
 FORBIDDEN = ("wiltw", "what i learned this week", "gold nostra report", "/downloads/")
@@ -112,6 +115,13 @@ assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-boar
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-biofuel-physical-use")["owner"] == "commodity-demand-inventory"
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-biofuel-policy")["owner"] == "commodity-supply-security"
 assert next(row for row in profiles["SOYBEANS"] if row["need"] == "soybeans-stocks-use")["quality"]["min_span_days"] == 3650
+for commodity, need in (
+    ("WHEAT", "wheat-export-sales-shipments"),
+    ("CORN", "corn-export-sales-china-demand"),
+    ("SOYBEANS", "soybeans-us-export-sales-shipments"),
+):
+    quality = next(row for row in profiles[commodity] if row["need"] == need)["quality"]
+    assert quality["min_observations"] == 260 and quality["min_span_days"] == 1825
 assert all(
     next(row for row in profiles[commodity] if row["need"].endswith("cost-export-parity-range")
          or row["need"].endswith("cost-value-range") or row["need"].endswith("cost-crush-value-range"))["owner"]

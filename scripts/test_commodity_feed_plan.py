@@ -64,14 +64,21 @@ for plan in (copper, aluminium):
     assert row["source_rule_id"] == "metals-fundamentals"
 for commodity, need in (
     ("CORN", "corn-export-sales-china-demand"),
-    ("SOYBEANS", "soybeans-china-imports-export-sales"),
+    ("SOYBEANS", "soybeans-us-export-sales-shipments"),
+    ("WHEAT", "wheat-export-sales-shipments"),
+    ("COTTON", "cotton-export-shipments"),
 ):
     plan = next(item for item in plans if item["commodity"] == commodity)
     row = next(item for item in plan["rows"] if item["need_id"] == need)
-    assert row["source_rule_id"] == "usda-china-crop-trade"
+    assert row["source_rule_id"] == "usda-export-sales"
     assert {authority["provider"] for authority in row["authorities"]} == {
-        "USDA Foreign Agricultural Service", "General Administration of Customs of China",
+        "USDA Foreign Agricultural Service",
     }
+soy_china = next(
+    item for item in next(plan for plan in plans if plan["commodity"] == "SOYBEANS")["rows"]
+    if item["need_id"] == "soybeans-china-import-arrivals"
+)
+assert soy_china["source_rule_id"] == "china-activity-trade"
 natural_gas = next(plan for plan in plans if plan["commodity"] == "NATURAL-GAS")
 for need in (
     "natural-gas-lng-export-capacity-availability",

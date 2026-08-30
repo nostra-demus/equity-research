@@ -181,6 +181,15 @@ for commodity, (connector_id, need, contract, code, _symbol) in CONTRACTS.items(
     assert not validate_staged_output(manifest, commodity, payload, sidecar, as_of)
     assert payload["contract"] == contract and payload["contract_code"] == code
 
+cotton_exports = by_id["usda-fas-cotton-export-sales"]
+assert cotton_exports["series_id"] == "cotton.export-shipments"
+assert cotton_exports["satisfies"] == ["cotton-export-shipments"]
+assert cotton_exports["minimum_history"] == {"observations": 260, "path": "observations"}
+assert next(
+    row["quality"] for row in profiles["COTTON"] if row["need"] == "cotton-export-shipments"
+)["min_span_days"] == 1825
+assert "cotton-mill-use" in {row["need"] for row in profiles["COTTON"]}
+
 shared_usd = by_id["federal-reserve-broad-usd"]
 assert set(CONTRACTS) <= set(shared_usd["subjects"])
 oni = by_id["noaa-cpc-oni"]

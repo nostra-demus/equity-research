@@ -111,16 +111,15 @@
       "capital_iq_fallback": "Use Capital IQ only as an explicit fallback provider with the same series definition and units."
     },
     {
-      "id": "usda-china-crop-trade",
-      "need_pattern": "(corn-export-sales-china-demand|soybeans-china-imports-export-sales)",
-      "route_kind": "composite",
+      "id": "usda-export-sales",
+      "need_pattern": "(corn-export-sales-china-demand|soybeans-us-export-sales-shipments|wheat-export-sales-shipments|cotton-export-shipments)",
+      "route_kind": "single_source",
       "capital_iq_use": "partial_input",
-      "preferred_route": "automatic_composite_usda_fas_and_china_customs",
+      "preferred_route": "automatic_usda_fas_export_sales_api",
       "authorities": [
-        {"provider": "USDA Foreign Agricultural Service", "url": "https://www.fas.usda.gov/data", "access": "public"},
-        {"provider": "General Administration of Customs of China", "url": "https://english.customs.gov.cn/", "access": "mixed"}
+        {"provider": "USDA Foreign Agricultural Service", "url": "https://apps.fas.usda.gov/opendatawebV2/", "access": "public"}
       ],
-      "capital_iq_fallback": "A licensed export may fill one leg, but the connector must still preserve USDA sales, cancellations and shipments plus China arrivals as separate dated fields."
+      "capital_iq_fallback": "A licensed export is only a fallback; keep USDA gross sales, net sales, reductions/adjustments, shipments, destination, market year and release date as separate fields."
     },
     {
       "id": "soybeans-board-crush",
