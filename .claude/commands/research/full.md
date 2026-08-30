@@ -403,7 +403,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — and the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — and HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -729,6 +729,55 @@ viol.extend(sic.eval_av_conjunction_disclosure(_live_date, scen) or [])
 # kill-criteria triggers. Uses `_live_date` for the same reason AT/AU/AV do (a rerun re-checks what SHIPS
 # on this execution, not when the thesis was first decided).
 viol.extend(sic.eval_bc_probability_basis_stated(_live_date, scen, d.get("forecast_ledger")) or [])
+# check BA — HARD GATE 11 kill-criteria trigger-test schema presence (live pre-publish; mirrors
+# eval.py check BA via the same scenario_integrity_checks.py module as AT/AU/AV/BC above). Every
+# kill_criteria[] row must carry comparable_basis (the like-for-like period/basis the trigger is
+# measured against) and fired_last_two_periods (bool) — HARD GATE 11's "capable of failing" test.
+# check BA has graded committed runs retrospectively since 2026-08-22, but — unlike AT/AU/AV/BC —
+# it was defined only inside scripts/eval.py, so the live gate could never call it: a run could
+# ship a kill_criteria[] row missing either field, print GATE: PASS, and commit straight to `main`
+# (CLAUDE.md §25/§28), undetected until a later manual `eval.py` run. Moving the function into
+# scenario_integrity_checks.py (see that module) closes the same hole already closed for
+# §24/§13/AI/AK/AP/§10 above, for the one remaining check that had it. Uses `_live_date` for the
+# same reason AT/AU/AV/BC do (a rerun re-checks what SHIPS on this execution, not when the thesis
+# was first decided).
+#
+# check BA (companion) — kill_criteria CONTAINER presence (live pre-publish). eval_ba below returns
+# N/A (None) for an absent / null / empty / non-list kill_criteria, EXACTLY as its retrospective twin
+# does: eval.py defers those shapes to schema check B (kill_criteria ∈ REQ ∩ ARRAYS — a present list)
+# and check P (disconfirmation: "a thesis needs at least one falsification trigger"). But the live gate
+# mirrors NEITHER B nor P for kill_criteria, so without this guard an absent / null / [] / non-list
+# kill_criteria (a whole thesis with NO falsification trigger) sails past eval_ba's `or []` and prints
+# GATE: PASS — the §8 / HARD GATE 11 hole check BA exists to close, left open for the one shape BA is
+# deliberately silent on. Faithful to check P's `_kc_text`, MINUS one thing: a plain-string row OR a
+# {condition,...} object row with a RECOGNIZED trigger field counts as present; a list of only-blank
+# entries counts as empty. Gated on SCEN_DATE via `_live_date`, exactly as check P is gated on ddte and
+# AT/AU/AV/BC/BA are gated live.
+#
+# [Codex P1 fix] deliberately does NOT mirror check P's arbitrary-string-value fallback
+# (`" ".join(str(v) for v in k.values() if isinstance(v, str))`). A row can legitimately carry OTHER
+# string fields that are not the trigger condition itself — comparable_basis (HARD GATE 11's own
+# like-for-like basis text) being the concrete case: `{"comparable_basis": "...", "fired_last_two_periods":
+# true}` satisfies eval_ba's schema-presence check below but states no kill condition at all. The old
+# fallback would grab comparable_basis's string value as if it were the trigger text and count the row
+# present, so a thesis with a fully-formed BA schema and zero stated falsification trigger could still
+# print GATE: PASS. Requiring one of the seven RECOGNIZED trigger fields closes that — the row must name
+# what invalidates the thesis, not merely carry BA's two bookkeeping fields.
+_BA_SCEN_DATE = "2026-06-08"   # eval.py SCEN_DATE — check P's forward-looking floor for the disconfirmation gate
+def _kc_present_text(k):        # mirrors eval.py check P's _kc_text, minus the arbitrary-string fallback (see above)
+    if isinstance(k, str): return k.strip()
+    if isinstance(k, dict):
+        for f in ("condition", "criterion", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
+            v = k.get(f)
+            if isinstance(v, str) and v.strip(): return v.strip()
+    return ""
+if _isdate(_live_date) and _live_date >= _BA_SCEN_DATE:
+    _kc_live = d.get("kill_criteria")
+    if not isinstance(_kc_live, list) or not [t for t in (_kc_present_text(k) for k in _kc_live) if t]:
+        viol.append("kill_criteria is absent/empty/non-list — §8 disconfirmation / HARD GATE 11 requires at least "
+                    "one falsification trigger; the live gate had no kill_criteria-presence check, so an omitted/empty "
+                    "array printed GATE: PASS (mirrors eval.py schema check B + check P)")
+viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_criteria")) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")
@@ -736,7 +785,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, and sign-check presence all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
 PY
 ```
 
