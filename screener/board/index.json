@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:34:44Z",
+  "generated_at": "2026-08-30T01:40:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -149,6 +149,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-035",
+      "headline": "War weighs on Iran’s economy as U.S. intensifies sanctions",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/08/30/world/war-iran-economy-us-sanctions/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Intensified US sanctions on Iran represent a significant geopolitical escalation affecting regional economic stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Intensified US sanctions on Iran represent a significant geopolitical escalation affecting regional economic stability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1037,6 +1081,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-036",
+      "headline": "MSME ministry plans to triple raw material assistance for small businesses by FY30",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/msme-ministry-plans-to-triple-raw-material-assistance-for-small-businesses-by-fy30-11787912509089.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:30:31Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The Indian MSME ministry plans to triple raw material assistance for small businesses by FY30, impacting the sector's cost structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "The Indian MSME ministry plans to triple raw material assistance for small businesses by FY30, impacting the sector's cost structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111540,7 +111627,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1815,
+    "inbox_unconsumed": 1817,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111549,9 +111636,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 170,
-    "news_picked_today": 35,
-    "news_dropped_today": 135
+    "news_seen_today": 186,
+    "news_picked_today": 37,
+    "news_dropped_today": 149
   },
   "book_momentum": {
     "live_count": 8,
