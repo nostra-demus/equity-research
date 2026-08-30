@@ -192,13 +192,20 @@ export function continuationPlanReceiptFingerprint(payload: ContinuationPlanRece
  * freshly frozen pool. Unbound partial orbs are deliberately made payable again; only whole module trees
  * covered by the receipt's source-artifact hash are reused.
  */
-export function legacySingleRunMigrationPlan(plan: ThesisPlan, sourceRunRoot: string): ThesisPlan | null {
+export async function legacySingleRunMigrationPlan(plan: ThesisPlan, sourceRunRoot: string): Promise<ThesisPlan | null> {
+  let targetExists = false
+  try {
+    await fs.promises.lstat(path.join(REPO_ROOT, plan.targetRunRoot))
+    targetExists = true
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
   if (plan.continuationReceipt.action !== 'complete'
       || plan.targetRunRoot === sourceRunRoot
       || plan.reuse.length === 0
       || plan.continuationReceipt.sourceRunRoots.length !== 1
       || plan.continuationReceipt.sourceRunRoots[0] !== sourceRunRoot
-      || fs.existsSync(path.join(REPO_ROOT, plan.targetRunRoot))) return null
+      || targetExists) return null
 
   const reused = new Set(plan.reuse)
   if (plan.carry.length !== reused.size || plan.carry.some((entry) =>

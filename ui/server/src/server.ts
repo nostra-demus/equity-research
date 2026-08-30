@@ -2890,7 +2890,7 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
       // only finished modules into a new run, freeze today's pool, and rebuild every unbound partial orb.
       if (!continuationCandidate || q.module || error?.code !== 'legacy_generation_unbound') throw error
       const ordinary = await thesisPlanForRequest(q.ticker, swarm, reuse, undefined, provider.data)
-      const migrated = legacySingleRunMigrationPlan(ordinary, continuationCandidate.runRoot)
+      const migrated = await legacySingleRunMigrationPlan(ordinary, continuationCandidate.runRoot)
       if (!migrated) throw error
       plan = migrated
     }
@@ -3015,7 +3015,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       let plan
       if (legacyMigration) {
         const ordinary = await thesisPlanForRequest(ticker, undefined, reuse, undefined, selection)
-        plan = legacySingleRunMigrationPlan(ordinary, trustedSourceRunRoot!)
+        plan = await legacySingleRunMigrationPlan(ordinary, trustedSourceRunRoot!)
         if (!plan) {
           return reply.code(409).send({
             error: 'This old run cannot be migrated safely. Start a new Full run; nothing was started.',

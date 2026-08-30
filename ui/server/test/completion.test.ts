@@ -1427,7 +1427,7 @@ function exactScope(runRoot: string) {
   poolFile('LEGACY', 'filing.pdf', -1)
 
   const ordinary = await thesisPlanForRequest('LEGACY', undefined, undefined, undefined, { provider: 'codex' })
-  const migrated = legacySingleRunMigrationPlan(ordinary, root)
+  const migrated = await legacySingleRunMigrationPlan(ordinary, root)
   assert.ok(migrated, 'one exact legacy source with finished work can migrate to a protected new root')
   assert.equal(migrated.continuationReceipt.action, 'complete')
   assert.notEqual(migrated.targetRunRoot, root)
