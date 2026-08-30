@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T09:30:26Z",
+  "generated_at": "2026-08-30T09:34:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-176",
+      "headline": "AA faces £5bn takeover move by German insurer Allianz, reports claim",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/aug/30/aa-takeover-german-insurer-allianz",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:26:18Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "AA is reportedly the target of a £5bn takeover bid by Allianz.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AA is reportedly the target of a £5bn takeover bid by Allianz.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AA",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1628,6 +1682,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-177",
+      "headline": "Chelsea sign Argentine goalkeeper Emiliano Martinez from Aston Villa on three-year deal",
+      "headline_en": null,
+      "url": "https://gulfnews.com/sport/football/chelsea-sign-argentine-goalkeeper-emiliano-martinez-from-aston-villa-1.500657054",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:17:10Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Chelsea FC acquires goalkeeper Emiliano Martinez from Aston Villa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Chelsea FC acquires goalkeeper Emiliano Martinez from Aston Villa.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chelsea FC",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Aston Villa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-171",
       "headline": "Indian Bank to add 100 branches, hire 2,500 as expansion shifts west",
       "headline_en": null,
@@ -1870,105 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-031",
-      "headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
-      "headline_en": "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:47:39Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The Korea Institute of Corporate Governance and Sustainability issued voting recommendations regarding audit committee candidates for Korea Zinc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The Korea Institute of Corporate Governance and Sustainability issued voting recommendations regarding audit committee candidates for Korea Zinc.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Zinc",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-175",
-      "headline": "Indian Bank to add 100 branches, increase headcount by 2,500 in FY27",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/indian-bank-to-add-100-branches-increase-headcount-by-2500-in-fy27/article71407337.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:12:37Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Indian Bank announced a capacity expansion plan to add 100 branches and 2,500 employees by FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Indian Bank announced a capacity expansion plan to add 100 branches and 2,500 employees by FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114051,9 +114060,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1565,
-    "news_picked_today": 261,
-    "news_dropped_today": 1304
+    "news_seen_today": 1579,
+    "news_picked_today": 264,
+    "news_dropped_today": 1315
   },
   "book_momentum": {
     "live_count": 8,
