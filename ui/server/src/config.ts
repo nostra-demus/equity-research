@@ -213,13 +213,11 @@ export function feedbackEmailReady(): boolean {
   return FEEDBACK_EMAIL.enabled && FEEDBACK_EMAIL.token.length > 0
 }
 
-// Default-on: orchestrate a full run as a CHAIN of separate per-module runs (each its own budget), in
-// dependency order, then the master synthesizer — instead of one monolithic /research:full process. The
-// scheduler is provider-neutral: Claude and Codex receive the same frozen provider/profile on every step.
-// No single parent turn/budget can truncate the whole pipeline. ENGINE_FULL_PER_MODULE=0 is the explicit
-// emergency rollback to the legacy monolithic command; a missing variable must never silently restore the
-// failure-prone path on a new host or launch configuration.
-export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE !== '0'
+// Full and Continue are ALWAYS a chain of bounded module runs followed by the master synthesizer. The old
+// ENGINE_FULL_PER_MODULE=0 escape hatch bypassed the single readiness/frozen-evidence contract and could
+// stop a multi-hour run between modules for another human decision. It is intentionally retired: changing
+// host configuration can never silently restore the legacy monolithic path for either provider.
+export const FULL_PER_MODULE = true
 
 export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake'
   | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'

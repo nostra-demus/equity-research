@@ -883,16 +883,169 @@ export interface RecordedProviderSelection {
 }
 
 export interface ProviderInterruptionAuthority extends RecordedProviderSelection {
+  /** Logical RunState identity carried by the exact supervisor-written interruption marker. */
+  interruptionRunId?: string
   runId: string
   model: string
   profileKey: string
   executionProfile: ProviderExecutionProfile
 }
 
+/** Owner-only proof that the supervisor published the exact bytes which are still on disk. Reading this
+ * record re-hashes every bound artifact; a copied final_thesis/decision pair or a stale mutable projection
+ * is therefore not publication authority. */
+export interface ProviderPublicationAuthority extends RecordedProviderSelection {
+  runId: string
+  model: string
+  profileKey: string
+  executionProfile: ProviderExecutionProfile
+  artifactHashes: Record<string, string>
+}
+
 type ProviderSelectionStage = 'admitted' | 'spawned' | 'interrupted' | 'published'
 
 function providerSelectionPath(runRoot: string): string {
   return supervisorManifestForRunRoot(runRoot).replace(/\.jsonl$/, '.selection.json')
+}
+
+interface ProviderInterruptionRecord {
+  schema_version: 'cockpit-provider-interruption/1.0'
+  run_root: string
+  interruption_run_id: string
+  provider_attempt_id: string
+  recorded_at: string
+  provider: RunProvider
+  model: string
+  reasoningLevel?: string
+  profileKey: string
+  executionProfile: ProviderExecutionProfile
+  marker_sha256: string
+  self_sha256: string
+}
+
+function providerInterruptionDirectory(runRoot: string): string {
+  const rootKey = createHash('sha256').update(runRoot).digest('hex')
+  return path.join(STATE_DIR, 'execution-provenance', 'interruptions', rootKey)
+}
+
+function providerInterruptionPath(runRoot: string, interruptionRunId: string): string {
+  const attemptKey = createHash('sha256').update(interruptionRunId).digest('hex')
+  return path.join(providerInterruptionDirectory(runRoot), `${attemptKey}.json`)
+}
+
+function providerInterruptionDigest(value: Omit<ProviderInterruptionRecord, 'self_sha256'>): string {
+  return sha256Bytes(JSON.stringify(value))
+}
+
+function syncProtectedDirectory(directory: string): void {
+  if (process.platform === 'win32') return
+  const fd = fs.openSync(directory, fs.constants.O_RDONLY)
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+function interruptionMarker(runRoot: string): { value: Record<string, unknown>; sha256: string } | null {
+  const absoluteRoot = path.resolve(REPO_ROOT, runRoot)
+  const relativeRoot = repoPath(absoluteRoot)
+  if (relativeRoot !== runRoot) return null
+  try {
+    const bytes = readStableRegularFile(path.join(absoluteRoot, '.interrupted'), 'provider interruption marker')
+    const value = jsonObject(bytes, 'provider interruption marker')
+    return { value, sha256: sha256Bytes(bytes) }
+  } catch { return null }
+}
+
+function readProviderInterruptionRecord(
+  runRoot: string,
+  interruptionRunId: string,
+  marker: { value: Record<string, unknown>; sha256: string },
+): ProviderInterruptionRecord | null {
+  const target = providerInterruptionPath(runRoot, interruptionRunId)
+  const value = readProtectedJson(target)
+  if (!value || value.schema_version !== 'cockpit-provider-interruption/1.0'
+      || value.run_root !== runRoot || value.interruption_run_id !== interruptionRunId
+      || typeof value.provider_attempt_id !== 'string' || !value.provider_attempt_id
+      || !['claude', 'codex'].includes(value.provider) || typeof value.model !== 'string'
+      || typeof value.profileKey !== 'string' || !value.executionProfile
+      || typeof value.executionProfile !== 'object' || typeof value.marker_sha256 !== 'string'
+      || typeof value.self_sha256 !== 'string') return null
+  const { self_sha256: digest, ...unsigned } = value as ProviderInterruptionRecord
+  if (providerInterruptionDigest(unsigned) !== digest || value.marker_sha256 !== marker.sha256) return null
+  if (marker.value.runId !== interruptionRunId
+      || (typeof marker.value.attemptId === 'string'
+        ? marker.value.attemptId !== value.provider_attempt_id
+        : interruptionRunId !== value.provider_attempt_id)) return null
+  try {
+    const info = fs.lstatSync(target)
+    if (info.nlink !== 1) return null
+  } catch { return null }
+  return value as ProviderInterruptionRecord
+}
+
+function writeProviderInterruptionRecord(run: ProviderSelectionInput): void {
+  if (!run.runRoot) throw new Error(`Run ${run.runId} has no run root for interruption authority.`)
+  const marker = interruptionMarker(run.runRoot)
+  const interruptionRunId = typeof marker?.value.runId === 'string' ? marker.value.runId : ''
+  const providerAttemptId = run.providerAttemptId ?? run.runId
+  if (!marker || !interruptionRunId || interruptionRunId !== run.runId
+      || (typeof marker.value.attemptId === 'string' && marker.value.attemptId !== providerAttemptId)) {
+    throw new Error('cannot seal provider identity: interruption marker identity does not match this run')
+  }
+  const directory = providerInterruptionDirectory(run.runRoot)
+  fs.mkdirSync(directory, { recursive: true, mode: 0o700 })
+  if (process.platform !== 'win32') fs.chmodSync(directory, 0o700)
+  const target = providerInterruptionPath(run.runRoot, interruptionRunId)
+  const unsigned: Omit<ProviderInterruptionRecord, 'self_sha256'> = {
+    schema_version: 'cockpit-provider-interruption/1.0',
+    run_root: run.runRoot,
+    interruption_run_id: interruptionRunId,
+    provider_attempt_id: providerAttemptId,
+    recorded_at: new Date().toISOString(),
+    provider: run.provider,
+    model: run.model,
+    reasoningLevel: run.reasoningLevel,
+    profileKey: run.profileKey,
+    executionProfile: run.executionProfile,
+    marker_sha256: marker.sha256,
+  }
+  const record: ProviderInterruptionRecord = {
+    ...unsigned,
+    self_sha256: providerInterruptionDigest(unsigned),
+  }
+  const existing = readProtectedJson(target)
+  if (existing) {
+    const stable = readProviderInterruptionRecord(run.runRoot, interruptionRunId, marker)
+    if (!stable || stable.provider_attempt_id !== providerAttemptId || stable.provider !== run.provider
+        || stable.model !== run.model || stable.reasoningLevel !== run.reasoningLevel
+        || stable.profileKey !== run.profileKey
+        || !isDeepStrictEqual(stable.executionProfile, run.executionProfile)) {
+      throw new Error('immutable provider interruption authority already belongs to a different attempt')
+    }
+    return
+  }
+  const temporary = path.join(directory, `.${path.basename(target)}.${process.pid}.${randomUUID()}.tmp`)
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(temporary, fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL, 0o600)
+    fs.writeFileSync(fd, `${JSON.stringify(record, null, 2)}\n`, 'utf8')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = null
+    // Hard-link publication is create-if-absent and cannot replace another immutable interruption record.
+    fs.linkSync(temporary, target)
+    fs.unlinkSync(temporary)
+    syncProtectedDirectory(directory)
+  } catch (error: any) {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.unlinkSync(temporary) } catch { /* linked or absent */ }
+    if (error?.code === 'EEXIST') {
+      const stable = readProviderInterruptionRecord(run.runRoot, interruptionRunId, marker)
+      if (stable && stable.provider_attempt_id === providerAttemptId && stable.provider === run.provider
+          && stable.model === run.model && stable.reasoningLevel === run.reasoningLevel
+          && stable.profileKey === run.profileKey
+          && isDeepStrictEqual(stable.executionProfile, run.executionProfile)) return
+    }
+    throw error
+  }
 }
 
 type ProviderSelectionRecord = Omit<RecordedProviderSelection, 'model' | 'profileKey' | 'executionProfile'> & {
@@ -962,8 +1115,10 @@ function writeProviderSelection(
 ): void {
   if (!run.runRoot) throw new Error(`Run ${run.runId} has no run root for provider selection.`)
   const target = providerSelectionPath(run.runRoot)
-  fs.mkdirSync(path.dirname(target), { recursive: true, mode: 0o700 })
-  const temporary = `${target}.${run.runId}.tmp`
+  const directory = path.dirname(target)
+  fs.mkdirSync(directory, { recursive: true, mode: 0o700 })
+  if (process.platform !== 'win32') fs.chmodSync(directory, 0o700)
+  const temporary = path.join(directory, `.${path.basename(target)}.${process.pid}.${randomUUID()}.tmp`)
   const authorityKind: ProviderSelectionRecord['authority']['kind'] = stage === 'admitted'
     ? 'protected_admission' : stage === 'spawned' ? 'protected_manifest'
       : stage === 'interrupted' ? 'interruption_artifact' : 'published_artifacts'
@@ -975,16 +1130,36 @@ function writeProviderSelection(
     authority: { kind: authorityKind, artifact_hashes: artifactHashes },
   } as Omit<ProviderSelectionRecord, 'self_sha256'>
   const record: ProviderSelectionRecord = { ...unsigned, self_sha256: providerSelectionDigest(unsigned) }
-  fs.writeFileSync(temporary, JSON.stringify(record, null, 2) + '\n', { encoding: 'utf8', mode: 0o600 })
-  fs.renameSync(temporary, target)
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(
+      temporary,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+      0o600,
+    )
+    fs.writeFileSync(descriptor, JSON.stringify(record, null, 2) + '\n', 'utf8')
+    fs.fsyncSync(descriptor)
+    fs.closeSync(descriptor)
+    descriptor = null
+    fs.renameSync(temporary, target)
+    if (process.platform !== 'win32') fs.chmodSync(target, 0o600)
+    syncProtectedDirectory(directory)
+  } finally {
+    if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ }
+    try { fs.rmSync(temporary, { force: true }) } catch { /* renamed or absent */ }
+  }
 }
 
 /** Seal the current provider identity to the exact supervisor-written interruption marker. */
-export function recordProviderInterruptionAuthority(run: RunState): void {
+export function recordProviderInterruptionAuthority(run: ProviderSelectionInput): void {
   if (!run.runRoot) return
   const relative = `${run.runRoot}/.interrupted`
   const digest = protectedSelectionArtifactHash(relative)
   if (!digest) throw new Error('cannot seal provider identity: interruption marker is not a regular file')
+  // Keep one immutable owner-only record per logical interrupted RunState. The mutable "last selection"
+  // projection below remains useful for diagnostics, but a later sibling's admitted/spawned/published stage
+  // can no longer erase the exact stopped process selected by the run-root marker.
+  writeProviderInterruptionRecord(run)
   writeProviderSelection(run, 'interrupted', { [relative]: digest })
 }
 
@@ -1036,6 +1211,18 @@ export function readLastProviderSelection(
   if (absoluteRoot !== repo && !absoluteRoot.startsWith(`${repo}${path.sep}`)) return null
   const durable = readProviderSelectionRecord(runRoot)
   const requiredStage = requiredAuthority === 'any' ? null : requiredAuthority
+  if (requiredAuthority === 'interrupted') {
+    const interruption = readProviderInterruptionAuthority(runRoot)
+    if (interruption) {
+      return {
+        provider: interruption.provider,
+        model: interruption.model,
+        reasoningLevel: interruption.reasoningLevel,
+        profileKey: interruption.profileKey,
+        executionProfile: { ...interruption.executionProfile },
+      }
+    }
+  }
   if (durable && (!requiredStage || durable.stage === requiredStage)) {
     return {
       provider: durable.provider, model: durable.model, reasoningLevel: durable.reasoningLevel,
@@ -1052,15 +1239,58 @@ export function readLastProviderSelection(
   }
 }
 
-/** Exact durable authority for an interrupted process. Unlike the general selection reader, this retains
- * the supervisor-signed run id so an operator continuation can bind to one specific stopped process. */
-export function readProviderInterruptionAuthority(runRoot: string): ProviderInterruptionAuthority | null {
+/** Exact durable terminal-publication authority for restart reconciliation. */
+export function readProviderPublicationAuthority(runRoot: string): ProviderPublicationAuthority | null {
   const absoluteRoot = path.resolve(REPO_ROOT, runRoot)
   const repo = path.resolve(REPO_ROOT)
   if (absoluteRoot !== repo && !absoluteRoot.startsWith(`${repo}${path.sep}`)) return null
   const durable = readProviderSelectionRecord(runRoot)
-  if (!durable || durable.stage !== 'interrupted') return null
+  if (!durable || durable.stage !== 'published') return null
   return {
+    runId: durable.run_id,
+    provider: durable.provider,
+    model: durable.model,
+    reasoningLevel: durable.reasoningLevel,
+    profileKey: durable.profileKey,
+    executionProfile: { ...durable.executionProfile },
+    artifactHashes: { ...durable.authority.artifact_hashes },
+  }
+}
+
+/** Exact durable authority for an interrupted process. Unlike the general selection reader, this retains
+ * the supervisor-signed run id so an operator continuation can bind to one specific stopped process. */
+export function readProviderInterruptionAuthority(
+  runRoot: string,
+  expectedInterruptionRunId?: string,
+): ProviderInterruptionAuthority | null {
+  const absoluteRoot = path.resolve(REPO_ROOT, runRoot)
+  const repo = path.resolve(REPO_ROOT)
+  if (absoluteRoot !== repo && !absoluteRoot.startsWith(`${repo}${path.sep}`)) return null
+  const marker = interruptionMarker(runRoot)
+  const markerRunId = typeof marker?.value.runId === 'string' ? marker.value.runId : null
+  if (!marker || !markerRunId
+      || (expectedInterruptionRunId !== undefined && expectedInterruptionRunId !== markerRunId)) return null
+  const immutable = readProviderInterruptionRecord(runRoot, markerRunId, marker)
+  if (immutable) {
+    return {
+      interruptionRunId: immutable.interruption_run_id,
+      runId: immutable.provider_attempt_id,
+      provider: immutable.provider,
+      model: immutable.model,
+      reasoningLevel: immutable.reasoningLevel,
+      profileKey: immutable.profileKey,
+      executionProfile: { ...immutable.executionProfile },
+    }
+  }
+  // Compatibility for interruptions sealed before the immutable per-attempt store shipped. This fallback
+  // remains safe only while the legacy last-selection projection itself is still interruption-bound; every
+  // newly sealed interruption takes the immutable path above.
+  const durable = readProviderSelectionRecord(runRoot)
+  if (!durable || durable.stage !== 'interrupted') return null
+  const markerAttemptId = typeof marker.value.attemptId === 'string' ? marker.value.attemptId : markerRunId
+  if (durable.run_id !== markerAttemptId) return null
+  return {
+    interruptionRunId: markerRunId,
     runId: durable.run_id,
     provider: durable.provider,
     model: durable.model,
@@ -1098,10 +1328,7 @@ export function sealProviderPreSpawnFailureAuthority(runRoot: string, expectedRu
   if (!durable || !authority || authority.runId !== expectedRunId) {
     throw new Error('provider pre-spawn recovery authority changed before it could be sealed')
   }
-  const relative = `${runRoot}/.interrupted`
-  const digest = protectedSelectionArtifactHash(relative)
-  if (!digest) throw new Error('provider pre-spawn recovery marker is not a regular file')
-  writeProviderSelection({
+  recordProviderInterruptionAuthority({
     runId: authority.runId,
     providerAttemptId: authority.runId,
     runRoot,
@@ -1110,7 +1337,7 @@ export function sealProviderPreSpawnFailureAuthority(runRoot: string, expectedRu
     reasoningLevel: authority.reasoningLevel,
     profileKey: authority.profileKey,
     executionProfile: authority.executionProfile,
-  }, 'interrupted', { [relative]: digest })
+  })
 }
 
 /** Capture canonical interrupted rows before a recovery admission advances the protected selection stage. */

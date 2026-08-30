@@ -56,6 +56,23 @@ const launchStart = source.indexOf('export async function launch(params: LaunchP
 const launchEnd = source.indexOf('\nasync function continueLaunch(', launchStart)
 assert.ok(launchStart >= 0 && launchEnd > launchStart, 'launch() source boundary must remain discoverable')
 const launchBody = source.slice(launchStart, launchEnd)
+const preparedAttemptRegistration = launchBody.indexOf('transaction.registerPaidChildAttempt(attemptId)')
+const registeredLaunch = launchBody.indexOf('await launchRegistered(', preparedAttemptRegistration)
+const delegatedSchedulerRelease = launchBody.indexOf('if (transaction && attemptId && result.chained)', registeredLaunch)
+const providerAvailability = launchBody.indexOf('await assertProviderAvailable(', registeredLaunch)
+assert.ok(
+  preparedAttemptRegistration >= 0
+    && preparedAttemptRegistration < registeredLaunch
+    && registeredLaunch < providerAvailability,
+  'every prepared-root child registers synchronously before provider availability can reject a sibling',
+)
+assert.equal(
+  launchBody.slice(0, preparedAttemptRegistration).replace(/\/\/.*$/gm, '').includes('await '),
+  false,
+  'prepared-root ownership is visible before launch() first yields',
+)
+assert.ok(registeredLaunch < delegatedSchedulerRelease && delegatedSchedulerRelease < providerAvailability,
+  'the provider-less outer Full attempt releases after delegating to real child attempts')
 assert.match(source, /intakeReceiptIntentStillActionable\([\s\S]*params\.intakeReceipt/,
   'admission CAS re-reads the exact plan/hash/source/orb intent')
 const chainedAcquire = launchBody.indexOf('const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, ticker, kind)')
@@ -89,9 +106,16 @@ assert.ok(normalReap < normalForce && normalForce < normalForceStop,
   'an ordinary force uses the shared stop/drain/finalize helper')
 assert.ok(normalForceStop < preAdmissionCas && preAdmissionCas < admission,
   'ordinary bindings are re-read after force cancellation and immediately before admission')
-const fullRelaunchReset = launchBody.indexOf('resetAdmittedFullRelaunch(runRoot)', admission)
-assert.ok(fullRelaunchReset > admission,
-  'a monolithic full clears the exact-only aborted pause only after successful admission')
+const normalFullBranch = launchBody.indexOf("if (kind === 'full') {")
+const chainedFullReturn = launchBody.indexOf('return await launchFullChained(', normalFullBranch)
+const ordinaryAdmission = launchBody.indexOf('const decision = admitRun(', chainedFullReturn)
+assert.ok(normalFullBranch >= 0 && normalFullBranch < chainedFullReturn && chainedFullReturn < ordinaryAdmission,
+  'every normal Full returns through the chained scheduler before ordinary provider admission')
+assert.equal(
+  launchBody.slice(normalFullBranch, chainedFullReturn).replace(/\/\/.*$/gm, '').includes('FULL_PER_MODULE'),
+  false,
+  'host configuration cannot restore the legacy monolithic Full path',
+)
 
 // The same two bindings are checked after the provider adapter's potentially slow launch/preflight probe
 // and directly before provenance is recorded and the paid child process is created.
@@ -101,8 +125,14 @@ assert.ok(spawnStart >= 0 && spawnEnd > spawnStart, 'spawnEngine() source bounda
 const spawnBody = source.slice(spawnStart, spawnEnd)
 const buildLaunch = spawnBody.indexOf('launchSpec = await adapter.buildLaunch(')
 const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildLaunch)
+const paidBoundarySeal = spawnBody.indexOf('preparedTransaction.markPaidChildSpawning(preparedAttemptId!,', finalCas)
+const finalCancelGuard = spawnBody.indexOf(
+  "if (run.cancelRequested || run.endedAt !== undefined || run.status === 'cancelled')",
+  paidBoundarySeal,
+)
+const finalFrozenProof = spawnBody.indexOf('frozenEvidenceBindingForRun(run, true)', finalCancelGuard)
 const provenanceAppend = spawnBody.indexOf('appendExecutionAttempt(run)', finalCas)
-const paidSpawn = spawnBody.indexOf('child = execa(launchSpec.command', finalCas)
+const paidSpawn = spawnBody.indexOf('child = execa(gatedCommand', finalCas)
 assert.ok(
   buildLaunch >= 0
     && buildLaunch < finalCas
@@ -110,7 +140,42 @@ assert.ok(
     && provenanceAppend < paidSpawn,
   'final CAS must sit after provider buildLaunch and before provenance or paid execa',
 )
+assert.ok(
+  paidBoundarySeal >= 0
+    && paidBoundarySeal < finalCancelGuard
+    && finalCancelGuard < finalFrozenProof
+    && finalFrozenProof < provenanceAppend,
+  'a cancel during durable sealing aborts before spend, then source and isolated capability are re-proved',
+)
 assert.match(spawnBody, /intakeReceiptByRun\.get\(run\)[\s\S]*intakeReceiptIntentStillActionable/,
   'the immediately-pre-execa CAS re-reads the exact plan/orb and stops duplicate spend')
+const processLease = spawnBody.indexOf('const proof = persistProviderProcessLease(run, providerSpawnGate)', paidSpawn)
+const genericProof = spawnBody.indexOf('recordProviderSpawnGateProcessProof(providerSpawnGate, proof)', processLease)
+const transactionProof = spawnBody.indexOf('await preparedTransaction.markPaidChildSpawnReady', genericProof)
+const gateRelease = spawnBody.indexOf('releaseProviderSpawnGate(providerSpawnGate)', transactionProof)
+const startedReceipt = spawnBody.indexOf('await preparedTransaction?.markPaidChildStarted', gateRelease)
+assert.ok(
+  paidSpawn < processLease && processLease < genericProof && genericProof < transactionProof
+    && transactionProof < gateRelease && gateRelease < startedReceipt,
+  'the trampoline cannot invoke a paid provider before lease + generic proof + transaction proof are durable',
+)
+
+const cancelStart = source.indexOf('export async function cancel(runId: string)')
+const cancelEnd = source.indexOf('\n// Run the deterministic data-readiness check', cancelStart)
+assert.ok(cancelStart >= 0 && cancelEnd > cancelStart, 'cancel() source boundary must remain discoverable')
+const cancelBody = source.slice(cancelStart, cancelEnd)
+const protectedCancellation = cancelBody.indexOf('await protectedChain.cancelChainIntent({')
+const visibleCancel = cancelBody.indexOf('run.cancelRequested = true', protectedCancellation)
+const abortedMarker = cancelBody.indexOf("writeRunMarker(run.runRoot, '.aborted'", visibleCancel)
+const chainHalt = cancelBody.indexOf('if (run.chained) haltChain(run.chainId)', abortedMarker)
+const childKill = cancelBody.indexOf('killProcessTree(run)', chainHalt)
+assert.ok(
+  protectedCancellation >= 0
+    && protectedCancellation < visibleCancel
+    && visibleCancel < abortedMarker
+    && abortedMarker < chainHalt
+    && chainHalt < childKill,
+  'protected chain cancellation is fsynced before visible acknowledgement, marker, scheduler halt, or child kill',
+)
 
 console.log('launcher-binding-order: all checks passed')

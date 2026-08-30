@@ -30,6 +30,9 @@ assert.match(schema, /poolNewestMs:\s*z\.number\(\)\.finite\(\)/,
   'pool freshness watermark is part of the evidence snapshot')
 assert.match(schema, /sourceRunRoot:\s*z\.string\(\)\.regex\(/,
   'Continue carries the exact saved run root into module admission')
+assert.match(source.slice(schemaStart, schemaStart + 5000),
+  /requestId:\s*z\.string\(\)\.uuid\(\)\.optional\(\)[\s\S]*continuationReceipt:\s*ContinuationPlanReceiptBody\.optional\(\)[\s\S]*exact module Continue requires a request id[\s\S]*exact module Continue requires its reviewed receipt/,
+  'saved-module Continue requires the same durable request identity and v2 CAS receipt as full Continue')
 
 const routeStart = source.indexOf("app.post('/api/thesis-plan/module'")
 const routeEnd = source.indexOf("\napp.post('/api/intake-plan/run'", routeStart)
@@ -47,6 +50,9 @@ const sealed = route.indexOf('if (plan.complete || isSealedResearchRun(plan.targ
 const scopeCas = route.indexOf('const exactScopeChanged', sealed)
 const cli = route.indexOf('await assertProviderAvailable(provider)', scopeCas)
 const afterCliCas = route.indexOf('const scopeAfterCli = readCurrentScope()', cli)
+const exactAdmission = route.indexOf('await admitExactSavedRunContinuation({', afterCliCas)
+const exactPrivatePrepare = route.indexOf('prepareExactModuleContinuationPrivately(', exactAdmission)
+const exactFrozenLaunch = route.indexOf('exactModuleRunRoot: trustedSourceRunRoot', exactAdmission)
 const stage = route.indexOf('prepareModuleResume(ticker, module, undefined, plan)', afterCliCas)
 const stagedScopeCas = route.indexOf('const preparedScopeChanged', stage)
 const stagedFingerprint = route.indexOf('const preparedDiskScope = capturePreparedModuleResumeScope(', stagedScopeCas)
@@ -67,6 +73,20 @@ assert.match(route, /const readCurrentScope = \(\) => \{[\s\S]*thesisPlanForScop
   'the final no-await guard rechecks scope metadata without synchronously hashing large filing bytes')
 assert.ok(sealed > poolCas && cli > sealed && afterCliCas > cli && stage > afterCliCas,
   'a same-day seal and CLI availability are checked, then exact scope is refreshed, before staging mutates disk')
+assert.ok(exactAdmission > afterCliCas && exactPrivatePrepare > exactAdmission
+    && exactFrozenLaunch > exactAdmission && stage > exactPrivatePrepare,
+  'saved-root module Continue exits through durable receipt admission and private lineage staging before the legacy live path')
+const exactBranch = route.slice(exactAdmission, stage)
+assert.match(exactBranch, /reviewed:\s*\{[\s\S]*requestId: exactRequestId[\s\S]*continuationReceipt: reviewedReceipt/,
+  'the exact module passes the reviewed v2 receipt and request identity to the shared at-most-once service')
+assert.match(exactBranch, /prepareTransaction:[\s\S]*prepareRunPlanTransaction\([\s\S]*prepareExactModuleContinuationPrivately/,
+  'saved-module preparation is private and transaction-owned; it cannot mutate the canonical root pre-spend')
+assert.match(exactBranch, /\.aborted[\s\S]*reason: 'exact_module_only'/,
+  'atomic activation replaces stale full-resume authority with a durable module-only policy')
+assert.match(exactBranch, /exactModuleResume: true[\s\S]*exactModuleInputs: \[\.\.\.reviewedExactInputs\][\s\S]*exactModuleWritableOrbs:[\s\S]*preSpawnGuard: exactPreSpawnGuard/,
+  'the paid module receives only its frozen saved inputs, exact writable scope, and final boundary guard')
+assert.match(route, /listRuns\(\)\.find\(\(run\) => run\.chainId === exactRequestId[\s\S]*run\.runRoot === trustedSourceRunRoot[\s\S]*run\.module === module/,
+  'a fast exact child is resolved by its immutable chain/request id before the route receives admittedRunId')
 assert.match(route, /plan\.complete \|\| isSealedResearchRun\(plan\.targetRunRoot\)/,
   'all authoritative seal markers block staging, even if final_thesis is missing')
 assert.ok(scopeCas > sealed && cli > scopeCas,
@@ -201,7 +221,7 @@ assert.match(launcher, /params\.exactModuleResume[\s\S]*exactModuleInputs\.map\(
   'every checkpointed input folder is held as a directory read claim for the full paid run')
 const launchSpecBuilt = launcher.indexOf('launchSpec = await adapter.buildLaunch({')
 const finalGuard = launcher.indexOf('const guarded = evaluatePreSpawnGuard(preSpawnGuards.get(run))', launchSpecBuilt)
-const paidSpawn = launcher.indexOf('child = execa(launchSpec.command, launchSpec.args, {', finalGuard)
+const paidSpawn = launcher.indexOf('child = execa(gatedCommand, gatedArgs, {', finalGuard)
 assert.ok(launchSpecBuilt > 0 && finalGuard > launchSpecBuilt && paidSpawn > finalGuard,
   'the scope callback executes after delayed provider launch construction and immediately before the paid child')
 assert.match(launcher.slice(finalGuard, paidSpawn), /if \(!guarded\.ok\)[\s\S]*finishRun\(run, 'error'\)[\s\S]*return/,

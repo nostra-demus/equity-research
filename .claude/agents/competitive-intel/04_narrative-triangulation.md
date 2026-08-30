@@ -34,7 +34,7 @@ You DO NOT:
 - `UPSTREAM_INPUTS`:
   - `analyses/{TICKER}_{DATE}/competitive-intel/02_dimension-matrix.md` — REQUIRED (the peer picture)
   - `analyses/{TICKER}_{DATE}/competitive-intel/01_peer-claim-extraction.md` — the peer claims
-  - The SUBJECT's own management claims — from `earnings/02_revenue-drivers.md` / `03_margin-drivers.md` / `04_guidance-consensus.md` when present, else the subject's own transcript in `data/{TICKER}/`
+  - The SUBJECT's own management claims — from `earnings/02_revenue-drivers.md` / `03_margin-drivers.md` / `04_guidance-consensus.md` when present, else the subject's own transcript under injected `<DATA_PATH>` (cited logically as `data/{TICKER}/...`)
 
 # DEPENDENCIES
 

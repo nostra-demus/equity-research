@@ -580,6 +580,21 @@ cancel/resume/artifact experience. Future manifest-discovered swarms and run kin
 without provider-specific wiring. Background scanners must yield promptly to a pending reviewed deployment;
 unrelated news work cannot hold provider availability until its normal multi-minute timeout.
 
+A Full or Continue chain performs data-readiness admission exactly once before its first paid child. Every
+module reuses that chain result and may never reopen a human gate mid-run. Only a proven empty pool or zero
+non-empty inputs may ask the user to act. Evidence insufficiency, unreadable documents, and entity warnings
+continue into the canonical triage, evidence caps, and refusal-to-rate rules. A technical failure to create a
+verified frozen generation receives bounded automatic retries, then fails visibly before spend without a human
+decision or a live-data fallback. Parallel modules single-flight extraction and share
+one decision owner, so refresh, reconnect, or provider choice cannot strand hidden sibling gates. Admission
+also freezes the complete input inventory and immutable extraction-generation digest. Later children may
+re-invoke the extractor only to verify and reuse that generation; they may never reread live Drive, rebuild
+the pool, or silently widen the evidence set after paid work starts. When `NOSTRA_FROZEN_EVIDENCE_ROOT` is
+present it is the only raw `DATA_PATH`; `data/<TICKER>/` is a citation label, never a readable fallback. Every
+manifest, corpus, CIQ, relationships, and extract read must resolve through the exact bound
+`.extract-generations/<digest>` directory. Standalone tools use a unique run-scoped corpus, never a shared
+`/tmp/corpus.txt`.
+
 The complete state machine, entry-point matrix, allowed differences, and CI requirements live in
 `frameworks/PROVIDER_TRANSPARENT_COCKPIT.md`. A user-visible Claude/Codex difference outside its explicit
 allowlist is a release-blocking defect.

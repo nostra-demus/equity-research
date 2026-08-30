@@ -1007,7 +1007,8 @@ If the invocation message asks for anything outside a subagent's specific scope 
 ## Inputs Every Subagent Receives
 
 - `TICKER` — company ticker
-- `DATA_PATH` — `data/{TICKER}/`
+- `DATA_PATH` — exact filesystem evidence root injected by `MODULE_PIPELINE`; cite files under it with the logical label `data/{TICKER}/...`
+- `GENERATION_ROOT` — exact immutable extraction generation injected by `MODULE_PIPELINE`; all manifest, corpus, CIQ, relationship, and extract reads stay inside it
 - `OUTPUT_PATH` — `analyses/{TICKER}_{DATE}/management-governance/{NN}_{name}.md`
 - `DATE` — today's date
 - `UPSTREAM_INPUTS` — paths to outputs from agents this one depends on (in-module and cross-module; may be empty)
@@ -1042,8 +1043,8 @@ Add lines only if applicable:
 
 ## Independent Reads
 
-Each subagent reads `DATA_PATH` independently and extracts what it needs.
-Subagents do NOT share an authoritative manifest.
+Each subagent reads `DATA_PATH` independently and extracts what it needs from the same admitted evidence snapshot.
+Subagents share one authoritative immutable `GENERATION_ROOT` manifest but reach their analytical conclusions independently.
 The synthesizer reconciles disagreements at the end.
 
 ---

@@ -2,13 +2,13 @@
 //
 // listResumableResearchRuns must surface EXACTLY the research full runs that broke and should be
 // continued, and NOTHING else:
-//   • INCLUDE a run with a `.interrupted` marker, unfinished, not aborted, recent.
+//   • INCLUDE a run with a `.interrupted` marker, unfinished, not aborted — regardless of age.
 //   • EXCLUDE a deliberately-cancelled run (`.aborted`)            — a stop is not an interruption.
 //   • EXCLUDE a finished run (final_thesis.md + decision_record.json) — nothing to resume.
 //   • EXCLUDE a partial run with NO `.interrupted` (a clean budget truncation = the honest `incomplete`)
 //                                                                   — auto-resuming would re-hit the cap.
 //   • EXCLUDE a currently-live run                                  — it isn't interrupted.
-//   • EXCLUDE a stale (multi-day-old) break                         — left for the human; can't loop.
+//   • INCLUDE a multi-day-old break                                — outages/resets do not expire work.
 // And the two pure gates: shouldHoldForCredit (never relaunch into a hard limit / while spending overage)
 // and isResumeDue (a plan-limit pause waits for its own resetsAt; every other break is due now).
 //
@@ -60,7 +60,9 @@ mkRun('LIVE_2026-06-24', { interrupted: { reason: 'nonzero_exit' }, doneModule: 
 mkRun('STAL_2026-06-24', { interrupted: { reason: 'nonzero_exit' }, ageMs: 3 * 24 * 3600 * 1000 }) // 3 days old
 mkRun('tracking', {}) // not a "<TICKER>_<DATE>" run folder at all
 
-const { listResumableResearchRuns, shouldHoldForCredit, isResumeDue } = await import('../src/resume-supervisor')
+const {
+  evaluateResumeProgress, listResumableResearchRuns, shouldHoldForCredit, isResumeDue,
+} = await import('../src/resume-supervisor')
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -97,12 +99,12 @@ check('a currently-live run is NOT resumable', () => {
   assert.ok(!tickersFor(new Set(['LIVE'])).has('LIVE'), 'LIVE is still running')
 })
 
-check('a stale (3-day-old) break is NOT resumable', () => {
-  assert.ok(!tickersFor(new Set()).has('STAL'), 'STAL is too old — left for the human')
+check('a multi-day-old break remains resumable until it finishes or is explicitly stopped', () => {
+  assert.ok(tickersFor(new Set()).has('STAL'), 'STAL must not expire merely because an outage lasted longer')
 })
 
-check('exactly the two genuine interruptions are surfaced (LIVE excluded as in-flight)', () => {
-  assert.deepEqual([...tickersFor(new Set(['LIVE']))].sort(), ['INTR', 'OOC'])
+check('exactly the genuine interruptions are surfaced (LIVE excluded as in-flight)', () => {
+  assert.deepEqual([...tickersFor(new Set(['LIVE']))].sort(), ['INTR', 'OOC', 'STAL'])
 })
 
 // --- shouldHoldForCredit ---
@@ -137,6 +139,76 @@ check('resume gate: an out_of_credits pause with unavailable reset telemetry is 
 })
 check('resume gate: a connection/kill break is due immediately', () => {
   assert.equal(isResumeDue({ kind: 'full', subject: 'INTR', reason: 'terminated_SIGKILL' }, now, 60_000), true)
+})
+
+// --- durable no-progress boundary ---
+const progressState = path.join(root, '.progress-state')
+const progressCandidate = (interruptionId: string) => ({
+  kind: 'full' as const,
+  swarm: 'research',
+  subject: 'INTR',
+  runRoot: 'analyses/INTR_2026-06-24',
+  provider: 'codex' as const,
+  expectedProfileKey: 'codex|sol:max|terra:xhigh',
+  interruptionId,
+})
+const fingerprintA = () => `sha256:${'a'.repeat(64)}`
+const fingerprintB = () => `sha256:${'b'.repeat(64)}`
+
+check('durable recovery accepts a safe state root beneath a canonical macOS parent alias', () => {
+  const lexicalTmp = path.resolve(os.tmpdir())
+  const canonicalTmp = fs.realpathSync(lexicalTmp)
+  if (lexicalTmp === canonicalTmp) return // Linux/CI has no alias; the same invariant is exercised below.
+  const aliasState = fs.mkdtempSync(path.join(lexicalTmp, 'nostra-resume-alias-'))
+  try {
+    const decision = evaluateResumeProgress(progressCandidate('alias-attempt'), aliasState, fingerprintA)
+    assert.equal(decision.allow, true)
+    assert.equal(fs.existsSync(path.join(fs.realpathSync(aliasState), 'resume-progress')), true,
+      'the child is created beneath the canonical root, not rejected for its lexical parent spelling')
+  } finally {
+    fs.rmSync(aliasState, { recursive: true, force: true })
+  }
+})
+
+const progressClock = Date.parse('2026-06-24T12:00:00.000Z')
+
+check('durable recovery does not count the same interruption twice after restart', () => {
+  const first = evaluateResumeProgress(progressCandidate('attempt-0'), progressState, fingerprintA, progressClock)
+  const replay = evaluateResumeProgress(progressCandidate('attempt-0'), progressState, fingerprintA, progressClock + 1)
+  assert.equal(first.identicalProgressAttempts, 0)
+  assert.equal(replay.identicalProgressAttempts, 0)
+  assert.equal(replay.allow, true)
+})
+
+check('four-plus identical paid interruptions back off durably but never become permanently abandoned', () => {
+  let now = progressClock + 2
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    const delayed = evaluateResumeProgress(progressCandidate(`attempt-${attempt}`), progressState, fingerprintA, now)
+    assert.equal(delayed.identicalProgressAttempts, attempt)
+    assert.equal(delayed.allow, false, `distinct interruption ${attempt} receives durable backoff`)
+    if (attempt >= 3) assert.equal(delayed.status, 'needs_attention')
+
+    const beforeDeadline = evaluateResumeProgress(
+      progressCandidate(`attempt-${attempt}`), progressState, fingerprintA, delayed.nextEligibleAt - 1,
+    )
+    assert.equal(beforeDeadline.allow, false, 'restart does not erase or slide the durable deadline')
+    assert.equal(beforeDeadline.nextEligibleAt, delayed.nextEligibleAt)
+
+    const due = evaluateResumeProgress(
+      progressCandidate(`attempt-${attempt}`), progressState, fingerprintA, delayed.nextEligibleAt,
+    )
+    assert.equal(due.allow, true, `identical interruption ${attempt} remains retry-eligible after backoff`)
+    assert.equal(due.identicalProgressAttempts, attempt)
+    now = delayed.nextEligibleAt + 1
+  }
+})
+
+check('new protected output automatically clears a prior no-progress hold', () => {
+  const advanced = evaluateResumeProgress(progressCandidate('attempt-5'), progressState, fingerprintB, progressClock + 10_000_000)
+  assert.equal(advanced.progressAdvanced, true)
+  assert.equal(advanced.identicalProgressAttempts, 0)
+  assert.equal(advanced.status, 'retrying')
+  assert.equal(advanced.allow, true)
 })
 
 // best-effort teardown

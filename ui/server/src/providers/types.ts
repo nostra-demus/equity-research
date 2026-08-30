@@ -1,6 +1,29 @@
 import type { LaunchKind } from '../config'
 import type { CreditPreflight, RunStatus } from '../types'
 
+/** Provider-neutral supervisor controls which must reach the tracked parent and every model-issued tool.
+ * One canonical list prevents Claude/Codex parity from drifting when a new exact-resume control is added. */
+export const PROVIDER_NEUTRAL_RUN_ENV = Object.freeze({
+  deferModuleMemo: 'NOSTRA_DEFER_MODULE_MEMO',
+  continuationRunRoot: 'NOSTRA_CONTINUATION_RUN_ROOT',
+  exactModuleResume: 'NOSTRA_EXACT_MODULE_RESUME',
+  exactModuleInputs: 'NOSTRA_EXACT_MODULE_INPUTS',
+  exactModuleRunRoot: 'NOSTRA_EXACT_MODULE_RUN_ROOT',
+  exactModuleName: 'NOSTRA_EXACT_MODULE_NAME',
+  exactModuleWritableOrbs: 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS',
+  exactModuleSynthesisOrbs: 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS',
+  memoryMode: 'NOSTRA_MEMORY_MODE',
+  parityCanaryContinuation: 'NOSTRA_PARITY_CANARY_CONTINUATION',
+  frozenPoolDataPath: 'NOSTRA_FROZEN_POOL_DATA_PATH',
+  frozenPoolOutDir: 'NOSTRA_FROZEN_POOL_OUT_DIR',
+  frozenPoolGeneration: 'NOSTRA_FROZEN_POOL_GENERATION',
+  frozenEvidenceRoot: 'NOSTRA_FROZEN_EVIDENCE_ROOT',
+} as const)
+
+export const PROVIDER_NEUTRAL_RUN_ENV_KEYS: readonly string[] = Object.freeze(
+  Object.values(PROVIDER_NEUTRAL_RUN_ENV),
+)
+
 export type RunProvider = 'claude' | 'codex'
 
 export interface ProviderSelectableProfile {
@@ -59,6 +82,8 @@ export interface ProviderLaunchContext {
   writablePaths?: readonly string[]
   /** Supervisor state/auth paths which model-issued tools must neither read nor mutate. */
   protectedReadPaths?: readonly string[]
+  /** Exact supervisor-created, read-only capabilities outside repository/data/state namespaces. */
+  readOnlyCapabilityPaths?: readonly string[]
   env: NodeJS.ProcessEnv
   guard: { maxTurns: number; budgetUsd: number }
   resumeSessionId?: string

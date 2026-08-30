@@ -154,6 +154,12 @@ const ACTIVITY_CAP = 80
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
 const runSources = new Map<string, EventSource>()
+const runStreamHealth = new Map<string, { state: 'open' | 'error'; at: number }>()
+const runStreamRetryAt = new Map<string, number>()
+const reconnectRunInFlight = new Map<string, Promise<void>>()
+const chainedReadinessRecoveryTried = new Set<string>()
+const chainedReadinessRecoveryInFlight = new Set<string>()
+const chainedReadinessRecoveryTail = new Map<string, Promise<void>>()
 // in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
 // without threading it through React state). Chat is ephemeral — one conversation at a time.
 let chatAbort: AbortController | null = null
@@ -434,6 +440,189 @@ export interface ActiveRun {
   lastStdoutAt?: number // when the engine child last produced ANY output — the "alive" signal
   lastActivity?: RunActivity // the orchestrator's latest tool call — what it's DOING
 }
+
+export interface ReadinessGateState {
+  runId: string
+  report: ReadinessReport
+  chainId?: string
+  /** Deploy-skew fallback: one logical chain can have several old-server child owners. */
+  memberRunIds?: string[]
+  rechecking?: boolean
+}
+
+export interface ReadinessRecoveryState {
+  chainId: string
+  state: 'rechecking' | 'incompatible'
+  message: string
+}
+
+export type ReadinessDecisionOutcome = 'accepted' | 'active' | 'stale' | 'failed'
+
+/** Recheck POSTs acknowledge before the scan finishes; only SSE may release this UI latch. */
+export function readinessDecisionWaitsForSse(action: string, outcome: ReadinessDecisionOutcome): boolean {
+  return action === 'recheck' && (outcome === 'accepted' || outcome === 'active')
+}
+
+/** Keep this byte-for-byte equivalent to the server's positive empty proof. Parser usability is not proof. */
+export function isPhysicallyEmptyReadiness(report: ReadinessReport): boolean {
+  return report.physicalPool?.state === 'empty'
+    && report.physicalPool.nonEmptyFileCount === 0
+    && report.physicalPool.fileCount === report.fileCount
+    && (
+      (report.physicalPool.fileCount === 0
+        && report.issues.some((issue) => issue.severity === 'blocker' && issue.code === 'zero_files'))
+      || (report.physicalPool.fileCount > 0
+        && report.issues.some((issue) => issue.severity === 'blocker' && issue.code === 'zero_usable_data'))
+    )
+}
+
+function readinessGateKey(gate: Pick<ReadinessGateState, 'runId' | 'chainId'>): string {
+  return gate.chainId ? `chain:${gate.chainId}` : `run:${gate.runId}`
+}
+
+function readinessGateMembers(gate: ReadinessGateState): string[] {
+  return Array.from(new Set([gate.runId, ...(gate.memberRunIds ?? [])]))
+}
+
+function readinessGateOwnsRun(gate: ReadinessGateState, runId: string): boolean {
+  return readinessGateMembers(gate).includes(runId)
+}
+
+function mergeReadinessGate(owner: ReadinessGateState, incoming: ReadinessGateState): ReadinessGateState {
+  const ownerReplay = owner.runId === incoming.runId
+  return {
+    ...owner,
+    ...(ownerReplay ? incoming : {}),
+    runId: owner.runId,
+    chainId: owner.chainId ?? incoming.chainId,
+    memberRunIds: Array.from(new Set([...readinessGateMembers(owner), ...readinessGateMembers(incoming)])),
+  }
+}
+
+/**
+ * One chain owns one prompt. Different chains remain FIFO; an older server's per-child owners are folded
+ * into the first chain owner so deploy skew cannot turn one Full/Continue into several user decisions.
+ */
+export function enqueueReadinessGate(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  incoming: ReadinessGateState,
+): { current: ReadinessGateState; queued: ReadinessGateState[] } {
+  if (!current) return { current: { ...incoming, memberRunIds: readinessGateMembers(incoming) }, queued }
+  if (readinessGateKey(current) === readinessGateKey(incoming)) {
+    return { current: mergeReadinessGate(current, incoming), queued }
+  }
+  const i = queued.findIndex((gate) => readinessGateKey(gate) === readinessGateKey(incoming))
+  if (i < 0) return { current, queued: [...queued, incoming] }
+  const next = queued.slice()
+  next[i] = mergeReadinessGate(next[i], incoming)
+  return { current, queued: next }
+}
+
+export function updateReadinessGate(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  runId: string,
+  update: (gate: ReadinessGateState) => ReadinessGateState,
+): { current: ReadinessGateState | null; queued: ReadinessGateState[] } {
+  if (current && readinessGateOwnsRun(current, runId)) return { current: update(current), queued }
+  const i = queued.findIndex((gate) => readinessGateOwnsRun(gate, runId))
+  if (i < 0) return { current, queued }
+  const next = queued.slice()
+  next[i] = update(next[i])
+  return { current, queued: next }
+}
+
+export function resolveReadinessGate(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  runId: string,
+): { current: ReadinessGateState | null; queued: ReadinessGateState[] } {
+  if (!current || !readinessGateOwnsRun(current, runId)) {
+    const nextQueued = queued.flatMap((gate) => {
+      if (!readinessGateOwnsRun(gate, runId)) return [gate]
+      if (gate.runId === runId) return []
+      return [{ ...gate, memberRunIds: readinessGateMembers(gate).filter((id) => id !== runId) }]
+    })
+    return { current, queued: nextQueued }
+  }
+  // The elected owner resolving releases the one visible chain prompt. A non-owner terminal frame only
+  // removes that old-server member; the real owner remains actionable.
+  if (current.runId !== runId) {
+    return {
+      current: { ...current, memberRunIds: readinessGateMembers(current).filter((id) => id !== runId) },
+      queued,
+    }
+  }
+  const [next, ...rest] = queued
+  return { current: next ?? null, queued: rest }
+}
+
+/** A terminal/404 frame is not a chain-wide readiness decision. During rolling deploys several old-server
+ * children can still own independent gates which the browser folded into one logical prompt. If the elected
+ * owner ends, keep that chain in its FIFO position and promote one surviving member instead of making the
+ * remaining paused child invisible. `resolveReadinessGate` remains the chain-decision path. */
+export function terminateReadinessGateMember(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  runId: string,
+): { current: ReadinessGateState | null; queued: ReadinessGateState[] } {
+  const removeMember = (gate: ReadinessGateState): ReadinessGateState | null => {
+    if (!readinessGateOwnsRun(gate, runId)) return gate
+    const remaining = readinessGateMembers(gate).filter((id) => id !== runId)
+    if (remaining.length === 0) return null
+    if (gate.runId !== runId) return { ...gate, memberRunIds: remaining }
+    return { ...gate, runId: remaining[0], memberRunIds: remaining, rechecking: false }
+  }
+
+  if (current && readinessGateOwnsRun(current, runId)) {
+    const nextCurrent = removeMember(current)
+    if (nextCurrent) return { current: nextCurrent, queued }
+    const [next, ...rest] = queued
+    return { current: next ?? null, queued: rest }
+  }
+
+  const nextQueued = queued.flatMap((gate) => {
+    const next = removeMember(gate)
+    return next ? [next] : []
+  })
+  return { current, queued: nextQueued }
+}
+
+/** Snapshot polling may observe the middle of an accepted re-check before its outcome SSE. Preserve the
+ * exact gate and its FIFO position in that state; only a confirmed non-gate state may resolve it. */
+export function reconcileReadinessGateSnapshot(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  runId: string,
+  status: string,
+): { current: ReadinessGateState | null; queued: ReadinessGateState[] } {
+  return status === 'readiness-checking'
+    ? updateReadinessGate(current, queued, runId, (gate) => ({ ...gate, rechecking: true }))
+    : resolveReadinessGate(current, queued, runId)
+}
+
+function resolveReadinessChain(
+  current: ReadinessGateState | null,
+  queued: ReadinessGateState[],
+  chainId: string,
+): { current: ReadinessGateState | null; queued: ReadinessGateState[] } {
+  if (current?.chainId === chainId) {
+    const [next, ...rest] = queued
+    return { current: next ?? null, queued: rest }
+  }
+  return { current, queued: queued.filter((gate) => gate.chainId !== chainId) }
+}
+
+function withoutReadinessRecovery(
+  recovery: Record<string, ReadinessRecoveryState>,
+  runIds: string[],
+): Record<string, ReadinessRecoveryState> {
+  if (!runIds.some((runId) => recovery[runId])) return recovery
+  const next = { ...recovery }
+  for (const runId of runIds) delete next[runId]
+  return next
+}
 // A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
 // becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
@@ -478,6 +667,10 @@ export type ResumeConfirmation = {
   totalCount: number
   unit: ResumableRunInfo['unit']
   preflight?: LaunchPreflight
+  /** Exact v2 plan shown in this modal. Confirm posts this byte-for-byte receipt; it must never fetch a
+   * newer/wider payable scope behind the user's already-given consent. Provider/profile changes replace it. */
+  reviewedPlan?: ThesisPlan
+  requestId?: string
 } & (
   | { kind: 'run'; info: ResumableRunInfo }
   | { kind: 'signal'; sigId: string; until?: string; override?: boolean }
@@ -754,8 +947,10 @@ interface State {
   changeLaunchProfile: (profileKey: string) => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
-  readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
-  decideReadiness: (runId: string, action: string, ack?: string) => Promise<void>
+  readinessGate: ReadinessGateState | null // one visible decision owner; null = hidden
+  readinessGateQueue: ReadinessGateState[] // FIFO across distinct logical chains
+  readinessRecovery: Record<string, ReadinessRecoveryState> // non-empty chained deploy-skew recovery; never a user prompt
+  decideReadiness: (runId: string, action: string, ack?: string) => Promise<ReadinessDecisionOutcome>
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
@@ -1424,14 +1619,19 @@ function revealAcceptedTrackedLaunch(set: any, get: () => State): void {
   void get().refreshActiveRuns()
 }
 
-async function exactResumePreflight(info: ResumableRunInfo, execution: FrozenProviderLaunch): Promise<LaunchPreflight | undefined> {
-  if ((info.swarm || 'research') !== 'research' || info.kind !== 'full') return undefined
-  const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, undefined, info.runRoot)
-  if (plan.continuationReceipt?.version !== 1 || plan.continuationReceipt.action !== 'continue'
+async function exactResumePlan(info: ResumableRunInfo, execution: FrozenProviderLaunch): Promise<ThesisPlan | undefined> {
+  if ((info.swarm || 'research') !== 'research' || (info.kind !== 'full' && info.kind !== 'module')) return undefined
+  const module = info.kind === 'module' ? info.module : undefined
+  const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, module, info.runRoot)
+  if (plan.continuationReceipt?.version !== 2 || plan.continuationReceipt.action !== 'continue'
       || plan.continuationReceipt.targetRunRoot !== info.runRoot) {
     throw new Error('The exact saved-run plan is unavailable. Refresh before continuing; nothing was started.')
   }
-  return plan.preflight
+  if (module && (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number'
+      || !plan.modules.some((entry) => entry.module === module))) {
+    throw new Error('The saved module scope could not be verified. Refresh before continuing.')
+  }
+  return plan
 }
 
 async function verifyScopedRerunCapability(
@@ -1575,6 +1775,8 @@ export const useStore = create<State>((set, get) => ({
   scopedRerunPending: false,
   stoppingRuns: {},
   readinessGate: null,
+  readinessGateQueue: [],
+  readinessRecovery: {},
   toast: null,
 
   swarms: [],
@@ -1794,7 +1996,7 @@ export const useStore = create<State>((set, get) => ({
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, readinessGate: null, readinessGateQueue: [], readinessRecovery: {}, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1952,13 +2154,32 @@ export const useStore = create<State>((set, get) => ({
       const sel = get().selectedTicker
       if (sel) {
         const token = get().selectToken
+        const activeIds = new Set(active.map((run) => run.runId))
+        const gates = [get().readinessGate, ...get().readinessGateQueue].filter((gate): gate is ReadinessGateState => !!gate)
+        const watchedDecisionIds = new Set([
+          ...gates.flatMap((gate) => readinessGateMembers(gate)),
+          ...Object.keys(get().readinessRecovery),
+        ])
         for (const r of active) {
-          if (runMatchesSubject(r, sel, activeSwarm) && !runSources.has(r.runId)) {
-            reconnectRun(set, get, r.runId, token, { subject: sel, swarm: activeSwarm })
+          if (runMatchesSubject(r, sel, activeSwarm)
+              && (!runSources.has(r.runId) || runStreamHealth.get(r.runId)?.state === 'error'
+                || watchedDecisionIds.has(r.runId))) {
+            void reconnectRun(set, get, r.runId, token, { subject: sel, swarm: activeSwarm })
+          }
+        }
+        // A resolved/terminal frame can be lost across an edge or engine restart. `/api/runs` omitting the
+        // old id is not enough by itself (the list can race a restart), so ask the exact snapshot; only its
+        // status or authoritative 404 may close the decision/recovery state.
+        for (const runId of watchedDecisionIds) {
+          if (activeIds.has(runId)) continue
+          const local = get().activeRuns[runId]
+          if (local && runMatchesSubject(local, sel, activeSwarm)) {
+            void reconnectRun(set, get, runId, token, { subject: sel, swarm: activeSwarm })
           }
         }
       }
-      schedulePoll(get, active.length > 0)
+      schedulePoll(get, active.length > 0 || !!get().readinessGate || get().readinessGateQueue.length > 0
+        || Object.keys(get().readinessRecovery).length > 0)
       void get().refreshPendingAdmissions()
     } catch {}
   },
@@ -2012,15 +2233,17 @@ export const useStore = create<State>((set, get) => ({
     const recorded = records.map((record) => record.provider).filter(isRunProvider)
     const execution = await captureAvailableResumeLaunch(get, recorded)
     if (!execution) return get().setToast({ msg: 'No verified provider/model is available to resume this run. Check Claude or Codex and try again.', tone: 'bad' })
-    let preflight: LaunchPreflight | undefined
-    try { preflight = await exactResumePreflight(info, execution) }
+    let reviewedPlan: ThesisPlan | undefined
+    try { reviewedPlan = await exactResumePlan(info, execution) }
     catch (e: any) { return get().setToast({ msg: e?.message || 'The saved run could not be planned safely.', tone: 'bad' }) }
     set({
       resumeConfirm: {
         kind: 'run', info, selection: execution, records,
         label: info.label || info.subject,
         doneCount: info.doneCount, totalCount: info.totalCount, unit: info.unit,
-        preflight,
+        preflight: reviewedPlan?.preflight,
+        reviewedPlan,
+        requestId: reviewedPlan ? crypto.randomUUID() : undefined,
       },
     })
   },
@@ -2037,11 +2260,14 @@ export const useStore = create<State>((set, get) => ({
       const problem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
       return get().setToast({ msg: problem || `The ${providerLabel(provider)} profile could not be verified.`, tone: 'bad' })
     }
-    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined } })
+    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined, reviewedPlan: undefined, requestId: undefined } })
     if (rc.kind === 'run') {
       try {
-        const preflight = await exactResumePreflight(rc.info, execution)
-        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: { ...get().resumeConfirm!, preflight } })
+        const reviewedPlan = await exactResumePlan(rc.info, execution)
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: {
+          ...get().resumeConfirm!, preflight: reviewedPlan?.preflight, reviewedPlan,
+          requestId: reviewedPlan ? crypto.randomUUID() : undefined,
+        } })
       } catch (e: any) {
         if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: null })
         get().setToast({ msg: e?.message || 'The saved run could not be re-planned safely.', tone: 'bad' })
@@ -2057,11 +2283,14 @@ export const useStore = create<State>((set, get) => ({
     if (!option || option.key === rc.selection.expectedProfileKey) return
     const execution = freezeProviderLaunch(get().providers[provider], get().providers.catalogState, option.key)
     if (!execution) return get().setToast({ msg: 'That execution profile could not be frozen. Check the provider again.', tone: 'bad' })
-    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined } })
+    set({ resumeConfirm: { ...rc, selection: execution, preflight: undefined, reviewedPlan: undefined, requestId: undefined } })
     if (rc.kind === 'run') {
       try {
-        const preflight = await exactResumePreflight(rc.info, execution)
-        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: { ...get().resumeConfirm!, preflight } })
+        const reviewedPlan = await exactResumePlan(rc.info, execution)
+        if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: {
+          ...get().resumeConfirm!, preflight: reviewedPlan?.preflight, reviewedPlan,
+          requestId: reviewedPlan ? crypto.randomUUID() : undefined,
+        } })
       } catch (e: any) {
         if (get().resumeConfirm?.selection === execution) set({ resumeConfirm: null })
         get().setToast({ msg: e?.message || 'The saved run could not be re-planned safely.', tone: 'bad' })
@@ -2135,15 +2364,16 @@ export const useStore = create<State>((set, get) => ({
       try {
         let out: any
         if ((info.swarm || 'research') === 'research' && info.kind === 'full') {
-          // Continue is an exact saved-run action. Re-plan that one root immediately before POST, then use
-          // the completion route; never send it through generic /api/launch (which defaults to today's root).
-          const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, undefined, info.runRoot)
-          if (plan.continuationReceipt?.version !== 1 || plan.continuationReceipt.action !== 'continue'
-              || plan.continuationReceipt.targetRunRoot !== info.runRoot) {
+          // Continue is an exact saved-run action. Submit the exact v2 plan the user reviewed in the modal.
+          // The server recomputes it under lock and returns 409 if one artifact changed; the browser must not
+          // silently fetch a wider payable plan after consent.
+          const plan = rc.reviewedPlan
+          if (!plan || plan.continuationReceipt?.version !== 2 || plan.continuationReceipt.action !== 'continue'
+              || plan.continuationReceipt.targetRunRoot !== info.runRoot || !rc.requestId) {
             throw new Error('The exact saved-run receipt is unavailable. Refresh before continuing; nothing was started.')
           }
           out = await api.runThesisPlan(
-            info.subject, plan.reuse, 'research', execution, crypto.randomUUID(),
+            info.subject, plan.reuse, 'research', execution, rc.requestId,
             plan.continuationReceipt, info.runRoot,
           )
           if (isQueuedLaunchResponse(out)) {
@@ -2153,14 +2383,17 @@ export const useStore = create<State>((set, get) => ({
             return
           }
         } else if ((info.swarm || 'research') === 'research' && info.kind === 'module' && info.module) {
-          const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, info.module, info.runRoot)
-          const entry = plan.modules.find((candidate) => candidate.module === info.module)
-          if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number' || !entry) {
+          const plan = rc.reviewedPlan
+          const entry = plan?.modules.find((candidate) => candidate.module === info.module)
+          if (!plan || plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number' || !entry
+              || plan.continuationReceipt?.version !== 2 || plan.continuationReceipt.action !== 'continue'
+              || plan.continuationReceipt.targetRunRoot !== info.runRoot || !rc.requestId) {
             throw new Error('The saved module scope could not be verified. Refresh before continuing.')
           }
           out = await api.runThesisPlanModule(
             info.subject, info.module, plan.reuse, 'research', entry.willRunAgents, entry.doneOrbKeys,
             plan.targetRunRoot, plan.dataPool.files, plan.dataPool.newestMs, execution, info.runRoot,
+            rc.requestId, plan.continuationReceipt,
           )
         } else {
           const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
@@ -2960,27 +3193,92 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
-  // Resolve a run paused at the pre-flight readiness gate. The SSE events (readiness-resolved / report)
-  // drive the panel open/close; here we just POST the decision and surface any rejection (412 bad ack, 409).
+  // Resolve a run paused at the pre-flight readiness gate. SSE remains the lifecycle authority: an early
+  // HTTP recheck acknowledgment means only "the check was accepted", never "the check finished". The
+  // returned outcome lets the modal keep its pending state until readiness-checking/report/resolved arrives.
   decideReadiness: async (runId, action, ack) => {
+    const gateBeforeRequest = get().readinessGate?.runId === runId
+      ? get().readinessGate
+      : get().readinessGateQueue.find((gate) => gate.runId === runId)
+    const olderServerMembers = gateBeforeRequest ? readinessGateMembers(gateBeforeRequest).filter((id) => id !== runId) : []
     try {
       await api.readinessDecision(runId, action, ack)
+      // Current servers resolve one chain owner. During a brief old-server deploy skew, the singleton gate
+      // can contain several child owners; carry the same empty-safe action to them in order so one user click
+      // remains one logical decision. Only empty gates expose recheck/cancel, never an invented override.
+      if (olderServerMembers.length > 0 && (action === 'recheck' || action === 'cancel')) {
+        void (async () => {
+          for (const memberRunId of olderServerMembers) {
+            try { await api.readinessDecision(memberRunId, action, ack) }
+            catch (memberError: any) {
+              if (memberError?.status !== 404 && memberError?.status !== 409) {
+                get().setToast({ msg: 'One older engine step is still being checked. Its status will refresh automatically.', tone: 'info' })
+              }
+            }
+          }
+          void get().refreshActiveRuns()
+        })()
+      }
       if (action === 'cancel') get().setToast({ msg: 'Run cancelled at the data check', tone: 'info' })
+      return 'accepted'
     } catch (e: any) {
-      // A STALE gate: the run already left the awaiting-decision state (409) or is gone (404) — it
-      // already proceeded/finished, or the closing SSE event was missed (edge/tunnel drop, engine
-      // restart). Don't strand the user clicking a dead dialog forever: close the panel, reconcile
-      // the active runs against the server, and say what actually happened. THIS is the fix for
-      // "clicking any button does nothing but a toast".
       const status = e?.status as number | undefined
-      if (status === 409 || status === 404) {
-        if (get().readinessGate?.runId === runId) set({ readinessGate: null })
-        get().refreshActiveRuns()
+      if (status === 409) {
+        // 409 is not proof that the gate is stale. A fast second recheck gets 409 while the first is
+        // legitimately `readiness-checking`; proceed against blockers also returns 409 while the SAME
+        // gate remains actionable. Ask the exact run before changing UI state. When the recheck is live,
+        // preserve (or recover) the pre-request report and wait for its SSE outcome.
+        try {
+          const snap = await api.runSnapshot(runId)
+          if (snap?.status === 'readiness-checking') {
+            const current = get().readinessGate
+            const queued = get().readinessGateQueue
+            const stillPresent = current?.runId === runId || queued.some((gate) => gate.runId === runId)
+            if (!stillPresent && gateBeforeRequest) {
+              const gates = enqueueReadinessGate(current, queued, { ...gateBeforeRequest, rechecking: true })
+              set({ readinessGate: gates.current, readinessGateQueue: gates.queued })
+            }
+            get().setToast({ msg: 'The data re-check is already running.', tone: 'info' })
+            return 'active'
+          }
+          if (snap?.status === 'awaiting-readiness-decision') {
+            const report = snap.readiness as ReadinessReport | undefined
+            const current = get().readinessGate
+            const queued = get().readinessGateQueue
+            const fallback = report && Array.isArray(report.issues)
+              ? { runId, report, chainId: gateBeforeRequest?.chainId, rechecking: false }
+              : gateBeforeRequest && { ...gateBeforeRequest, rechecking: false }
+            if (fallback) {
+              const gates = enqueueReadinessGate(current, queued, fallback)
+              set({ readinessGate: gates.current, readinessGateQueue: gates.queued })
+            }
+            get().setToast({ msg: e?.message || 'The data check still needs a decision.', tone: 'bad' })
+            return 'failed'
+          }
+          // A confirmed non-gate state means this member ended and its closing SSE was missed. During
+          // rolling old-server skew, a folded same-chain sibling can still be paused and must stay visible.
+          const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, runId)
+          set({ readinessGate: gates.current, readinessGateQueue: gates.queued })
+          void get().refreshActiveRuns()
+          get().setToast({ msg: 'This data check is no longer active — the run already started or ended.', tone: 'info' })
+          return 'stale'
+        } catch {
+          // An ambiguous conflict must fail safe: leave the decision visible. Deleting it here can strand
+          // a live check with no way for the user to see or recover it.
+          get().setToast({ msg: 'Could not confirm the data-check state. It remains open; please wait a moment.', tone: 'bad' })
+          return 'failed'
+        }
+      }
+      if (status === 404) {
+        const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, runId)
+        set({ readinessGate: gates.current, readinessGateQueue: gates.queued })
+        void get().refreshActiveRuns()
         get().setToast({ msg: 'This data check is no longer active — the run already started or ended.', tone: 'info' })
-        return
+        return 'stale'
       }
       // A still-actionable rejection (bad ticker ack 412, invalid body 400) — keep the panel open.
       get().setToast({ msg: e?.message || 'Could not apply the decision', tone: 'bad' })
+      return 'failed'
     }
   },
 
@@ -3492,6 +3790,14 @@ export const useStore = create<State>((set, get) => ({
     const execution = get().thesisPlanExecution
     if (!execution || execution.provider !== provider) return get().setToast({ msg: 'This plan was priced for a different execution profile. Reopen it before launching.', tone: 'bad' })
 
+    if (plan.continuationReceipt?.action === 'complete'
+        && plan.continuationReceipt.sourceRunRoots.length > 0) {
+      return get().setToast({
+        msg: 'Pick Complete old run to continue one exact saved run, or choose Run full. Nothing was started.',
+        tone: 'info',
+      })
+    }
+
     // Nothing to reuse ⇒ this IS a full run: same orbs, same price, same commits pushed to main. Hand it to
     // the normal full-run confirm dialog, which asks the user to type the ticker and shows the plan-usage row.
     // A cheaper run earns the one-click path; a full one does not, whichever modal you happen to be standing in.
@@ -3525,7 +3831,7 @@ export const useStore = create<State>((set, get) => ({
         return
       }
 
-      if (fresh.continuationReceipt?.version !== 1 || fresh.continuationReceipt.action !== 'complete') {
+      if (fresh.continuationReceipt?.version !== 2 || fresh.continuationReceipt.action !== 'complete') {
         throw new Error('The completion receipt is unavailable. Refresh before trying again; nothing was started.')
       }
       const out = await api.runThesisPlan(
@@ -4369,7 +4675,11 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'run-done': {
-        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event always closes the gate panel
+        const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, e.runId)
+        patch.readinessGate = gates.current // terminal is member-scoped; a surviving old-server sibling becomes the owner
+        patch.readinessGateQueue = gates.queued
+        patch.readinessRecovery = withoutReadinessRecovery(get().readinessRecovery, [e.runId])
+        chainedReadinessRecoveryTried.delete(e.runId)
         if (get().stoppingRuns[e.runId]) { const s = { ...get().stoppingRuns }; delete s[e.runId]; patch.stoppingRuns = s }
         get().refreshActiveRuns() // drops the finished run from the dots AND connects the next chain step
         closeRunSource(e.runId)
@@ -4459,7 +4769,11 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'run-error': {
-        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event (incl. a generic cancel of a gate-paused run, which emits run-error not readiness-resolved) always closes the gate panel
+        const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, e.runId)
+        patch.readinessGate = gates.current // generic cancellation may skip readiness-resolved; preserve any sibling gate
+        patch.readinessGateQueue = gates.queued
+        patch.readinessRecovery = withoutReadinessRecovery(get().readinessRecovery, [e.runId])
+        chainedReadinessRecoveryTried.delete(e.runId)
         if (get().stoppingRuns[e.runId]) { const s = { ...get().stoppingRuns }; delete s[e.runId]; patch.stoppingRuns = s }
         get().refreshActiveRuns()
         closeRunSource(e.runId)
@@ -4505,27 +4819,67 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'readiness-blocked':
-        // the pre-flight gate paused the run before any token spend — open the panel for the run's OWN
-        // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
-        if (forSelected && e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
+        // New servers elect one decision owner for the whole logical chain. During deploy skew an older
+        // server can still block several children at once; queue those exact run ids instead of letting the
+        // latest event overwrite the only visible modal and strand its siblings invisibly.
+        if (forSelected && e.report.ticker === selected) {
+          const chainId = eventRun?.chainId ?? e.chainId
+          if (chainId && !isPhysicallyEmptyReadiness(e.report)) {
+            // A Full/Continue chain may ask only on positive physical emptiness. Old/deploy-skew servers can
+            // still park on parser weakness; recover through the server's deterministic recheck instead of
+            // fabricating human consent or silently hiding a paused run.
+            const gates = resolveReadinessChain(get().readinessGate, get().readinessGateQueue, chainId)
+            patch.readinessGate = gates.current
+            patch.readinessGateQueue = gates.queued
+            void recoverNonEmptyChainedReadiness(set, get, e.runId, chainId)
+          } else {
+            const gates = enqueueReadinessGate(get().readinessGate, get().readinessGateQueue, {
+              runId: e.runId,
+              report: e.report,
+              chainId,
+              // A recheck that is still empty re-emits readiness-blocked. That event is the completion
+              // signal which re-enables the one chain decision; never carry the old spinner through it.
+              rechecking: false,
+            })
+            patch.readinessGate = gates.current
+            patch.readinessGateQueue = gates.queued
+          }
+        }
         break
       case 'readiness-checking': {
         // a re-check is running for the OPEN gate — mark it so the panel shows a spinner and disables
         // its buttons instead of looking frozen for the (up to a few minutes) OCR/extract pass. The
         // initial pre-flight check also emits this, but the gate isn't open yet, so it's a no-op then.
-        const g = get().readinessGate
-        if (g?.runId === e.runId) patch.readinessGate = { ...g, rechecking: true }
+        const gates = updateReadinessGate(get().readinessGate, get().readinessGateQueue, e.runId, (gate) => ({ ...gate, rechecking: true }))
+        patch.readinessGate = gates.current
+        patch.readinessGateQueue = gates.queued
         break
       }
-      case 'readiness-report':
-        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean) — the new
-        // object drops `rechecking`, re-enabling the buttons.
-        if (get().readinessGate?.runId === e.runId) patch.readinessGate = { runId: e.runId, report: e.report }
+      case 'readiness-report': {
+        const chainId = eventRun?.chainId ?? e.chainId
+        // A chained non-empty report is internal triage truth, never a browser decision. This also removes
+        // the old empty modal as soon as a successful recheck proves files arrived; readiness-resolved then
+        // confirms the automatic continuation. Standalone runs retain their strict panel semantics.
+        const gates = chainId && !isPhysicallyEmptyReadiness(e.report)
+          ? resolveReadinessChain(get().readinessGate, get().readinessGateQueue, chainId)
+          : updateReadinessGate(get().readinessGate, get().readinessGateQueue, e.runId, (gate) => ({
+              ...gate,
+              report: e.report,
+              rechecking: false,
+            }))
+        patch.readinessGate = gates.current
+        patch.readinessGateQueue = gates.queued
         break
-      case 'readiness-resolved':
+      }
+      case 'readiness-resolved': {
         // any decision (proceed / override / recheck-clean / cancel) resolves the gate -> close the panel
-        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null
+        const gates = resolveReadinessGate(get().readinessGate, get().readinessGateQueue, e.runId)
+        patch.readinessGate = gates.current
+        patch.readinessGateQueue = gates.queued
+        patch.readinessRecovery = withoutReadinessRecovery(get().readinessRecovery, [e.runId])
+        chainedReadinessRecoveryTried.delete(e.runId)
         break
+      }
     }
     patch.nodeRuntime = rt
     patch.runStream = stream
@@ -4586,7 +4940,8 @@ export const useStore = create<State>((set, get) => ({
       set({
         constellationSwarm: to, selectedTicker: null, graph: null, nodesByKey: new Map(),
         dataStatus: null, dataLoading: false, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null,
-        reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, ...CHAT_RESET,
+        reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null,
+        readinessGate: null, readinessGateQueue: [], readinessRecovery: {}, ...CHAT_RESET,
       })
     }
     if (to !== 'research') void get().loadSwarmSubjects(to)
@@ -6900,13 +7255,108 @@ function beginRun(
   get().refreshActiveRuns()
 }
 
+function setReadinessRecovery(
+  set: any,
+  runId: string,
+  recovery: ReadinessRecoveryState | null,
+): void {
+  set((state: State) => {
+    const next = { ...state.readinessRecovery }
+    if (recovery) next[runId] = recovery
+    else delete next[runId]
+    return { readinessRecovery: next }
+  })
+}
+
+/** Recover a deploy-skew chained gate without inventing consent. Recheck is deterministic/pre-spend; the
+ * current server automatically continues every non-empty chain. One bounded attempt prevents an old server
+ * from looping forever; an incompatible owner stays visibly paused while authoritative snapshots poll. */
+async function recoverNonEmptyChainedReadiness(
+  set: any,
+  get: () => State,
+  runId: string,
+  chainId: string,
+): Promise<void> {
+  if (chainedReadinessRecoveryInFlight.has(runId)) return
+  if (chainedReadinessRecoveryTried.has(runId)) {
+    setReadinessRecovery(set, runId, {
+      chainId,
+      state: 'incompatible',
+      message: 'This run is waiting for the engine to finish updating. No click or tokens are needed; status is checked automatically.',
+    })
+    return
+  }
+  chainedReadinessRecoveryTried.add(runId)
+  chainedReadinessRecoveryInFlight.add(runId)
+  setReadinessRecovery(set, runId, {
+    chainId,
+    state: 'rechecking',
+    message: 'Finishing the data check automatically…',
+  })
+  // An older server can emit one blocked event for every child in the same chain. Serialize their bounded
+  // recovery rechecks so siblings cannot race the shared decision owner while distinct chains stay independent.
+  const previous = chainedReadinessRecoveryTail.get(chainId) ?? Promise.resolve()
+  const task = previous.catch(() => undefined).then(async () => {
+    try {
+      await api.readinessDecision(runId, 'recheck')
+      // The HTTP response is only an acknowledgement. readiness-report/resolved SSE or the exact snapshot
+      // owns the outcome; keep the plain automatic-recovery message until one of them arrives.
+    } catch (error: any) {
+      if (error?.status === 404) {
+        setReadinessRecovery(set, runId, null)
+        chainedReadinessRecoveryTried.delete(runId)
+        return
+      }
+      if (error?.status === 409) {
+        try {
+          const snapshot = await api.runSnapshot(runId)
+          if (snapshot?.status !== 'awaiting-readiness-decision') {
+            setReadinessRecovery(set, runId, null)
+            chainedReadinessRecoveryTried.delete(runId)
+            return
+          }
+        } catch (snapshotError: any) {
+          if (snapshotError?.status === 404) {
+            setReadinessRecovery(set, runId, null)
+            chainedReadinessRecoveryTried.delete(runId)
+            return
+          }
+        }
+      }
+      setReadinessRecovery(set, runId, {
+        chainId,
+        state: 'incompatible',
+        message: 'This run is waiting for the engine to finish updating. No click or tokens are needed; status is checked automatically.',
+      })
+    } finally {
+      chainedReadinessRecoveryInFlight.delete(runId)
+      void get().refreshActiveRuns()
+    }
+  })
+  chainedReadinessRecoveryTail.set(chainId, task)
+  try {
+    await task
+  } finally {
+    if (chainedReadinessRecoveryTail.get(chainId) === task) {
+      chainedReadinessRecoveryTail.delete(chainId)
+    }
+  }
+}
+
 // open the live SSE for a run and pipe its events (incl. the server's replayed backlog) into the store.
 // Does NOT close other runs' streams — concurrent same-ticker runs each get their own EventSource.
 function connectRun(get: () => State, runId: string) {
   if (runSources.has(runId)) return
+  const retryAt = runStreamRetryAt.get(runId) ?? 0
+  if (retryAt > Date.now()) return
   const es = new EventSource(api.runStreamUrl(runId))
+  es.onopen = () => {
+    runStreamRetryAt.delete(runId)
+    runStreamHealth.set(runId, { state: 'open', at: Date.now() })
+  }
   for (const t of RUN_EVENT_TYPES) {
     es.addEventListener(t, (ev: MessageEvent) => {
+      runStreamHealth.set(runId, { state: 'open', at: Date.now() })
       get()._noteStreamLive() // run traffic also proves the engine is up — keep the indicator green
       try {
         const frame = JSON.parse(ev.data)
@@ -6914,7 +7364,19 @@ function connectRun(get: () => State, runId: string) {
       } catch {}
     })
   }
-  es.onerror = () => { /* keep open; server may still be streaming */ }
+  es.onerror = () => {
+    if (runSources.get(runId) !== es) return
+    runStreamHealth.set(runId, { state: 'error', at: Date.now() })
+    // EventSource's implicit retry cannot restore a readiness decision whose terminal frame disappeared
+    // with a server restart. Retire this stream and let the exact snapshot reconcile before reattaching.
+    es.close()
+    runSources.delete(runId)
+    const delay = 2_000
+    runStreamRetryAt.set(runId, Date.now() + delay)
+    setTimeout(() => {
+      if ((runStreamRetryAt.get(runId) ?? 0) <= Date.now()) void get().refreshActiveRuns()
+    }, delay)
+  }
   runSources.set(runId, es)
 }
 
@@ -6926,7 +7388,24 @@ async function reconnectRun(
   runId: string,
   token: number,
   expected: { subject: string; swarm: string },
-) {
+): Promise<void> {
+  const inFlightKey = `${runId}:${token}`
+  const existing = reconnectRunInFlight.get(inFlightKey)
+  if (existing) return existing
+  const task = reconnectRunOnce(set, get, runId, token, expected)
+  reconnectRunInFlight.set(inFlightKey, task)
+  try { await task } finally {
+    if (reconnectRunInFlight.get(inFlightKey) === task) reconnectRunInFlight.delete(inFlightKey)
+  }
+}
+
+async function reconnectRunOnce(
+  set: any,
+  get: () => State,
+  runId: string,
+  token: number,
+  expected: { subject: string; swarm: string },
+): Promise<void> {
   try {
     const snap = await api.runSnapshot(runId)
     const current = get().activeRuns[runId]
@@ -6946,9 +7425,55 @@ async function reconnectRun(
     }
     const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
     const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
-    set({ activeRuns, nodeRuntime: rt, runStream: stream })
+    const report = snap.readiness as ReadinessReport | undefined
+    if (snap.status === 'awaiting-readiness-decision' && report?.ticker === identity.ticker && Array.isArray(report.issues)) {
+      if (identity.chainId && !isPhysicallyEmptyReadiness(report)) {
+        // Never restore a human prompt for a non-empty Full/Continue chain. Keep its true paused status,
+        // expose compatibility recovery in Activity, and ask the server to re-verify/continue safely.
+        const gates = resolveReadinessChain(get().readinessGate, get().readinessGateQueue, identity.chainId)
+        set({ activeRuns, nodeRuntime: rt, runStream: stream, readinessGate: gates.current, readinessGateQueue: gates.queued })
+        void recoverNonEmptyChainedReadiness(set, get, runId, identity.chainId)
+      } else {
+        // Hard refresh loses the browser FIFO. Rebuild the one empty chain owner (or a strict standalone
+        // gate) from exact snapshot truth; replay frames dedupe by logical chain.
+        const gates = enqueueReadinessGate(get().readinessGate, get().readinessGateQueue, {
+          runId,
+          report,
+          chainId: identity.chainId,
+        })
+        const recovery = withoutReadinessRecovery(get().readinessRecovery, [runId])
+        set({ activeRuns, nodeRuntime: rt, runStream: stream, readinessGate: gates.current, readinessGateQueue: gates.queued, readinessRecovery: recovery })
+      }
+    } else {
+      const gates = reconcileReadinessGateSnapshot(
+        get().readinessGate,
+        get().readinessGateQueue,
+        runId,
+        snap.status,
+      )
+      const keepRecovery = snap.status === 'readiness-checking'
+      const recovery = keepRecovery ? get().readinessRecovery : withoutReadinessRecovery(get().readinessRecovery, [runId])
+      if (!keepRecovery) chainedReadinessRecoveryTried.delete(runId)
+      set({ activeRuns, nodeRuntime: rt, runStream: stream, readinessGate: gates.current, readinessGateQueue: gates.queued, readinessRecovery: recovery })
+    }
     connectRun(get, runId)
-  } catch {}
+  } catch (error: any) {
+    if (error?.status !== 404 || get().selectToken !== token || get().selectedTicker !== expected.subject
+        || get().activeSwarm !== expected.swarm) return
+    // A 404 from the exact snapshot is authoritative: the stream's terminal/resolved frame was missed or
+    // the in-memory run disappeared during restart. Remove only this stale live claim and its decision.
+    const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, runId)
+    const activeRuns = { ...get().activeRuns }
+    if (activeRuns[runId] && LIVE_RUN.has(activeRuns[runId].status)) delete activeRuns[runId]
+    set({
+      activeRuns,
+      readinessGate: gates.current,
+      readinessGateQueue: gates.queued,
+      readinessRecovery: withoutReadinessRecovery(get().readinessRecovery, [runId]),
+    })
+    chainedReadinessRecoveryTried.delete(runId)
+    closeRunSource(runId)
+  }
 }
 
 // Load the heavy boot data (graph + ticker list, + usage on the first call) WITHOUT ever gating the UI on
@@ -6994,7 +7519,7 @@ function reconcileSelection(get: () => State, set: (p: Partial<State>) => void):
   const sel = get().selectedTicker
   const list = get().tickers
   if (sel && list.length > 0 && !list.some((t) => t.ticker === sel)) {
-    set({ selectedTicker: null, dataStatus: null, dataLoading: false, dataScan: null, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, openOutput: null })
+    set({ selectedTicker: null, dataStatus: null, dataLoading: false, dataScan: null, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, openOutput: null, readinessGate: null, readinessGateQueue: [], readinessRecovery: {} })
     return sel
   }
   return null
@@ -7050,6 +7575,8 @@ function closeRunSource(runId?: string) {
     es.close()
     runSources.delete(runId)
   }
+  runStreamHealth.delete(runId)
+  runStreamRetryAt.delete(runId)
 }
 
 // ---- the news wire's live stream (one global EventSource, like dataSource) ----
@@ -7283,6 +7810,8 @@ function closeScreenerRunSource(runId: string) {
 function closeAllRunSources() {
   for (const es of runSources.values()) es.close()
   runSources.clear()
+  runStreamHealth.clear()
+  runStreamRetryAt.clear()
 }
 
 // A same-subject run-LOCK conflict — a run already holds this ticker's files. Force (stop it + relaunch)

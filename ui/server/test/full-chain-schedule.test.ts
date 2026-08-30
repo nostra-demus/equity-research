@@ -6,6 +6,7 @@
 // Run: npx tsx test/full-chain-schedule.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import {
@@ -16,6 +17,11 @@ import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
+import type {
+  ChainIntentProgress,
+  ChainIntentStart,
+  PreparedRunPlanTransaction,
+} from '../src/run-plan-transaction'
 import type { LaunchPreflight, RunStatus, SwarmGraph } from '../src/types'
 
 let passed = 0
@@ -32,10 +38,10 @@ async function check(name: string, fn: () => void | Promise<void>) {
 
 // A fake launcher: records every launch synchronously (so assertions need no awaits) and stashes each
 // run's completion callback so the test can fire it to simulate that run finishing.
-function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaster?: boolean }) {
+function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaster?: boolean; failModule?: string; deferAck?: string }) {
   const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string;
     reasoningLevel?: string; expectedProfileKey?: string; chainId?: string;
-    runRoot?: string; continuation?: boolean;
+    runRoot?: string; continuation?: boolean; requireExistingFrozenPoolReceipt?: boolean;
     parityCanary?: { runRoot: string; freezeReceipt: string; stage?: string; continuation?: boolean } }[] = []
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
@@ -44,12 +50,17 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
   let poolClaimHeld = false
   let poolClaimReleases = 0
   const retries: Array<() => void> = []
+  const interruptions: Parameters<NonNullable<FullChainDeps['recordInterruption']>>[0][] = []
+  const deferredAcks = new Map<string, () => void>()
   const fail429Once = new Set(opts?.fail429Once ?? [])
   const deps: FullChainDeps = {
     launchAndWire: (params, cb) => {
       const key = params.kind === 'rerun' || (params.kind === 'full' && params.parityCanary?.stage === 'final')
         ? 'master' : (params.module ?? params.agent ?? '?')
       if (key === 'master' && opts?.failMaster) return Promise.reject(new Error('master admission failed'))
+      if (params.kind === 'module' && params.module === opts?.failModule) {
+        return Promise.reject(new Error(`${params.module} admission failed`))
+      }
       // Simulate a transient global-capacity 429 on the FIRST launch attempt for a flagged module.
       if (params.kind === 'module' && fail429Once.has(params.module!)) {
         fail429Once.delete(params.module!)
@@ -61,9 +72,15 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
         provider: params.provider, model: params.model, reasoningLevel: params.reasoningLevel,
         expectedProfileKey: params.expectedProfileKey, chainId: params.chainId,
         runRoot: params.runRoot, continuation: params.continuation,
+        requireExistingFrozenPoolReceipt: params.requireExistingFrozenPoolReceipt,
         parityCanary: params.parityCanary,
       })
       onFinish.set(key, cb)
+      if (key === opts?.deferAck) {
+        return new Promise((resolve) => {
+          deferredAcks.set(key, () => resolve({ runId: `run-${key}`, preflight: {} as LaunchPreflight }))
+        })
+      }
       return Promise.resolve({ runId: `run-${key}`, preflight: {} as LaunchPreflight })
     },
     writeMarker: (ticker, runRoot) => { marker = ticker; markerRoot = runRoot },
@@ -80,6 +97,7 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
         poolClaimReleases++
       }
     },
+    recordInterruption: (input) => { interruptions.push(input) },
     ...(opts?.graph ? { buildGraph: () => opts.graph! } : {}),
   }
   const mods = () => launches.filter((l) => l.kind === 'module').map((l) => l.module!)
@@ -98,7 +116,77 @@ function makeFake(opts?: { fail429Once?: string[]; graph?: SwarmGraph; failMaste
     pendingRetries: () => retries.length,
     poolClaimHeld: () => poolClaimHeld,
     poolClaimReleases: () => poolClaimReleases,
+    interruptions: () => [...interruptions],
+    ack: (key: string) => {
+      const resolve = deferredAcks.get(key)
+      assert.ok(resolve, `expected a deferred ${key} ACK`)
+      deferredAcks.delete(key)
+      resolve!()
+    },
   }
+}
+
+function makeDurableChainFake(
+  runRoot: string,
+  blockWhen: (progress: ChainIntentProgress) => boolean,
+) {
+  const starts: ChainIntentStart[] = []
+  const progress: ChainIntentProgress[] = []
+  const terminals: Array<'done' | 'cancelled'> = []
+  let blocked = false
+  let releaseBlocked: (() => void) | null = null
+  const transaction: PreparedRunPlanTransaction = {
+    requestId: randomUUID(),
+    preparation: {
+      stagingRootAbs: path.join(REPO_ROOT, runRoot),
+      targetRunRoot: runRoot,
+      carried: [],
+      doneOrbKeys: [],
+      ranClean: [],
+    },
+    registerPaidChildAttempt() {},
+    async activate() {},
+    async markPaidChildSpawning() { throw new Error('fake launch never crosses the real spawn boundary') },
+    async markPaidChildSpawnReady() {},
+    async markPaidChildStarted() {},
+    async beginChainIntent(input) { starts.push(structuredClone(input)) },
+    async recordChainProgress(input) {
+      const sealed = structuredClone(input)
+      progress.push(sealed)
+      if (!blocked && blockWhen(sealed)) {
+        blocked = true
+        await new Promise<void>((resolve) => { releaseBlocked = resolve })
+      }
+    },
+    async recordChainTerminal(status) { terminals.push(status) },
+    async deferPreSpendRetry() { throw new Error('not used by scheduler ordering fixture') },
+    async rollbackIfUnstarted() {},
+  }
+  return {
+    transaction,
+    starts: () => structuredClone(starts),
+    progress: () => structuredClone(progress),
+    terminals: () => [...terminals],
+    release: () => {
+      assert.ok(releaseBlocked, 'expected durable progress persistence to be blocked')
+      const release = releaseBlocked
+      releaseBlocked = null
+      release!()
+    },
+  }
+}
+
+function synthesisFile(graph: SwarmGraph, moduleName: string): string {
+  const module = graph.modules.find((candidate) => candidate.name === moduleName)
+  const synthesis = module && Object.values(module.layers).flat().find((agent) => agent.isSynthesis)
+  assert.ok(synthesis, `expected ${moduleName} to have a synthesis agent`)
+  return `${synthesis!.key.split('/').at(-1)}.md`
+}
+
+function writeSynthesis(runRoot: string, graph: SwarmGraph, moduleName: string): void {
+  const moduleRoot = path.join(REPO_ROOT, runRoot, moduleName)
+  fs.mkdirSync(moduleRoot, { recursive: true })
+  fs.writeFileSync(path.join(moduleRoot, synthesisFile(graph, moduleName)), `# ${moduleName} synthesis\n`)
 }
 
 const sorted = (a: string[]) => [...a].sort()
@@ -180,6 +268,8 @@ const sorted = (a: string[]) => [...a].sort()
     // a FRESH full run (no prior work on disk) is not a resume: nothing skipped, every module planned —
     // so the cockpit shows all orbs as about-to-run (the honest non-resume view).
     assert.equal(out.resumed, false, 'a fresh full run is not a resume')
+    assert.ok(f.launches.every((child) => child.requireExistingFrozenPoolReceipt === false),
+      'a genuinely fresh Full is allowed to create its first durable generation receipt')
     assert.deepEqual(out.skipped, [], 'a fresh run skips nothing')
     assert.deepEqual(
       sorted(out.planned ?? []),
@@ -228,6 +318,359 @@ const sorted = (a: string[]) => [...a].sort()
     f.finish('competitive-intel')
     const masters = f.launches.filter((l) => l.kind === 'rerun' && l.module === 'master' && l.agent === 'synthesizer')
     assert.equal(masters.length, 1, 'master synthesizer launches exactly once, after every module (incl. competitive-intel) is done')
+    const capturedRoot = f.getMarkerRoot()
+    assert.ok(capturedRoot, 'the chain freezes one dated root before its first child')
+    assert.ok(f.launches.every((child) => child.runRoot === capturedRoot),
+      'every later module and terminal master carries the original root, so a midnight rollover cannot split the chain')
+  })
+
+  await check('completed evidence is durable before the scheduler registers the next module', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.filter((module) =>
+      module.name === 'business-model' || module.name === 'earnings')
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: modules.length,
+        agents: modules.reduce((sum, module) => sum + module.agentCount, 0),
+        specialists: modules.reduce((sum, module) => sum
+          + Object.values(module.layers).flat().filter((agent) => !agent.isSynthesis).length, 0),
+        synthesis: modules.length,
+      },
+    }
+    const runRoot = `analyses/ZZCHAINGAP_${Date.now()}`
+    const durable = makeDurableChainFake(runRoot, (entry) => entry.masterState === 'pending'
+      && entry.completed.some((completed) => completed.module === 'business-model')
+      && entry.nextModules.includes('earnings'))
+    const f = makeFake({ graph })
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    try {
+      const out = await launchFullChained('ZZCHAINGAP', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: durable.transaction.requestId,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      assert.equal(out.runId, 'run-business-model')
+      writeSynthesis(runRoot, graph, 'business-model')
+      f.finish('business-model')
+      await f.tick()
+      assert.deepEqual(f.mods(), ['business-model'],
+        'the next paid child cannot register before completed hashes are durably stored')
+      const sealed = durable.progress().at(-1)
+      assert.deepEqual(sealed?.completed.map((entry) => entry.module), ['business-model'])
+      assert.deepEqual(sealed?.nextModules, ['earnings'])
+      assert.match(sealed?.completed[0]?.artifacts[0]?.sha256 ?? '', /^sha256:[0-9a-f]{64}$/)
+      durable.release()
+      await f.tick()
+      assert.deepEqual(f.mods(), ['business-model', 'earnings'],
+        'the remaining exact module starts once its predecessor receipt is durable')
+      writeSynthesis(runRoot, graph, 'earnings')
+      f.finish('earnings')
+      await f.tick()
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 1)
+      await f.tick()
+      f.finish('master')
+      await f.tick()
+      assert.deepEqual(durable.terminals(), ['done'])
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('the final module is durably ready before the terminal master registers', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.filter((module) => module.name === 'business-model')
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: 1,
+        agents: modules[0]!.agentCount,
+        specialists: Object.values(modules[0]!.layers).flat().filter((agent) => !agent.isSynthesis).length,
+        synthesis: 1,
+      },
+    }
+    const runRoot = `analyses/ZZMASTERGAP_${Date.now()}`
+    const durable = makeDurableChainFake(runRoot, (entry) => entry.masterState === 'ready')
+    const f = makeFake({ graph })
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    try {
+      await launchFullChained('ZZMASTERGAP', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: durable.transaction.requestId,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      writeSynthesis(runRoot, graph, 'business-model')
+      f.finish('business-model')
+      await f.tick()
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 0,
+        'the master cannot register in the final-child crash window')
+      const ready = durable.progress().at(-1)
+      assert.equal(ready?.masterState, 'ready')
+      assert.deepEqual(ready?.completed.map((entry) => entry.module), ['business-model'])
+      durable.release()
+      await f.tick()
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 1,
+        'restart can launch only the terminal master from the durable ready state')
+      await f.tick()
+      f.finish('master')
+      await f.tick()
+      assert.deepEqual(durable.terminals(), ['done'])
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('restart never trusts a synthesis written before the child terminal receipt', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.filter((module) => module.name === 'business-model')
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: 1,
+        agents: modules[0]!.agentCount,
+        specialists: Object.values(modules[0]!.layers).flat().filter((agent) => !agent.isSynthesis).length,
+        synthesis: 1,
+      },
+    }
+    const runRoot = `analyses/ZZUNSEALED_${Date.now()}`
+    const durable = makeDurableChainFake(runRoot, () => false)
+    const now = new Date().toISOString()
+    durable.transaction.recoveredChainIntent = {
+      version: 1,
+      chainId: durable.transaction.requestId,
+      user: 'tester',
+      userVia: 'local',
+      selection: {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        profileKey: 'claude:sonnet:default',
+        executionProfile: {
+          key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default',
+        },
+      },
+      modules: [{
+        module: 'business-model',
+        dependsOn: [],
+        synthesisOutputs: [`business-model/${synthesisFile(graph, 'business-model')}`],
+      }],
+      completed: [],
+      nextModules: [],
+      inflightModules: ['business-model'],
+      masterState: 'pending',
+      startedAt: now,
+      progressAt: now,
+      terminalStatus: null,
+      terminalAt: null,
+    }
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    writeSynthesis(runRoot, graph, 'business-model') // crash: bytes exist, terminal/lineage receipt does not
+    const f = makeFake({ graph })
+    try {
+      await launchFullChained('ZZUNSEALED', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: durable.transaction.requestId,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      assert.deepEqual(f.mods(), ['business-model'],
+        'the unsealed module reruns instead of being promoted to done from raw disk bytes')
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 0,
+        'the terminal master cannot start from an unsealed-looking synthesis')
+      assert.equal(fs.existsSync(path.join(
+        REPO_ROOT, runRoot, 'business-model', synthesisFile(graph, 'business-model'),
+      )), false, 'recovery removes the unsealed synthesis but leaves the module available to continue')
+      writeSynthesis(runRoot, graph, 'business-model')
+      f.finish('business-model')
+      await f.tick()
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 1,
+        'master starts only after the replacement child receives a terminal done receipt')
+      await f.tick()
+      f.finish('master')
+      await f.tick()
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('a recovered fresh Full with zero output still loads its original frozen receipt', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.filter((module) => module.name === 'business-model')
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: 1,
+        agents: modules[0]!.agentCount,
+        specialists: Object.values(modules[0]!.layers).flat().filter((agent) => !agent.isSynthesis).length,
+        synthesis: 1,
+      },
+    }
+    const runRoot = `analyses/ZZFRESHZERO_${Date.now()}`
+    const durable = makeDurableChainFake(runRoot, () => false)
+    const now = new Date().toISOString()
+    durable.transaction.recoveredChainIntent = {
+      version: 1,
+      chainId: durable.transaction.requestId,
+      user: 'tester',
+      userVia: 'local',
+      selection: {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        profileKey: 'claude:sonnet:default',
+        executionProfile: {
+          key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default',
+        },
+      },
+      modules: [{
+        module: 'business-model',
+        dependsOn: [],
+        synthesisOutputs: [`business-model/${synthesisFile(graph, 'business-model')}`],
+      }],
+      completed: [],
+      nextModules: ['business-model'],
+      inflightModules: [],
+      masterState: 'pending',
+      startedAt: now,
+      progressAt: now,
+      terminalStatus: null,
+      terminalAt: null,
+    }
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    const f = makeFake({ graph })
+    try {
+      await launchFullChained('ZZFRESHZERO', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: false,
+        recoveryRequestId: durable.transaction.requestId,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      assert.deepEqual(f.mods(), ['business-model'])
+      assert.notEqual(f.launches[0]?.continuation, true,
+        'the recovered action remains Full rather than becoming Continue')
+      assert.equal(f.launches[0]?.requireExistingFrozenPoolReceipt, true,
+        'crossing the prior paid boundary is enough to forbid a live-Drive re-evaluation, even with zero output')
+      f.finish('business-model', 'error')
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('a successful drained sibling is sealed and never repaid after another sibling fails', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.slice(0, 2).map((module) => ({ ...module, dependsOn: [] }))
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: modules.length,
+        agents: modules.reduce((sum, module) => sum + module.agentCount, 0),
+        specialists: modules.reduce((sum, module) => sum
+          + Object.values(module.layers).flat().filter((agent) => !agent.isSynthesis).length, 0),
+        synthesis: modules.length,
+      },
+    }
+    const failedModule = modules[0]!.name
+    const drainedDoneModule = modules[1]!.name
+    const runRoot = `analyses/ZZDRAINED_${Date.now()}`
+    const firstTransaction = makeDurableChainFake(runRoot, () => false)
+    const first = makeFake({ graph })
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    try {
+      await launchFullChained('ZZDRAINED', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, first.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: firstTransaction.transaction.requestId,
+        preparedRunPlanTransaction: firstTransaction.transaction,
+      })
+      assert.deepEqual(sorted(first.mods()), sorted([failedModule, drainedDoneModule]))
+      writeSynthesis(runRoot, graph, drainedDoneModule)
+      first.finish(failedModule, 'error')
+      await first.tick() // the first failure has stopped new scheduling while its paid sibling drains
+      first.finish(drainedDoneModule, 'done')
+      await first.tick()
+      const sealed = firstTransaction.progress().at(-1)
+      assert.deepEqual(sealed?.completed.map((entry) => entry.module), [drainedDoneModule],
+        'the later successful sibling is appended to protected completed evidence')
+      assert.deepEqual(sealed?.nextModules, [failedModule],
+        'only the failed sibling remains payable')
+      assert.equal(first.poolClaimHeld(), false, 'the stopped wave releases only after the successful sibling is sealed')
+
+      const firstStart = firstTransaction.starts()[0]!
+      const recoveryTransaction = makeDurableChainFake(runRoot, () => false)
+      recoveryTransaction.transaction.recoveredChainIntent = {
+        version: 1,
+        chainId: firstStart.chainId,
+        user: firstStart.user,
+        userVia: firstStart.userVia,
+        selection: firstStart.selection,
+        modules: firstStart.modules,
+        completed: sealed!.completed,
+        nextModules: sealed!.nextModules,
+        inflightModules: sealed!.inflightModules,
+        masterState: sealed!.masterState,
+        startedAt: new Date().toISOString(),
+        progressAt: new Date().toISOString(),
+        terminalStatus: null,
+        terminalAt: null,
+      }
+      const recovery = makeFake({ graph })
+      await launchFullChained('ZZDRAINED', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, recovery.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: firstStart.chainId,
+        preparedRunPlanTransaction: recoveryTransaction.transaction,
+      })
+      assert.deepEqual(recovery.mods(), [failedModule],
+        'restart launches only the failed module; the paid successful sibling is reused by exact hash')
+      assert.equal(first.mods().filter((name) => name === drainedDoneModule).length
+        + recovery.mods().filter((name) => name === drainedDoneModule).length, 1,
+      'the successful sibling has exactly one provider launch across failure and restart')
+      writeSynthesis(runRoot, graph, failedModule)
+      recovery.finish(failedModule, 'done')
+      await recovery.tick()
+      assert.equal(recovery.launches.filter((launch) => launch.kind === 'rerun').length, 1)
+      await recovery.tick()
+      recovery.finish('master')
+      await recovery.tick()
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('a fresh-Full technical retry keeps one restart-stable exact root and chain identity', async () => {
+    const f = makeFake()
+    const requestId = '22222222-2222-4222-8222-222222222222'
+    const runRoot = 'analyses/TESTTECH_2099-01-01'
+    const out = await launchFullChained('TESTTECH', 'auto', 'local', { provider: 'claude' }, f.deps,
+      undefined, undefined, { runRoot, technicalReadinessRetry: true, recoveryRequestId: requestId })
+    assert.equal(out.runId, 'run-business-model')
+    assert.equal(f.launches[0]?.runRoot, runRoot, 'the retry never retargets to today')
+    assert.equal(f.launches[0]?.chainId, requestId,
+      'the stable recovery request is the logged chain/execution identity at the paid boundary')
+    assert.equal(f.launches[0]?.continuation, undefined,
+      'technical readiness retry remains a fresh Full and cannot silently become Continue')
+    f.finish('business-model', 'error')
   })
 
   await check('the immutable provider profile reaches every chained module and terminal master for Claude and Codex', async () => {
@@ -416,6 +859,54 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(f.poolClaimHeld(), false, 'a rejected terminal launch releases its stable pool claim')
     assert.equal(f.poolClaimReleases(), 1, 'a rejected terminal launch releases exactly once')
     assert.equal(subjectChainActive('TESTMASTERFAIL'), false, 'a rejected terminal launch releases its subject')
+    assert.equal(f.interruptions().length, 1, 'the rejected terminal launch leaves one durable recovery intent')
+    assert.deepEqual(
+      { step: f.interruptions()[0]?.step, runRoot: f.interruptions()[0]?.runRoot,
+        provider: f.interruptions()[0]?.selection.provider },
+      { step: 'master', runRoot: f.getMarkerRoot(), provider: 'claude' },
+      'terminal recovery retains the exact scheduled root and provider',
+    )
+  })
+
+  await check('a rejected later dependency wave records exact-root recovery instead of disappearing', async () => {
+    const f = makeFake({ failModule: 'earnings' })
+    const out = await launchFullChained('TESTLATERFAIL', 'tester', 'local', {
+      provider: 'codex', model: 'gpt-5.6-sol', reasoningLevel: 'max',
+      expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+    }, f.deps)
+    assert.equal(out.runId, 'run-business-model')
+    f.finish('business-model')
+    await f.tick()
+    assert.equal(f.interruptions().length, 1, 'only the first later-wave rejection owns recovery')
+    const interruption = f.interruptions()[0]!
+    assert.equal(interruption.step, 'module')
+    assert.equal(interruption.module, 'earnings')
+    assert.equal(interruption.runRoot, f.getMarkerRoot(), 'recovery is pinned to the original dated root')
+    assert.equal(interruption.selection.provider, 'codex', 'provider choice is never substituted')
+    assert.equal(f.poolClaimHeld(), false, 'the failed scheduler releases live leases for reconciliation')
+    assert.equal(subjectChainActive('TESTLATERFAIL'), false)
+  })
+
+  await check('an initial parallel rejection before a sibling ACK still binds one exact recovery', async () => {
+    const discovered = buildSwarmGraph()
+    const roots = discovered.modules.slice(0, 2).map((module) => ({ ...module, dependsOn: [] }))
+    const graph: SwarmGraph = { ...discovered, modules: roots }
+    const rejected = roots[0]!.name
+    const admitted = roots[1]!.name
+    const f = makeFake({ graph, failModule: rejected, deferAck: admitted })
+    const pending = launchFullChained('TESTINITIALRACE', 'tester', 'local', { provider: 'claude' }, f.deps)
+    await f.tick()
+    assert.equal(f.interruptions().length, 0,
+      'the rejection waits while a same-wave launch can still become a real paid child')
+    assert.equal(f.poolClaimHeld(), true, 'the exact root stays reserved across the unresolved ACK')
+    f.ack(admitted)
+    const out = await pending
+    assert.equal(out.runId, `run-${admitted}`, 'the caller follows the sibling that actually admitted')
+    assert.equal(f.interruptions().length, 1, 'the rejected sibling is sealed once after the ACK proves a chain exists')
+    assert.equal(f.interruptions()[0]?.module, rejected)
+    assert.equal(f.interruptions()[0]?.runRoot, f.getMarkerRoot())
+    f.finish(admitted, 'done')
+    assert.equal(f.poolClaimHeld(), false, 'the stopped chain releases only after its admitted writer drains')
   })
 
   await check('an aborted SIBLING stops new scheduling but does not launch the master', async () => {
@@ -425,7 +916,14 @@ const sorted = (a: string[]) => [...a].sort()
     f.finish('earnings')
     // after earnings, bss + mgov are in-flight; valuation waits for mgov (declared dependency).
     f.finish('management-governance', 'incomplete') // mgov fails -> chain stops; valuation never becomes ready
+    assert.equal(f.poolClaimHeld(), true,
+      'a failed sibling cannot release the chain receipt/lease while same-wave providers are still active')
     f.finish('balance-sheet-survival') // the other in-flight sibling still finishes on its own
+    assert.equal(f.poolClaimHeld(), true,
+      'the chain receipt remains bound until the last same-wave sibling drains')
+    f.finish('competitive-intel')
+    assert.equal(f.poolClaimHeld(), false,
+      'the failed chain releases its receipt/lease exactly after the final sibling drains')
     // valuation never launched (its mgov dependency did not complete); catalyst never ready; master never launches
     assert.ok(!f.mods().includes('valuation'), 'valuation never launches when its management-governance dependency did not complete')
     assert.ok(!f.mods().includes('catalyst'), 'catalyst never starts when a sibling did not complete')
@@ -580,9 +1078,12 @@ const sorted = (a: string[]) => [...a].sort()
     const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
     const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
     try {
+      const finishedHashes = new Map<string, string>()
       for (const m of ['business-model', 'earnings']) {
         fs.mkdirSync(path.join(runRootAbs, m), { recursive: true })
-        fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n') // a non-empty 99 synthesis = module finished
+        const synthesis = path.join(runRootAbs, m, `99_${m}-synthesis.md`)
+        fs.writeFileSync(synthesis, '# done\n') // a non-empty 99 synthesis = module finished
+        finishedHashes.set(synthesis, createHash('sha256').update(fs.readFileSync(synthesis)).digest('hex'))
       }
       const f = makeFake()
       const out = await launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps)
@@ -591,6 +1092,12 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(!(out.planned ?? []).includes('business-model') && !(out.planned ?? []).includes('earnings'), 'a skipped module is never also planned')
       assert.ok((out.planned ?? []).includes('valuation') && (out.planned ?? []).includes('catalyst'), 'the unfinished modules are planned')
       assert.ok(!f.mods().includes('business-model') && !f.mods().includes('earnings'), 'a finished module is NOT re-launched (the money the user was worried about)')
+      for (const [synthesis, digest] of finishedHashes) {
+        assert.equal(createHash('sha256').update(fs.readFileSync(synthesis)).digest('hex'), digest,
+          'the scheduler preserves every reusable finished byte exactly')
+      }
+      assert.ok(f.launches.every((child) => child.requireExistingFrozenPoolReceipt === true),
+        'implicit same-root reuse must load the old exact generation instead of freezing live data again')
       // both deps of bss + mgov are seeded done, so they are the newly-ready wave and launch immediately
       assert.ok(f.mods().includes('balance-sheet-survival') && f.mods().includes('management-governance'), 'the next-ready modules launch straight away on resume')
     } finally {
@@ -612,6 +1119,7 @@ const sorted = (a: string[]) => [...a].sort()
       for (const child of f.launches) {
         assert.equal(child.runRoot, runRoot)
         assert.equal(child.continuation, true)
+        assert.equal(child.requireExistingFrozenPoolReceipt, true)
       }
       for (const module of buildSwarmGraph().modules.map((entry) => entry.name)) {
         if (f.mods().includes(module)) f.finish(module)
@@ -621,6 +1129,8 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(master, 'the terminal master launches after the modules finish')
       assert.equal(master!.runRoot, runRoot)
       assert.equal(master!.continuation, true)
+      assert.equal(master!.requireExistingFrozenPoolReceipt, true,
+        'the terminal master remains bound to the same restart-durable generation')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }
@@ -640,6 +1150,8 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(!(out.skipped ?? []).includes('business-model'), 'invalid 99 cannot enter the resumed done set')
       assert.ok((out.planned ?? []).includes('business-model'), 'the module remains in the paid plan')
       assert.ok(f.mods().includes('business-model'), 'the full chain reruns the module instead of feeding bad bytes downstream')
+      assert.equal(f.launches[0]?.requireExistingFrozenPoolReceipt, true,
+        'partial provider output without a valid synthesis still requires the old generation receipt')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }
@@ -661,6 +1173,8 @@ const sorted = (a: string[]) => [...a].sort()
       assert.equal(f.mods().length, 0, 'no finished module is relaunched')
       assert.equal(f.launches.filter((item) => item.kind === 'rerun' && item.module === 'master').length, 1,
         'the direct master is launched exactly once')
+      assert.equal(f.launches[0]?.requireExistingFrozenPoolReceipt, true,
+        'a direct-master resume cannot synthesize old modules against a new generation')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }

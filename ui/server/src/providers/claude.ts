@@ -19,6 +19,7 @@ import type {
   ProviderStreamEvent,
   ResolvedProviderProfile,
 } from './types'
+import { PROVIDER_NEUTRAL_RUN_ENV_KEYS } from './types'
 
 // A tracked Claude process can execute arbitrary shell commands. Pass only OS/runtime plumbing plus
 // Claude's own subscription authentication. The one supported headless credential is retained only in
@@ -33,6 +34,7 @@ const CLAUDE_CHILD_ENV_ALLOWLIST = [
 ] as const
 const CLAUDE_COCKPIT_ENV_ALLOWLIST = [
   'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET',
+  ...PROVIDER_NEUTRAL_RUN_ENV_KEYS,
 ] as const
 
 let supportedFlags: Set<string> | null = null
@@ -179,9 +181,16 @@ export function claudeSandboxSettings(
     path.dirname(path.resolve(context.publicationSocketPath)),
     path.resolve(context.publicationSocketPath),
   ] : []
+  const readOnlyCapabilities = (context.readOnlyCapabilityPaths ?? []).map((value) => {
+    if (typeof value !== 'string' || !value.trim() || !path.isAbsolute(value)) {
+      throw new Error('Claude read-only capability paths must be non-empty absolute paths')
+    }
+    return path.resolve(value)
+  })
   const allowedReads = [...new Set([
     path.resolve(context.cwd), canonicalPath(context.cwd),
     path.resolve(context.additionalWritableDataRoot), canonicalPath(context.additionalWritableDataRoot),
+    ...readOnlyCapabilities.flatMap((value) => [value, canonicalPath(value)]),
     ...(mirrorCwd ? [path.resolve(mirrorCwd), canonicalPath(mirrorCwd)] : []),
     ...publicationMetadataReads.flatMap((value) => [path.resolve(value), canonicalPath(value)]),
   ])]

@@ -2476,6 +2476,12 @@ export interface ReadinessReport {
   overall: 'clean' | 'degraded' | 'blocked'
   fileCount: number
   usableCount: number
+  physicalPool?: {
+    state: 'empty' | 'nonempty' | 'unknown'
+    fileCount: number
+    nonEmptyFileCount: number
+    reason?: string
+  }
   entities: { file: string; entity: string }[]
   issues: ReadinessIssue[]
   ts: number
@@ -3251,7 +3257,7 @@ export interface ThesisPlan {
 }
 
 export interface ContinuationPlanReceipt {
-  version: 1
+  version: 2
   action: 'continue' | 'complete'
   swarm: string
   subject: string
@@ -3266,6 +3272,15 @@ export interface ContinuationPlanReceipt {
   reusableOrbKeys: string[]
   payableOrbKeys: string[]
   dataPool: { files: number; newestMs: number; sha256: string }
+  evidenceGenerationDigest: string | null
+  reusableArtifacts: {
+    output_rel: string
+    sha256: string
+    generation_digest: string
+    attempt_id: string
+  }[]
+  reusableArtifactsSha256: string
+  verifiedLineageSha256: string
   sourceArtifactsSha256: string
   fingerprint: string
 }

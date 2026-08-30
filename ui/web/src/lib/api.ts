@@ -1373,6 +1373,8 @@ export const api = {
     poolNewestMs: number,
     selection: FrozenProviderLaunch,
     sourceRunRoot?: string,
+    requestId?: string,
+    continuationReceipt?: ContinuationPlanReceipt,
   ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/thesis-plan/module`, {
@@ -1387,6 +1389,8 @@ export const api = {
       poolFiles,
       poolNewestMs,
       sourceRunRoot,
+      requestId,
+      continuationReceipt,
       ...providerLaunchFields(selection),
     })
   },

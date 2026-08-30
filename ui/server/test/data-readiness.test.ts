@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, latestDecision, quoteAsOfMonths, readinessHas } from '../src/data-status'
-import { moduleReadinessIssues, parseReadinessStdout } from '../src/readiness'
+import { inspectPoolPresence, moduleReadinessIssues, parseReadinessStdout } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
 
@@ -174,7 +174,7 @@ check('moduleReadinessIssues: agent + rerun are skipped entirely', () => {
 
 // ---- extractor stdout protocol: noisy parser diagnostics cannot masquerade as data failure ----
 const pyReport = {
-  data_path: '/tmp/data/KAR', file_count: 86, usable_count: 86,
+  data_path: '/tmp/data/KAR', generation_digest: 'a'.repeat(64), file_count: 86, usable_count: 86,
   issues: [], entities: [{ file: 'annual-report.pdf', entity: 'Karoon Energy Ltd' }],
 }
 
@@ -207,6 +207,82 @@ check('parseReadinessStdout: rejects unrelated JSON or an impossible report shap
     () => parseReadinessStdout(JSON.stringify({ ...pyReport, file_count: 1, usable_count: 2 })),
     /0 valid reports/,
   )
+  assert.throws(
+    () => parseReadinessStdout(JSON.stringify({ ...pyReport, generation_digest: undefined })),
+    /0 valid reports/,
+    'a successful readiness report cannot omit its immutable generation receipt',
+  )
+})
+
+check('inspectPoolPresence: proves real non-empty inputs without counting metadata or engine output', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-pool-presence-'))
+  try {
+    fs.writeFileSync(path.join(root, 'annual-report.pdf'), 'real filing bytes')
+    fs.writeFileSync(path.join(root, 'empty.pdf'), '')
+    fs.writeFileSync(path.join(root, 'annual-report.pdf.source.json'), '{"metadata":true}')
+    fs.writeFileSync(path.join(root, '.DS_Store'), 'finder metadata')
+    const output = path.join(root, 'prior-engine-output')
+    fs.mkdirSync(output)
+    fs.writeFileSync(path.join(output, '.nostradamus_output'), '')
+    fs.writeFileSync(path.join(output, 'final_thesis.md'), 'must not be re-ingested')
+    assert.deepEqual(inspectPoolPresence(root), { state: 'nonempty', fileCount: 2, nonEmptyFileCount: 1 })
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+})
+
+check('inspectPoolPresence: missing is unknown; all-zero-byte inputs are positive empty proof', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-pool-empty-'))
+  try {
+    assert.deepEqual(inspectPoolPresence(path.join(root, 'missing')), {
+      state: 'unknown', fileCount: 0, nonEmptyFileCount: 0, reason: 'root_realpath_failed',
+    })
+    assert.deepEqual(inspectPoolPresence(root), { state: 'empty', fileCount: 0, nonEmptyFileCount: 0 })
+    fs.writeFileSync(path.join(root, 'empty.xls'), '')
+    assert.deepEqual(inspectPoolPresence(root), { state: 'empty', fileCount: 1, nonEmptyFileCount: 0 })
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+})
+
+check('inspectPoolPresence: any incomplete directory walk is unknown, never empty', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-pool-io-error-'))
+  const blocked = path.join(root, 'blocked')
+  fs.mkdirSync(blocked)
+  try {
+    assert.deepEqual(inspectPoolPresence(root, {
+      realpathSync: (target) => fs.realpathSync(target),
+      lstatSync: (target) => fs.lstatSync(target),
+      readdirSync: (directory) => {
+        if (path.basename(directory) === path.basename(blocked)) throw new Error('simulated Drive read failure')
+        return fs.readdirSync(directory, { withFileTypes: true })
+      },
+    }), {
+      state: 'unknown', fileCount: 0, nonEmptyFileCount: 0, reason: 'directory_read_failed',
+    })
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+})
+
+check('inspectPoolPresence: a file disappearing during stat makes the proof unknown', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-pool-stat-error-'))
+  const filing = path.join(root, 'filing.pdf')
+  fs.writeFileSync(filing, 'bytes')
+  try {
+    assert.deepEqual(inspectPoolPresence(root, {
+      realpathSync: (target) => fs.realpathSync(target),
+      lstatSync: (candidate) => {
+        if (path.basename(candidate) === path.basename(filing)) throw new Error('simulated concurrent rename')
+        return fs.lstatSync(candidate)
+      },
+      readdirSync: (directory) => fs.readdirSync(directory, { withFileTypes: true }),
+    }), {
+      state: 'unknown', fileCount: 0, nonEmptyFileCount: 0, reason: 'entry_stat_failed',
+    })
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
 })
 
 // ---- period from the FILENAME wins over content-scraped years (the "Data Coverage picks 2024 not 2025" bug) ----

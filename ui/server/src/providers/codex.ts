@@ -27,6 +27,7 @@ import type {
   ProviderStreamEvent,
   ResolvedProviderProfile,
 } from './types'
+import { PROVIDER_NEUTRAL_RUN_ENV_KEYS } from './types'
 import type { CreditPreflight } from '../types'
 
 const REQUIRED_GLOBAL_FLAGS = ['--strict-config', '--add-dir', '--search', '--config'] as const
@@ -46,18 +47,7 @@ const CODEX_COCKPIT_ENV_ALLOWLIST = [
   'NOSTRA_PUBLICATION_ENDPOINT',
   'NOSTRA_PUBLICATION_SOCKET',
   'NOSTRA_PUBLICATION_TOKEN',
-  // Provider-neutral run policy is applied before adapter construction and reasserted immediately before
-  // spawn. These values are deliberately model-visible command controls, never credentials. Keeping the
-  // same explicit set on both sides preserves the one-use launch-environment proof for every run kind.
-  'NOSTRA_DEFER_MODULE_MEMO',
-  'NOSTRA_EXACT_MODULE_RESUME',
-  'NOSTRA_EXACT_MODULE_INPUTS',
-  'NOSTRA_EXACT_MODULE_RUN_ROOT',
-  'NOSTRA_EXACT_MODULE_NAME',
-  'NOSTRA_EXACT_MODULE_WRITABLE_ORBS',
-  'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS',
-  'NOSTRA_MEMORY_MODE',
-  'NOSTRA_PARITY_CANARY_CONTINUATION',
+  ...PROVIDER_NEUTRAL_RUN_ENV_KEYS,
 ] as const
 
 // Homebrew's versioned Python formulae deliberately keep the unversioned `python3` shim out of
@@ -507,6 +497,7 @@ export interface IsolatedCodexProbeHome {
     protectedReadPaths?: readonly string[],
     publicationSocketPath?: string,
     runtimeReadPaths?: readonly string[],
+    readOnlyCapabilityPaths?: readonly string[],
   ): string
   assertValid(command: string, commandIdentity: string): void
   consumeForSpawn(command: string, commandIdentity: string): void
@@ -529,6 +520,7 @@ export function codexSandboxConfig(options: {
   protectedReadPaths?: readonly string[]
   publicationSocketPath?: string
   runtimeReadPaths?: readonly string[]
+  readOnlyCapabilityPaths?: readonly string[]
 }): string {
   const normalizePaths = (values: readonly string[] | undefined, label: string): string[] => {
     const normalized = new Set<string>()
@@ -551,6 +543,9 @@ export function codexSandboxConfig(options: {
     access.set(path.resolve(candidate), 'read')
   }
   for (const candidate of normalizePaths(options.runtimeReadPaths, 'Codex runtime-read')) {
+    access.set(candidate, 'read')
+  }
+  for (const candidate of normalizePaths(options.readOnlyCapabilityPaths, 'Codex read-only capability')) {
     access.set(candidate, 'read')
   }
   if (options.scratchRoot) access.set(path.resolve(options.scratchRoot), 'write')
@@ -777,7 +772,7 @@ export function createIsolatedCodexProbeHome(
     },
     installLaunchSandboxConfig(
       repoRoot, dataRoot, writablePaths, protectedWritePaths, protectedReadPaths, publicationSocketPath,
-      runtimeReadPaths,
+      runtimeReadPaths, readOnlyCapabilityPaths,
     ) {
       if (sandboxConfigured) throw new Error('Codex launch permission profile was already installed.')
       assertValid(boundCommand!, boundCommandIdentity!)
@@ -794,6 +789,7 @@ export function createIsolatedCodexProbeHome(
         protectedReadPaths,
         publicationSocketPath,
         runtimeReadPaths,
+        readOnlyCapabilityPaths,
       })
       try {
         fs.mkdirSync(scratchRoot, { mode: 0o700 })
@@ -1908,6 +1904,13 @@ export function buildCodexLaunchSpec(
     })
     validateCodexPromptProgram(context.cwd, profile)
     const dataRoot = assertDataRoot(context.additionalWritableDataRoot)
+    const capabilityRoots = [...(context.readOnlyCapabilityPaths ?? [])]
+    if (capabilityRoots.length > 1) {
+      throw new Error('Codex launch accepts at most one exact frozen evidence capability.')
+    }
+    // In supervisor-frozen mode, the model's additional workspace is the isolated capability—not the
+    // live repository data tree. Writable research outputs remain constrained by workspaceRoot below.
+    const modelDataRoot = capabilityRoots.length ? assertDataRoot(capabilityRoots[0]) : dataRoot
     const workspaceRoot = fs.realpathSync(context.cwd)
     if (!fs.statSync(workspaceRoot).isDirectory()) throw new Error('Codex workspace root is not a directory.')
     const writablePaths = resolveCodexWritablePaths(context.writablePaths, workspaceRoot, dataRoot)
@@ -1958,15 +1961,17 @@ export function buildCodexLaunchSpec(
       write: [...(context.protectedWritePaths ?? [])],
       read: [...(context.protectedReadPaths ?? [])],
       runtime: pythonRuntime.readOnlyRoots,
+      capabilities: [...(context.readOnlyCapabilityPaths ?? [])],
     })
     const scratchRoot = lease.installLaunchSandboxConfig(
       workspaceRoot,
-      dataRoot,
+      modelDataRoot,
       writablePaths,
       context.protectedWritePaths,
       context.protectedReadPaths,
       publication.socket.realPath,
       pythonRuntime.readOnlyRoots,
+      context.readOnlyCapabilityPaths,
     )
     // Override the mutable caller home with the exact credential snapshot used by login/catalogue proof.
     const env: NodeJS.ProcessEnv = {
@@ -1983,7 +1988,7 @@ export function buildCodexLaunchSpec(
       .flatMap((key) => env[key] === undefined ? [] : ['--config', `shell_environment_policy.set.${key}=${JSON.stringify(env[key])}`])
     const args = [
       '--strict-config',
-      '--add-dir', dataRoot,
+      '--add-dir', modelDataRoot,
       '--add-dir', scratchRoot,
       '--search',
       '--model', profile.model,
@@ -2023,6 +2028,7 @@ export function buildCodexLaunchSpec(
         write: [...(context.protectedWritePaths ?? [])],
         read: [...(context.protectedReadPaths ?? [])],
         runtime: pythonRuntime.readOnlyRoots,
+        capabilities: [...(context.readOnlyCapabilityPaths ?? [])],
       }) !== protectedPathBinding) {
         throw new Error('Codex writable/protected-path policy changed after the credential proof was bound.')
       }

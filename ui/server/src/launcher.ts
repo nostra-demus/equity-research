@@ -5,15 +5,15 @@ import http from 'node:http'
 import path from 'node:path'
 import { isDeepStrictEqual } from 'node:util'
 import { execa, type ResultPromise } from 'execa'
-import { estimateFromComparableRuns, logLaunch } from './activity-log'
+import { estimateFromComparableRuns, logFinish, logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { DATA_DIR, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
+import { DATA_DIR, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, emitTransient, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, recordActivity, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
-import { clearRunMarker, isValidCalendarISODate, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
-import { runReadiness } from './readiness'
+import { clearRunMarker, hasRunMarker, isValidCalendarISODate, readRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
+import { isReadinessCancelledError, ReadinessCancelledError, runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
 import { normalizeDataSubject } from './data-subject'
@@ -43,16 +43,29 @@ import './providers/claude'
 import './providers/codex'
 import { claudeChildEnv, detectClaudeFlags } from './providers/claude'
 import { getProviderAdapter, isProviderEnabled, listProviderAdapters, providerDisabledReason } from './providers/registry'
-import type { ProviderExecutionProfile, RunProvider } from './providers/types'
+import { PROVIDER_NEUTRAL_RUN_ENV, type ProviderExecutionProfile, type RunProvider } from './providers/types'
 import {
   appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
   canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
   EXECUTION_PROVENANCE_RECEIPT, receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority,
-  protectedInterruptedExecutionLineage, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
+  protectedInterruptedExecutionLineage, readProviderInterruptionAuthority, recordRecoveredPublicationAuthority, releaseExecutionEpochAfterPublication,
   releaseParityRegistration, resolveParityBindingPath, supersedeIncompleteDecisionAuthorAttempt, writeExecutionReceipt,
 } from './execution-provenance'
 import { runIbkrPaperAutoSyncAfterPublication, scheduleIbkrPaperAutoSyncAfterPublication } from './ibkr-paper-auto-sync'
-import type { PreparedRunPlanTransaction } from './run-plan-transaction'
+import type { PreSpendRetryAuthority, PreparedRunPlanTransaction } from './run-plan-transaction'
+import {
+  createProviderSpawnGate,
+  inspectProviderSpawnGate,
+  providerSpawnCommandDigest,
+  PROVIDER_SPAWN_GATE_DIR_ENV,
+  PROVIDER_SPAWN_GATE_TOKEN_ENV,
+  PROVIDER_SPAWN_TRAMPOLINE,
+  recordProviderSpawnGateProcessProof,
+  releaseProviderSpawnGate,
+  removeProviderSpawnGate,
+  sweepUnreleasedProviderSpawnGates,
+  type ProviderSpawnGate,
+} from './provider-spawn-gate'
 import { parityCanaryRootBasenameMatches } from './provider-parity-path'
 import {
   attestResearchMemoryUse,
@@ -63,12 +76,24 @@ import {
   verifyResearchMemoryBeforeSpawn,
 } from './research-memory'
 import { acquireProviderRunDeployLease } from './deploy-barrier'
+import { captureOutputLineageAttempt, settleOutputLineageAttempt } from './evidence-lineage'
+import {
+  createFrozenEvidenceReadCapability,
+  destroyFrozenEvidenceReadCapability,
+  verifyFrozenEvidenceReadCapability,
+  type FrozenEvidenceReadCapability,
+} from './frozen-evidence-capability'
 
 // Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
 // disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
 // A one-shot wrapper makes racing stream-result/close/cancel paths harmless.
 const providerLaunchCleanup = new WeakMap<RunState, () => void>()
+const providerEvidenceBoundary = new WeakMap<RunState, {
+  frozenPool: FrozenPoolBinding
+  capability: FrozenEvidenceReadCapability
+}>()
 function releaseProviderLaunchResources(run: RunState): void {
+  providerEvidenceBoundary.delete(run)
   const cleanup = providerLaunchCleanup.get(run)
   if (!cleanup) return
   providerLaunchCleanup.delete(run)
@@ -891,6 +916,14 @@ export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
 // missing-final-thesis integrity check can never be bypassed by an early clean result.
 export function finalizeRunOnClose(run: RunState, res: any, stderr: string, terminalProof: PreSpawnGuardResult = { ok: true }) {
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
+  const outputLineageFailure = settleRunOutputLineage(run)
+  if (outputLineageFailure && !run.cancelRequested && (run.status as string) !== 'cancelled') {
+    run.streamFailure = {
+      reason: 'output_lineage_failed',
+      message: `completed output lineage could not be sealed: ${outputLineageFailure}`,
+    }
+    run.note = run.streamFailure.message
+  }
   const finishClose = (status: RunStatus) => {
     finishRun(run, status)
     if (status === 'done') scheduleIbkrPaperAutoSyncAfterPublication(run)
@@ -979,7 +1012,12 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // finalizer releases them.
     finishClose('error')
   } else if (!terminalProof.ok) {
+    const terminalMessage = terminalProof.message || terminalProof.reason
     run.note = `incomplete: ${terminalProof.reason}`
+    if (isResumableResearchRun(run) && run.runRoot) {
+      try { writeInterruptionMarker(run, terminalProof.reason, terminalMessage) } catch { /* event remains truthful */ }
+      try { recordRunFailure(run, terminalProof.reason, terminalMessage) } catch { /* best effort */ }
+    }
     emit(run, {
       type: 'run-error', runId: run.runId, status: 'incomplete', reason: terminalProof.reason,
       message: terminalProof.message, ts: Date.now(),
@@ -1070,13 +1108,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
         : publicationPending
           ? 'incomplete: thesis exists but immutable Ideas publication did not finish'
         : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
-    // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
-    // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
-    if (isResumableTerminalRun(run)) clearRunMarker(run.runRoot, '.interrupted')
-    // A clean truncation left NO durable trace anywhere — no marker, no off-host record — which is the
-    // single reason "the module just stops" went undiagnosed for months. Record it with the same note
-    // mechanism the error branches use. Deliberately NOT a .interrupted marker: that is the resume
-    // QUEUE, and a deliberate cap-stop must never be auto-relaunched straight back into the cap.
+    // Clean/incomplete provider exits are recoverable process outcomes, not a request for a human to babysit
+    // a two-hour chain. Seal the exact root/provider/profile and let the progress-aware supervisor continue
+    // only while protected outputs advance; its durable no-progress bound turns a genuinely impossible loop
+    // into Needs attention without redoing valid work or widening Continue into Full.
+    if (isResumableResearchRun(run) && run.runRoot) {
+      try { writeInterruptionMarker(run, 'incomplete_deliverables', run.note ?? msg) } catch { /* event remains truthful */ }
+    }
     if (shouldRecordStop(run)) recordRunFailure(run, 'incomplete_deliverables', run.note ?? '')
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
     finishClose('incomplete')
@@ -1230,6 +1268,9 @@ interface ProviderProcessLease {
   pid: number
   process_started: string
   run_started_at: number
+  /** Present only for a transaction-owned gated trampoline. `released` on disk is the paid boundary. */
+  spawn_gate_id?: string
+  spawn_gate_request_id?: string
   self_sha256: string
 }
 
@@ -1251,9 +1292,18 @@ function leaseDigest(value: Omit<ProviderProcessLease, 'self_sha256'>): string {
   return `sha256:${createHash('sha256').update(JSON.stringify(value)).digest('hex')}`
 }
 
-function persistProviderProcessLease(run: RunState): void {
+function persistProviderProcessLease(run: RunState, spawnGate?: ProviderSpawnGate): {
+  pid: number
+  processStarted: string
+  leaseSha256: string
+} {
   const pid = run.processGroupPid
   if (!pid || !run.runRoot) throw new Error('provider process lease requires a process group and run root')
+  if (spawnGate && (spawnGate.identity.runId !== run.runId
+      || spawnGate.identity.providerAttemptId !== (run.providerAttemptId ?? run.runId)
+      || spawnGate.identity.runRoot !== run.runRoot)) {
+    throw new Error('provider spawn gate does not match the exact provider process')
+  }
   const identity = processIdentity(pid)
   if (!identity || identity.pgid !== pid) throw new Error('spawned provider is not its own process-group leader')
   fs.mkdirSync(providerProcessLeaseDir, { recursive: true, mode: 0o700 })
@@ -1265,6 +1315,10 @@ function persistProviderProcessLease(run: RunState): void {
     profile_key: run.profileKey, model: run.model, reasoning_level: run.reasoningLevel,
     execution_profile: run.executionProfile, pid, process_started: identity.started,
     run_started_at: run.startedAt,
+    ...(spawnGate ? {
+      spawn_gate_id: spawnGate.gateId,
+      spawn_gate_request_id: spawnGate.identity.requestId,
+    } : {}),
   }
   const lease: ProviderProcessLease = { ...unsigned, self_sha256: leaseDigest(unsigned) }
   const target = providerProcessLeasePath(run.runId)
@@ -1280,6 +1334,7 @@ function persistProviderProcessLease(run: RunState): void {
     descriptor = null
     fs.renameSync(temporary, target)
     syncDirectory(providerProcessLeaseDir)
+    return { pid, processStarted: identity.started, leaseSha256: lease.self_sha256 }
   } catch (error) {
     if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ }
     try { fs.unlinkSync(temporary) } catch { /* absent */ }
@@ -1287,13 +1342,17 @@ function persistProviderProcessLease(run: RunState): void {
   }
 }
 
-function clearProviderProcessLease(runId: string): void {
+function clearProviderProcessLease(runId: string, preserveSpawnGate = false): void {
   const target = providerProcessLeasePath(runId)
   try {
+    const lease = readProviderProcessLease(target)
     const info = fs.lstatSync(target)
     if (info.isFile() && !info.isSymbolicLink()) {
       fs.unlinkSync(target)
       syncDirectory(providerProcessLeaseDir)
+      if (lease?.spawn_gate_id && !preserveSpawnGate) {
+        try { removeProviderSpawnGate(lease.spawn_gate_id) } catch { /* startup sweep remains fail closed */ }
+      }
     }
   } catch { /* absent or unsafe entries are reconciled on startup */ }
 }
@@ -1309,6 +1368,9 @@ function readProviderProcessLease(absolute: string): ProviderProcessLease | null
         || typeof value.swarm !== 'string' || !['claude', 'codex'].includes(value.provider)
         || !Number.isSafeInteger(value.pid) || value.pid <= 1 || typeof value.process_started !== 'string'
         || typeof value.profile_key !== 'string' || typeof value.model !== 'string'
+        || ((value.spawn_gate_id === undefined) !== (value.spawn_gate_request_id === undefined))
+        || (value.spawn_gate_id !== undefined && (!/^[0-9a-f-]{36}$/.test(value.spawn_gate_id)
+          || !/^[0-9a-f-]{36}$/.test(value.spawn_gate_request_id!)))
         || !value.execution_profile || typeof value.execution_profile !== 'object') return null
     const { self_sha256, ...unsigned } = value
     return self_sha256 === leaseDigest(unsigned) ? value : null
@@ -1330,6 +1392,12 @@ export async function reconcileOrphanedProviderGroups(): Promise<number> {
     if (!lease || entry.name !== `${lease.run_id}.json`) {
       throw new Error(`invalid provider-process lease: ${entry.name}`)
     }
+    const gate = lease.spawn_gate_id ? inspectProviderSpawnGate(lease.spawn_gate_id) : null
+    const provenUnreleasedGate = gate !== null && (gate.state === 'waiting' || gate.state === 'aborted')
+      && gate.intent.requestId === lease.spawn_gate_request_id
+      && gate.intent.runId === lease.run_id
+      && gate.intent.providerAttemptId === (lease.attempt_id ?? lease.run_id)
+      && gate.intent.runRoot === lease.run_root
     const identity = processIdentity(lease.pid)
     if (identity && identity.pgid === lease.pid && identity.started === lease.process_started) {
       try { process.kill(-lease.pid, 'SIGTERM') } catch { /* exited between proof and signal */ }
@@ -1341,6 +1409,14 @@ export async function reconcileOrphanedProviderGroups(): Promise<number> {
         try { process.kill(-lease.pid, 'SIGKILL') } catch { /* exited between proof and signal */ }
       }
       while (signalTargetAlive(-lease.pid)) await new Promise<void>((resolve) => setTimeout(resolve, 25))
+    }
+    if (provenUnreleasedGate) {
+      // The detached process was only the trampoline. Its owner-only gate was never released, so the paid
+      // provider command could not have run. Transaction recovery may safely restore/retry the exact root;
+      // do not manufacture an interruption marker for work that was provably never started.
+      reconciled++
+      clearProviderProcessLease(lease.run_id)
+      continue
     }
     // A surviving lease proves the prior supervisor never owned a clean terminal close, even if the
     // detached group happened to exit before this reconciliation. Preserve the bytes, but require an
@@ -1356,21 +1432,31 @@ export async function reconcileOrphanedProviderGroups(): Promise<number> {
         runRoot: lease.run_root, provider: lease.provider,
         profileKey: lease.profile_key, model: lease.model, reasoningLevel: lease.reasoning_level,
         executionProfile: lease.execution_profile,
-      } as RunState)
+      })
     } catch (error: any) {
       throw new Error(`orphan ${lease.run_id} was stopped but resume authority could not be sealed: ${String(error?.message || error)}`)
     }
     reconciled++
     clearProviderProcessLease(lease.run_id)
   }
+  reconciled += sweepUnreleasedProviderSpawnGates()
   return reconciled
 }
 
 /** Graceful shutdown writer barrier: stop every provider group and wait before releasing the singleton. */
 export async function drainProviderRunsForShutdown(): Promise<void> {
-  haltAllChains()
   const active = listRuns().filter((run) => run.endedAt === undefined)
+  // Freeze every scheduler first, but retain its deployment/subject leases while pre-spend extractors
+  // drain. Shutdown must not advertise an idle engine while an OCR/converter descendant still writes.
+  stopAllChainScheduling()
+  for (const run of active) if (run.chained) haltChain(run.chainId)
+  await Promise.all(active.map(async (run) => {
+    await abortChainedReadiness(run.chainId)
+    await abortRunReadiness(run)
+  }))
+  releaseAllSubjectChainReservations()
   for (const run of active) {
+    if (run.endedAt !== undefined) continue
     if (run.child) {
       if (isResumableTerminalRun(run) || run.kind === 'signal') {
         try { writeInterruptionMarker(run, 'supervisor_shutdown', 'The cockpit stopped while this run was active.') } catch { /* best effort */ }
@@ -1444,7 +1530,119 @@ function providerProtectedWritePaths(run: RunState): string[] {
   // thesis and stamps it. Provider children may author the run-local record, but never the shared ledger
   // copy consumed by handoff/conviction/calibration.
   protectedPaths.add(path.resolve(REPO_ROOT, 'screener', 'ledger', 'theses'))
+  // A full-chain provider may read its supervisor-verified generation, but it may never rewrite the
+  // evidence receipt or bytes. This carve-out matters for full runs because their ordinary writable
+  // root contains `_pool_extracts`.
+  const frozenEvidence = providerEvidenceBinding(run)
+  if (frozenEvidence) {
+    protectedPaths.add(frozenEvidence.frozenPool.generationDir)
+    protectedPaths.add(frozenEvidence.capability.root)
+  }
+  // Continue activation may place already-paid, lineage-verified orb outputs beside the payable files this
+  // child must author. A module/root writable grant is too broad by itself: protect each reused file as an
+  // exact read-only exception in both provider sandboxes. The same immutable set is hashed before/after the
+  // child below, so an adapter or OS-policy regression fails the run rather than laundering rewritten bytes.
+  for (const output of immutableReusedOutputsByRun.get(run) ?? []) protectedPaths.add(output.absolutePath)
   return [...protectedPaths]
+}
+
+/** Paths a bound chain provider must not read at all. Its evidence is the immutable generation, never
+ * the live Drive tree which may change while a two-hour chain is running. */
+function liveDataPathAliases(dataPath: string): string[] {
+  const aliases = new Set<string>([path.resolve(dataPath)])
+  try { aliases.add(fs.realpathSync(dataPath)) } catch {
+    // A disappeared live path is already unusable and the lexical deny remains in force. When present,
+    // the canonical target is mandatory so a provider cannot bypass a DATA_DIR symlink via Drive's path.
+  }
+  return [...aliases]
+}
+
+function pathIsWithin(candidate: string, parent: string): boolean {
+  const relative = path.relative(path.resolve(parent), path.resolve(candidate))
+  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))
+}
+
+/** Deny the mixed projection namespace itself, not a spawn-time enumeration of its children. The exact
+ * generation is copied into an external read capability, so every current or future child beneath the
+ * original `_pool_extracts` path remains mechanically unreachable for the whole sandbox lifetime. */
+function mutablePoolProjectionReadAliases(frozenPool: FrozenPoolBinding): string[] {
+  const outDir = path.resolve(frozenPool.outDir)
+  const candidates = [outDir, path.join(path.dirname(outDir), 'relationships.json')]
+  const denied = new Set<string>()
+  for (const candidate of candidates) {
+    for (const alias of liveDataPathAliases(candidate)) denied.add(alias)
+  }
+  return [...denied]
+}
+
+function providerProtectedReadPaths(run: RunState): string[] {
+  const protectedPaths = new Set<string>([path.resolve(STATE_DIR)])
+  const frozenEvidence = providerEvidenceBinding(run)
+  if (frozenEvidence) {
+    // A frozen chain has no business reading any mutable Drive company, not only its own ticker. Deny the
+    // complete live data namespace so a future sibling/upload cannot appear after sandbox construction.
+    for (const alias of liveDataPathAliases(DATA_DIR)) protectedPaths.add(alias)
+    for (const alias of liveDataPathAliases(frozenEvidence.frozenPool.dataPath)) protectedPaths.add(alias)
+    for (const alias of mutablePoolProjectionReadAliases(frozenEvidence.frozenPool)) protectedPaths.add(alias)
+  }
+  if (exactModuleResumeRuns.has(run) && run.runRoot && run.module) {
+    // The private transaction keeps unrelated module folders byte-identical so a scoped repair cannot erase
+    // prior work. They are not evidence for this child, though: only the selected module and the planner's
+    // exact saved-input allowlist were lineage-verified. Deny every other discovered sibling mechanically in
+    // both provider sandboxes; prompt/env guidance alone is not a security boundary.
+    const readable = new Set([run.module, ...(exactModuleInputsByRun.get(run) ?? [])])
+    const siblingNames = new Set(buildSwarmGraph(run.swarmId || RESEARCH_SWARM_ID).modules
+      .map((candidate) => candidate.name))
+    // Historical/removed modules may still exist in the saved root but no longer appear in today's graph.
+    // They are the most dangerous ambient evidence: enumerate every present directory/symlink as well as the
+    // current graph, then deny it unless the reviewed lineage allowlist named it positively.
+    try {
+      for (const entry of fs.readdirSync(path.resolve(REPO_ROOT, run.runRoot), { withFileTypes: true })) {
+        if (entry.isDirectory() || entry.isSymbolicLink()) siblingNames.add(entry.name)
+      }
+    } catch {
+      // The exact paid boundary separately requires the prepared root to exist. Keep the graph-level future
+      // denies here so a missing/raced root cannot turn into a permissive sibling policy.
+    }
+    for (const sibling of siblingNames) {
+      if (!readable.has(sibling)) {
+        protectedPaths.add(path.resolve(REPO_ROOT, run.runRoot, sibling))
+      }
+    }
+  }
+  return [...protectedPaths]
+}
+
+function providerReadOnlyCapabilityPaths(run: RunState): string[] {
+  const frozenEvidence = providerEvidenceBinding(run)
+  return frozenEvidence ? [frozenEvidence.capability.root] : []
+}
+
+/** Deterministic seam for the lexical + canonical live-pool deny boundary. */
+export function liveDataPathAliasesForTest(dataPath: string): string[] {
+  return liveDataPathAliases(dataPath)
+}
+
+/** Deterministic seam for the mutable-projection deny boundary. */
+export function mutablePoolProjectionReadAliasesForTest(frozenPool: FrozenPoolBinding): string[] {
+  return mutablePoolProjectionReadAliases(frozenPool)
+}
+
+/** Deterministic seam proving Claude and Codex receive the same frozen-evidence sandbox boundary. */
+export function providerProtectionPathsForTest(run: RunState): {
+  protectedWritePaths: string[]
+  protectedReadPaths: string[]
+} {
+  return {
+    protectedWritePaths: providerProtectedWritePaths(run),
+    protectedReadPaths: providerProtectedReadPaths(run),
+  }
+}
+
+/** Test-only binding seam for the launch-private exact module read scope. */
+export function bindExactModuleReadScopeForTest(run: RunState, inputs: string[]): void {
+  exactModuleResumeRuns.add(run)
+  exactModuleInputsByRun.set(run, [...new Set(inputs)].sort())
 }
 
 // After a FORCE cancel, block until the stopped run(s)' WHOLE detached process groups have actually EXITED
@@ -1650,7 +1848,7 @@ function agentRequiredUpstream(swarmId: string, module?: string, agent?: string)
 // RUN_FAILURE.md is deliberately NOT declared here for chained `module` runs (Finding 2 review comment).
 // Declaring it as a write target would make admission's D2 (exact-match disjoint-write) treat EVERY
 // concurrently-scheduled sibling module for a ticker as conflicting on this one shared root file — killing
-// the DAG-parallel scheduling FULL_PER_MODULE exists for. The race D2 would be guarding against here
+// the DAG-parallel chained scheduler exists for. The race D2 would be guarding against here
 // (two modules failing "at the same time" both writing+committing RUN_FAILURE.md) cannot actually happen:
 // Node is single-threaded, recordRunFailure()'s dedup-check-then-set (the `recordedFailure` Set) is fully
 // synchronous with no `await` in between, so two onClose callbacks landing "around the same time" still
@@ -1666,6 +1864,7 @@ const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_rec
 // Subject-id shapes (mirrored in sandbox.ts for route validation).
 const SIG_ID_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
 const THESIS_ID_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
+const RECOVERY_REQUEST_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 // Resolve a screener signal run folder to a CONTAINED absolute path, REBUILT from a shape-validated SIG
 // id. The id is asserted against the anchored SIG_ID_RE (`^SIG-[0-9]{8}-[a-f0-9]{8}$` — no '.' or '/',
@@ -1801,6 +2000,56 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
   return map
 }
 
+function potentialOutputLineagePaths(run: RunState): string[] {
+  const outputs = new Set([...run.expected.values()].map((expected) => expected.outputRel))
+  const covered = new Set(run.coveredModules)
+  for (const module of buildSwarmGraph(run.swarmId).modules) {
+    if (!covered.has(module.name)) continue
+    for (const agent of Object.values(module.layers).flat()) {
+      if (!agent.isSynthesis) continue
+      outputs.add(`${agent.module}/${agent.key.split('/').at(-1)}.md`)
+    }
+  }
+  const immutable = new Set((immutableReusedOutputsByRun.get(run) ?? []).map((output) => output.outputRel))
+  return [...outputs].filter((outputRel) => !immutable.has(outputRel)).sort()
+}
+
+/** Read-only test seam proving reused outputs can never be re-attested by the paid child. */
+export function potentialOutputLineagePathsForTest(run: RunState): string[] {
+  return potentialOutputLineagePaths(run)
+}
+
+function captureRunOutputLineage(run: RunState): void {
+  if (!run.runRoot) throw new Error('provider output lineage requires an exact run root')
+  // Pre-spawn proof. This function runs inside the final synchronous launch block immediately before
+  // provenance and execa, so no await can open a race after this check.
+  verifyPreparedImmutableReusedOutputs(run)
+  run.outputLineageAttempt = captureOutputLineageAttempt({
+    runRoot: run.runRoot,
+    outputRels: potentialOutputLineagePaths(run),
+    generationDigest: run.evidenceGenerationDigest ?? null,
+    attemptId: run.providerAttemptId ?? run.runId,
+    provider: run.provider,
+    profileKey: run.profileKey,
+  })
+}
+
+/** Settle once. Every production caller reaches this only after the detached writer group is extinct. */
+function settleRunOutputLineage(run: RunState): string | null {
+  const attempt = run.outputLineageAttempt
+  if (!attempt) return null
+  run.outputLineageAttempt = undefined
+  try {
+    // Post-extinction proof. Reused files are excluded from this attempt's eligible lineage set, so they can
+    // retain old trust only when their exact pre-Continue bytes remain unchanged.
+    verifyPreparedImmutableReusedOutputs(run)
+    settleOutputLineageAttempt(attempt)
+    return null
+  } catch (error: any) {
+    return String(error?.message || error)
+  }
+}
+
 function launchScopeFingerprint(swarmId: string, kind: RunKind, module?: string, agent?: string): string {
   const exactOrbKeys = [...buildExpected(swarmId, kind, module, agent).keys()].sort()
   return `sha256:${createHash('sha256').update(JSON.stringify({ swarmId, kind, module: module ?? null, agent: agent ?? null, exactOrbKeys })).digest('hex')}`
@@ -1930,9 +2179,25 @@ export interface LaunchParams {
   /** Internal Continue binding. Requires `runRoot` to be the exact saved research root and keeps every
    * chained child, command, registry row, watcher, and publication inside it. Never accepted by /api/launch. */
   continuation?: boolean
+  /** Internal automatic recovery for a fresh Full whose deterministic readiness transaction failed before
+   * any provider child started. It reuses this exact root/provider/profile, but remains a Full (not Continue)
+   * and therefore may take one new frozen live-data snapshot. Never accepted by the public launch route. */
+  technicalReadinessRetry?: boolean
+  /** Durable exact-plan authority for a fresh Full that may be deferred before any provider child starts.
+   * Internal only: it is persisted with the prepared transaction and never accepted from public JSON. */
+  preSpendRetryAuthority?: PreSpendRetryAuthority
+  /** Restart-stable UUID for the exact automatic pre-spend recovery request. It is required with
+   * technicalReadinessRetry so repeated supervisor ticks cannot create distinct paid intents. */
+  recoveryRequestId?: string
+  /** Internal full-chain invariant. A child that may reuse saved provider output must recover the exact
+   * durable frozen-generation receipt for `runRoot`; it may never silently re-freeze the live pool. */
+  requireExistingFrozenPoolReceipt?: boolean
   /** Internal only: a complete run root prepared outside Git. Activated after admission and committed by
    *  the first real provider child; rolled back if the logical attempt terminates before one starts. */
   preparedRunPlanTransaction?: PreparedRunPlanTransaction
+  /** Internal attempt identity allocated synchronously by launch() before any provider/preflight await.
+   * Every child sharing one prepared transaction gets a distinct value. HTTP callers cannot supply it. */
+  preparedRunPlanAttemptId?: string
   // A scoped carry may launch into a fresh staging root while still being authorized by the selected
   // decision it copied. Single-orb reruns use the same path for both.
   decisionRunRoot?: string
@@ -2184,7 +2449,61 @@ const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
 // spawnEngine turns it into a child-only environment value and childEnv strips any ambient copy.
 const deferredModuleMemoRuns = new WeakSet<RunState>()
 const continuationRunRootByRun = new WeakMap<RunState, string>()
-const preparedRunPlanTransactionByRun = new WeakMap<RunState, PreparedRunPlanTransaction>()
+// A chained child that may reuse provider-authored output must recover the exact durable frozen-generation
+// receipt for that run root. Keeping this launch-only bit off RunState prevents it becoming public API while
+// still letting the readiness boundary distinguish a fresh Full from Continue/reuse after a restart.
+const durableFrozenGenerationReuseRuns = new WeakSet<RunState>()
+const preparedRunPlanTransactionByRun = new WeakMap<RunState, {
+  transaction: PreparedRunPlanTransaction
+  rootAttemptId: string
+  /** One durable child-attempt identity per provider process. Automatic Codex continuation rotates this
+   * before any replacement-process await while retaining the same logical RunState/request/root. */
+  attemptId: string
+}>()
+// Fresh Full only: an exact reviewed transaction may wait outside analyses after a transient pre-spend
+// failure. The authority never becomes public RunState data; every child in the logical chain receives the
+// same immutable seed and the transaction itself is the durable at-most-once owner.
+const preSpendRetryAuthorityByRun = new WeakMap<RunState, PreSpendRetryAuthority>()
+const deferredPreSpendRetryTransactions = new WeakSet<PreparedRunPlanTransaction>()
+
+const PRE_SPEND_RETRY_MAX_BACKOFF_MS = 30 * 60 * 1000
+
+function nextPreSpendRetryAuthority(
+  authority: PreSpendRetryAuthority,
+  reason: PreSpendRetryAuthority['reason'],
+  now: number = Date.now(),
+): PreSpendRetryAuthority {
+  const localAttempts = authority.localAttempts + 1
+  const delay = Math.min(PRE_SPEND_RETRY_MAX_BACKOFF_MS, 30_000 * 2 ** Math.min(localAttempts - 1, 8))
+  return { ...authority, reason, localAttempts, notBeforeMs: now + delay }
+}
+
+async function deferPreparedPreSpendRetry(
+  transaction: PreparedRunPlanTransaction,
+  authority: PreSpendRetryAuthority,
+  reason: PreSpendRetryAuthority['reason'],
+): Promise<boolean> {
+  if (deferredPreSpendRetryTransactions.has(transaction)) return true
+  await transaction.deferPreSpendRetry(nextPreSpendRetryAuthority(authority, reason))
+  deferredPreSpendRetryTransactions.add(transaction)
+  return true
+}
+
+export function preparedProviderContinuationAttemptId(rootAttemptId: string, providerAttemptId: string): string {
+  const root = String(rootAttemptId || '').trim()
+  const provider = String(providerAttemptId || '').trim()
+  if (!root || !provider || root.length > 100 || provider.length > 80) {
+    throw new Error('invalid prepared provider continuation attempt identity')
+  }
+  return `${root}:${provider}`
+}
+const providerSpawnRequestIdByRun = new WeakMap<RunState, string>()
+interface ImmutableReusedOutput {
+  outputRel: string
+  absolutePath: string
+  sha256: string
+}
+const immutableReusedOutputsByRun = new WeakMap<RunState, ImmutableReusedOutput[]>()
 const exactModuleResumeRuns = new WeakSet<RunState>()
 const exactModuleInputsByRun = new WeakMap<RunState, string[]>()
 const exactModuleRunRootByRun = new WeakMap<RunState, string>()
@@ -2209,6 +2528,67 @@ const TERMINAL_CLOSE_POLL_MS = 250
 const terminalCloseHandlers = new WeakSet<RunState>()
 const terminalDeadObservedAt = new WeakMap<RunState, number>()
 const terminalCloseWatchdogTimers = new WeakMap<RunState, NodeJS.Timeout>()
+
+function immutableOutputDigest(absolutePath: string): string {
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(absolutePath, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const before = fs.fstatSync(fd)
+    if (!before.isFile()) throw new Error('reused output is not a regular file')
+    const bytes = fs.readFileSync(fd)
+    const after = fs.fstatSync(fd)
+    if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
+        || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs) {
+      throw new Error('reused output changed while being verified')
+    }
+    return createHash('sha256').update(bytes).digest('hex')
+  } finally {
+    if (fd !== null) fs.closeSync(fd)
+  }
+}
+
+function bindPreparedImmutableReusedOutputs(run: RunState, doneOrbKeys: readonly string[]): void {
+  if (!run.runRoot) throw new Error('prepared Continue lost its exact run root')
+  if (run.kind !== 'full' && run.kind !== 'module') {
+    if (doneOrbKeys.length) throw new Error('prepared non-research run cannot carry reusable orb outputs')
+    return
+  }
+  const exactRoot = path.resolve(REPO_ROOT, run.runRoot)
+  const outputs: ImmutableReusedOutput[] = []
+  for (const key of [...new Set(doneOrbKeys)].sort()) {
+    // One full transaction is shared by sibling module children. Each module child protects only reused
+    // bytes inside its own writable directory; the terminal full/master child protects every reused key.
+    if (run.kind === 'module' && run.module && !key.startsWith(`${run.module}/`)) continue
+    const expected = run.expected.get(key)
+    if (!expected) throw new Error(`prepared Continue reusable orb is outside the admitted graph: ${key}`)
+    const absolutePath = path.resolve(exactRoot, expected.outputRel)
+    if (!pathIsWithin(absolutePath, exactRoot)) throw new Error('prepared Continue reusable output escaped its run root')
+    outputs.push({
+      outputRel: expected.outputRel,
+      absolutePath,
+      sha256: immutableOutputDigest(absolutePath),
+    })
+  }
+  immutableReusedOutputsByRun.set(run, outputs)
+}
+
+function verifyPreparedImmutableReusedOutputs(run: RunState): void {
+  for (const output of immutableReusedOutputsByRun.get(run) ?? []) {
+    if (immutableOutputDigest(output.absolutePath) !== output.sha256) {
+      throw new Error(`reused Continue output changed across the paid child boundary: ${output.outputRel}`)
+    }
+  }
+}
+
+/** Focused parity/test seam for Continue's per-file read-only exceptions. */
+export function bindPreparedImmutableReusedOutputsForTest(run: RunState, doneOrbKeys: readonly string[]): void {
+  bindPreparedImmutableReusedOutputs(run, doneOrbKeys)
+}
+
+/** Focused pre/post test seam; production calls this immediately before spawn and after process extinction. */
+export function verifyPreparedImmutableReusedOutputsForTest(run: RunState): void {
+  verifyPreparedImmutableReusedOutputs(run)
+}
 
 function recoverNonCleanExactClose(run: RunState): NonCleanExactModuleRecovery | null {
   if (run.endedAt !== undefined || !exactModuleResumeRuns.has(run) || !run.module) return null
@@ -2413,7 +2793,7 @@ export async function evaluateTerminalGuard(guard?: TerminalGuard): Promise<PreS
   }
 }
 
-// ---- chained full run (per-module budgets), DAG-PARALLEL — default; FULL_PER_MODULE=0 is rollback ----
+// ---- chained full run (per-module budgets), DAG-PARALLEL — the only Full/Continue execution path ----
 // A full pipeline as a set of SEPARATE per-module runs (each its own budget + activity-log entry),
 // scheduled by the depends_on DAG: a module launches as soon as ALL its upstream modules are done, so
 // INDEPENDENT modules run CONCURRENTLY instead of in series. For the research swarm this means
@@ -2454,6 +2834,1001 @@ interface ActiveSubjectChain {
 }
 const activeSubjectChains = new Map<string, ActiveSubjectChain>()
 const cancelledChainIds = new Set<string>()
+
+/**
+ * One logical full/continue chain owns one readiness snapshot. Children are separate RunStates (and a
+ * dependency wave may admit several in the same turn), so keeping this on a child would make every child
+ * re-extract the same pool and could open several identical decision panels. The first child is the sole
+ * evaluator/decision owner; every later child awaits and reuses its exact report.
+ */
+export type ChainedReadinessResolution = {
+  action: ReadinessDecision['action']
+  user: string
+  acknowledgedText?: string
+  report: ReadinessReport | null
+}
+
+export interface ChainedReadinessBinding {
+  ticker: string
+  runRoot: string
+}
+
+export type FrozenPoolBinding = NonNullable<ReadinessReport['frozenPool']>
+
+interface FrozenPathIdentity {
+  path: string
+  label: string
+  kind: 'directory' | 'file'
+  dev: number
+  ino: number
+  mode: number
+  size: number
+  mtimeMs: number
+  ctimeMs: number
+}
+
+interface FrozenPoolMetadataProof {
+  identities: readonly FrozenPathIdentity[]
+}
+
+// A generation can contain hundreds of source/extract artifacts. Hash every byte once when the Python
+// receipt crosses into the chain coordinator, then retain an inode/size/mode/mtime/ctime proof. Every later
+// provider boundary re-stats that complete set. That catches chmod, replacement, deletion, or byte writes
+// without re-reading gigabytes before every orb, while the first proof still independently checks the full
+// content-addressed receipt rather than trusting a manifest's claims about itself.
+const frozenPoolMetadataByBinding = new WeakMap<FrozenPoolBinding, FrozenPoolMetadataProof>()
+
+interface ChainedReadinessState {
+  ownerRunId: string
+  binding: { ticker: string; runRoot: string }
+  requireExistingReceipt: boolean
+  stateDir: string
+  controller: AbortController
+  assessment: Promise<ReadinessReport>
+  assessmentActive: boolean
+  report: ReadinessReport | null
+  frozenPool: FrozenPoolBinding | null
+  evidenceCapability: FrozenEvidenceReadCapability | null
+  resolution: ChainedReadinessResolution | null
+  resolutionPromise: Promise<ChainedReadinessResolution>
+  settleResolution: (resolution: ChainedReadinessResolution) => void
+}
+
+const chainedReadinessById = new Map<string, ChainedReadinessState>()
+
+function canonicalChainedReadinessBinding(binding: ChainedReadinessBinding): ChainedReadinessState['binding'] {
+  const ticker = binding.ticker.trim().toUpperCase()
+  if (exactModuleRunRootBinding(ticker, binding.runRoot) !== binding.runRoot) {
+    throw new Error('frozen generation receipt has an invalid exact run-root binding')
+  }
+  return { ticker, runRoot: path.resolve(REPO_ROOT, binding.runRoot) }
+}
+
+function sameChainedReadinessBinding(
+  left: ChainedReadinessState['binding'],
+  right: ChainedReadinessState['binding'],
+): boolean {
+  return left.ticker === right.ticker && left.runRoot === right.runRoot
+}
+
+const DURABLE_FROZEN_GENERATION_SCHEMA = 'chained-frozen-generation/v1'
+const DURABLE_FROZEN_GENERATION_DIR = 'chained-frozen-generations'
+
+interface DurableFrozenGenerationReceipt {
+  schema_version: typeof DURABLE_FROZEN_GENERATION_SCHEMA
+  root_key: string
+  ticker: string
+  run_root: string
+  generation_digest: string
+  frozen_pool: FrozenPoolBinding
+  readiness_report: ReadinessReport
+  created_at: string
+  self_sha256: string
+}
+
+export interface ChainedReadinessPersistenceOptions {
+  /** Continue or any launch that may reuse provider-authored files must load, never replace, this receipt. */
+  requireExistingReceipt?: boolean
+  /** Test seam. Production always uses the engine's gitignored, restart-durable STATE_DIR. */
+  stateDir?: string
+}
+
+function exactRelativeResearchRoot(binding: ChainedReadinessState['binding']): string {
+  const relative = path.relative(REPO_ROOT, binding.runRoot).split(path.sep).join('/')
+  if (exactModuleRunRootBinding(binding.ticker, relative) !== relative) {
+    throw new Error('frozen generation receipt has an invalid exact run-root binding')
+  }
+  return relative
+}
+
+function durableFrozenGenerationRoot(stateDir: string): string {
+  return path.join(path.resolve(stateDir), DURABLE_FROZEN_GENERATION_DIR)
+}
+
+function durableFrozenGenerationRootKey(binding: ChainedReadinessState['binding']): string {
+  // Key by the already-validated repository-relative root. This remains collision-proof between dated
+  // roots while surviving an owner moving the whole checkout to another absolute path.
+  return createHash('sha256')
+    .update(`${binding.ticker}\0${exactRelativeResearchRoot(binding)}`, 'utf8')
+    .digest('hex')
+}
+
+function durableFrozenGenerationReceiptPath(
+  binding: ChainedReadinessState['binding'],
+  stateDir: string,
+): string {
+  return path.join(
+    durableFrozenGenerationRoot(stateDir),
+    `${durableFrozenGenerationRootKey(binding)}.json`,
+  )
+}
+
+/** Deterministic path seam used only to corrupt/remove a test receipt between simulated restarts. */
+export function durableFrozenGenerationReceiptPathForTest(
+  binding: ChainedReadinessBinding,
+  stateDir: string,
+): string {
+  return durableFrozenGenerationReceiptPath(canonicalChainedReadinessBinding(binding), stateDir)
+}
+
+function ensureOwnerOnlyReceiptRoot(stateDir: string): string {
+  const state = path.resolve(stateDir)
+  fs.mkdirSync(state, { recursive: true, mode: 0o700 })
+  const stateInfo = fs.lstatSync(state)
+  if (!stateInfo.isDirectory() || stateInfo.isSymbolicLink()) {
+    throw new Error('frozen generation state root is unsafe')
+  }
+  const root = durableFrozenGenerationRoot(state)
+  fs.mkdirSync(root, { recursive: true, mode: 0o700 })
+  const rootInfo = fs.lstatSync(root)
+  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(root) !== root) {
+    throw new Error('frozen generation receipt directory is unsafe')
+  }
+  if (process.platform !== 'win32') {
+    fs.chmodSync(root, 0o700)
+    if ((fs.lstatSync(root).mode & 0o077) !== 0) {
+      throw new Error('frozen generation receipt directory is not owner-only')
+    }
+  }
+  return root
+}
+
+function syncReceiptDirectory(directory: string): void {
+  if (process.platform === 'win32') return
+  const descriptor = fs.openSync(directory, fs.constants.O_RDONLY)
+  try { fs.fsyncSync(descriptor) } finally { fs.closeSync(descriptor) }
+}
+
+function durableReceiptDigest(value: Omit<DurableFrozenGenerationReceipt, 'self_sha256'>): string {
+  return createHash('sha256').update(JSON.stringify(value), 'utf8').digest('hex')
+}
+
+function writeDurableFrozenGenerationReceipt(
+  binding: ChainedReadinessState['binding'],
+  report: ReadinessReport,
+  frozenPool: FrozenPoolBinding,
+  stateDir: string,
+): void {
+  const root = ensureOwnerOnlyReceiptRoot(stateDir)
+  const target = durableFrozenGenerationReceiptPath(binding, stateDir)
+  try {
+    const existing = fs.lstatSync(target)
+    if (!existing.isFile() || existing.isSymbolicLink()) {
+      throw new Error('existing frozen generation receipt is unsafe')
+    }
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  const unsigned: Omit<DurableFrozenGenerationReceipt, 'self_sha256'> = {
+    schema_version: DURABLE_FROZEN_GENERATION_SCHEMA,
+    root_key: durableFrozenGenerationRootKey(binding),
+    ticker: binding.ticker,
+    run_root: exactRelativeResearchRoot(binding),
+    generation_digest: frozenPool.generationDigest,
+    frozen_pool: frozenPool,
+    readiness_report: { ...report, frozenPool },
+    created_at: new Date().toISOString(),
+  }
+  const receipt: DurableFrozenGenerationReceipt = {
+    ...unsigned,
+    self_sha256: durableReceiptDigest(unsigned),
+  }
+  const temporary = path.join(root, `.${receipt.root_key}.${process.pid}.${randomUUID()}.tmp`)
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(
+      temporary,
+      fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+      0o600,
+    )
+    fs.writeFileSync(descriptor, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8')
+    fs.fsyncSync(descriptor)
+    fs.closeSync(descriptor)
+    descriptor = null
+    fs.renameSync(temporary, target)
+    if (process.platform !== 'win32') fs.chmodSync(target, 0o600)
+    syncReceiptDirectory(root)
+  } finally {
+    if (descriptor != null) fs.closeSync(descriptor)
+    try { fs.rmSync(temporary, { force: true }) } catch { /* preserve the receipt write error */ }
+  }
+}
+
+function readOwnerOnlyReceiptFile(target: string): Buffer {
+  let before: fs.Stats
+  try { before = fs.lstatSync(target) } catch {
+    throw new Error('saved run has no frozen generation receipt')
+  }
+  const ownUid = typeof process.getuid === 'function' ? process.getuid() : null
+  if (!before.isFile() || before.isSymbolicLink() || before.nlink !== 1
+      || (process.platform !== 'win32' && (before.mode & 0o077) !== 0)
+      || (ownUid !== null && before.uid !== ownUid)) {
+    throw new Error('saved run frozen generation receipt is unsafe')
+  }
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(target, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const opened = fs.fstatSync(descriptor)
+    if (!opened.isFile() || opened.dev !== before.dev || opened.ino !== before.ino
+        || opened.size <= 0 || opened.size > 8 * 1024 * 1024) {
+      throw new Error('saved run frozen generation receipt changed while opening')
+    }
+    const bytes = fs.readFileSync(descriptor)
+    const after = fs.fstatSync(descriptor)
+    if (opened.size !== after.size || opened.mtimeMs !== after.mtimeMs || opened.ctimeMs !== after.ctimeMs) {
+      throw new Error('saved run frozen generation receipt changed while reading')
+    }
+    const current = fs.lstatSync(target)
+    if (current.dev !== before.dev || current.ino !== before.ino || current.size !== before.size
+        || current.mtimeMs !== before.mtimeMs || current.ctimeMs !== before.ctimeMs) {
+      throw new Error('saved run frozen generation receipt changed while reading')
+    }
+    return bytes
+  } finally {
+    if (descriptor != null) fs.closeSync(descriptor)
+  }
+}
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value)
+}
+
+function validatedDurableReadinessReport(
+  value: unknown,
+  binding: ChainedReadinessState['binding'],
+  frozenPool: FrozenPoolBinding,
+): ReadinessReport {
+  if (!isPlainRecord(value)
+      || value.ticker !== binding.ticker
+      || value.kind !== 'full'
+      || !['clean', 'degraded', 'blocked'].includes(String(value.overall))
+      || !Number.isInteger(value.fileCount) || Number(value.fileCount) < 0
+      || !Number.isInteger(value.usableCount) || Number(value.usableCount) < 0
+      || !Array.isArray(value.entities) || !value.entities.every((entry) => isPlainRecord(entry)
+        && typeof entry.file === 'string' && typeof entry.entity === 'string')
+      || !Array.isArray(value.issues) || !value.issues.every((issue) => isPlainRecord(issue)
+        && typeof issue.code === 'string' && typeof issue.message === 'string'
+        && ['blocker', 'degrade', 'info'].includes(String(issue.severity)))
+      || !Number.isFinite(Number(value.ts))) {
+    throw new Error('saved run frozen generation receipt has an invalid readiness report')
+  }
+  if (value.physicalPool !== undefined && (!isPlainRecord(value.physicalPool)
+      || !['empty', 'nonempty', 'unknown'].includes(String(value.physicalPool.state))
+      || !Number.isInteger(value.physicalPool.fileCount)
+      || !Number.isInteger(value.physicalPool.nonEmptyFileCount))) {
+    throw new Error('saved run frozen generation receipt has an invalid pool proof')
+  }
+  return { ...(value as unknown as ReadinessReport), frozenPool }
+}
+
+function loadDurableFrozenGenerationReceipt(
+  binding: ChainedReadinessState['binding'],
+  stateDir: string,
+): { report: ReadinessReport; frozenPool: FrozenPoolBinding } {
+  ensureOwnerOnlyReceiptRoot(stateDir)
+  const target = durableFrozenGenerationReceiptPath(binding, stateDir)
+  let parsed: unknown
+  try { parsed = JSON.parse(readOwnerOnlyReceiptFile(target).toString('utf8')) } catch (error) {
+    if (error instanceof Error && error.message.startsWith('saved run')) throw error
+    throw new Error('saved run frozen generation receipt is corrupt')
+  }
+  if (!isPlainRecord(parsed)) throw new Error('saved run frozen generation receipt is corrupt')
+  const { self_sha256: selfSha256, ...unsigned } = parsed
+  const expected = durableReceiptDigest(unsigned as Omit<DurableFrozenGenerationReceipt, 'self_sha256'>)
+  if (typeof selfSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(selfSha256)
+      || !timingSafeEqual(Buffer.from(selfSha256, 'hex'), Buffer.from(expected, 'hex'))
+      || parsed.schema_version !== DURABLE_FROZEN_GENERATION_SCHEMA
+      || parsed.root_key !== durableFrozenGenerationRootKey(binding)
+      || parsed.ticker !== binding.ticker
+      || parsed.run_root !== exactRelativeResearchRoot(binding)
+      || typeof parsed.generation_digest !== 'string'
+      || !isPlainRecord(parsed.frozen_pool)
+      || parsed.frozen_pool.generationDigest !== parsed.generation_digest) {
+    throw new Error('saved run frozen generation receipt is corrupt or belongs to another run')
+  }
+  const provisional = parsed.frozen_pool as unknown as FrozenPoolBinding
+  const report = validatedDurableReadinessReport(parsed.readiness_report, binding, provisional)
+  const frozenPool = verifiedFrozenPoolBinding(binding, report)
+  if (!frozenPool || frozenPool.generationDigest !== parsed.generation_digest) {
+    throw new Error('saved run frozen generation no longer verifies')
+  }
+  return { report: { ...report, frozenPool }, frozenPool }
+}
+
+/**
+ * Planner-facing restart proof. This reads only the owner-only durable receipt and its already-frozen,
+ * content-verified generation; it never opens data/<TICKER> or rebuilds an extraction.
+ */
+export function durableFrozenGenerationSummaryForRun(
+  binding: ChainedReadinessBinding,
+  stateDir: string = STATE_DIR,
+): { generationDigest: string; fileCount: number; newestMs: number; frozenPool: FrozenPoolBinding } {
+  const canonical = canonicalChainedReadinessBinding(binding)
+  const { report, frozenPool } = loadDurableFrozenGenerationReceipt(canonical, path.resolve(stateDir))
+  const artifact = readFrozenArtifact(
+    path.join(frozenPool.generationDir, 'manifest.json'),
+    'frozen evidence manifest',
+  )
+  let manifest: Record<string, unknown>
+  try {
+    const parsed: unknown = JSON.parse(artifact.content.toString('utf8'))
+    if (!isPlainRecord(parsed)) throw new Error('not an object')
+    manifest = parsed
+  } catch {
+    throw new Error('saved run frozen generation manifest is corrupt')
+  }
+  const cacheGuard = isPlainRecord(manifest.cache_guard) ? manifest.cache_guard : null
+  const poolInputs = cacheGuard && isPlainRecord(cacheGuard.pool_inputs) ? cacheGuard.pool_inputs : null
+  if (poolInputs && Object.keys(poolInputs).length !== report.fileCount) {
+    throw new Error('saved run frozen generation file snapshot is inconsistent')
+  }
+  // v2 extractor receipts carry source mtime_ns. Retained early-v2 receipts did not; their immutable
+  // readiness timestamp is the conservative stable fallback and still requires no mutable Drive read.
+  let newestMs = Number.isFinite(report.ts) ? report.ts : 0
+  for (const value of Object.values(poolInputs ?? {})) {
+    if (!isPlainRecord(value) || !Number.isFinite(Number(value.mtime_ns)) || Number(value.mtime_ns) < 0) {
+      throw new Error('saved run frozen generation file timestamp is invalid')
+    }
+    newestMs = Math.max(newestMs, Number(value.mtime_ns) / 1_000_000)
+  }
+  return {
+    generationDigest: frozenPool.generationDigest,
+    fileCount: report.fileCount,
+    newestMs,
+    frozenPool,
+  }
+}
+
+function frozenPathIdentity(
+  candidate: string,
+  label: string,
+  kind: FrozenPathIdentity['kind'],
+  requireReadOnly = true,
+): FrozenPathIdentity {
+  let stat: fs.Stats
+  try { stat = fs.lstatSync(candidate) } catch {
+    throw new Error(`${label} is unavailable`)
+  }
+  if (stat.isSymbolicLink()
+      || (kind === 'directory' ? !stat.isDirectory() : !stat.isFile())) {
+    throw new Error(`${label} is not a plain ${kind}`)
+  }
+  if (kind === 'file' && stat.nlink !== 1) {
+    throw new Error(`${label} has an unsafe external hard-link`)
+  }
+  if (requireReadOnly && process.platform !== 'win32' && (stat.mode & 0o222) !== 0) {
+    throw new Error(`${label} is writable`)
+  }
+  return {
+    path: candidate,
+    label,
+    kind,
+    dev: stat.dev,
+    ino: stat.ino,
+    mode: stat.mode,
+    size: stat.size,
+    mtimeMs: stat.mtimeMs,
+    ctimeMs: stat.ctimeMs,
+  }
+}
+
+function sameFrozenPathIdentity(left: FrozenPathIdentity, right: FrozenPathIdentity): boolean {
+  return left.path === right.path
+    && left.kind === right.kind
+    && left.dev === right.dev
+    && left.ino === right.ino
+    && left.mode === right.mode
+    && left.size === right.size
+    && left.mtimeMs === right.mtimeMs
+    && left.ctimeMs === right.ctimeMs
+}
+
+const GENERATION_BINDING_FORMAT = 'python-json-sort-keys-compact-utf8/v1'
+
+/** Compare parsed JSON by JSON type and value, independent of object-key order.
+ *
+ * Never stringify either side here. Python and JavaScript spell valid JSON
+ * numbers differently (5.0 vs 5, 1e-07 vs 1e-7). The receipt retains the
+ * exact Python bytes for hashing; this walk independently proves that their
+ * parsed meaning is exactly the manifest/artifact/input/source/entity binding
+ * reconstructed by the server.
+ */
+function assertSameGenerationSemantics(actual: unknown, expected: unknown, at = '$'): void {
+  if (actual === null || expected === null) {
+    if (actual !== expected) throw new Error(`frozen evidence generation binding differs at ${at}`)
+    return
+  }
+  if (Array.isArray(actual) || Array.isArray(expected)) {
+    if (!Array.isArray(actual) || !Array.isArray(expected) || actual.length !== expected.length) {
+      throw new Error(`frozen evidence generation binding differs at ${at}`)
+    }
+    for (let index = 0; index < expected.length; index++) {
+      assertSameGenerationSemantics(actual[index], expected[index], `${at}[${index}]`)
+    }
+    return
+  }
+  if (typeof actual === 'number' || typeof expected === 'number') {
+    if (typeof actual !== 'number' || typeof expected !== 'number'
+        || !Number.isFinite(actual) || !Number.isFinite(expected)
+        || !Object.is(actual, expected)) {
+      throw new Error(`frozen evidence generation binding differs at ${at}`)
+    }
+    return
+  }
+  if (typeof actual !== 'object' || typeof expected !== 'object') {
+    if (typeof actual !== typeof expected || actual !== expected) {
+      throw new Error(`frozen evidence generation binding differs at ${at}`)
+    }
+    return
+  }
+  const actualRecord = actual as Record<string, unknown>
+  const expectedRecord = expected as Record<string, unknown>
+  const actualKeys = Object.keys(actualRecord)
+  const expectedKeys = Object.keys(expectedRecord)
+  if (actualKeys.length !== expectedKeys.length
+      || expectedKeys.some((key) => !Object.prototype.hasOwnProperty.call(actualRecord, key))) {
+    throw new Error(`frozen evidence generation binding differs at ${at}`)
+  }
+  for (const key of expectedKeys) {
+    assertSameGenerationSemantics(actualRecord[key], expectedRecord[key], `${at}.${key}`)
+  }
+}
+
+function localizeGenerationSourcesForDigest(
+  value: unknown,
+  generationDigest: string,
+  artifacts: Record<string, string>,
+): unknown[] {
+  if (!Array.isArray(value)) throw new Error('frozen evidence source binding is malformed')
+  const sources = JSON.parse(JSON.stringify(value)) as unknown[]
+  const exactPrefix = `.extract-generations/${generationDigest}/`
+  for (const item of sources) {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) {
+      throw new Error('frozen evidence source binding is malformed')
+    }
+    const source = item as Record<string, unknown>
+    const owners: Record<string, unknown>[] = [source]
+    if (Array.isArray(source.sheets)) {
+      owners.push(...source.sheets.filter((sheet): sheet is Record<string, unknown> =>
+        !!sheet && typeof sheet === 'object' && !Array.isArray(sheet)))
+    }
+    for (const owner of owners) {
+      const reference = owner.extract
+      if (reference == null) continue
+      if (typeof reference !== 'string' || !reference.startsWith(exactPrefix)) {
+        throw new Error('frozen evidence extract escapes its bound generation')
+      }
+      const local = reference.slice(exactPrefix.length)
+      if (!(local in artifacts)) {
+        throw new Error('frozen evidence extract is not a bound artifact')
+      }
+      owner.extract = local
+    }
+  }
+  return sources
+}
+
+function readFrozenArtifact(
+  candidate: string,
+  label: string,
+): { content: Buffer; identity: FrozenPathIdentity } {
+  const before = frozenPathIdentity(candidate, label, 'file')
+  let descriptor: number | null = null
+  try {
+    descriptor = fs.openSync(candidate, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const opened = fs.fstatSync(descriptor)
+    if (!opened.isFile() || opened.dev !== before.dev || opened.ino !== before.ino) {
+      throw new Error(`${label} changed while it was being verified`)
+    }
+    if (process.platform !== 'win32' && (opened.mode & 0o222) !== 0) {
+      throw new Error(`${label} is writable`)
+    }
+    const content = fs.readFileSync(descriptor)
+    const afterRead = fs.fstatSync(descriptor)
+    if (opened.size !== afterRead.size
+        || opened.mode !== afterRead.mode
+        || opened.mtimeMs !== afterRead.mtimeMs
+        || opened.ctimeMs !== afterRead.ctimeMs) {
+      throw new Error(`${label} changed while it was being verified`)
+    }
+    const afterPath = frozenPathIdentity(candidate, label, 'file')
+    if (!sameFrozenPathIdentity(before, afterPath)) {
+      throw new Error(`${label} changed while it was being verified`)
+    }
+    return { content, identity: afterPath }
+  } finally {
+    if (descriptor != null) fs.closeSync(descriptor)
+  }
+}
+
+function verifyFrozenPoolMetadata(frozen: FrozenPoolBinding): FrozenPoolBinding {
+  const proof = frozenPoolMetadataByBinding.get(frozen)
+  if (!proof) throw new Error('frozen evidence has no admission-time content proof')
+  for (const expected of proof.identities) {
+    const actual = frozenPathIdentity(expected.path, expected.label, expected.kind)
+    if (!sameFrozenPathIdentity(expected, actual)) {
+      throw new Error(`${expected.label} changed after readiness admission`)
+    }
+  }
+  return frozen
+}
+
+function verifyFrozenPoolReceipt(
+  binding: ChainedReadinessState['binding'],
+  frozen: FrozenPoolBinding,
+): FrozenPoolBinding {
+  const expectedData = path.resolve(DATA_DIR, binding.ticker)
+  const expectedOut = path.resolve(binding.runRoot, '_pool_extracts')
+  const expectedGenerationParent = path.join(expectedOut, '.extract-generations')
+  const expectedGenerationDir = path.join(expectedGenerationParent, frozen.generationDigest)
+  if (path.resolve(frozen.dataPath) !== expectedData
+      || path.resolve(frozen.outDir) !== expectedOut
+      || !/^[a-f0-9]{64}$/.test(frozen.generationDigest)
+      || path.resolve(frozen.generationDir) !== expectedGenerationDir) {
+    throw new Error('chained readiness generation does not match its exact ticker/run-root binding')
+  }
+
+  // The Python extractor proves the same schema before returning, but admission independently verifies
+  // every artifact hash, source reference, digest, mode, and filesystem identity. A forged or legacy JSON
+  // file therefore cannot turn a mutable Drive view into provider evidence.
+  frozenPathIdentity(expectedGenerationParent, 'frozen evidence generation parent', 'directory', false)
+  const identities = new Map<string, FrozenPathIdentity>()
+  const recordIdentity = (identity: FrozenPathIdentity) => { identities.set(identity.path, identity) }
+  recordIdentity(frozenPathIdentity(expectedGenerationDir, 'frozen evidence generation', 'directory'))
+  const manifestPath = path.join(expectedGenerationDir, 'manifest.json')
+  let manifest: Record<string, unknown>
+  try {
+    const manifestArtifact = readFrozenArtifact(manifestPath, 'frozen evidence manifest')
+    recordIdentity(manifestArtifact.identity)
+    const parsed: unknown = JSON.parse(manifestArtifact.content.toString('utf8'))
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('not an object')
+    manifest = parsed as Record<string, unknown>
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith('frozen evidence manifest')) throw error
+    throw new Error('frozen evidence manifest is unreadable')
+  }
+  const generation = manifest.generation
+  const generationRecord = generation && typeof generation === 'object' && !Array.isArray(generation)
+    ? generation as Record<string, unknown> : null
+  const digestMapValid = (value: unknown) => !!value && typeof value === 'object' && !Array.isArray(value)
+    && Object.entries(value as Record<string, unknown>).every(([name, digest]) =>
+      !!name && !name.includes('\\') && !path.isAbsolute(name)
+      && !name.split('/').some((part) => !part || part === '.' || part === '..')
+      && typeof digest === 'string' && /^[a-f0-9]{64}$/.test(digest))
+  const rawPrefix = generationRecord?.raw_prefix
+  const bindingJson = generationRecord?.binding_json
+  if (!generationRecord
+      || generationRecord.schema_version !== 'pool-generation/v2'
+      || generationRecord.digest !== frozen.generationDigest
+      || path.resolve(String(manifest.data_path ?? '')) !== expectedData
+      || path.resolve(String(manifest.out_dir ?? '')) !== expectedOut
+      || manifest.offline_extraction_complete !== true
+      || typeof bindingJson !== 'string'
+      || typeof rawPrefix !== 'string'
+      || path.isAbsolute(rawPrefix)
+      || rawPrefix.split('/').some((part) => !part || part === '.' || part === '..')
+      || !digestMapValid(generationRecord.inputs)
+      || !digestMapValid(generationRecord.artifacts)) {
+    throw new Error('frozen evidence manifest does not match its verified v2 binding')
+  }
+  const computedGenerationDigest = createHash('sha256')
+    .update(bindingJson, 'utf8')
+    .digest('hex')
+  if (computedGenerationDigest !== frozen.generationDigest) {
+    throw new Error('frozen evidence generation digest does not verify')
+  }
+  let retainedBinding: unknown
+  try {
+    retainedBinding = JSON.parse(bindingJson)
+  } catch {
+    throw new Error('frozen evidence generation binding JSON is unreadable')
+  }
+  if (!retainedBinding || typeof retainedBinding !== 'object' || Array.isArray(retainedBinding)) {
+    throw new Error('frozen evidence generation binding JSON is not an object')
+  }
+  const artifacts = generationRecord.artifacts as Record<string, string>
+  if ('manifest.json' in artifacts) {
+    throw new Error('frozen evidence manifest cannot bind itself as a generation artifact')
+  }
+  for (const [source, digest] of Object.entries(generationRecord.inputs as Record<string, string>)) {
+    if (artifacts[`${rawPrefix}/${source}`] !== digest) {
+      throw new Error('frozen evidence manifest does not bind every live-pool input')
+    }
+  }
+  const expectedEvidenceRoot = path.join(expectedGenerationDir, rawPrefix)
+  if (path.resolve(frozen.evidenceRoot) !== expectedEvidenceRoot) {
+    throw new Error('frozen evidence root does not match the verified raw generation binding')
+  }
+
+  const expectedFiles = new Set(['manifest.json', ...Object.keys(artifacts)])
+  const foundFiles = new Set<string>()
+  const walk = (directory: string, relative = '') => {
+    const names = fs.readdirSync(directory).sort()
+    for (const name of names) {
+      const candidate = path.join(directory, name)
+      const rel = relative ? `${relative}/${name}` : name
+      let stat: fs.Stats
+      try { stat = fs.lstatSync(candidate) } catch { throw new Error(`frozen evidence member is unavailable: ${rel}`) }
+      if (stat.isSymbolicLink()) throw new Error(`frozen evidence member is a symlink: ${rel}`)
+      if (stat.isDirectory()) {
+        recordIdentity(frozenPathIdentity(candidate, `frozen evidence directory ${rel}`, 'directory'))
+        walk(candidate, rel)
+      } else if (stat.isFile()) {
+        foundFiles.add(rel)
+        if (!expectedFiles.has(rel)) throw new Error(`frozen evidence contains an unbound file: ${rel}`)
+      } else {
+        throw new Error(`frozen evidence member is not a plain file or directory: ${rel}`)
+      }
+    }
+  }
+  walk(expectedGenerationDir)
+  for (const expected of expectedFiles) {
+    if (!foundFiles.has(expected)) throw new Error(`frozen evidence artifact is missing: ${expected}`)
+  }
+
+  for (const [rel, expectedDigest] of Object.entries(artifacts)) {
+    const artifact = readFrozenArtifact(
+      path.join(expectedGenerationDir, ...rel.split('/')),
+      `frozen evidence artifact ${rel}`,
+    )
+    recordIdentity(artifact.identity)
+    const actualDigest = createHash('sha256').update(artifact.content).digest('hex')
+    if (actualDigest !== expectedDigest) throw new Error(`frozen evidence artifact changed: ${rel}`)
+  }
+
+  const localizedSources = localizeGenerationSourcesForDigest(
+    manifest.sources ?? [], frozen.generationDigest, artifacts,
+  )
+  if (manifest.entities != null && !Array.isArray(manifest.entities)) {
+    throw new Error('frozen evidence entity binding is malformed')
+  }
+  const payload = {
+    schema_version: generationRecord.schema_version,
+    binding_format: GENERATION_BINDING_FORMAT,
+    data_path: expectedData,
+    out_dir: expectedOut,
+    vision_mode: Boolean(manifest.vision_mode),
+    offline_extraction_complete: Boolean(manifest.offline_extraction_complete),
+    raw_prefix: rawPrefix,
+    inputs: generationRecord.inputs,
+    sources: localizedSources,
+    entities: manifest.entities ?? [],
+    artifacts,
+  }
+  try {
+    assertSameGenerationSemantics(retainedBinding, payload)
+  } catch {
+    throw new Error('frozen evidence generation binding does not match its manifest')
+  }
+
+  // Re-stat the whole tree after hashing. A concurrent chmod/replacement cannot race the expensive pass
+  // and leave behind a proof for different bytes.
+  for (const expected of identities.values()) {
+    const actual = frozenPathIdentity(expected.path, expected.label, expected.kind)
+    if (!sameFrozenPathIdentity(expected, actual)) {
+      throw new Error(`${expected.label} changed while its generation was being verified`)
+    }
+  }
+  const verified = Object.freeze({
+    dataPath: expectedData,
+    outDir: expectedOut,
+    generationDigest: frozen.generationDigest,
+    generationDir: expectedGenerationDir,
+    evidenceRoot: expectedEvidenceRoot,
+  })
+  frozenPoolMetadataByBinding.set(verified, {
+    identities: Object.freeze([...identities.values()].map((identity) => Object.freeze(identity))),
+  })
+  return verified
+}
+
+function verifiedFrozenPoolBinding(
+  binding: ChainedReadinessState['binding'],
+  report: ReadinessReport,
+): FrozenPoolBinding | null {
+  if (report.ticker.trim().toUpperCase() !== binding.ticker) {
+    throw new Error('chained readiness report ticker does not match its exact chain binding')
+  }
+  if (!report.frozenPool) {
+    if (readinessProvesEmpty(report)) return null
+    // A legacy/technical report without a generation cannot give a two-hour chain a stable evidence
+    // boundary. Fail before provider spend instead of silently falling back to the changing live pool.
+    throw new Error('chained readiness did not produce a verified frozen evidence generation')
+  }
+  return verifyFrozenPoolReceipt(binding, report.frozenPool)
+}
+
+function frozenPoolBindingForRun(run: RunState): FrozenPoolBinding | null {
+  if (!run.chained || !run.chainId || !run.runRoot) return null
+  const state = chainedReadinessById.get(run.chainId)
+  if (!state) {
+    throw new Error('chained provider launch lost its exact readiness generation before spend')
+  }
+  const candidate = canonicalChainedReadinessBinding({ ticker: run.ticker, runRoot: run.runRoot })
+  if (!sameChainedReadinessBinding(state.binding, candidate)) {
+    throw new Error('provider launch does not match its exact chained readiness binding')
+  }
+  // Re-prove the complete filesystem identity immediately at each provider boundary. The expensive hash
+  // proof ran once at chain admission; later waves get a cheap O(files) metadata check that still catches
+  // chmod/write/replace/delete before spend.
+  return state.frozenPool ? verifyFrozenPoolMetadata(state.frozenPool) : null
+}
+
+const FROZEN_EVIDENCE_CAPABILITY_PARENT = path.join(PUBLICATION_SOCKET_ROOT, 'frozen-evidence')
+
+function frozenEvidenceCapabilityOptions() {
+  return {
+    capabilityRoot: FROZEN_EVIDENCE_CAPABILITY_PARENT,
+    forbiddenRoots: [REPO_ROOT, DATA_DIR, STATE_DIR],
+  }
+}
+
+function destroyChainedEvidenceCapability(state: ChainedReadinessState): void {
+  const capability = state.evidenceCapability
+  state.evidenceCapability = null
+  if (!capability) return
+  destroyFrozenEvidenceReadCapability(capability, frozenEvidenceCapabilityOptions())
+}
+
+function frozenEvidenceBindingForRun(
+  run: RunState,
+  verifyCapabilityContent = false,
+): { frozenPool: FrozenPoolBinding; capability: FrozenEvidenceReadCapability } | null {
+  const frozenPool = frozenPoolBindingForRun(run)
+  if (!frozenPool) return null
+  const state = chainedReadinessById.get(run.chainId!)
+  if (!state) throw new Error('frozen evidence capability lost its exact chain owner')
+  let created = false
+  if (!state.evidenceCapability) {
+    state.evidenceCapability = createFrozenEvidenceReadCapability(
+      frozenPool,
+      frozenEvidenceCapabilityOptions(),
+    )
+    created = true
+  }
+  if (verifyCapabilityContent && !created) {
+    verifyFrozenEvidenceReadCapability(
+      state.evidenceCapability,
+      frozenPool,
+      frozenEvidenceCapabilityOptions(),
+    )
+  }
+  return { frozenPool, capability: state.evidenceCapability }
+}
+
+function providerEvidenceBinding(run: RunState) {
+  return providerEvidenceBoundary.get(run) ?? frozenEvidenceBindingForRun(run)
+}
+
+function prepareProviderEvidenceBoundary(
+  run: RunState,
+): { frozenPool: FrozenPoolBinding; capability: FrozenEvidenceReadCapability } | null {
+  const binding = frozenEvidenceBindingForRun(run, true)
+  if (binding) providerEvidenceBoundary.set(run, binding)
+  else providerEvidenceBoundary.delete(run)
+  return binding
+}
+
+/** Deterministic integration seam for capability isolation/lifecycle tests. */
+export function frozenEvidenceBindingForRunForTest(
+  run: RunState,
+  verifyCapabilityContent = true,
+): { frozenPool: FrozenPoolBinding; capability: FrozenEvidenceReadCapability } | null {
+  return frozenEvidenceBindingForRun(run, verifyCapabilityContent)
+}
+
+/** Exact adapter-build boundary used by both providers; verifies all capability bytes before return. */
+export function prepareProviderEvidenceBoundaryForTest(
+  run: RunState,
+): { frozenPool: FrozenPoolBinding; capability: FrozenEvidenceReadCapability } | null {
+  return prepareProviderEvidenceBoundary(run)
+}
+
+/** Single-flight coordinator used by the real gate and deterministic tests. The map insertion happens
+ * before `evaluate` enters its async work, so same-turn sibling admissions cannot both become owners. */
+export async function assessChainedReadinessOnce(
+  chainId: string,
+  runId: string,
+  binding: ChainedReadinessBinding,
+  evaluate: (signal: AbortSignal) => Promise<ReadinessReport>,
+  persistence: ChainedReadinessPersistenceOptions = {},
+): Promise<{
+  owner: boolean
+  report: ReadinessReport
+  frozenPool: FrozenPoolBinding | null
+  resolution: Promise<ChainedReadinessResolution>
+}> {
+  const exactBinding = canonicalChainedReadinessBinding(binding)
+  const requireExistingReceipt = persistence.requireExistingReceipt === true
+  const stateDir = path.resolve(persistence.stateDir ?? STATE_DIR)
+  let state = chainedReadinessById.get(chainId)
+  if (state && !sameChainedReadinessBinding(state.binding, exactBinding)) {
+    throw new Error('chain id is already bound to a different ticker or run root')
+  }
+  if (state && (state.requireExistingReceipt !== requireExistingReceipt || state.stateDir !== stateDir)) {
+    throw new Error('chain id is already bound to a different frozen generation receipt policy')
+  }
+  if (!state) {
+    let settleResolution!: (resolution: ChainedReadinessResolution) => void
+    const resolutionPromise = new Promise<ChainedReadinessResolution>((resolve) => {
+      settleResolution = resolve
+    })
+    const controller = new AbortController()
+    let created!: ChainedReadinessState
+    // Promise.resolve().then() deliberately defers work until after the state is published. A Continue or
+    // any implicit output reuse loads only the durable exact-root receipt: it never invokes the live-pool
+    // evaluator. A genuinely fresh Full evaluates once, verifies the immutable generation, then fsyncs its
+    // owner-only receipt before the report can release any child toward a paid provider boundary.
+    const assessment = Promise.resolve().then(() => {
+      if (requireExistingReceipt) {
+        const retained = loadDurableFrozenGenerationReceipt(exactBinding, stateDir)
+        created.frozenPool = retained.frozenPool
+        return retained.report
+      }
+      return evaluate(controller.signal).then((report) => {
+        created.frozenPool = verifiedFrozenPoolBinding(exactBinding, report)
+        if (created.frozenPool) {
+          writeDurableFrozenGenerationReceipt(exactBinding, report, created.frozenPool, stateDir)
+        }
+        return report
+      })
+    })
+    created = {
+      ownerRunId: runId,
+      binding: exactBinding,
+      requireExistingReceipt,
+      stateDir,
+      controller,
+      assessment,
+      assessmentActive: true,
+      report: null,
+      frozenPool: null,
+      evidenceCapability: null,
+      resolution: null,
+      resolutionPromise,
+      settleResolution,
+    }
+    state = created
+    chainedReadinessById.set(chainId, state)
+    void assessment.then(
+      (report) => {
+        state!.assessmentActive = false
+        if (chainedReadinessById.get(chainId) === state) state!.report = report
+      },
+      () => {
+        state!.assessmentActive = false
+        // checkReadiness normally converts failures to a technical report. Keep the coordinator itself
+        // recoverable if a future evaluator violates that contract instead of pinning a rejected promise.
+        if (chainedReadinessById.get(chainId) === state) {
+          try { destroyChainedEvidenceCapability(state!) } catch { /* no paid child received this failed state */ }
+          chainedReadinessById.delete(chainId)
+        }
+      },
+    )
+  }
+  const report = await state.assessment
+  state.report = report
+  return {
+    owner: state.ownerRunId === runId,
+    report,
+    frozenPool: state.frozenPool,
+    resolution: state.resolutionPromise,
+  }
+}
+
+export function resolveChainedReadiness(
+  chainId: string,
+  ownerRunId: string,
+  resolution: ChainedReadinessResolution,
+): boolean {
+  const state = chainedReadinessById.get(chainId)
+  if (!state || state.ownerRunId !== ownerRunId || state.resolution) return false
+  // A physically empty pool has no meaningful paid override. Only re-checking
+  // after files arrive or cancelling may release this chain; keep the guard in
+  // the coordinator as well as the HTTP decision path so future callers cannot
+  // bypass it.
+  if (state.report && readinessProvesEmpty(state.report) && resolution.action !== 'cancel') return false
+  state.report = resolution.report
+  state.resolution = resolution
+  state.settleResolution(resolution)
+  return true
+}
+
+function replaceChainedReadinessReport(chainId: string, ownerRunId: string, report: ReadinessReport): boolean {
+  const state = chainedReadinessById.get(chainId)
+  if (!state || state.ownerRunId !== ownerRunId || state.resolution) return false
+  // Continue/reuse is permanently bound to the retained generation. A UI re-check must never read the
+  // changing Drive tree and then replace that receipt underneath already-authored provider output.
+  if (state.requireExistingReceipt) return false
+  destroyChainedEvidenceCapability(state)
+  state.frozenPool = verifiedFrozenPoolBinding(state.binding, report)
+  if (state.frozenPool) {
+    writeDurableFrozenGenerationReceipt(state.binding, report, state.frozenPool, state.stateDir)
+  }
+  state.report = report
+  // A child admitted after an explicit re-check must inherit the new report, not the original empty one.
+  state.assessment = Promise.resolve(report)
+  return true
+}
+
+export function waitForChainedReadinessResolution(chainId: string): Promise<ChainedReadinessResolution> {
+  const state = chainedReadinessById.get(chainId)
+  if (!state) return Promise.reject(new Error(`readiness state for chain ${chainId} is no longer active`))
+  return state.resolution ? Promise.resolve(state.resolution) : state.resolutionPromise
+}
+
+export function clearChainedReadiness(chainId: string): void {
+  cancelledChainIds.delete(chainId)
+  const state = chainedReadinessById.get(chainId)
+  if (!state) return
+  state.controller.abort(new ReadinessCancelledError('chain readiness released'))
+  if (!state.resolution) {
+    const resolution: ChainedReadinessResolution = {
+      action: 'cancel', user: 'chain-supervisor', report: state.report,
+    }
+    state.resolution = resolution
+    state.settleResolution(resolution) // release any sibling parked behind the one owner
+  }
+  try { destroyChainedEvidenceCapability(state) } catch (error: any) {
+    console.error(`[readiness] frozen evidence capability cleanup failed for ${chainId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+  }
+  chainedReadinessById.delete(chainId)
+}
+
+/** Read-only test/diagnostic seam; chain terminal cleanup must return this to its prior value. */
+export function chainedReadinessStateCount(): number {
+  return chainedReadinessById.size
+}
+
+function chainedReadinessAssessmentActive(chainId: string): boolean {
+  return chainedReadinessById.get(chainId)?.assessmentActive === true
+    || listRuns().some((run) => run.chainId === chainId && activeReadinessByRun.has(run))
+}
+
+export function cancelledChainStateCount(): number {
+  return cancelledChainIds.size
+}
+
+async function abortChainedReadiness(chainId: string | undefined): Promise<void> {
+  if (!chainId) return
+  const state = chainedReadinessById.get(chainId)
+  if (!state) return
+  if (!state.resolution) {
+    const resolution: ChainedReadinessResolution = {
+      action: 'cancel', user: 'chain-supervisor', report: state.report,
+    }
+    state.resolution = resolution
+    state.settleResolution(resolution)
+  }
+  state.controller.abort(new ReadinessCancelledError('chain readiness cancelled'))
+  const activeRunDrains = listRuns()
+    .filter((run) => run.chainId === chainId)
+    .map((run) => abortRunReadiness(run))
+  try { await state.assessment } catch (error) {
+    if (!isReadinessCancelledError(error)) throw error
+  }
+  await Promise.all(activeRunDrains)
+}
 
 export interface ParityCanaryChainStatus {
   chainId: string
@@ -2505,14 +3880,31 @@ function acquireSubjectChainReservation(subjectId: string, swarmId = RESEARCH_SW
 }
 
 export function haltAllChains(): void {
+  stopAllChainScheduling()
+  releaseAllSubjectChainReservations()
+}
+
+function stopAllChainScheduling(): void {
   chainEpoch++
+}
+
+function releaseAllSubjectChainReservations(): void {
   for (const active of activeSubjectChains.values()) active.releaseDeployBarrier()
   activeSubjectChains.clear()
 }
 
 export function haltSubjectChains(subjectId: string, swarmId = RESEARCH_SWARM_ID): void {
+  stopSubjectChainScheduling(subjectId, swarmId)
+  releaseSubjectChainReservation(subjectId, swarmId)
+}
+
+function stopSubjectChainScheduling(subjectId: string, swarmId = RESEARCH_SWARM_ID): void {
   const key = subjectChainKey(subjectId, swarmId)
   subjectChainEpoch.set(key, (subjectChainEpoch.get(key) ?? 0) + 1)
+}
+
+function releaseSubjectChainReservation(subjectId: string, swarmId = RESEARCH_SWARM_ID): void {
+  const key = subjectChainKey(subjectId, swarmId)
   activeSubjectChains.get(key)?.releaseDeployBarrier()
   activeSubjectChains.delete(key)
 }
@@ -2550,6 +3942,82 @@ export interface FullChainDeps {
   // Test seam for malformed discovered DAGs. Production always uses buildSwarmGraph(); keeping graph
   // discovery injectable lets CI prove that a downstream cycle fails closed after an acyclic prefix.
   buildGraph?: () => ReturnType<typeof buildSwarmGraph>
+  /** Durable recovery record for a scheduler rejection that happens after the logical chain already
+   * started but before a later provider RunState can exist. Tests capture this instead of touching disk. */
+  recordInterruption?: (input: FullChainSchedulerInterruption) => void
+}
+
+export interface FullChainSchedulerInterruption {
+  ticker: string
+  runRoot: string
+  chainId: string
+  user: string
+  userVia: 'cf-access' | 'local'
+  selection: RunProviderSelection
+  step: 'module' | 'master'
+  module?: string
+  message: string
+}
+
+function recordFullChainSchedulerInterruption(input: FullChainSchedulerInterruption): void {
+  const profile = getProviderAdapter(input.selection.provider).resolveProfile({
+    model: input.selection.model,
+    reasoningLevel: input.selection.reasoningLevel,
+    profileKey: input.selection.expectedProfileKey,
+  })
+  const runId = randomUUID()
+  const reason = input.step === 'master' ? 'terminal_launch_rejected' : 'module_launch_rejected'
+  writeRunMarker(input.runRoot, '.interrupted', {
+    reason,
+    message: redactSecrets(input.message).slice(-2000),
+    module: input.module,
+    provider: profile.provider,
+    profileKey: profile.profileKey,
+    model: profile.model,
+    reasoningLevel: profile.reasoningLevel,
+    executionEpoch: input.chainId,
+    runId,
+    attemptId: runId,
+    startedAt: Date.now(),
+  })
+  recordProviderInterruptionAuthority({
+    runId,
+    providerAttemptId: runId,
+    runRoot: input.runRoot,
+    provider: profile.provider,
+    model: profile.model,
+    reasoningLevel: profile.reasoningLevel,
+    profileKey: profile.profileKey,
+    executionProfile: profile.executionProfile,
+  })
+  const common = {
+    runId,
+    user: input.user,
+    userVia: input.userVia,
+    kind: input.step === 'master' ? 'rerun' as const : 'module' as const,
+    ticker: input.ticker,
+    swarm: RESEARCH_SWARM_ID,
+    chained: true,
+    chainId: input.chainId,
+    executionEpoch: input.chainId,
+    runRoot: input.runRoot,
+    module: input.step === 'master' ? 'master' : input.module,
+    agent: input.step === 'master' ? 'synthesizer' : undefined,
+    provider: profile.provider,
+    executionProfile: profile.executionProfile,
+    profileKey: profile.profileKey,
+    model: profile.model,
+    reasoningLevel: profile.reasoningLevel,
+  }
+  logLaunch(common)
+  logFinish({
+    ...common,
+    status: 'error',
+    costUsd: 0,
+    durationMs: 0,
+    numTurns: 0,
+    note: `Waiting for automatic exact-root recovery: ${redactSecrets(input.message).slice(-500)}`,
+  })
 }
 const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
@@ -2586,6 +4054,7 @@ const defaultFullChainDeps: FullChainDeps = {
   },
   scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
   acquirePoolClaim: (ticker) => acquireSharedDataPoolClaim(RESEARCH_SWARM_ID, ticker, 'full'),
+  recordInterruption: recordFullChainSchedulerInterruption,
 }
 
 /** Attach the full-chain terminal callback without losing a fast provider exit that happened before the
@@ -2631,7 +4100,12 @@ interface FullChainScope {
   parityCanary?: { runRoot: string; freezeReceipt: string }
   /** Operator-authorized same-root recovery seeds completed modules even when raw terminal files exist. */
   continuation?: boolean
+  /** Exact fresh-Full pre-spend retry. The stable request id also becomes the chain/execution epoch so
+   * Activity and crash reconciliation expose one durable intent instead of unrelated retry identities. */
+  technicalReadinessRetry?: boolean
+  recoveryRequestId?: string
   preparedRunPlanTransaction?: PreparedRunPlanTransaction
+  preSpendRetryAuthority?: PreSpendRetryAuthority
 }
 
 export function chainedResumePreflight(
@@ -2672,6 +4146,25 @@ export function chainedResumePreflight(
   }
 }
 
+/** Provider commands reuse valid specialist files already present inside a module even when no synthesis
+ * exists yet. Therefore `done.size` alone is not a safe generation-reuse signal. Any pre-existing entry in
+ * a discovered module directory makes the launch receipt-bound; a fresh Full with only supervisor markers
+ * or `_pool_extracts` remains free to create a new generation. */
+function researchRunRootMayReuseProviderWork(runRoot: string, moduleNames: readonly string[]): boolean {
+  const root = path.resolve(REPO_ROOT, runRoot)
+  for (const moduleName of moduleNames) {
+    const moduleRoot = path.join(root, moduleName)
+    try {
+      const stat = fs.lstatSync(moduleRoot)
+      if (!stat.isDirectory() || stat.isSymbolicLink()) return true
+      if (fs.readdirSync(moduleRoot).length > 0) return true
+    } catch (error: any) {
+      if (error?.code !== 'ENOENT') return true
+    }
+  }
+  return false
+}
+
 export async function launchFullChained(
   ticker: string,
   user: string,
@@ -2682,7 +4175,7 @@ export async function launchFullChained(
   memoryIdentity?: ResearchMemoryIdentity,
   scope: FullChainScope = {},
 ): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
-  const chainId = randomUUID()
+  const chainId = scope.recoveryRequestId ?? scope.preSpendRetryAuthority?.recoveryRequestId ?? randomUUID()
   const datedRoot = scope.runRoot ?? defaultResearchRunRoot(ticker)
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
   const g = deps.buildGraph?.() ?? buildSwarmGraph()
@@ -2696,6 +4189,11 @@ export async function launchFullChained(
   const known = new Set(names)
   const depsOf = new Map(g.modules.map((m) => [m.name, m.dependsOn.filter((d) => known.has(d))]))
   const total = names.length
+  const chainModules = names.map((name) => ({
+    module: name,
+    dependsOn: [...(depsOf.get(name) ?? [])].sort(),
+    synthesisOutputs: (synthesisFiles.get(name) ?? []).map((file) => `${name}/${file}`).sort(),
+  }))
   // Acquire after all read-only graph construction but BEFORE the first marker/filesystem mutation. The
   // subject token and pool claim live until master terminal or abort; child ACKs/finishes never release them.
   const releaseSubjectChain = acquireSubjectChainReservation(ticker, RESEARCH_SWARM_ID)
@@ -2707,10 +4205,32 @@ export async function launchFullChained(
     throw error
   }
   let poolReleased = false
+  // Assigned once the scheduler owns its in-flight set. A sibling can fail while another same-wave child
+  // is still building its provider launch. Never drop the chain's frozen receipt/leases until every such
+  // child reaches its terminal callback; otherwise that sibling can lose its frozen env and reopen Drive.
+  let chainHasActiveChildren = () => false
   const releaseChainPool = () => {
     if (poolReleased) return
+    if (chainHasActiveChildren()) return
     poolReleased = true
-    try { releasePool() } finally { releaseSubjectChain() }
+    const releaseAfterReadiness = () => {
+      try { releasePool() } finally {
+      // The readiness receipt is chain-scoped, not process-global cache state. Release waiters and drop it
+      // exactly when the logical chain releases its own reservation, on every success/failure/cancel path.
+        clearChainedReadiness(chainId)
+        releaseSubjectChain()
+      }
+    }
+    if (chainedReadinessAssessmentActive(chainId)) {
+      // An admission/sibling can fail while the elected owner is still extracting. Keep every chain/pool/
+      // deploy lease until that detached process group has been aborted and proven extinct.
+      void abortChainedReadiness(chainId).then(releaseAfterReadiness, (error) => {
+        console.error(`[readiness] chain ${chainId} assessment failed while draining: ${String((error as any)?.message || error)}`) // eslint-disable-line no-console
+        releaseAfterReadiness() // the rejected assessment has already drained its process group
+      })
+      return
+    }
+    releaseAfterReadiness()
   }
   const logicalCanary: ParityCanaryChainStatus | null = scope.parityCanary ? {
     chainId,
@@ -2745,6 +4265,16 @@ export async function launchFullChained(
   // asynchronous child/master terminal paths remain the ordinary owners after this function returns.
   try {
   await scope.preparedRunPlanTransaction?.activate()
+  const recoveredIntent = scope.preparedRunPlanTransaction?.recoveredChainIntent
+  // Activation may atomically replace the target root with a privately prepared copy, so both reusable-
+  // output detection and immutable-generation verification must happen after it. A Continue is always
+  // reuse-only even if its saved root currently has no finished synthesis; an ordinary Full becomes
+  // reuse-only whenever any specialist/module byte could be consumed by the provider command. A recovered
+  // paid chain always keeps its original receipt too: its first child may have crossed the spawn boundary
+  // and crashed before writing one byte, which is still not authority to re-read today's Drive.
+  const requireExistingFrozenPoolReceipt = recoveredIntent !== undefined
+    || scope.continuation === true
+    || researchRunRootMayReuseProviderWork(datedRoot, names)
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
@@ -2760,26 +4290,119 @@ export async function launchFullChained(
   const done = new Set<string>()
   const started = new Set<string>()
   const inflight = new Set<string>()
+  chainHasActiveChildren = () => inflight.size > 0
   // RESUME (forever-living): if today's run folder already holds finished modules from a prior attempt
   // that broke (a plan-limit pause, a dropped connection, a reboot), seed them as done so this relaunch
   // CONTINUES from where it stopped instead of redoing the whole pipeline. A first run finds nothing here;
   // a complete folder is left alone (this is then a fresh full, not a resume). A module is finished only
   // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = datedRoot
-  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot))
-      && (scope.continuation === true || !finalDeliverablesPresent(resumeRoot))) {
+  if (recoveredIntent) {
+    if (!isDeepStrictEqual(recoveredIntent.modules, chainModules)) {
+      throw new Error('recoverable full-chain module roster changed; refusing to widen or rebuild its scope')
+    }
+    const resolved = getProviderAdapter(selection.provider).resolveProfile({
+      model: selection.model,
+      reasoningLevel: selection.reasoningLevel,
+      profileKey: selection.expectedProfileKey,
+    })
+    if (!isDeepStrictEqual(recoveredIntent.selection, {
+      provider: resolved.provider,
+      model: resolved.model,
+      reasoningLevel: resolved.reasoningLevel ?? null,
+      profileKey: resolved.profileKey,
+      executionProfile: resolved.executionProfile,
+    })) {
+      throw new Error('recoverable full-chain provider profile changed')
+    }
+    const completedByModule = new Map(recoveredIntent.completed.map((entry) => [entry.module, entry]))
+    const rootAbs = path.resolve(REPO_ROOT, resumeRoot)
     for (const name of names) {
+      const sealed = completedByModule.get(name)
+      if (sealed) {
+        for (const artifact of sealed.artifacts) {
+          const absolute = path.resolve(rootAbs, artifact.outputRel)
+          if (!absolute.startsWith(`${rootAbs}${path.sep}`)
+              || !validateAgentOutputFile(absolute).valid
+              || `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}` !== artifact.sha256) {
+            throw new Error(`recoverable full-chain completed evidence changed for ${name}`)
+          }
+        }
+        done.add(name)
+        started.add(name)
+        continue
+      }
+      // A provider can be killed after writing a syntactically valid synthesis but before its terminal
+      // callback/lineage receipt. It is partial work, not a completed module. Remove only the unsealed
+      // synthesis so the exact same module must adjudicate its retained specialist outputs again.
+      for (const file of synthesisFiles.get(name) ?? []) {
+        fs.rmSync(path.join(rootAbs, name, file), { force: true })
+      }
+    }
+    // A killed terminal master can likewise leave plausible-looking root artifacts without publication
+    // authority. Recovery owns the exact completed modules, never those unsealed terminal bytes.
+    for (const artifact of ROOT_ARTIFACTS_FULL) fs.rmSync(path.join(rootAbs, artifact), { force: true })
+  }
+  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot))
+      && (recoveredIntent || scope.continuation === true || !finalDeliverablesPresent(resumeRoot))) {
+    for (const name of names) {
+      if (recoveredIntent) continue
       try {
         const finished = (synthesisFiles.get(name) ?? []).some((file) =>
           validateAgentOutputFile(path.join(REPO_ROOT, resumeRoot, name, file)).valid)
         if (finished) { done.add(name); started.add(name) }
       } catch { /* this module isn't finished yet */ }
     }
-    clearRunMarker(resumeRoot, '.interrupted') // a deliberate (re)launch; a fresh break will re-mark it
+    // Preserve the sealed technical-preflight marker until a real child advances provider authority. It is
+    // the only crash-recovery proof in the scheduler-before-first-child window. Live-subject admission
+    // prevents a duplicate in-process dispatch, and spawned authority makes the old marker ineligible.
+    if (!scope.technicalReadinessRetry) clearRunMarker(resumeRoot, '.interrupted')
     clearRunMarker(resumeRoot, '.aborted')
     resetForRelaunch(resumeRoot) // Findings 6/8: reset the single-shot dedup AND drop any stale RUN_FAILURE.md
     // eslint-disable-next-line no-console
     if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
+  }
+  const completedChainEvidence = () => [...done].sort().map((name) => {
+    const artifacts = (synthesisFiles.get(name) ?? []).flatMap((file) => {
+      const absolute = path.join(REPO_ROOT, resumeRoot, name, file)
+      try {
+        if (!validateAgentOutputFile(absolute).valid) return []
+        return [{
+          outputRel: `${name}/${file}`,
+          sha256: `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`,
+        }]
+      } catch {
+        return []
+      }
+    })
+    if (artifacts.length === 0) {
+      throw new Error(`completed chain module ${name} lost its validated synthesis before progress was sealed`)
+    }
+    return { module: name, artifacts }
+  })
+  if (scope.preparedRunPlanTransaction) {
+    const resolved = getProviderAdapter(selection.provider).resolveProfile({
+      model: selection.model,
+      reasoningLevel: selection.reasoningLevel,
+      profileKey: selection.expectedProfileKey,
+    })
+    const initialNext = names.filter((name) => !done.has(name)
+      && (depsOf.get(name) ?? []).every((dependency) => done.has(dependency)))
+    await scope.preparedRunPlanTransaction.beginChainIntent({
+      chainId,
+      user,
+      userVia,
+      selection: {
+        provider: resolved.provider,
+        model: resolved.model,
+        reasoningLevel: resolved.reasoningLevel ?? null,
+        profileKey: resolved.profileKey,
+        executionProfile: resolved.executionProfile,
+      },
+      modules: chainModules,
+      completed: completedChainEvidence(),
+      nextModules: initialNext,
+    })
   }
   // Snapshot the resume split BEFORE anything runs: what's already done (skipped) vs what this relaunch
   // will actually run. `done` only holds seeded modules at this point. The cockpit uses this to show the
@@ -2793,18 +4416,51 @@ export async function launchFullChained(
   let stopped = false
   let stoppedOutcome: RunStatus | null = null
   let stoppedMessage = ''
+  const stoppedRetryModules = new Set<string>()
   let masterLaunched = false
   let retryScheduled = false
   // Global stop halts every chain; a subject stop halts only this ticker's scheduler.
   const chainAlive = captureChainEpoch(ticker, RESEARCH_SWARM_ID, chainId)
 
   let firstRunId: string | null = null
+  let initialLaunchFailure: { module: string; error: unknown; message: string } | null = null
+  let schedulerInterruptionRecorded = false
   let settleFirst!: (out: { runId: string; preflight: LaunchPreflight }) => void
   let rejectFirst!: (e: unknown) => void
   const firstReady = new Promise<{ runId: string; preflight: LaunchPreflight }>((res, rej) => { settleFirst = res; rejectFirst = rej })
 
   // modules whose every (known) upstream is done and which we have not yet started
   const readyNow = () => names.filter((n) => !started.has(n) && (depsOf.get(n) ?? []).every((d) => done.has(d)))
+  const recordChainProgress = async (
+    masterState: 'pending' | 'ready' | 'launching' | 'running' | 'published' | 'failed',
+    nextModules: string[] = readyNow(),
+  ): Promise<void> => {
+    if (!scope.preparedRunPlanTransaction) return
+    await scope.preparedRunPlanTransaction.recordChainProgress({
+      completed: completedChainEvidence(),
+      nextModules: [...new Set(nextModules)].sort(),
+      inflightModules: [...inflight].filter((name) => !done.has(name)).sort(),
+      masterState,
+    })
+  }
+
+  const recordSchedulerInterruption = (
+    step: FullChainSchedulerInterruption['step'],
+    message: string,
+    module?: string,
+  ) => {
+    if (schedulerInterruptionRecorded) return
+    schedulerInterruptionRecorded = true
+    try {
+      deps.recordInterruption?.({
+        ticker, runRoot: datedRoot, chainId, user, userVia, selection, step, module, message,
+      })
+    } catch (error: any) {
+      // The chain still releases its live leases; the protected-state failure is explicit in server logs
+      // and no provider child or fake success is created. An unsealed marker is never trusted by recovery.
+      console.error(`[full-chain] ${ticker}: could not seal ${step} recovery authority: ${String(error?.message || error)}`) // eslint-disable-line no-console
+    }
+  }
 
   const launchMaster = (): Promise<{ runId: string; preflight: LaunchPreflight }> | null => {
     if (masterLaunched) return null
@@ -2813,26 +4469,68 @@ export async function launchFullChained(
       ? { kind: 'full', ticker, user, userVia, chained: true, chainId, ...selection,
         parityCanary: { ...scope.parityCanary, stage: 'final', continuation: scope.continuation === true } }
       : { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true,
-        chainId, memoryIdentity, ...selection, ...decisionBinding,
-        ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}),
+        chainId, memoryIdentity, runRoot: datedRoot, ...selection, ...decisionBinding,
+        requireExistingFrozenPoolReceipt,
+        ...(scope.continuation ? { continuation: true } : {}),
         ...(scope.preparedRunPlanTransaction
-          ? { preparedRunPlanTransaction: scope.preparedRunPlanTransaction } : {}) }
+          ? { preparedRunPlanTransaction: scope.preparedRunPlanTransaction } : {}),
+        ...(scope.preSpendRetryAuthority
+          ? { preSpendRetryAuthority: scope.preSpendRetryAuthority } : {}) }
     const launched = deps.launchAndWire(
       masterParams,
       (status) => {
-        deps.clearMarker(ticker, datedRoot) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
-        releaseChainPool()
-        finishLogicalCanary(status, status === 'done'
-          ? 'Canary pipeline completed.' : `Canary stopped at terminal adjudication — ${status}.`)
-        // eslint-disable-next-line no-console
-        console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
+        if (!scope.preparedRunPlanTransaction) {
+          deps.clearMarker(ticker, datedRoot)
+          releaseChainPool()
+          finishLogicalCanary(status, status === 'done'
+            ? 'Canary pipeline completed.' : `Canary stopped at terminal adjudication — ${status}.`)
+          // eslint-disable-next-line no-console
+          console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
+          return
+        }
+        void (async () => {
+          try {
+            if (status === 'done') {
+              await recordChainProgress('published', [])
+              await scope.preparedRunPlanTransaction?.recordChainTerminal('done')
+            } else if (status === 'cancelled') {
+              await scope.preparedRunPlanTransaction?.recordChainTerminal('cancelled')
+            } else {
+              await recordChainProgress('failed', [])
+            }
+          } catch (error: any) {
+            recordSchedulerInterruption(
+              'master',
+              `The terminal result could not be sealed for exact recovery: ${String(error?.message || error)}`,
+            )
+          } finally {
+            deps.clearMarker(ticker, datedRoot) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
+            releaseChainPool()
+            finishLogicalCanary(status, status === 'done'
+              ? 'Canary pipeline completed.' : `Canary stopped at terminal adjudication — ${status}.`)
+            // eslint-disable-next-line no-console
+            console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
+          }
+        })()
       },
     )
     // One settled branch owns both outcomes. A success-only `.then()` plus a separate catch on the
     // original promise creates an unhandled rejected *derived* promise when launch fails.
     void launched.then(
-      (out) => markLogicalRunning(out.runId),
-      (e) => {
+      (out) => {
+        markLogicalRunning(out.runId)
+        void recordChainProgress('running', []).catch((error: any) => {
+          recordSchedulerInterruption(
+            'master', `The launched terminal master could not seal its recovery state: ${String(error?.message || error)}`,
+          )
+        })
+      },
+      async (e) => {
+        try { await recordChainProgress('failed', []) } catch { /* rejection below remains authoritative */ }
+        recordSchedulerInterruption(
+          'master',
+          `The terminal master could not launch after the saved modules finished: ${String((e as any)?.message || e)}`,
+        )
         deps.clearMarker(ticker, datedRoot)
         releaseChainPool()
         finishLogicalCanary('error', `Canary terminal adjudicator could not launch: ${String((e as any)?.message || e)}`)
@@ -2843,10 +4541,37 @@ export async function launchFullChained(
     return launched
   }
 
-  const onModuleFinish = (name: string, status: RunStatus) => {
+  const onModuleFinish = async (name: string, status: RunStatus) => {
     inflight.delete(name)
+    if (scope.preparedRunPlanTransaction
+        && deferredPreSpendRetryTransactions.has(scope.preparedRunPlanTransaction)) {
+      stopped = true
+      stoppedOutcome = 'incomplete'
+      stoppedMessage = 'Waiting for an automatic pre-spend retry of this exact reviewed Full run.'
+      try { deps.clearMarker(ticker, datedRoot) } catch { /* target may already be private again */ }
+      releaseChainPool()
+      if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      return
+    }
     if (stopped) {
-      if (inflight.size === 0 && stoppedOutcome) finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      // A paid same-wave sibling may finish after another sibling already stopped future scheduling. Its
+      // terminally validated synthesis is still paid, reusable work: seal the exact hashes without ever
+      // pumping another wave. Otherwise restart would delete and repay for a successfully published sibling.
+      if (scope.preparedRunPlanTransaction && stoppedOutcome !== 'cancelled') {
+        try {
+          if (status === 'done') done.add(name)
+          else stoppedRetryModules.add(name)
+          await recordChainProgress('pending', [...stoppedRetryModules].sort())
+        } catch (error: any) {
+          recordSchedulerInterruption(
+            'module', `The drained ${name} result could not seal exact recovery state: ${String(error?.message || error)}`, name,
+          )
+        }
+      }
+      if (inflight.size === 0 && stoppedOutcome) {
+        releaseChainPool()
+        finishLogicalCanary(stoppedOutcome, stoppedMessage)
+      }
       return
     }
     if (!chainAlive()) {
@@ -2859,6 +4584,17 @@ export async function launchFullChained(
       return
     } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
     if (status !== 'done') {
+      if (status !== 'cancelled') stoppedRetryModules.add(name)
+      if (scope.preparedRunPlanTransaction) {
+        try {
+          if (status === 'cancelled') await scope.preparedRunPlanTransaction.recordChainTerminal('cancelled')
+          else await recordChainProgress('pending', [...stoppedRetryModules].sort())
+        } catch (error: any) {
+          recordSchedulerInterruption(
+            'module', `The ${name} failure could not seal exact recovery state: ${String(error?.message || error)}`, name,
+          )
+        }
+      }
       stopped = true
       stoppedOutcome = status
       stoppedMessage = `Canary stopped at module ${name} — ${status}.`
@@ -2871,7 +4607,25 @@ export async function launchFullChained(
       return
     }
     done.add(name)
-    if (done.size === total) { launchMaster(); return }
+    try {
+      if (done.size === total) {
+        // This durable `ready` receipt closes the last-module -> master registration crash window.
+        if (scope.preparedRunPlanTransaction) await recordChainProgress('ready', [])
+        launchMaster()
+        return
+      }
+      // Seal exact completed hashes and the next runnable wave before a single later child is registered.
+      if (scope.preparedRunPlanTransaction) await recordChainProgress('pending')
+    } catch (error: any) {
+      stopped = true
+      stoppedOutcome = 'error'
+      stoppedMessage = `Full-chain progress could not be sealed after ${name}: ${String(error?.message || error)}`
+      recordSchedulerInterruption('module', stoppedMessage, name)
+      deps.clearMarker(ticker, datedRoot)
+      releaseChainPool()
+      if (inflight.size === 0) finishLogicalCanary('error', stoppedMessage)
+      return
+    }
     pump()
   }
 
@@ -2900,19 +4654,34 @@ export async function launchFullChained(
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     const moduleParams: LaunchParams = {
       kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, ...selection,
-      memoryIdentity, ...decisionBinding,
-      ...(scope.continuation ? { runRoot: datedRoot, continuation: true } : {}),
+      memoryIdentity, runRoot: datedRoot, ...decisionBinding,
+      requireExistingFrozenPoolReceipt,
+      ...(scope.continuation ? { continuation: true } : {}),
       ...(scope.preparedRunPlanTransaction
         ? { preparedRunPlanTransaction: scope.preparedRunPlanTransaction } : {}),
+      ...(scope.preSpendRetryAuthority
+        ? { preSpendRetryAuthority: scope.preSpendRetryAuthority } : {}),
       ...(scope.parityCanary ? { parityCanary: { ...scope.parityCanary, stage: 'module' as const } } : {}),
     }
     void deps.launchAndWire(
       moduleParams,
-      (status) => onModuleFinish(name, status),
+      (status) => { void onModuleFinish(name, status) },
     )
       .then((out) => {
         markLogicalRunning(out.runId)
-        if (firstRunId === null) { firstRunId = out.runId; settleFirst({ runId: out.runId, preflight: out.preflight }) }
+        if (firstRunId === null) {
+          firstRunId = out.runId
+          // An initial parallel sibling may have rejected one microtask before this successful ACK. That
+          // rejection cannot be called "pre-child" or erase the chain: a paid child now exists. Seal the
+          // rejected step against this exact root/profile, return the real live run id, and let its terminal
+          // callback release the stopped scheduler after every writer drains.
+          if (stopped && initialLaunchFailure) {
+            recordSchedulerInterruption(
+              'module', initialLaunchFailure.message, initialLaunchFailure.module,
+            )
+          }
+          settleFirst({ runId: out.runId, preflight: out.preflight })
+        }
       })
       .catch((e) => {
         inflight.delete(name)
@@ -2928,6 +4697,19 @@ export async function launchFullChained(
           scheduleRetry()
           return
         }
+        const failureMessage = `The ${name} module could not launch: ${String((e as any)?.message || e)}`
+        const interruptedAfterStart = firstRunId !== null && !stopped
+        if (interruptedAfterStart) {
+          recordSchedulerInterruption(
+            'module',
+            failureMessage,
+            name,
+          )
+        }
+        if (firstRunId === null && initialLaunchFailure === null) {
+          initialLaunchFailure = { module: name, error: e, message: failureMessage }
+        }
+        stoppedRetryModules.add(name)
         stopped = true
         stoppedOutcome = 'error'
         stoppedMessage = `Canary module ${name} could not launch: ${String((e as any)?.message || e)}`
@@ -2936,7 +4718,9 @@ export async function launchFullChained(
         if (inflight.size === 0) finishLogicalCanary(stoppedOutcome, stoppedMessage)
         // eslint-disable-next-line no-console
         console.error(`[full-chain] ${ticker}: failed to launch module ${name}`, (e as any)?.message || e)
-        if (firstRunId === null) rejectFirst(e)
+        // Do not reject while an initial parallel sibling can still ACK a real provider child. If every
+        // initial launch rejects, inflight reaches zero and the original failure ends the request normally.
+        if (firstRunId === null && inflight.size === 0) rejectFirst(initialLaunchFailure?.error ?? e)
       })
   }
 
@@ -3019,16 +4803,18 @@ export async function launchFullChained(
 /** Stop EVERYTHING: halt every full-run chain, then cancel every in-flight run (running,
  *  starting, readiness-checking, or paused at the readiness gate). Returns the cancelled ids. */
 export async function cancelAll(): Promise<string[]> {
-  haltAllChains()
+  stopAllChainScheduling()
+  const active = listRuns().filter((run) => run.endedAt === undefined && !run.cancelRequested)
+  for (const run of active) if (run.chained) haltChain(run.chainId)
   const cancelled: string[] = []
-  for (const r of listRuns()) {
-    if (r.endedAt !== undefined || r.cancelRequested) continue
+  for (const r of active) {
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
     } catch {
       // keep stopping the rest — one stuck run must not shield the others
     }
   }
+  releaseAllSubjectChainReservations()
   return cancelled
 }
 
@@ -3039,7 +4825,9 @@ export async function cancelAll(): Promise<string[]> {
  *  chain (so no queued module launches) + cancelling every in-flight run for the subject stops it for
  *  real. Only this subject's runs are touched; other subjects keep running. Returns the cancelled ids. */
 export async function cancelSubject(subjectId: string, swarmId = 'research'): Promise<string[]> {
-  haltSubjectChains(subjectId, swarmId) // no queued step for this subject can launch; other subjects continue
+  // Stop scheduling synchronously, but retain the subject/deploy reservation until every readiness/provider
+  // writer has drained. `cancel()` releases it only after that proof.
+  stopSubjectChainScheduling(subjectId, swarmId)
   const cancelled: string[] = []
   const stopping: RunState[] = []
   for (const r of subjectRunsAwaitingExit(subjectId, swarmId)) {
@@ -3059,6 +4847,7 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
   // writer on the same run root. This mirrors the force-launch guard on the explicit-cancel path.
   await requireSubjectRunsExited(subjectId, stopping)
   finalizeConfirmedSubjectCancellation(stopping)
+  releaseSubjectChainReservation(subjectId, swarmId)
   return cancelled
 }
 
@@ -3069,12 +4858,14 @@ async function stopSubjectForForce(subjectId: string, swarmId: string): Promise<
     && subjectRunsAwaitingExit(subjectId, swarmId).length === 0
   // This also closes a chained scheduler's between-child admission gap. The token-bound release in the
   // old scheduler cannot clear a newer reservation when its final callback eventually drains.
-  haltSubjectChains(subjectId, swarmId)
+  stopSubjectChainScheduling(subjectId, swarmId)
   const stopping = subjectRunsAwaitingExit(subjectId, swarmId)
+  for (const run of stopping) if (run.chained) haltChain(run.chainId)
   if (activeChainWithoutChild) {
     // No RunState exists to drain, so the old scheduler still owns a pending retry/launch callback which
     // may clear the shared defer marker. Stop it, but do not admit a replacement into that callback race;
     // its bounded callback observes the halted epoch and cleans up, after which one retry is safe.
+    releaseSubjectChainReservation(subjectId, swarmId)
     throw Object.assign(
       new Error(`The old full-run chain on ${subjectId} is between stages and is stopping. Try again shortly.`),
       { statusCode: 409 },
@@ -3094,7 +4885,66 @@ async function stopSubjectForForce(subjectId: string, swarmId: string): Promise<
   finalizeConfirmedSubjectCancellation(stopping)
 }
 
-export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
+type LaunchResult = {
+  runId: string
+  preflight: LaunchPreflight
+  chained?: boolean
+  skipped?: string[]
+  planned?: string[]
+  resumed?: boolean
+}
+
+/** Register prepared-root ownership synchronously, before provider availability or any other await. The
+ * wrapper also owns every throw before a RunState exists, so one rejected same-wave child releases only
+ * its own attempt and can never roll back a sibling that is still admitting or already spawning. */
+export async function launch(params: LaunchParams): Promise<LaunchResult> {
+  const transaction = params.preparedRunPlanTransaction
+  const attemptId = transaction ? (params.preparedRunPlanAttemptId || randomUUID()) : undefined
+  if (transaction && attemptId) transaction.registerPaidChildAttempt(attemptId)
+  try {
+    const result = await launchRegistered(transaction && attemptId
+      ? { ...params, preparedRunPlanAttemptId: attemptId }
+      : params)
+    if (transaction && attemptId && result.chained) {
+      // The outer Full call delegated ownership to real module/master children and has no provider child
+      // of its own. Release its setup attempt after the first child ACK. If that child already proved it
+      // never started, this becomes the last release and atomically restores the prior target.
+      await transaction.rollbackIfUnstarted('full-chain scheduler delegated to its paid children', attemptId)
+    }
+    return result
+  } catch (error) {
+    if (transaction && attemptId) {
+      const authority = params.preSpendRetryAuthority
+      const unavailable = (error as any)?.statusCode === 503
+        || ['PROVIDER_DISABLED', 'PROVIDER_UNAVAILABLE', 'CLAUDE_CLI_MISSING']
+          .includes(String((error as any)?.code || ''))
+      let deferred = false
+      if (authority && unavailable) {
+        try {
+          deferred = await deferPreparedPreSpendRetry(
+            transaction, authority, 'provider_unavailable_before_spend',
+          )
+        } catch { /* fall through to the ordinary rollback below */ }
+      }
+      if (!deferred) {
+        try {
+          await transaction.rollbackIfUnstarted(
+            `launch failed before provider start: ${String((error as any)?.message || error)}`,
+            attemptId,
+          )
+        } catch { /* preserve the authoritative launch failure */ }
+      } else if (error && typeof error === 'object') {
+        Object.assign(error as object, {
+          preSpendRetryDeferred: true,
+          preSpendRetryRequestId: transaction.requestId,
+        })
+      }
+    }
+    throw error
+  }
+}
+
+async function launchRegistered(params: LaunchParams): Promise<LaunchResult> {
   const { kind, module, agent, window } = params
   if (params.signalDate !== undefined && (kind !== 'signal' || params.ticker !== undefined
       || !isValidCalendarISODate(params.signalDate))) {
@@ -3111,6 +4961,22 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     error.code = 'profile_changed'
     error.body = { code: 'profile_changed', expectedProfileKey: params.expectedProfileKey, profileKey: profile.profileKey }
     throw error
+  }
+  if (params.preSpendRetryAuthority) {
+    const authority = params.preSpendRetryAuthority
+    const profileMatches = authority.provider === profile.provider && authority.model === profile.model
+      && authority.reasoningLevel === (profile.reasoningLevel ?? null)
+      && authority.profileKey === profile.profileKey
+      && isDeepStrictEqual(authority.executionProfile, profile.executionProfile)
+    if (!params.preparedRunPlanTransaction || params.continuation || params.technicalReadinessRetry
+        || params.parityCanary || params.parity || !['full', 'module', 'rerun'].includes(kind)
+        || authority.localAttempts < 0 || !Number.isSafeInteger(authority.localAttempts)
+        || !Number.isSafeInteger(authority.notBeforeMs)
+        || !RECOVERY_REQUEST_ID_RE.test(authority.recoveryRequestId) || !profileMatches) {
+      throw Object.assign(new Error('Pre-spend retry authority does not match this exact fresh Full plan.'), {
+        statusCode: 409, code: 'pre_spend_retry_authority_changed',
+      })
+    }
   }
   const availabilityProofId = randomUUID()
   const user = params.user || 'local'
@@ -3136,17 +5002,56 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const continuationRunRoot = params.continuation
     ? exactModuleRunRootBinding(params.ticker ?? '', params.runRoot)
     : null
+  const chainedRunRoot = params.chained && params.runRoot && !params.parityCanary
+    ? exactModuleRunRootBinding(params.ticker ?? '', params.runRoot)
+    : null
   const preparedRunRoot = params.preparedRunPlanTransaction
     ? exactModuleRunRootBinding(params.ticker ?? '', params.preparedRunPlanTransaction.preparation.targetRunRoot)
+    : null
+  const technicalRetryRunRoot = params.technicalReadinessRetry
+    ? exactModuleRunRootBinding(params.ticker ?? '', params.runRoot)
     : null
   if (params.continuation && (swarmId !== RESEARCH_SWARM_ID
       || (kind !== 'full' && kind !== 'module' && kind !== 'rerun')
       || !continuationRunRoot)) {
     throw Object.assign(new Error('Continue requires one exact saved research run root.'), { statusCode: 400 })
   }
+  if (params.chained && params.runRoot && !params.parityCanary && !chainedRunRoot) {
+    throw Object.assign(new Error('A chained launch requires one exact captured research run root.'), { statusCode: 400 })
+  }
   if (params.preparedRunPlanTransaction && (!preparedRunRoot
-      || (continuationRunRoot && continuationRunRoot !== preparedRunRoot))) {
+      || (continuationRunRoot && continuationRunRoot !== preparedRunRoot)
+      || (chainedRunRoot && chainedRunRoot !== preparedRunRoot))) {
     throw Object.assign(new Error('Prepared run-plan root does not match this exact research launch.'), { statusCode: 400 })
+  }
+  if (params.recoveryRequestId !== undefined && !params.technicalReadinessRetry) {
+    throw Object.assign(new Error('A recovery request id is valid only for an exact technical-readiness retry.'), { statusCode: 400 })
+  }
+  if (params.technicalReadinessRetry) {
+    if (swarmId !== RESEARCH_SWARM_ID || kind !== 'full' || params.chained || params.continuation
+        || params.preparedRunPlanTransaction || params.requireExistingFrozenPoolReceipt
+        || !technicalRetryRunRoot || !params.recoveryRequestId
+        || !RECOVERY_REQUEST_ID_RE.test(params.recoveryRequestId)) {
+      throw Object.assign(new Error('Technical-readiness recovery requires one exact fresh-Full root and stable request id.'), { statusCode: 400 })
+    }
+    if (hasRunMarker(technicalRetryRunRoot, '.aborted') || isSealedResearchRun(technicalRetryRunRoot)) {
+      throw Object.assign(new Error('This exact Full was cancelled or completed and cannot be recovered automatically.'), {
+        statusCode: 409, code: 'recovery_authority_changed', body: { code: 'recovery_authority_changed' },
+      })
+    }
+    const marker = readRunMarker(technicalRetryRunRoot, '.interrupted')
+    const authority = readProviderInterruptionAuthority(technicalRetryRunRoot)
+    const exactAuthority = authority !== null
+      && marker?.reason === 'technical_readiness_failed_before_spend'
+      && typeof marker.runId === 'string' && marker.runId === authority.runId
+      && authority.provider === profile.provider && authority.model === profile.model
+      && authority.reasoningLevel === profile.reasoningLevel && authority.profileKey === profile.profileKey
+      && isDeepStrictEqual(authority.executionProfile, profile.executionProfile)
+    if (!exactAuthority) {
+      throw Object.assign(new Error('The saved pre-spend recovery authority changed. No provider was started.'), {
+        statusCode: 409, code: 'recovery_authority_changed', body: { code: 'recovery_authority_changed' },
+      })
+    }
   }
   const exactModuleRunRoot = params.exactModuleResume
     ? exactModuleRunRootBinding(params.ticker ?? '', params.exactModuleRunRoot)
@@ -3226,11 +5131,6 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   let subjectId: string
   let runRoot: string
   let pendingIntake: { path: string; body: any } | null = null
-  // Finding 13: set below (research 'full' branch) when this is a deliberate same-day relaunch into an
-  // existing, still-incomplete run root — the actual dedup/marker reset happens only after admission
-  // succeeds, never here.
-  let isFullRelaunch = false
-
   if ((kind === 'full' || kind === 'module') && params.parityCanary) {
     const requestedRoot = params.parityCanary.runRoot
     const requestedFreeze = params.parityCanary.freezeReceipt
@@ -3443,11 +5343,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // Force owns the explicit stop/drain protocol below, so an existing chain must not reject it before
     // that protocol can run. Every non-force launch keeps the ordinary fail-fast subject-chain guard.
     assertNoForeignSubjectChain(swarmId, subjectId, params.chained || params.force)
-    // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
-    const datedRoot = continuationRunRoot ?? preparedRunRoot ?? `analyses/${ticker}_${todayDate()}`
-    // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
-    // scheduler, which would begin rewriting modules before the command could observe the seal.
-    if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) {
+    // Full/Continue always runs as a chain of per-module runs + master (each with its own budget).
+    const datedRoot = technicalRetryRunRoot ?? continuationRunRoot ?? preparedRunRoot ?? chainedRunRoot
+      ?? `analyses/${ticker}_${todayDate()}`
+    // Full has exactly two outcomes here: an immutable completed root is rejected before any launch, or
+    // the request enters the chained scheduler. There is deliberately no fallthrough to the legacy
+    // monolithic /research:full provider path — not for host flags, same-day sealed roots, or Continue.
+    if (kind === 'full') {
+      if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
       // launchFullChained writes its defer-memo marker before scheduling the first module. Validate the
       // selected-call CAS AND reserve the shared data-pool label first so even that benign scheduler
       // mutation cannot be authorized by a stale confirmation or race a first commodity run on the same
@@ -3481,12 +5384,20 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
           defaultFullChainDeps,
           binding,
           params.memoryIdentity,
-          continuationRunRoot || params.preparedRunPlanTransaction
+          technicalRetryRunRoot || continuationRunRoot || params.preparedRunPlanTransaction
             ? {
-                runRoot: preparedRunRoot ?? continuationRunRoot!,
+                runRoot: technicalRetryRunRoot ?? preparedRunRoot ?? continuationRunRoot!,
+                ...(technicalRetryRunRoot
+                  ? {
+                      technicalReadinessRetry: true,
+                      recoveryRequestId: params.recoveryRequestId!,
+                    }
+                  : {}),
                 ...(continuationRunRoot ? { continuation: true } : {}),
                 ...(params.preparedRunPlanTransaction
                   ? { preparedRunPlanTransaction: params.preparedRunPlanTransaction } : {}),
+                ...(params.preSpendRetryAuthority
+                  ? { preSpendRetryAuthority: params.preSpendRetryAuthority } : {}),
               }
             : undefined,
         )
@@ -3506,24 +5417,12 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       }
       if (params.runRoot && latest !== params.runRoot) throw Object.assign(new Error('The selected run no longer matches this subject.'), { statusCode: 409 })
       runRoot = latest
-    } else if (continuationRunRoot || preparedRunRoot) {
-      runRoot = continuationRunRoot ?? preparedRunRoot!
-      isFullRelaunch = kind === 'full' && !finalDeliverablesPresent(runRoot)
+    } else if (continuationRunRoot || preparedRunRoot || chainedRunRoot) {
+      runRoot = continuationRunRoot ?? preparedRunRoot ?? chainedRunRoot!
     } else if (kind === 'agent') {
       runRoot = resolveAgentRunRoot(ticker)
     } else {
       runRoot = `analyses/${ticker}_${todayDate()}`
-      // A deliberate same-day relaunch of a FULL run reuses this run root. The plain launch() path (the
-      // default when FULL_PER_MODULE is off) must reset the single-shot failure-note dedup — otherwise
-      // recordRunFailure() suppresses the RELAUNCH's failure and RUN_FAILURE.md keeps the first attempt's
-      // reason/stopped_at/stderr. The chained launcher already does this reset at its resume root (~900).
-      // Finding 13: the ACTUAL reset (including clearing .interrupted) is deferred until admission below
-      // actually admits this launch — NOT done here, while merely resolving the run root. Clearing the
-      // marker this early, before admitRun() runs, would strand a genuinely-broken full run forever if
-      // admission then REJECTS this attempt (capacity/lock): no run would start, yet the only marker that
-      // makes the resume supervisor consider the folder resumable would already be gone. `isFullRelaunch`
-      // just records the (cheap, side-effect-free) fact so the code after admission can act on it.
-      isFullRelaunch = kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot)) && !finalDeliverablesPresent(runRoot)
     }
   }
 
@@ -3728,6 +5627,13 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
   run.publicationToken = randomUUID()
   run.provenanceEpoch = params.chainId || run.runId
+  if (params.preSpendRetryAuthority) {
+    preSpendRetryAuthorityByRun.set(run, params.preSpendRetryAuthority)
+  }
+  providerSpawnRequestIdByRun.set(
+    run,
+    params.preparedRunPlanTransaction?.requestId ?? params.recoveryRequestId ?? run.runId,
+  )
   try {
     recordAdmittedProviderSelection(run)
     setActiveSubjectRun(run.runId, subjectId, swarmId)
@@ -3738,26 +5644,24 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 
   if (params.preparedRunPlanTransaction) {
     const transaction = params.preparedRunPlanTransaction
-    preparedRunPlanTransactionByRun.set(run, transaction)
+    const attemptId = params.preparedRunPlanAttemptId
+    if (!attemptId) {
+      finishRun(run, 'error')
+      throw new Error('prepared run-plan child lost its pre-await attempt identity')
+    }
+    preparedRunPlanTransactionByRun.set(run, { transaction, rootAttemptId: attemptId, attemptId })
     run.onNoChildTerminal = () => {
-      void transaction.rollbackIfUnstarted('admitted run ended before provider start').catch((error: any) => {
+      void transaction.rollbackIfUnstarted('admitted run ended before provider start', attemptId).catch((error: any) => {
         console.error(`[run-plan] terminal rollback failed for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
       })
     }
     try {
       await transaction.activate()
+      bindPreparedImmutableReusedOutputs(run, transaction.preparation.doneOrbKeys)
     } catch (error) {
       finishRun(run, 'error')
       throw error
     }
-  }
-
-  // Finding 13: NOW that admission has actually admitted this launch, reset the relaunch state — clearing
-  // either marker earlier would strand the old run if admission rejected this attempt. A deliberate full
-  // relaunch supersedes an exact-module `.aborted` pause; a fresh break re-marks `.interrupted` and remains
-  // autonomously resumable. The failure-note dedup resets here too.
-  if (isFullRelaunch) {
-    resetAdmittedFullRelaunch(runRoot)
   }
 
   // A research full run is not terminal at thesis creation. It must also freeze the post-audit Ideas
@@ -3808,6 +5712,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
   if (params.deferModuleMemo) deferredModuleMemoRuns.add(run)
   if (continuationRunRoot) continuationRunRootByRun.set(run, continuationRunRoot)
+  if (params.requireExistingFrozenPoolReceipt) durableFrozenGenerationReuseRuns.add(run)
   if (exactResumeBinding) {
     exactModuleResumeRuns.add(run)
     exactModuleInputsByRun.set(run, exactModuleInputs)
@@ -4018,13 +5923,48 @@ function hasValidParityModuleOutcome(
 // the outcome ride SSE.
 async function continueLaunch(run: RunState): Promise<void> {
   try {
+    if (run.endedAt !== undefined) return
+    if (run.cancelRequested) {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
+      finishRun(run, 'cancelled')
+      return
+    }
     // Pre-spawn data-readiness gate (deterministic, no LLM). Research data-consuming kinds only (swarm
     // kinds skip it). If the check isn't clean, BLOCK: pause in awaiting-readiness-decision and defer
     // the spawn until the user decides (decideReadiness). No CLI is spawned while paused.
-    await runReadinessGate(run)
+    const readinessGate = await runReadinessGate(run)
     // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check
     // runs). A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
-    if (run.endedAt !== undefined) return
+    if (run.endedAt !== undefined || run.cancelRequested) return
+    const chainNeedsDecision = !!(readinessGate && run.readiness && readinessNeedsDecision(run, run.readiness))
+    // Every chain child waits on the chain resolution except the one empty-data owner that must expose the
+    // panel first. This includes the automatic non-empty owner: a sibling admission failure/cancel can clear
+    // the chain while its evaluator is running, and that cancellation must win over a late provider spawn.
+    if (readinessGate && (!readinessGate.owner || !chainNeedsDecision)) {
+      const resolution = await readinessGate.resolution
+      if (run.endedAt !== undefined || run.cancelRequested) return
+      if (resolution.action === 'cancel') {
+        emit(run, {
+          type: 'run-error', runId: run.runId, status: 'cancelled',
+          reason: 'cancelled_at_chain_readiness_gate', ts: Date.now(),
+        })
+        finishRun(run, 'cancelled')
+        return
+      }
+      if (resolution.report && resolution.report !== run.readiness) {
+        run.readiness = resolution.report
+        emit(run, { type: 'readiness-report', runId: run.runId, report: resolution.report, ts: Date.now() })
+      }
+      run.readinessDecision = {
+        action: resolution.action,
+        user: resolution.user,
+        acknowledgedText: resolution.acknowledgedText,
+        ts: Date.now(),
+      }
+      emit(run, { type: 'readiness-resolved', runId: run.runId, action: resolution.action, ts: Date.now() })
+      await spawnEngine(run)
+      return
+    }
     if (run.readiness && readinessNeedsDecision(run, run.readiness)) {
       run.status = 'awaiting-readiness-decision'
       run.deferredSpawn = () => spawnEngine(run)
@@ -4033,6 +5973,17 @@ async function continueLaunch(run: RunState): Promise<void> {
     }
     await spawnEngine(run)
   } catch (e: any) {
+    if (isReadinessCancelledError(e) || run.cancelRequested
+        || (!!run.chainId && cancelledChainIds.has(run.chainId))) {
+      if (run.endedAt === undefined) {
+        emit(run, {
+          type: 'run-error', runId: run.runId, status: 'cancelled',
+          reason: 'cancelled_at_readiness_gate', ts: Date.now(),
+        })
+        finishRun(run, 'cancelled')
+      }
+      return
+    }
     // spawnEngine already emitted run-error + finalized on its own throw — only clean up if it didn't
     if (run.endedAt === undefined) {
       let message: string
@@ -4041,11 +5992,44 @@ async function continueLaunch(run: RunState): Promise<void> {
       else {
         try { message = JSON.stringify(e) || String(e) } catch { message = String(e) }
       }
-      // A frozen same-root recovery may fail in a deterministic pre-spawn guard after its prior marker was
-      // consumed by admission. Re-seal this no-process failure so a later explicitly authorized retry can
-      // recover the same root; ordinary launches and any run with a child remain unchanged.
-      if (run.parityCanaryContinuation && !run.child) {
-        try { writeInterruptionMarker(run, 'continuation_spawn_failed', message) } catch { /* fail closed below */ }
+      let deferredPreSpend = false
+      const retryAuthority = preSpendRetryAuthorityByRun.get(run)
+      const prepared = preparedRunPlanTransactionByRun.get(run)?.transaction
+      if (retryAuthority && prepared && !run.child) {
+        const technicalReadinessFailure = !durableFrozenGenerationReuseRuns.has(run)
+          && run.readiness?.issues.some((issue) => issue.code === 'check_failed') === true
+          && !run.readiness?.frozenPool
+        const unavailable = e?.statusCode === 503
+          || ['PROVIDER_DISABLED', 'PROVIDER_UNAVAILABLE', 'CLAUDE_CLI_MISSING']
+            .includes(String(e?.code || ''))
+        const retryReason: PreSpendRetryAuthority['reason'] = technicalReadinessFailure
+          ? 'technical_readiness_failed_before_spend'
+          : unavailable ? 'provider_unavailable_before_spend' : 'provider_spawn_failed_before_spend'
+        try {
+          deferredPreSpend = await deferPreparedPreSpendRetry(prepared, retryAuthority, retryReason)
+          // The transaction deliberately moved the new root back into its owner-only workspace. Let the
+          // logical chain drain, but do not let finishRun's generic no-child hook roll it back or create a
+          // run-folder interruption marker that could bypass the exact protected rearm API.
+          run.onNoChildTerminal = undefined
+          run.note = `Waiting for automatic exact-plan retry after ${retryReason.replaceAll('_', ' ')}.`
+        } catch (deferError: any) {
+          message = `${message}; exact retry could not be sealed: ${String(deferError?.message || deferError)}`
+        }
+      }
+      // Any admitted chain child that fails before execa remains recoverable on this exact root/profile.
+      // A fresh Full whose bounded local checker exhausted gets its own reason: the headless supervisor may
+      // retry that pre-spend readiness transaction against live data. Continue/reuse children are excluded
+      // because they must retain their original frozen generation and must never reopen Drive.
+      if (!deferredPreSpend && isResumableResearchRun(run) && !run.child) {
+        const technicalReadinessFailure = !durableFrozenGenerationReuseRuns.has(run)
+          && run.readiness?.issues.some((issue) => issue.code === 'check_failed') === true
+          && !run.readiness?.frozenPool
+        const reason = technicalReadinessFailure
+          ? 'technical_readiness_failed_before_spend'
+          : 'continuation_spawn_failed'
+        try { writeInterruptionMarker(run, reason, message) } catch { /* fail closed below */ }
+        try { recordRunFailure(run, reason, message) } catch { /* Activity remains authoritative */ }
+        run.note = failureNote(reason, message)
       }
       emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'launch_failed', message, ts: Date.now() })
       finishRun(run, 'error')
@@ -4053,15 +6037,19 @@ async function continueLaunch(run: RunState): Promise<void> {
   }
 }
 
-export const DEFER_MODULE_MEMO_ENV = 'NOSTRA_DEFER_MODULE_MEMO'
-export const CONTINUATION_RUN_ROOT_ENV = 'NOSTRA_CONTINUATION_RUN_ROOT'
-export const EXACT_MODULE_RESUME_ENV = 'NOSTRA_EXACT_MODULE_RESUME'
-export const EXACT_MODULE_INPUTS_ENV = 'NOSTRA_EXACT_MODULE_INPUTS'
-export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
-export const EXACT_MODULE_NAME_ENV = 'NOSTRA_EXACT_MODULE_NAME'
-export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS'
-export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
-export const PARITY_CANARY_CONTINUATION_ENV = 'NOSTRA_PARITY_CANARY_CONTINUATION'
+export const DEFER_MODULE_MEMO_ENV = PROVIDER_NEUTRAL_RUN_ENV.deferModuleMemo
+export const CONTINUATION_RUN_ROOT_ENV = PROVIDER_NEUTRAL_RUN_ENV.continuationRunRoot
+export const EXACT_MODULE_RESUME_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleResume
+export const EXACT_MODULE_INPUTS_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleInputs
+export const EXACT_MODULE_RUN_ROOT_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleRunRoot
+export const EXACT_MODULE_NAME_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleName
+export const EXACT_MODULE_WRITABLE_ORBS_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleWritableOrbs
+export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = PROVIDER_NEUTRAL_RUN_ENV.exactModuleSynthesisOrbs
+export const PARITY_CANARY_CONTINUATION_ENV = PROVIDER_NEUTRAL_RUN_ENV.parityCanaryContinuation
+export const FROZEN_POOL_DATA_PATH_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolDataPath
+export const FROZEN_POOL_OUT_DIR_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolOutDir
+export const FROZEN_POOL_GENERATION_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenPoolGeneration
+export const FROZEN_EVIDENCE_ROOT_ENV = PROVIDER_NEUTRAL_RUN_ENV.frozenEvidenceRoot
 // Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
 // cockpit processes get their environment from their selected ProviderAdapter.
 interface RunPolicyEnvOptions {
@@ -4144,9 +6132,16 @@ export function applySupervisorPublicationEnv(
 
 function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.ProcessEnv {
   const scope = exactModuleArtifactScopeByRun.get(run)
+  // A two-hour fresh Full is just as vulnerable to midnight as Continue: commands historically called
+  // `date` again and could move a later module/master into tomorrow's folder. Bind every research chain
+  // child to the scheduler's already-captured exact root. The env name is retained for command compatibility;
+  // its contract is now the provider-neutral exact chain root, not a signal that this is a Continue action.
+  const exactChainRunRoot = run.chained && run.swarmId === RESEARCH_SWARM_ID
+    ? exactModuleRunRootBinding(run.ticker, run.runRoot) ?? undefined
+    : undefined
   const env = applyRunPolicyOptions(source, {
     deferModuleMemo: deferredModuleMemoRuns.has(run),
-    continuationRunRoot: continuationRunRootByRun.get(run),
+    continuationRunRoot: continuationRunRootByRun.get(run) ?? exactChainRunRoot,
     exactModuleResume: exactModuleResumeRuns.has(run),
     exactModuleInputs: exactModuleInputsByRun.get(run),
     exactModuleRunRoot: exactModuleRunRootByRun.get(run),
@@ -4156,11 +6151,27 @@ function applyRunPolicyEnv(source: NodeJS.ProcessEnv, run: RunState): NodeJS.Pro
   })
   delete env.NOSTRA_MEMORY_MODE
   delete env[PARITY_CANARY_CONTINUATION_ENV]
+  delete env[FROZEN_POOL_DATA_PATH_ENV]
+  delete env[FROZEN_POOL_OUT_DIR_ENV]
+  delete env[FROZEN_POOL_GENERATION_ENV]
+  delete env[FROZEN_EVIDENCE_ROOT_ENV]
   if (run.memoryRuntime && run.memoryRuntime.mode !== 'off') {
     env.NOSTRA_MEMORY_MODE = run.memoryRuntime.mode
   }
   if (run.parityCanaryContinuation) env[PARITY_CANARY_CONTINUATION_ENV] = '1'
+  const frozenEvidence = providerEvidenceBinding(run)
+  if (frozenEvidence) {
+    env[FROZEN_POOL_DATA_PATH_ENV] = frozenEvidence.frozenPool.dataPath
+    env[FROZEN_POOL_OUT_DIR_ENV] = frozenEvidence.capability.poolOutDir
+    env[FROZEN_POOL_GENERATION_ENV] = frozenEvidence.frozenPool.generationDigest
+    env[FROZEN_EVIDENCE_ROOT_ENV] = frozenEvidence.capability.evidenceRoot
+  }
   return env
+}
+
+/** Read-only deterministic seam proving provider adapters receive only the supervisor-bound generation. */
+export function applyRunPolicyEnvForTest(source: NodeJS.ProcessEnv, run: RunState): NodeJS.ProcessEnv {
+  return applyRunPolicyEnv(source, run)
 }
 
 const PUBLICATION_SOCKET_MAX_BODY = 64 * 1024
@@ -4667,6 +6678,8 @@ let supervisorCommitter: SupervisorCommitter = async (message, pathspecs, env) =
   })
   return result.stdout
 }
+type PublicationAuthoritySealer = (run: RunState) => void
+let publicationAuthoritySealer: PublicationAuthoritySealer = releaseExecutionEpochAfterPublication
 
 type SupervisorCommitVerifier = (
   output: string, requiredPaths: string[], fixedHashes?: Record<string, string>,
@@ -4843,56 +6856,82 @@ function writeReadyPublication(
   return record
 }
 
-function readReadyPublication(absolute: string): ReadyPublicationRecord {
-  const info = fs.lstatSync(absolute)
-  const uid = process.getuid?.()
-  if (!info.isFile() || info.isSymbolicLink() || (info.mode & 0o077) !== 0
-      || (uid !== undefined && info.uid !== uid) || fs.realpathSync(absolute) !== absolute
-      || info.size <= 0 || info.size > 1024 * 1024) throw new Error('unsafe ready-publication receipt')
-  const value = JSON.parse(fs.readFileSync(absolute, 'utf8')) as ReadyPublicationRecord
-  if (value.schema_version !== 'cockpit-publication-ready/1.0'
-      || !/^[0-9a-f-]{36}$/.test(value.run_id) || path.basename(absolute) !== `${value.run_id}.json`
-      || !value.run_root || !value.subject || !value.swarm || !['claude', 'codex'].includes(value.provider)
-      || !['primary-ready', 'backfill-ready'].includes(value.stage)
-      || !value.profile_key || !value.model || !value.execution_profile
-      || !Array.isArray(value.paths) || !value.paths.length
-      || !value.artifact_hashes || typeof value.artifact_hashes !== 'object'
-      || typeof value.self_sha256 !== 'string') throw new Error('invalid ready-publication receipt')
-  const { self_sha256, ...unsigned } = value
-  if (readyPublicationDigest(unsigned) !== self_sha256) throw new Error('ready-publication receipt digest mismatch')
-  const manifest = path.resolve(value.snapshot_manifest)
-  const state = path.resolve(STATE_DIR)
-  if (!manifest.startsWith(`${state}${path.sep}`) || fileSha256(manifest) !== value.snapshot_manifest_sha256) {
-    throw new Error('ready-publication snapshot manifest is missing or changed')
-  }
-  const manifestValue = JSON.parse(fs.readFileSync(manifest, 'utf8')) as Record<string, any>
-  if (manifestValue.schema_version !== 'cockpit-publication-snapshot/1.0'
-      || manifestValue.run_id !== value.run_id || !Array.isArray(manifestValue.entries)) {
-    throw new Error('ready-publication snapshot manifest contract mismatch')
-  }
-  const entries = manifestValue.entries as Array<Record<string, unknown>>
-  const paths = entries.map((entry) => entry.path)
-  if (!isDeepStrictEqual(paths, value.paths)) throw new Error('ready-publication path list disagrees with its snapshot')
-  for (const entry of entries) {
-    if (typeof entry.path !== 'string' || typeof entry.snapshot !== 'string' || typeof entry.sha256 !== 'string'
-        || value.artifact_hashes[entry.path] !== entry.sha256) {
-      throw new Error('ready-publication entry disagrees with its bound hashes')
+function readReadyPublication(absolute: string): ReadyPublicationRecord | null {
+  let descriptor: number | null = null
+  try {
+    // Open first with NOFOLLOW, then compare the descriptor to the directory entry. This closes the
+    // lstat -> open replacement window while still allowing another recovery worker to atomically finish
+    // and unlink the receipt between readdir() and this read.
+    descriptor = fs.openSync(absolute,
+      fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const info = fs.fstatSync(descriptor)
+    const current = fs.lstatSync(absolute)
+    const uid = process.getuid?.()
+    if (!info.isFile() || current.isSymbolicLink() || current.dev !== info.dev || current.ino !== info.ino
+        || (info.mode & 0o077) !== 0 || (uid !== undefined && info.uid !== uid)
+        || fs.realpathSync(absolute) !== absolute || info.size <= 0 || info.size > 1024 * 1024) {
+      throw new Error('unsafe ready-publication receipt')
     }
-    const snapshot = path.resolve(entry.snapshot)
-    if (path.dirname(snapshot) !== path.dirname(manifest)) throw new Error('ready-publication entry escapes its snapshot directory')
-    const snapshotInfo = assertRegularArtifact(snapshot, 'ready publication snapshot entry')
-    if (snapshotInfo.mode & 0o077 || fileSha256(snapshot) !== entry.sha256) {
-      throw new Error('ready-publication snapshot entry changed')
+    const value = JSON.parse(fs.readFileSync(descriptor, 'utf8')) as ReadyPublicationRecord
+    if (value.schema_version !== 'cockpit-publication-ready/1.0'
+        || !/^[0-9a-f-]{36}$/.test(value.run_id) || path.basename(absolute) !== `${value.run_id}.json`
+        || !value.run_root || !value.subject || !value.swarm || !['claude', 'codex'].includes(value.provider)
+        || !['primary-ready', 'backfill-ready'].includes(value.stage)
+        || !value.profile_key || !value.model || !value.execution_profile
+        || !Array.isArray(value.paths) || !value.paths.length
+        || !value.artifact_hashes || typeof value.artifact_hashes !== 'object'
+        || typeof value.self_sha256 !== 'string') throw new Error('invalid ready-publication receipt')
+    const { self_sha256, ...unsigned } = value
+    if (readyPublicationDigest(unsigned) !== self_sha256) throw new Error('ready-publication receipt digest mismatch')
+    const manifest = path.resolve(value.snapshot_manifest)
+    const state = path.resolve(STATE_DIR)
+    if (!manifest.startsWith(`${state}${path.sep}`) || fileSha256(manifest) !== value.snapshot_manifest_sha256) {
+      throw new Error('ready-publication snapshot manifest is missing or changed')
     }
+    const manifestValue = JSON.parse(fs.readFileSync(manifest, 'utf8')) as Record<string, any>
+    if (manifestValue.schema_version !== 'cockpit-publication-snapshot/1.0'
+        || manifestValue.run_id !== value.run_id || !Array.isArray(manifestValue.entries)) {
+      throw new Error('ready-publication snapshot manifest contract mismatch')
+    }
+    const entries = manifestValue.entries as Array<Record<string, unknown>>
+    const paths = entries.map((entry) => entry.path)
+    if (!isDeepStrictEqual(paths, value.paths)) throw new Error('ready-publication path list disagrees with its snapshot')
+    for (const entry of entries) {
+      if (typeof entry.path !== 'string' || typeof entry.snapshot !== 'string' || typeof entry.sha256 !== 'string'
+          || value.artifact_hashes[entry.path] !== entry.sha256) {
+        throw new Error('ready-publication entry disagrees with its bound hashes')
+      }
+      const snapshot = path.resolve(entry.snapshot)
+      if (path.dirname(snapshot) !== path.dirname(manifest)) throw new Error('ready-publication entry escapes its snapshot directory')
+      const snapshotInfo = assertRegularArtifact(snapshot, 'ready publication snapshot entry')
+      if (snapshotInfo.mode & 0o077 || fileSha256(snapshot) !== entry.sha256) {
+        throw new Error('ready-publication snapshot entry changed')
+      }
+    }
+    return value
+  } catch (error: any) {
+    // Atomic absence is a successful hand-off to the worker that already consumed this exact receipt.
+    // An entry that still exists but is malformed, replaced, inaccessible, or has lost its snapshot is
+    // not a race: preserve the existing fail-closed behavior and surface it.
+    try { fs.lstatSync(absolute) } catch (current: any) {
+      if (current?.code === 'ENOENT') return null
+      throw error
+    }
+    throw error
+  } finally {
+    if (descriptor !== null) try { fs.closeSync(descriptor) } catch { /* best effort */ }
   }
-  return value
 }
 
 function clearReadyPublication(record: ReadyPublicationRecord): void {
   const target = readyPublicationPath(record.run_id)
   const current = readReadyPublication(target)
+  if (!current) return // another recovery owner atomically consumed this exact receipt
   if (current.self_sha256 !== record.self_sha256) throw new Error('a newer ready publication replaced this receipt')
-  fs.unlinkSync(target)
+  try { fs.unlinkSync(target) } catch (error: any) {
+    if (error?.code === 'ENOENT') return
+    throw error
+  }
   syncDirectory(readyPublicationDir)
   fs.rmSync(path.dirname(record.snapshot_manifest), { recursive: true, force: true })
 }
@@ -4989,6 +7028,13 @@ export function __setSupervisorCommitter(fn: SupervisorCommitter): SupervisorCom
 export function __setSupervisorCommitVerifier(fn: SupervisorCommitVerifier): SupervisorCommitVerifier {
   const previous = supervisorCommitVerifier
   supervisorCommitVerifier = fn
+  return previous
+}
+
+/** Focused crash-injection seam at the post-commit/pre-authority durability boundary. */
+export function __setPublicationAuthoritySealer(fn: PublicationAuthoritySealer): PublicationAuthoritySealer {
+  const previous = publicationAuthoritySealer
+  publicationAuthoritySealer = fn
   return previous
 }
 const firstWildcard = (value: string) => {
@@ -5795,12 +7841,27 @@ export async function supervisePublication(
     }
   }
   run.publicationRevision = verifiedPublishedRevision(output)
-  if (ready) clearReadyPublication(ready)
   run.publicationArtifactHashes = finalHashes
+  // The publication authority sealer currently requires the in-memory completion bit while it writes the
+  // protected provider/profile receipt. Treat that bit as provisional until the write returns: a failed
+  // fsync must leave the immutable ready receipt actionable and the run visibly non-terminal, never let the
+  // close finalizer convert a committed-but-unsealed publication into `done`.
   run.publicationCompleted = true
+  run.publicationPhase = 'terminal-in-progress'
+  // The owner-only ready receipt is the last providerless recovery path after Git accepted the immutable
+  // snapshot. Keep it until the exact artifact hashes and provider/profile publication authority are fsynced;
+  // a crash in between can then finish publication without ever paying the terminal model again.
+  try {
+    publicationAuthoritySealer(run)
+  } catch (error: any) {
+    run.publicationCompleted = false
+    run.publicationPhase = 'terminal-failed'
+    run.publicationError = `publication authority could not be sealed: ${String(error?.message || error)}`
+    throw error
+  }
   run.publicationPhase = 'terminal-complete'
   run.publicationToken = undefined
-  releaseExecutionEpochAfterPublication(run)
+  if (ready) clearReadyPublication(ready)
   let postPublicationWarning: string | undefined
   if (run.kind === 'review' || run.kind === 'conviction') {
     try {
@@ -5840,6 +7901,7 @@ export async function recoverReadyPublications(): Promise<number> {
     if (!entry.name.endsWith('.json')) continue
     if (!entry.isFile() || entry.isSymbolicLink()) throw new Error(`unsafe ready-publication entry: ${entry.name}`)
     let record = readReadyPublication(path.join(readyPublicationDir, entry.name))
+    if (!record) continue
     const env: NodeJS.ProcessEnv = { ...process.env, NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST: record.snapshot_manifest }
     for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
     const output = await supervisorCommitter(record.message, record.paths, env)
@@ -5935,7 +7997,30 @@ async function continueIncompleteCodexProcess(
   }
   run.automaticContinuationRetainsDecisionAuthor = retainedDecisionAuthor
   run.automaticContinuationCount = plan.index!
-  run.providerAttemptId = randomUUID()
+  const nextProviderAttemptId = randomUUID()
+  const preparedBinding = preparedRunPlanTransactionByRun.get(run)
+  if (preparedBinding) {
+    const nextTransactionAttemptId = preparedProviderContinuationAttemptId(
+      preparedBinding.rootAttemptId,
+      nextProviderAttemptId,
+    )
+    try {
+      // Register synchronously while the old close handler still owns the logical run. A crash/rejection
+      // after this point is one exact unstarted child, never reuse of process 1's released gate.
+      preparedBinding.transaction.registerPaidChildAttempt(nextTransactionAttemptId)
+      preparedRunPlanTransactionByRun.set(run, {
+        ...preparedBinding,
+        attemptId: nextTransactionAttemptId,
+      })
+    } catch (error: any) {
+      run.streamFailure = {
+        reason: 'codex_continuation_failed',
+        message: `Codex continuation identity could not be sealed: ${String(error?.message || error)}`,
+      }
+      return false
+    }
+  }
+  run.providerAttemptId = nextProviderAttemptId
   run.automaticContinuationCheckpoint = plan.checkpoint!
   run.automaticContinuationStagnantTurns = plan.stagnantTurns!
   run.child = null
@@ -6071,6 +8156,14 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
   const continuationInventory = (run.provider === 'codex' && (run.automaticContinuationCount ?? 0) > 0)
     ? codexContinuationInventory(run) : null
+  // Bind one exact external evidence capability for every policy/env calculation below. Hash it once at
+  // this adapter-build boundary; helpers must reuse this object rather than lazily creating alternatives.
+  try {
+    prepareProviderEvidenceBoundary(run)
+  } catch (error) {
+    await publicationSocket.close()
+    throw error
+  }
   let launchSpec: Awaited<ReturnType<typeof adapter.buildLaunch>>
   try {
     launchSpec = await adapter.buildLaunch({
@@ -6087,7 +8180,8 @@ async function spawnEngine(run: RunState): Promise<void> {
       additionalWritableDataRoot: path.resolve(DATA_DIR),
       writablePaths: providerWritablePaths(run),
       protectedWritePaths: providerProtectedWritePaths(run),
-      protectedReadPaths: [path.resolve(STATE_DIR)],
+      protectedReadPaths: providerProtectedReadPaths(run),
+      readOnlyCapabilityPaths: providerReadOnlyCapabilityPaths(run),
       env: applyRunPolicyEnv(applySupervisorPublicationEnv(process.env, publicationBinding), run),
       guard: LAUNCH_GUARDS[run.kind],
       resumeSessionId: run.resumeSessionId,
@@ -6100,6 +8194,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       publicationSocketPath: publicationSocket.socketPath,
     })
   } catch (error) {
+    providerEvidenceBoundary.delete(run)
     await publicationSocket.close()
     throw error
   }
@@ -6155,10 +8250,17 @@ async function spawnEngine(run: RunState): Promise<void> {
     releaseProviderLaunchResources(run)
     throw error
   }
-  const preparedTransaction = preparedRunPlanTransactionByRun.get(run)
+  const preparedBinding = preparedRunPlanTransactionByRun.get(run)
+  const preparedTransaction = preparedBinding?.transaction
+  const preparedAttemptId = preparedBinding?.attemptId
+  let providerSpawnGate: ProviderSpawnGate | undefined
   if (preparedTransaction) {
     try {
-      await preparedTransaction.markPaidChildSpawning()
+      providerSpawnGate = await preparedTransaction.markPaidChildSpawning(preparedAttemptId!, {
+        runId: run.runId,
+        providerAttemptId: run.providerAttemptId ?? run.runId,
+        commandDigest: providerSpawnCommandDigest(launchSpec.command, launchSpec.args, launchSpec.cwd),
+      })
     } catch (error: any) {
       releaseProviderLaunchResources(run)
       emit(run, {
@@ -6172,14 +8274,14 @@ async function spawnEngine(run: RunState): Promise<void> {
     // before execa; a binding/scope change in that fsync window fails without creating a paid child.
     const afterSealBinding = changedLaunchBinding()
     if (afterSealBinding) {
-      await preparedTransaction.rollbackIfUnstarted(afterSealBinding)
+      await preparedTransaction.rollbackIfUnstarted(afterSealBinding, preparedAttemptId)
       stopForChangedBinding(afterSealBinding)
       releaseProviderLaunchResources(run)
       return
     }
     const afterSealGuard = evaluatePreSpawnGuard(preSpawnGuards.get(run))
     if (!afterSealGuard.ok) {
-      await preparedTransaction.rollbackIfUnstarted(afterSealGuard.message)
+      await preparedTransaction.rollbackIfUnstarted(afterSealGuard.message, preparedAttemptId)
       run.note = afterSealGuard.message
       emit(run, {
         type: 'run-error', runId: run.runId, status: 'error', reason: afterSealGuard.reason,
@@ -6190,16 +8292,100 @@ async function spawnEngine(run: RunState): Promise<void> {
       return
     }
   }
+  // markPaidChildSpawning() and the final memory proof both await durable I/O. A cancel can land during
+  // either window after the earlier check. Re-check at the last boundary and roll back the unstarted paid
+  // attempt; no async operation follows this branch before execa.
+  if (run.cancelRequested || run.endedAt !== undefined || run.status === 'cancelled') {
+    try { await preparedTransaction?.rollbackIfUnstarted('cancelled before provider spawn', preparedAttemptId) } catch {}
+    if (run.endedAt === undefined) {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
+      finishRun(run, 'cancelled')
+    }
+    releaseProviderLaunchResources(run)
+    return
+  }
+  // The immutable-memory proof and (for reviewed plans) transaction journal both await durable I/O.
+  // Re-read every launch binding and scope after those awaits. The success path from these checks through
+  // the gated execa below is synchronous, so a newly ambiguous shared pool cannot cross the paid boundary.
+  const finalSpawnBinding = changedLaunchBinding()
+  if (finalSpawnBinding) {
+    try { await preparedTransaction?.rollbackIfUnstarted(finalSpawnBinding, preparedAttemptId) } catch {}
+    stopForChangedBinding(finalSpawnBinding)
+    releaseProviderLaunchResources(run)
+    return
+  }
+  const finalSpawnGuard = evaluatePreSpawnGuard(preSpawnGuards.get(run))
+  if (!finalSpawnGuard.ok) {
+    try { await preparedTransaction?.rollbackIfUnstarted(finalSpawnGuard.message, preparedAttemptId) } catch {}
+    run.note = finalSpawnGuard.message
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'error', reason: finalSpawnGuard.reason,
+      message: finalSpawnGuard.message, ts: Date.now(),
+    })
+    finishRun(run, 'error')
+    releaseProviderLaunchResources(run)
+    return
+  }
+  // Re-stat the immutable generation after every asynchronous pre-spawn proof/journal write. If a sibling
+  // failure cleared the chain receipt or an owner changed the frozen bytes, this throws before provenance
+  // records a paid attempt and before either provider process exists.
+  try {
+    const preparedEvidence = providerEvidenceBoundary.get(run)
+    const frozenEvidence = frozenEvidenceBindingForRun(run, true)
+    if ((preparedEvidence?.capability ?? null) !== (frozenEvidence?.capability ?? null)
+        || (preparedEvidence?.frozenPool ?? null) !== (frozenEvidence?.frozenPool ?? null)) {
+      throw new Error('provider launch evidence capability changed after adapter construction')
+    }
+    run.evidenceGenerationDigest = frozenEvidence?.frozenPool.generationDigest
+  } catch (error) {
+    try {
+      await preparedTransaction?.rollbackIfUnstarted(
+        'frozen readiness generation changed before spawn', preparedAttemptId,
+      )
+    } catch {}
+    releaseProviderLaunchResources(run)
+    throw error
+  }
+  if (!providerSpawnGate) {
+    try {
+      providerSpawnGate = createProviderSpawnGate({
+        requestId: providerSpawnRequestIdByRun.get(run) ?? run.runId,
+        runId: run.runId,
+        attemptId: run.providerAttemptId ?? run.runId,
+        providerAttemptId: run.providerAttemptId ?? run.runId,
+        runRoot: run.runRoot!,
+        commandDigest: providerSpawnCommandDigest(launchSpec.command, launchSpec.args, launchSpec.cwd),
+      })
+    } catch (error) {
+      try {
+        await preparedTransaction?.rollbackIfUnstarted('provider spawn gate could not be prepared', preparedAttemptId)
+      } catch { /* original gate error wins */ }
+      releaseProviderLaunchResources(run)
+      throw error
+    }
+  }
   let child: ResultPromise
   try {
     // Provider-owned lease/binary validation is deliberately the final synchronous operation before
     // supervisor provenance begins and the process is created. It must not perform asynchronous work.
     launchSpec.beforeSpawn?.()
     captureCodexContinuationBaselines(run)
+    captureRunOutputLineage(run)
     appendExecutionAttempt(run)
-    child = execa(launchSpec.command, launchSpec.args, {
+    const gatedCommand = providerSpawnGate ? process.execPath : launchSpec.command
+    const gatedArgs = providerSpawnGate
+      ? [PROVIDER_SPAWN_TRAMPOLINE, launchSpec.command, ...launchSpec.args]
+      : launchSpec.args
+    const gatedEnv = providerSpawnGate
+      ? {
+          ...launchSpec.env,
+          [PROVIDER_SPAWN_GATE_DIR_ENV]: providerSpawnGate.directory,
+          [PROVIDER_SPAWN_GATE_TOKEN_ENV]: providerSpawnGate.releaseToken,
+        }
+      : launchSpec.env
+    child = execa(gatedCommand, gatedArgs, {
       cwd: launchSpec.cwd,
-      env: launchSpec.env,
+      env: gatedEnv,
       extendEnv: false,
       stdin: launchSpec.input === undefined ? 'ignore' : 'pipe',
       input: launchSpec.input,
@@ -6214,7 +8400,15 @@ async function spawnEngine(run: RunState): Promise<void> {
       detached: true,
     })
   } catch (e: any) {
-    try { await preparedTransaction?.rollbackIfUnstarted(`provider spawn failed: ${String(e?.message || e)}`) } catch {}
+    run.outputLineageAttempt = undefined // execa never returned a child; no provider bytes can exist
+    try {
+      await preparedTransaction?.rollbackIfUnstarted(
+        `provider spawn failed: ${String(e?.message || e)}`, preparedAttemptId,
+      )
+    } catch {}
+    if (providerSpawnGate) {
+      try { removeProviderSpawnGate(providerSpawnGate.gateId) } catch { /* execa returned no child */ }
+    }
     releaseProviderLaunchResources(run)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
     finishRun(run, 'error')
@@ -6223,31 +8417,44 @@ async function spawnEngine(run: RunState): Promise<void> {
 
   run.child = child
   run.processGroupPid = child.pid
+  let processLeaseSealed = false
   try {
-    await preparedTransaction?.markPaidChildStarted()
+    // The detached child is a non-spending trampoline while a run-plan transaction owns it. Persist its
+    // exact process-group identity first, then fsync the matching transaction proof. Only after both are
+    // durable may the one-shot release file appear and let the trampoline invoke the provider.
+    const proof = persistProviderProcessLease(run, providerSpawnGate)
+    processLeaseSealed = true
+    recordProviderSpawnGateProcessProof(providerSpawnGate, proof)
+    if (preparedTransaction) {
+      await preparedTransaction.markPaidChildSpawnReady(preparedAttemptId!, proof)
+    }
+    releaseProviderSpawnGate(providerSpawnGate)
   } catch (error: any) {
-    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and receipt */ }
+    const gateState = providerSpawnGate
+      ? inspectProviderSpawnGate(providerSpawnGate.gateId)
+      : null
+    const paidMayHaveStarted = gateState !== null
+      && gateState.state !== 'waiting' && gateState.state !== 'aborted'
+    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited during sealing */ }
     try { await child } catch { /* reject:false normally resolves */ }
     if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
-    try {
-      await preparedTransaction?.rollbackIfUnstarted(`Failed to seal provider start receipt: ${String(error?.message || error)}`)
-    } catch { /* the original sealing error remains authoritative */ }
-    releaseProviderLaunchResources(run)
-    emit(run, {
-      type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
-      message: `provider start could not be sealed to its request receipt: ${String(error?.message || error)}`, ts: Date.now(),
-    })
-    finishRun(run, 'error')
-    throw Object.assign(new Error('Failed to seal provider start receipt'), { statusCode: 500 })
-  }
-  try {
-    // Persist the detached process-group identity before any asynchronous callback can release the
-    // singleton. A replacement supervisor reconciles this protected lease before it admits work.
-    persistProviderProcessLease(run)
-  } catch (error: any) {
-    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and lease */ }
-    try { await child } catch { /* reject:false normally resolves; the group probe remains authoritative */ }
-    if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
+    settleRunOutputLineage(run)
+    if (!paidMayHaveStarted) {
+      try {
+        await preparedTransaction?.rollbackIfUnstarted(
+          `provider spawn proof could not be sealed: ${String(error?.message || error)}`,
+          preparedAttemptId,
+        )
+      } catch { /* original sealing error wins */ }
+      if (processLeaseSealed) clearProviderProcessLease(run.runId)
+      else if (providerSpawnGate) {
+        try { removeProviderSpawnGate(providerSpawnGate.gateId) } catch { /* no paid command was released */ }
+      }
+    } else {
+      // A released/unsafe gate means the provider may have observed its input. Preserve the exact root and
+      // seal recovery authority; never roll it back or silently create a second paid attempt.
+      try { writeInterruptionMarker(run, 'provider_spawn_receipt_failed', String(error?.message || error)) } catch { /* surfaced below */ }
+    }
     releaseProviderLaunchResources(run)
     emit(run, {
       type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
@@ -6255,6 +8462,25 @@ async function spawnEngine(run: RunState): Promise<void> {
     })
     finishRun(run, 'error')
     throw Object.assign(new Error('Failed to seal provider process identity'), { statusCode: 500 })
+  }
+  try {
+    await preparedTransaction?.markPaidChildStarted(preparedAttemptId!)
+  } catch (error: any) {
+    try { if (child.pid) process.kill(-child.pid, 'SIGKILL') } catch { /* exited between spawn and receipt */ }
+    try { await child } catch { /* reject:false normally resolves */ }
+    if (child.pid) await holdClaimsUntilProcessGroupExtinct(child.pid)
+    settleRunOutputLineage(run)
+    // The gate was released before this journal promotion. The provider may have spent, so this is an
+    // exact-root interruption—not a pre-spend rollback—and the durable gate remains the no-retry seal.
+    try { writeInterruptionMarker(run, 'provider_start_receipt_failed', String(error?.message || error)) } catch { /* surfaced below */ }
+    clearProviderProcessLease(run.runId, true)
+    releaseProviderLaunchResources(run)
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed',
+      message: `provider start could not be sealed to its request receipt: ${String(error?.message || error)}`, ts: Date.now(),
+    })
+    finishRun(run, 'error')
+    throw Object.assign(new Error('Failed to seal provider start receipt'), { statusCode: 500 })
   }
   // Install close ownership as soon as the paid child exists. Usually execa's real close callback wins;
   // if that notification is lost after PID exit, this bounded fallback prevents a permanent subject pin.
@@ -6343,6 +8569,14 @@ async function spawnEngine(run: RunState): Promise<void> {
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
+    const lineageFailure = settleRunOutputLineage(run)
+    if (lineageFailure && !run.cancelRequested && (run.status as string) !== 'cancelled') {
+      run.streamFailure = {
+        reason: 'output_lineage_failed',
+        message: `completed output lineage could not be sealed: ${lineageFailure}`,
+      }
+      run.note = run.streamFailure.message
+    }
     // Codex can end a clean parent turn after one native child even though the canonical filesystem graph
     // is still incomplete. Continue inside this exact admitted RunState: no second frontend POST, no new
     // run/root/provider/profile, and no publication between processes. Claude never enters this branch.
@@ -6503,6 +8737,19 @@ export async function awaitProviderProcessGroupExit(run: RunState): Promise<void
 export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
   if (!run || run.endedAt !== undefined) return false // gone, or already finalized
+  const protectedChain = preparedRunPlanTransactionByRun.get(run)?.transaction
+  if (run.chained && protectedChain) {
+    if (!run.chainId || !run.runRoot) {
+      throw new Error('protected chained run lost its exact cancellation identity')
+    }
+    // This fsynced terminal receipt is the first cancellation side effect. A crash after the visible
+    // `.aborted` marker or SIGTERM must never let startup rediscover and resume the protected chain.
+    await protectedChain.cancelChainIntent({
+      requestId: protectedChain.requestId,
+      chainId: run.chainId,
+      targetRunRoot: run.runRoot,
+    })
+  }
   run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
   // A user-initiated cancel of a screener signal is a deliberate stop, NOT a breakage. Drop a marker in
   // its run folder so the auto-resume scan (listResumableSignals) never resurrects it on the next reconnect.
@@ -6526,8 +8773,20 @@ export async function cancel(runId: string): Promise<boolean> {
   }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
-  if (run.chained) haltSubjectChains(run.subjectId, run.swarmId)
   if (run.chained) haltChain(run.chainId)
+  if (run.chained && run.chainId && !run.child) {
+    resolveChainedReadiness(run.chainId, run.runId, {
+      action: 'cancel', user: run.user, report: run.readiness ?? null,
+    })
+  }
+  // The readiness extractor is a detached writer too: it can own `_pool_extracts` and converter children
+  // even though `run.child` is still null. Stop and PROVE that whole group is gone before releasing the
+  // subject/deploy reservation or calling finishRun. The chain-id kill switch above already prevents the
+  // scheduler from launching its next paid module during this bounded drain.
+  await abortChainedReadiness(run.chainId)
+  await abortRunReadiness(run)
+  if (run.chained) haltSubjectChains(run.subjectId, run.swarmId)
+  if (run.endedAt !== undefined) return true
 
   // The paid child has already exited, but the exact module's terminal publisher is still a live writer.
   // Record the user's stop request without changing the in-flight status or releasing admission claims;
@@ -6570,18 +8829,53 @@ export async function cancel(runId: string): Promise<boolean> {
 
 // Run the deterministic data-readiness check for a run, record + emit the report. force re-reads a
 // just-fixed pool. A check that itself THROWS fails SAFE — it returns a blocker, never a silent proceed.
-async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessReport> {
+interface ActiveReadinessAssessment {
+  controller: AbortController
+  settled: Promise<void>
+}
+
+const activeReadinessByRun = new WeakMap<RunState, ActiveReadinessAssessment>()
+
+async function abortRunReadiness(run: RunState): Promise<void> {
+  const active = activeReadinessByRun.get(run)
+  if (!active) return
+  active.controller.abort(new ReadinessCancelledError('run readiness cancelled'))
+  await active.settled
+}
+
+async function checkReadiness(
+  run: RunState,
+  force: boolean,
+  parentSignal?: AbortSignal,
+): Promise<ReadinessReport> {
+  const controller = new AbortController()
+  const onParentAbort = () => controller.abort(parentSignal?.reason)
+  if (parentSignal?.aborted) onParentAbort()
+  else parentSignal?.addEventListener('abort', onParentAbort, { once: true })
+  let settle!: () => void
+  const settled = new Promise<void>((resolve) => { settle = resolve })
+  const active = { controller, settled }
+  activeReadinessByRun.set(run, active)
   try {
     const scope = readinessScopeForRun(run)
-    const report = await runReadiness(run.ticker, scope.kind, scope.module, { outDir: path.join(REPO_ROOT, run.runRoot!, '_pool_extracts'), force })
+    const report = await runReadiness(run.ticker, scope.kind, scope.module, {
+      outDir: path.join(REPO_ROOT, run.runRoot!, '_pool_extracts'),
+      force,
+      signal: controller.signal,
+    })
     run.readiness = report
     emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
     return report
   } catch (e) {
+    if (controller.signal.aborted || isReadinessCancelledError(e)) throw new ReadinessCancelledError()
     console.warn(`[readiness] check threw for ${run.ticker} (${run.kind}); failing safe to a blocker:`, (e as Error)?.message || e)
     const report: ReadinessReport = {
       ticker: run.ticker, kind: run.kind, module: run.module, overall: 'blocked',
       fileCount: 0, usableCount: 0, entities: [],
+      physicalPool: {
+        state: 'unknown', fileCount: 0, nonEmptyFileCount: 0,
+        reason: 'readiness_check_threw',
+      },
       issues: [{
         code: 'check_failed', severity: 'blocker',
         message: 'The safety checker had a technical error. This does not mean your files are bad.',
@@ -6593,45 +8887,90 @@ async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessR
     run.readiness = report
     emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
     return report
+  } finally {
+    parentSignal?.removeEventListener('abort', onParentAbort)
+    if (activeReadinessByRun.get(run) === active) activeReadinessByRun.delete(run)
+    settle()
   }
 }
 
-/** Chained module children are pieces of one full decision, not standalone module requests. */
+/** Every chained child is a piece of one full/continue decision, not a standalone request. */
 export function readinessScopeForRun(
   run: Pick<RunState, 'kind' | 'module' | 'chained'>,
 ): { kind: RunKind; module?: string } {
-  return run.chained && run.kind === 'module'
+  return run.chained
     ? { kind: 'full' }
     : { kind: run.kind, module: run.module }
 }
 
-/** Full-chain module insufficiency is carried as a cap; unrelated degraded/blocker states still pause. */
+/** A chain-level human decision is justified only by a complete parser-free proof that the pool contains
+ * no non-empty bytes. Parser usability is deliberately irrelevant: a corrupt or unsupported non-empty
+ * file is data for the in-run triage, not an empty pool. */
+export function readinessProvesEmpty(report: ReadinessReport): boolean {
+  return report.physicalPool?.state === 'empty'
+    && report.physicalPool.nonEmptyFileCount === 0
+    && report.physicalPool.fileCount === report.fileCount
+    && (
+      (report.physicalPool.fileCount === 0
+        && report.issues.some((issue) => issue.code === 'zero_files'))
+      || (report.physicalPool.fileCount > 0
+        && report.issues.some((issue) => issue.code === 'zero_usable_data'))
+    )
+}
+
+/** Once a full/continue chain is admitted, every non-empty gap becomes an in-run evidence cap. Only a
+ * proven empty pool may ask once. Standalone module/agent routes keep their existing strict behavior. */
 export function readinessNeedsDecision(
   run: Pick<RunState, 'kind' | 'chained'>,
   report: ReadinessReport,
 ): boolean {
+  if (run.chained) return readinessProvesEmpty(report)
   if (report.overall === 'clean') return false
-  const onlyFullChainModuleCaps = run.chained && run.kind === 'module'
-    && report.overall === 'degraded' && report.issues.length > 0
-    && report.issues.every((issue) => issue.code === 'module_insufficient' && issue.severity === 'degrade')
-  return !onlyFullChainModuleCaps
+  return true
 }
 
 // Pre-spawn data-readiness gate. Research data-consuming kinds only (swarm kinds skip it); sets
 // readiness-checking, then runs the check.
-async function runReadinessGate(run: RunState): Promise<void> {
+async function runReadinessGate(run: RunState): Promise<{
+  chainId: string
+  owner: boolean
+  resolution: Promise<ChainedReadinessResolution>
+} | null> {
   // Research data-consuming kinds only. Screener kinds aren't in the list below; a generic constellation
   // swarm (e.g. commodity) reuses full/module/agent but owns its sufficiency via its own in-run 00-triage
   // (and reads live public sources, not a company data pool), so it skips this research readiness gate.
-  if (run.swarmId !== 'research') return
-  if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return
+  if (run.swarmId !== 'research') return null
+  if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return null
   // The terminal canary follows a completed, readiness-scoped module DAG. Re-running the full gate here
   // could park the one terminal adjudicator after every module already finished, with no logical parent
   // RunState for the operator to resolve. Child gates remain authoritative for the frozen chain.
-  if (run.parityCanary && run.parityCanaryStage === 'final') return
+  if (run.parityCanary && run.parityCanaryStage === 'final') return null
   run.status = 'readiness-checking'
   emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
-  await checkReadiness(run, false)
+  if (!run.chained || !run.chainId) {
+    await checkReadiness(run, false)
+    return null
+  }
+
+  const assessment = await assessChainedReadinessOnce(
+    run.chainId,
+    run.runId,
+    { ticker: run.ticker, runRoot: run.runRoot },
+    (signal) => checkReadiness(run, false, signal),
+    { requireExistingReceipt: durableFrozenGenerationReuseRuns.has(run) },
+  )
+  if (!assessment.owner) {
+    // checkReadiness writes/emits only for the owner that actually evaluated. Give every child the same
+    // immutable report for Activity/provenance without touching the data pool again.
+    run.readiness = assessment.report
+    emit(run, { type: 'readiness-report', runId: run.runId, report: assessment.report, ts: Date.now() })
+  }
+  if (assessment.owner && !readinessProvesEmpty(assessment.report)) {
+    resolveChainedReadiness(run.chainId, run.runId, {
+      action: 'proceed', user: 'chain-supervisor', report: assessment.report,
+    })
+  }
+  return { chainId: run.chainId, owner: assessment.owner, resolution: assessment.resolution }
 }
 
 // Resolve a run paused at the data-readiness gate (status awaiting-readiness-decision).
@@ -6648,6 +8987,18 @@ export async function decideReadiness(
   }
 
   if (action === 'cancel') {
+    if (run.chained && run.chainId) {
+      haltChain(run.chainId)
+      resolveChainedReadiness(run.chainId, run.runId, {
+        action: 'cancel', user, acknowledgedText, report: run.readiness ?? null,
+      })
+    }
+    // Ordinarily this status means the check already settled. Keep the terminal boundary defensive: a
+    // future event-order change must not let this direct decision route release the run while a recheck or
+    // converter descendant still owns `_pool_extracts`.
+    await abortChainedReadiness(run.chainId)
+    await abortRunReadiness(run)
+    if (run.endedAt !== undefined) return { ok: true, status: 'cancelled' }
     emit(run, { type: 'readiness-resolved', runId, action: 'cancel', ts: Date.now() })
     emit(run, { type: 'run-error', runId, status: 'cancelled', reason: 'cancelled_at_readiness_gate', ts: Date.now() })
     finishRun(run, 'cancelled')
@@ -6655,6 +9006,15 @@ export async function decideReadiness(
   }
 
   if (action === 'recheck') {
+    const retainedChain = run.chained && run.chainId ? chainedReadinessById.get(run.chainId) : undefined
+    if (retainedChain?.requireExistingReceipt) {
+      return {
+        ok: false,
+        status: run.status,
+        error: 'This saved run is bound to its original data snapshot and cannot be re-checked against live data.',
+        httpStatus: 409,
+      }
+    }
     // Claim the run SYNCHRONOUSLY (before the async re-check's await) so a concurrent decision — a
     // double-clicked re-check, or a recheck racing a proceed — hits the entry guard and is rejected,
     // instead of both passing it and each calling proceedSpawn (which would spawn TWO engine CLIs for one
@@ -6674,13 +9034,50 @@ export async function decideReadiness(
     void (async () => {
       const report = await checkReadiness(run, true)
       if (run.endedAt !== undefined) return // cancelled mid-recheck
+      if (run.chained && run.chainId) replaceChainedReadinessReport(run.chainId, run.runId, report)
       if (readinessNeedsDecision(run, report)) {
         run.status = 'awaiting-readiness-decision' // still gated — re-open for another decision
+        emit(run, { type: 'readiness-blocked', runId: run.runId, report, ts: Date.now() })
         return
       }
       await proceedSpawn(run, 'recheck', user) // the pool was fixed -> proceed CLEAN, no override trace
-    })().catch(() => { /* checkReadiness never throws (fails safe); proceedSpawn returns errors */ })
+    })().catch((error: unknown) => {
+      if (run.endedAt !== undefined || run.cancelRequested || isReadinessCancelledError(error)) return
+      // The checker itself normally returns a report, but the immutable-generation verifier can still
+      // reject a missing/replaced/legacy receipt. Keep the pre-spend run recoverable and visibly gated;
+      // never leave it stuck at "checking" and never fall through to an unbound provider spawn.
+      const prior = run.readiness
+      const report: ReadinessReport = {
+        ticker: run.ticker,
+        kind: run.kind,
+        module: run.module,
+        overall: 'blocked',
+        fileCount: prior?.fileCount ?? 0,
+        usableCount: prior?.usableCount ?? 0,
+        physicalPool: prior?.physicalPool,
+        entities: prior?.entities ?? [],
+        issues: [{
+          code: 'check_failed',
+          severity: 'blocker',
+          message: 'The immutable data snapshot could not be verified. No provider was started.',
+          evidence: error instanceof Error ? error.message : String(error),
+          suggestedFix: 'Re-check to build and verify one complete data snapshot, or cancel.',
+        }],
+        ts: Date.now(),
+      }
+      run.readiness = report
+      run.status = 'awaiting-readiness-decision'
+      emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
+      emit(run, { type: 'readiness-blocked', runId: run.runId, report, ts: Date.now() })
+    })
     return { ok: true, status: 'readiness-checking' }
+  }
+
+  if (run.chained && run.readiness && readinessProvesEmpty(run.readiness)) {
+    return {
+      ok: false, status: 'awaiting-readiness-decision', httpStatus: 409,
+      error: 'the data folder is empty — add files and recheck, or cancel; running anyway is unavailable',
+    }
   }
 
   // proceed / override — a human chooses to run on a STILL-non-clean gate
@@ -6717,6 +9114,11 @@ async function proceedSpawn(
   // a non-awaiting status and is rejected by decideReadiness's guard (else both spawn a CLI for one run).
   run.status = 'running'
   run.readinessDecision = { action, user, acknowledgedText, ts: Date.now() }
+  if (run.chained && run.chainId) {
+    resolveChainedReadiness(run.chainId, run.runId, {
+      action, user, acknowledgedText, report: run.readiness ?? null,
+    })
+  }
   emit(run, { type: 'readiness-resolved', runId: run.runId, action, ts: Date.now() })
   // EARLY ACK — the guard outcomes the client needs (404/409 wrong-state for the gate panel's button
   // self-heal, 412 bad acknowledgment) were all decided before this point; the deferred spawn's own

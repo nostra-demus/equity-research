@@ -61,6 +61,9 @@ export function ResumeConfirm() {
       : 'Final synthesis only'
   const action = rc.kind === 'signal' && rc.override ? 'Override & complete remaining' : 'Complete remaining work'
   const preflight = rc.preflight
+  const exactPlanRequired = rc.kind === 'run' && (rc.info.swarm || 'research') === 'research'
+    && (rc.info.kind === 'full' || rc.info.kind === 'module')
+  const exactPlanReady = !exactPlanRequired || Boolean(rc.reviewedPlan && rc.requestId)
   const costEstimated = preflight?.estimateEvidence?.source === 'comparable_completed_runs' && preflight.estCostUsdRange[1] > 0
   const timeEstimated = preflight?.estimateEvidence?.source === 'comparable_completed_runs' && preflight.estMinutesRange[1] > 0
   const queueingUpdate = health === 'updating' && rc.kind === 'run' && (rc.info.swarm || 'research') === 'research' && rc.info.kind === 'full'
@@ -119,8 +122,8 @@ export function ResumeConfirm() {
         {providerProblem && <div className="resumeconfirm__problem">{providerProblem}. Choose an available provider to continue.</div>}
         <div className="modal__actions">
           <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
-          <button className="btn btn--amber" disabled={starting || !!providerProblem} title={providerProblem || undefined} onClick={() => void confirm()}>
-            {starting ? <><Spin /> {queueingUpdate ? 'Saving…' : 'Starting…'}</> : queueingUpdate ? 'Queue Continue' : action}
+          <button className="btn btn--amber" disabled={starting || !!providerProblem || !exactPlanReady} title={providerProblem || (!exactPlanReady ? 'Checking the exact saved work…' : undefined)} onClick={() => void confirm()}>
+            {starting ? <><Spin /> {queueingUpdate ? 'Saving…' : 'Starting…'}</> : !exactPlanReady ? <><Spin /> Checking saved work…</> : queueingUpdate ? 'Queue Continue' : action}
           </button>
         </div>
       </motion.div>

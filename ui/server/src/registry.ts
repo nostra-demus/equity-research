@@ -3,6 +3,7 @@ import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
 import type { AgentRunState, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, ResearchMemoryRuntimeBinding, RunActivity, RunKind, RunStatus, SseEvent } from './types'
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
+import type { OutputLineageAttempt } from './evidence-lineage'
 
 export interface SseClient {
   id: string
@@ -43,6 +44,10 @@ export interface RunState {
   provenanceEpoch?: string
   /** Exact paid provider process inside the logical run. Rotated for each automatic continuation. */
   providerAttemptId?: string
+  /** Immutable pool generation supplied to this exact provider process, absent for standalone work. */
+  evidenceGenerationDigest?: string
+  /** Supervisor-only pre-spawn bytes used to settle reusable-output lineage after process-group death. */
+  outputLineageAttempt?: OutputLineageAttempt
   /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
   executionAttempts?: Array<Record<string, unknown>>
   currentExecutionAttempts?: Array<Record<string, unknown>>

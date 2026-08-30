@@ -17,7 +17,7 @@ import { providerDeployIntentPath, providerDeployPending } from './deploy-barrie
 import { readActivity, ACTIVITY_FILTER_KINDS, ACTIVITY_FILTER_STATUSES } from './activity-log'
 import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, PUBLICATION_SOCKET_ROOT, REPO_ROOT, STATE_DIR, TOOLS, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { listTickers } from './data-status'
 import { dataScans } from './data-scan'
@@ -110,27 +110,32 @@ import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
 import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
 import { routeReason } from './news/triage/reason-router'
-import { startResumeSupervisor } from './resume-supervisor'
+import { protectedResearchRecoveryOwnsSubject, startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import {
   capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped,
-  continuationPlanReceiptMatches, dataPoolNewest, prepareModuleResume,
+  continuationPlanReceiptMatches, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareModuleResume,
   thesisPlanForRequest, thesisPlanForScopeGuard,
 } from './completion'
-import { continueExactSavedRun, exactContinuationCandidate } from './continuation'
+import {
+  admitExactSavedRunContinuation, continueExactSavedRun, exactContinuationCandidate,
+} from './continuation'
 import {
   claimRunPlanRequest, markRunPlanAdmitted, markRunPlanFailedBeforeStart,
   markRunPlanStarted, readRunPlanRequest,
 } from './run-plan-admission'
-import { prepareRunPlanTransaction, recoverRunPlanTransactions } from './run-plan-transaction'
+import {
+  prepareRunPlanTransaction, recoverRunPlanTransactions, type PreSpendRetryAuthority,
+} from './run-plan-transaction'
 import {
   cancelPendingAdmission, deploymentFailedAfter, deploymentSucceededAfter, enqueuePendingAdmission, listPendingAdmissions,
   markPendingAdmissionAdmitting, markPendingAdmissionNeedsAttention, markPendingAdmissionStarted,
   markPendingAdmissionWaiting, pendingDeployCommit, pendingPlanDifference,
-  pendingPlanMayAutoStart,
+  pendingPlanMayAutoStart, pendingReceiptMatchesIntent,
   readPendingAdmission, type PendingAdmissionRecord,
 } from './pending-admission'
 import { beginExactModuleSupervisorPause, settleExactModuleSupervisorPause } from './exact-module-supervisor-pause'
+import { sweepStaleFrozenEvidenceCapabilities } from './frozen-evidence-capability'
 import {
   acquireModulePublicationLease,
   captureCompletedModuleFingerprint,
@@ -182,6 +187,18 @@ import type { RunProvider } from './providers/types'
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
 // readiness.ts / write-inbox.ts for the same rule).
 const execFileAsync = promisify(execFile)
+
+export interface BootAdmissionSchedulerDeps {
+  reconcilePaidRecovery: () => Promise<void>
+  startPendingDrain: () => void
+}
+
+/** Boot admission ordering is part of the spend contract: already-paid exact recovery gets one awaited
+ * reconciliation pass before any queued post-update/new-work drain is allowed to start. */
+export async function startBootAdmissionSchedulers(deps: BootAdmissionSchedulerDeps): Promise<void> {
+  await deps.reconcilePaidRecovery()
+  deps.startPendingDrain()
+}
 
 // keepAliveTimeout MUST exceed cloudflared's (scripts/ops/cloudflared-config.yml.example: 90s) so the
 // PROXY always closes an idle pooled connection first, never the origin. Node's Fastify default (72s) is
@@ -1063,7 +1080,7 @@ const INB_RE = /^INB-\d{8}-\d{3,}$/
 // "Complete the thesis": the caller sends the modules it wants REUSED (carried, not re-run). Everything
 // else in the graph runs. `reuse` is checked against the server's own plan before anything is copied.
 const ContinuationPlanReceiptBody = z.object({
-  version: z.literal(1),
+  version: z.literal(2),
   action: z.enum(['continue', 'complete']),
   swarm: z.string().regex(MODULE_RE),
   subject: z.string().regex(TICKER_RE),
@@ -1081,6 +1098,15 @@ const ContinuationPlanReceiptBody = z.object({
     files: z.number().int().min(0), newestMs: z.number().finite().min(0),
     sha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
   }).strict(),
+  evidenceGenerationDigest: z.string().regex(/^[a-f0-9]{64}$/).nullable(),
+  reusableArtifacts: z.array(z.object({
+    output_rel: z.string().regex(/^(?:[a-z0-9-]{1,40}\/)?(?:[0-9]{2}|99)_[a-z0-9-]{1,100}\.md$|^final_thesis\.md$/),
+    sha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+    generation_digest: z.string().regex(/^[a-f0-9]{64}$/),
+    attempt_id: z.string().min(1).max(200),
+  }).strict()).max(2000),
+  reusableArtifactsSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  verifiedLineageSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
   sourceArtifactsSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
   fingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
 }).strict()
@@ -1121,6 +1147,12 @@ const ThesisPlanModuleBody = z.object({
   poolFiles: z.number().int().min(0),
   poolNewestMs: z.number().finite().min(0),
   sourceRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/).optional(),
+  requestId: z.string().uuid().optional(),
+  continuationReceipt: ContinuationPlanReceiptBody.optional(),
+}).superRefine((value, ctx) => {
+  if (!value.sourceRunRoot) return
+  if (!value.requestId) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['requestId'], message: 'exact module Continue requires a request id' })
+  if (!value.continuationReceipt) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['continuationReceipt'], message: 'exact module Continue requires its reviewed receipt' })
 })
 
 // Publish-only recovery after an exact module finished locally but its terminal Git checkpoint failed.
@@ -1896,6 +1928,9 @@ app.get('/api/runs/:runId', async (req, reply) => {
     reasoningLevel: run.reasoningLevel,
     cliVersion: run.cliVersion,
     status: run.status,
+    // Refresh/reconnect must reconstruct the one actionable chain gate. Siblings stay in
+    // readiness-checking and therefore expose no duplicate decision report.
+    readiness: run.status === 'awaiting-readiness-decision' ? run.readiness : undefined,
     swarmId: run.swarmId,
     runRoot: run.runRoot,
     chainId: run.chainId,
@@ -2885,7 +2920,10 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // Same closed allow-list /api/launch enforces before a research launch: membership in the data pool.
   // Without it, a caller could drive a full paid run for a ticker with no data on disk at all — `launch()`
   // itself does not re-check this for kind:'full', it is enforced at the route layer only.
-  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+  // Exact Continue reads its retained frozen generation only. Do not even stat today's Drive folder: it may
+  // have newer uploads, be temporarily offline, or disappear after the original run without changing the
+  // immutable evidence that saved work must finish against.
+  if (!sourceRunRoot && (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker)))) {
     return reply.code(400).send({ error: `unknown ticker ${ticker}` })
   }
 
@@ -2895,6 +2933,15 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // constellation swarm keeps one stable folder per subject, so it has no cross-folder reuse problem to solve.
   if (swarm !== RESEARCH_SWARM_ID) {
     return reply.code(400).send({ error: `Completing a ${swarm ?? 'non-research'} dossier from here isn’t supported yet — run its pipeline from the swarm’s own controls.`, code: 'swarm_unsupported' })
+  }
+
+  // Carrying from an implicit mixture of dated folders has no single frozen evidence generation. Keep the
+  // ordinary typed Full action available, but never let a generic completion silently combine those roots.
+  if (!sourceRunRoot && continuationReceipt.sourceRunRoots.length > 0) {
+    return reply.code(409).send({
+      error: 'Choose one exact saved run to continue, or start a new Full run. Nothing was started.',
+      code: 'exact_source_required',
+    })
   }
 
   const requestIntent = {
@@ -2923,10 +2970,9 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // A reviewed deployment intentionally closes provider admission while this healthy process still serves
   // planning reads. Do not probe/reject the provider in that window: the exact request is persisted below
   // and availability is re-checked on the deployed program before any provider child can start.
+  let providerPrecheckError: any = null
   if (!providerDeployPending(STATE_DIR)) {
-    try { await assertProviderAvailable(provider) } catch (e: any) {
-      return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
-    }
+    try { await assertProviderAvailable(provider) } catch (e: any) { providerPrecheckError = e }
   }
 
   // Reserve this ticker across the final plan CAS, durable claim, private preparation, and launch admission.
@@ -2960,6 +3006,16 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         })
       }
       if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+
+      const freshFull = !trustedSourceRunRoot && plan.reuse.length === 0
+      // An already-reviewed fresh Full owns a durable exact transaction before provider availability is
+      // allowed to become transient. Continue/mixed carry requests retain the immediate error path; they
+      // must never be silently converted into a current-plan Full retry.
+      if (providerPrecheckError && !freshFull) {
+        return reply.code(providerPrecheckError?.statusCode || 503).send({
+          error: providerPrecheckError?.message || 'engine CLI unavailable', code: providerPrecheckError?.code,
+        })
+      }
 
       const allowed = new Set(plan.reusable)
       const bad = reuse.filter((m) => !allowed.has(m))
@@ -3038,6 +3094,25 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         return reply.code(500).send({ error: `could not prepare existing work safely: ${e?.message || e}` })
       }
 
+      const retryAuthority: PreSpendRetryAuthority | undefined = freshFull
+        ? (() => {
+            const resolved = getProviderAdapter(provider).resolveProfile({
+              model, reasoningLevel, profileKey: expectedProfileKey,
+            })
+            return {
+              reason: 'engine_restarted_before_spend',
+              recoveryRequestId: randomUUID(),
+              provider: resolved.provider,
+              model: resolved.model,
+              reasoningLevel: resolved.reasoningLevel ?? null,
+              profileKey: resolved.profileKey,
+              executionProfile: resolved.executionProfile,
+              localAttempts: 0,
+              notBeforeMs: Date.now(),
+            }
+          })()
+        : undefined
+
       try {
         const out = trustedSourceRunRoot
           ? await continueExactSavedRun({
@@ -3048,6 +3123,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
           : await launch({
               kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia,
               preparedRunPlanTransaction: transaction,
+              ...(retryAuthority ? { preSpendRetryAuthority: retryAuthority } : {}),
             })
         const response = {
           ...out,
@@ -3062,6 +3138,17 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         await markRunPlanAdmitted(requestId, out.runId, response)
         return response
       } catch (e: any) {
+        if (e?.preSpendRetryDeferred === true && e?.preSpendRetryRequestId === requestId) {
+          return reply.code(202).send({
+            queued: true,
+            requestId,
+            status: 'waiting_pre_spend_retry',
+            ticker,
+            action: 'full',
+            provider,
+            expectedProfileKey,
+          })
+        }
         try { await transaction.rollbackIfUnstarted(String(e?.message || e)) } catch {}
         const body = e?.body && typeof e.body === 'object' ? e.body : null
         return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
@@ -3101,6 +3188,15 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
     if (record.status !== 'waiting_for_update') {
       markPendingAdmissionWaiting(record.requestId, 'Waiting for the deployer’s healthy release receipt.')
     }
+    return
+  }
+
+  // Already-paid exact recovery owns this subject ahead of queued new work. Keep the user's pending intent
+  // cancellable/waiting until that protected chain is terminal; never let a post-update drain consume the
+  // same root or capacity first after a restart.
+  if (await protectedResearchRecoveryOwnsSubject(record.ticker)) {
+    markPendingAdmissionWaiting(record.requestId,
+      'Finishing the exact run that already started. This waiting request will be checked again afterwards.')
     return
   }
 
@@ -3145,10 +3241,7 @@ async function drainOnePendingAdmission(record: PendingAdmissionRecord): Promise
     return
   }
   const receipt = planned?.continuationReceipt
-  const expectedAction = record.action === 'continue' ? 'continue' : 'complete'
-  if (!receipt || receipt.version !== 1 || receipt.action !== expectedAction
-      || receipt.subject !== record.ticker || receipt.provider?.id !== record.provider
-      || (record.action === 'continue' && (receipt.targetRunRoot !== record.sourceRunRoot || planned.complete))) {
+  if (!pendingReceiptMatchesIntent(record, receipt, planned.complete === true)) {
     markPendingAdmissionNeedsAttention(record.requestId,
       record.action === 'continue'
         ? 'The exact saved run is completed, sealed, or no longer matches the reviewed continuation. Nothing was started.'
@@ -3478,12 +3571,13 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
   const {
     ticker, module, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey,
     expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs, sourceRunRoot,
+    requestId, continuationReceipt,
   } = parsed.data
   const providerSelection: RunProviderSelection = { provider, model, reasoningLevel, expectedProfileKey }
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Data-pool allow-list — `launch()` does not re-check it for a research `module` kind (route-enforced only).
-  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+  if (isReservedDataFolder(ticker) || (!sourceRunRoot && !fs.existsSync(path.join(DATA_DIR, ticker)))) {
     return reply.code(400).send({ error: `unknown ticker ${ticker}` })
   }
   if (swarm !== RESEARCH_SWARM_ID) {
@@ -3519,6 +3613,23 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
       let plan = await thesisPlanForRequest(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined,
         providerSelection, trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
+      if (trustedSourceRunRoot) {
+        if (!exactResume) {
+          return reply.code(409).send({
+            error: 'This saved module does not support exact frozen continuation. Complete the old full run instead.',
+            code: 'exact_module_unsupported',
+          })
+        }
+        if (!requestId || !continuationReceipt
+            || !continuationPlanReceiptMatches(continuationReceipt, plan.continuationReceipt)
+            || plan.continuationReceipt.action !== 'continue'
+            || plan.continuationReceipt.targetRunRoot !== trustedSourceRunRoot) {
+          return reply.code(409).send({
+            error: 'The reviewed saved-module plan changed. Refresh and review it again; nothing was started.',
+            code: 'plan_changed',
+          })
+        }
+      }
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
       }
@@ -3655,6 +3766,120 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         return reply.code(409).send({ error: 'The unfinished-orb scope changed while the engine was being checked. Refresh and try again; nothing was staged.', code: 'module_scope_changed' })
       }
       plan = scopeAfterCli.plan
+
+      if (trustedSourceRunRoot) {
+        // A saved-root module Continue is the same paid admission as a full Continue, only with a narrower
+        // mutation/command scope. The shared service recomputes the v2 receipt again under this subject lock,
+        // claims the durable request id, prepares a private lineage-only tree, and atomically activates it.
+        // It must never enter the legacy live staging/publication path below.
+        const exactRequestId = requestId!
+        const reviewedReceipt = continuationReceipt!
+        let admittedRunId: string | null = null
+        const exactPreSpawnGuard = () => readCurrentScope().ok
+          ? { ok: true as const }
+          : {
+              ok: false as const,
+              reason: 'module_scope_changed',
+              message: 'The exact saved module changed before the engine started. Refresh and review it again; no run was started.',
+            }
+        const terminalGuard = async () => {
+          // launch() early-ACKs, and a tiny/failing child can reach this terminal guard before the shared
+          // admission service persists its response and returns the run id to this route. The immutable
+          // request id is also the exact one-child chain id, so it is the race-free identity at this boundary.
+          const active = (admittedRunId ? getRun(admittedRunId) : undefined)
+            ?? listRuns().find((run) => run.chainId === exactRequestId
+              && run.runRoot === trustedSourceRunRoot && run.module === module)
+          if (active?.publicationCompleted === true
+              && active.runRoot === trustedSourceRunRoot
+              && active.module === module) return { ok: true as const }
+          return {
+            ok: false as const,
+            reason: 'module_publish_failed',
+            message: 'The checks finished, but the trusted supervisor did not verify their module publication. The saved work remains on disk; refresh before trying again.',
+          }
+        }
+        try {
+          const admitted = await admitExactSavedRunContinuation({
+            swarm: 'research', subject: ticker, runRoot: trustedSourceRunRoot, kind: 'module', module,
+            provider, model, reasoningLevel, expectedProfileKey, user, userVia,
+            reviewed: {
+              requestId: exactRequestId,
+              continuationReceipt: reviewedReceipt,
+              reuse: [...reuse],
+              exactModule: {
+                module,
+                savedInputs: [...reviewedExactInputs].sort(),
+                doneOrbKeys: [...actualDone].sort(),
+                writableOrbs: [...reviewedExactArtifacts!.writableOrbs],
+                synthesisOrbs: [...reviewedExactArtifacts!.synthesisOrbs],
+              },
+            },
+            launchOptions: {
+              deferModuleMemo: true,
+              exactModuleResume: true,
+              exactModuleInputs: [...reviewedExactInputs],
+              exactModuleRunRoot: trustedSourceRunRoot,
+              exactModuleWritableOrbs: [...reviewedExactArtifacts!.writableOrbs],
+              exactModuleSynthesisOrbs: [...reviewedExactArtifacts!.synthesisOrbs],
+              preSpawnGuard: exactPreSpawnGuard,
+              terminalGuard,
+            },
+            prepareTransaction: (id, subject, reviewedPlan, hooks) => prepareRunPlanTransaction(
+              id,
+              subject,
+              reviewedPlan,
+              {
+                ...hooks,
+                prepare: (preparedSubject, preparedPlan, transactionDir) => {
+                  const prepared = prepareExactModuleContinuationPrivately(
+                    preparedSubject, module, preparedPlan, transactionDir,
+                  )
+                  // The private sanitizer deliberately removed every ambient root marker. Replace the old
+                  // autonomous-full interruption with the durable manual-module policy inside the private
+                  // tree. If no paid child starts, transaction rollback restores the original root/marker.
+                  fs.writeFileSync(
+                    path.join(prepared.stagingRootAbs, '.aborted'),
+                    `${JSON.stringify({ reason: 'exact_module_only', module, at: new Date().toISOString() })}\n`,
+                    { encoding: 'utf8', mode: 0o600, flag: 'wx' },
+                  )
+                  return prepared
+                },
+              },
+            ),
+          })
+          const runId = typeof admitted.response.runId === 'string' ? admitted.response.runId : null
+          if (!runId) throw new Error('exact module admission returned no tracked run id')
+          admittedRunId = runId
+          const doneOrbKeys = Array.isArray(admitted.response.preparedDoneOrbKeys)
+            ? admitted.response.preparedDoneOrbKeys.filter((key): key is string =>
+                typeof key === 'string' && key.startsWith(`${module}/`)).sort()
+            : []
+          const active = getRun(runId)
+          if (active) {
+            for (const key of doneOrbKeys) {
+              const agent = active.agents.get(key)
+              if (agent) {
+                agent.status = 'done'
+                agent.outputPath = `${trustedSourceRunRoot}/${key}.md`
+              }
+            }
+          }
+          const ranClean = Array.isArray(admitted.response.ranClean)
+            && admitted.response.ranClean.includes(module)
+          return {
+            ...admitted.response,
+            module,
+            willRun: expectedWillRun,
+            doneOrbKeys,
+            carried: Array.isArray(admitted.response.carried) ? admitted.response.carried : [],
+            resumed: doneOrbKeys.length > 0,
+            ranClean,
+          }
+        } catch (e: any) {
+          const body = e?.body && typeof e.body === 'object' ? e.body : null
+          return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
+        }
+      }
 
       let prep
       try {
@@ -7787,6 +8012,21 @@ async function start() {
   .then(() => reconcileOrphanedProviderGroups())
   .then(async (count) => {
     if (count) console.log(`[swarm-cockpit] reconciled ${count} orphaned provider process group(s) before admission`) // eslint-disable-line no-console
+    // Frozen evidence capabilities outlive a hard crash but must never outlive their provider chain. Only
+    // sweep after every orphan process group is extinct, and fail closed before listen if anything under
+    // the exact private parent cannot be proven to be one owner-only, canonical chain directory.
+    const capabilitySweep = sweepStaleFrozenEvidenceCapabilities({
+      capabilityRoot: path.join(PUBLICATION_SOCKET_ROOT, 'frozen-evidence'),
+      forbiddenRoots: [REPO_ROOT, DATA_DIR, STATE_DIR],
+    })
+    if (capabilitySweep.removed.length > 0) {
+      console.log(`[swarm-cockpit] removed ${capabilitySweep.removed.length} stale frozen evidence capability chain(s) before admission`) // eslint-disable-line no-console
+    }
+    if (capabilitySweep.unsafe.length > 0) {
+      const details = capabilitySweep.unsafe.map((issue) => `${issue.entry}: ${issue.reason}`).join('; ')
+      console.error(`[swarm-cockpit] unsafe frozen evidence capability entries retained: ${details}`) // eslint-disable-line no-console
+      throw new Error('unsafe frozen evidence capability entries require operator inspection before admission')
+    }
     const promotions = reconcileIdeaPromotionReservations(REPO_ROOT, durableSignalIntakeExists)
     if (promotions.recovered > 0) {
       markIdeasPublicationPending(STATE_DIR)
@@ -7802,7 +8042,7 @@ async function start() {
     await app.listen({ host: HOST, port: PORT })
     return graphs
   })
-  .then((graphs) => {
+  .then(async (graphs) => {
     const g = graphs[0]
     // eslint-disable-next-line no-console
     console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents; ${graphs.length} swarm graphs warm)`)
@@ -7814,10 +8054,13 @@ async function start() {
     void warmFacets(REPO_ROOT, { archiveDir: NEWS.newsArchiveDir })
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
-    // A queued Run/Continue intent survives the engine restart in STATE_DIR. Drain only after the new
-    // process is serving healthy reads; the deployment writer-intent keeps this loop inert until the
-    // deployer has completed health verification and released its exclusive lifecycle barrier.
-    startPendingAdmissionDrain()
+    // A queued Run/Continue intent survives restart, but already-paid protected recovery owns boot admission
+    // priority. Await one exact disk-truth pass before the pending drain can spend or touch the same subject;
+    // the deployer barrier still keeps that drain inert until health verification completes.
+    await startBootAdmissionSchedulers({
+      reconcilePaidRecovery: startResumeSupervisor,
+      startPendingDrain: startPendingAdmissionDrain,
+    })
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()
@@ -7892,10 +8135,6 @@ async function start() {
     // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
     // prod engine env sets it); nothing is spent and no paid run is launched.
     startAutotuneLoop()
-    // forever-living resume supervisor: server-side, no browser needed — continues runs interrupted by a
-    // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
-    // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
-    startResumeSupervisor()
     // Forever-living connector health loop: reads run_connectors.py's ledger, keeps cadence fetch state
     // visible, and can dispatch repair only after explicit opt-in plus a verified isolated-agent backend.
     // The current runtime deliberately has no such backend; fetching remains independent and defaults on.

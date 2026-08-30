@@ -38,7 +38,7 @@ import {
   resolveCodexBin,
   sweepStaleCodexProbeHomes,
 } from '../src/providers/codex'
-import type { ProviderLaunchContext } from '../src/providers/types'
+import { PROVIDER_NEUTRAL_RUN_ENV_KEYS, type ProviderLaunchContext } from '../src/providers/types'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 const repoRoot = path.resolve(here, '../../..')
@@ -671,6 +671,7 @@ fs.mkdirSync(writableOutputRoot)
 const launchAuthHome = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-codex-launch-auth-'))
 const protectedStateRoot = fs.mkdtempSync(path.join(os.homedir(), '.nostra-codex-state-test-'))
 const publicationCapabilityRoot = fs.mkdtempSync(path.join(os.homedir(), '.nostra-codex-ipc-test-'))
+const frozenCapabilityRoot = fs.mkdtempSync(path.join(publicationCapabilityRoot, 'frozen-evidence-'))
 const publicationSocketRoot = fs.mkdtempSync(path.join(publicationCapabilityRoot, 'r-'))
 fs.chmodSync(publicationSocketRoot, 0o700)
 const publicationSocketPath = path.join(publicationSocketRoot, 'p.sock')
@@ -695,7 +696,13 @@ const protectedReadPaths = [protectedStateRoot]
 let baseSpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
 let resumeSpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
 let solOnlySpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
+let frozenCapabilitySpec: ReturnType<typeof buildCodexLaunchSpec> | undefined
 try {
+  const exactRunPolicyEnv = Object.fromEntries(
+    PROVIDER_NEUTRAL_RUN_ENV_KEYS.map((key, index) => [key, `supervisor-exact-${index}`]),
+  )
+  exactRunPolicyEnv.NOSTRA_PARITY_CANARY_CONTINUATION = '1'
+  exactRunPolicyEnv.NOSTRA_MEMORY_MODE = 'shadow'
   const context: ProviderLaunchContext = {
     prompt: '/research:full AAPL',
     kind: 'full',
@@ -713,6 +720,8 @@ try {
       NOSTRA_PUBLICATION_TOKEN: publicationToken,
       NOSTRA_PARITY_CANARY_CONTINUATION: '1',
       NOSTRA_MEMORY_MODE: 'shadow',
+      ...exactRunPolicyEnv,
+      NOSTRA_UNREVIEWED_STALE_CONTROL: 'must-not-pass',
     },
     guard: { maxTurns: 2_000, budgetUsd: 100 },
     publicationSocketPath,
@@ -723,6 +732,15 @@ try {
   assert.equal(spec.cwd, repoRoot)
   assert.equal(spec.env.OPENAI_API_KEY, undefined)
   assert.equal(spec.env.NOSTRA_COCKPIT_RUN, '1')
+  for (const key of PROVIDER_NEUTRAL_RUN_ENV_KEYS) {
+    assert.equal(spec.env[key], exactRunPolicyEnv[key], `${key} reaches the tracked Codex parent exactly`)
+    assert.ok(spec.args.includes(`shell_environment_policy.set.${key}=${JSON.stringify(exactRunPolicyEnv[key])}`),
+      `${key} reaches model-issued Codex Bash exactly`)
+  }
+  assert.equal(spec.env.NOSTRA_UNREVIEWED_STALE_CONTROL, undefined,
+    'unreviewed stale NOSTRA values are absent from the tracked parent')
+  assert.ok(!spec.args.some((arg) => arg.includes('NOSTRA_UNREVIEWED_STALE_CONTROL')),
+    'unreviewed stale NOSTRA values are absent from model-issued Bash')
   assert.equal(spec.env.CODEX_HOME, probe.authLease.home,
     'spawn must use the exact isolated credential snapshot verified by the launch proof')
   assert.notEqual(spec.env.CODEX_HOME, launchAuthHome, 'spawn must never reread the mutable original CODEX_HOME')
@@ -749,6 +767,23 @@ try {
   assert.ok(spec.args.some((arg, index) => arg === '--add-dir' && spec.args[index + 1] === spec.env.TMPDIR),
     'the dedicated TMPDIR must be an admitted writable workspace root')
   assert.ok(spec.args.includes('--search'))
+
+  const frozenCapabilityProbe = launchProbe(launchAuthHome)
+  frozenCapabilitySpec = buildCodexLaunchSpec({
+    ...context,
+    protectedWritePaths: [...protectedWritePaths, frozenCapabilityRoot],
+    readOnlyCapabilityPaths: [frozenCapabilityRoot],
+  }, frozenCapabilityProbe)
+  assert.deepEqual(
+    frozenCapabilitySpec.args.slice(
+      frozenCapabilitySpec.args.indexOf('--add-dir'), frozenCapabilitySpec.args.indexOf('--add-dir') + 2,
+    ),
+    ['--add-dir', fs.realpathSync(frozenCapabilityRoot)],
+    'a frozen Codex child receives the isolated capability—not live data—as its model data root',
+  )
+  const frozenConfig = fs.readFileSync(path.join(frozenCapabilityProbe.authLease.home, 'config.toml'), 'utf8')
+  assert.ok(frozenConfig.includes(`${JSON.stringify(fs.realpathSync(frozenCapabilityRoot))} = "read"`),
+    'the capability is read-only in the installed Codex sandbox policy')
   assert.ok(spec.args.indexOf('--search') < spec.args.indexOf('exec'), '--search is a global flag in the installed CLI')
   assert.ok(spec.args.indexOf('--json') > spec.args.indexOf('exec'), '--json belongs to the exec subcommand')
   assert.ok(spec.args.includes('project_doc_max_bytes=131072'))
@@ -913,6 +948,7 @@ try {
   baseSpec?.cleanup?.()
   resumeSpec?.cleanup?.()
   solOnlySpec?.cleanup?.()
+  frozenCapabilitySpec?.cleanup?.()
   fs.rmSync(dataRoot, { recursive: true, force: true })
   fs.rmSync(launchAuthHome, { recursive: true, force: true })
   await new Promise<void>((resolve) => publicationSocketServer.close(() => resolve()))

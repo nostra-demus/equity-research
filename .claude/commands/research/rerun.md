@@ -46,13 +46,15 @@ not call `date` or select a newer run in this mode. Otherwise run `date +%Y-%m-%
 
 `<MODULE> = master` (with `<AGENT> = synthesizer`) is the special **master target** — the Memo itself. For it, skip steps 5–7 and go straight to step 8.
 
-## 2. Verify the data pool
+## 2. Bind and verify the data pool
 
-```
-ls -1 data/<TICKER>/ 2>/dev/null | head -n 1
-```
-
-If missing or empty, STOP: "No data found at `data/<TICKER>/`. Populate the Drive folder for this ticker and re-run."
+Treat `data/<TICKER>/` as `<LOGICAL_DATA_PATH>`, the stable citation label. If
+`NOSTRA_FROZEN_EVIDENCE_ROOT` is set, require the complete four-variable supervisor binding named in
+`frameworks/MODULE_PIPELINE.md` Step 1.5, set the filesystem `<DATA_PATH>` to that immutable evidence
+root, and **do not read `data/<TICKER>/` at all**. Otherwise set `<DATA_PATH>` to
+`<LOGICAL_DATA_PATH>` for the standalone workflow. Check that the resolved `<DATA_PATH>` exists and
+contains at least one non-empty regular file. If not, STOP: "No data found for `<TICKER>`. Populate the
+Drive folder for this ticker and re-run."
 
 ## 3. Resolve the run root (latest EXISTING run — never create one)
 
@@ -97,9 +99,18 @@ Confirm `<RUN_ROOT>/<MODULE>/` exists (`mkdir -p` it if not). Prerequisite check
 
 Build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A / `/research:full` step 8A specify: one sentence per `depends_on` module whose `99_*-synthesis.md` exists under `<RUN_ROOT>`, in the form `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (first letter capitalised). If none, the literal `none`.
 
-**Refresh the deterministic sidecar first (so the dispatched agent doesn't cite stale facts).** A rerun exists to fold in NEW data, and the Step 4A message tells the agent to trust `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative — but that file was written by the ORIGINAL run and would be stale. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which re-extracts the pool and regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so an unchanged pool costs nothing). Never dispatch the trust-the-sidecar instruction against an unrefreshed sidecar.
+**Refresh or verify the deterministic sidecar first (so the dispatched agent doesn't cite stale facts).**
+Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once with the Step-2 `<DATA_PATH>` and the exact extractor
+output it resolves. In standalone mode this refreshes changed live data. In frozen Full/Continue mode it
+must verify and reuse only `NOSTRA_FROZEN_POOL_GENERATION`; it must never rebuild from or read the live
+pool. Never dispatch the trust-the-sidecar instruction against an unverified generation.
 
-Dispatch exactly ONE Task call using the message template in `frameworks/MODULE_PIPELINE.md` Step 4A: `subagent_type` = the target's frontmatter `name`; pass `<TICKER>`, `data/<TICKER>/`, `<DATE>`, and `<CROSS_MODULE_CONTEXT>`; instruct the agent to persist its complete clean report to `<TARGET_OUT>` (Mode A/B/C), starting with its `#` header, no confirmation block, **and not to run git**. Then verify per Step 4B (`test -s`, starts with `#`, not truncated, no stray confirmation block); attempt one recovery if it fails.
+Dispatch exactly ONE Task call using the message template in `frameworks/MODULE_PIPELINE.md` Step 4A:
+`subagent_type` = the target's frontmatter `name`; pass `<TICKER>`, the resolved `<DATA_PATH>`, `<DATE>`,
+and `<CROSS_MODULE_CONTEXT>`; instruct the agent to persist its complete clean report to `<TARGET_OUT>`
+(Mode A/B/C), starting with its `#` header, no confirmation block, **and not to run git**. Citations still
+use logical `data/<TICKER>/...` labels. Then verify per Step 4B (`test -s`, starts with `#`, not truncated,
+no stray confirmation block); attempt one recovery if it fails.
 
 Compile and append the target packet before this Task, then attest its declaration after persistence, using
 `frameworks/MEMORY_RUNTIME.md` with key `<MODULE>/<NN>_<AGENT_SLUG>`. Enforced failures stop this rerun.
@@ -133,12 +144,21 @@ You re-run only the `99` synthesis of each cascade module (then refresh that mod
 
 ## 8. Re-run the master synthesizer
 
-**Refresh the deterministic sidecar first — this is the only refresh the master-target path gets.** A `master synthesizer` rerun skips steps 5–7 (step 1 / step 4 jump straight here), so the Step-5 refresh never runs for it; yet the synthesizer now treats `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative for scorecard and `decision_record` anchors. Without this, a master-only rerun after new data lands would tie the final thesis to the ORIGINAL run's stale CIQ facts. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so on the normal cascade path — where Step 5 already refreshed it — this second call costs nothing).
+**Refresh or verify the deterministic sidecar first — this is the only such check the master-target path
+gets.** A `master synthesizer` rerun skips steps 5–7. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once
+with the Step-2 `<DATA_PATH>` and its exact extractor output. Standalone reruns refresh changed live data;
+frozen Full/Continue chains verify and reuse only the admitted generation without reading Drive. On a
+normal cascade this is an idempotent second verification.
 
 Dispatch a single Task call (per `/research:full` step 10):
 
 - `subagent_type: "synthesizer"`
-- > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md.
+- > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md. The
+    filesystem evidence root for this invocation is <DATA_PATH>, the verified generation root is
+    <GENERATION_ROOT>, and deterministic CIQ facts are at <GENERATION_ROOT>/ciq_facts.json in frozen mode
+    (otherwise <RUN_ROOT>/_pool_extracts/ciq_facts.json). Keep citations labelled data/<TICKER>/.... If the
+    frozen supervisor quartet is present, require these paths to match it; do not read live data/<TICKER>/
+    or any mutable fixed-name projection under <RUN_ROOT>/_pool_extracts/.
 
 Before dispatch, compile and append `master/synthesizer` under `frameworks/MEMORY_RUNTIME.md`; after
 `final_thesis.md` passes its ordinary existence/output checks, attest the declaration with output

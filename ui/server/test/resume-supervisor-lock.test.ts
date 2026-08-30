@@ -21,6 +21,7 @@ function deps(overrides: Partial<ResumeCandidateDispatchDeps> = {}): ResumeCandi
     withLock: withSubjectLock,
     liveSubjects: () => new Set(),
     stillResumable: () => true,
+    reviewCandidate: async () => null,
     launchCandidate: async () => ({ runId: 'fake' }),
     ...overrides,
   }

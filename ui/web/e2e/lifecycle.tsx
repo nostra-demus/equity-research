@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import '../src/styles/global.css'
 import { ActivityDock } from '../src/components/ActivityDock'
 import { LaunchConfirm } from '../src/components/LaunchConfirm'
+import { ReadinessWarnings } from '../src/components/ReadinessWarnings'
 import { ResumeConfirm } from '../src/components/ResumeConfirm'
 import { CODEX_EXECUTION_PROFILE, type ProviderExecutionProfile, type ProviderProfileOption, type RunProvider } from '../src/lib/provider'
 import { useStore } from '../src/lib/store'
@@ -84,6 +85,7 @@ function Harness() {
       </section>
       <LaunchConfirm />
       <ResumeConfirm />
+      <ReadinessWarnings />
       <ActivityDock />
     </main>
   )
