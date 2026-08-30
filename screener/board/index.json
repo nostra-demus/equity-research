@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:54:30Z",
+  "generated_at": "2026-08-30T06:59:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1537,6 +1537,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-122",
+      "headline": "CBUAE announces urgent examination of Banque Misr UAE branches",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/cbuae-announces-urgent-examination-of-banque-misr-uae-branches/5040",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:52:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Regulatory examination of a bank's branches by the central bank indicates potential compliance or operational issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Regulatory examination of a bank's branches by the central bank indicates potential compliance or operational issues.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Misr",
+          "ticker": null,
+          "listing_country": "EG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-057",
       "headline": "Setback for Anthropic? Sony, Warner Chappell file lawsuit against AI firm, accusing it of intellectual property theft",
       "headline_en": null,
@@ -1910,56 +1959,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-055",
-      "headline": "Argentina to ease Indian pharma barriers; KABIL makes progress on lithium project",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/economy/argentina-to-ease-indian-pharma-barriers-kabil-makes-progress-on-lithium-project-19979718.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:56:32Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Argentina easing pharma barriers benefits Indian exporters, and KABIL's lithium project progress is a strategic resource development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Argentina easing pharma barriers benefits Indian exporters, and KABIL's lithium project progress is a strategic resource development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "KABIL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -113751,9 +113750,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 988,
-    "news_picked_today": 167,
-    "news_dropped_today": 821
+    "news_seen_today": 1006,
+    "news_picked_today": 171,
+    "news_dropped_today": 835
   },
   "book_momentum": {
     "live_count": 8,
