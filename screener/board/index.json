@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T08:49:44Z",
+  "generated_at": "2026-08-30T08:54:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1187,6 +1187,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-165",
+      "headline": "Smartworks to invest Rs 600cr in FY27 to expand biz, meet rising demand for managed office spaces",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/smartworks-to-invest-rs-600cr-in-fy27-to-expand-biz-meet-rising-demand-for-managed-office-spaces/articleshow/133626227.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:32:54Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Smartworks plans to invest Rs 600 crore in FY27 to expand its managed office space business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Smartworks plans to invest Rs 600 crore in FY27 to expand its managed office space business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Smartworks",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-047",
       "headline": "Chinese chipmaker CXMT sues Pentagon over ‘Chinese military company’ designation",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-112",
-      "headline": "‎Derayah commits SAR 244M to AI, technology-focused fund",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1932569",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:20:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Derayah has committed SAR 244 million to an AI and technology-focused fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Derayah has committed SAR 244 million to an AI and technology-focused fund.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Derayah Financial",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113904,9 +113904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1328,
-    "news_picked_today": 238,
-    "news_dropped_today": 1090
+    "news_seen_today": 1348,
+    "news_picked_today": 242,
+    "news_dropped_today": 1106
   },
   "book_momentum": {
     "live_count": 8,
