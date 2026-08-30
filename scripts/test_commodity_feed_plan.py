@@ -2,7 +2,8 @@
 """Contract tests for generic commodity source planning."""
 from __future__ import annotations
 
-from commodity_feed_plan import STRUCTURED_PROFILE_ROOT, build_plan, load_authorities
+from commodity_feed_plan import CONNECTORS_ROOT, STRUCTURED_PROFILE_ROOT, build_plan, load_authorities
+from connector_contract import load_valid_manifests
 
 
 guide = load_authorities()
@@ -10,6 +11,9 @@ assert guide["schema_version"] == 2
 assert guide["capital_iq"]["route"] == "manual_csv_export"
 plans = [build_plan(path.stem) for path in sorted(STRUCTURED_PROFILE_ROOT.glob("*.json"))]
 assert plans and all(plan["rows"] for plan in plans)
+manifests, manifest_defects = load_valid_manifests(str(CONNECTORS_ROOT))
+assert not manifest_defects
+manifest_by_id = {manifest["id"]: manifest for manifest in manifests}
 for plan in plans:
     assert sum(plan["counts"].values()) == len(plan["rows"])
     assert sum(plan["gap_routes"].values()) == plan["counts"]["build_needed"]
@@ -25,6 +29,17 @@ for plan in plans:
         row["status"] != "build_needed" or row["source_rule_id"] != "generic-authoritative-fallback"
         for row in plan["rows"]
     ), f"{plan['commodity']} has an unclassified feed gap"
+    for row in plan["rows"]:
+        if row["status"] not in {"implemented_automatic", "implemented_manual"}:
+            continue
+        manifest = manifest_by_id[row["primary_connector_id"]]
+        licensing = manifest["licensing"]
+        if row["status"] == "implemented_automatic":
+            assert licensing["access"] == "public"
+            assert licensing["use"] == "allowed"
+            assert manifest["acquisition"] != "paid_api"
+        elif licensing["access"] == "licensed":
+            assert manifest["provider"] == guide["capital_iq"]["provider"]
 
 copper = next(plan for plan in plans if plan["commodity"] == "COPPER")
 real_yield = next(row for row in copper["rows"] if row["need_id"] == "macro-us-10y-real-yield")
