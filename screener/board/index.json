@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T23:40:26Z",
+  "generated_at": "2026-08-30T23:53:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-301",
+      "headline": "AL3: AML3D Delivers Record FY26 Revenue & Second Half Profit [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AL3?key=2924-03129078-6A1341235",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T23:32:44Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The company reported record FY26 revenue and second-half profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported record FY26 revenue and second-half profit.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AL3",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-294",
       "headline": "OEC: Annual Results and FY2027 Outlook [price-sensitive]",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-158",
-      "headline": "Meta Will Pay $17 Billion to Settle a Federal Lawsuit. Here’s My Prediction of Where the Stock Will Go From Here.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/meta-will-pay-17-billion-settle-federal-lawsuit-heres-my-prediction-where-stock-will-go",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:15:01Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Meta is set to pay a $17 billion settlement for a federal lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is set to pay a $17 billion settlement for a federal lawsuit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89834,77 +89834,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0b5dc86cd04c",
-      "idea_version": "IDEAV-ae38bb0ccca7c1ba",
-      "idea_version_started_at": "2026-08-29T14:33:23Z",
-      "ticker": "ASTRON",
-      "company": "Astron Paper & Board Mill Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
-      "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-524d8df6e2f3"
-      ],
-      "primary_source_event_id": "EVT-524d8df6e2f3",
-      "source_headlines": [
-        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T11:45:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:33:23Z",
-      "updated_at": "2026-08-29T14:33:23Z",
-      "decay_at": "2026-08-30T23:45:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-eea7081fed7e",
       "idea_version": "IDEAV-ac905aa5149a8b38",
       "idea_version_started_at": "2026-08-29T14:33:23Z",
@@ -94110,6 +94039,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0b5dc86cd04c",
+      "idea_version": "IDEAV-ae38bb0ccca7c1ba",
+      "idea_version_started_at": "2026-08-29T14:33:23Z",
+      "ticker": "ASTRON",
+      "company": "Astron Paper & Board Mill Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
+      "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-524d8df6e2f3"
+      ],
+      "primary_source_event_id": "EVT-524d8df6e2f3",
+      "source_headlines": [
+        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T11:45:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:33:23Z",
+      "updated_at": "2026-08-29T14:33:23Z",
+      "decay_at": "2026-08-30T23:45:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-39a2052bc383",
       "idea_version": "IDEAV-c2649f388f3e14e6",
       "idea_version_started_at": "2026-08-29T14:17:28Z",
@@ -95328,8 +95328,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 258,
-    "shown_count": 258,
+    "total_count": 259,
+    "shown_count": 259,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -95338,8 +95338,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 138,
-        "shown_count": 138,
+        "total_count": 139,
+        "shown_count": 139,
         "hidden_count": 0
       }
     },
@@ -95359,6 +95359,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0b5dc86cd04c",
+        "idea_version": "IDEAV-ae38bb0ccca7c1ba",
+        "idea_version_started_at": "2026-08-29T14:33:23Z",
+        "ticker": "ASTRON",
+        "company": "Astron Paper & Board Mill Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
+        "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-524d8df6e2f3"
+        ],
+        "primary_source_event_id": "EVT-524d8df6e2f3",
+        "source_headlines": [
+          "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T11:45:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T14:33:23Z",
+        "updated_at": "2026-08-29T14:33:23Z",
+        "decay_at": "2026-08-30T23:45:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T23:45:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e89adaf01a10",
         "idea_version": "IDEAV-40f2f177f4f041e8",
@@ -114478,7 +114552,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 326,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -114497,9 +114571,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4473,
-    "news_picked_today": 967,
-    "news_dropped_today": 3416
+    "news_seen_today": 4602,
+    "news_picked_today": 994,
+    "news_dropped_today": 3485
   },
   "book_momentum": {
     "live_count": 8,
