@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T12:50:46Z",
+  "generated_at": "2026-08-30T12:54:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -1934,50 +1934,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260830-213",
-      "headline": "DIDA INC-PF (02559): (1) RESIGNATION OF CHAIRMAN, EXECUTIVE DIRECTORS AND INDEPENDENT NON-EXECUTIVE DIRECTORS (2) APPOINTMENT OF CHAIRMAN, EXECUTIVE DIRECTOR AND NON-EXECUTIVE DIRECTOR (3) APPOINTMENT OF INDEPENDENT NON-EXECUTIVE DIRECTORS AND (4) CHANGE IN COMPOSITION OF THE BOARD COMMITTEES",
+      "inbox_id": "INB-20260830-224",
+      "headline": "LE Lavoir Ltd: Resignation of Managing Director",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000373.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/42f77914-f118-48a4-933f-8d02c9de2105.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T11:22:00Z",
+      "found_at": "2026-08-30T12:50:56Z",
       "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Dida Inc announced a significant board-level reshuffle including the resignation and appointment of multiple directors and the chairman.",
+      "prelim_note": "The resignation of a Managing Director is a significant management change for a company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Dida Inc announced a significant board-level reshuffle including the resignation and appointment of multiple directors and the chairman.",
-      "region": "CN",
+      "triage_reason": "The resignation of a Managing Director is a significant management change for a company.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 1,
+        "event": 5,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "management"
+        "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dida Inc",
-          "ticker": "02559",
-          "listing_country": "CN"
+          "name": "LE Lavoir Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115072,9 +115072,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2260,
-    "news_picked_today": 415,
-    "news_dropped_today": 1845
+    "news_seen_today": 2279,
+    "news_picked_today": 418,
+    "news_dropped_today": 1861
   },
   "book_momentum": {
     "live_count": 8,
