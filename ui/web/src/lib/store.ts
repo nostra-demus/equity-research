@@ -1624,8 +1624,17 @@ async function exactResumePlan(info: ResumableRunInfo, execution: FrozenProvider
   if ((info.swarm || 'research') !== 'research' || (info.kind !== 'full' && info.kind !== 'module')) return undefined
   const module = info.kind === 'module' ? info.module : undefined
   const plan = await api.thesisPlan(info.subject, execution, 'research', undefined, module, info.runRoot)
-  if (plan.continuationReceipt?.version !== 2 || plan.continuationReceipt.action !== 'continue'
-      || plan.continuationReceipt.targetRunRoot !== info.runRoot) {
+  const strictContinue = plan.continuationReceipt?.version === 2
+    && plan.continuationReceipt.action === 'continue'
+    && plan.continuationReceipt.targetRunRoot === info.runRoot
+  const legacyMigration = info.kind === 'full'
+    && plan.continuationReceipt?.version === 2
+    && plan.continuationReceipt.action === 'complete'
+    && plan.continuationReceipt.sourceRunRoots.length === 1
+    && plan.continuationReceipt.sourceRunRoots[0] === info.runRoot
+    && plan.continuationReceipt.targetRunRoot !== info.runRoot
+    && plan.reuse.length > 0
+  if (!strictContinue && !legacyMigration) {
     throw new Error('The exact saved-run plan is unavailable. Refresh before continuing; nothing was started.')
   }
   if (module && (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number'
@@ -2376,13 +2385,22 @@ export const useStore = create<State>((set, get) => ({
           // The server recomputes it under lock and returns 409 if one artifact changed; the browser must not
           // silently fetch a wider payable plan after consent.
           const plan = rc.reviewedPlan
-          if (!plan || plan.continuationReceipt?.version !== 2 || plan.continuationReceipt.action !== 'continue'
-              || plan.continuationReceipt.targetRunRoot !== info.runRoot || !rc.requestId) {
+          const receipt = plan?.continuationReceipt
+          const strictContinue = receipt?.version === 2
+            && receipt.action === 'continue'
+            && receipt.targetRunRoot === info.runRoot
+          const legacyMigration = receipt?.version === 2
+            && receipt.action === 'complete'
+            && receipt.sourceRunRoots.length === 1
+            && receipt.sourceRunRoots[0] === info.runRoot
+            && receipt.targetRunRoot !== info.runRoot
+            && (plan?.reuse.length ?? 0) > 0
+          if (!plan || !receipt || (!strictContinue && !legacyMigration) || !rc.requestId) {
             throw new Error('The exact saved-run receipt is unavailable. Refresh before continuing; nothing was started.')
           }
           out = await api.runThesisPlan(
             info.subject, plan.reuse, 'research', execution, rc.requestId,
-            plan.continuationReceipt, info.runRoot,
+            receipt, info.runRoot,
           )
           if (isQueuedLaunchResponse(out)) {
             set({ resumeConfirm: null, activityOpen: true })
