@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:44:56Z",
+  "generated_at": "2026-08-30T01:54:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -92,6 +92,56 @@
           "name": "Glencore",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-038",
+      "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"OIL Green Energy Limited signs MoUs with Government of Haryana for four Integrated Waste-to-Clean-Energy Projects\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OIL_30082026072005_CBGHARYANA_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T01:50:22Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Oil India Limited signed MoUs for four integrated waste-to-clean-energy projects in Haryana, indicating a strategic expansion into green energy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Oil India Limited signed MoUs for four integrated waste-to-clean-energy projects in Haryana, indicating a strategic expansion into green energy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oil India Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -111670,7 +111720,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1818,
+    "inbox_unconsumed": 1819,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111679,9 +111729,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 189,
-    "news_picked_today": 38,
-    "news_dropped_today": 151
+    "news_seen_today": 209,
+    "news_picked_today": 39,
+    "news_dropped_today": 170
   },
   "book_momentum": {
     "live_count": 8,
