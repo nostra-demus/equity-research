@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T11:29:54Z",
+  "generated_at": "2026-08-30T11:35:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-206",
@@ -1931,20 +1931,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260830-139",
-      "headline": "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker",
+      "inbox_id": "INB-20260830-218",
+      "headline": "China's top DRAM maker CXMT sues Pentagon over its blacklisting — argues chips are standard civilian JEDEC spec, not defense hardware",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/essilorluxottica-clans-us47-billion-rift-grows-heirs-exit-ray-ban-maker",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.tomshardware.com/pc-components/dram/chinas-top-dram-maker-cxmt-sues-pentagon-over-its-blacklisting-argues-chips-are-standard-civilian-jedec-spec-not-defense-hardware",
+      "source_name": "Tom's Hardware",
       "input_nature": "news_headline",
-      "found_at": "2026-08-30T07:55:37Z",
+      "found_at": "2026-08-30T11:30:00Z",
       "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A major internal rift involving the controlling family of EssilorLuxottica, a US$47 billion entity, creates governance and strategic uncertainty.",
+      "prelim_note": "CXMT is suing the Pentagon to challenge its blacklisting, which impacts its ability to operate and trade internationally.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "A major internal rift involving the controlling family of EssilorLuxottica, a US$47 billion entity, creates governance and strategic uncertainty.",
+      "triage_reason": "CXMT is suing the Pentagon to challenge its blacklisting, which impacts its ability to operate and trade internationally.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1960,22 +1960,22 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "management",
-        "ownership_activist"
+        "regulatory",
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "EssilorLuxottica",
+          "name": "CXMT",
           "ticker": null,
-          "listing_country": "FR"
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114715,9 +114715,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1999,
-    "news_picked_today": 361,
-    "news_dropped_today": 1638
+    "news_seen_today": 2033,
+    "news_picked_today": 369,
+    "news_dropped_today": 1664
   },
   "book_momentum": {
     "live_count": 8,
