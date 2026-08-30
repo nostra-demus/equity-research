@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:20:00Z",
+  "generated_at": "2026-08-30T01:25:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -92,6 +92,60 @@
           "name": "Glencore",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-030",
+      "headline": "롯데·현대건설, 1조4000억 규모 안양 충훈부 공공재개발 수주",
+      "headline_en": "Lotte and Hyundai E&C win 1.4 trillion KRW Anyang Chung-hun-bu public redevelopment project",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275803",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:56:14Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Lotte E&C and Hyundai Engineering & Construction secured a public redevelopment project in Anyang worth 1.4 trillion KRW.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Lotte E&C and Hyundai Engineering & Construction secured a public redevelopment project in Anyang worth 1.4 trillion KRW.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lotte E&C",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Hyundai Engineering & Construction",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -230,6 +284,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-031",
+      "headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
+      "headline_en": "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:47:39Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The Korea Institute of Corporate Governance and Sustainability issued voting recommendations regarding audit committee candidates for Korea Zinc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The Korea Institute of Corporate Governance and Sustainability issued voting recommendations regarding audit committee candidates for Korea Zinc.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Zinc",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111302,7 +111405,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1810,
+    "inbox_unconsumed": 1812,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111311,9 +111414,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 147,
-    "news_picked_today": 30,
-    "news_dropped_today": 117
+    "news_seen_today": 156,
+    "news_picked_today": 32,
+    "news_dropped_today": 124
   },
   "book_momentum": {
     "live_count": 8,
