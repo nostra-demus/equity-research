@@ -315,12 +315,12 @@ function validReviewedPlan(value: unknown, subject: string, targetRunRoot: strin
       || !Array.isArray(receipt.reusableOrbKeys) || !receipt.reusableOrbKeys.every((key) => typeof key === 'string')
       || !Array.isArray(receipt.payableOrbKeys) || !receipt.payableOrbKeys.every((key) => typeof key === 'string')
       || !receipt.dataPool || !Number.isSafeInteger(receipt.dataPool.files) || receipt.dataPool.files < 0
-      || !Number.isSafeInteger(receipt.dataPool.newestMs) || receipt.dataPool.newestMs < 0
+      || !Number.isFinite(receipt.dataPool.newestMs) || receipt.dataPool.newestMs < 0
       || !SHA256.test(String(receipt.dataPool.sha256))) return false
   if (!Array.isArray(plan.modules) || !Array.isArray(plan.reuse) || !Array.isArray(plan.run)
       || !Array.isArray(plan.carry) || !plan.dataPool
       || !Number.isSafeInteger(plan.dataPool.files) || plan.dataPool.files < 0
-      || !Number.isSafeInteger(plan.dataPool.newestMs) || plan.dataPool.newestMs < 0) return false
+      || !Number.isFinite(plan.dataPool.newestMs) || plan.dataPool.newestMs < 0) return false
   return true
 }
 

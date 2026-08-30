@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execa } from 'execa'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
-import { thesisPlan } from '../src/completion'
+import { continuationPlanReceiptFingerprint, thesisPlan } from '../src/completion'
 import { preparedProviderContinuationAttemptId } from '../src/launcher'
 import {
   listDeferredPreSpendRetries,
@@ -151,6 +151,16 @@ try {
   assert.equal(fs.existsSync(path.join(REPO_ROOT, absentPlan.targetRunRoot)), true)
   await absent.rollbackIfUnstarted('fixture pre-spawn failure')
   assert.equal(fs.existsSync(path.join(REPO_ROOT, absentPlan.targetRunRoot)), false, 'pre-spawn rollback removes a new root')
+
+  const fractionalPlan = freshPlan('ZZTXNW')
+  fractionalPlan.dataPool.newestMs = 1.125
+  fractionalPlan.continuationReceipt.dataPool.newestMs = 1.125
+  const { fingerprint: _fractionalFingerprint, ...fractionalPayload } = fractionalPlan.continuationReceipt
+  fractionalPlan.continuationReceipt.fingerprint = continuationPlanReceiptFingerprint(fractionalPayload)
+  const fractional = await prepareRunPlanTransaction(newRequestId(), 'ZZTXNW', fractionalPlan, {}, state)
+  await fractional.rollbackIfUnstarted('fixture cleanup')
+  assert.equal(fs.existsSync(path.join(REPO_ROOT, fractionalPlan.targetRunRoot)), false,
+    'valid fractional filesystem mtimes do not block a paid plan before spend')
 
   const failedPreparationPlan = freshPlan('ZZTXNP')
   const failedPreparationRequest = newRequestId()
