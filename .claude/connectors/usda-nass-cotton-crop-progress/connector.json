@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "usda-nass-cotton-crop-progress",
+  "dataset_id": "usda.nass.quickstats.cotton-crop-progress",
+  "series_id": "cotton.crop-progress",
+  "series": "USDA NASS weekly cotton crop progress and condition by state",
+  "satisfies": ["cotton-crop-progress"],
+  "subjects": ["COTTON"],
+  "provider": "USDA National Agricultural Statistics Service",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "free_key_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "NASS API Terms of Service; attribution required",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "unknown", "terms_url": "https://quickstats.nass.usda.gov/api"},
+  "host_allowlist": ["quickstats.nass.usda.gov"],
+  "credential_env": ["CONNECTOR_USDA_NASS_COTTON_CROP_PROGRESS_API_KEY"],
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1, "grace_days": 6, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/usda/crop_progress_<as_of>.json",
+  "output_schema": {
+    "series": "string", "as_of": "date", "commodity": "string", "attribution": "string",
+    "observations": [{"date": "date", "records": [{
+      "state_alpha": "string", "state_name": "string", "class": "string",
+      "statistic": "enum:CONDITION|PROGRESS", "measure": "string",
+      "reference_period": "string", "short_description": "string",
+      "percent": "int", "loaded_at": "string"
+    }]}],
+    "source_urls": ["string"]
+  },
+  "units": {"observations[].records[].percent": "percent"},
+  "minimum_history": {"observations": 260, "path": "observations"}
+}

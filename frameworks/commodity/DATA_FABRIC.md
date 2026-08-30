@@ -74,6 +74,40 @@ reuse and requires a real refresh.
 The shared `fred-us-10y-real-yield` connector is the reference implementation. It supplies one official
 semantic series to both COPPER and ALUMINIUM without commodity-specific engine code.
 
+## Official API feeds
+
+Some free government APIs require a free key. Put each key in the connector's named environment variable;
+never put it in a manifest, command, log, or committed file.
+
+```bash
+# Free keys: https://quickstats.nass.usda.gov/api
+export CONNECTOR_USDA_NASS_CORN_CROP_PROGRESS_API_KEY="<key>"
+export CONNECTOR_USDA_NASS_COTTON_CROP_PROGRESS_API_KEY="<key>"
+export CONNECTOR_USDA_NASS_SOYBEANS_CROP_PROGRESS_API_KEY="<key>"
+export CONNECTOR_USDA_NASS_WHEAT_CROP_PROGRESS_API_KEY="<key>"
+
+# Free key: https://www.eia.gov/opendata/register.php
+export CONNECTOR_EIA_CRUDE_REFINERY_DEMAND_API_KEY="<key>"
+```
+
+The four USDA NASS crop connectors share `scripts/commodity_usda_crop_progress_feed.py`. Commodity-specific
+`feed.json` contracts supply the exact crop identity, subject, history, output name, and key variable. The
+shared code checks every response row and keeps state, crop class, condition/progress measure, week, value,
+and USDA load time. It rejects changed schemas, ambiguous rows, stale observations, and short history.
+
+The EIA refinery connector joins five exact weekly series only when their weeks align. It rejects changed
+series identities, units, areas, missing values, short history, and partial weeks. The USDA FAS PSD coffee
+connector needs no key. It uses the official database release date, country file, and direct USDA world
+totals; it does not add country rows because the file also contains regional aggregates.
+
+Test a keyed connector without publishing:
+
+```bash
+python3 .claude/connectors/usda-nass-corn-crop-progress/fetch.py --verify
+python3 .claude/connectors/eia-crude-refinery-demand/fetch.py --verify
+python3 .claude/connectors/usda-fas-coffee-global-balance/fetch.py --verify
+```
+
 ## Capital IQ CSV exports
 
 Do not scrape a signed-in Capital IQ page and do not store its session or password. Export a CSV using the

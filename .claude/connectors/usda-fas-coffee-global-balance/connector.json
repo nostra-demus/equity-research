@@ -1,0 +1,63 @@
+{
+  "manifest_version": 2,
+  "schema_version": 1,
+  "id": "usda-fas-coffee-global-balance",
+  "dataset_id": "usda.fas.psd.coffee-global-balance",
+  "series_id": "coffee.global-balance",
+  "series": "USDA FAS PSD global green-coffee production, consumption and stocks",
+  "satisfies": ["coffee-global-balance"],
+  "subjects": ["COFFEE"],
+  "provider": "USDA Foreign Agricultural Service",
+  "authority_class": "government_official",
+  "provider_priority": 100,
+  "acquisition": "official_api",
+  "source_type": "official_data",
+  "tier": 5,
+  "license": "us_government_public_domain",
+  "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed", "terms_url": "https://www.usda.gov/policies-and-links"},
+  "host_allowlist": ["apps.fas.usda.gov"],
+  "credential_env": [],
+  "release": {"cadence": "semiannual", "timezone": "America/New_York", "expected_lag_days": 0, "grace_days": 40, "revision_policy": "revisable"},
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/usda/coffee_global_balance_<as_of>.json",
+  "output_schema": {
+    "series": "string", "as_of": "date", "commodity": "string", "date_basis": "string",
+    "observations": [{
+      "date": "date", "market_year": "string",
+      "global_production_thousand_60kg_bags": "float",
+      "global_arabica_production_thousand_60kg_bags": "float",
+      "global_robusta_production_thousand_60kg_bags": "float",
+      "global_other_production_thousand_60kg_bags": "float",
+      "global_consumption_thousand_60kg_bags": "float",
+      "global_ending_stocks_thousand_60kg_bags": "float",
+      "global_stocks_to_use_pct": "float",
+      "countries": [{
+        "area_code": "string", "area_name": "string", "area_type": "enum:country|regional_aggregate",
+        "production_thousand_60kg_bags": "float",
+        "arabica_production_thousand_60kg_bags": "float",
+        "robusta_production_thousand_60kg_bags": "float",
+        "other_production_thousand_60kg_bags": "float",
+        "consumption_thousand_60kg_bags": "float",
+        "ending_stocks_thousand_60kg_bags": "float"
+      }]
+    }],
+    "source_urls": ["string"]
+  },
+  "units": {
+    "observations[].global_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_arabica_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_robusta_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_other_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_consumption_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_ending_stocks_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].global_stocks_to_use_pct": "percent",
+    "observations[].countries[].production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].countries[].arabica_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].countries[].robusta_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].countries[].other_production_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].countries[].consumption_thousand_60kg_bags": "thousand_60kg_bags",
+    "observations[].countries[].ending_stocks_thousand_60kg_bags": "thousand_60kg_bags"
+  },
+  "minimum_history": {"observations": 20, "path": "observations"}
+}

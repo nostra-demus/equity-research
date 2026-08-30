@@ -81,4 +81,18 @@ fund_rows = [
 assert fund_rows
 assert all("issuer" in row["lawful_source_policy"].lower() for row in fund_rows)
 assert all("not permitted" in row["capital_iq_fallback"].lower() for row in fund_rows)
+
+expected_automatic_routes = {
+    ("CORN", "corn-crop-progress-condition"): "usda-nass-corn-crop-progress",
+    ("COTTON", "cotton-crop-progress"): "usda-nass-cotton-crop-progress",
+    ("SOYBEANS", "soybeans-crop-progress-condition"): "usda-nass-soybeans-crop-progress",
+    ("WHEAT", "wheat-crop-progress-condition"): "usda-nass-wheat-crop-progress",
+    ("CRUDE-OIL", "crude-oil-refinery-throughput-product-demand"): "eia-crude-refinery-demand",
+    ("COFFEE", "coffee-global-balance"): "usda-fas-coffee-global-balance",
+}
+for (commodity, need), connector_id in expected_automatic_routes.items():
+    plan = next(item for item in plans if item["commodity"] == commodity)
+    row = next(item for item in plan["rows"] if item["need_id"] == need)
+    assert row["status"] == "implemented_automatic"
+    assert row["primary_connector_id"] == connector_id
 print("PASS: every commodity profile need has an implemented route or authoritative source plan")
