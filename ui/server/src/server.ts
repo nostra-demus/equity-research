@@ -114,7 +114,8 @@ import { protectedResearchRecoveryOwnsSubject, startResumeSupervisor } from './r
 import { listResumableRuns } from './resumable'
 import {
   capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped,
-  continuationPlanReceiptMatches, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareModuleResume,
+  continuationPlanReceiptMatches, dataPoolNewest, legacySingleRunMigrationPlan,
+  prepareExactModuleContinuationPrivately, prepareModuleResume,
   thesisPlanForRequest, thesisPlanForScopeGuard,
 } from './completion'
 import {
@@ -2879,8 +2880,20 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
     if (q.runRoot && !continuationCandidate) {
       return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing.', code: 'saved_run_changed' })
     }
-    const plan = await thesisPlanForRequest(q.ticker, swarm, reuse, q.module, provider.data,
-      continuationCandidate ? { continuationRunRoot: continuationCandidate.runRoot } : undefined)
+    let plan
+    try {
+      plan = await thesisPlanForRequest(q.ticker, swarm, reuse, q.module, provider.data,
+        continuationCandidate ? { continuationRunRoot: continuationCandidate.runRoot } : undefined)
+    } catch (error: any) {
+      // A pre-snapshot FULL run cannot be continued in place because it has no immutable generation proof.
+      // If all reusable work comes from this one selected root, offer a protected migration instead: copy
+      // only finished modules into a new run, freeze today's pool, and rebuild every unbound partial orb.
+      if (!continuationCandidate || q.module || error?.code !== 'legacy_generation_unbound') throw error
+      const ordinary = await thesisPlanForRequest(q.ticker, swarm, reuse, undefined, provider.data)
+      const migrated = await legacySingleRunMigrationPlan(ordinary, continuationCandidate.runRoot)
+      if (!migrated) throw error
+      plan = migrated
+    }
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
     // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
@@ -2998,8 +3011,21 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         return reply.code(409).send({ error: 'The saved run changed. Refresh before continuing; no run was started.', code: 'plan_changed' })
       }
       const trustedSourceRunRoot = continuationCandidate?.runRoot
-      const plan = await thesisPlanForRequest(ticker, undefined, reuse, undefined, selection,
-        trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
+      const legacyMigration = Boolean(trustedSourceRunRoot && continuationReceipt.action === 'complete')
+      let plan
+      if (legacyMigration) {
+        const ordinary = await thesisPlanForRequest(ticker, undefined, reuse, undefined, selection)
+        plan = await legacySingleRunMigrationPlan(ordinary, trustedSourceRunRoot!)
+        if (!plan) {
+          return reply.code(409).send({
+            error: 'This old run cannot be migrated safely. Start a new Full run; nothing was started.',
+            code: 'legacy_migration_unavailable',
+          })
+        }
+      } else {
+        plan = await thesisPlanForRequest(ticker, undefined, reuse, undefined, selection,
+          trustedSourceRunRoot ? { continuationRunRoot: trustedSourceRunRoot } : undefined)
+      }
       if (!continuationPlanReceiptMatches(continuationReceipt, plan.continuationReceipt)) {
         return reply.code(409).send({
           error: 'The reviewed continuation plan changed. Refresh and review it again; no run was started.',
@@ -3034,7 +3060,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         // The durable update queue supports the two user-level actions whose scope is unambiguous here:
         // Continue one exact saved root, or a separately typed full run. A general multi-root completion
         // request remains review-bound and retries after the update rather than being renamed as either.
-        const action = sourceRunRoot ? 'continue' : plan.reuse.length === 0 ? 'full' : null
+        const action = sourceRunRoot && !legacyMigration ? 'continue' : plan.reuse.length === 0 ? 'full' : null
         if (!action) {
           return reply.code(503).send({
             error: 'The engine is updating. This completion plan was not queued because it is neither one exact saved run nor a full run.',
@@ -3115,7 +3141,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
         : undefined
 
       try {
-        const out = trustedSourceRunRoot
+        const out = trustedSourceRunRoot && !legacyMigration
           ? await continueExactSavedRun({
               swarm: 'research', subject: ticker, runRoot: trustedSourceRunRoot, kind: 'full',
               provider, model, reasoningLevel, expectedProfileKey, user, userVia,
@@ -3135,6 +3161,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
           willRun: plan.run,
           preparedDoneOrbKeys: transaction.preparation.doneOrbKeys,
           ranClean: transaction.preparation.ranClean,
+          ...(legacyMigration ? { migratedFromRunRoot: trustedSourceRunRoot } : {}),
         }
         await markRunPlanAdmitted(requestId, out.runId, response)
         return response

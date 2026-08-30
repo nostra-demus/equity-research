@@ -78,7 +78,7 @@ write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 const {
   capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
   carryForwardModules, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareFullContinuation,
-  prepareModuleResume, prepareThesisPlanPrivately,
+  legacySingleRunMigrationPlan, prepareModuleResume, prepareThesisPlanPrivately,
 } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
 
@@ -1414,6 +1414,40 @@ function exactScope(runRoot: string) {
   assert.ok(!fs.existsSync(path.join(REPO, `analyses/LINEAGE_${TODAY}`)),
     'Continue never widens into a new Full-run root')
   console.log('✅ exact Continue is frozen-generation/lineage bound, sanitizes payable bytes, and never widens')
+}
+
+// ---- 22a. one legacy saved run migrates without reusing unbound partial orbs ----------------------
+{
+  const root = `analyses/LEGACY_${YESTERDAY}`
+  for (const file of [
+    '01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md',
+    '99_alpha-synthesis.md',
+  ]) write(`${root}/alpha/${file}`, `# ${file}\n`)
+  write(`${root}/beta/01_beta-thing.md`, '# unbound partial beta\n')
+  poolFile('LEGACY', 'filing.pdf', -1)
+
+  const ordinary = await thesisPlanForRequest('LEGACY', undefined, undefined, undefined, { provider: 'codex' })
+  const migrated = await legacySingleRunMigrationPlan(ordinary, root)
+  assert.ok(migrated, 'one exact legacy source with finished work can migrate to a protected new root')
+  assert.equal(migrated.continuationReceipt.action, 'complete')
+  assert.notEqual(migrated.targetRunRoot, root)
+  assert.deepEqual(migrated.reuse, ['alpha'])
+  assert.deepEqual(migrated.continuationReceipt.sourceRunRoots, [root])
+  assert.deepEqual(migrated.modules.find((entry) => entry.module === 'beta')!.doneOrbKeys, [],
+    'an unbound partial orb is payable again rather than falsely reused')
+  assert.equal(migrated.modules.find((entry) => entry.module === 'beta')!.state, 'missing')
+  assert.ok(migrated.continuationReceipt.payableOrbKeys.includes('beta/01_beta-thing'))
+  assert.ok(!migrated.continuationReceipt.reusableOrbKeys.includes('beta/01_beta-thing'))
+
+  const tx = fs.mkdtempSync(path.join(REPO, '.legacy-migration-private-'))
+  const prepared = prepareThesisPlanPrivately('LEGACY', migrated, tx)
+  assert.ok(fs.existsSync(path.join(prepared.stagingRootAbs, 'alpha/99_alpha-synthesis.md')),
+    'the exact finished module is carried unchanged')
+  assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, 'beta')),
+    'the unbound partial module cannot presence-skip paid work in the protected target')
+  assert.deepEqual(prepared.doneOrbKeys, [])
+  fs.rmSync(tx, { recursive: true, force: true })
+  console.log('✅ one legacy run migrates finished modules and rebuilds unbound partial work')
 }
 
 // ---- 23. exact Continue invalidates every downstream specialist when its upstream changes ----------

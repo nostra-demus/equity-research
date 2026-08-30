@@ -58,6 +58,7 @@ try {
   let plannedFingerprint = `sha256:${'a'.repeat(64)}`
   let planReads = 0
   let submittedReceipt: any = null
+  let legacyMigration = false
   api.launch = (async (body: any) => {
     runLaunches++
     runSelection = body.selection
@@ -65,11 +66,12 @@ try {
   }) as typeof api.launch
   api.thesisPlan = (async (_ticker: string, _selection: any, _swarm?: string, _reuse?: string[], module?: string, runRoot?: string) => {
     planReads++
+    const targetRunRoot = legacyMigration ? 'analyses/KAR_2026-08-31' : runRoot!
     return {
-    moduleResumeVersion: 2, swarm: 'research', subject: 'KAR', targetRunRoot: runRoot!, complete: false,
+    moduleResumeVersion: 2, swarm: 'research', subject: 'KAR', targetRunRoot, complete: false,
     continuationReceipt: {
-      version: 2, action: 'continue', swarm: 'research', subject: 'KAR', sourceRunRoots: [runRoot!],
-      targetRunRoot: runRoot!, provider: { id: 'claude', model: 'sonnet', reasoningLevel: 'default', profileKey: sonnetProfile.key },
+      version: 2, action: legacyMigration ? 'complete' : 'continue', swarm: 'research', subject: 'KAR', sourceRunRoots: [runRoot!],
+      targetRunRoot, provider: { id: 'claude', model: 'sonnet', reasoningLevel: 'default', profileKey: sonnetProfile.key },
       reusableOrbKeys: [], payableOrbKeys: ['master/synthesizer'],
       dataPool: { files: 1, newestMs: 0, sha256: `sha256:${'c'.repeat(64)}` },
       evidenceGenerationDigest: 'd'.repeat(64), reusableArtifacts: [],
@@ -137,6 +139,21 @@ try {
   assert.equal(submittedReceipt, reviewedFullReceipt,
     'full Continue submits the exact reviewed receipt; server-side drift returns 409 before writes/spend')
 
+  // A run created before frozen-generation receipts gets one safe migration plan: same selected source,
+  // finished modules reused in a new protected root, and never a generic Full request.
+  legacyMigration = true
+  useStore.setState({ resumeConfirm: null, launchPending: null })
+  await useStore.getState().resumeRun(partialRun)
+  dialog = useStore.getState().resumeConfirm
+  assert.equal(dialog?.kind, 'run')
+  assert.equal(dialog?.kind === 'run' ? dialog.reviewedPlan?.continuationReceipt?.action : undefined, 'complete')
+  await useStore.getState().confirmResume()
+  assert.equal(runLaunches, 0, 'legacy migration never uses generic /api/launch')
+  assert.equal(completionLaunches, 2)
+  assert.equal(completionSourceRoot, partialRun.runRoot, 'legacy migration stays bound to the selected saved root')
+  assert.equal(submittedReceipt?.action, 'complete')
+  legacyMigration = false
+
   let moduleLaunches = 0
   let submittedModuleReceipt: any = null
   api.runThesisPlanModule = (async (
@@ -177,7 +194,7 @@ try {
   useStore.getState().cancelResume()
   assert.equal(useStore.getState().resumeConfirm, null)
   assert.equal(runLaunches, 0, 'cancel never submits a generic request')
-  assert.equal(completionLaunches, 1, 'cancel never submits a completion request')
+  assert.equal(completionLaunches, 2, 'cancel never submits a completion request')
 
   // A disabled command-bar provider cannot dead-end Resume: the dialog seeds the other verified provider.
   useStore.setState({

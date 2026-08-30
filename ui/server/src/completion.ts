@@ -183,6 +183,74 @@ export function continuationPlanReceiptFingerprint(payload: ContinuationPlanRece
   return `sha256:${createHash('sha256').update(canonicalJsonText(payload)).digest('hex')}`
 }
 
+/**
+ * Convert one pre-snapshot saved run into a safe, current-generation completion plan.
+ *
+ * Legacy runs cannot satisfy exact Continue's frozen-generation proof, so they must never be written back
+ * into the old root. When every reusable module comes from the one root the user selected, we can instead
+ * copy those finished module trees into a new protected run and rebuild all unfinished modules against a
+ * freshly frozen pool. Unbound partial orbs are deliberately made payable again; only whole module trees
+ * covered by the receipt's source-artifact hash are reused.
+ */
+export async function legacySingleRunMigrationPlan(plan: ThesisPlan, sourceRunRoot: string): Promise<ThesisPlan | null> {
+  let targetExists = false
+  try {
+    await fs.promises.lstat(path.join(REPO_ROOT, plan.targetRunRoot))
+    targetExists = true
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  if (plan.continuationReceipt.action !== 'complete'
+      || plan.targetRunRoot === sourceRunRoot
+      || plan.reuse.length === 0
+      || plan.continuationReceipt.sourceRunRoots.length !== 1
+      || plan.continuationReceipt.sourceRunRoots[0] !== sourceRunRoot
+      || targetExists) return null
+
+  const reused = new Set(plan.reuse)
+  if (plan.carry.length !== reused.size || plan.carry.some((entry) =>
+    !reused.has(entry.module) || entry.from !== sourceRunRoot || entry.copyFrom !== sourceRunRoot)) return null
+
+  const reusableOrbKeys = plan.continuationReceipt.reusableOrbKeys
+    .filter((key) => reused.has(key.split('/', 1)[0]!))
+    .sort()
+  const reusableSet = new Set(reusableOrbKeys)
+  const payableOrbKeys = [...new Set([
+    ...plan.continuationReceipt.payableOrbKeys,
+    ...plan.continuationReceipt.reusableOrbKeys.filter((key) => !reusableSet.has(key)),
+  ])].sort()
+  const { fingerprint: _fingerprint, ...receipt } = plan.continuationReceipt
+  const payload: ContinuationPlanReceiptPayload = {
+    ...receipt,
+    reusableOrbKeys,
+    payableOrbKeys,
+  }
+
+  return {
+    ...plan,
+    modules: plan.modules.map((entry) => {
+      if (reused.has(entry.module) || entry.doneOrbKeys.length === 0) return entry
+      const {
+        sourceRunRoot: _sourceRunRoot, sourceDate: _sourceDate, copyFromRunRoot: _copyFromRunRoot,
+        staleReason: _staleReason, synthesisNeedsRefresh: _synthesisNeedsRefresh,
+        resumeFromRunRoots: _resumeFromRunRoots, ...rest
+      } = entry
+      return {
+        ...rest,
+        state: 'missing',
+        inTargetRoot: false,
+        doneAgents: 0,
+        doneOrbKeys: [],
+        willRunAgents: entry.totalAgents,
+      }
+    }),
+    continuationReceipt: {
+      ...payload,
+      fingerprint: continuationPlanReceiptFingerprint(payload),
+    },
+  }
+}
+
 function continuationSourceArtifactsSha256(
   targetRunRoot: string,
   carries: { module: string; copyFrom: string }[],
