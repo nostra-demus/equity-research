@@ -31,6 +31,7 @@ MINIMUM_SPAN_DAYS = 3650
 YEARS_OF_HISTORY = 11
 MAX_RESPONSE_BYTES = 12 * 1024 * 1024
 MAX_PARALLEL_REQUESTS = 4
+REQUEST_TIMEOUT_S = 30
 SUPPRESSED_VALUES = {"", "(D)", "(NA)", "(S)", "(X)", "(Z)"}
 ROW_FIELDS = {
     "source_desc", "sector_desc", "commodity_desc", "class_desc",
@@ -105,7 +106,7 @@ def fetch(manifest: dict[str, Any], commodity: str) -> list[tuple[str, str, obje
         statistic = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)["statisticcat_desc"][0]
         raw = fetch_bytes_with_query_credential(
             url, manifest, query_key="key", credential=credential,
-            max_bytes=MAX_RESPONSE_BYTES, timeout=30,
+            max_bytes=MAX_RESPONSE_BYTES, timeout=REQUEST_TIMEOUT_S,
         )
         return url, statistic, _decode_document(raw)
 
@@ -262,6 +263,26 @@ def self_test(fetch_file: str) -> None:
     manifest = load_manifest(fetch_file)
     config = load_config(fetch_file)
     current_year = datetime.now(timezone.utc).year
+    # The connector runner (.claude/tools/run_connectors.py) kills each fetch attempt at
+    # connector_attempt_timeout(manifest) seconds, defaulting to 60 when the manifest declares none.
+    # This feed fans len(source_urls) requests across MAX_PARALLEL_REQUESTS workers, each capped at
+    # REQUEST_TIMEOUT_S, so its worst-case wall time is ceil(N/workers) * REQUEST_TIMEOUT_S. The
+    # manifest MUST declare an attempt_timeout_seconds that covers that budget, or a slow-but-valid
+    # NASS response is chronically killed inside the runner before its own per-request timeouts can
+    # fire — the same failure class the USDA PSD/FAS export-sales siblings already provision for
+    # (attempt_timeout_seconds: 180). Pinned to that sibling provisioning + the arithmetic, not to
+    # any observed runtime.
+    worst_case_s = math.ceil(len(source_urls(config["commodity"], current_year=current_year))
+                             / MAX_PARALLEL_REQUESTS) * REQUEST_TIMEOUT_S
+    declared_deadline = manifest.get("attempt_timeout_seconds")
+    if not (isinstance(declared_deadline, int) and not isinstance(declared_deadline, bool)
+            and declared_deadline >= worst_case_s):
+        raise AssertionError(
+            f"{manifest['id']}: attempt_timeout_seconds={declared_deadline!r} does not cover the "
+            f"worst-case fetch budget {worst_case_s}s "
+            f"({len(source_urls(config['commodity'], current_year=current_year))} requests / "
+            f"{MAX_PARALLEL_REQUESTS} workers x {REQUEST_TIMEOUT_S}s); the runner's 60s default "
+            f"would kill a slow-but-valid refresh before its per-request timeouts fire")
     for url in source_urls(config["commodity"], current_year=current_year):
         query = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
         assert set(field for field in query if field.startswith("year")) == {"year"}
