@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T09:54:55Z",
+  "generated_at": "2026-08-30T09:59:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1195,6 +1195,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-185",
+      "headline": "‎AD Ports board backs ADQ offer",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932606",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T12:53:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The board of AD Ports has formally backed an acquisition offer from ADQ, signaling a major corporate transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The board of AD Ports has formally backed an acquisition offer from ADQ, signaling a major corporate transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-035",
       "headline": "War weighs on Iran’s economy as U.S. intensifies sanctions",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-103",
-      "headline": "Woodside’s ‘sham’ carbon project paid for divorce, destination wedding",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/energy/woodside-s-sham-carbon-project-paid-for-divorce-destination-wedding-20260827-p60s2e?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T05:59:10Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Allegations of misuse of funds in a carbon project create significant governance and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Allegations of misuse of funds in a carbon project create significant governance and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woodside",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114351,9 +114351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1651,
-    "news_picked_today": 283,
-    "news_dropped_today": 1368
+    "news_seen_today": 1663,
+    "news_picked_today": 286,
+    "news_dropped_today": 1377
   },
   "book_momentum": {
     "live_count": 8,
