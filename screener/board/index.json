@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T22:05:04Z",
+  "generated_at": "2026-08-30T22:09:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-265",
+      "headline": "EF2: Energy Fuels Completes Acquisition of ASM",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EF2?key=2924-03128747-6A1341075",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T22:01:54Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Energy Fuels has completed a strategic acquisition of ASM.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energy Fuels has completed a strategic acquisition of ASM.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EF2",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-263",
       "headline": "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26",
@@ -247,6 +296,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-268",
+      "headline": "Aon nears $17 billion deal to buy insurance broker USI from KKR, WSJ reports",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/30/aon-usi-17-billion-deal-talks.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T22:05:10Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Aon is nearing a $17 billion acquisition of USI from KKR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is nearing a $17 billion acquisition of USI from KKR.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-260",
       "headline": "Air NZ Reluctant to Signal Return to Profit After Big Loss",
       "headline_en": null,
@@ -291,60 +399,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-257",
-      "headline": "Aon nears $17 billion deal to buy insurance broker USI, WSJ reports",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/30/aon-usi-17-billion-deal-talks.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T20:46:12Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Aon is reportedly nearing a $17 billion acquisition of USI, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is reportedly nearing a $17 billion acquisition of USI, a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "USI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-090",
-      "headline": "Jindal Stainless expanding coin blanks manufacturing capacity by 20% to meet demand",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/jindal-stainless-expanding-coin-blanks-manufacturing-capacity-by-20-to-meet-demand/article71407049.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T05:18:08Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Jindal Stainless is expanding its coin blanks manufacturing capacity by 20% to meet demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jindal Stainless is expanding its coin blanks manufacturing capacity by 20% to meet demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jindal Stainless",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115080,9 +115085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3862,
-    "news_picked_today": 753,
-    "news_dropped_today": 3095
+    "news_seen_today": 3906,
+    "news_picked_today": 768,
+    "news_dropped_today": 3124
   },
   "book_momentum": {
     "live_count": 8,
