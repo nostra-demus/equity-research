@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:19:57Z",
+  "generated_at": "2026-08-30T06:20:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -87381,6 +87381,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-e180c79d5884be31",
+      "idea_version_started_at": "2026-08-30T06:20:17Z",
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of CEO Tim Cook, who oversaw a historic 25x return for shareholders, introduces leadership transition risk and potential multiple contraction for the world's largest technology company.",
+      "why_now": "The transition is effective immediately on September 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3cb54c74a01e"
+      ],
+      "primary_source_event_id": "EVT-3cb54c74a01e",
+      "source_headlines": [
+        "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 25x Gains To Shareholders"
+      ],
+      "source_headline": "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 25x Gains To Shareholders",
+      "source_url": "https://www.ndtvprofit.com/markets/tim-cook-bows-out-as-apple-ceo-on-sept-1-after-historic-25x-gains-to-shareholders-11977052#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T05:19:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T06:20:17Z",
+      "updated_at": "2026-08-30T06:20:17Z",
+      "decay_at": "2026-08-31T17:19:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f706760db176",
       "idea_version": "IDEAV-9db919d9eab10fe3",
       "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -87726,6 +87796,76 @@
       "surfaced_at": "2026-08-29T10:08:49Z",
       "updated_at": "2026-08-29T10:08:49Z",
       "decay_at": "2026-08-30T06:49:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2d93368aeb39",
+      "idea_version": "IDEAV-025a26a8ee8e33dd",
+      "idea_version_started_at": "2026-08-30T06:20:17Z",
+      "ticker": "WDS",
+      "company": "Woodside Energy Group Ltd",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allegations that a carbon offset project funded by Woodside was a sham used to fund personal expenses expose the company to severe ESG scrutiny, regulatory penalties, and potential write-downs of carbon credits.",
+      "why_now": "The publication of these specific fraud allegations on August 30, 2026, presents immediate reputational and regulatory risk.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-18ab2bc4f52b"
+      ],
+      "primary_source_event_id": "EVT-18ab2bc4f52b",
+      "source_headlines": [
+        "Woodside’s ‘sham’ carbon project paid for divorce, destination wedding"
+      ],
+      "source_headline": "Woodside’s ‘sham’ carbon project paid for divorce, destination wedding",
+      "source_url": "https://www.afr.com/companies/energy/woodside-s-sham-carbon-project-paid-for-divorce-destination-wedding-20260827-p60s2e?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 89,
+      "newest_source_at": "2026-08-30T05:59:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T06:20:17Z",
+      "updated_at": "2026-08-30T06:20:17Z",
+      "decay_at": "2026-08-31T17:59:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89670,6 +89810,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ce17c0a4842f",
+      "idea_version": "IDEAV-4f41e063b4bab9cf",
+      "idea_version_started_at": "2026-08-30T06:20:17Z",
+      "ticker": "PNN",
+      "company": "Pennon Group plc",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Pennon Group's subsidiary, South West Water, has been named as having the worst environmental record in England, escalating the risk of severe regulatory fines, capital expenditure mandates, and dividend cuts.",
+      "why_now": "The release of this comparative environmental performance analysis on August 30, 2026, increases immediate political and regulatory pressure.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-430dc08c8cb4"
+      ],
+      "primary_source_event_id": "EVT-430dc08c8cb4",
+      "source_headlines": [
+        "South West Water has worst environmental record in England, analysis shows"
+      ],
+      "source_headline": "South West Water has worst environmental record in England, analysis shows",
+      "source_url": "https://www.theguardian.com/environment/2026/aug/30/south-west-water-worst-environmental-record-england",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 86,
+      "newest_source_at": "2026-08-30T06:00:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T06:20:17Z",
+      "updated_at": "2026-08-30T06:20:17Z",
+      "decay_at": "2026-08-31T18:00:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-95ab488fa436",
       "idea_version": "IDEAV-379f8af00a349b86",
       "idea_version_started_at": "2026-08-30T04:21:03Z",
@@ -90861,76 +91073,6 @@
       "surfaced_at": "2026-08-27T08:58:33Z",
       "updated_at": "2026-08-27T08:58:33Z",
       "decay_at": "2026-08-28T18:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-79843e169c9d",
-      "idea_version": "IDEAV-ec51418bc8331717",
-      "idea_version_started_at": "2026-08-27T08:58:33Z",
-      "ticker": "TATAPOWER.NS",
-      "company": "Tata Power Company Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Singapore court ruling imposes a $640 million liability, creating a significant drag on cash flow and profitability.",
-      "why_now": "The court setback was reported today, August 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cfa9cd04e947"
-      ],
-      "primary_source_event_id": "EVT-cfa9cd04e947",
-      "source_headlines": [
-        "Tata Power Shares Slump Nearly 5% After Singapore Court Setback, $640 Million Liability Raises Profit & Cash Flow Concerns"
-      ],
-      "source_headline": "Tata Power Shares Slump Nearly 5% After Singapore Court Setback, $640 Million Liability Raises Profit & Cash Flow Concerns",
-      "source_url": "https://www.freepressjournal.in/business/tata-power-shares-slump-nearly-5-after-singapore-court-setback-640-million-liability-raises-profit-cash-flow-concerns",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T06:16:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T08:58:33Z",
-      "updated_at": "2026-08-27T08:58:33Z",
-      "decay_at": "2026-08-28T18:16:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94851,7 +94993,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 182,
+      "file_count": 183,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -100055,8 +100197,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T18:16:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-30T06:20:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -113485,8 +113627,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 287,
-    "live_count": 34,
+    "surfaced_total": 290,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
