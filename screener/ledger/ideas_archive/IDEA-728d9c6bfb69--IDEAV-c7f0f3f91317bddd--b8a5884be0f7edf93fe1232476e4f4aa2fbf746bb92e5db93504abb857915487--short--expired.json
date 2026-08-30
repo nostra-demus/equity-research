@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-30T23:54:16Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-728d9c6bfb69",
+    "idea_version": "IDEAV-c7f0f3f91317bddd",
+    "idea_version_started_at": "2026-08-28T00:35:47Z",
+    "ticker": "HRL",
+    "company": "Hormel Foods",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Hormel Foods stock dropped 10% on earnings miss, indicating near-term demand or margin pressure.",
+    "why_now": "Motley Fool article 2026-08-27 citing today's 10% drop on earnings; fresh negative catalyst.",
+    "conviction": 50,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 55,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-863190b3dfa2"
+    ],
+    "primary_source_event_id": "EVT-863190b3dfa2",
+    "source_headlines": [
+      "Why Hormel Foods Stock Swooned by 10% Today"
+    ],
+    "source_headline": "Why Hormel Foods Stock Swooned by 10% Today",
+    "source_url": "https://www.fool.com/investing/2026/08/27/why-hormel-foods-stock-swooned-by-10-today/?source=iedfolrf0000001",
+    "source_name": "The Motley Fool",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-27T23:16:05Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-27T13:17:25Z",
+    "updated_at": "2026-08-28T00:35:47Z",
+    "decay_at": "2026-08-29T11:16:05Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
