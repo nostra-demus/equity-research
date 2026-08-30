@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:30:17Z",
+  "generated_at": "2026-08-30T05:35:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1744,6 +1744,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-092",
+      "headline": "Mapping the Iran war’s strikes on Gulf energy – and what comes next for oil",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/8/30/mapping-the-iran-wars-strikes-on-gulf-energy-and-what-comes-next-for-oil?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-30T05:09:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Military strikes on Gulf energy infrastructure represent a significant supply shock risk to global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Military strikes on Gulf energy infrastructure represent a significant supply shock risk to global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-074",
       "headline": "Venezuela says 25-year US oil deal could generate US$209 billion while preserving resource sovereignty",
       "headline_en": null,
@@ -1881,55 +1924,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-085",
-      "headline": "Leela Palaces Hotels Under Investor's Radar As Jefferies Initiates 'Buy' On Travel Boom — Check Target Price",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/leela-palaces-hotels-under-investors-radar-as-jefferies-initiates-buy-on-luxury-travel-boom-check-target-price-11975093#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T03:30:08Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Jefferies initiated a 'Buy' rating on Leela Palaces Hotels, which may influence investor sentiment and liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Jefferies initiated a 'Buy' rating on Leela Palaces Hotels, which may influence investor sentiment and liquidity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leela Palaces Hotels",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113418,9 +113412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 652,
-    "news_picked_today": 116,
-    "news_dropped_today": 536
+    "news_seen_today": 660,
+    "news_picked_today": 118,
+    "news_dropped_today": 542
   },
   "book_momentum": {
     "live_count": 8,
