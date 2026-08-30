@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T00:35:16Z",
+  "generated_at": "2026-08-30T00:45:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-006",
@@ -16,6 +16,49 @@
       "launched_signal_id": null,
       "triage_score": 92,
       "triage_reason": "Geopolitical escalation involving Iran and US sanctions poses a significant risk to global energy markets and regional stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-011",
+      "headline": "Iran war live: Tehran to stand firm to US sanctions; settlers besiege Qusra",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/30/iran-war-live-iran-pledges-to-stand-firm-against-unjust-us-sanctions?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Ongoing geopolitical conflict and sanctions escalation in Iran pose risks to regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Ongoing geopolitical conflict and sanctions escalation in Iran pose risks to regional stability and global energy markets.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -192,6 +235,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-014",
+      "headline": "Iran war news LIVE Updates: Oil ‘normally’ transiting southern Strait of Hormuz route? Tehran questions US claim",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-war-news-live-updates-us-donald-trump-oil-strait-of-hormuz-route-tehran-questions-us-claim-oman-deal-iraq-pakistan-11788048822918.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:30:42Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Heightened tensions regarding the Strait of Hormuz pose a direct risk to global oil supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Heightened tensions regarding the Strait of Hormuz pose a direct risk to global oil supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-016",
+      "headline": "30-40 Students Fall Ill After Suspected Food Poisoning On Mangala Express During School Trip, Railway Teams Provide Medical Aid",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/education/30-40-students-fall-ill-after-suspected-food-poisoning-on-mangala-express-during-school-trip-railway-teams-provide-medical-aid",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:01:53Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A food poisoning incident on a major rail line highlights operational and safety risks for Indian Railways.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "A food poisoning incident on a major rail line highlights operational and safety risks for Indian Railways.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Railways",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-005",
       "headline": "Morgan Stanley finds bigger story in SpaceX’s $100 billion bet",
       "headline_en": null,
@@ -241,6 +376,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-015",
+      "headline": "FIR Filed Against Mamata Banerjee Over Alleged Violation Of Calcutta HC Order During TMC Students’ Wing Rally",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/fir-filed-against-mamata-banerjee-over-alleged-violation-of-calcutta-hc-order-during-tmc-students-wing-rally",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:06:29Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Legal action against a high-profile political figure in India creates potential for regional political instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Legal action against a high-profile political figure in India creates potential for regional political instability.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -381,6 +559,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-012",
+      "headline": "World News Today Live Updates on August 30, 2026 : At least 37 killed in drone attack on ammunition warehouse in Myla; Zelenskyy responds",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/total-world-latest-news-on-august-30-2026-live-updates-11788050033629.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:33:53Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-003",
       "headline": "Voting closes in Iceland’s knife-edge EU referendum",
       "headline_en": null,
@@ -406,6 +627,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-013",
+      "headline": "At least 37 killed in drone attack on ammunition warehouse in Myla; Zelenskyy responds",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/at-least-37-killed-in-drone-attack-on-ammunition-warehouse-in-myla-zelenskyy-responds-11788049311832.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:33:42Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A drone attack on an ammunition warehouse represents a significant escalation in the ongoing conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -87243,77 +87507,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-314816d42d62",
-      "idea_version": "IDEAV-d9c564e47f22d9c5",
-      "idea_version_started_at": "2026-08-29T21:53:05Z",
-      "ticker": "PANASIA",
-      "company": "Pan Asia Data Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Pan Asia Data Holdings Limited issued a profit warning, indicating a likely significant negative impact on its earnings.",
-      "why_now": "The profit warning was announced on August 28, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b2efa56f6ab"
-      ],
-      "primary_source_event_id": "EVT-8b2efa56f6ab",
-      "source_headlines": [
-        "PAN ASIA DATA H (01561): PROFIT WARNING"
-      ],
-      "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T21:53:05Z",
-      "updated_at": "2026-08-29T21:53:05Z",
-      "decay_at": "2026-08-30T00:44:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a0e564e1a8d",
       "idea_version": "IDEAV-f64a70fb34817e0a",
       "idea_version_started_at": "2026-08-29T21:53:05Z",
@@ -88594,77 +88787,6 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T12:26:38Z",
       "decay_at": "2026-08-30T02:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3b0ee430113b",
-      "idea_version": "IDEAV-e5b2584375e51428",
-      "idea_version_started_at": "2026-08-29T10:43:25Z",
-      "ticker": "01561",
-      "company": "PAN ASIA DATA H",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
-      "why_now": "The company released its profit warning announcement on August 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b2efa56f6ab"
-      ],
-      "primary_source_event_id": "EVT-8b2efa56f6ab",
-      "source_headlines": [
-        "PAN ASIA DATA H (01561): PROFIT WARNING"
-      ],
-      "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:43:25Z",
-      "updated_at": "2026-08-29T10:43:25Z",
-      "decay_at": "2026-08-30T00:44:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -90147,6 +90269,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-314816d42d62",
+      "idea_version": "IDEAV-d9c564e47f22d9c5",
+      "idea_version_started_at": "2026-08-29T21:53:05Z",
+      "ticker": "PANASIA",
+      "company": "Pan Asia Data Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Pan Asia Data Holdings Limited issued a profit warning, indicating a likely significant negative impact on its earnings.",
+      "why_now": "The profit warning was announced on August 28, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b2efa56f6ab"
+      ],
+      "primary_source_event_id": "EVT-8b2efa56f6ab",
+      "source_headlines": [
+        "PAN ASIA DATA H (01561): PROFIT WARNING"
+      ],
+      "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T21:53:05Z",
+      "updated_at": "2026-08-29T21:53:05Z",
+      "decay_at": "2026-08-30T00:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-86375a9f234f",
       "idea_version": "IDEAV-9998d6f5a46168a3",
       "idea_version_started_at": "2026-08-29T21:53:05Z",
@@ -91281,6 +91474,77 @@
       "surfaced_at": "2026-08-29T12:04:51Z",
       "updated_at": "2026-08-29T12:04:51Z",
       "decay_at": "2026-08-29T21:02:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3b0ee430113b",
+      "idea_version": "IDEAV-e5b2584375e51428",
+      "idea_version_started_at": "2026-08-29T10:43:25Z",
+      "ticker": "01561",
+      "company": "PAN ASIA DATA H",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
+      "why_now": "The company released its profit warning announcement on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b2efa56f6ab"
+      ],
+      "primary_source_event_id": "EVT-8b2efa56f6ab",
+      "source_headlines": [
+        "PAN ASIA DATA H (01561): PROFIT WARNING"
+      ],
+      "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T10:43:25Z",
+      "decay_at": "2026-08-30T00:44:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -92944,8 +93208,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 232,
-    "shown_count": 232,
+    "total_count": 234,
+    "shown_count": 234,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -92954,8 +93218,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 124,
-        "shown_count": 124,
+        "total_count": 126,
+        "shown_count": 126,
         "hidden_count": 0
       }
     },
@@ -92975,6 +93239,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-314816d42d62",
+        "idea_version": "IDEAV-d9c564e47f22d9c5",
+        "idea_version_started_at": "2026-08-29T21:53:05Z",
+        "ticker": "PANASIA",
+        "company": "Pan Asia Data Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Pan Asia Data Holdings Limited issued a profit warning, indicating a likely significant negative impact on its earnings.",
+        "why_now": "The profit warning was announced on August 28, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b2efa56f6ab"
+        ],
+        "primary_source_event_id": "EVT-8b2efa56f6ab",
+        "source_headlines": [
+          "PAN ASIA DATA H (01561): PROFIT WARNING"
+        ],
+        "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:44:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T21:53:05Z",
+        "updated_at": "2026-08-29T21:53:05Z",
+        "decay_at": "2026-08-30T00:44:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:44:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3b0ee430113b",
+        "idea_version": "IDEAV-e5b2584375e51428",
+        "idea_version_started_at": "2026-08-29T10:43:25Z",
+        "ticker": "01561",
+        "company": "PAN ASIA DATA H",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "PAN ASIA DATA H issued a profit warning, indicating that its financial results will be lower than market expectations.",
+        "why_now": "The company released its profit warning announcement on August 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b2efa56f6ab"
+        ],
+        "primary_source_event_id": "EVT-8b2efa56f6ab",
+        "source_headlines": [
+          "PAN ASIA DATA H (01561): PROFIT WARNING"
+        ],
+        "source_headline": "PAN ASIA DATA H (01561): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802706.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:44:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:43:25Z",
+        "updated_at": "2026-08-29T10:43:25Z",
+        "decay_at": "2026-08-30T00:44:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:44:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8b68f20f17c3",
         "idea_version": "IDEAV-cf3677a0ed88dfc6",
@@ -110173,7 +110585,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 274,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -110183,7 +110595,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1792,
+    "inbox_unconsumed": 1798,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -110192,9 +110604,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 68,
-    "news_picked_today": 11,
-    "news_dropped_today": 57
+    "news_seen_today": 92,
+    "news_picked_today": 17,
+    "news_dropped_today": 75
   },
   "book_momentum": {
     "live_count": 8,
