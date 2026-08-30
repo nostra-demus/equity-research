@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:05:27Z",
+  "generated_at": "2026-08-30T01:09:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -1001,6 +1001,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-024",
+      "headline": "Bhopal Municipal Corporation Invites Bids For ‘Son Chiraiya’ Despite Council Deferring Proposal; Commissioner Orders Cancellation",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/bhopal-municipal-corporation-invites-bids-for-son-chiraiya-despite-council-deferring-proposal-commissioner-orders-cancellation",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A local municipal administrative dispute regarding a specific project bid cancellation is not material to broader investment markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "A local municipal administrative dispute regarding a specific project bid cancellation is not material to broader investment markets.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bhopal Municipal Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -111020,7 +111069,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1804,
+    "inbox_unconsumed": 1805,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111029,9 +111078,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 123,
-    "news_picked_today": 24,
-    "news_dropped_today": 99
+    "news_seen_today": 132,
+    "news_picked_today": 25,
+    "news_dropped_today": 107
   },
   "book_momentum": {
     "live_count": 8,
