@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:21:20Z",
+  "generated_at": "2026-08-30T04:24:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -532,6 +532,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-076",
+      "headline": "Anglo Teck up against Glencore’s ‘hardball’ negotiators to deliver merger gains",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/bcb35264-a96c-49c0-984f-4b379d088581?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:00:19Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The headline discusses the ongoing negotiation dynamics and potential synergy realization for a major mining merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The headline discusses the ongoing negotiation dynamics and potential synergy realization for a major mining merger.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anglo American",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Glencore",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1856,55 +1910,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-016",
-      "headline": "30-40 Students Fall Ill After Suspected Food Poisoning On Mangala Express During School Trip, Railway Teams Provide Medical Aid",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/education/30-40-students-fall-ill-after-suspected-food-poisoning-on-mangala-express-during-school-trip-railway-teams-provide-medical-aid",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:01:53Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A food poisoning incident on a major rail line highlights operational and safety risks for Indian Railways.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "A food poisoning incident on a major rail line highlights operational and safety risks for Indian Railways.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Railways",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -113323,9 +113328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 492,
-    "news_picked_today": 84,
-    "news_dropped_today": 408
+    "news_seen_today": 505,
+    "news_picked_today": 88,
+    "news_dropped_today": 417
   },
   "book_momentum": {
     "live_count": 8,
