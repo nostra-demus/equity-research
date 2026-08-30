@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:04:53Z",
+  "generated_at": "2026-08-30T04:09:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1246,6 +1246,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-072",
+      "headline": "INTCO Medical annonce une croissance de 40,6% de son chiffre d'affaires au premier semestre 2026 et porte à 107 milliards d'unités sa capacité de production de gants jetables, la plus importante au monde",
+      "headline_en": "INTCO Medical announces 40.6% revenue growth in 1H 2026 and increases its disposable glove production capacity to 107 billion units, the largest in the world",
+      "url": "https://www.prnewswire.com/news-releases/intco-medical-annonce-une-croissance-de-40-6-de-son-chiffre-daffaires-au-premier-semestre-2026-et-porte-a-107-milliards-dunites-sa-capacite-de-production-de-gants-jetables-la-plus-importante-au-monde-302864362.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-30T04:06:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "INTCO Medical reported 40.6% revenue growth for 1H 2026 and expanded production capacity to 107 billion units.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "INTCO Medical reported 40.6% revenue growth for 1H 2026 and expanded production capacity to 107 billion units.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INTCO Medical",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-050",
       "headline": "INTCO Medical rapporteert omzetgroei van 40,6% in de eerste helft van 2026, breidt de grootste wegwerphandschoenencapaciteit ter wereld uit tot 107 miljard stuks",
       "headline_en": "INTCO Medical reports 40.6% revenue growth in the first half of 2026, expands the world's largest disposable glove capacity to 107 billion units",
@@ -1861,60 +1911,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-005",
-      "headline": "Morgan Stanley finds bigger story in SpaceX’s $100 billion bet",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/spacex-stock-morgan-stanley-louisiana-starbase",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Analyst commentary on a major private company's valuation and capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Analyst commentary on a major private company's valuation and capital deployment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113259,9 +113255,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 460,
-    "news_picked_today": 79,
-    "news_dropped_today": 381
+    "news_seen_today": 478,
+    "news_picked_today": 82,
+    "news_dropped_today": 396
   },
   "book_momentum": {
     "live_count": 8,
