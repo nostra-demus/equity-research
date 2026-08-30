@@ -1,7 +1,7 @@
 {
   "config_version": 1,
   "format": "csv",
-  "source_url_template": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI%40DF_KEI,4.0/OECD.M.PRVM.IX.BTE.Y._Z?startPeriod=2010-01&dimensionAtObservation=AllDimensions&format=csvfile&client=NostraResearch-v1",
+  "source_url_template": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI%40DF_KEI,4.0/OECD.M.PRVM.IX.BTE.Y._Z?startPeriod=2010-01&dimensionAtObservation=AllDimensions&format=csvfile",
   "lookback_days": null,
   "max_bytes": 4194304,
   "csv": {
@@ -15,6 +15,16 @@
     {"source": "OBS_STATUS", "target": "status", "type": "string"},
     {"source": "BASE_PER", "target": "base_period", "type": "string"}
   ],
+  "row_filters": {
+    "DATAFLOW": ["OECD.SDD.STES:DSD_KEI@DF_KEI(4.0)"],
+    "REF_AREA": ["OECD"],
+    "FREQ": ["M"],
+    "MEASURE": ["PRVM"],
+    "UNIT_MEASURE": ["IX"],
+    "ACTIVITY": ["BTE"],
+    "ADJUSTMENT": ["Y"],
+    "TRANSFORMATION": ["_Z"]
+  },
   "records_field": "observations",
   "as_of_field": "date",
   "static_fields": {

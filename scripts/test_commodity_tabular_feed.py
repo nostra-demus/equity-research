@@ -74,6 +74,26 @@ as_of, monthly_payload, _ = build(
 assert as_of == "2024-04-30"
 assert monthly_payload["observations"][0]["date"] == "2024-02-29"
 
+filtered_config = copy.deepcopy(monthly_config)
+filtered_config["row_filters"] = {"observation_date": ["2024-02", "2024-04"]}
+build(
+    b"observation_date,DFII10\n2024-02,1.0\n2024-04,1.2\n",
+    monthly_manifest,
+    filtered_config,
+    url=filtered_config["source_url_template"],
+)
+try:
+    build(
+        b"observation_date,DFII10\n2024-02,1.0\n2024-05,1.2\n",
+        monthly_manifest,
+        filtered_config,
+        url=filtered_config["source_url_template"],
+    )
+except RuntimeError as error:
+    assert "series identity" in str(error)
+else:
+    raise AssertionError("a row outside the declared exact-value filter was accepted")
+
 try:
     build(
         b"observation_date,DFII10\n2024-02,1.0\n2024-13,1.2\n",

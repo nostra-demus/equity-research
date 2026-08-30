@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from canonical_json import canonical_json_bytes
-from connector_contract import load_valid_manifests
+from connector_contract import load_valid_manifests, release_contract_window
 from connector_vintages import read_point_in_time, resolve_vintage_id
 from market_prices import load_feed
 from repo_mutation import atomic_write_json
@@ -232,7 +232,10 @@ def _value_at(value: Any, dotted_path: str | None) -> Any:
     return current
 
 
-def _quality_error(payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt.datetime) -> str | None:
+def _quality_error(
+    payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt.datetime, *,
+    release: dict[str, Any] | None = None, retrieved_at: str | None = None,
+) -> str | None:
     observed = _value_at(payload, quality.get("path")) if quality.get("path") else (
         payload.get("points") if isinstance(payload, dict) else None
     )
@@ -256,6 +259,13 @@ def _quality_error(payload: Any, as_of: Any, quality: dict[str, Any], cutoff: dt
         return "as-of is missing or after the decision time"
     max_staleness = quality.get("max_staleness_days")
     if max_staleness is not None and (cutoff - as_of_time).total_seconds() > max_staleness * 86400:
+        if isinstance(release, dict) and release.get("active_months"):
+            try:
+                _due, grace_end = release_contract_window(release, as_of_time.date(), retrieved_at)
+            except (KeyError, TypeError, ValueError):
+                return "seasonal release contract is invalid"
+            if cutoff <= grace_end.astimezone(dt.timezone.utc):
+                return None
         return f"as-of is more than {max_staleness} days stale"
     return None
 
@@ -523,7 +533,10 @@ def _resolve_connector(
                 "reason": "sealed manual vintage is not eligible official/provider evidence",
                 "manifest": manifest,
             }
-    defect = _quality_error(result.get("payload"), vintage.get("as_of"), requirement["quality"], cutoff)
+    defect = _quality_error(
+        result.get("payload"), vintage.get("as_of"), requirement["quality"], cutoff,
+        release=vintage.get("release"), retrieved_at=vintage.get("retrieved_at"),
+    )
     if defect:
         return {"usable": False, "status": "suspect", "reason": defect, "manifest": manifest}
     return result

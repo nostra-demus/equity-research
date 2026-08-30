@@ -1895,6 +1895,7 @@ for label, mutate in (
     ("credential-bearing licensing terms URL",
      lambda x: x["licensing"].update({"terms_url": "https://user:secret@example.test/terms"})),
     ("credential name without CONNECTOR_* prefix", lambda x: x.update({"credential_env": ["VENDOR_API_KEY"]})),
+    ("invalid seasonal release months", lambda x: x["release"].update({"active_months": [0, 12, 12]})),
     ("unknown minimum_history field", lambda x: x["minimum_history"].update({"surprise": True})),
     ("unsupported compact-schema token", lambda x: x["output_schema"].update({"bad": "number"})),
     ("multi-item compact-schema array", lambda x: x["output_schema"].update({"bad": ["string", "int"]})),
@@ -1971,6 +1972,21 @@ clock_man["release"].update({"cadence": "monthly", "timezone": "UTC", "expected_
 monthly_before = m.release_is_due(clock_man, datetime(2026, 3, 24, 23, 59, tzinfo=timezone.utc), date(2026, 1, 31))[0]
 monthly_at = m.release_is_due(clock_man, datetime(2026, 3, 25, 0, 0, tzinfo=timezone.utc), date(2026, 1, 31))[0]
 check("monthly cadence advances calendar-aware before adding lag", not monthly_before and monthly_at)
+clock_man["release"].update({
+    "cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1,
+    "grace_days": 6, "active_months": [4, 5, 6, 7, 8, 9, 10, 11],
+})
+offseason_due = m.release_is_due(
+    clock_man, datetime(2027, 2, 1, 12, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)[0]
+opening_due, opening_grace = m.release_is_due(
+    clock_man, datetime(2027, 4, 12, 4, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)
+_, after_opening_grace = m.release_is_due(
+    clock_man, datetime(2027, 4, 13, 4, 0, tzinfo=timezone.utc), date(2026, 11, 30),
+)
+check("seasonal weekly cadence stays quiet off-season and becomes due at the next active release",
+      not offseason_due and opening_due and opening_grace and not after_opening_grace)
 shutil.rmtree(root)
 
 # 24. Every accepted unchanged pull advances code/retrieval identity; as_of can never roll backward.

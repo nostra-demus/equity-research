@@ -30,6 +30,33 @@
       "capital_iq_fallback": "A licensed export may fill one leg, but the connector must preserve installed and commissioned LNG capacity, terminal outages, pipeline technical and available capacity, nominations, physical flows, and restriction notices as separate dated fields."
     },
     {
+      "id": "crop-biofuel-physical-demand",
+      "need_pattern": "^(corn-ethanol-demand|soybeans-biofuel-physical-use)$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_composite_eia_usda_physical_biofuel_demand",
+      "authorities": [
+        {"provider": "U.S. Energy Information Administration petroleum and biofuels data", "url": "https://www.eia.gov/biofuels/", "access": "public"},
+        {"provider": "USDA NASS Grain Crushings and Co-Products Production", "url": "https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Grain_Crushings/", "access": "public"},
+        {"provider": "USDA NASS Fats and Oils: Oilseed Crushings, Production, Consumption and Stocks", "url": "https://www.nass.usda.gov/Surveys/Guide_to_NASS_Surveys/Fats_and_Oils/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may fill one exact parent only. Keep ethanol output and stocks, corn grind, soybean-oil biofuel use, feedstock share, margin inputs, units, periods and release vintages as separate fields; policy and fuel prices cannot substitute for realised physical use."
+    },
+    {
+      "id": "aluminium-china-capacity-power",
+      "need_pattern": "^aluminium-china-capacity-power$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "primary_china_capacity_hydro_grid_and_producer_releases",
+      "authorities": [
+        {"provider": "National Development and Reform Commission of China", "url": "https://en.ndrc.gov.cn/", "access": "mixed"},
+        {"provider": "National Energy Administration of China", "url": "https://english.www.gov.cn/state_council/2014/10/01/content_281474991089761.htm", "access": "mixed"},
+        {"provider": "Yunnan provincial energy authorities", "url": "https://www.yn.gov.cn/", "access": "mixed"},
+        {"provider": "China Southern Power Grid and primary aluminium producers", "url": "https://eng.csg.cn/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed capacity or output series is a cross-check only. Decision-grade evidence must retain the dated capacity cap, hydro availability, grid curtailment instruction, affected smelting capacity, geography and primary publisher; estimates cannot replace those releases."
+    },
+    {
       "id": "official-policy-events",
       "need_pattern": "((^|-)policy(-|$)|routing|restriction|curtailment|opec|pipeline-availability|capacity-availability)",
       "route_kind": "official_event",

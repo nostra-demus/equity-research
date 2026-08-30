@@ -178,7 +178,6 @@ try:
     from connector_contract import (  # noqa: E402
         STABLE_READ_ATTEMPTS as _STABLE_READ_ATTEMPTS,
         TRANSIENT_READ_ERRNOS as _TRANSIENT_READ_ERRNOS,
-        advance_release_period,
         canonical_json_bytes,
         connector_storage_paths,
         content_identity as _content_identity,
@@ -187,6 +186,7 @@ try:
         no_symlink_path,
         normalise_manifest,
         publisher_owned_sidecar_fields,
+        release_contract_window,
         reread_digest_matches as _reread_digest_matches,
         stable_read_backoff as _stable_read_backoff,
         validate_manifest,
@@ -1011,34 +1011,7 @@ def latest_as_of(man: dict, data_root: str, subject: str):
 
 def release_window(man: dict, as_of: date, retrieved_at: str | datetime | None = None) -> tuple[datetime, datetime]:
     """Return the next due instant and grace deadline in the declared release timezone."""
-    release = man["release"]
-    zone = ZoneInfo(release["timezone"])
-    cadence = release["cadence"]
-    base = datetime(as_of.year, as_of.month, as_of.day, tzinfo=zone)
-    retrieved = None
-    if retrieved_at:
-        try:
-            retrieved = (retrieved_at if isinstance(retrieved_at, datetime)
-                         else datetime.fromisoformat(str(retrieved_at).replace("Z", "+00:00")))
-            if retrieved.tzinfo is None:
-                retrieved = retrieved.replace(tzinfo=timezone.utc)
-            retrieved = retrieved.astimezone(zone)
-        except (TypeError, ValueError):
-            retrieved = None
-    next_date = advance_release_period(as_of, cadence)
-    if next_date is not None:
-        next_period = datetime(next_date.year, next_date.month, next_date.day, tzinfo=zone)
-    elif cadence == "twelve_hourly":
-        next_period = (retrieved or base) + timedelta(hours=12)
-    elif cadence == "event_driven":
-        # Event-driven feeds have no predictable observation period: recheck
-        # from the accepted retrieval using their declared grace interval.
-        next_period = (retrieved or base) + timedelta(days=float(release["grace_days"]))
-        return next_period, next_period
-    else:
-        raise ValueError(f"unsupported connector release cadence: {cadence!r}")
-    due = next_period + timedelta(days=float(release["expected_lag_days"]))
-    return due, due + timedelta(days=float(release["grace_days"]))
+    return release_contract_window(man["release"], as_of, retrieved_at)
 
 
 def release_is_due(man: dict, now: datetime, as_of: date, retrieved_at: str | datetime | None = None) -> tuple[bool, bool]:

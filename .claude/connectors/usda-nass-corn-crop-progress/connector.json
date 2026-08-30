@@ -17,7 +17,7 @@
   "licensing": {"access": "public", "use": "allowed", "redistribution": "unknown", "terms_url": "https://quickstats.nass.usda.gov/api"},
   "host_allowlist": ["quickstats.nass.usda.gov"],
   "credential_env": ["CONNECTOR_USDA_NASS_CORN_CROP_PROGRESS_API_KEY"],
-  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1, "grace_days": 6, "revision_policy": "revisable"},
+  "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1, "grace_days": 6, "active_months": [4, 5, 6, 7, 8, 9, 10, 11], "revision_policy": "revisable"},
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
   "output_path": "data/<SUBJECT>/external/usda/crop_progress_<as_of>.json",

@@ -205,6 +205,12 @@ discovered_ids = {manifest["id"] for manifest in discovered}
 assert set(all_manifests) <= discovered_ids, {
     "missing": sorted(set(all_manifests) - discovered_ids), "skipped": skipped,
 }
+for crop_connector in (
+    "usda-nass-corn-crop-progress", "usda-nass-soybeans-crop-progress",
+    "usda-nass-wheat-crop-progress", "usda-nass-cotton-crop-progress",
+):
+    crop_manifest = next(manifest for manifest in discovered if manifest["id"] == crop_connector)
+    assert crop_manifest["release"]["active_months"] == [4, 5, 6, 7, 8, 9, 10, 11]
 with tempfile.TemporaryDirectory() as temp:
     empty = Path(temp)
     for commodity in CONNECTORS:

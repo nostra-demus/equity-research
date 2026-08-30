@@ -30,11 +30,14 @@ assert len(payload["observations"]) == 144
 assert payload["observations"][1]["date"] == "2014-02-28"
 assert payload["observations"][-1]["date"] == "2025-12-31"
 assert payload["reference_area"] == "OECD Total"
+assert "client=" not in fixture_url
 
 for bad in (
     b"TIME_PERIOD,OBS_VALUE,OBS_STATUS,BASE_PER\n2026-01,100,A,2015",
     (header + "\n2026-13,100,A,2015\n").encode(),
     (header + "\n2026-01,-1,A,2015\n").encode(),
+    (header + "\nOECD.SDD.STES:DSD_KEI@DF_KEI(4.0),USA,M,PRVM,IX,BTE,Y,_Z,2026-01,100,A,0,1,2015\n").encode(),
+    (header + "\nOECD.SDD.STES:DSD_KEI@DF_KEI(4.0),OECD,Q,PRVM,IX,BTE,Y,_Z,2026-01,100,A,0,1,2015\n").encode(),
 ):
     try:
         build(bad, manifest, config, url=fixture_url)

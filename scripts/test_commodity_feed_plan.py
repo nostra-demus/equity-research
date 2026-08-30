@@ -79,6 +79,26 @@ soy_china = next(
     if item["need_id"] == "soybeans-china-import-arrivals"
 )
 assert soy_china["source_rule_id"] == "china-activity-trade"
+for commodity, need in (
+    ("CORN", "corn-ethanol-demand"),
+    ("SOYBEANS", "soybeans-biofuel-physical-use"),
+):
+    plan = next(item for item in plans if item["commodity"] == commodity)
+    row = next(item for item in plan["rows"] if item["need_id"] == need)
+    assert row["source_rule_id"] == "crop-biofuel-physical-demand"
+    providers = {authority["provider"] for authority in row["authorities"]}
+    assert any(provider.startswith("U.S. Energy Information Administration") for provider in providers)
+    assert any(provider.startswith("USDA NASS") for provider in providers)
+aluminium = next(item for item in plans if item["commodity"] == "ALUMINIUM")
+china_power = next(item for item in aluminium["rows"] if item["need_id"] == "aluminium-china-capacity-power")
+assert china_power["source_rule_id"] == "aluminium-china-capacity-power"
+assert {
+    "National Development and Reform Commission of China",
+    "National Energy Administration of China",
+    "Yunnan provincial energy authorities",
+    "China Southern Power Grid and primary aluminium producers",
+} <= {authority["provider"] for authority in china_power["authorities"]}
+assert china_power["capital_iq_use"] == "partial_input"
 for commodity, need, rule_id, provider in (
     ("CRUDE-OIL", "crude-oil-oecd-global-inventory-days-cover", "crude-oil-oecd-global-inventory-days-cover", "International Energy Agency Oil Market Report"),
     ("COCOA", "cocoa-stocks-grindings", "cocoa-stocks-grindings", "International Cocoa Organization"),

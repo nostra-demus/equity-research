@@ -15,9 +15,8 @@ import os
 import re
 import stat
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Any
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -28,12 +27,12 @@ try:
     from connector_contract import (  # noqa: E402
         STABLE_READ_ATTEMPTS,
         TRANSIENT_READ_ERRNOS,
-        advance_release_period,
         canonical_json_bytes,
         connector_storage_paths,
         content_identity,
         load_valid_manifests,
         no_symlink_path,
+        release_contract_window,
         reread_digest_matches,
         stable_read_backoff,
     )
@@ -1296,25 +1295,13 @@ def _eligible_through(vintage: dict[str, Any]) -> datetime | None:
     if not isinstance(release, dict):
         return None
     try:
-        zone = ZoneInfo(str(release["timezone"]))
         observed = datetime.strptime(str(vintage["as_of"]), "%Y-%m-%d").date()
         retrieved = _utc(str(vintage["retrieved_at"]))
         if retrieved is None:
             return datetime.min.replace(tzinfo=timezone.utc)
-        local_retrieved = retrieved.astimezone(zone)
-        cadence = release["cadence"]
-        next_date = advance_release_period(observed, cadence)
-        if next_date is not None:
-            next_period = datetime(next_date.year, next_date.month, next_date.day, tzinfo=zone)
-        elif cadence == "twelve_hourly":
-            next_period = local_retrieved + timedelta(hours=12)
-        elif cadence == "event_driven":
-            return (local_retrieved + timedelta(days=float(release["grace_days"]))).astimezone(timezone.utc)
-        else:
-            return datetime.min.replace(tzinfo=timezone.utc)
-        due = next_period + timedelta(days=float(release["expected_lag_days"]))
-        return (due + timedelta(days=float(release["grace_days"]))).astimezone(timezone.utc)
-    except (KeyError, TypeError, ValueError, ZoneInfoNotFoundError):
+        _due, grace_end = release_contract_window(release, observed, retrieved)
+        return grace_end.astimezone(timezone.utc)
+    except (KeyError, TypeError, ValueError):
         return datetime.min.replace(tzinfo=timezone.utc)
 
 

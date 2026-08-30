@@ -27,11 +27,12 @@ from connector_contract import validate_payload
 from connector_fetch_support import fetch_bytes, load_manifest, provenance, publish_pair
 
 
-CONFIG_KEYS = {
+REQUIRED_CONFIG_KEYS = {
     "config_version", "format", "source_url_template", "lookback_days", "max_bytes",
     "csv", "columns", "records_field", "as_of_field", "static_fields",
     "source_url_field", "provider_slug", "filename_stem", "note",
 }
+OPTIONAL_CONFIG_KEYS = {"row_filters"}
 COLUMN_KEYS = {
     "source", "target", "type", "missing_values", "missing_action", "minimum", "maximum",
 }
@@ -50,7 +51,11 @@ def load_config(fetch_file: str) -> dict[str, Any]:
 
 
 def validate_config(config: Any) -> None:
-    if not isinstance(config, dict) or set(config) != CONFIG_KEYS:
+    if (
+        not isinstance(config, dict)
+        or not REQUIRED_CONFIG_KEYS <= set(config)
+        or set(config) - REQUIRED_CONFIG_KEYS - OPTIONAL_CONFIG_KEYS
+    ):
         raise RuntimeError("feed.json has unknown or missing top-level fields")
     if config.get("config_version") != 1 or config.get("format") != "csv":
         raise RuntimeError("feed.json requires config_version 1 and format csv")
@@ -128,6 +133,19 @@ def validate_config(config: Any) -> None:
         raise RuntimeError("static_fields must be an object without reserved output fields")
     if not all(isinstance(key, str) and SAFE_SLUG_RE.fullmatch(key) for key in static):
         raise RuntimeError("static_fields contains an unsafe output field")
+    filters = config.get("row_filters", {})
+    if (
+        not isinstance(filters, dict)
+        or ("row_filters" in config and not filters)
+        or not all(
+            isinstance(source, str) and source in csv_config["header"]
+            and isinstance(values, list) and values
+            and all(isinstance(value, str) and value for value in values)
+            and len(values) == len(set(values))
+            for source, values in filters.items()
+        )
+    ):
+        raise RuntimeError("row_filters must map declared CSV headers to unique exact values")
     for field in ("provider_slug", "filename_stem"):
         if not isinstance(config.get(field), str) or not SAFE_SLUG_RE.fullmatch(config[field]):
             raise RuntimeError(f"{field} must be a safe slug")
@@ -215,6 +233,10 @@ def build(raw: bytes, manifest: dict[str, Any], config: dict[str, Any], *, url: 
     for row_number, raw_row in enumerate(reader, start=2):
         if raw_row.get(None):
             raise RuntimeError(f"row {row_number} contains fields beyond the declared header")
+        for source, allowed in config.get("row_filters", {}).items():
+            value = raw_row.get(source)
+            if not isinstance(value, str) or value.strip() not in allowed:
+                raise RuntimeError(f"row {row_number} column {source} violates the declared series identity")
         record: dict[str, Any] = {}
         try:
             for column in config["columns"]:

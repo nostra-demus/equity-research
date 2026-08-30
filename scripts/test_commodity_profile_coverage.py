@@ -32,6 +32,21 @@ assert _quality_error(
     dt.datetime(2026, 8, 11, tzinfo=dt.timezone.utc),
 ) == "history spans fewer than 1 required days"
 
+SEASONAL_RELEASE = {
+    "cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1,
+    "grace_days": 6, "active_months": [4, 5, 6, 7, 8, 9, 10, 11],
+}
+assert _quality_error(
+    {}, "2026-11-30", {"max_staleness_days": 14},
+    dt.datetime(2027, 2, 1, tzinfo=dt.timezone.utc),
+    release=SEASONAL_RELEASE, retrieved_at="2026-12-01T15:00:00Z",
+) is None
+assert _quality_error(
+    {}, "2026-11-30", {"max_staleness_days": 14},
+    dt.datetime(2027, 4, 13, tzinfo=dt.timezone.utc),
+    release=SEASONAL_RELEASE, retrieved_at="2026-12-01T15:00:00Z",
+) == "as-of is more than 14 days stale"
+
 
 def markdown() -> str:
     body = "\n".join(f"| `{need}` | `{series}` | {owner} | {req} | {policy} |" for need, series, owner, req, policy in ROWS)
