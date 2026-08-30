@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:04:45Z",
+  "generated_at": "2026-08-30T05:10:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1308,6 +1308,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-088",
+      "headline": "Celebrity pyjama brand Stripe and Stare sizes up London float",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16087329/Celebrity-pyjama-brand-Stripe-Stare-sizes-London-float.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:01:01Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Stripe and Stare is considering an IPO on the London Stock Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Stripe and Stare is considering an IPO on the London Stock Exchange.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stripe and Stare",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-069",
       "headline": "(LEAD) Lee nominates 6 ministers in major Cabinet reshuffle, including finance minister",
       "headline_en": null,
@@ -1880,55 +1929,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-028",
-      "headline": "Peter Thiel's Fund Reported Zero Stocks for 2 Straight Quarters. Its $419 Million Comeback Put 72% Into Energy and Power.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/29/peter-thiel-s-fund-reported-zero-stocks-for-2-straight-quarters-its-usd419-million-comeback-put-72-into-energy-and-power/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:43:01Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The report details a $419 million portfolio shift into energy, which is informational but not a direct corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "The report details a $419 million portfolio shift into energy, which is informational but not a direct corporate event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Founders Fund",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113417,9 +113417,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 584,
-    "news_picked_today": 103,
-    "news_dropped_today": 481
+    "news_seen_today": 613,
+    "news_picked_today": 107,
+    "news_dropped_today": 506
   },
   "book_momentum": {
     "live_count": 8,
