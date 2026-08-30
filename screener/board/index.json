@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T19:29:17Z",
+  "generated_at": "2026-08-30T19:34:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-255",
+      "headline": "Key Star Wars partner liquidated in Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/entertainment/star-wars-legends-tippett-studio-liquidated-after-chapter-11",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T19:29:34Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A key partner for a major franchise has filed for Chapter 11 bankruptcy liquidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A key partner for a major franchise has filed for Chapter 11 bankruptcy liquidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucasfilm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-238",
-      "headline": "Iraqi anti-corruption court jails oil ministry official and imposes multimillion-dollar fine",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/08/30/iraqi-anti-corruption-court-jails-oil-ministry-official-and-imposes-multimillion-dollar-fine/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T16:14:43Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "An Iraqi anti-corruption court has jailed an oil ministry official and imposed a multimillion-dollar fine, indicating significant regulatory and legal enforcement in the energy sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "An Iraqi anti-corruption court has jailed an oil ministry official and imposed a multimillion-dollar fine, indicating significant regulatory and legal enforcement in the energy sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iraqi Ministry of Oil",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115077,9 +115077,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3397,
-    "news_picked_today": 638,
-    "news_dropped_today": 2759
+    "news_seen_today": 3404,
+    "news_picked_today": 641,
+    "news_dropped_today": 2763
   },
   "book_momentum": {
     "live_count": 8,
