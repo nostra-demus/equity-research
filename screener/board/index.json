@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T09:45:05Z",
+  "generated_at": "2026-08-30T09:51:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1682,6 +1682,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-178",
+      "headline": "CXMT joins growing list of Chinese tech firms suing US Pentagon over blacklists",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3365751/cxmt-joins-growing-list-chinese-tech-firms-suing-us-pentagon-over-blacklists?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:46:26Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "CXMT is suing the US Pentagon to challenge its inclusion on a blacklist, which impacts its regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CXMT is suing the US Pentagon to challenge its inclusion on a blacklist, which impacts its regulatory and operational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ChangXin Memory Technologies",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-177",
       "headline": "Chelsea sign Argentine goalkeeper Emiliano Martinez from Aston Villa on three-year deal",
       "headline_en": null,
@@ -1926,55 +1976,6 @@
           "name": "ONGC",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-060",
-      "headline": "Wife of British man who died after turbulence sues Singapore Airlines",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3365728/wife-british-man-who-died-after-turbulence-sues-singapore-airlines?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T03:04:31Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Singapore Airlines faces a lawsuit following a fatal turbulence incident, creating potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Singapore Airlines faces a lawsuit following a fatal turbulence incident, creating potential legal and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -114351,9 +114352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1621,
-    "news_picked_today": 276,
-    "news_dropped_today": 1345
+    "news_seen_today": 1632,
+    "news_picked_today": 279,
+    "news_dropped_today": 1353
   },
   "book_momentum": {
     "live_count": 8,
