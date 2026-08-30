@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T02:09:40Z",
+  "generated_at": "2026-08-30T02:19:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-046",
@@ -337,6 +337,56 @@
           "name": "Stonepeak",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-047",
+      "headline": "Chinese chipmaker CXMT sues Pentagon over ‘Chinese military company’ designation",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/chinese-chipmaker-cxmt-sues-pentagon-over-chinese-military-company-designation",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:14:29Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "CXMT is suing the US Department of Defense to challenge its designation as a Chinese military company, which carries significant operational and trade risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "CXMT is suing the US Department of Defense to challenge its designation as a Chinese military company, which carries significant operational and trade risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ChangXin Memory Technologies",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -1809,49 +1859,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-045",
-      "headline": "Abdul El-Sayed clinches Democratic nomination for US Senate seat in Michigan",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/abdul-el-sayed-clinches-democratic-nomination-us-senate-seat-michigan",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:02:32Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Political primary results are standard electoral events and generally not material to market valuations unless specific policy shifts are tied to the candidate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Political primary results are standard electoral events and generally not material to market valuations unless specific policy shifts are tied to the candidate.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -112249,9 +112256,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 243,
-    "news_picked_today": 47,
-    "news_dropped_today": 196
+    "news_seen_today": 248,
+    "news_picked_today": 48,
+    "news_dropped_today": 200
   },
   "book_momentum": {
     "live_count": 8,
