@@ -9,7 +9,9 @@ import re
 from pathlib import Path
 from typing import Any
 
-from commodity_profile_coverage import REPO, compile_coverage
+from commodity_profile_coverage import (
+    REPO, compile_coverage, load_preflight_bundle,
+)
 from repo_mutation import atomic_write_json
 
 
@@ -153,6 +155,7 @@ def main() -> int:
     parser.add_argument("run_root", type=Path)
     parser.add_argument("--decision-time")
     parser.add_argument("--write-state", action="store_true")
+    parser.add_argument("--use-preflight", action="store_true")
     reads = parser.add_mutually_exclusive_group()
     reads.add_argument("--read-decision-time", action="store_true")
     reads.add_argument("--module-status")
@@ -160,7 +163,7 @@ def main() -> int:
     try:
         run_root = args.run_root.resolve()
         if args.read_decision_time or args.module_status:
-            if args.decision_time or args.write_state:
+            if args.decision_time or args.write_state or args.use_preflight:
                 parser.error("state reads cannot compile or replace preflight state")
             state = read_preflight_state(run_root)
             if args.read_decision_time:
@@ -172,9 +175,14 @@ def main() -> int:
             return 0
         if not args.decision_time:
             parser.error("--decision-time is required when compiling evidence delta")
-        current = compile_coverage(
-            commodity=run_root.name.upper(), decision_time=args.decision_time,
-        )
+        if args.use_preflight:
+            current, _sources = load_preflight_bundle(
+                run_root, commodity=run_root.name.upper(), decision_time=args.decision_time,
+            )
+        else:
+            current = compile_coverage(
+                commodity=run_root.name.upper(), decision_time=args.decision_time,
+            )
         previous_path = run_root / "required_series_coverage.json"
         previous = (
             json.loads(previous_path.read_text(encoding="utf-8"))

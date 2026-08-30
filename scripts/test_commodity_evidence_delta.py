@@ -89,6 +89,8 @@ assert "commodity_evidence_delta.py" in full_command
 assert full_command.count("refresh-swarm-pulse.sh commodity") == 1
 assert '--decision-time "$PREFLIGHT_TIME"' in full_command
 assert '--write-state' in full_command
+assert '--use-preflight' in full_command
+assert '--promote-preflight' in full_command
 assert '--read-decision-time' in full_command
 assert '--module-status "$MOD"' in full_command
 assert "EVIDENCE_INVALIDATED_MODULES" not in full_command

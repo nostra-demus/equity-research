@@ -75,6 +75,12 @@
     },
     "entry": { "const": "fetch.py" },
     "verify": { "const": "fetch.py --verify" },
+    "attempt_timeout_seconds": {
+      "type": "integer",
+      "minimum": 60,
+      "maximum": 300,
+      "description": "Optional bounded per-attempt runner deadline for reviewed multi-request transforms."
+    },
     "output_path": {
       "type": "string",
       "description": "Canonical POSIX-relative projection path. Lowercase ASCII segments only; no empty, dot, backslash, percent-encoded, or filesystem-normalizing aliases.",

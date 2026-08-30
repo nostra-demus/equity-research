@@ -623,6 +623,8 @@ def _validate_json_schema(value: Any, schema: Any, where: str = "$") -> list[str
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         if "minimum" in schema and value < schema["minimum"]:
             errors.append(f"{where} is below minimum {schema['minimum']}")
+        if "maximum" in schema and value > schema["maximum"]:
+            errors.append(f"{where} is above maximum {schema['maximum']}")
         if "exclusiveMinimum" in schema and value <= schema["exclusiveMinimum"]:
             errors.append(f"{where} must be > {schema['exclusiveMinimum']}")
     if isinstance(value, list):

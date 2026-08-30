@@ -16,7 +16,7 @@ from canonical_json import canonical_json_bytes
 from connector_contract import load_valid_manifests, release_contract_window
 from connector_vintages import read_point_in_time, resolve_vintage_id
 from market_prices import load_feed
-from repo_mutation import atomic_write_json
+from repo_mutation import atomic_write_json, atomic_write_text
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -37,6 +37,8 @@ QUALITY_KEYS = {
 }
 FUTURES_PRICE_BASES = {"front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted"}
 PULSE_HISTORY_FILE_RE = re.compile(r"^(?P<price_at>\d+)-(?P<digest>[0-9a-f]{64})\.json$")
+PREFLIGHT_COVERAGE_NAME = "required_series_preflight_coverage.json"
+PREFLIGHT_SOURCES_NAME = "required_series_preflight_sources.json"
 
 
 def _utc(value: str | None) -> dt.datetime:
@@ -209,13 +211,22 @@ def profile_snapshot_sha256(
     commodity: str, *, profile_path: Path = PROFILE_PATH,
     structured_root: Path = STRUCTURED_PROFILE_ROOT,
 ) -> str:
-    """Hash the exact human + structured profile bytes used by a coverage compilation."""
+    """Hash the shared doctrine plus only this commodity's human/structured profile bytes."""
     commodity = commodity.upper()
     structured = Path(structured_root) / f"{commodity}.json"
     # Validate the pair before it can become replay authority.
     structured_profile(commodity, profile_path=Path(profile_path), structured_root=Path(structured_root))
+    markdown = Path(profile_path).read_bytes()
+    first_section = re.search(rb"(?m)^## \S", markdown)
+    selected_section = re.search(
+        rb"(?ms)^## " + re.escape(commodity.encode("ascii")) + rb"[ \t]*\r?$\n.*?(?=^## \S|\Z)",
+        markdown,
+    )
+    if first_section is None or selected_section is None:
+        raise ValueError(f"profile has no exact ## {commodity} section")
+    scoped_markdown = markdown[:first_section.start()] + selected_section.group(0)
     identity = {
-        "markdown_sha256": hashlib.sha256(Path(profile_path).read_bytes()).hexdigest(),
+        "markdown_sha256": hashlib.sha256(scoped_markdown).hexdigest(),
         "structured_sha256": hashlib.sha256(structured.read_bytes()).hexdigest(),
     }
     return "sha256:" + hashlib.sha256(canonical_json_bytes(identity)).hexdigest()
@@ -830,6 +841,80 @@ def frozen_source_resolver(
     return resolve
 
 
+def write_preflight_bundle(
+    run_root: Path, coverage: dict[str, Any], sources: dict[str, Any],
+) -> None:
+    """Freeze the pre-orb evidence view without replacing terminal decision artifacts."""
+    run_root.mkdir(parents=True, exist_ok=True)
+    # Sources first, then the coverage file that binds their digest. A crash can
+    # leave an orphan source snapshot, never an apparently complete coverage pair.
+    atomic_write_json(str(run_root / PREFLIGHT_SOURCES_NAME), sources)
+    atomic_write_json(str(run_root / PREFLIGHT_COVERAGE_NAME), coverage)
+
+
+def load_preflight_bundle(
+    run_root: Path, *, commodity: str, decision_time: str,
+    profile_path: Path = PROFILE_PATH, structured_root: Path = STRUCTURED_PROFILE_ROOT,
+    data_root: Path = REPO / "data", validate_connector_rows: bool = False,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Load and verify the exact evidence view frozen before analytical work began."""
+    commodity = commodity.upper()
+    cutoff = _iso(_utc(decision_time))
+    coverage_path = run_root / PREFLIGHT_COVERAGE_NAME
+    sources_path = run_root / PREFLIGHT_SOURCES_NAME
+    try:
+        coverage_text = coverage_path.read_text(encoding="utf-8")
+        sources_text = sources_path.read_text(encoding="utf-8")
+        coverage = json.loads(coverage_text)
+        sources = json.loads(sources_text)
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError("preflight evidence snapshot is missing or invalid") from error
+    rows = coverage.get("rows") if isinstance(coverage, dict) else None
+    if (
+        not isinstance(coverage, dict) or coverage.get("schema_version") != 3
+        or coverage.get("commodity") != commodity or coverage.get("decision_time") != cutoff
+        or coverage.get("profile_snapshot_sha256") != profile_snapshot_sha256(
+            commodity, profile_path=profile_path, structured_root=structured_root,
+        )
+        or not isinstance(rows, list)
+        or coverage.get("required_count") != len(rows)
+        or coverage.get("usable_count") != sum(
+            isinstance(row, dict) and row.get("status") == "usable" for row in rows
+        )
+        or coverage.get("complete") is not all(
+            isinstance(row, dict) and row.get("status") == "usable" for row in rows
+        )
+        or coverage.get("unresolved_need_ids") != [
+            row.get("need_id") for row in rows
+            if isinstance(row, dict) and row.get("status") != "usable"
+        ]
+        or not isinstance(sources, dict) or sources.get("schema_version") != 1
+        or sources.get("commodity") != commodity or sources.get("decision_time") != cutoff
+        or coverage_text != json.dumps(coverage, indent=2, ensure_ascii=False) + "\n"
+        or sources_text != source_snapshot_bytes(sources).decode("utf-8")
+        or source_snapshot_sha256(sources) != coverage.get("source_snapshot_sha256")
+    ):
+        raise ValueError("preflight evidence snapshot identity or counts failed")
+    # This checks the snapshot-to-coverage bijection immediately. Non-connector
+    # rows must replay wholly from frozen bytes; connector rows may additionally
+    # be resolved from their immutable lane at terminal promotion.
+    resolver = frozen_source_resolver(sources, coverage, data_root=data_root)
+    seen: set[str] = set()
+    for row in rows:
+        series = row.get("series_id") if isinstance(row, dict) else None
+        if not isinstance(series, str) or not series or series in seen:
+            raise ValueError("preflight coverage series identities are invalid or duplicated")
+        seen.add(series)
+        if row.get("status") != "usable" or (
+            isinstance(row.get("connector_id"), str) and not validate_connector_rows
+        ):
+            continue
+        result = resolver(series, commodity, cutoff)
+        if not isinstance(result, dict) or result.get("vintage_id") != row.get("vintage_id"):
+            raise ValueError(f"preflight evidence vintage cannot be replayed: {series}")
+    return coverage, sources
+
+
 def artifact_sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -844,22 +929,28 @@ def main() -> int:
     parser.add_argument("--data-root", type=Path, default=REPO / "data")
     parser.add_argument("--market-root", type=Path, default=MARKET_ROOT)
     parser.add_argument("--state-root", type=Path, default=STATE_ROOT)
-    parser.add_argument(
+    snapshot_mode = parser.add_mutually_exclusive_group()
+    snapshot_mode.add_argument(
         "--preflight", action="store_true",
-        help="report decision-time coverage without writing or freezing run artifacts",
+        help="report coverage and freeze a separate pre-orb evidence snapshot",
+    )
+    snapshot_mode.add_argument(
+        "--promote-preflight", action="store_true",
+        help="validate and promote the exact pre-orb snapshot to terminal artifacts",
     )
     args = parser.parse_args()
     try:
         run_root = args.run_root.resolve()
         commodity = run_root.name.upper()
         decision_time = _iso(_utc(args.decision_time))
-        artifact, sources = compile_coverage_bundle(
-            commodity=commodity, decision_time=decision_time, profile_path=args.profile,
-            structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
-            data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
-        )
-        counts = coverage_status_counts(artifact)
         if args.preflight:
+            artifact, sources = compile_coverage_bundle(
+                commodity=commodity, decision_time=decision_time, profile_path=args.profile,
+                structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
+                data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
+            )
+            write_preflight_bundle(run_root, artifact, sources)
+            counts = coverage_status_counts(artifact)
             affected_orbs = sorted({
                 row["owner_orb"] for row in artifact["rows"] if row["status"] != "usable"
             })
@@ -870,10 +961,32 @@ def main() -> int:
                 f"affected_orbs={','.join(affected_orbs) or 'none'}"
             )
             return 2 if counts["usable"] == 0 else 0
+        if args.promote_preflight:
+            artifact, sources = load_preflight_bundle(
+                run_root, commodity=commodity, decision_time=decision_time,
+                profile_path=args.profile, structured_root=args.structured_profile_root,
+                data_root=args.data_root, validate_connector_rows=True,
+            )
+        else:
+            artifact, sources = compile_coverage_bundle(
+                commodity=commodity, decision_time=decision_time, profile_path=args.profile,
+                structured_root=args.structured_profile_root, connectors_root=args.connectors_root,
+                data_root=args.data_root, market_root=args.market_root, state_root=args.state_root,
+            )
         output = run_root / "required_series_coverage.json"
         source_output = run_root / "required_series_sources.json"
-        atomic_write_json(str(source_output), sources)
-        atomic_write_json(str(output), artifact)
+        if args.promote_preflight:
+            atomic_write_text(
+                str(source_output),
+                (run_root / PREFLIGHT_SOURCES_NAME).read_text(encoding="utf-8"),
+            )
+            atomic_write_text(
+                str(output),
+                (run_root / PREFLIGHT_COVERAGE_NAME).read_text(encoding="utf-8"),
+            )
+        else:
+            atomic_write_json(str(source_output), sources)
+            atomic_write_json(str(output), artifact)
         digest = artifact_sha256(output)
     except (OSError, RuntimeError, ValueError) as error:
         print(f"PROFILE-COVERAGE-FAIL: {error}")

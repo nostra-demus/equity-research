@@ -20,6 +20,7 @@
   "release": {"cadence": "semiannual", "timezone": "America/New_York", "expected_lag_days": 0, "grace_days": 40, "revision_policy": "revisable"},
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
+  "attempt_timeout_seconds": 180,
   "output_path": "data/<SUBJECT>/external/usda/coffee_global_balance_<as_of>.json",
   "output_schema": {
     "series": "string", "as_of": "date", "commodity": "string", "date_basis": "string",

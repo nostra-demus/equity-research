@@ -82,6 +82,7 @@ export function canonicalSchemaMatches(value: any, schema: any): boolean {
   }
   if (typeof value === 'number' && Number.isFinite(value)) {
     if (schema.minimum != null && value < Number(schema.minimum)) return false
+    if (schema.maximum != null && value > Number(schema.maximum)) return false
     if (schema.exclusiveMinimum != null && value <= Number(schema.exclusiveMinimum)) return false
   }
   if (Array.isArray(value)) {
@@ -152,6 +153,7 @@ export interface ConnectorManifest {
   staleness_sla_days: number | null
   entry: string // the fetcher, relative to dir (e.g. "fetch.py")
   verify: string // e.g. "fetch.py --verify"
+  attempt_timeout_seconds?: number
   host_allowlist: string[]
   output_path: string
   output_schema: unknown
@@ -456,6 +458,9 @@ export function parseManifest(dir: string, raw: any): ConnectorManifest | null {
     staleness_sla_days: manifestVersion === 1 && validSla ? slaN : null,
     entry,
     verify: String(raw.verify ?? `${entry} --verify`),
+    ...(raw.attempt_timeout_seconds == null ? {} : {
+      attempt_timeout_seconds: Number(raw.attempt_timeout_seconds),
+    }),
     host_allowlist,
     output_path: String(raw.output_path ?? ''),
     output_schema: raw.output_schema ?? {},

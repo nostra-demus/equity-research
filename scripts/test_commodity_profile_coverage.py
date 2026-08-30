@@ -12,8 +12,8 @@ from pathlib import Path
 from canonical_json import canonical_json_bytes
 from commodity_profile_coverage import (
     _quality_error, compile_coverage, compile_coverage_bundle, coverage_status_counts, frozen_source_resolver,
-    profile_family, profile_snapshot_sha256, resolve_profile_series,
-    source_snapshot_sha256, structured_profile,
+    load_preflight_bundle, profile_family, profile_snapshot_sha256, resolve_profile_series,
+    source_snapshot_sha256, structured_profile, write_preflight_bundle,
 )
 
 
@@ -61,6 +61,10 @@ def markdown() -> str:
 {body}
 
 **Availability is evidence.**
+
+## SUGAR
+
+Unrelated commodity section.
 """
 
 
@@ -103,6 +107,22 @@ def main() -> int:
         (structured_root / "GOLD.json").write_text(json.dumps({
             "schema_version": 1, "commodity": "GOLD", "family": "precious-metals", "requirements": requirements,
         }), encoding="utf-8")
+        original_profile = profile.read_text(encoding="utf-8")
+        scoped_digest = profile_snapshot_sha256(
+            "GOLD", profile_path=profile, structured_root=structured_root,
+        )
+        profile.write_text(
+            original_profile.replace("Unrelated commodity section.", "Unrelated commodity change."),
+            encoding="utf-8",
+        )
+        assert profile_snapshot_sha256(
+            "GOLD", profile_path=profile, structured_root=structured_root,
+        ) == scoped_digest, "an unrelated commodity section invalidated GOLD"
+        profile.write_text(original_profile.replace("# Profiles", "# Shared profiles"), encoding="utf-8")
+        assert profile_snapshot_sha256(
+            "GOLD", profile_path=profile, structured_root=structured_root,
+        ) != scoped_digest, "shared profile doctrine did not invalidate GOLD"
+        profile.write_text(original_profile, encoding="utf-8")
 
         manifests = [
             {
@@ -203,6 +223,8 @@ def main() -> int:
             "GOLD", profile_path=profile, structured_root=structured_root,
         )
         assert artifact["source_snapshot_sha256"] == source_snapshot_sha256(source_snapshot)
+        preflight_root = root / "GOLD"
+        write_preflight_bundle(preflight_root, artifact, source_snapshot)
         frozen_root = root / "frozen-profile"
         frozen_root.mkdir()
         frozen_markdown = frozen_root / "COMMODITY_PROFILES.md"
@@ -240,6 +262,12 @@ def main() -> int:
         csv_path.write_text(csv_path.read_text(encoding="utf-8") + "2026-08-11,TEST,999\n", encoding="utf-8")
         assert replay("gold.price", "GOLD", "2026-08-11T00:00:00Z")["payload"]["value"] == 100.0
         assert replay("gold.shared", "GOLD", "2026-08-11T00:00:00Z")["payload"]["points"][-1]["close"] == 11.0
+        preflight_coverage, preflight_sources = load_preflight_bundle(
+            preflight_root, commodity="GOLD", decision_time="2026-08-11T00:00:00Z",
+            profile_path=profile, structured_root=structured_root, data_root=root,
+        )
+        preflight_replay = frozen_source_resolver(preflight_sources, preflight_coverage, data_root=root)
+        assert preflight_replay("gold.shared", "GOLD", "2026-08-11T00:00:00Z")["payload"]["points"][-1]["close"] == 11.0
         # Cockpit polling after the frozen cutoff may replace the mutable warm-start snapshot. The live
         # resolver must still select the newest content-addressed price snapshot knowable at the cutoff.
         (state_root / "commodity-pulse.json").write_text(json.dumps({

@@ -1396,9 +1396,21 @@ def staged_contains_credential(value: object, man: dict) -> bool:
     return False
 
 
+def connector_attempt_timeout(man: dict) -> int:
+    """Return the manifest-owned bounded deadline for one complete fetch transform."""
+    value = man.get("attempt_timeout_seconds", ATTEMPT_TIMEOUT_S)
+    if (
+        isinstance(value, bool) or not isinstance(value, int)
+        or value < ATTEMPT_TIMEOUT_S or value > 300
+    ):
+        raise ValueError("attempt_timeout_seconds must be an integer from the default timeout through 300")
+    return value
+
+
 def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: list[str] | None = None):
     """Returns (ok, attempts, exit_code, message)."""
     exit_code, message = None, ""
+    attempt_timeout = connector_attempt_timeout(man)
     for attempt, pause in enumerate(BACKOFF_S, start=1):
         _require_scheduled_topology(data_root=data_root)
         if pause:
@@ -1413,7 +1425,7 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
         ]
         try:
             _require_scheduled_topology(data_root=data_root)
-            p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=ATTEMPT_TIMEOUT_S,
+            p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=attempt_timeout,
                                env=connector_child_env(man))
             exit_code = p.returncode
             if p.returncode == 0:
@@ -1423,7 +1435,7 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
                 return True, attempt, 0, safe_line[-400:]
             message = redact_credentials((p.stderr or p.stdout or "").strip(), man)[-400:]
         except subprocess.TimeoutExpired:
-            exit_code, message = None, f"timeout after {ATTEMPT_TIMEOUT_S}s"
+            exit_code, message = None, f"timeout after {attempt_timeout}s"
         finally:
             shutil.rmtree(pycache_root, ignore_errors=True)
     return False, len(BACKOFF_S), exit_code, message
@@ -1515,6 +1527,7 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
             "message": "missing declared credential environment: " + ", ".join(missing_credentials),
         }
     exit_code, message, outcome = None, "", "fetch_error"
+    attempt_timeout = connector_attempt_timeout(man)
     for attempt, pause in enumerate(BACKOFF_S, start=1):
         _require_scheduled_topology(data_root=data_root)
         if pause:
@@ -1543,11 +1556,11 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
                     os.path.join(cdir, man["entry"]), "--subject", subject,
                     "--data-root", stage_root, *(extra_args or []),
                 ], cwd=cdir, capture_output=True, text=True,
-                timeout=ATTEMPT_TIMEOUT_S, env=connector_child_env(man),
+                timeout=attempt_timeout, env=connector_child_env(man),
             )
         except subprocess.TimeoutExpired:
             shutil.rmtree(stage_root, ignore_errors=True)
-            exit_code, message, outcome = None, f"timeout after {ATTEMPT_TIMEOUT_S}s", "timeout"
+            exit_code, message, outcome = None, f"timeout after {attempt_timeout}s", "timeout"
             continue
         except Exception as exc:
             shutil.rmtree(stage_root, ignore_errors=True)

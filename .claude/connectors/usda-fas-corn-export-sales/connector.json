@@ -20,6 +20,7 @@
   "release": {"cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 7, "grace_days": 7, "revision_policy": "revisable"},
   "entry": "fetch.py",
   "verify": "fetch.py --verify",
+  "attempt_timeout_seconds": 180,
   "output_path": "data/<SUBJECT>/external/usda_fas/export_sales_<as_of>.json",
   "output_schema": {
     "series": "string",

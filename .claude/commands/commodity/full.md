@@ -50,17 +50,20 @@ Step 3.5 after that sweep finishes. Never continue to the pulse refresh or evide
 the scoped refresh did not run, so preflight could otherwise reject usable evidence that is still being published.
 
 Connector failures are not permission to substitute an unreviewed scrape. They remain visible as missing,
-stalled, suspect, or unavailable evidence. Now run the non-publishing preflight and evidence delta in ONE
-Bash invocation at one captured UTC cutoff:
+stalled, suspect, or unavailable evidence. Now freeze the separate pre-orb evidence snapshot and run the
+evidence delta in ONE Bash invocation at one captured UTC cutoff:
 
 ```bash
 PREFLIGHT_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --preflight --decision-time "$PREFLIGHT_TIME" &&
-python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME" --write-state
+python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME" --use-preflight --write-state
 ```
 
-The coverage preflight writes nothing and does not freeze the terminal coverage artifacts; after a successful
-preflight, the delta command writes only the run-scoped state described below. If preflight exits `2`, zero
+The coverage preflight writes `required_series_preflight_coverage.json` and its hash-bound
+`required_series_preflight_sources.json`; it never replaces the terminal coverage artifacts. The later terminal
+step validates and promotes these exact frozen bytes, so a same-day shared-market or quote refresh cannot enter
+after an owner orb has run. After a successful preflight, the delta command writes only the run-scoped state
+described below. If preflight exits `2`, zero
 required series are usable: STOP before every research orb, report the exact status counts and affected owner orbs,
 and point the user to `python3 scripts/commodity_feed_plan.py "<COMMODITY>" --gaps-only`. Spending the full
 swarm budget cannot turn zero evidence into a forecast. Exit `0` permits the run to continue; partial evidence
@@ -131,11 +134,12 @@ fi
 
 ```bash
 PREFLIGHT_TIME="$(python3 scripts/commodity_evidence_delta.py "<RUN_ROOT>" --read-decision-time)" || exit $?
-python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --decision-time "$PREFLIGHT_TIME"
+python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --promote-preflight --decision-time "$PREFLIGHT_TIME"
 ```
 
-   Run that compilation exactly once. It freezes the same evidence view used by the staleness
-   check and binds every profile-required series to a vintage knowable at that cutoff. Compute its byte digest.
+   Run that promotion exactly once. It validates the pre-orb snapshot, replays immutable connector vintages,
+   and writes the terminal coverage artifacts from the same evidence view used by the staleness check. It must
+   never reread mutable shared-market or quote state. Compute its byte digest.
    The terminal record's `decision_date` must equal the UTC date inside this frozen `decision_time`. If an
    existing `decision_record.json` does not carry
    that exact digest, force the terminal module to `RERUN:coverage-changed` even when its ordinary mtime

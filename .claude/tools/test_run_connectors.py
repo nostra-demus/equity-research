@@ -926,6 +926,17 @@ try:
         ok, attempts, code, msg = m.run_fetch("/nonexistent", {"entry": "fetch.py"}, "AAA", "/tmp")
         check(f"run_fetch clean exit, {label} → ok, no crash, message {want!r}",
               ok is True and code == 0 and msg == want, f"got msg {msg!r}")
+    captured_timeouts = []
+    def _capture_timeout(*_args, **kwargs):
+        captured_timeouts.append(kwargs.get("timeout"))
+        return _FakeProc(0, "ok")
+    m.subprocess.run = _capture_timeout
+    m.run_fetch(
+        "/nonexistent", {"entry": "fetch.py", "attempt_timeout_seconds": 180},
+        "AAA", "/tmp",
+    )
+    check("a reviewed multi-request connector owns a longer but bounded attempt deadline",
+          captured_timeouts == [180])
 finally:
     m.subprocess.run = _orig_run
 
@@ -1896,6 +1907,7 @@ for label, mutate in (
      lambda x: x["licensing"].update({"terms_url": "https://user:secret@example.test/terms"})),
     ("credential name without CONNECTOR_* prefix", lambda x: x.update({"credential_env": ["VENDOR_API_KEY"]})),
     ("invalid seasonal release months", lambda x: x["release"].update({"active_months": [0, 12, 12]})),
+    ("unbounded connector attempt timeout", lambda x: x.update({"attempt_timeout_seconds": 301})),
     ("unknown minimum_history field", lambda x: x["minimum_history"].update({"surprise": True})),
     ("unsupported compact-schema token", lambda x: x["output_schema"].update({"bad": "number"})),
     ("multi-item compact-schema array", lambda x: x["output_schema"].update({"bad": ["string", "int"]})),
@@ -1933,6 +1945,9 @@ check("projection ownership normalizes dot and case aliases from unchecked calle
 nullable_enum = json.loads(json.dumps(base))
 nullable_enum["output_schema"]["optional_state"] = "enum:on|off|null"
 check("compact-schema enums may explicitly allow null", not m.validate_manifest(base["id"], d, nullable_enum))
+bounded_attempt = json.loads(json.dumps(base)); bounded_attempt["attempt_timeout_seconds"] = 180
+check("a reviewed connector may declare a bounded longer attempt",
+      not m.validate_manifest(base["id"], d, bounded_attempt))
 payload = {"series": base["series"], "as_of": "2099-01-01",
            "rows": [{"period": "2099-01-01", "value": 1.0}]}
 sidecar = {"provider": base["provider"], "source_type": base["source_type"], "tier": base["tier"],
