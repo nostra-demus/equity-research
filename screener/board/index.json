@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T16:50:07Z",
+  "generated_at": "2026-08-30T16:54:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-243",
+      "headline": "UAE, Egyptian central banks say they are coordinating on Banque Misr after US Treasury notice",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/uae-egyptian-central-banks-say-they-are-coordinating-banque-misr-after-us-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T16:50:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Central bank coordination following a US Treasury notice suggests significant regulatory or sanctions-related risk for Banque Misr.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Central bank coordination following a US Treasury notice suggests significant regulatory or sanctions-related risk for Banque Misr.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banque Misr",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,60 +1970,6 @@
         {
           "name": "Oil India Ltd",
           "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-125",
-      "headline": "NSE IPO: SBI, Subsidiary To Dilute 1% Stake In Proposed Rs 30,000-Crore Public Issue",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/nse-ipo-sbi-subsidiary-to-dilute-1-stake-in-proposed-rs-30-000-crore-public-issue-11977232#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T06:50:34Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The National Stock Exchange of India is planning a Rs 30,000-crore IPO, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The National Stock Exchange of India is planning a Rs 30,000-crore IPO, a major capital market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "State Bank of India",
-          "ticker": "SBIN",
           "listing_country": "IN"
         }
       ],
@@ -114861,9 +114857,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2981,
-    "news_picked_today": 553,
-    "news_dropped_today": 2428
+    "news_seen_today": 2996,
+    "news_picked_today": 558,
+    "news_dropped_today": 2438
   },
   "book_momentum": {
     "live_count": 8,
