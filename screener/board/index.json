@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T16:20:01Z",
+  "generated_at": "2026-08-30T16:24:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-239",
+      "headline": "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-30/aon-nears-deal-to-buy-insurance-brokerage-from-kkr-wsj-reports",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T16:07:26Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Aon is nearing a deal to acquire an insurance brokerage from KKR, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is nearing a deal to acquire an insurance brokerage from KKR, representing a significant M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,60 +1975,6 @@
           "name": "State Bank of India",
           "ticker": "SBIN",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-030",
-      "headline": "롯데·현대건설, 1조4000억 규모 안양 충훈부 공공재개발 수주",
-      "headline_en": "Lotte and Hyundai E&C win 1.4 trillion KRW Anyang Chung-hun-bu public redevelopment project",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275803",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:56:14Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Lotte E&C and Hyundai Engineering & Construction secured a public redevelopment project in Anyang worth 1.4 trillion KRW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Lotte E&C and Hyundai Engineering & Construction secured a public redevelopment project in Anyang worth 1.4 trillion KRW.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lotte E&C",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Hyundai Engineering & Construction",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -114861,9 +114861,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2895,
-    "news_picked_today": 542,
-    "news_dropped_today": 2353
+    "news_seen_today": 2905,
+    "news_picked_today": 543,
+    "news_dropped_today": 2362
   },
   "book_momentum": {
     "live_count": 8,
