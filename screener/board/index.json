@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-08-29T23:55:11Z",
+  "generated_at": "2026-08-30T00:06:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-001",
+      "headline": "AIM weekly movers: US prospects boosted for Kooth",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/aim-weekly-movers-us-prospects-boosted-for-kooth/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T23:58:16Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Kooth is seeing improved commercial prospects in the US market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Kooth is seeing improved commercial prospects in the US market.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kooth",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-002",
+      "headline": "Iran War Adds $330 Billion to Global Energy Import Bill",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/iran-war-adds-330-billion-230000013.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran is estimated to increase global energy import costs by $330 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Geopolitical escalation involving Iran is estimated to increase global energy import costs by $330 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260829-490",
       "headline": "Van-Type Trailers and Subassemblies Thereof From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value",
@@ -87139,78 +87231,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1089cf77cf0a",
-      "idea_version": "IDEAV-20ea7d2ea26e7534",
-      "idea_version_started_at": "2026-08-29T21:13:33Z",
-      "ticker": "01101",
-      "company": "HUARONG ENERGY",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
-      "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-255663ecc15c"
-      ],
-      "primary_source_event_id": "EVT-255663ecc15c",
-      "source_headlines": [
-        "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
-      ],
-      "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T17:43:44Z",
-      "updated_at": "2026-08-29T21:13:33Z",
-      "decay_at": "2026-08-30T00:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1216c09ce08d",
       "idea_version": "IDEAV-3f0a4e653cd837f4",
       "idea_version_started_at": "2026-08-29T21:13:33Z",
@@ -90111,6 +90131,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1089cf77cf0a",
+      "idea_version": "IDEAV-20ea7d2ea26e7534",
+      "idea_version_started_at": "2026-08-29T21:13:33Z",
+      "ticker": "01101",
+      "company": "HUARONG ENERGY",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
+      "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-255663ecc15c"
+      ],
+      "primary_source_event_id": "EVT-255663ecc15c",
+      "source_headlines": [
+        "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
+      ],
+      "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T17:43:44Z",
+      "updated_at": "2026-08-29T21:13:33Z",
+      "decay_at": "2026-08-30T00:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-22925965e711",
       "idea_version": "IDEAV-f94af2ad0859d0d1",
       "idea_version_started_at": "2026-08-29T21:13:33Z",
@@ -92480,8 +92572,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 230,
-    "shown_count": 230,
+    "total_count": 231,
+    "shown_count": 231,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -92490,8 +92582,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 122,
-        "shown_count": 122,
+        "total_count": 123,
+        "shown_count": 123,
         "hidden_count": 0
       }
     },
@@ -92511,6 +92603,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1089cf77cf0a",
+        "idea_version": "IDEAV-20ea7d2ea26e7534",
+        "idea_version_started_at": "2026-08-29T21:13:33Z",
+        "ticker": "01101",
+        "company": "HUARONG ENERGY",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
+        "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-255663ecc15c"
+        ],
+        "primary_source_event_id": "EVT-255663ecc15c",
+        "source_headlines": [
+          "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
+        ],
+        "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T17:43:44Z",
+        "updated_at": "2026-08-29T21:13:33Z",
+        "decay_at": "2026-08-30T00:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8c0df7c727b4",
         "idea_version": "IDEAV-f1311c301d8cfdf9",
@@ -109560,7 +109727,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 273,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -109570,7 +109737,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1782,
+    "inbox_unconsumed": 1784,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -109579,9 +109746,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588571,
-    "news_picked_today": 1783,
-    "news_dropped_today": 7995
+    "news_seen_today": 10,
+    "news_picked_today": 2,
+    "news_dropped_today": 8
   },
   "book_momentum": {
     "live_count": 8,
