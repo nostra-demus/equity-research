@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:45:12Z",
+  "generated_at": "2026-08-30T06:50:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -651,6 +651,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-117",
+      "headline": "SBI, arm to dilute up to 1% stake in NSE via IPO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/sbi-arm-to-dilute-up-to-1-stake-in-nse-via-ipo/article71407146.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T06:44:34Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "State Bank of India plans to dilute up to 1% stake in the National Stock Exchange via an IPO, representing a significant monetization event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "State Bank of India plans to dilute up to 1% stake in the National Stock Exchange via an IPO, representing a significant monetization event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-035",
       "headline": "War weighs on Iran’s economy as U.S. intensifies sanctions",
       "headline_en": null,
@@ -1232,6 +1287,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-118",
+      "headline": "‎SAPTCO signs SAR 470.2M school transport services contract",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932576",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:46:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "SAPTCO secured a school transport contract valued at SAR 470.2 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SAPTCO secured a school transport contract valued at SAR 470.2 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAPTCO",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1857,98 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-061",
-      "headline": "Indore Bhagirathpura Water Tragedy: 6 Officials Blamed, Politicians Cleared; 24 Deaths Linked To Contaminated Water",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/indore/indore-bhagirathpura-water-tragedy-6-officials-blamed-politicians-cleared-24-deaths-linked-to-contaminated-water",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A tragedy involving 24 deaths linked to contaminated water has led to the blaming of 6 officials, indicating significant regulatory and governance failure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A tragedy involving 24 deaths linked to contaminated water has led to the blaming of 6 officials, indicating significant regulatory and governance failure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-007",
-      "headline": "Temasek backs Singapore Airlines to fly long haul with Air India",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/temasek-backs-singapore-airlines-to-fly-long-haul-with-air-india/articleshow/133618473.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Temasek's investment in Air India supports its long-haul expansion strategy, signaling institutional confidence in the carrier's growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Temasek's investment in Air India supports its long-haul expansion strategy, signaling institutional confidence in the carrier's growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -87739,76 +87751,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b95df346cf59",
-      "idea_version": "IDEAV-3143e57a2c18906c",
-      "idea_version_started_at": "2026-08-29T10:08:49Z",
-      "ticker": "MAXESTATES.NS",
-      "company": "Max Estates Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Max Estates' board approved the acquisition of land-owning companies, a strategic M&A move that expands its developable land bank and future revenue pipeline in the commercial real estate segment.",
-      "why_now": "Board meeting outcome filed today (2026-08-28) confirms the acquisition decision with immediate effect.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e70e300aeef"
-      ],
-      "primary_source_event_id": "EVT-5e70e300aeef",
-      "source_headlines": [
-        "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies."
-      ],
-      "source_headline": "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MEL_29082026001928_MEL_Outcome_28082026_Final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T18:49:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:08:49Z",
-      "updated_at": "2026-08-29T10:08:49Z",
-      "decay_at": "2026-08-30T06:49:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2d93368aeb39",
       "idea_version": "IDEAV-025a26a8ee8e33dd",
       "idea_version_started_at": "2026-08-30T06:20:17Z",
@@ -91509,6 +91451,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b95df346cf59",
+      "idea_version": "IDEAV-3143e57a2c18906c",
+      "idea_version_started_at": "2026-08-29T10:08:49Z",
+      "ticker": "MAXESTATES.NS",
+      "company": "Max Estates Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Max Estates' board approved the acquisition of land-owning companies, a strategic M&A move that expands its developable land bank and future revenue pipeline in the commercial real estate segment.",
+      "why_now": "Board meeting outcome filed today (2026-08-28) confirms the acquisition decision with immediate effect.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5e70e300aeef"
+      ],
+      "primary_source_event_id": "EVT-5e70e300aeef",
+      "source_headlines": [
+        "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies."
+      ],
+      "source_headline": "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MEL_29082026001928_MEL_Outcome_28082026_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T18:49:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:08:49Z",
+      "updated_at": "2026-08-29T10:08:49Z",
+      "decay_at": "2026-08-30T06:49:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-5d771201ad67cf74",
       "idea_version_started_at": "2026-08-27T11:49:33Z",
@@ -94866,13 +94878,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 251,
-    "shown_count": 251,
+    "total_count": 252,
+    "shown_count": 252,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 116,
-        "shown_count": 116,
+        "total_count": 117,
+        "shown_count": 117,
         "hidden_count": 0
       },
       "short": {
@@ -94897,6 +94909,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b95df346cf59",
+        "idea_version": "IDEAV-3143e57a2c18906c",
+        "idea_version_started_at": "2026-08-29T10:08:49Z",
+        "ticker": "MAXESTATES.NS",
+        "company": "Max Estates Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Max Estates' board approved the acquisition of land-owning companies, a strategic M&A move that expands its developable land bank and future revenue pipeline in the commercial real estate segment.",
+        "why_now": "Board meeting outcome filed today (2026-08-28) confirms the acquisition decision with immediate effect.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5e70e300aeef"
+        ],
+        "primary_source_event_id": "EVT-5e70e300aeef",
+        "source_headlines": [
+          "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies."
+        ],
+        "source_headline": "Max Estates Limited: Max Estates Limited has informed the Exchange regarding Outcome of Board Meeting held on August 28, 2026 about the Acquisition by Max Estates Limited of Land Owning Companies.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/MEL_29082026001928_MEL_Outcome_28082026_Final.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T18:49:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:08:49Z",
+        "updated_at": "2026-08-29T10:08:49Z",
+        "decay_at": "2026-08-30T06:49:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T06:49:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4f1853282799",
         "idea_version": "IDEAV-4fa1ad7c93e37aba",
@@ -113495,7 +113580,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 291,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -113514,9 +113599,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 851,
-    "news_picked_today": 158,
-    "news_dropped_today": 693
+    "news_seen_today": 977,
+    "news_picked_today": 164,
+    "news_dropped_today": 813
   },
   "book_momentum": {
     "live_count": 8,
