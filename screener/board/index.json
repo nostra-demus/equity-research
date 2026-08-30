@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:54:52Z",
+  "generated_at": "2026-08-30T05:59:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1842,6 +1842,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-098",
+      "headline": "ACE Software Exports Ltd-$: Submission of newspaper advertisement for the first call money for the purpose of Rights Issue",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/41aa7b71-89f9-465a-930f-e43f26663e92.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T05:57:07Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The company is proceeding with a rights issue, which involves raising capital from existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The company is proceeding with a rights issue, which involves raising capital from existing shareholders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACE Software Exports Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-072",
       "headline": "INTCO Medical annonce une croissance de 40,6% de son chiffre d'affaires au premier semestre 2026 et porte à 107 milliards d'unités sa capacité de production de gants jetables, la plus importante au monde",
       "headline_en": "INTCO Medical announces 40.6% revenue growth in 1H 2026 and increases its disposable glove production capacity to 107 billion units, the largest in the world",
@@ -1856,56 +1905,6 @@
       "launched_signal_id": null,
       "triage_score": 68,
       "triage_reason": "INTCO Medical reported 40.6% revenue growth for 1H 2026 and expanded production capacity to 107 billion units.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "INTCO Medical",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-050",
-      "headline": "INTCO Medical rapporteert omzetgroei van 40,6% in de eerste helft van 2026, breidt de grootste wegwerphandschoenencapaciteit ter wereld uit tot 107 miljard stuks",
-      "headline_en": "INTCO Medical reports 40.6% revenue growth in the first half of 2026, expands the world's largest disposable glove capacity to 107 billion units",
-      "url": "https://www.prnewswire.com/news-releases/intco-medical-rapporteert-omzetgroei-van-40-6-in-de-eerste-helft-van-2026--breidt-de-grootste-wegwerphandschoenencapaciteit-ter-wereld-uit-tot-107-miljard-stuks-302864348.html",
-      "source_name": "PR Newswire — Earnings",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-30T02:40:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "INTCO Medical reported 40.6% revenue growth in 1H 2026 and announced a capacity expansion to 107 billion units.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "INTCO Medical reported 40.6% revenue growth in 1H 2026 and announced a capacity expansion to 107 billion units.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -113427,9 +113426,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 714,
-    "news_picked_today": 125,
-    "news_dropped_today": 589
+    "news_seen_today": 727,
+    "news_picked_today": 128,
+    "news_dropped_today": 599
   },
   "book_momentum": {
     "live_count": 8,
