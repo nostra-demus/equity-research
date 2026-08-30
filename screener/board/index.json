@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T19:04:07Z",
+  "generated_at": "2026-08-30T19:09:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -190,6 +190,55 @@
           "name": "AXISCADES Technologies Limited",
           "ticker": "532395",
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-254",
+      "headline": "SODIC secures EGP 7.5bn CIB facility to finance June North Coast project",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/08/30/sodic-secures-egp-7-5bn-cib-facility-to-finance-june-north-coast-project/?utm_source=rss&utm_medium=rss&utm_campaign=sodic-secures-egp-7-5bn-cib-facility-to-finance-june-north-coast-project",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T19:02:28Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "SODIC secured a significant EGP 7.5bn credit facility to fund a specific development project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SODIC secured a significant EGP 7.5bn credit facility to fund a specific development project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SODIC",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1930,56 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-114",
-      "headline": "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/bkt-to-foray-into-car-tyres-in-november-aims-to-double-revenue-to-23000-crore-by-fy30/article71405934.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T06:21:35Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "BKT announced a new product line entry and a long-term revenue growth target of ₹23,000 crore by FY30.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "BKT announced a new product line entry and a long-term revenue growth target of ₹23,000 crore by FY30.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Balkrishna Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115078,9 +115077,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3333,
-    "news_picked_today": 624,
-    "news_dropped_today": 2709
+    "news_seen_today": 3352,
+    "news_picked_today": 629,
+    "news_dropped_today": 2723
   },
   "book_momentum": {
     "live_count": 8,
