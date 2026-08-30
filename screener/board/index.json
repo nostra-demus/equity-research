@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T03:34:49Z",
+  "generated_at": "2026-08-30T03:40:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -693,6 +693,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-065",
+      "headline": "Lookout Notice Likely Against Suspended CSP Neha Pachisia As Court Rejects Anticipatory Bail In MP’s Katni",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/lookout-notice-likely-against-suspended-csp-neha-pachisia-as-court-rejects-anticipatory-bail-in-mps-katni",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A lookout notice against a suspended official suggests potential legal and regulatory scrutiny, which could lead to financial or reputational damage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A lookout notice against a suspended official suggests potential legal and regulatory scrutiny, which could lead to financial or reputational damage.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-066",
+      "headline": "NIA Court Rejects Bail Cancellation Plea Against Sudha Bharadwaj, 3 Others In Elgar Parishad Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/nia-court-rejects-bail-cancellation-plea-against-sudha-bharadwaj-3-others-in-elgar-parishad-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:28:17Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The rejection of a bail cancellation plea in a significant case like Elgar Parishad indicates ongoing legal proceedings that could have implications for the individuals involved and potentially their associated entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The rejection of a bail cancellation plea in a significant case like Elgar Parishad indicates ongoing legal proceedings that could have implications for the individuals involved and potentially their associated entities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-055",
       "headline": "Argentina to ease Indian pharma barriers; KABIL makes progress on lithium project",
       "headline_en": null,
@@ -835,6 +921,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-063",
+      "headline": "US sanctions weigh on Iran as 'economic war' continues",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/world/mena/us-israel-iran-lebanon-war-august-30-2026-live-updates",
+      "source_name": "Khaleej Times — Top / General",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:33:50Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "US sanctions can significantly impact Iran's economy and its ability to conduct international trade, affecting revenue and cash flow for Iranian entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "US sanctions can significantly impact Iran's economy and its ability to conduct international trade, affecting revenue and cash flow for Iranian entities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-056",
       "headline": "ATO finds 6000 property sales that may have skipped paying tax",
       "headline_en": null,
@@ -966,6 +1095,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-064",
+      "headline": "INTCO Medical meldet für das erste Halbjahr 2026 ein Umsatzwachstum von 40,6 % und baut die weltweit größte Produktionskapazität für Einweghandschuhe auf 107 Milliarden Stück aus",
+      "headline_en": "INTCO Medical reports revenue growth of 40.6% for the first half of 2026 and expands the world's largest production capacity for disposable gloves to 107 billion units.",
+      "url": "https://www.prnewswire.com/news-releases/intco-medical-meldet-fur-das-erste-halbjahr-2026-ein-umsatzwachstum-von-40-6--und-baut-die-weltweit-groWte-produktionskapazitat-fur-einweghandschuhe-auf-107-milliarden-stuck-aus-302864357.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-30T03:36:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "INTCO Medical reports significant revenue growth of 40.6% and is expanding its production capacity to 107 billion units, indicating strong operational performance and future growth potential.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "INTCO Medical reports significant revenue growth of 40.6% and is expanding its production capacity to 107 billion units, indicating strong operational performance and future growth potential.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INTCO Medical",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1708,184 +1887,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-033",
-      "headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T01:31:11Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "This is an analytical opinion piece regarding the bank's strategic turnaround rather than a specific corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "This is an analytical opinion piece regarding the bank's strategic turnaround rather than a specific corporate event.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-020",
-      "headline": "Iran parliament speaker says new regional pacts can 'herald a new stage’",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-parliament-speaker-says-new-regional-pacts-can-herald-new-stage",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:52:59Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The Iranian parliament speaker's comments on regional pacts represent geopolitical posturing without immediate actionable economic impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "The Iranian parliament speaker's comments on regional pacts represent geopolitical posturing without immediate actionable economic impact.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-044",
-      "headline": "Trump’s oil deal riles both sides of Venezuelan political divide",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/08/30/world/politics/trump-oil-deal-venezuela-divide/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Political controversy surrounding oil deals in Venezuela creates geopolitical and supply risk for energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Political controversy surrounding oil deals in Venezuela creates geopolitical and supply risk for energy markets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-017",
-      "headline": "(2nd LD) N. Korea names new defense minister amid modernization drive",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260830000352315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:49:38Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "North Korea appointed a new defense minister, signaling potential shifts in military policy and regional geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "North Korea appointed a new defense minister, signaling potential shifts in military policy and regional geopolitical risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -87540,76 +87541,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3bb4c249dc6a",
-      "idea_version": "IDEAV-078fb60274d1af85",
-      "idea_version_started_at": "2026-08-30T01:05:10Z",
-      "ticker": "GOOGL",
-      "company": "Alphabet",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Alphabet's stock fell 7% after CEO Sundar Pichai raised the 2026 Capex forecast to as much as $205 billion, indicating increased spending that could pressure future free cash flow and profitability.",
-      "why_now": "The announcement of a significantly increased 2026 Capex forecast by Sundar Pichai on August 28, 2026, directly led to a 7% stock decline, suggesting immediate market reaction to higher spending.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc600dd78802"
-      ],
-      "primary_source_event_id": "EVT-dc600dd78802",
-      "source_headlines": [
-        "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?"
-      ],
-      "source_headline": "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?",
-      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-raised-alphabets-2026-capex-forecast-much-205-billion-sending-stock-down-7-0",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T15:35:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:17:28Z",
-      "updated_at": "2026-08-30T01:05:10Z",
-      "decay_at": "2026-08-30T03:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4f1853282799",
       "idea_version": "IDEAV-4fa1ad7c93e37aba",
       "idea_version_started_at": "2026-08-30T00:06:22Z",
@@ -90724,6 +90655,76 @@
       "surfaced_at": "2026-08-29T14:17:28Z",
       "updated_at": "2026-08-30T01:25:26Z",
       "decay_at": "2026-08-30T03:28:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3bb4c249dc6a",
+      "idea_version": "IDEAV-078fb60274d1af85",
+      "idea_version_started_at": "2026-08-30T01:05:10Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Alphabet's stock fell 7% after CEO Sundar Pichai raised the 2026 Capex forecast to as much as $205 billion, indicating increased spending that could pressure future free cash flow and profitability.",
+      "why_now": "The announcement of a significantly increased 2026 Capex forecast by Sundar Pichai on August 28, 2026, directly led to a 7% stock decline, suggesting immediate market reaction to higher spending.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc600dd78802"
+      ],
+      "primary_source_event_id": "EVT-dc600dd78802",
+      "source_headlines": [
+        "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?"
+      ],
+      "source_headline": "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?",
+      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-raised-alphabets-2026-capex-forecast-much-205-billion-sending-stock-down-7-0",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:35:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T14:17:28Z",
+      "updated_at": "2026-08-30T01:05:10Z",
+      "decay_at": "2026-08-30T03:35:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94660,8 +94661,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 249,
-    "shown_count": 249,
+    "total_count": 250,
+    "shown_count": 250,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -94670,8 +94671,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 134,
-        "shown_count": 134,
+        "total_count": 135,
+        "shown_count": 135,
         "hidden_count": 0
       }
     },
@@ -94691,6 +94692,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3bb4c249dc6a",
+        "idea_version": "IDEAV-078fb60274d1af85",
+        "idea_version_started_at": "2026-08-30T01:05:10Z",
+        "ticker": "GOOGL",
+        "company": "Alphabet",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Alphabet's stock fell 7% after CEO Sundar Pichai raised the 2026 Capex forecast to as much as $205 billion, indicating increased spending that could pressure future free cash flow and profitability.",
+        "why_now": "The announcement of a significantly increased 2026 Capex forecast by Sundar Pichai on August 28, 2026, directly led to a 7% stock decline, suggesting immediate market reaction to higher spending.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc600dd78802"
+        ],
+        "primary_source_event_id": "EVT-dc600dd78802",
+        "source_headlines": [
+          "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?"
+        ],
+        "source_headline": "Sundar Pichai Raised Alphabet's 2026 Capex Forecast to as Much as $205 Billion, Sending the Stock Down 7%. Was That an Overreaction That Investors Should Buy Into?",
+        "source_url": "https://www.nasdaq.com/articles/sundar-pichai-raised-alphabets-2026-capex-forecast-much-205-billion-sending-stock-down-7-0",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T15:35:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T14:17:28Z",
+        "updated_at": "2026-08-30T01:05:10Z",
+        "decay_at": "2026-08-30T03:35:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T03:35:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a9e3b13426c6",
         "idea_version": "IDEAV-9f3cc317a5c3678e",
@@ -113143,7 +113217,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 280,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -113162,9 +113236,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 407,
-    "news_picked_today": 67,
-    "news_dropped_today": 340
+    "news_seen_today": 426,
+    "news_picked_today": 72,
+    "news_dropped_today": 354
   },
   "book_momentum": {
     "live_count": 8,
