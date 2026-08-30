@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T03:54:59Z",
+  "generated_at": "2026-08-30T03:59:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -644,6 +644,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-068",
+      "headline": "Saudi’s PIF replaces British CEO of $50bn New Murabba megaproject",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/abnews/saudis-pif-replaces-british-ceo-of-50bn-new-murabba-megaproject",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:53:32Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The Public Investment Fund has replaced the CEO of the $50 billion New Murabba development project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The Public Investment Fund has replaced the CEO of the $50 billion New Murabba development project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Murabba",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-004",
       "headline": "SpaceX and Rivals Dodge Traffic as Satellites, Debris Crowd Low-Earth Orbit",
       "headline_en": null,
@@ -955,6 +1004,49 @@
       },
       "event_types": [
         "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-069",
+      "headline": "(LEAD) Lee nominates 6 ministers in major Cabinet reshuffle, including finance minister",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260830001651315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T03:52:07Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A major cabinet reshuffle in South Korea, including the finance minister, signals potential shifts in economic policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A major cabinet reshuffle in South Korea, including the finance minister, signals potential shifts in economic policy.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1812,92 +1904,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-053",
-      "headline": "US-Venezuela energy pact: What we know about Trump’s ‘biggest oil deal in world history’",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/us-venezuela-deal-what-we-know-about-trumps-biggest-oil-deal-in-world-history/articleshow/133622205.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:40:48Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Potential US-Venezuela energy deal could significantly impact global oil supply dynamics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Potential US-Venezuela energy deal could significantly impact global oil supply dynamics.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-009",
-      "headline": "Inside Trump’s Plan to Give the Pentagon a Stake in Venezuela’s Oil Riches",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/inside-trumps-plan-to-give-the-pentagon-a-stake-in-venezuelas-oil-riches-f054cdc2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Proposed geopolitical policy involving the Pentagon and Venezuelan oil assets could significantly impact regional energy supply and geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Proposed geopolitical policy involving the Pentagon and Venezuelan oil assets could significantly impact regional energy supply and geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -113246,9 +113252,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 443,
-    "news_picked_today": 74,
-    "news_dropped_today": 369
+    "news_seen_today": 449,
+    "news_picked_today": 76,
+    "news_dropped_today": 373
   },
   "book_momentum": {
     "live_count": 8,
