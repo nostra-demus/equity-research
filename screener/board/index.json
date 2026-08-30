@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:09:47Z",
+  "generated_at": "2026-08-30T01:14:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -946,6 +946,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-025",
+      "headline": "Iran war live: Tehran in no rush to reopen Hormuz; settlers besiege Qusra",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/30/iran-war-live-iran-pledges-to-stand-firm-against-unjust-us-sanctions?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The potential closure of the Strait of Hormuz represents a major global energy supply shock risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "The potential closure of the Strait of Hormuz represents a major global energy supply shock risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -111069,7 +111112,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1805,
+    "inbox_unconsumed": 1806,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111078,9 +111121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 132,
-    "news_picked_today": 25,
-    "news_dropped_today": 107
+    "news_seen_today": 139,
+    "news_picked_today": 26,
+    "news_dropped_today": 113
   },
   "book_momentum": {
     "live_count": 8,
