@@ -24,6 +24,7 @@ CONNECTORS = {
         "federal-reserve-broad-usd": "macro-broad-usd-index",
         "usda-wasde-grains-balance": "grains-usda-wasde-balance",
         "usda-fas-wheat-export-sales": "wheat-export-sales-shipments",
+        "un-comtrade-wheat-major-origin-shipments": "wheat-major-origin-shipments",
     },
     "CORN": {
         "cftc-cot-corn": "corn-managed-money-positioning",
@@ -180,10 +181,25 @@ publisher_paths = set(json.load(open(
 ))["paths"])
 assert {
     "scripts/commodity_bis_fx_feed.py",
+    "scripts/commodity_un_comtrade_wheat_shipments_feed.py",
     "scripts/commodity_usda_crop_progress_feed.py",
     "scripts/commodity_usda_fas_esr_feed.py",
     "scripts/commodity_usda_psd_feed.py",
 } <= publisher_paths
+
+global_wheat = all_manifests["un-comtrade-wheat-major-origin-shipments"]
+assert global_wheat["credential_env"] == ["CONNECTOR_UN_COMTRADE_API_KEY"]
+assert global_wheat["host_allowlist"] == ["comtradeapi.un.org"]
+assert global_wheat["acquisition"] == "free_key_api"
+global_wheat_quality = next(
+    row["quality"] for row in profiles["WHEAT"]
+    if row["need"] == "wheat-major-origin-shipments"
+)
+assert global_wheat_quality == {
+    "path": "observations", "min_observations": 61,
+    "min_span_days": 1825, "date_field": "date", "max_staleness_days": 75,
+    "required_field": "missing_origins", "required_value": 0,
+}
 
 cftc_contracts = {
     "cftc-cot-wheat-srw": ("WHEAT-SRW", "001602"),

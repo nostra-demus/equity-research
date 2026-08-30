@@ -33,7 +33,7 @@ STATUSES = {"usable", "missing", "manual", "unavailable", "suspect"}
 RESOLVER_KINDS = {"connector", "shared_market", "pulse_quote", "derived"}
 QUALITY_KEYS = {
     "path", "min_observations", "min_span_days", "date_field", "max_staleness_days",
-    "max_parent_gap_days",
+    "max_parent_gap_days", "required_field", "required_value",
 }
 FUTURES_PRICE_BASES = {"front_contract", "continuous_back_adjusted", "continuous_ratio_adjusted"}
 PULSE_HISTORY_FILE_RE = re.compile(r"^(?P<price_at>\d+)-(?P<digest>[0-9a-f]{64})\.json$")
@@ -140,9 +140,19 @@ def structured_profile(
             value = quality.get(field)
             if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 1):
                 raise ValueError(f"structured profile requirement {index} has invalid {field}")
-        for field in ("path", "date_field"):
+        for field in ("path", "date_field", "required_field"):
             if field in quality and (not isinstance(quality[field], str) or not quality[field].strip()):
                 raise ValueError(f"structured profile requirement {index} has invalid {field}")
+        required_filter = ("required_field" in quality, "required_value" in quality)
+        if required_filter[0] != required_filter[1] or (required_filter[0] and "path" not in quality):
+            raise ValueError(f"structured profile requirement {index} has an incomplete required-row filter")
+        if "required_value" in quality:
+            required_value = quality["required_value"]
+            if (
+                required_value is None or isinstance(required_value, (dict, list))
+                or (isinstance(required_value, float) and not math.isfinite(required_value))
+            ):
+                raise ValueError(f"structured profile requirement {index} has invalid required_value")
         if quality.get("min_span_days") is not None and (
             quality.get("min_observations") is None or quality.get("date_field") is None
         ):
@@ -250,6 +260,13 @@ def _quality_error(
     observed = _value_at(payload, quality.get("path")) if quality.get("path") else (
         payload.get("points") if isinstance(payload, dict) else None
     )
+    if isinstance(observed, list) and quality.get("required_field") is not None:
+        required_field = quality["required_field"]
+        required_value = quality["required_value"]
+        observed = [
+            item for item in observed
+            if isinstance(item, dict) and item.get(required_field) == required_value
+        ]
     minimum = quality.get("min_observations")
     if minimum is not None and (not isinstance(observed, list) or len(observed) < minimum):
         return f"history has fewer than {minimum} required observations"

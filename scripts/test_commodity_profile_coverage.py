@@ -32,6 +32,19 @@ assert _quality_error(
     dt.datetime(2026, 8, 11, tzinfo=dt.timezone.utc),
 ) == "history spans fewer than 1 required days"
 
+assert _quality_error(
+    {"observations": [
+        {"date": "2025-01-31", "missing_origins": 0},
+        {"date": "2025-02-28", "missing_origins": 1},
+    ]},
+    "2025-02-28",
+    {
+        "path": "observations", "min_observations": 2, "max_staleness_days": 30,
+        "required_field": "missing_origins", "required_value": 0,
+    },
+    dt.datetime(2025, 3, 1, tzinfo=dt.timezone.utc),
+) == "history has fewer than 2 required observations"
+
 SEASONAL_RELEASE = {
     "cadence": "weekly", "timezone": "America/New_York", "expected_lag_days": 1,
     "grace_days": 6, "active_months": [4, 5, 6, 7, 8, 9, 10, 11],
@@ -427,6 +440,14 @@ def main() -> int:
             raise AssertionError("a misspelled quality control must fail")
         except ValueError as error:
             assert "quality controls" in str(error), f"Expected quality-control error, got: {error}"
+        incomplete_filter = copy.deepcopy(baseline)
+        incomplete_filter["requirements"][0]["quality"]["required_field"] = "missing_origins"
+        (structured_root / "GOLD.json").write_text(json.dumps(incomplete_filter), encoding="utf-8")
+        try:
+            structured_profile("GOLD", profile_path=profile, structured_root=structured_root)
+            raise AssertionError("an incomplete required-row filter must fail")
+        except ValueError as error:
+            assert "required-row filter" in str(error), f"Expected filter error, got: {error}"
         typo = copy.deepcopy(baseline)
         shared = typo["requirements"][2]["resolver"]
         shared["instrument_knd"] = shared.pop("instrument_kind")

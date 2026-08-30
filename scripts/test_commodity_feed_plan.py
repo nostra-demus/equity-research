@@ -197,6 +197,7 @@ expected_automatic_routes = {
     ("COTTON", "cotton-crop-progress"): "usda-nass-cotton-crop-progress",
     ("SOYBEANS", "soybeans-crop-progress-condition"): "usda-nass-soybeans-crop-progress",
     ("WHEAT", "wheat-crop-progress-condition"): "usda-nass-wheat-crop-progress",
+    ("WHEAT", "wheat-major-origin-shipments"): "un-comtrade-wheat-major-origin-shipments",
     ("CRUDE-OIL", "crude-oil-refinery-throughput-product-demand"): "eia-crude-refinery-demand",
     ("COFFEE", "coffee-global-balance"): "usda-fas-coffee-global-balance",
 }
