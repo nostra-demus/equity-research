@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T02:04:50Z",
+  "generated_at": "2026-08-30T02:09:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-046",
+      "headline": "US to take 35% stake in Venezuelan mogul Betancourt's oil venture, WSJ reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/legalindustry/us-take-35-stake-venezuelan-mogul-betancourts-oil-venture-wsj-reports-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:02:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The US government taking a 35% stake in an oil venture is a significant geopolitical and operational development for the energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US government taking a 35% stake in an oil venture is a significant geopolitical and operational development for the energy sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Betancourt oil venture",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-041",
       "headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
@@ -91,55 +140,6 @@
         {
           "name": "Glencore",
           "ticker": "GLEN",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-027",
-      "headline": "Glencore books US$480 million provision covering entire Radiant World exposure: sources",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/glencore-books-us480-million-provision-covering-entire-radiant-world-exposure-sources",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T00:57:29Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Glencore is taking a $480 million provision related to its exposure to Radiant World, directly impacting earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Glencore is taking a $480 million provision related to its exposure to Radiant World, directly impacting earnings.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glencore",
-          "ticker": null,
           "listing_country": "GB"
         }
       ],
@@ -244,56 +244,6 @@
           "name": "Hyundai Engineering & Construction",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-038",
-      "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"OIL Green Energy Limited signs MoUs with Government of Haryana for four Integrated Waste-to-Clean-Energy Projects\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OIL_30082026072005_CBGHARYANA_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T01:50:22Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Oil India Limited signed MoUs for four integrated waste-to-clean-energy projects in Haryana, indicating a strategic expansion into green energy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Oil India Limited signed MoUs for four integrated waste-to-clean-energy projects in Haryana, indicating a strategic expansion into green energy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil India Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1859,6 +1809,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-045",
+      "headline": "Abdul El-Sayed clinches Democratic nomination for US Senate seat in Michigan",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/abdul-el-sayed-clinches-democratic-nomination-us-senate-seat-michigan",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:02:32Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Political primary results are standard electoral events and generally not material to market valuations unless specific policy shifts are tied to the candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Political primary results are standard electoral events and generally not material to market valuations unless specific policy shifts are tied to the candidate.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -87930,147 +87923,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-151e26db4506",
-      "idea_version": "IDEAV-223bd9e2dcb1f600",
-      "idea_version_started_at": "2026-08-29T19:04:06Z",
-      "ticker": "S",
-      "company": "SentinelOne",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SentinelOne's trimmed profit forecast, despite a revenue beat, suggests a deterioration in future profitability expectations.",
-      "why_now": "The company's profit forecast was trimmed on August 28, 2026, leading to an immediate stock decline.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-61757f2ac127"
-      ],
-      "primary_source_event_id": "EVT-61757f2ac127",
-      "source_headlines": [
-        "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%"
-      ],
-      "source_headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
-      "source_url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T14:09:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T23:55:54Z",
-      "updated_at": "2026-08-29T19:04:06Z",
-      "decay_at": "2026-08-30T02:09:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b6c0f11fb03b",
-      "idea_version": "IDEAV-1335a8ecc7249039",
-      "idea_version_started_at": "2026-08-29T18:43:39Z",
-      "ticker": "CVX",
-      "company": "Chevron",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Chevron is nearing a deal to invest billions in Venezuelan oil fields, which represents a significant expansion of its oil production capacity and reserves.",
-      "why_now": "The news of the potential deal emerged on August 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0112ea3c81c2"
-      ],
-      "primary_source_event_id": "EVT-0112ea3c81c2",
-      "source_headlines": [
-        "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields"
-      ],
-      "source_headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
-      "source_url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T14:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T18:43:39Z",
-      "updated_at": "2026-08-29T18:43:39Z",
-      "decay_at": "2026-08-30T02:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b95df346cf59",
       "idea_version": "IDEAV-3143e57a2c18906c",
       "idea_version_started_at": "2026-08-29T10:08:49Z",
@@ -90901,6 +90753,147 @@
       "surfaced_at": "2026-08-27T08:58:33Z",
       "updated_at": "2026-08-27T08:58:33Z",
       "decay_at": "2026-08-28T17:23:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-151e26db4506",
+      "idea_version": "IDEAV-223bd9e2dcb1f600",
+      "idea_version_started_at": "2026-08-29T19:04:06Z",
+      "ticker": "S",
+      "company": "SentinelOne",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SentinelOne's trimmed profit forecast, despite a revenue beat, suggests a deterioration in future profitability expectations.",
+      "why_now": "The company's profit forecast was trimmed on August 28, 2026, leading to an immediate stock decline.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61757f2ac127"
+      ],
+      "primary_source_event_id": "EVT-61757f2ac127",
+      "source_headlines": [
+        "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%"
+      ],
+      "source_headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
+      "source_url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:09:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T23:55:54Z",
+      "updated_at": "2026-08-29T19:04:06Z",
+      "decay_at": "2026-08-30T02:09:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b6c0f11fb03b",
+      "idea_version": "IDEAV-1335a8ecc7249039",
+      "idea_version_started_at": "2026-08-29T18:43:39Z",
+      "ticker": "CVX",
+      "company": "Chevron",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Chevron is nearing a deal to invest billions in Venezuelan oil fields, which represents a significant expansion of its oil production capacity and reserves.",
+      "why_now": "The news of the potential deal emerged on August 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0112ea3c81c2"
+      ],
+      "primary_source_event_id": "EVT-0112ea3c81c2",
+      "source_headlines": [
+        "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields"
+      ],
+      "source_headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
+      "source_url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T14:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T18:43:39Z",
+      "updated_at": "2026-08-29T18:43:39Z",
+      "decay_at": "2026-08-30T02:08:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94344,18 +94337,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 239,
-    "shown_count": 239,
+    "total_count": 241,
+    "shown_count": 241,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 111,
-        "shown_count": 111,
+        "total_count": 112,
+        "shown_count": 112,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 128,
-        "shown_count": 128,
+        "total_count": 129,
+        "shown_count": 129,
         "hidden_count": 0
       }
     },
@@ -94375,6 +94368,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-151e26db4506",
+        "idea_version": "IDEAV-223bd9e2dcb1f600",
+        "idea_version_started_at": "2026-08-29T19:04:06Z",
+        "ticker": "S",
+        "company": "SentinelOne",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SentinelOne's trimmed profit forecast, despite a revenue beat, suggests a deterioration in future profitability expectations.",
+        "why_now": "The company's profit forecast was trimmed on August 28, 2026, leading to an immediate stock decline.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-61757f2ac127"
+        ],
+        "primary_source_event_id": "EVT-61757f2ac127",
+        "source_headlines": [
+          "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%"
+        ],
+        "source_headline": "SentinelOne Slides 8% as Trimmed Profit Forecast Outweighs Revenue Beat, CrowdStrike Declines 7%",
+        "source_url": "https://247wallst.com/investing/2026/08/28/sentinelone-slides-8-as-trimmed-profit-forecast-outweighs-revenue-beat-crowdstrike-declines-7/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T14:09:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T23:55:54Z",
+        "updated_at": "2026-08-29T19:04:06Z",
+        "decay_at": "2026-08-30T02:09:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T02:09:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b6c0f11fb03b",
+        "idea_version": "IDEAV-1335a8ecc7249039",
+        "idea_version_started_at": "2026-08-29T18:43:39Z",
+        "ticker": "CVX",
+        "company": "Chevron",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Chevron is nearing a deal to invest billions in Venezuelan oil fields, which represents a significant expansion of its oil production capacity and reserves.",
+        "why_now": "The news of the potential deal emerged on August 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0112ea3c81c2"
+        ],
+        "primary_source_event_id": "EVT-0112ea3c81c2",
+        "source_headlines": [
+          "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields"
+        ],
+        "source_headline": "Chevron, Other U.S. Firms Near Deal to Invest Billions in Venezuelan Oil Fields",
+        "source_url": "https://www.wsj.com/business/energy-oil/chevron-other-u-s-firms-near-deal-to-invest-billions-in-venezuelan-oil-fields-55739e38?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T14:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T18:43:39Z",
+        "updated_at": "2026-08-29T18:43:39Z",
+        "decay_at": "2026-08-30T02:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T02:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1ec44c459bda",
         "idea_version": "IDEAV-3565ea007ab7c9de",
@@ -112090,7 +112230,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 275,
-    "live_count": 34,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -112109,9 +112249,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230,
-    "news_picked_today": 45,
-    "news_dropped_today": 185
+    "news_seen_today": 243,
+    "news_picked_today": 47,
+    "news_dropped_today": 196
   },
   "book_momentum": {
     "live_count": 8,
