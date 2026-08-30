@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T05:35:00Z",
+  "generated_at": "2026-08-30T05:40:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -744,6 +744,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-094",
+      "headline": "ONGC explores eyes deepwater drillship, JV for offshore exploration",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/ongc-explores-eyes-deepwater-drillship-jv-for-offshore-exploration/article71407061.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:33:39Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "ONGC is seeking a deepwater drillship and a joint venture to expand its offshore exploration capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "ONGC is seeking a deepwater drillship and a joint venture to expand its offshore exploration capabilities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-060",
       "headline": "Wife of British man who died after turbulence sues Singapore Airlines",
       "headline_en": null,
@@ -837,6 +887,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-093",
+      "headline": "PSU Lenders To Challenge NCLT Order, Oppose Subhash Chandra’s ₹6.5-Crore Repayment Plan",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/psu-lenders-to-challenge-nclt-order-oppose-subhash-chandras-65-crore-repayment-plan",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T05:13:48Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Public sector lenders are challenging a repayment plan involving a ₹6.5-crore settlement, indicating ongoing credit recovery disputes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Public sector lenders are challenging a repayment plan involving a ₹6.5-crore settlement, indicating ongoing credit recovery disputes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1412,6 +1512,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-096",
+      "headline": "‎Knowledge Tower secures educational curricula contract from Maarif Education",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932555",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:35:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Knowledge Tower secured a contract for educational curricula, which is a direct revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Knowledge Tower secured a contract for educational curricula, which is a direct revenue-generating event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Knowledge Tower",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-088",
       "headline": "Celebrity pyjama brand Stripe and Stare sizes up London float",
       "headline_en": null,
@@ -1781,148 +1930,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-074",
-      "headline": "Venezuela says 25-year US oil deal could generate US$209 billion while preserving resource sovereignty",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/venezuela-says-25-year-us-oil-deal-could-generate-us209-billion-while-preserving-resource",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:07:45Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Venezuela claims a 25-year oil deal with the US could generate US$209 billion, signaling a major potential shift in energy supply and sanctions policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Venezuela claims a 25-year oil deal with the US could generate US$209 billion, signaling a major potential shift in energy supply and sanctions policy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-070",
-      "headline": "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/sheffield-green-hunt-acquisitions-wind-power-maintenance-it-diversifies-beyond-manpower",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Sheffield Green is actively seeking acquisitions to diversify its business model into wind power maintenance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Sheffield Green is actively seeking acquisitions to diversify its business model into wind power maintenance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sheffield Green",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-064",
-      "headline": "INTCO Medical meldet für das erste Halbjahr 2026 ein Umsatzwachstum von 40,6 % und baut die weltweit größte Produktionskapazität für Einweghandschuhe auf 107 Milliarden Stück aus",
-      "headline_en": "INTCO Medical reports revenue growth of 40.6% for the first half of 2026 and expands the world's largest production capacity for disposable gloves to 107 billion units.",
-      "url": "https://www.prnewswire.com/news-releases/intco-medical-meldet-fur-das-erste-halbjahr-2026-ein-umsatzwachstum-von-40-6--und-baut-die-weltweit-groWte-produktionskapazitat-fur-einweghandschuhe-auf-107-milliarden-stuck-aus-302864357.html",
-      "source_name": "PR Newswire — Earnings",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-30T03:36:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "INTCO Medical reports significant revenue growth of 40.6% and is expanding its production capacity to 107 billion units, indicating strong operational performance and future growth potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "INTCO Medical reports significant revenue growth of 40.6% and is expanding its production capacity to 107 billion units, indicating strong operational performance and future growth potential.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "INTCO Medical",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -113412,9 +113419,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 660,
-    "news_picked_today": 118,
-    "news_dropped_today": 542
+    "news_seen_today": 687,
+    "news_picked_today": 122,
+    "news_dropped_today": 565
   },
   "book_momentum": {
     "live_count": 8,
