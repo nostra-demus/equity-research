@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:20:39Z",
+  "generated_at": "2026-08-30T06:24:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1138,6 +1138,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-112",
+      "headline": "‎Derayah commits SAR 244M to AI, technology-focused fund",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932569",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Derayah has committed SAR 244 million to an AI and technology-focused fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Derayah has committed SAR 244 million to an AI and technology-focused fund.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Derayah Financial",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-102",
       "headline": "Ray White Capital, Mallesons, Keyview sued over developer loan",
       "headline_en": null,
@@ -1888,55 +1937,6 @@
       "companies": [
         {
           "name": "Knowledge Tower",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-088",
-      "headline": "Celebrity pyjama brand Stripe and Stare sizes up London float",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16087329/Celebrity-pyjama-brand-Stripe-Stare-sizes-London-float.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T05:01:01Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Stripe and Stare is considering an IPO on the London Stock Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Stripe and Stare is considering an IPO on the London Stock Exchange.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stripe and Stare",
           "ticker": null,
           "listing_country": null
         }
@@ -113647,9 +113647,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 789,
-    "news_picked_today": 144,
-    "news_dropped_today": 645
+    "news_seen_today": 798,
+    "news_picked_today": 147,
+    "news_dropped_today": 651
   },
   "book_momentum": {
     "live_count": 8,
