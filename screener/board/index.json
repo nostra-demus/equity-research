@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:04:59Z",
+  "generated_at": "2026-08-30T10:10:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-191",
+      "headline": "NSE's ₹30,000 crore IPO: SBI, its investment banking arm to offload 1% stake",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/markets/story/nses-rs30000-crore-ipo-sbi-its-investment-banking-arm-to-offload-1-stake-552096-2026-08-30?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T09:47:46Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The National Stock Exchange (NSE) is preparing for a ₹30,000 crore IPO, a major liquidity event for the Indian financial market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The National Stock Exchange (NSE) is preparing for a ₹30,000 crore IPO, a major liquidity event for the Indian financial market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1780,6 +1834,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-187",
+      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES FIRST PARTICIPANT DOSED IN A GLOBAL PHASE III CLINICAL PROGRAM OF ONCE-DAILY ORAL SMALL MOLECULE GLP-1 RECEPTOR AGONIST ASC30 FOR CHRONIC WEIGHT MANAGEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T10:05:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Ascletis-B has initiated a global Phase III clinical trial for its oral GLP-1 agonist ASC30, a significant milestone in its drug development pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Ascletis-B has initiated a global Phase III clinical trial for its oral GLP-1 agonist ASC30, a significant milestone in its drug development pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ascletis Pharma",
+          "ticker": "01672",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-182",
       "headline": "Frasers Property shareholders approve S$2.1 billion hospitality portfolio revamp",
       "headline_en": null,
@@ -1871,110 +1974,6 @@
           "name": "ChangXin Memory Technologies",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-177",
-      "headline": "Chelsea sign Argentine goalkeeper Emiliano Martinez from Aston Villa on three-year deal",
-      "headline_en": null,
-      "url": "https://gulfnews.com/sport/football/chelsea-sign-argentine-goalkeeper-emiliano-martinez-from-aston-villa-1.500657054",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:17:10Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Chelsea FC acquires goalkeeper Emiliano Martinez from Aston Villa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Chelsea FC acquires goalkeeper Emiliano Martinez from Aston Villa.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chelsea FC",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Aston Villa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-171",
-      "headline": "Indian Bank to add 100 branches, hire 2,500 as expansion shifts west",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indian-bank-to-add-100-branches-hire-2500-as-expansion-shifts-west/articleshow/133626487.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T09:00:27Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Indian Bank plans to add 100 branches and hire 2,500 employees as part of an expansion strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Indian Bank plans to add 100 branches and hire 2,500 employees as part of an expansion strategy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -114640,9 +114639,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1675,
-    "news_picked_today": 289,
-    "news_dropped_today": 1386
+    "news_seen_today": 1700,
+    "news_picked_today": 295,
+    "news_dropped_today": 1405
   },
   "book_momentum": {
     "live_count": 8,
