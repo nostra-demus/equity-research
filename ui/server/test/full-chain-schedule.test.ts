@@ -570,6 +570,47 @@ const sorted = (a: string[]) => [...a].sort()
     }
   })
 
+  await check('a privately prepared completion freezes a new generation for its first missing child', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.slice(0, 2).map((module) => ({ ...module, dependsOn: [] }))
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: modules.length,
+        agents: modules.reduce((sum, module) => sum + module.agentCount, 0),
+        specialists: modules.reduce((sum, module) => sum
+          + Object.values(module.layers).flat().filter((agent) => !agent.isSynthesis).length, 0),
+        synthesis: modules.length,
+      },
+    }
+    const carriedModule = modules[0]!.name
+    const missingModule = modules[1]!.name
+    const runRoot = 'analyses/ZZPREPAREDGEN_' + randomUUID()
+    const durable = makeDurableChainFake(runRoot, () => false)
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    writeSynthesis(runRoot, graph, carriedModule)
+    const f = makeFake({ graph })
+    try {
+      const out = await launchFullChained('ZZPREPAREDGEN', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: false,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      assert.deepEqual(out.skipped, [carriedModule])
+      assert.deepEqual(out.planned, [missingModule])
+      assert.deepEqual(f.mods(), [missingModule])
+      assert.equal(f.launches[0]?.requireExistingFrozenPoolReceipt, false,
+        'the new target freezes its reviewed live pool instead of demanding an impossible old-root receipt')
+      f.finish(missingModule, 'error')
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
   await check('a successful drained sibling is sealed and never repaid after another sibling fails', async () => {
     const discovered = buildSwarmGraph()
     const modules = discovered.modules.slice(0, 2).map((module) => ({ ...module, dependsOn: [] }))
