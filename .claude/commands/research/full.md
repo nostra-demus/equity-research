@@ -749,17 +749,27 @@ viol.extend(sic.eval_bc_probability_basis_stated(_live_date, scen, d.get("foreca
 # mirrors NEITHER B nor P for kill_criteria, so without this guard an absent / null / [] / non-list
 # kill_criteria (a whole thesis with NO falsification trigger) sails past eval_ba's `or []` and prints
 # GATE: PASS — the §8 / HARD GATE 11 hole check BA exists to close, left open for the one shape BA is
-# deliberately silent on. Faithful to check P's `_kc_text`: a plain-string row OR a {condition,...}
-# object row both count as present; a list of only-blank entries counts as empty. Gated on SCEN_DATE
-# via `_live_date`, exactly as check P is gated on ddte and AT/AU/AV/BC/BA are gated live.
+# deliberately silent on. Faithful to check P's `_kc_text`, MINUS one thing: a plain-string row OR a
+# {condition,...} object row with a RECOGNIZED trigger field counts as present; a list of only-blank
+# entries counts as empty. Gated on SCEN_DATE via `_live_date`, exactly as check P is gated on ddte and
+# AT/AU/AV/BC/BA are gated live.
+#
+# [Codex P1 fix] deliberately does NOT mirror check P's arbitrary-string-value fallback
+# (`" ".join(str(v) for v in k.values() if isinstance(v, str))`). A row can legitimately carry OTHER
+# string fields that are not the trigger condition itself — comparable_basis (HARD GATE 11's own
+# like-for-like basis text) being the concrete case: `{"comparable_basis": "...", "fired_last_two_periods":
+# true}` satisfies eval_ba's schema-presence check below but states no kill condition at all. The old
+# fallback would grab comparable_basis's string value as if it were the trigger text and count the row
+# present, so a thesis with a fully-formed BA schema and zero stated falsification trigger could still
+# print GATE: PASS. Requiring one of the seven RECOGNIZED trigger fields closes that — the row must name
+# what invalidates the thesis, not merely carry BA's two bookkeeping fields.
 _BA_SCEN_DATE = "2026-06-08"   # eval.py SCEN_DATE — check P's forward-looking floor for the disconfirmation gate
-def _kc_present_text(k):        # mirrors eval.py check P's _kc_text: pull the trigger text from a str OR dict row
+def _kc_present_text(k):        # mirrors eval.py check P's _kc_text, minus the arbitrary-string fallback (see above)
     if isinstance(k, str): return k.strip()
     if isinstance(k, dict):
         for f in ("condition", "criterion", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
             v = k.get(f)
             if isinstance(v, str) and v.strip(): return v.strip()
-        return " ".join(str(v) for v in k.values() if isinstance(v, str)).strip()
     return ""
 if _isdate(_live_date) and _live_date >= _BA_SCEN_DATE:
     _kc_live = d.get("kill_criteria")
