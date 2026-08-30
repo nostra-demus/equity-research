@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:29:38Z",
+  "generated_at": "2026-08-30T06:34:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1138,6 +1138,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-115",
+      "headline": "Sintex Industries: NCLAT upholds clean slate principle, rejects shareholder's plea for compensation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/sintex-industries-nclat-upholds-clean-slate-principle-rejects-shareholders-plea-for-compensation/article71407118.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T06:28:33Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The NCLAT ruling confirms the loss of shareholder value in the insolvency process for Sintex Industries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The NCLAT ruling confirms the loss of shareholder value in the insolvency process for Sintex Industries.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sintex Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-093",
       "headline": "PSU Lenders To Challenge NCLT Order, Oppose Subhash Chandra’s ₹6.5-Crore Repayment Plan",
       "headline_en": null,
@@ -1900,49 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-063",
-      "headline": "US sanctions weigh on Iran as 'economic war' continues",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/world/mena/us-israel-iran-lebanon-war-august-30-2026-live-updates",
-      "source_name": "Khaleej Times — Top / General",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T03:33:50Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "US sanctions can significantly impact Iran's economy and its ability to conduct international trade, affecting revenue and cash flow for Iranian entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "US sanctions can significantly impact Iran's economy and its ability to conduct international trade, affecting revenue and cash flow for Iranian entities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113648,9 +113654,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 812,
-    "news_picked_today": 149,
-    "news_dropped_today": 663
+    "news_seen_today": 822,
+    "news_picked_today": 151,
+    "news_dropped_today": 671
   },
   "book_momentum": {
     "live_count": 8,
