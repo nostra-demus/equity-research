@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T12:00:08Z",
+  "generated_at": "2026-08-30T12:05:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -1738,6 +1738,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-223",
+      "headline": "SBI Group To Sell Up To 1% Stake In NSE, ₹30,000-Crore IPO Planned Soon",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sbi-group-to-sell-up-to-1-stake-in-nse-30000-crore-ipo-planned-soon",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T11:37:05Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "SBI plans to sell a 1% stake in the National Stock Exchange ahead of a planned 30,000-crore IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SBI plans to sell a 1% stake in the National Stock Exchange ahead of a planned 30,000-crore IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-199",
       "headline": "SHOUCHENG (00697): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
       "headline_en": null,
@@ -1924,56 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-211",
-      "headline": "TIANJUDIHE (02479): CHANGE OF CHAIRMAN, EXECUTIVE DIRECTORS, CHIEF EXECUTIVE OFFICER, COMPANY SECRETARY, CHIEF FINANCIAL OFFICER, MEMBERS OF BOARD COMMITTEES AND AUTHORISED REPRESENTATIVE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000357.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T11:10:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The company announced a wholesale change of its entire C-suite and board leadership, indicating significant internal instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company announced a wholesale change of its entire C-suite and board leadership, indicating significant internal instability.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TIANJUDIHE",
-          "ticker": "02479",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -114854,9 +114858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2101,
-    "news_picked_today": 382,
-    "news_dropped_today": 1719
+    "news_seen_today": 2133,
+    "news_picked_today": 386,
+    "news_dropped_today": 1747
   },
   "book_momentum": {
     "live_count": 8,
