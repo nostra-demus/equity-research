@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T02:25:10Z",
+  "generated_at": "2026-08-30T02:29:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-046",
@@ -775,6 +775,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-049",
+      "headline": "Presidenta encargada de Venezuela dice que acuerdo petrolero con EEUU será por 25 años",
+      "headline_en": "Acting President of Venezuela says oil agreement with the US will be for 25 years",
+      "url": "https://www.reuters.com/es/mundo/VAHPCTN2NFPL3F5RCWFJ23VV2Y-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T02:23:48Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The Venezuelan acting president announced a 25-year oil agreement with the US, signaling a potential long-term shift in energy supply and geopolitical relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "The Venezuelan acting president announced a 25-year oil agreement with the US, signaling a potential long-term shift in energy supply and geopolitical relations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1810,55 +1853,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-026",
-      "headline": "Pakistan hospital fire: 8 officials suspended as probe reveals failures behind 14 newborn deaths",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/asia/pakistan/pakistan-hospital-fire-8-officials-suspended-as-probe-reveals-failures-behind-14-newborn-deaths-1.500656793",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T01:03:00Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The suspension of officials following a hospital fire is a local operational and regulatory issue with no material impact on public markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "The suspension of officials following a hospital fire is a local operational and regulatory issue with no material impact on public markets.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pakistan Hospital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -112325,9 +112319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 259,
-    "news_picked_today": 49,
-    "news_dropped_today": 210
+    "news_seen_today": 265,
+    "news_picked_today": 50,
+    "news_dropped_today": 215
   },
   "book_momentum": {
     "live_count": 8,
