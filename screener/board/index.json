@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:25:43Z",
+  "generated_at": "2026-08-30T01:30:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -988,6 +988,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-032",
+      "headline": "Nepal death toll now 676, 3000 still missing",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australian-news-live-august-30-2026-20260830-p60spq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:23:18Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A major natural disaster in Nepal has resulted in 676 confirmed deaths and 3000 people missing, indicating a significant humanitarian and economic impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A major natural disaster in Nepal has resulted in 676 confirmed deaths and 3000 people missing, indicating a significant humanitarian and economic impact.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -111405,7 +111448,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1812,
+    "inbox_unconsumed": 1813,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111414,9 +111457,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 156,
-    "news_picked_today": 32,
-    "news_dropped_today": 124
+    "news_seen_today": 161,
+    "news_picked_today": 33,
+    "news_dropped_today": 128
   },
   "book_momentum": {
     "live_count": 8,
