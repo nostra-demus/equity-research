@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T22:04:20Z",
+  "generated_at": "2026-08-30T22:05:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-263",
@@ -88475,6 +88475,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-23b0a390c1be",
+      "idea_version": "IDEAV-e009b9fcd4d76c95",
+      "idea_version_started_at": "2026-08-30T22:04:42Z",
+      "ticker": "AIZ",
+      "company": "Air New Zealand",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The airline is refusing to signal a return to profitability following a major financial loss, indicating structural margin pressure and weak demand outlook.",
+      "why_now": "The negative guidance stance was freshly detailed in their financial reporting on August 30, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-12e4a952f868"
+      ],
+      "primary_source_event_id": "EVT-12e4a952f868",
+      "source_headlines": [
+        "Air NZ Reluctant to Signal Return to Profit After Big Loss"
+      ],
+      "source_headline": "Air NZ Reluctant to Signal Return to Profit After Big Loss",
+      "source_url": "https://www.livemint.com/companies/air-nz-reluctant-to-signal-return-to-profit-after-big-loss-11788124150417.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T21:09:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T22:04:42Z",
+      "updated_at": "2026-08-30T22:04:42Z",
+      "decay_at": "2026-09-01T09:09:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e4ed75682f29",
+      "idea_version": "IDEAV-8389e44ba16654c1",
+      "idea_version_started_at": "2026-08-30T22:04:42Z",
+      "ticker": "ATM",
+      "company": "Aneka Tambang",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company posted a strong Rp6.91 trillion net profit for the first half of 2026, demonstrating robust operational performance and commodity pricing tailwinds.",
+      "why_now": "The official 1H26 financial results were filed on the ASX on August 30, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b855548d2e3e"
+      ],
+      "primary_source_event_id": "EVT-b855548d2e3e",
+      "source_headlines": [
+        "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26"
+      ],
+      "source_headline": "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATM?key=2924-03128717-2A1693463",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T21:53:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T22:04:42Z",
+      "updated_at": "2026-08-30T22:04:42Z",
+      "decay_at": "2026-09-01T09:53:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-91e5824ed7dd",
       "idea_version": "IDEAV-96812f8704292485",
       "idea_version_started_at": "2026-08-30T16:55:17Z",
@@ -92209,76 +92352,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1604e5b6569e",
-      "idea_version": "IDEAV-a0fcf8bc22993918",
-      "idea_version_started_at": "2026-08-27T23:25:23Z",
-      "ticker": "CRM",
-      "company": "Salesforce Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Salesforce reported a 23% surge following a strong Q2 earnings beat and a strategic partnership with Anthropic, which enhances its AI capabilities.",
-      "why_now": "The market reaction occurred on August 27, 2026, following the earnings release and partnership announcement.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f4bc2395022"
-      ],
-      "primary_source_event_id": "EVT-2f4bc2395022",
-      "source_headlines": [
-        "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat"
-      ],
-      "source_headline": "Stock Market Today, Aug. 27: Salesforce Surges 23% on Anthropic Partnership and Q2 Earnings Beat",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-aug-27-salesforce-surges-23-anthropic-partnership-and-q2-earnings-beat",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-27T21:47:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-26T21:03:32Z",
-      "updated_at": "2026-08-27T23:25:23Z",
-      "decay_at": "2026-08-29T09:47:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-9f3cc317a5c3678e",
       "idea_version_started_at": "2026-08-30T01:25:26Z",
@@ -95907,7 +95980,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 201,
+      "file_count": 202,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -100154,8 +100227,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T09:47:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-30T22:04:47Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114987,8 +115060,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 320,
-    "live_count": 61,
+    "surfaced_total": 322,
+    "live_count": 63,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
