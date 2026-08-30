@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T18:39:06Z",
+  "generated_at": "2026-08-30T18:39:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -87419,6 +87419,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-7911b77a6452522e",
+      "idea_version_started_at": "2026-08-30T18:39:27Z",
+      "ticker": "BA",
+      "company": "The Boeing Company",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Boeing's engineers have authorized a strike for October, threatening to halt the company's recently accelerated 737 production rate and disrupt its cash flow recovery.",
+      "why_now": "The strike authorization introduces a concrete, dated downside catalyst set for October 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b0e0ad96a4dc"
+      ],
+      "primary_source_event_id": "EVT-b0e0ad96a4dc",
+      "source_headlines": [
+        "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
+      ],
+      "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
+      "source_url": "https://www.fool.com/investing/2026/08/30/boeing-is-building-737s-faster-than-it-has-in-years-but-its-engineers-just-authorized-an-october-strike/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T18:07:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T18:39:27Z",
+      "updated_at": "2026-08-30T18:39:27Z",
+      "decay_at": "2026-09-01T06:07:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-177f467dfd2a",
       "idea_version": "IDEAV-48449690aa68a6bc",
       "idea_version_started_at": "2026-08-30T16:05:18Z",
@@ -114915,8 +114985,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 318,
-    "live_count": 60,
+    "surfaced_total": 319,
+    "live_count": 61,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
