@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-08-30T00:06:40Z",
+  "generated_at": "2026-08-30T00:10:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-004",
+      "headline": "SpaceX and Rivals Dodge Traffic as Satellites, Debris Crowd Low-Earth Orbit",
+      "headline_en": null,
+      "url": "https://www.wsj.com/science/space-astronomy/spacex-and-rivals-dodge-traffic-as-satellites-debris-crowd-low-earth-orbit-2a870efe?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Increased orbital congestion poses operational and regulatory risk to satellite operators.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Increased orbital congestion poses operational and regulatory risk to satellite operators.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-005",
+      "headline": "Morgan Stanley finds bigger story in SpaceX’s $100 billion bet",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/spacex-stock-morgan-stanley-louisiana-starbase",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Analyst commentary on a major private company's valuation and capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Analyst commentary on a major private company's valuation and capital deployment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morgan Stanley",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-001",
       "headline": "AIM weekly movers: US prospects boosted for Kooth",
@@ -46,6 +149,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-003",
+      "headline": "Voting closes in Iceland’s knife-edge EU referendum",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/8/29/voting-closes-in-icelands-knife-edge-eu-referendum?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-29T23:33:03Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "A national referendum on EU membership is a major sovereign event affecting trade and currency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A national referendum on EU membership is a major sovereign event affecting trade and currency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109736,7 +109882,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1784,
+    "inbox_unconsumed": 1787,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -109745,9 +109891,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10,
-    "news_picked_today": 2,
-    "news_dropped_today": 8
+    "news_seen_today": 27,
+    "news_picked_today": 6,
+    "news_dropped_today": 21
   },
   "book_momentum": {
     "live_count": 8,
