@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T01:14:51Z",
+  "generated_at": "2026-08-30T01:20:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-019",
@@ -42,6 +42,55 @@
         {
           "name": "Glencore",
           "ticker": "GLEN",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-027",
+      "headline": "Glencore books US$480 million provision covering entire Radiant World exposure: sources",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/glencore-books-us480-million-provision-covering-entire-radiant-world-exposure-sources",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:57:29Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Glencore is taking a $480 million provision related to its exposure to Radiant World, directly impacting earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Glencore is taking a $480 million provision related to its exposure to Radiant World, directly impacting earnings.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glencore",
+          "ticker": null,
           "listing_country": "GB"
         }
       ],
@@ -279,6 +328,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-028",
+      "headline": "Peter Thiel's Fund Reported Zero Stocks for 2 Straight Quarters. Its $419 Million Comeback Put 72% Into Energy and Power.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/29/peter-thiel-s-fund-reported-zero-stocks-for-2-straight-quarters-its-usd419-million-comeback-put-72-into-energy-and-power/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:43:01Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The report details a $419 million portfolio shift into energy, which is informational but not a direct corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The report details a $419 million portfolio shift into energy, which is informational but not a direct corporate event.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Founders Fund",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -792,6 +890,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-029",
+      "headline": "Iran will stand firm against any aggressor, Pezeshkian says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-will-stand-firm-against-any-aggressor-pezeshkian-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:17:58Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Geopolitical rhetoric from Iran regarding potential aggression increases regional risk and market uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical rhetoric from Iran regarding potential aggression increases regional risk and market uncertainty.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-023",
       "headline": "Rescuers dig into tunnel as missing toll from Nepal and China flood nears 3,000",
       "headline_en": null,
@@ -1044,6 +1185,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-026",
+      "headline": "Pakistan hospital fire: 8 officials suspended as probe reveals failures behind 14 newborn deaths",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/asia/pakistan/pakistan-hospital-fire-8-officials-suspended-as-probe-reveals-failures-behind-14-newborn-deaths-1.500656793",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T01:03:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The suspension of officials following a hospital fire is a local operational and regulatory issue with no material impact on public markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "The suspension of officials following a hospital fire is a local operational and regulatory issue with no material impact on public markets.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pakistan Hospital",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -111112,7 +111302,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1806,
+    "inbox_unconsumed": 1810,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -111121,9 +111311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 139,
-    "news_picked_today": 26,
-    "news_dropped_today": 113
+    "news_seen_today": 147,
+    "news_picked_today": 30,
+    "news_dropped_today": 117
   },
   "book_momentum": {
     "live_count": 8,
