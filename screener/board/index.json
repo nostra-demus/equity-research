@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T08:09:35Z",
+  "generated_at": "2026-08-30T08:14:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1631,6 +1631,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-143",
+      "headline": "Dental Boutique seeks growth partner at $500m-plus valuation",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/dental-boutique-seeks-growth-partner-at-500m-plus-valuation-20260830-p60st7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:11:11Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Company is seeking a growth partner at a valuation of $500m+, indicating a potential strategic transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Company is seeking a growth partner at a valuation of $500m+, indicating a potential strategic transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dental Boutique",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-142",
       "headline": "Fight over EssilorLuxottica founder’s US$47 billion fortune deepens as heir quits roles at Ray-Ban maker",
       "headline_en": null,
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-109",
-      "headline": "South West Water has worst environmental record in England, analysis shows",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/environment/2026/aug/30/south-west-water-worst-environmental-record-england",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T06:00:48Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The company is identified as having the worst environmental record in England, which increases regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The company is identified as having the worst environmental record in England, which increases regulatory and reputational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South West Water",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113758,9 +113758,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1190,
-    "news_picked_today": 207,
-    "news_dropped_today": 983
+    "news_seen_today": 1200,
+    "news_picked_today": 208,
+    "news_dropped_today": 992
   },
   "book_momentum": {
     "live_count": 8,
