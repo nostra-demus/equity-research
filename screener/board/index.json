@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T21:54:19Z",
+  "generated_at": "2026-08-30T22:04:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-263",
+      "headline": "ATM: ANTAM Posts Rp6.91 Trillion Net Profit in 1H26",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATM?key=2924-03128717-2A1693463",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T21:53:44Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "ANTAM reported a net profit of Rp6.91 trillion for 1H26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANTAM reported a net profit of Rp6.91 trillion for 1H26.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aneka Tambang",
+          "ticker": "ATM",
+          "listing_country": "ID"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-221",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Prior Intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
@@ -1929,61 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-089",
-      "headline": "Israel to sign $3.6bn defence deal with Greece, its largest ever",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-sign-36bn-defence-deal-greece-its-largest-ever",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T05:10:39Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Israel is signing a $3.6 billion defense contract with Greece, representing a significant capital inflow and commercial milestone for the defense sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Israel is signing a $3.6 billion defense contract with Greece, representing a significant capital inflow and commercial milestone for the defense sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Israel Aerospace Industries",
-          "ticker": null,
-          "listing_country": "IL"
-        },
-        {
-          "name": "Rafael Advanced Defense Systems",
-          "ticker": null,
-          "listing_country": "IL"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -115013,9 +115007,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3810,
-    "news_picked_today": 743,
-    "news_dropped_today": 3067
+    "news_seen_today": 3862,
+    "news_picked_today": 753,
+    "news_dropped_today": 3095
   },
   "book_momentum": {
     "live_count": 8,
