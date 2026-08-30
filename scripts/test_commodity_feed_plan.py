@@ -79,6 +79,19 @@ soy_china = next(
     if item["need_id"] == "soybeans-china-import-arrivals"
 )
 assert soy_china["source_rule_id"] == "china-activity-trade"
+for commodity, need, rule_id, provider in (
+    ("CRUDE-OIL", "crude-oil-oecd-global-inventory-days-cover", "crude-oil-oecd-global-inventory-days-cover", "International Energy Agency Oil Market Report"),
+    ("COCOA", "cocoa-stocks-grindings", "cocoa-stocks-grindings", "International Cocoa Organization"),
+    ("NATURAL-GAS", "natural-gas-europe-storage-balance", "natural-gas-europe-storage-balance", "Gas Infrastructure Europe AGSI+"),
+):
+    plan = next(item for item in plans if item["commodity"] == commodity)
+    row = next(item for item in plan["rows"] if item["need_id"] == need)
+    assert row["source_rule_id"] == rule_id
+    assert provider in {authority["provider"] for authority in row["authorities"]}
+assert next(
+    item for item in next(plan for plan in plans if plan["commodity"] == "COCOA")["rows"]
+    if item["need_id"] == "cocoa-stocks-grindings"
+)["capital_iq_use"] == "not_permitted"
 natural_gas = next(plan for plan in plans if plan["commodity"] == "NATURAL-GAS")
 for need in (
     "natural-gas-lng-export-capacity-availability",

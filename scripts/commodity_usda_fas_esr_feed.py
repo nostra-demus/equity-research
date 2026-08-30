@@ -7,6 +7,7 @@ import json
 import os
 import re
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -33,6 +34,7 @@ MINIMUM_DATES = 260
 MINIMUM_SPAN_DAYS = 1825
 MAX_METADATA_BYTES = 2 * 1024 * 1024
 MAX_EXPORT_BYTES = 8 * 1024 * 1024
+MAX_PARALLEL_REQUESTS = 4
 ROW_FIELDS = {
     "commodityCode", "countryCode", "weeklyExports", "accumulatedExports",
     "outstandingSales", "grossNewSales", "currentMYNetSales",
@@ -157,30 +159,40 @@ def fetch(manifest: dict[str, Any], config: dict[str, Any]) -> dict[str, Any]:
     if not credential:
         raise RuntimeError(f"missing required credential {manifest['credential_env'][0]}")
 
-    metadata: dict[str, list[object]] = {}
-    for label, url in METADATA_URLS.items():
+    def fetch_metadata(item: tuple[str, str]) -> tuple[str, list[object]]:
+        label, url = item
         raw = fetch_bytes_with_header_credential(
             url, manifest, header_name="X-Api-Key", credential=credential,
             max_bytes=MAX_METADATA_BYTES, timeout=30,
         )
-        metadata[label] = _json_list(raw, label)
+        return label, _json_list(raw, label)
+
+    with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+        metadata = dict(executor.map(fetch_metadata, METADATA_URLS.items()))
 
     release_plan = _release_plan(metadata["release_dates"], config)
-    exports = []
+    requests: list[tuple[int, int]] = []
     for identity in config["commodity_codes"]:
         current = release_plan[identity["code"]]["marketYear"]
         for market_year in range(current - HISTORY_MARKET_YEARS + 1, current + 1):
-            url = export_url(identity["code"], market_year)
-            raw = fetch_bytes_with_header_credential(
-                url, manifest, header_name="X-Api-Key", credential=credential,
-                max_bytes=MAX_EXPORT_BYTES, timeout=30,
-            )
-            exports.append({
-                "url": url,
-                "commodity_code": identity["code"],
-                "market_year": market_year,
-                "document": _json_list(raw, "export-sales"),
-            })
+            requests.append((identity["code"], market_year))
+
+    def fetch_export(request: tuple[int, int]) -> dict[str, Any]:
+        commodity_code, market_year = request
+        url = export_url(commodity_code, market_year)
+        raw = fetch_bytes_with_header_credential(
+            url, manifest, header_name="X-Api-Key", credential=credential,
+            max_bytes=MAX_EXPORT_BYTES, timeout=30,
+        )
+        return {
+            "url": url,
+            "commodity_code": commodity_code,
+            "market_year": market_year,
+            "document": _json_list(raw, "export-sales"),
+        }
+
+    with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+        exports = list(executor.map(fetch_export, requests))
     return {**metadata, "exports": exports}
 
 

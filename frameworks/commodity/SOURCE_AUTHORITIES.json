@@ -190,6 +190,44 @@
       "capital_iq_fallback": "Capital IQ is the normal licensed fallback for curves and cash series. Export all required contracts/tenors together so curve math is point-in-time consistent."
     },
     {
+      "id": "crude-oil-oecd-global-inventory-days-cover",
+      "need_pattern": "^crude-oil-oecd-global-inventory-days-cover$",
+      "route_kind": "composite",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "composite_iea_oecd_eia_inventory_and_demand",
+      "authorities": [
+        {"provider": "International Energy Agency Oil Market Report", "url": "https://www.iea.org/reports/oil-market-report", "access": "mixed"},
+        {"provider": "OECD Data Explorer", "url": "https://data-explorer.oecd.org/", "access": "public"},
+        {"provider": "U.S. Energy Information Administration", "url": "https://www.eia.gov/opendata/", "access": "public"}
+      ],
+      "capital_iq_fallback": "A licensed export may supply one exact inventory or demand parent only. Days cover must retain the OECD/global geography, demand denominator, unit, period and release vintage; US stocks cannot substitute."
+    },
+    {
+      "id": "cocoa-stocks-grindings",
+      "need_pattern": "^cocoa-stocks-grindings$",
+      "route_kind": "manual_official",
+      "capital_iq_use": "not_permitted",
+      "preferred_route": "manual_or_automatic_primary_cocoa_body_releases",
+      "authorities": [
+        {"provider": "International Cocoa Organization", "url": "https://www.icco.org/statistics/", "access": "mixed"},
+        {"provider": "European Cocoa Association", "url": "https://www.eurococoa.com/", "access": "public"},
+        {"provider": "National Confectioners Association", "url": "https://candyusa.com/", "access": "mixed"},
+        {"provider": "Cocoa Association of Asia", "url": "https://cocoaasia.org/", "access": "public"}
+      ],
+      "capital_iq_fallback": "Not permitted for the required primary grindings series. Preserve each region, quarter, revision and publisher; otherwise leave the series unavailable."
+    },
+    {
+      "id": "natural-gas-europe-storage-balance",
+      "need_pattern": "^natural-gas-europe-storage-balance$",
+      "route_kind": "single_source",
+      "capital_iq_use": "partial_input",
+      "preferred_route": "automatic_gie_agsi_storage_api",
+      "authorities": [
+        {"provider": "Gas Infrastructure Europe AGSI+", "url": "https://agsi.gie.eu/", "access": "mixed"}
+      ],
+      "capital_iq_fallback": "A licensed series may be a cross-check only. The decision-grade series must preserve AGSI+ working gas, technical capacity, fill percentage, geography, gas day and retrieval vintage."
+    },
+    {
       "id": "inventory-balance",
       "need_pattern": "(inventory|storage|stocks-use|stocks-grindings|balance|inventory-days-cover|stock-change)",
       "route_kind": "single_source",

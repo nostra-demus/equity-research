@@ -175,6 +175,15 @@ wasde = all_manifests["usda-wasde-grains-balance"]
 assert wasde["dataset_id"] == "usda.waob.wasde-xml"
 assert set(wasde["subjects"]) == set(CONNECTORS)
 assert wasde["release"]["revision_policy"] == "revisable"
+publisher_paths = set(json.load(open(
+    os.path.join(REPO, "frameworks", "connector-publisher-files.json"), encoding="utf-8",
+))["paths"])
+assert {
+    "scripts/commodity_bis_fx_feed.py",
+    "scripts/commodity_usda_crop_progress_feed.py",
+    "scripts/commodity_usda_fas_esr_feed.py",
+    "scripts/commodity_usda_psd_feed.py",
+} <= publisher_paths
 
 cftc_contracts = {
     "cftc-cot-wheat-srw": ("WHEAT-SRW", "001602"),

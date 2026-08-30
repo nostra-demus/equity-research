@@ -346,6 +346,15 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
   assert.equal(calls.cftc, 1)
   const persisted = JSON.parse(fs.readFileSync(path.join(stateDir, 'commodity-pulse.json'), 'utf8'))
   assert.ok(persisted['pulse-test']?.prices?.GOLD, 'snapshot persisted under the state dir for restart warm-start')
+  assert.equal(
+    fs.existsSync(path.join(stateDir, 'commodity-pulse-history')), false,
+    'ordinary cockpit polling does not create an unbounded point-in-time archive',
+  )
+})
+
+await check('headless preflight archives exactly the within-TTL price half it will use', async () => {
+  const snap = await getPulse('pulse-test', { ...deps(T0 + 30_000), requirePriceHistory: true })
+  assert.ok(snap)
   const historyDir = path.join(
     stateDir, 'commodity-pulse-history', createHash('sha256').update('pulse-test').digest('hex'),
   )
@@ -417,7 +426,10 @@ await check('headless refresh rejects an existing malformed content-addressed hi
   const state4 = tmp()
   const m4 = makeManifest('pulse-history-corrupt')
   const f4 = makeFetch()
-  const base: PulseDeps = { manifest: m4, fetchFn: f4.fetchFn, now: at(T0), stateDir: state4, repoRoot: repo4 }
+  const base: PulseDeps = {
+    manifest: m4, fetchFn: f4.fetchFn, now: at(T0), stateDir: state4, repoRoot: repo4,
+    requirePriceHistory: true,
+  }
   assert.ok(await getPulse('pulse-history-corrupt', base))
   const historyDir = path.join(
     state4, 'commodity-pulse-history', createHash('sha256').update('pulse-history-corrupt').digest('hex'),

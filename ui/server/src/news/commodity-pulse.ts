@@ -342,9 +342,9 @@ function atomicJsonReplace(file: string, value: unknown): void {
 }
 
 /**
- * Keep every price half under a content-addressed filename before the mutable warm-start file changes.
- * A research run can therefore recover the exact newest snapshot at or before its decision cutoff even
- * when ordinary cockpit polling refreshes commodity-pulse.json while the analytical orbs are running.
+ * Keep the price half explicitly requested by a headless research preflight under a content-addressed
+ * filename before the mutable warm-start file changes. Ordinary cockpit polling never calls this path,
+ * so UI refreshes cannot create an unbounded archive. A research run can still recover its exact cutoff.
  */
 function persistPriceHistory(stateDir: string, swarmId: string, entry: CacheEntry): void {
   if (!Number.isSafeInteger(entry.price.at) || entry.price.at <= 0) return
@@ -366,6 +366,7 @@ function persistPriceHistory(stateDir: string, swarmId: string, entry: CacheEntr
 }
 
 function archivePriceHistory(stateDir: string, swarmId: string, entry: CacheEntry, required: boolean): void {
+  if (!required) return
   try { persistPriceHistory(stateDir, swarmId, entry) } catch (error) { if (required) throw error }
 }
 
@@ -391,7 +392,7 @@ function persist(stateDir: string, swarmId: string, entry: CacheEntry, requirePr
     let j: Record<string, unknown> = {}
     try { j = JSON.parse(fs.readFileSync(persistFile(stateDir), 'utf8')) || {} } catch { /* first write */ }
     j[swarmId] = { priceAt: entry.price.at, prices: entry.price.data, cotAt: entry.cot.at, cots: entry.cot.data }
-    persistPriceHistory(stateDir, swarmId, entry)
+    if (requirePriceHistory) persistPriceHistory(stateDir, swarmId, entry)
     atomicJsonReplace(persistFile(stateDir), j)
   } catch (error) {
     if (requirePriceHistory) throw error

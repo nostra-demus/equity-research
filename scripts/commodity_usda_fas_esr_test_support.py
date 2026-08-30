@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
+import threading
+import time
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -120,6 +123,54 @@ def _header_credential_contract(manifest: dict) -> None:
     assert captured["hosts"] == [feed.HOST] and captured["timeout"] == 9
 
 
+def _parallel_fetch_contract(manifest: dict, config: dict) -> None:
+    original = feed.fetch_bytes_with_header_credential
+    lock = threading.Lock()
+    active = 0
+    maximum = 0
+    releases = [_release(identity["code"], 2027) for identity in config["commodity_codes"]]
+
+    def fake_fetch(url, *_args, **_kwargs) -> bytes:
+        nonlocal active, maximum
+        with lock:
+            active += 1
+            maximum = max(maximum, active)
+        try:
+            time.sleep(0.01)
+            if url == feed.METADATA_URLS["commodities"]:
+                value = [
+                    {"commodityCode": identity["code"], "commodityName": identity["name"], "unitId": identity["unit_id"]}
+                    for identity in config["commodity_codes"]
+                ]
+            elif url == feed.METADATA_URLS["countries"]:
+                value = []
+            elif url == feed.METADATA_URLS["units"]:
+                value = []
+            elif url == feed.METADATA_URLS["release_dates"]:
+                value = releases
+            else:
+                value = []
+            return json.dumps(value).encode("utf-8")
+        finally:
+            with lock:
+                active -= 1
+
+    credential_name = manifest["credential_env"][0]
+    old_credential = os.environ.get(credential_name)
+    feed.fetch_bytes_with_header_credential = fake_fetch
+    os.environ[credential_name] = "fixture-key"
+    try:
+        captures = feed.fetch(manifest, config)
+    finally:
+        feed.fetch_bytes_with_header_credential = original
+        if old_credential is None:
+            os.environ.pop(credential_name, None)
+        else:
+            os.environ[credential_name] = old_credential
+    assert len(captures["exports"]) == len(config["commodity_codes"]) * feed.HISTORY_MARKET_YEARS
+    assert maximum == feed.MAX_PARALLEL_REQUESTS
+
+
 def run_fixture(fetch_file: str) -> None:
     root = Path(fetch_file).resolve().parent
     manifest = json.loads((root / "connector.json").read_text(encoding="utf-8"))
@@ -133,4 +184,5 @@ def run_fixture(fetch_file: str) -> None:
     assert payload["observations"][-1]["markets"][-1]["totals"]["sales_reductions_or_adjustments"] > 0
     assert "api_key" not in json.dumps([payload, sidecar]).casefold()
     _header_credential_contract(manifest)
+    _parallel_fetch_contract(manifest, config)
     print(f"PASS: {manifest['id']}")

@@ -7,8 +7,11 @@ import json
 import math
 import os
 import re
+import threading
+import time
 import urllib.parse
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -27,6 +30,7 @@ MINIMUM_DATES = 260
 MINIMUM_SPAN_DAYS = 3650
 YEARS_OF_HISTORY = 11
 MAX_RESPONSE_BYTES = 12 * 1024 * 1024
+MAX_PARALLEL_REQUESTS = 4
 SUPPRESSED_VALUES = {"", "(D)", "(NA)", "(S)", "(X)", "(Z)"}
 ROW_FIELDS = {
     "source_desc", "sector_desc", "commodity_desc", "class_desc",
@@ -97,15 +101,17 @@ def fetch(manifest: dict[str, Any], commodity: str) -> list[tuple[str, str, obje
     credential = os.environ.get(manifest["credential_env"][0], "")
     if not credential:
         raise RuntimeError(f"missing required credential {manifest['credential_env'][0]}")
-    captures: list[tuple[str, str, object]] = []
-    for url in source_urls(commodity):
+    def fetch_one(url: str) -> tuple[str, str, object]:
         statistic = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)["statisticcat_desc"][0]
         raw = fetch_bytes_with_query_credential(
             url, manifest, query_key="key", credential=credential,
             max_bytes=MAX_RESPONSE_BYTES, timeout=30,
         )
-        captures.append((url, statistic, _decode_document(raw)))
-    return captures
+        return url, statistic, _decode_document(raw)
+
+    urls = source_urls(commodity)
+    with ThreadPoolExecutor(max_workers=MAX_PARALLEL_REQUESTS) as executor:
+        return list(executor.map(fetch_one, urls))
 
 
 def _percent(raw: object) -> int | None:
@@ -314,4 +320,36 @@ def self_test(fetch_file: str) -> None:
         raise AssertionError("malformed USDA crop-progress response did not fail closed")
     if not all(math.isfinite(float(record["percent"])) for item in payload["observations"] for record in item["records"]):
         raise AssertionError("non-finite crop-progress percentage survived")
+
+    original_fetch = globals()["fetch_bytes_with_query_credential"]
+    lock = threading.Lock()
+    active = 0
+    maximum = 0
+
+    def fake_fetch(*_args, **_kwargs) -> bytes:
+        nonlocal active, maximum
+        with lock:
+            active += 1
+            maximum = max(maximum, active)
+        try:
+            time.sleep(0.01)
+            return b'{"data":[]}'
+        finally:
+            with lock:
+                active -= 1
+
+    credential_name = manifest["credential_env"][0]
+    old_credential = os.environ.get(credential_name)
+    globals()["fetch_bytes_with_query_credential"] = fake_fetch
+    os.environ[credential_name] = "fixture-key"
+    try:
+        concurrent_captures = fetch(manifest, config["commodity"])
+    finally:
+        globals()["fetch_bytes_with_query_credential"] = original_fetch
+        if old_credential is None:
+            os.environ.pop(credential_name, None)
+        else:
+            os.environ[credential_name] = old_credential
+    assert [item[0] for item in concurrent_captures] == source_urls(config["commodity"])
+    assert maximum == MAX_PARALLEL_REQUESTS
     print(f"PASS: {manifest['id']}")
