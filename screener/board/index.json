@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T08:34:57Z",
+  "generated_at": "2026-08-30T08:39:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -46,6 +46,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-163",
+      "headline": "China Eastern posts wider first-half net loss",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/china-eastern-posts-wider-first-half-net-loss-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:34:13Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "China Eastern Airlines reported a wider net loss for the first half of the year, indicating ongoing financial pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Eastern Airlines reported a wider net loss for the first half of the year, indicating ongoing financial pressure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Eastern Airlines",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-164",
+      "headline": "Air China H1 net loss widens to about $341 million, filing shows",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/air-china-h1-net-loss-widens-about-341-million-filing-shows-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T08:31:43Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Air China reported a wider net loss of $341 million for the first half of the year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Air China reported a wider net loss of $341 million for the first half of the year.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air China",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100,20 +198,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260830-148",
+      "inbox_id": "INB-20260830-158",
       "headline": "Meta Will Pay $17 Billion to Settle a Federal Lawsuit. Here’s My Prediction of Where the Stock Will Go From Here.",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/30/meta-will-pay-usd17-billion-to-settle-a-federal-lawsuit-here-s-my-prediction-of-where-the-stock-will-go-from-here/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/meta-will-pay-17-billion-settle-federal-lawsuit-heres-my-prediction-where-stock-will-go",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-30T07:55:01Z",
+      "found_at": "2026-08-30T08:15:01Z",
       "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Meta is facing a $17 billion settlement for a federal lawsuit, which is a significant financial impact.",
+      "prelim_note": "Meta is set to pay a $17 billion settlement for a federal lawsuit.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Meta is facing a $17 billion settlement for a federal lawsuit, which is a significant financial impact.",
+      "triage_reason": "Meta is set to pay a $17 billion settlement for a federal lawsuit.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -138,8 +236,8 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Meta Platforms",
-          "ticker": "META",
+          "name": "Meta",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1871,104 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-150",
-      "headline": "Tata's TCE wants private sector to take the nuclear power baton from DAE",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/tatas-tce-wants-private-sector-to-take-the-nuclear-power-baton-from-dae/articleshow/133626106.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:20:58Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Tata Consulting Engineers is advocating for a major policy shift to allow private sector participation in nuclear power, which could open a new market segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Tata Consulting Engineers is advocating for a major policy shift to allow private sector participation in nuclear power, which could open a new market segment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consulting Engineers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-143",
-      "headline": "Dental Boutique seeks growth partner at $500m-plus valuation",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/dental-boutique-seeks-growth-partner-at-500m-plus-valuation-20260830-p60st7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T08:11:11Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Company is seeking a growth partner at a valuation of $500m+, indicating a potential strategic transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Company is seeking a growth partner at a valuation of $500m+, indicating a potential strategic transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dental Boutique",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113829,9 +113829,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1260,
-    "news_picked_today": 223,
-    "news_dropped_today": 1037
+    "news_seen_today": 1299,
+    "news_picked_today": 232,
+    "news_dropped_today": 1067
   },
   "book_momentum": {
     "live_count": 8,
