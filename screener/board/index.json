@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T04:29:55Z",
+  "generated_at": "2026-08-30T04:35:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1792,6 +1792,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-080",
+      "headline": "Islande-Une courte majorité défavorable aux discussions d'adhésion à l'UE, le décompte se poursuit",
+      "headline_en": "Iceland - A narrow majority unfavorable to EU accession talks, the count continues",
+      "url": "https://www.reuters.com/fr/affaires/islande-une-courte-majorit-dfavorable-aux-discussions-dadhsion-lue-le-dcompte-se-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T04:31:53Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Icelandic public sentiment regarding EU accession remains divided, impacting long-term geopolitical and economic alignment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Icelandic public sentiment regarding EU accession remains divided, impacting long-term geopolitical and economic alignment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-052",
       "headline": "(URGENT) Lee taps ruling party lawmaker Kim Seung-won as new justice minister, minor party lawmaker Yong Hye-in as new gender equality minister",
       "headline_en": null,
@@ -1879,50 +1922,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-073",
-      "headline": "Venezuela’s interim president says US oil deal will last 25 years",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/venezuelas-interim-president-says-us-oil-deal-will-last-25-years",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:07:45Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "A 25-year oil deal in Venezuela represents a significant long-term shift in energy supply and geopolitical stability for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "A 25-year oil deal in Venezuela represents a significant long-term shift in energy supply and geopolitical stability for the region.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -113413,9 +113412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 525,
-    "news_picked_today": 94,
-    "news_dropped_today": 431
+    "news_seen_today": 538,
+    "news_picked_today": 95,
+    "news_dropped_today": 443
   },
   "book_momentum": {
     "live_count": 8,
