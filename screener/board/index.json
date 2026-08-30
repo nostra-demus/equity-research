@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T18:34:08Z",
+  "generated_at": "2026-08-30T18:39:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-221",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-248",
+      "headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/30/boeing-is-building-737s-faster-than-it-has-in-years-but-its-engineers-just-authorized-an-october-strike/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T18:07:01Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Boeing faces a potential strike by engineers, which poses a significant operational risk to its 737 production ramp-up.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing faces a potential strike by engineers, which poses a significant operational risk to its 737 production ramp-up.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
       "companies": [
         {
           "name": "Balkrishna Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-078",
-      "headline": "Reliance Jio IPO: Google, Meta among 6 investors to retain stakes in Rs 37,700 crore offer",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/reliance-jio-ipo-google-meta-among-6-investors-to-retain-stakes-in-rs-37700-crore-offer/slideshow/133622985.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T04:06:14Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "Reliance Jio is preparing for an IPO valued at Rs 37,700 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Reliance Jio is preparing for an IPO valued at Rs 37,700 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Jio",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -114935,9 +114935,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3264,
-    "news_picked_today": 600,
-    "news_dropped_today": 2664
+    "news_seen_today": 3268,
+    "news_picked_today": 601,
+    "news_dropped_today": 2667
   },
   "book_momentum": {
     "live_count": 8,
