@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:24:51Z",
+  "generated_at": "2026-08-30T10:29:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-193",
@@ -1538,6 +1538,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-204",
+      "headline": "MABWELL-B (02493): (1) ENTERING INTO THE LICENSE AGREEMENT AND RELATED-PARTY TRANSACTION WITH SYNUSIGHT; (2) JOINT APPLICATION FOR A SCIENCE AND TECHNOLOGY PROJECT WITH SYNUSIGHT AND RELATED-PARTY TRANSACTION; (3) PROPOSED CHANGE IN SCOPE OF BUSINESS, PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION AND REGISTRATION OF INDUSTRIAL AND COMMERCIAL CHANGES; AND (4) NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000137.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-30T10:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Mabwell-B entered into a license agreement and related-party transaction with Synusight, alongside proposed corporate governance changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Mabwell-B entered into a license agreement and related-party transaction with Synusight, alongside proposed corporate governance changes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mabwell-B",
+          "ticker": "02493",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-139",
       "headline": "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker",
       "headline_en": null,
@@ -1924,56 +1974,6 @@
           "name": "Smartworks",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-047",
-      "headline": "Chinese chipmaker CXMT sues Pentagon over ‘Chinese military company’ designation",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/chinese-chipmaker-cxmt-sues-pentagon-over-chinese-military-company-designation",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T02:14:29Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "CXMT is suing the US Department of Defense to challenge its designation as a Chinese military company, which carries significant operational and trade risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "CXMT is suing the US Department of Defense to challenge its designation as a Chinese military company, which carries significant operational and trade risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ChangXin Memory Technologies",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -114714,9 +114714,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1761,
-    "news_picked_today": 311,
-    "news_dropped_today": 1450
+    "news_seen_today": 1779,
+    "news_picked_today": 318,
+    "news_dropped_today": 1461
   },
   "book_momentum": {
     "live_count": 8,
