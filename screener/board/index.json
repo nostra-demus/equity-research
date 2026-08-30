@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T06:09:33Z",
+  "generated_at": "2026-08-30T06:14:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260830-062",
@@ -1187,6 +1187,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260830-109",
+      "headline": "South West Water has worst environmental record in England, analysis shows",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/environment/2026/aug/30/south-west-water-worst-environmental-record-england",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T06:00:48Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The company is identified as having the worst environmental record in England, which increases regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The company is identified as having the worst environmental record in England, which increases regulatory and reputational risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "South West Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260830-057",
       "headline": "Setback for Anthropic? Sony, Warner Chappell file lawsuit against AI firm, accusing it of intellectual property theft",
       "headline_en": null,
@@ -1874,49 +1923,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260830-056",
-      "headline": "ATO finds 6000 property sales that may have skipped paying tax",
-      "headline_en": null,
-      "url": "https://www.afr.com/wealth/tax/ato-finds-6000-property-sales-that-may-have-skipped-paying-tax-20260819-p60pua?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T03:01:51Z",
-      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
-      "prelim_note": "The Australian Taxation Office identified 6,000 property sales potentially involving tax evasion, indicating increased enforcement risk for property investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Australian Taxation Office identified 6,000 property sales potentially involving tax evasion, indicating increased enforcement risk for property investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -113493,9 +113499,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 773,
-    "news_picked_today": 138,
-    "news_dropped_today": 635
+    "news_seen_today": 781,
+    "news_picked_today": 141,
+    "news_dropped_today": 640
   },
   "book_momentum": {
     "live_count": 8,
