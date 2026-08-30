@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-30T00:55:23Z",
+  "generated_at": "2026-08-30T00:59:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-019",
+      "headline": "Glencore took US$480 million provision on Radiant World exposure: sources",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/glencore-took-us480-million-provision-radiant-world-exposure-sources",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:57:29Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Glencore took a US$480 million provision related to its exposure to Radiant World, impacting its financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Glencore took a US$480 million provision related to its exposure to Radiant World, impacting its financial results.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glencore",
+          "ticker": "GLEN",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260830-006",
       "headline": "Iran war live: Tehran stands firm over US sanctions; settlers besiege Qusra",
@@ -501,6 +550,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-020",
+      "headline": "Iran parliament speaker says new regional pacts can 'herald a new stage’",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-parliament-speaker-says-new-regional-pacts-can-herald-new-stage",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T00:52:59Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "The Iranian parliament speaker's comments on regional pacts represent geopolitical posturing without immediate actionable economic impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The Iranian parliament speaker's comments on regional pacts represent geopolitical posturing without immediate actionable economic impact.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -87743,77 +87835,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a4e5cec1ef8b",
-      "idea_version": "IDEAV-230262be31743fba",
-      "idea_version_started_at": "2026-08-29T21:53:05Z",
-      "ticker": "00852",
-      "company": "Strong Petrochemical Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Strong Petrochemical Holdings Limited announced a further delay in the payment of its 2024 interim dividend and continued trading suspension, signaling severe financial difficulties.",
-      "why_now": "The announcement regarding the dividend delay and trading suspension was made on August 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74e06baa7bc7"
-      ],
-      "primary_source_event_id": "EVT-74e06baa7bc7",
-      "source_headlines": [
-        "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
-      ],
-      "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:58:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:43:25Z",
-      "updated_at": "2026-08-29T21:53:05Z",
-      "decay_at": "2026-08-30T00:58:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2bf283da46ec",
       "idea_version": "IDEAV-798ac2349a3070f2",
       "idea_version_started_at": "2026-08-29T21:34:21Z",
@@ -90497,6 +90518,77 @@
       "surfaced_at": "2026-08-29T21:53:05Z",
       "updated_at": "2026-08-29T21:53:05Z",
       "decay_at": "2026-08-29T23:28:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a4e5cec1ef8b",
+      "idea_version": "IDEAV-230262be31743fba",
+      "idea_version_started_at": "2026-08-29T21:53:05Z",
+      "ticker": "00852",
+      "company": "Strong Petrochemical Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Strong Petrochemical Holdings Limited announced a further delay in the payment of its 2024 interim dividend and continued trading suspension, signaling severe financial difficulties.",
+      "why_now": "The announcement regarding the dividend delay and trading suspension was made on August 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74e06baa7bc7"
+      ],
+      "primary_source_event_id": "EVT-74e06baa7bc7",
+      "source_headlines": [
+        "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
+      ],
+      "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T21:53:05Z",
+      "decay_at": "2026-08-30T00:58:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -93300,8 +93392,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 234,
-    "shown_count": 234,
+    "total_count": 235,
+    "shown_count": 235,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -93310,8 +93402,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 126,
-        "shown_count": 126,
+        "total_count": 127,
+        "shown_count": 127,
         "hidden_count": 0
       }
     },
@@ -93331,6 +93423,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a4e5cec1ef8b",
+        "idea_version": "IDEAV-230262be31743fba",
+        "idea_version_started_at": "2026-08-29T21:53:05Z",
+        "ticker": "00852",
+        "company": "Strong Petrochemical Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Strong Petrochemical Holdings Limited announced a further delay in the payment of its 2024 interim dividend and continued trading suspension, signaling severe financial difficulties.",
+        "why_now": "The announcement regarding the dividend delay and trading suspension was made on August 28, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-74e06baa7bc7"
+        ],
+        "primary_source_event_id": "EVT-74e06baa7bc7",
+        "source_headlines": [
+          "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING"
+        ],
+        "source_headline": "STRONG PETRO (00852): ANNOUNCEMENT (1) FURTHER DELAY IN PAYMENT OF 2024 INTERIM DIVIDEND; AND (2) CONTINUED SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802840.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:58:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:43:25Z",
+        "updated_at": "2026-08-29T21:53:05Z",
+        "decay_at": "2026-08-30T00:58:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:58:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-314816d42d62",
         "idea_version": "IDEAV-d9c564e47f22d9c5",
@@ -110677,7 +110843,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 274,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -110687,7 +110853,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1800,
+    "inbox_unconsumed": 1802,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -110696,9 +110862,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 111,
-    "news_picked_today": 19,
-    "news_dropped_today": 92
+    "news_seen_today": 114,
+    "news_picked_today": 21,
+    "news_dropped_today": 93
   },
   "book_momentum": {
     "live_count": 8,
