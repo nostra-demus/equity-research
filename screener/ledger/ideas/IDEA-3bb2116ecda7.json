@@ -1,36 +1,35 @@
 {
-  "idea_id": "IDEA-6f55bf31e25a",
-  "idea_version": "IDEAV-2d43af8978c497d0",
+  "idea_id": "IDEA-3bb2116ecda7",
+  "idea_version": "IDEAV-d4410115e6047b86",
   "idea_version_started_at": "2026-08-30T18:59:22Z",
-  "ticker": "BA",
-  "company": "Boeing",
+  "ticker": "KKR",
+  "company": "KKR & Co. Inc.",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "Engineers have authorized a strike for October, threatening to halt the recent momentum in 737 production rates and increase labor costs.",
-  "why_now": "The strike authorization occurred on August 30, 2026, creating a specific downside catalyst for October.",
-  "conviction": 70,
+  "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
+  "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,26 +46,30 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-cebb0aeaf2e8"
+    "EVT-dc4bc47f7047",
+    "EVT-7b406abe3985",
+    "EVT-f623aef7dfce"
   ],
-  "primary_source_event_id": "EVT-cebb0aeaf2e8",
+  "primary_source_event_id": "EVT-dc4bc47f7047",
   "source_headlines": [
-    "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
+    "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+    "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+    "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
   ],
-  "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
-  "source_url": "https://finance.yahoo.com/markets/stocks/articles/boeing-building-737s-faster-years-182701948.html",
-  "source_name": "Yahoo Finance",
+  "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+  "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+  "source_name": "The Wall Street Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-30T18:27:01Z",
+  "newest_source_at": "2026-08-30T17:05:44Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-30T18:39:27Z",
+  "surfaced_at": "2026-08-30T18:59:22Z",
   "updated_at": "2026-08-30T18:59:22Z",
-  "decay_at": "2026-09-01T06:27:01Z",
+  "decay_at": "2026-09-01T05:05:44Z",
   "status": "live",
   "promoted_signal_id": null
 }
