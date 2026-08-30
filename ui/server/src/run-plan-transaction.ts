@@ -607,7 +607,7 @@ async function privatizePreSpendRetryTarget(
   workspace: string,
   journal: TransactionJournalV3,
   stateDir: string,
-): Promise<void> {
+): Promise<'retained' | 'missing'> {
   if (spawnBoundary(journal, stateDir) !== 'unstarted') {
     throw new Error('a paid child may have started; pre-spend retry deferral is unsafe')
   }
@@ -623,7 +623,14 @@ async function privatizePreSpendRetryTarget(
   // Layout after the first rename: target=absent, backup=old-or-absent, prepared=new.
   // Layout after restoration: target=old-or-absent, backup=absent, prepared=new.
   if (!preparedExists) {
-    if (!targetExists) throw new Error('pre-spend retry lost both canonical and private prepared roots')
+    if (!targetExists) {
+      if (backupExists) {
+        await fs.promises.rename(backupAbs, targetAbs)
+        await syncDirectory(path.dirname(targetAbs))
+        await syncDirectory(workspace)
+      }
+      return 'missing'
+    }
     await fs.promises.rename(targetAbs, preparedAbs)
     await syncDirectory(path.dirname(targetAbs))
     await syncDirectory(workspace)
@@ -637,6 +644,7 @@ async function privatizePreSpendRetryTarget(
     await syncDirectory(workspace)
   }
   if (!await pathEntryExists(preparedAbs)) throw new Error('pre-spend retry private root was not retained')
+  return 'retained'
 }
 
 export interface RunPlanTransactionRecovery {
@@ -718,7 +726,11 @@ export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): 
         preSpendRetry: retry,
       }) as TransactionJournalV3
       abortUnreleasedSpawnAttempts(deferring, stateDir)
-      await privatizePreSpendRetryTarget(workspace, deferring, stateDir)
+      if (await privatizePreSpendRetryTarget(workspace, deferring, stateDir) === 'missing') {
+        await writeJournal(journalDirectory, { ...deferring, status: 'rolled_back' })
+        recovered.rolledBack.push(journal.requestId)
+        continue
+      }
       await writeJournal(journalDirectory, { ...deferring, status: 'waiting_pre_spend_retry' })
       recovered.waitingPreSpendRetry.push(journal.requestId)
       continue
@@ -728,7 +740,11 @@ export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): 
         throw new Error(`pre-spend retry workspace is unsafe: ${journal.requestId}`)
       }
       abortUnreleasedSpawnAttempts(journal, stateDir)
-      await privatizePreSpendRetryTarget(workspace, journal, stateDir)
+      if (await privatizePreSpendRetryTarget(workspace, journal, stateDir) === 'missing') {
+        await writeJournal(journalDirectory, { ...journal, status: 'rolled_back' })
+        recovered.rolledBack.push(journal.requestId)
+        continue
+      }
       if (journal.status !== 'waiting_pre_spend_retry') {
         await writeJournal(journalDirectory, { ...journal, status: 'waiting_pre_spend_retry' })
       }
@@ -1348,7 +1364,9 @@ async function prepareRunPlanTransactionInternal(
           preSpendRetry: retry,
         }) as TransactionJournalV3
         abortUnreleasedSpawnAttempts(journal, stateDir)
-        await privatizePreSpendRetryTarget(workspace, journal, stateDir)
+        if (await privatizePreSpendRetryTarget(workspace, journal, stateDir) === 'missing') {
+          throw new Error('pre-spend retry lost both canonical and private prepared roots')
+        }
         journal = await writeJournal(journalDirectory, {
           ...journal,
           status: 'waiting_pre_spend_retry',
