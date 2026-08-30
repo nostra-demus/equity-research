@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-08-29T23:18:01Z",
+  "generated_at": "2026-08-30T00:06:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260830-001",
+      "headline": "AIM weekly movers: US prospects boosted for Kooth",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/aim-weekly-movers-us-prospects-boosted-for-kooth/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T23:58:16Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Kooth is seeing improved commercial prospects in the US market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Kooth is seeing improved commercial prospects in the US market.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kooth",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260830-002",
+      "headline": "Iran War Adds $330 Billion to Global Energy Import Bill",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/iran-war-adds-330-billion-230000013.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-29T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-30_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran is estimated to increase global energy import costs by $330 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Geopolitical escalation involving Iran is estimated to increase global energy import costs by $330 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260829-490",
       "headline": "Van-Type Trailers and Subassemblies Thereof From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value",
@@ -85436,6 +85528,147 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-ac20fff1a86eead0",
+      "idea_version_started_at": "2026-08-29T23:48:06Z",
+      "ticker": "META",
+      "company": "Meta Platforms, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
+      "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-63ce59bfa5c5",
+        "EVT-bef4b96e40e0"
+      ],
+      "primary_source_event_id": "EVT-63ce59bfa5c5",
+      "source_headlines": [
+        "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+        "Meta settles social media addiction suit for up to $17.1 billion"
+      ],
+      "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+      "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T14:49:07Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-28",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-29T16:03:33Z",
+      "updated_at": "2026-08-29T23:48:06Z",
+      "decay_at": "2026-08-31T02:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-865901eb21c3",
+      "idea_version": "IDEAV-1a2f2037ab34fb0c",
+      "idea_version_started_at": "2026-08-29T23:48:06Z",
+      "ticker": "PYPL",
+      "company": "PayPal Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "PayPal shares crashed 13% after reports that the Advent-Stripe consortium walked away from a potential bid, removing a significant M&A premium.",
+      "why_now": "The news of the consortium walking away from a bid on August 28, 2026, directly impacted the stock price, indicating a live catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b268ee617228"
+      ],
+      "primary_source_event_id": "EVT-b268ee617228",
+      "source_headlines": [
+        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
+      ],
+      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T15:19:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:40:33Z",
+      "updated_at": "2026-08-29T23:48:06Z",
+      "decay_at": "2026-08-30T03:19:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab6392d211fe",
       "idea_version": "IDEAV-9c3b865caa21cfaf",
       "idea_version_started_at": "2026-08-29T23:08:40Z",
@@ -85569,216 +85802,6 @@
       "surfaced_at": "2026-08-29T22:28:34Z",
       "updated_at": "2026-08-29T22:28:34Z",
       "decay_at": "2026-08-30T02:00:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-d32e4e1d8f3de320",
-      "idea_version_started_at": "2026-08-29T19:23:11Z",
-      "ticker": "META",
-      "company": "Meta Platforms, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Meta has agreed to settle a massive social media addiction lawsuit for up to $17.1 billion, which will directly hit cash reserves and near-term earnings.",
-      "why_now": "The settlement announcement on August 29, 2026, introduces a massive, concrete cash outflow liability.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bef4b96e40e0"
-      ],
-      "primary_source_event_id": "EVT-bef4b96e40e0",
-      "source_headlines": [
-        "Meta settles social media addiction suit for up to $17.1 billion"
-      ],
-      "source_headline": "Meta settles social media addiction suit for up to $17.1 billion",
-      "source_url": "https://www.cbsnews.com/news/meta-settles-social-media-addiction-lawsuit/",
-      "source_name": "CBS MoneyWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T14:49:07Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-28",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-29T16:03:33Z",
-      "updated_at": "2026-08-29T19:23:11Z",
-      "decay_at": "2026-08-31T02:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-865901eb21c3",
-      "idea_version": "IDEAV-b99c1d7ebfc689c2",
-      "idea_version_started_at": "2026-08-29T19:23:11Z",
-      "ticker": "PYPL",
-      "company": "PayPal Holdings, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "PayPal shares crashed 13% following reports that the Advent-Stripe consortium has walked away from a potential bid, removing a major valuation floor.",
-      "why_now": "The news of the consortium walking away broke on August 28, 2026, triggering immediate selling pressure.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b268ee617228"
-      ],
-      "primary_source_event_id": "EVT-b268ee617228",
-      "source_headlines": [
-        "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid"
-      ],
-      "source_headline": "PayPal shares crash 13% on reports Advent-Stripe consortium walks away from bid",
-      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/paypal-shares-crash-13-on-reports-advent-stripe-consortium-walks-away-from-bid/articleshow/133594719.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T15:19:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T13:40:33Z",
-      "updated_at": "2026-08-29T19:23:11Z",
-      "decay_at": "2026-08-30T03:19:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9dc53bf2a68a",
-      "idea_version": "IDEAV-f75cc4ef9ce63c2c",
-      "idea_version_started_at": "2026-08-29T19:23:11Z",
-      "ticker": "PCG",
-      "company": "PG&E Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "PG&E shares are falling due to severe wildfire-liability uncertainty ahead of a critical regulatory and legal deadline.",
-      "why_now": "The critical wildfire-liability deadline is August 31, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8d3313624fda"
-      ],
-      "primary_source_event_id": "EVT-8d3313624fda",
-      "source_headlines": [
-        "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline"
-      ],
-      "source_headline": "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline",
-      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/08/28/stock-market-today-aug-28-pg-and-e-falls-8-on-wildfire-liability-uncertainty-ahead-of-aug-31-deadline/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T21:27:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T13:02:30Z",
-      "updated_at": "2026-08-29T19:23:11Z",
-      "decay_at": "2026-08-30T09:27:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -85925,6 +85948,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4f1853282799",
+      "idea_version": "IDEAV-4fa1ad7c93e37aba",
+      "idea_version_started_at": "2026-08-30T00:06:22Z",
+      "ticker": "KVUE",
+      "company": "Kenvue Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
+      "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9bf4b4652007"
+      ],
+      "primary_source_event_id": "EVT-9bf4b4652007",
+      "source_headlines": [
+        "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
+      ],
+      "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
+      "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T16:26:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T00:06:22Z",
+      "updated_at": "2026-08-30T00:06:22Z",
+      "decay_at": "2026-08-30T04:26:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-1f0c0686be4766d5",
       "idea_version_started_at": "2026-08-29T19:43:53Z",
@@ -85996,16 +86089,16 @@
     },
     {
       "idea_id": "IDEA-c559ff4a8d85",
-      "idea_version": "IDEAV-7dfb2b6e785c4145",
-      "idea_version_started_at": "2026-08-29T19:43:53Z",
+      "idea_version": "IDEAV-fac930fbf4d23738",
+      "idea_version_started_at": "2026-08-30T00:06:22Z",
       "ticker": "FLR",
       "company": "Fluor Corporation",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Wrapping up a major $5 billion construction project in Alabama allows for the recognition of final milestones and the reallocation of capital/labor to new backlog.",
-      "why_now": "The project completion was reported on August 28, 2024, marking a transition from execution risk to cash collection.",
-      "conviction": 50,
+      "reason": "Fluor is wrapping up construction on a major $5 billion Alabama plant, which will de-risk its backlog and free up working capital.",
+      "why_now": "The physical completion of the plant is happening now, removing execution overhang.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 60,
       "trade_score_basis": "evidence_gate_v2",
@@ -86022,7 +86115,6 @@
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
-        "price and market expectations",
         "independent confirmation",
         "live price, liquidity, and consensus"
       ],
@@ -86035,7 +86127,7 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "unknown",
+      "priced_in": "room",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
@@ -86058,8 +86150,78 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-08-29T13:40:33Z",
-      "updated_at": "2026-08-29T19:43:53Z",
+      "updated_at": "2026-08-30T00:06:22Z",
       "decay_at": "2026-08-30T03:27:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9dc53bf2a68a",
+      "idea_version": "IDEAV-c16f9785c3c6ba07",
+      "idea_version_started_at": "2026-08-29T23:27:48Z",
+      "ticker": "PCG",
+      "company": "PG&E",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces significant wildfire-related liability uncertainty that threatens its balance sheet and cash flow.",
+      "why_now": "The market is reacting to a specific, looming legal deadline on August 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d3313624fda"
+      ],
+      "primary_source_event_id": "EVT-8d3313624fda",
+      "source_headlines": [
+        "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline"
+      ],
+      "source_headline": "Stock Market Today, Aug. 28: PG&E Falls 8% on Wildfire-Liability Uncertainty Ahead of Aug. 31 Deadline",
+      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/08/28/stock-market-today-aug-28-pg-and-e-falls-8-on-wildfire-liability-uncertainty-ahead-of-aug-31-deadline/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T21:27:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T13:02:30Z",
+      "updated_at": "2026-08-29T23:27:48Z",
+      "decay_at": "2026-08-30T09:27:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86342,6 +86504,79 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T22:28:34Z",
       "decay_at": "2026-08-30T09:29:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a9381beff1e4",
+      "idea_version": "IDEAV-aad3a464199f5a97",
+      "idea_version_started_at": "2026-08-29T23:48:06Z",
+      "ticker": "ALV",
+      "company": "Allianz SE",
+      "exchange": "XTRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Allianz is reportedly weighing an $8.6 billion takeover of AA, which could expand its market share and diversify its insurance offerings.",
+      "why_now": "Media reports on August 29, 2026, indicate Allianz is actively studying the acquisition, making this a live M&A catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d53280276d9",
+        "EVT-9599abc30eee"
+      ],
+      "primary_source_event_id": "EVT-5d53280276d9",
+      "source_headlines": [
+        "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
+        "German insurer Allianz studies the acquisition of roadside assistance giant AA: media"
+      ],
+      "source_headline": "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
+      "source_url": "https://www.straitstimes.com/business/german-insurer-allianz-weighs-8-6-billion-takeover-of-aa-roadside-rescue-giant-report",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:37:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T19:04:06Z",
+      "updated_at": "2026-08-29T23:48:06Z",
+      "decay_at": "2026-08-31T01:37:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -86850,77 +87085,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-86375a9f234f",
-      "idea_version": "IDEAV-9998d6f5a46168a3",
-      "idea_version_started_at": "2026-08-29T21:53:05Z",
-      "ticker": "CONGYU",
-      "company": "Congyu International Agriculture Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Congyu International Agriculture Group Limited issued a profit warning, suggesting a material adverse change in its financial performance.",
-      "why_now": "The profit warning was disclosed on August 28, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c12e163f7753"
-      ],
-      "primary_source_event_id": "EVT-c12e163f7753",
-      "source_headlines": [
-        "CONGYU INTE AGR (00875): PROFIT WARNING"
-      ],
-      "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T11:28:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T21:53:05Z",
-      "updated_at": "2026-08-29T21:53:05Z",
-      "decay_at": "2026-08-29T23:28:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a4e5cec1ef8b",
       "idea_version": "IDEAV-230262be31743fba",
       "idea_version_started_at": "2026-08-29T21:53:05Z",
@@ -87063,78 +87227,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-913c9c5d1968",
-      "idea_version": "IDEAV-bdb2a849a53f8d80",
-      "idea_version_started_at": "2026-08-29T21:34:21Z",
-      "ticker": "01788",
-      "company": "Guotai Junan International Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is proceeding with a privatization proposal via a scheme of arrangement, which typically involves a premium to the prevailing market price to secure shareholder approval.",
-      "why_now": "An update on the timeline for the dispatch of the scheme document was released on August 28, 2026, moving the deal closer to completion.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-823e7436b538"
-      ],
-      "primary_source_event_id": "EVT-823e7436b538",
-      "source_headlines": [
-        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT"
-      ],
-      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802100.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T11:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:43:25Z",
-      "updated_at": "2026-08-29T21:34:21Z",
-      "decay_at": "2026-08-29T23:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a8a011b56d28",
       "idea_version": "IDEAV-c741b53fb33d494f",
       "idea_version_started_at": "2026-08-29T21:34:21Z",
@@ -87202,78 +87294,6 @@
       "surfaced_at": "2026-08-29T08:47:38Z",
       "updated_at": "2026-08-29T21:34:21Z",
       "decay_at": "2026-08-30T06:51:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1089cf77cf0a",
-      "idea_version": "IDEAV-20ea7d2ea26e7534",
-      "idea_version_started_at": "2026-08-29T21:13:33Z",
-      "ticker": "01101",
-      "company": "HUARONG ENERGY",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
-      "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-255663ecc15c"
-      ],
-      "primary_source_event_id": "EVT-255663ecc15c",
-      "source_headlines": [
-        "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
-      ],
-      "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T12:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T17:43:44Z",
-      "updated_at": "2026-08-29T21:13:33Z",
-      "decay_at": "2026-08-30T00:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -87422,77 +87442,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8c0df7c727b4",
-      "idea_version": "IDEAV-f1311c301d8cfdf9",
-      "idea_version_started_at": "2026-08-29T21:13:33Z",
-      "ticker": "02722",
-      "company": "CHONGQING M&E",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will likely result in significant financial losses and impairments for the parent company.",
-      "why_now": "The company announced this inside information on August 28, 2026, indicating an immediate and severe financial event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d15167b7180"
-      ],
-      "primary_source_event_id": "EVT-5d15167b7180",
-      "source_headlines": [
-        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
-      ],
-      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T11:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:43:25Z",
-      "updated_at": "2026-08-29T21:13:33Z",
-      "decay_at": "2026-08-29T23:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-017f4db87209",
       "idea_version": "IDEAV-5f777a7efbcea721",
       "idea_version_started_at": "2026-08-29T19:04:06Z",
@@ -87631,79 +87580,6 @@
       "surfaced_at": "2026-08-29T19:04:06Z",
       "updated_at": "2026-08-29T19:04:06Z",
       "decay_at": "2026-08-31T00:19:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a9381beff1e4",
-      "idea_version": "IDEAV-6bd329dc952ce72d",
-      "idea_version_started_at": "2026-08-29T19:04:06Z",
-      "ticker": "ALV",
-      "company": "Allianz",
-      "exchange": "XTRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Allianz is reportedly weighing an $8.6 billion takeover of AA, which could expand its market share and revenue streams in roadside assistance.",
-      "why_now": "The report of Allianz weighing the takeover emerged on August 29, 2026, presenting a potential M&A catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d53280276d9"
-      ],
-      "primary_source_event_id": "EVT-5d53280276d9",
-      "source_headlines": [
-        "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report"
-      ],
-      "source_headline": "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
-      "source_url": "https://www.straitstimes.com/business/german-insurer-allianz-weighs-8-6-billion-takeover-of-aa-roadside-rescue-giant-report",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T10:28:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T19:04:06Z",
-      "updated_at": "2026-08-29T19:04:06Z",
-      "decay_at": "2026-08-30T22:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -88065,77 +87941,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a6df87e99e90",
-      "idea_version": "IDEAV-6c074d3d4d78a657",
-      "idea_version_started_at": "2026-08-29T18:03:21Z",
-      "ticker": "2722",
-      "company": "Chongqing Machinery & Electric Co., Ltd.",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A subsidiary of Chongqing M&E has filed an application for bankruptcy and liquidation, which threatens to impair the parent company's balance sheet and reduce consolidated earnings.",
-      "why_now": "The bankruptcy application was officially disclosed on August 28, 2026, creating immediate downside pressure on the stock.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d15167b7180"
-      ],
-      "primary_source_event_id": "EVT-5d15167b7180",
-      "source_headlines": [
-        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
-      ],
-      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T11:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T09:43:41Z",
-      "updated_at": "2026-08-29T18:03:21Z",
-      "decay_at": "2026-08-29T23:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-eb536eed0e8f",
       "idea_version": "IDEAV-06f83235e205d4b7",
       "idea_version_started_at": "2026-08-29T16:42:52Z",
@@ -88487,77 +88292,6 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T12:26:38Z",
       "decay_at": "2026-08-30T02:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e4e4e6e3fc8c",
-      "idea_version": "IDEAV-5d13cacea06259e4",
-      "idea_version_started_at": "2026-08-29T12:26:38Z",
-      "ticker": "00875.HK",
-      "company": "Congyu Inte Agr",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Company issued a profit warning, indicating earnings will fall materially short of prior expectations.",
-      "why_now": "HKEX filing dated 2026-08-28; profit warnings typically precede negative revisions and price adjustment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c12e163f7753"
-      ],
-      "primary_source_event_id": "EVT-c12e163f7753",
-      "source_headlines": [
-        "CONGYU INTE AGR (00875): PROFIT WARNING"
-      ],
-      "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T11:28:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T12:26:38Z",
-      "updated_at": "2026-08-29T12:26:38Z",
-      "decay_at": "2026-08-29T23:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -89898,76 +89632,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-cb92b1e87f69",
-      "idea_version": "IDEAV-7a88a6943c835ee5",
-      "idea_version_started_at": "2026-08-27T02:10:48Z",
-      "ticker": "WSM",
-      "company": "Williams-Sonoma",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported 6.2% comparable sales growth and raised full-year guidance, reflecting operational momentum.",
-      "why_now": "The guidance update was released on 2026-08-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a42c9ab944f1"
-      ],
-      "primary_source_event_id": "EVT-a42c9ab944f1",
-      "source_headlines": [
-        "Williams-Sonoma Grew Comps 6.2% and Raised Full-Year Guidance. Here’s the Catch."
-      ],
-      "source_headline": "Williams-Sonoma Grew Comps 6.2% and Raised Full-Year Guidance. Here’s the Catch.",
-      "source_url": "https://www.fool.com/investing/2026/08/26/williams-sonoma-grew-comps-62-and-raised-full-year-guidance-heres-the-catch/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-26T23:54:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T02:10:48Z",
-      "updated_at": "2026-08-27T02:10:48Z",
-      "decay_at": "2026-08-28T11:54:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-5d771201ad67cf74",
       "idea_version_started_at": "2026-08-27T11:49:33Z",
@@ -90181,6 +89845,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-86375a9f234f",
+      "idea_version": "IDEAV-9998d6f5a46168a3",
+      "idea_version_started_at": "2026-08-29T21:53:05Z",
+      "ticker": "CONGYU",
+      "company": "Congyu International Agriculture Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Congyu International Agriculture Group Limited issued a profit warning, suggesting a material adverse change in its financial performance.",
+      "why_now": "The profit warning was disclosed on August 28, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c12e163f7753"
+      ],
+      "primary_source_event_id": "EVT-c12e163f7753",
+      "source_headlines": [
+        "CONGYU INTE AGR (00875): PROFIT WARNING"
+      ],
+      "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T21:53:05Z",
+      "updated_at": "2026-08-29T21:53:05Z",
+      "decay_at": "2026-08-29T23:28:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-afc171492596",
       "idea_version": "IDEAV-1c817ddc988ca11c",
       "idea_version_started_at": "2026-08-29T21:53:05Z",
@@ -90323,6 +90058,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-913c9c5d1968",
+      "idea_version": "IDEAV-bdb2a849a53f8d80",
+      "idea_version_started_at": "2026-08-29T21:34:21Z",
+      "ticker": "01788",
+      "company": "Guotai Junan International Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is proceeding with a privatization proposal via a scheme of arrangement, which typically involves a premium to the prevailing market price to secure shareholder approval.",
+      "why_now": "An update on the timeline for the dispatch of the scheme document was released on August 28, 2026, moving the deal closer to completion.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-823e7436b538"
+      ],
+      "primary_source_event_id": "EVT-823e7436b538",
+      "source_headlines": [
+        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT"
+      ],
+      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802100.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T21:34:21Z",
+      "decay_at": "2026-08-29T23:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1089cf77cf0a",
+      "idea_version": "IDEAV-20ea7d2ea26e7534",
+      "idea_version_started_at": "2026-08-29T21:13:33Z",
+      "ticker": "01101",
+      "company": "HUARONG ENERGY",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
+      "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-255663ecc15c"
+      ],
+      "primary_source_event_id": "EVT-255663ecc15c",
+      "source_headlines": [
+        "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
+      ],
+      "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T12:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T17:43:44Z",
+      "updated_at": "2026-08-29T21:13:33Z",
+      "decay_at": "2026-08-30T00:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-22925965e711",
       "idea_version": "IDEAV-f94af2ad0859d0d1",
       "idea_version_started_at": "2026-08-29T21:13:33Z",
@@ -90395,6 +90274,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8c0df7c727b4",
+      "idea_version": "IDEAV-f1311c301d8cfdf9",
+      "idea_version_started_at": "2026-08-29T21:13:33Z",
+      "ticker": "02722",
+      "company": "CHONGQING M&E",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will likely result in significant financial losses and impairments for the parent company.",
+      "why_now": "The company announced this inside information on August 28, 2026, indicating an immediate and severe financial event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d15167b7180"
+      ],
+      "primary_source_event_id": "EVT-5d15167b7180",
+      "source_headlines": [
+        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+      ],
+      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T10:43:25Z",
+      "updated_at": "2026-08-29T21:13:33Z",
+      "decay_at": "2026-08-29T23:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-32354a5c12db",
       "idea_version": "IDEAV-0855353b72e21970",
       "idea_version_started_at": "2026-08-29T18:23:37Z",
@@ -90461,6 +90411,77 @@
       "surfaced_at": "2026-08-29T12:04:51Z",
       "updated_at": "2026-08-29T18:23:37Z",
       "decay_at": "2026-08-29T21:32:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a6df87e99e90",
+      "idea_version": "IDEAV-6c074d3d4d78a657",
+      "idea_version_started_at": "2026-08-29T18:03:21Z",
+      "ticker": "2722",
+      "company": "Chongqing Machinery & Electric Co., Ltd.",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A subsidiary of Chongqing M&E has filed an application for bankruptcy and liquidation, which threatens to impair the parent company's balance sheet and reduce consolidated earnings.",
+      "why_now": "The bankruptcy application was officially disclosed on August 28, 2026, creating immediate downside pressure on the stock.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d15167b7180"
+      ],
+      "primary_source_event_id": "EVT-5d15167b7180",
+      "source_headlines": [
+        "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+      ],
+      "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T09:43:41Z",
+      "updated_at": "2026-08-29T18:03:21Z",
+      "decay_at": "2026-08-29T23:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -90745,6 +90766,77 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T12:26:38Z",
       "decay_at": "2026-08-29T21:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e4e4e6e3fc8c",
+      "idea_version": "IDEAV-5d13cacea06259e4",
+      "idea_version_started_at": "2026-08-29T12:26:38Z",
+      "ticker": "00875.HK",
+      "company": "Congyu Inte Agr",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Company issued a profit warning, indicating earnings will fall materially short of prior expectations.",
+      "why_now": "HKEX filing dated 2026-08-28; profit warnings typically precede negative revisions and price adjustment.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c12e163f7753"
+      ],
+      "primary_source_event_id": "EVT-c12e163f7753",
+      "source_headlines": [
+        "CONGYU INTE AGR (00875): PROFIT WARNING"
+      ],
+      "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-28T11:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T12:26:38Z",
+      "updated_at": "2026-08-29T12:26:38Z",
+      "decay_at": "2026-08-29T23:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -92473,24 +92565,24 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 174,
+      "file_count": 175,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 225,
-    "shown_count": 225,
+    "total_count": 231,
+    "shown_count": 231,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 107,
-        "shown_count": 107,
+        "total_count": 108,
+        "shown_count": 108,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 118,
-        "shown_count": 118,
+        "total_count": 123,
+        "shown_count": 123,
         "hidden_count": 0
       }
     },
@@ -92510,6 +92602,452 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1089cf77cf0a",
+        "idea_version": "IDEAV-20ea7d2ea26e7534",
+        "idea_version_started_at": "2026-08-29T21:13:33Z",
+        "ticker": "01101",
+        "company": "HUARONG ENERGY",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "HUARONG ENERGY's delay in publishing 2026 interim results and continued trading suspension suggests potential accounting irregularities or severe operational issues that could negatively impact its valuation.",
+        "why_now": "The company announced the delay and continued suspension on August 28, 2026, indicating an immediate and ongoing concern.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-255663ecc15c"
+        ],
+        "primary_source_event_id": "EVT-255663ecc15c",
+        "source_headlines": [
+          "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING"
+        ],
+        "source_headline": "HUARONG ENERGY (01101): DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND CONTINUED SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802280.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T12:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T17:43:44Z",
+        "updated_at": "2026-08-29T21:13:33Z",
+        "decay_at": "2026-08-30T00:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-30T00:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8c0df7c727b4",
+        "idea_version": "IDEAV-f1311c301d8cfdf9",
+        "idea_version_started_at": "2026-08-29T21:13:33Z",
+        "ticker": "02722",
+        "company": "CHONGQING M&E",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A subsidiary of CHONGQING M&E has applied for bankruptcy and liquidation, which will likely result in significant financial losses and impairments for the parent company.",
+        "why_now": "The company announced this inside information on August 28, 2026, indicating an immediate and severe financial event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5d15167b7180"
+        ],
+        "primary_source_event_id": "EVT-5d15167b7180",
+        "source_headlines": [
+          "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+        ],
+        "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T11:49:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:43:25Z",
+        "updated_at": "2026-08-29T21:13:33Z",
+        "decay_at": "2026-08-29T23:49:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T23:49:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a6df87e99e90",
+        "idea_version": "IDEAV-6c074d3d4d78a657",
+        "idea_version_started_at": "2026-08-29T18:03:21Z",
+        "ticker": "2722",
+        "company": "Chongqing Machinery & Electric Co., Ltd.",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A subsidiary of Chongqing M&E has filed an application for bankruptcy and liquidation, which threatens to impair the parent company's balance sheet and reduce consolidated earnings.",
+        "why_now": "The bankruptcy application was officially disclosed on August 28, 2026, creating immediate downside pressure on the stock.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5d15167b7180"
+        ],
+        "primary_source_event_id": "EVT-5d15167b7180",
+        "source_headlines": [
+          "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION"
+        ],
+        "source_headline": "CHONGQING M&E (02722): INSIDE INFORMATION APPLICATION OF A SUBSIDIARY OF THE COMPANY FOR BANKRUPTCY AND LIQUIDATION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802108.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T11:49:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T09:43:41Z",
+        "updated_at": "2026-08-29T18:03:21Z",
+        "decay_at": "2026-08-29T23:49:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T23:49:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-913c9c5d1968",
+        "idea_version": "IDEAV-bdb2a849a53f8d80",
+        "idea_version_started_at": "2026-08-29T21:34:21Z",
+        "ticker": "01788",
+        "company": "Guotai Junan International Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is proceeding with a privatization proposal via a scheme of arrangement, which typically involves a premium to the prevailing market price to secure shareholder approval.",
+        "why_now": "An update on the timeline for the dispatch of the scheme document was released on August 28, 2026, moving the deal closer to completion.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-823e7436b538"
+        ],
+        "primary_source_event_id": "EVT-823e7436b538",
+        "source_headlines": [
+          "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT"
+        ],
+        "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED UPDATE ON TIMELINE FOR DESPATCH OF SCHEME DOCUMENT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082802100.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T11:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T10:43:25Z",
+        "updated_at": "2026-08-29T21:34:21Z",
+        "decay_at": "2026-08-29T23:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T23:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-86375a9f234f",
+        "idea_version": "IDEAV-9998d6f5a46168a3",
+        "idea_version_started_at": "2026-08-29T21:53:05Z",
+        "ticker": "CONGYU",
+        "company": "Congyu International Agriculture Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Congyu International Agriculture Group Limited issued a profit warning, suggesting a material adverse change in its financial performance.",
+        "why_now": "The profit warning was disclosed on August 28, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c12e163f7753"
+        ],
+        "primary_source_event_id": "EVT-c12e163f7753",
+        "source_headlines": [
+          "CONGYU INTE AGR (00875): PROFIT WARNING"
+        ],
+        "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T11:28:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T21:53:05Z",
+        "updated_at": "2026-08-29T21:53:05Z",
+        "decay_at": "2026-08-29T23:28:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T23:28:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e4e4e6e3fc8c",
+        "idea_version": "IDEAV-5d13cacea06259e4",
+        "idea_version_started_at": "2026-08-29T12:26:38Z",
+        "ticker": "00875.HK",
+        "company": "Congyu Inte Agr",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Company issued a profit warning, indicating earnings will fall materially short of prior expectations.",
+        "why_now": "HKEX filing dated 2026-08-28; profit warnings typically precede negative revisions and price adjustment.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c12e163f7753"
+        ],
+        "primary_source_event_id": "EVT-c12e163f7753",
+        "source_headlines": [
+          "CONGYU INTE AGR (00875): PROFIT WARNING"
+        ],
+        "source_headline": "CONGYU INTE AGR (00875): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082801978.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-28T11:28:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T12:26:38Z",
+        "updated_at": "2026-08-29T12:26:38Z",
+        "decay_at": "2026-08-29T23:28:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T23:28:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-22925965e711",
         "idea_version": "IDEAV-f94af2ad0859d0d1",
@@ -96355,8 +96893,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-28T11:54:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-30T00:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -109187,8 +109725,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 273,
-    "live_count": 46,
+    "surfaced_total": 274,
+    "live_count": 41,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -109198,7 +109736,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1782,
+    "inbox_unconsumed": 1784,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -109207,9 +109745,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 588495,
-    "news_picked_today": 1772,
-    "news_dropped_today": 7930
+    "news_seen_today": 10,
+    "news_picked_today": 2,
+    "news_dropped_today": 8
   },
   "book_momentum": {
     "live_count": 8,
