@@ -4272,9 +4272,17 @@ export async function launchFullChained(
   // reuse-only whenever any specialist/module byte could be consumed by the provider command. A recovered
   // paid chain always keeps its original receipt too: its first child may have crossed the spawn boundary
   // and crashed before writing one byte, which is still not authority to re-read today's Drive.
+  // A privately prepared completion target is a newly admitted generation even when the transaction
+  // carried whole finished modules into it. Its first missing child must freeze today's reviewed pool;
+  // requiring a receipt for the not-yet-published target would make every legacy migration fail before
+  // spend. Exact Continue and any chain that already crossed the paid boundary still load their retained
+  // receipt and can never re-open live Drive data.
+  const preparedFreshGeneration = scope.preparedRunPlanTransaction !== undefined
+    && scope.continuation !== true
+    && recoveredIntent === undefined
   const requireExistingFrozenPoolReceipt = recoveredIntent !== undefined
     || scope.continuation === true
-    || researchRunRootMayReuseProviderWork(datedRoot, names)
+    || (!preparedFreshGeneration && researchRunRootMayReuseProviderWork(datedRoot, names))
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
