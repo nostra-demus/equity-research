@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-31T14:52:58Z",
+  "generated_at": "2026-08-31T15:02:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-770",
+      "headline": "SHANGHAI XNG (03666): (1) FURTHER DELAY IN PUBLICATION OF THE 2025 ANNUAL RESULTS AND DESPATCH OF THE 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DESPATCH OF THE 2026 INTERIM REPORT; (3) FURTHER POSTPONEMENT OF BOARD MEETINGS; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102977.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced further delays in 2025 and 2026 financial reporting and continued suspension of trading, signaling severe governance or financial issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced further delays in 2025 and 2026 financial reporting and continued suspension of trading, signaling severe governance or financial issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHANGHAI XNG",
+          "ticker": "03666",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-767",
       "headline": "Happiest Minds Technologies Limited: Happiest Minds Technologies Limited has informed the Exchange regarding a revised press release dated August 31, 2026, titled \"Happiest Minds Technologies announces merger with ITC Infotech to create a scaled, AI First Global Technology Services Enterprise with US$ 1 billion Revenue by FY28 \".",
@@ -51,6 +101,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-768",
+      "headline": "LUK HING ENT (08052): (1) FURTHER DELAY IN PUBLICATION OF AUDITED ANNUAL RESULTS FOR THE YEAR ENDED 31 DECEMBER 2025 AND 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (3) UPDATE ON THE MAJOR TRANSACTION RELATING TO DEEMED DISPOSAL OF INTEREST IN A NON WHOLLY-OWNED SUBSIDIARY; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0831/2026083102933.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:32:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced further delays in financial reporting and continued suspension of trading, indicating significant operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced further delays in financial reporting and continued suspension of trading, indicating significant operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LUK HING ENT",
+          "ticker": "08052",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,105 +1967,6 @@
       "companies": [
         {
           "name": "MBH",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-141",
-      "headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:01:59Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Piramal Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-034",
-      "headline": "XF1: FY26 Financial Results & Debt Refinancing [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XF1?key=2924-03129145-2A1693702",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:59:34Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company reported financial results and announced a debt refinancing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported financial results and announced a debt refinancing.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XF1",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -117686,9 +117687,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 648668,
-    "news_picked_today": 1611,
-    "news_dropped_today": 13121
+    "news_seen_today": 680855,
+    "news_picked_today": 1620,
+    "news_dropped_today": 13184
   },
   "book_momentum": {
     "live_count": 8,
