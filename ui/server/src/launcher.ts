@@ -4385,10 +4385,16 @@ export async function launchFullChained(
       moduleAbsolute,
       synthesisFiles.get(name) ?? [],
       failFastTriageFiles.get(name) ?? [],
-    ).map((file) => ({
-      outputRel: `${name}/${file}`,
-      sha256: `sha256:${createHash('sha256').update(fs.readFileSync(path.join(moduleAbsolute, file))).digest('hex')}`,
-    }))
+    ).flatMap((file) => {
+      try {
+        return [{
+          outputRel: `${name}/${file}`,
+          sha256: `sha256:${createHash('sha256').update(fs.readFileSync(path.join(moduleAbsolute, file))).digest('hex')}`,
+        }]
+      } catch {
+        return []
+      }
+    })
     if (artifacts.length === 0) {
       throw new Error(`completed chain module ${name} lost its validated terminal outcome before progress was sealed`)
     }
