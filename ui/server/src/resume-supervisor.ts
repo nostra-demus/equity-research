@@ -672,15 +672,19 @@ export function verifyRecoverableChainCompletedArtifacts(
   const rootAbs = path.resolve(REPO_ROOT, record.targetRunRoot)
   for (const completed of record.intent.completed) {
     for (const artifact of completed.artifacts) {
-      const absolute = path.resolve(rootAbs, artifact.outputRel)
-      let sha256: string | null = null
-      if (absolute.startsWith(`${rootAbs}${path.sep}`)) {
-        try { sha256 = `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}` } catch {}
+      if (migratedModules.has(completed.module)) {
+        const absolute = path.resolve(rootAbs, artifact.outputRel)
+        let sha256: string | null = null
+        if (absolute.startsWith(`${rootAbs}${path.sep}`)) {
+          try { sha256 = `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}` } catch {}
+        }
+        if (sha256 !== artifact.sha256) {
+          throw new Error(`recoverable full-chain completed evidence changed: ${artifact.outputRel}`)
+        }
+        continue
       }
-      if (sha256 !== artifact.sha256) {
-        throw new Error(`recoverable full-chain completed evidence changed: ${artifact.outputRel}`)
-      }
-      if (migratedModules.has(completed.module)) continue
+      // readVerifiedOutputLineage already re-hashed disk against the manifest, so a lineage hit here proves
+      // the disk bytes match artifact.sha256 without hashing the file again.
       const protectedArtifact = lineage.get(artifact.outputRel)
       if (!protectedArtifact || protectedArtifact.sha256 !== artifact.sha256
           || protectedArtifact.generation_digest !== generation) {
