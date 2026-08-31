@@ -1,6 +1,156 @@
 {
-  "generated_at": "2026-08-31T09:46:11Z",
+  "generated_at": "2026-08-31T09:49:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-458",
+      "headline": "CON AERO TECH (00232): DESPATCH OF CIRCULAR IN RELATION TO (1) PROPOSED VERY SUBSTANTIAL DISPOSAL (2) PROPOSED DECLARATION OF SPECIAL DIVIDEND ON DISPOSAL AND CASH DIVIDEND ON PROPERTY DISPOSAL AND PROPOSED CAPITAL REORGANIZATION (3) NOTE 7 TO RULE 2 OF TAKEOVERS CODE (4) PROPOSED WITHDRAWAL OF LISTING AND WINDING UP PROPOSAL (5) CONNECTED TRANSACTION AND SPECIAL DEAL IN RELATION TO DISPOSAL OF PROPERTY (6) SPECIAL GENERAL MEETING AND CLOSURE OF REGISTER OF SHAREHOLDERS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100988.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:25:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "China Aerospace International announced a very substantial disposal, special dividend, and a proposal for the withdrawal of listing and winding up.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Aerospace International announced a very substantial disposal, special dividend, and a proposal for the withdrawal of listing and winding up.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Aerospace International",
+          "ticker": "00232",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-462",
+      "headline": "MANY IDEA CLOUD (06696): INSIDE INFORMATION (1) FURTHER DELAY IN PUBLICATION OF 2025 ANNUAL RESULTS AND DESPATCH OF 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100955.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Many Idea Cloud announced further delays in financial reporting and continued suspension of trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Many Idea Cloud announced further delays in financial reporting and continued suspension of trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Many Idea Cloud",
+          "ticker": "06696",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-468",
+      "headline": "TOP FORM INT'L (00333): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:16:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Top Form International issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Top Form International issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Top Form International",
+          "ticker": "00333",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-441",
       "headline": "MS GROUP HLDGS (01451): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFERS BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF L.V.E.P. HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF, AND TO CANCEL ALL THE OUTSTANDING OPTIONS OF, MS GROUP HOLDINGS LIMITED (OTHER THAN THE EXCLUDED SHARES AND THE EXCLUDED OPTIONS)",
@@ -1858,158 +2008,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-243",
-      "headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T03:59:52Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The CEO of a major bank has resigned, which is a significant leadership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The CEO of a major bank has resigned, which is a significant leadership change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-320",
-      "headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns. Should you buy or sell?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T03:59:52Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "HDFC Bank CEO Sashidhar Jagdishan has resigned.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HDFC Bank CEO Sashidhar Jagdishan has resigned.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-234",
-      "headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T03:36:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Itochu",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Dentsu Soken",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118413,9 +118411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212598,
-    "news_picked_today": 938,
-    "news_dropped_today": 9402
+    "news_seen_today": 216322,
+    "news_picked_today": 959,
+    "news_dropped_today": 9429
   },
   "book_momentum": {
     "live_count": 8,
