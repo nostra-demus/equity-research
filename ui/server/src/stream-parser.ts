@@ -256,6 +256,14 @@ export function handleStreamLine(run: RunState, line: string) {
       // leader and keep writing even after this line arrives. Clean results also wait for close-time integrity.
       if (run.status === 'running' || run.status === 'starting') {
         if (event.cliResult.isError || event.cliResult.subtype === 'error_max_turns' || event.cliResult.subtype === 'error_during_execution') {
+          // Codex can reject one turn because the selected model is temporarily full. The process-close
+          // path continues the same admitted run with its completed-output inventory, so do not persist a
+          // terminal failure or kill the process here. Every other structured provider error still fails
+          // closed through recordStreamResultFailure below.
+          if (run.provider === 'codex' && event.cliResult.subtype === 'model_capacity') {
+            run.note = 'Selected model is temporarily busy — continuing the same saved run.'
+            continue
+          }
           const reason = event.cliResult.subtype === 'out_of_credits'
             ? 'out_of_credits'
             : event.cliResult.apiErrorStatus ? `api_error_${event.cliResult.apiErrorStatus}`

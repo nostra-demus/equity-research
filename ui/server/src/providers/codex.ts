@@ -2109,6 +2109,10 @@ function codexUsageLimitMessage(message: string): boolean {
   return /(?:\b(?:rate|usage|quota)\s*(?:limit|exceeded|exhausted|reached)\b|\bweekly\s+(?:usage\s+)?limit\b|\b5-hour\s+limit\b|too many requests|\b429\b)/i.test(message)
 }
 
+function codexModelCapacityMessage(message: string): boolean {
+  return /\b(?:selected\s+)?model\s+is\s+(?:currently\s+)?at\s+capacity\b/i.test(message)
+}
+
 export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
   const trimmed = line.trim()
   if (!trimmed) return []
@@ -2152,7 +2156,12 @@ export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
     const message = typeof event.error?.message === 'string' ? event.error.message : 'Codex turn failed.'
     return [{
       type: 'result',
-      cliResult: { subtype: codexUsageLimitMessage(message) ? 'out_of_credits' : 'turn_failed', isError: true },
+      cliResult: {
+        subtype: codexUsageLimitMessage(message)
+          ? 'out_of_credits'
+          : codexModelCapacityMessage(message) ? 'model_capacity' : 'turn_failed',
+        isError: true,
+      },
       message,
     }]
   }
@@ -2160,7 +2169,12 @@ export function parseCodexStreamLine(line: string): ProviderStreamEvent[] {
     const message = typeof event.message === 'string' ? event.message : 'Codex emitted an error event.'
     return [{
       type: 'result',
-      cliResult: { subtype: codexUsageLimitMessage(message) ? 'out_of_credits' : 'codex_error', isError: true },
+      cliResult: {
+        subtype: codexUsageLimitMessage(message)
+          ? 'out_of_credits'
+          : codexModelCapacityMessage(message) ? 'model_capacity' : 'codex_error',
+        isError: true,
+      },
       message,
     }]
   }

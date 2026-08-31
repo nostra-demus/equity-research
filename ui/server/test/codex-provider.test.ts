@@ -1375,6 +1375,9 @@ assert.deepEqual(parseCodexStreamLine('{"type":"turn.completed","usage":{"input_
 assert.deepEqual(parseCodexStreamLine('{"type":"turn.failed","error":{"message":"weekly usage limit exceeded"}}'), [
   { type: 'result', cliResult: { subtype: 'out_of_credits', isError: true }, message: 'weekly usage limit exceeded' },
 ])
+assert.deepEqual(parseCodexStreamLine('{"type":"turn.failed","error":{"message":"Selected model is at capacity. Please try a different model."}}'), [
+  { type: 'result', cliResult: { subtype: 'model_capacity', isError: true }, message: 'Selected model is at capacity. Please try a different model.' },
+])
 assert.deepEqual(parseCodexStreamLine('{"type":"error","message":"429: quota exhausted"}'), [
   { type: 'result', cliResult: { subtype: 'out_of_credits', isError: true }, message: '429: quota exhausted' },
 ])
