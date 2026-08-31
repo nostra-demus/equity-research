@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "e1842d28-c8a4-4b94-8f3c-c678373cfaa7",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "cd9d1378-3c0c-4085-900b-a253c943f61f",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "valuation"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T05:37:58.321Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "cd9d1378-3c0c-4085-900b-a253c943f61f",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T05:37:58.321Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "cd9d1378-3c0c-4085-900b-a253c943f61f",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T05:37:58.321Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "25dfede8-3733-46b8-9674-4836d13c3084",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "valuation"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T06:33:46.773Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "25dfede8-3733-46b8-9674-4836d13c3084",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T06:33:46.773Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "25dfede8-3733-46b8-9674-4836d13c3084",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T06:33:46.773Z"
+    }
+  ],
+  "written_at": "2026-08-31T07:48:00.466Z"
+}
