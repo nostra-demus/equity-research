@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T09:49:55Z",
+  "generated_at": "2026-08-31T10:10:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-458",
@@ -885,6 +885,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-478",
+      "headline": "Apple CEO Tim Cook steps down today; John Ternus set to take over",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/tech/tim-cook-apple-ceo-steps-down-john-ternus",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T09:30:17Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Apple CEO Tim Cook steps down and John Ternus takes over — a critical leadership change at a mega-cap.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple CEO Tim Cook steps down and John Ternus takes over — a critical leadership change at a mega-cap.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple Inc",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1959,55 +2009,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-300",
-      "headline": "LIV Golf prepares for bankruptcy filing in September",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5051e92f-371f-4a46-bdee-e8877b68caf8?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T04:00:28Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Reported preparation for a bankruptcy filing is a critical event for the entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported preparation for a bankruptcy filing is a critical event for the entity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118411,9 +118412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 216322,
-    "news_picked_today": 959,
-    "news_dropped_today": 9429
+    "news_seen_today": 230072,
+    "news_picked_today": 989,
+    "news_dropped_today": 9975
   },
   "book_momentum": {
     "live_count": 8,
