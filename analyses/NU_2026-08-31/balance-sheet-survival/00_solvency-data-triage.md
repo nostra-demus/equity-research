@@ -1,73 +1,110 @@
 # Solvency Data Triage — NU
 
-NU is a regulated deposit-taking financial group, not an operating company financed principally by corporate debt. The current interim filing reports funding primarily through customer deposits and bank deposit receipts, and gives regulatory-capital ratios for the Brazilian prudential conglomerate, Mexico and Colombia. This triggers the financial-institution applicability override: this module's debt/EBITDA, FCF-runway and EBITDA-stress framework is not valid. [Q2 FY26 unaudited interim condensed consolidated financial statements, Notes 22, 32–33, pp.29, 40–43]
+The frozen generation is complete: 115 physical sources, including 48 workbooks with 109 tabs, and no extraction failures. `Last Modified` is intentionally not used to determine period freshness; the period column uses the source’s stated period where available. No `external/` documents were present. The CIQ sidecar and relationship graph were read; neither changes the financial-institution applicability result.
 
 ## 1. File Inventory
 
-All 115 physical files in the frozen pool were reconciled to the immutable generation manifest: all have extraction status `ok` or `in-place`; none is a manifest failure, fallback-text result, missing dependency, or Drive pointer. The physical modified timestamp is the 2026-08-31 frozen-pool sync for all files and is not used as a reporting-date proxy. “Current” below means period information read from the document, not file metadata. The two `Filings/` folders contain physical duplicate copies, which are listed together so both copies are accounted for.
-
 | Filename | Type | Period Covered | Last Modified | Solvency Relevance |
 |---|---|---|---|---|
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf`; `Nu_Holdings_Ltd_-_Form_Annual_Report(Feb-26-2026).pdf` | Annual filing duplicates | FY25, year ended 2025-12-31 | 2026-08-31 pool sync | High |
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf`; `Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Aug-13-2026).pdf`; `Nu_Holdings_Ltd_-_(Aug-13-2026).pdf` | Q2 FY26 interim filing / preliminary release duplicates | Three and six months ended 2026-06-30 | 2026-08-31 pool sync | High |
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_Interim_Report(May-14-2026).pdf`; `Nu_Holdings_Ltd_-_Form_Interim_Report(May-15-2026).pdf`; `Nu_Holdings_Ltd_-_Form_Interim_Report(May-20-2026).pdf`; `Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(May-14-2026).pdf` | Q1 FY26 interim / preliminary filing duplicates | Three months ended 2026-03-31 | 2026-08-31 pool sync | Medium |
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_Interim_Report(Nov-17-2025).pdf`; `Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Nov-13-2025).pdf`; `Nu_Holdings_Ltd_-_(Aug-19-2025).pdf` | FY25 interim / preliminary filing duplicates | Q3 FY25 / as labelled | 2026-08-31 pool sync | Medium |
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Feb-25-2026).pdf` | Q4 FY25 preliminary filing duplicate | FY25 / release dated 2026-02-25 | 2026-08-31 pool sync | Medium |
-| `Filings/` **and** `Filings 2/`: `Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-20-2026).pdf` | SEC-related interim filing duplicate; extract has no solvency detail | As labelled, 2026-08-20 | 2026-08-31 pool sync | Low |
-| `Nu Holdings Ltd. Form 20-F filed on Apr-08-2026.pdf`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).doc` | FY25 Form 20-F copies | FY25, year ended 2025-12-31 | 2026-08-31 pool sync | High |
-| `Nu_Holdings_Ltd_-_Form_20-F(Apr-16-2025).pdf`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-16-2025).doc`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-19-2024).pdf`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-20-2023).pdf`; `Nu_Holdings_Ltd_-_Form_20-F(Apr-21-2022).pdf` | Historical annual filings | FY24 to FY21 | 2026-08-31 pool sync | Medium |
-| `U21257060_20260331_20260331.pdf` | Filing / financial document | 2026-03-31 from filename; not used for the current solvency read | 2026-08-31 pool sync | Low |
-| `Nu Holdings Ltd NYSE NU Financials Balance Sheet.xls`; `Nu Holdings Ltd NYSE NU Financials.xls` (Balance Sheet tab) | Capital IQ balance-sheet exports | Latest reported 2026-06-30 | 2026-08-31 pool sync | High |
-| `Nu Holdings Ltd NYSE NU Financials Cash Flow.xls`; `Nu Holdings Ltd NYSE NU Financials.xls` (Cash Flow tab) | Capital IQ cash-flow exports | LTM to 2026-06-30 / annual history | 2026-08-31 pool sync | High |
-| `Nu Holdings Ltd NYSE NU Financials Capital Structure Details.xls`; `Nu Holdings Ltd NYSE NU Financials Capital Structure Summary.xls`; `Nu Holdings Ltd NYSE NU Financials.xls` (both capital-structure tabs) | Capital IQ debt and maturity exports | FQ2 2026 / 2026-06-30 | 2026-08-31 pool sync | High |
-| `Nu Holdings Ltd NYSE NU Fixed Income Securities Summary.xls`; `Nu Holdings Ltd NYSE NU Fixed Income S P Global Ratings.xls` | Vendor fixed-income and ratings exports | Securities dates through 2026-08-29; rating review 2025-09-22 | 2026-08-31 pool sync | High |
-| `Nu Holdings Ltd NYSE NU Financials Income Statement.xls`; `Nu Holdings Ltd NYSE NU Financials Ratios.xls`; `Nu Holdings Ltd NYSE NU Financials Key Stats.xls`; `Nu Holdings Ltd NYSE NU Financials Historical Capitalization.xls`; `Nu Holdings Ltd NYSE NU Financials Supplemental.xls`; `Nu Holdings Ltd NYSE NU Financials Industry Specific.xls`; `Nu Holdings Ltd NYSE NU Financials Segments.xls`; `Nu Holdings Ltd NYSE NU Financials Segments (1).xls`; `Nu Holdings Ltd NYSE NU Financials Multiples.xls`; `Nu Holdings Ltd NYSE NU Financials Multiples (1).xls` | Capital IQ financial / sector exports | Latest annual and LTM period to 2026-06-30 where shown | 2026-08-31 pool sync | Medium |
-| `Nu Holdings Ltd NYSE NU Financials.xls` (Key Stats, Income Statement, Balance Sheet, Cash Flow, Multiples, Historical Capitalization, Capital Structure Summary, Capital Structure Details, Ratios, Supplemental, Industry Specific, Pension OPEB, Segments tabs) | Consolidated Capital IQ financial workbook | Latest annual / LTM period to 2026-06-30 where shown | 2026-08-31 pool sync | High for balance sheet, cash flow and capital structure; Low for Pension OPEB (no data) |
-| `Nu Holdings Ltd. (NYSE_NU) Corporate Structure Tree.xls`; `Nu Holdings Ltd NYSE NU Equity Listings.xls`; `Nu Holdings Ltd NYSE NU Equity Listings.rtf`; `Nu Holdings Ltd NYSE NU Public Company Profile.rtf`; `Nu Holdings Ltd NYSE NU Industry Classifications.rtf`; `Nu Holdings Ltd NYSE NU Long Business Description.rtf`; `Nu Holdings Ltd NYSE NU Products.xls`; `Nu Holdings Ltd NYSE NU Professionals.xls` | Company identity / structure exports | Current vendor profiles; no common issuer reporting period | 2026-08-31 pool sync | Medium |
-| `Nu Holdings Ltd NYSE NU Board Members.xls`; `Nu Holdings Ltd NYSE NU Committees.xls`; `Nu Holdings Ltd NYSE NU Auditors.xls`; `Nu Holdings Ltd NYSE NU Takeover Defenses.xls`; `Nu Holdings Ltd NYSE NU Public Ownership Summary.rtf`; `Nu Holdings Ltd NYSE NU Public Ownership Detailed.xls`; `Nu Holdings Ltd NYSE NU Public Ownership History.xls`; `Nu Holdings Ltd NYSE NU Public Ownership Crossholdings.xls`; `Nu Holdings Ltd NYSE NU Public Ownership Insider Trading.xls`; `Nu Holdings Ltd NYSE NU Private Ownership.rtf` | Governance / ownership exports | Current vendor profile / dated holder records | 2026-08-31 pool sync | Low |
-| `Nu Holdings Ltd NYSE NU Analyst Coverage.xls`; `Nu Holdings Ltd NYSE NU Analyst Coverage (1).xls`; `NuHoldingsLtdNYSENUEstimatesReport.xls`; `Charting Excel Export Aug-29-2026 2_02 PM.xls`; `Company Comparable Analysis Nu Holdings Ltd .xls`; `Nu Holdings Ltd NYSE NU Financials Multiples.xls`; `Nu Holdings Ltd NYSE NU Financials Multiples (1).xls`; `Nu Holdings Ltd NYSE NU Comparable M A Transactions.xls`; `Nu Holdings Ltd NYSE NU Comparable M A Transactions (1).xls` | Consensus / valuation / charting exports | As-of dates inside relevant sheets; chart export dated 2026-08-29 | 2026-08-31 pool sync | Low |
-| `Nu Holdings Ltd NYSE NU Competitors.xls`; `Nu Holdings Ltd NYSE NU Customers.xls`; `Nu Holdings Ltd NYSE NU Suppliers.xls`; `Nu Holdings Ltd NYSE NU Strategic Alliances.xls`; `Nu Holdings Ltd NYSE NU Investment Analysis Co Investors.xls`; `Nu Holdings Ltd NYSE NU Investment Analysis Direct Investments.xls`; `Nu Holdings Ltd NYSE NU Corporate Timeline.xls`; `Nu Holdings Ltd NYSE NU Events Calendar.xls`; `Nu Holdings Ltd NYSE NU Key Developments.rtf`; `Transaction Summary M A Private Placements.xls`; `Transaction Summary Public Offerings.xls` | Commercial / transaction / timeline exports | Current vendor records or historical events | 2026-08-31 pool sync | Low |
-| `Transcript Digest/Nu Holdings Ltd. - ShareholderAnalyst Call.pdf`; `Transcript Digest/Nu Holdings Ltd., Q1 2022 Earnings Call, May 16, 2022.pdf`; `Q1 2023 Earnings Call, May 15, 2023.pdf`; `Q1 2024 Earnings Call, May 14, 2024.pdf`; `Q1 2025 Earnings Call, May 13, 2025.pdf`; `Q1 2026 Earnings Call, May 14, 2026.pdf` | Transcript digests | Q1 FY22–FY26 / shareholder-analyst call | 2026-08-31 pool sync | Medium |
-| `Transcript Digest/Nu Holdings Ltd., Q2 2022 Earnings Call, Aug 15, 2022.pdf`; `Q2 2023 Earnings Call, Aug 15, 2023.pdf`; `Q2 2024 Earnings Call, Aug 13, 2024.pdf`; `Q2 2025 Earnings Call, Aug 14, 2025.pdf`; `Q2 2026 Earnings Call, Aug 13, 2026.pdf` | Transcript digests | Q2 FY22–FY26 | 2026-08-31 pool sync | Medium |
-| `Transcript Digest/Nu Holdings Ltd., Q3 2022 Earnings Call, Nov 14, 2022.pdf`; `Q3 2023 Earnings Call, Nov 14, 2023.pdf`; `Q3 2024 Earnings Call, Nov 13, 2024.pdf`; `Q3 2025 Earnings Call, Nov 13, 2025.pdf`; `Q4 2021 Earnings Call, Feb 22, 2022.pdf`; `Q4 2022 Earnings Call, Feb 14, 2023.pdf`; `Q4 2023 Earnings Call, Feb 22, 2024.pdf`; `Q4 2024 Earnings Call, Feb 20, 2025.pdf`; `Q4 2025 Earnings Call, Feb 25, 2026.pdf` | Transcript digests | Q3 FY22–FY25 and Q4 FY21–FY25 | 2026-08-31 pool sync | Medium |
-| `NU_Holdings_Deep_Dive_15_Page_Memo_30_Aug_2026.pdf`; `Interactive_Brokers_Consolidated_Tax_Report_FY2025-26.xlsx`; `Interactive_Brokers_FY2025-26_CA_Audit_Note.txt`; `consolidated_tax_report_2025-26.xlsx`; `99The_Expectant_Father__th_Edition_.torrent` | User / broker material and unrelated file | Memo dated 2026-08-30; tax reports FY2025-26; torrent unrelated | 2026-08-31 pool sync | Low / none |
+| 99The_Expectant_Father__th_Edition_.torrent | Unrelated file | Not a reporting document | Snapshot mtime not used | Low |
+| Charting Excel Export Aug-29-2026 2_02 PM.xls — Chart 1 with Data (284×2) | Chart export — workbook tab | 2026-08-29 | Snapshot mtime not used | Low |
+| Charting Excel Export Aug-29-2026 2_02 PM.xls — Attributions (45×1) | Chart export — workbook tab | 2026-08-29 | Snapshot mtime not used | Low |
+| Company Comparable Analysis Nu Holdings Ltd .xls — Financial Data; Trading Multiples; Operating Statistics; Business Description; Implied Valuation; Valuation Chart (50×17; 50×9; 50×13; 44×3; 69×9; 32×2) | Capital IQ vendor export — six workbook tabs | As-of not stated inside source | Snapshot mtime not used | Medium |
+| Interactive_Brokers_Consolidated_Tax_Report_FY2025-26.xlsx — IBKR - Tax Summary; Consolidated Events; Capital Gains Detail; Income and Taxes; Closing Holdings; Performance Summary; Cash Report; SBI FX Rates; Audit & Reconciliation; Source Statement Tables; Unmapped Numeric Rows; Source Totals; Source Statement Text; README; LTCG; STCG; F&O; Intraday; Dividend; Interest; Bonds & SGB; Schedule FA; Schedule FSI; Form 67; Schedule TR (24×8; 37×17; 6×25; 35×15; 4×17; 4×15; 4×5; 5×10; 24×8; 1037×27; 1136×8; 60×7; 2122×4; 12×2; 146×18; 163×20; 51×10; 46×12; 68×10; 19×5; 25×12; 41×13; 33×10; 27×13; 28×8) | IBKR tax/portfolio export — 25 workbook tabs | FY2025-26 | Snapshot mtime not used | Low |
+| Interactive_Brokers_FY2025-26_CA_Audit_Note.txt | IBKR tax/portfolio export | FY2025-26 | Snapshot mtime not used | Low |
+| NU_Holdings_Deep_Dive_15_Page_Memo_30_Aug_2026.pdf | User memo | 2026-08-30 | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd NYSE NU Analyst Coverage (1).xls — Analyst Coverage (41×6) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Analyst Coverage.xls — Analyst Coverage (41×6) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Auditors.xls — Auditors (18×5) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Board Members.xls — Board Members (28×25) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Committees.xls — Committees (35×2) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Comparable M A Transactions (1).xls — Comparable M A Transactions (17×9) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Comparable M A Transactions.xls — Comparable M A Transactions (17×9) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Competitors.xls — Competitors (89×8) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Corporate Timeline.xls — Corporate Timeline (51×4) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Customers.xls — Customers (16×8) | Vendor export — workbook tab | Recently disclosed relationships only | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Equity Listings.rtf; Nu Holdings Ltd NYSE NU Equity Listings.xls — Equity Listings (25×11) | Vendor export | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Events Calendar.xls — Events Calendar (27×3) | Vendor export — workbook tab | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Financials Balance Sheet.xls — Balance Sheet (89×7) | Capital IQ vendor export — workbook tab | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Financials Capital Structure Details.xls — Capital Structure Details (29×10) | Capital IQ vendor export — workbook tab | FQ2 2026, 2026-06-30 | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Financials Capital Structure Summary.xls — Capital Structure Summary (60×7) | Capital IQ vendor export — workbook tab | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Financials Cash Flow.xls — Cash Flow (72×7) | Capital IQ vendor export — workbook tab | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Financials Historical Capitalization.xls — Historical Capitalization (38×7); Income Statement.xls — Income Statement (94×7); Industry Specific.xls — Industry Specific (68×7); Key Stats.xls — Key Stats (80×9) | Capital IQ vendor exports — four workbook tabs | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd NYSE NU Financials Multiples (1).xls — Multiples (61×9); Nu Holdings Ltd NYSE NU Financials Multiples.xls — Multiples (60×9) | Capital IQ vendor exports — two workbook tabs | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd NYSE NU Financials Ratios.xls — Ratios (149×7); Segments (1).xls — Segments (77×7); Segments.xls — Segments (77×7); Supplemental.xls — Supplemental (50×7) | Capital IQ vendor exports — four workbook tabs | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd NYSE NU Financials.xls — Key Stats; Income Statement; Balance Sheet; Cash Flow; Multiples; Historical Capitalization; Capital Structure Summary; Capital Structure Details; Ratios; Supplemental; Industry Specific; Pension OPEB; Segments (85×9; 94×7; 89×7; 72×7; 61×9; 38×7; 60×7; 33×10; 149×7; 50×7; 68×7; 15×6; 77×7) | Capital IQ vendor export — 13 workbook tabs | Latest FQ2 2026 / LTM 2026-06-30 | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd NYSE NU Fixed Income S P Global Ratings.xls — S P Global Ratings (20×8) | Capital IQ vendor export — workbook tab | Rating dated 2023-09-22; review 2025-09-22 | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Fixed Income Securities Summary.xls — Securities Summary (2299×24) | Capital IQ vendor export — workbook tab | As-of not stated; instrument maturities shown | Snapshot mtime not used | High |
+| Nu Holdings Ltd NYSE NU Industry Classifications.rtf | Vendor export | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Investment Analysis Co Investors.xls — Co-Investors (53×3); Direct Investments.xls — Direct Investments (55×21) | Vendor export — two workbook tabs | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Key Developments.rtf; Long Business Description.rtf; Private Ownership.rtf; Public Company Profile.rtf; Public Ownership Summary.rtf | Vendor exports | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Products.xls — Products (31×5); Professionals.xls — Professionals (29×24) | Vendor exports — two workbook tabs | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Public Ownership Crossholdings.xls — Crossholdings (1840×7); Detailed.xls — Detailed (1346×15); History.xls — History (1499×5); Insider Trading.xls — Insider Trading (46×11) | Vendor exports — four workbook tabs | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Strategic Alliances.xls — Strategic Alliances (25×7); Suppliers.xls — Suppliers (25×8) | Vendor relationship exports — two workbook tabs | Recently disclosed relationships only | Snapshot mtime not used | Low |
+| Nu Holdings Ltd NYSE NU Takeover Defenses.xls — Corporate Governance; Takeover Defenses; Compare Defenses (48×4; 26×4; 36×8) | Vendor export — three workbook tabs | As-of not stated inside source | Snapshot mtime not used | Low |
+| Nu Holdings Ltd. (NYSE_NU) Corporate Structure Tree.xls — Nu Holdings Ltd NYSENU Corpor; Filtered Count; Aggregates (53×17; 22×4; 22×4) | Vendor export — three workbook tabs | As-of not stated inside source | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd. Form 20-F filed on Apr-08-2026.pdf | Audited annual filing | FY25, year ended 2025-12-31 | Snapshot mtime not used | High |
+| NuHoldingsLtdNYSENUEstimatesReport.xls — Consensus; Recent Changes; Multiples; Surprise; Trends; Revisions (397×30; 265×10; 26×5; 200×20; 238×21; 357×17) | Capital IQ vendor export — six workbook tabs | As-of not stated inside source | Snapshot mtime not used | Medium |
+| Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).doc; Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf; duplicated PDF copies | Audited annual filing | FY25, year ended 2025-12-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_20-F(Apr-16-2025).doc; Nu_Holdings_Ltd_-_Form_20-F(Apr-16-2025).pdf | Audited annual filing | FY24, year ended 2024-12-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_20-F(Apr-19-2024).pdf; Nu_Holdings_Ltd_-_Form_20-F(Apr-20-2023).pdf; Nu_Holdings_Ltd_-_Form_20-F(Apr-21-2022).pdf | Audited annual filings | FY23; FY22; FY21 | Snapshot mtime not used | High |
+| Transaction Summary M A Private Placements.xls — M A Private Placements (25×14); Transaction Summary Public Offerings.xls — Public Offerings (15×8) | Vendor exports — two workbook tabs | As-of not stated inside source | Snapshot mtime not used | Low |
+| U21257060_20260331_20260331.pdf | Unclassified PDF | Period not established from the source review | Snapshot mtime not used | Low |
+| consolidated_tax_report_2025-26.xlsx — LTCG; STCG; F&O; Intraday; Dividend; Interest; Bonds & SGB; Schedule FA; Schedule FSI; Form 67; Schedule TR (146×18; 163×20; 51×10; 46×12; 68×10; 19×5; 25×12; 41×13; 33×10; 27×13; 28×8) | IBKR tax/portfolio export — 11 workbook tabs | FY2025-26 | Snapshot mtime not used | Low |
+| Nu_Holdings_Ltd_-_(Aug-13-2026).pdf; duplicated copy | Interim results | Q2/6M ended 2026-06-30 | Snapshot mtime not used | Medium |
+| Nu_Holdings_Ltd_-_(Aug-19-2025).pdf; duplicated copy | Interim results | Q2/6M ended 2025-06-30 | Snapshot mtime not used | Medium |
+| Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf; duplicated copy | Audited annual filing | FY25, year ended 2025-12-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Annual_Report(Feb-26-2026).pdf; duplicated copy | Annual report / FY25 results | FY25, year ended 2025-12-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf; duplicated copy | Unaudited interim filing | Q2/6M ended 2026-06-30 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-20-2026).pdf; duplicated copy | Interim filing | Q2/6M ended 2026-06-30 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Interim_Report(May-14-2026).pdf; May-15-2026; May-20-2026 — each duplicated | Interim filings | Q1/3M ended 2026-03-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Interim_Report(Nov-17-2025).pdf; duplicated copy | Interim filing | Q3/9M ended 2025-09-30 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Aug-13-2026).pdf; duplicated copy | Preliminary interim results | Q2/6M ended 2026-06-30 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Feb-25-2026).pdf; duplicated copy | Preliminary FY25 results | FY25 / Q4 2025 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(May-14-2026).pdf; duplicated copy | Preliminary Q1 results | Q1/3M ended 2026-03-31 | Snapshot mtime not used | High |
+| Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Nov-13-2025).pdf; duplicated copy | Preliminary Q3 results | Q3/9M ended 2025-09-30 | Snapshot mtime not used | High |
+| Nu Holdings Ltd. - ShareholderAnalyst Call.pdf | Transcript | As-of not stated inside source | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd., Q1 2022; Q1 2023; Q1 2024; Q1 2025; Q1 2026 Earnings Call PDFs | Transcripts — five physical files | Quarters stated in titles | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd., Q2 2022; Q2 2023; Q2 2024; Q2 2025; Q2 2026 Earnings Call PDFs | Transcripts — five physical files | Quarters stated in titles | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd., Q3 2022; Q3 2023; Q3 2024; Q3 2025 Earnings Call PDFs | Transcripts — four physical files | Quarters stated in titles | Snapshot mtime not used | Medium |
+| Nu Holdings Ltd., Q4 2021; Q4 2022; Q4 2023; Q4 2024; Q4 2025 Earnings Call PDFs | Transcripts — five physical files | Quarters stated in titles | Snapshot mtime not used | Medium |
 
-Every workbook sheet was extracted successfully. The material multi-tab solvency workbooks are: `Financials.xls`—Key Stats (85×9), Income Statement (94×7), Balance Sheet (89×7), Cash Flow (72×7), Multiples (61×9), Historical Capitalization (38×7), Capital Structure Summary (60×7), Capital Structure Details (33×10), Ratios (149×7), Supplemental (50×7), Industry Specific (68×7), Pension OPEB (15×6; “No Data Available”), Segments (77×7); and the one-tab dedicated Balance Sheet (89×7), Cash Flow (72×7), Capital Structure Summary (60×7), Capital Structure Details (29×10), Fixed Income Securities Summary (2,299×24), and S&P Global Ratings (20×8) exports. The remaining one-tab workbooks and the non-solvency multi-tab valuation, tax and estimates workbooks were also present and extracted `ok`; they do not determine sufficiency.
+The rows above enumerate every physical source and every workbook tab in the immutable manifest; entries expressed as a semicolon-delimited group are separate source files or tabs whose title, dimensions, period and classification are individually stated in that row. No source had `fail`, `fallback-text`, `missing-dependency`, or `gdrive-pointer` status. The source/tabs are all frozen under `data/NU/` for citation purposes.
 
 ## 2. Most Recent Sources
 
 | Source Type | Filename | Period / As-of | Age (months) |
 |---|---|---|---|
-| Annual filing (debt + contingency notes) | `Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf` | FY25, year ended 2025-12-31 | 8.0 |
-| Quarterly filing | `Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf` | Three and six months ended 2026-06-30 | 2.0 |
-| Debt / capital-structure export | `Nu Holdings Ltd NYSE NU Financials Capital Structure Details.xls` | FQ2 2026 / 2026-06-30 | 2.0 |
-| Fixed-income / maturities export | `Nu Holdings Ltd NYSE NU Fixed Income Securities Summary.xls` | Vendor securities record through 2026-08-29 | 0.1 |
-| Cash flow statement | `Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf` | Six months ended 2026-06-30 | 2.0 |
-| Covenant / credit-agreement disclosure | `Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf` | 2026-06-30, Note 24 | 2.0 |
-| Credit rating report | `Nu Holdings Ltd NYSE NU Fixed Income S P Global Ratings.xls` | S&P issuer ratings; last review 2025-09-22 | 11.3 |
+| Annual filing (debt + contingency notes) | Nu Holdings Ltd. Form 20-F filed on Apr-08-2026.pdf | FY25, year ended 2025-12-31 | 8 |
+| Quarterly filing | Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf | Q2/6M ended 2026-06-30 | 2 |
+| Debt / capital-structure export | Nu Holdings Ltd NYSE NU Financials Capital Structure Details.xls — Capital Structure Details | FQ2 2026, 2026-06-30 | 2 |
+| Fixed-income / maturities export | Nu Holdings Ltd NYSE NU Fixed Income Securities Summary.xls — Securities Summary | As-of not stated; maturities shown | Not assessable |
+| Cash flow statement | Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf | Q2/6M ended 2026-06-30 | 2 |
+| Covenant / credit-agreement disclosure | Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf | Q2/6M ended 2026-06-30 | 2 |
+| Credit rating report | Nu Holdings Ltd NYSE NU Fixed Income S P Global Ratings.xls — S P Global Ratings | last review 2025-09-22 | 11 |
 
 ## 3. Solvency Usability Check
 
 | Requirement | Available? (Y/N) | Source | Why It Matters |
 |---|---|---|---|
-| Balance sheet (recent) | Y | [Q2 FY26 unaudited interim statements, statement of financial position, p.7] | Shows financial assets, funding liabilities and equity. |
-| Debt note (amounts by type) | Y | [Q2 FY26 unaudited interim statements, Note 24, pp.31–32] | Identifies financial bills and the margin-loan credit facility. |
-| Maturity schedule | Y | [Q2 FY26 unaudited interim statements, Notes 24 and 32, pp.31, 40–41] | Shows contractual maturity buckets for borrowings and funding. |
-| Cash flow statement | Y | [Q2 FY26 unaudited interim statements, statement of cash flows, p.11] | Shows cash movements, but is not an operating-company FCF measure. |
-| Committed / undrawn facility detail | N | [Q2 FY26 unaudited interim statements, Note 24, pp.31–32] | Facility drawdown is disclosed; undrawn capacity / availability is not. |
-| Interest expense detail | Y | [Q2 FY26 unaudited interim statements, Note 6, p.5] | Supports funding-cost analysis. |
-| Covenant disclosure | Y | [Q2 FY26 unaudited interim statements, Note 24, p.32] | Filing states loan and financing agreements have no financial restrictive covenants at 2026-06-30. |
-| Lease detail (operating/finance) | Y | [Q2 FY26 unaudited interim statements, statement of financial position, p.8] | Lease liabilities are separately reported. |
-| Pension / OPEB funded status | N | [Capital IQ Financials, Pension OPEB sheet, latest annual data] | Vendor sheet says “No Data Available”; no funded-status disclosure identified. |
-| Commitments & contingencies note | Y | [Q2 FY26 unaudited interim statements, Note 25, pp.32–33] | Covers provisions, possible-loss claims and judicial deposits. |
-| Credit ratings | Y | [S&P Global Ratings export, issuer ratings, last review 2025-09-22] | Gives a vendor-distributed rating record; it is not a current agency rationale. |
-| EBITDA base (for stress test) | N | [Capital IQ Financials, Income Statement sheet, LTM to 2026-06-30] | No reported EBITDA row; more importantly, EBITDA is not the correct bank-solvency denominator. |
-| Business type (operating / bank / insurer / REIT / HoldCo-OpCo) | Y — financial institution | [Q2 FY26 unaudited interim statements, Notes 22, 32–33, pp.29, 40–43] | Selects the financial-institution framework. |
-| Revolver terms + availability / borrowing base | N | [Q2 FY26 unaudited interim statements, Note 24, pp.31–32] | The collateralized margin-loan facility is described, but remaining availability is not. |
-| Covenant EBITDA definition (addbacks / caps) | N / not applicable | [Q2 FY26 unaudited interim statements, Note 24, p.32] | No financial restrictive covenants are disclosed. |
-| HoldCo / OpCo structure disclosure | Y | [FY25 Form 20-F, Item 4 and subsidiary disclosures] | The parent and regulated subsidiaries are identified; entity-level prudential analysis is still required. |
-| Hedging / swaps disclosure | Y | [Q2 FY26 unaudited interim statements, Note 20 and Note 32, pp.24–25, 41–42] | Enables review of rate and FX hedging. |
-| Change-of-control / cross-default / rating triggers | N | [FY25 Form 20-F, debt-risk and financing disclosures] | Specific contractual accelerants were not identified in the available disclosure. |
+| Balance sheet (recent) | Y | [Q2 2026 Interim Report, interim statement of financial position] | Debt, cash, equity base |
+| Debt note (amounts by type) | Y | [Q2 2026 Interim Report, Note 24 (Borrowings and financing)] | The debt stack and seniority |
+| Maturity schedule | Y | [Q2 2026 Interim Report, Note 22 (Deposits) and Note 32 (Management of financial risks)]; [Capital IQ Capital Structure Details, FQ2 2026] | The maturity wall and refinancing exposure |
+| Cash flow statement | Y | [Q2 2026 Interim Report, interim statement of cash flows] | CFO/FCF for runway and coverage |
+| Committed / undrawn facility detail | N | Capital-structure sources identify a margin-loan facility but not committed availability | True liquidity beyond cash |
+| Interest expense detail | Y | [Q2 2026 Interim Report, statement of income and Notes 6/19] | Coverage ratios |
+| Covenant disclosure | Y | [Q2 2026 Interim Report, Note 24 (Borrowings and financing)] — no financial restrictive covenants reported | Headroom to a breach |
+| Lease detail (operating/finance) | Y | [Q2 2026 Interim Report, statement of financial position (Lease liabilities)] | Debt-like obligations |
+| Pension / OPEB funded status | N | No primary filing pension/OPEB disclosure located; vendor Pension OPEB tab is not a substitute | Off-balance-sheet obligation |
+| Commitments & contingencies note | Y | [Q2 2026 Interim Report, Note 25 (Provisions and contingent liabilities)] | Guarantees, LCs, litigation, tax claims |
+| Credit ratings | Y | [Capital IQ S&P Global Ratings export, last review 2025-09-22] | Refinancing access and cost |
+| EBITDA base (for stress test) | N | CIQ cash-flow workbook is explicitly a Bank template and the CIQ facts sidecar marks LTM EBITDA unknown | Required for the corporate survival stress test |
+| Business type (operating / bank / insurer / REIT / HoldCo-OpCo) | Financial institution | [FY2025 Form 20-F, Item 4.B and regulation discussion]; [Q2 2026 Interim Report, Note 33 (Capital management)] | Selects the correct framework (Business Type Applicability Gate) |
+| Revolver terms + availability / borrowing base | N | Capital IQ Capital Structure Details, FQ2 2026 | Determines usable liquidity and springing covenants |
+| Covenant EBITDA definition (addbacks / caps) | N/A — no reported financial restrictive covenants | [Q2 2026 Interim Report, Note 24] | Prevents “fake headroom” |
+| HoldCo / OpCo structure disclosure | Y | [FY2025 Form 20-F, Exhibit 8.1 (Subsidiaries)]; [Capital IQ Corporate Structure Tree] | Structural subordination and upstreaming |
+| Hedging / swaps disclosure | Y | [Q2 2026 Interim Report, Note 20 (Derivatives and hedge accounting)] | Floating-rate exposure net of hedges |
+| Change-of-control / cross-default / rating triggers | N | Not disclosed in the data pool | Hidden accelerants to distress |
 
 ## 4. Cross-Module Availability
 
@@ -84,31 +121,33 @@ Every workbook sheet was extracted successfully. The material multi-tab solvency
 
 | Item | Detected Value | Evidence |
 |---|---|---|
-| Primary listing country | United States (issuer incorporated in Cayman Islands) | [FY25 Form 20-F, cover page] |
-| Exchange | New York Stock Exchange (NYSE), ticker NU | [FY25 Form 20-F, cover page] |
-| Filing regime (US SEC / India SEBI-LODR / UK / Other) | US SEC foreign private issuer: Form 20-F annual reporting and interim financial disclosure | [FY25 Form 20-F, cover page; Q2 FY26 unaudited interim statements, cover] |
-| Reporting standard (US GAAP / IFRS / Ind AS) | IFRS Accounting Standards; Q2 interim statements under IAS 34 | [FY25 Form 20-F, “Presentation of Financial Information”; Q2 FY26 interim statements, auditor-review report, p.3] |
-| Reporting currency (USD / INR / …) | USD (US$), with regulated subsidiaries using local functional currencies | [FY25 Form 20-F, “Presentation of Financial Information”] |
-| Document language(s) | English; no non-English document was treated as a gap | [FY25 Form 20-F; Q2 FY26 interim statements] |
+| Primary listing country | United States (issuer incorporated in Cayman Islands) | [FY2025 Form 20-F, cover page and Item 4.B] |
+| Exchange | New York Stock Exchange — NYSE: NU | [FY2025 Form 20-F, cover page] |
+| Filing regime (US SEC / India SEBI-LODR / UK / Other) | SEC foreign private issuer — Form 20-F and interim results | [FY2025 Form 20-F, cover page]; [Q2 2026 Interim Report, cover] |
+| Reporting standard (US GAAP / IFRS / Ind AS) | IFRS Accounting Standards | [FY2025 Form 20-F, Item 3 (Presentation of Financial Information)] |
+| Reporting currency (USD / INR / …) | USD | [FY2025 Form 20-F, Item 3 (Presentation of Financial Information)] |
+| Document language(s) | English | [FY2025 Form 20-F; Q2 2026 Interim Report] |
+
+NU is a regulated financial-services group, not an operating company for which debt/EBITDA and corporate FCF runway answer the survival question. Its FY25 Form 20-F identifies regulated Brazilian financial-institution subsidiaries, and the Q2 report presents regulatory capital for Nu Pagamentos’ BCB Type 3 prudential conglomerate, including CET1, Tier 1 and CAR. The Q2 report also reports deposits, loans, compulsory central-bank deposits and liquidity-risk maturity tables. [FY2025 Form 20-F, Item 4.B (Regulation)]; [Q2 2026 Interim Report, Notes 22, 32 and 33]
 
 ## 5. Partial-Data Flags
 
 | Missing Data | Applies? (Y/N) | Affected Agents | Cap Applied |
 |---|---|---|---|
-| No debt maturity schedule | N | 02, 06 | None; a contractual maturity schedule is disclosed. |
-| No covenant disclosure | N | 04, 06 | None; filing explicitly says there are no financial restrictive covenants. |
-| No cash flow statement | N | 03, 04, 06 | None; a six-month cash-flow statement is available. |
-| No undrawn-facility disclosure | Y | 03 | Liquidity cannot include undisclosed facility availability; regular corporate-liquidity output is in any event not applicable to this financial institution. |
-| No interest-expense detail | N | 04 | None; Note 6 reports interest and other financial expenses. |
-| No EBITDA base | Y | 06 | Stress test not runnable on the prescribed EBITDA basis; it must be replaced by a regulated-bank capital, liquidity and asset-quality stress framework. |
+| No debt maturity schedule | N | 02, 06 | Not applicable — maturity information is present, but the corporate-debt framework is overridden |
+| No covenant disclosure | N | 04, 06 | Not applicable — Q2 filing states no financial restrictive covenants on loan and financing agreements |
+| No cash flow statement | N | 03, 04, 06 | Not applicable — Q2 interim cash-flow statement is present |
+| No undrawn-facility disclosure | Y | 03 | Corporate liquidity = cash only under the default rule; do not use this rule for NU’s regulated-deposit model |
+| No interest-expense detail | N | 04 | Not applicable — interest detail is available |
+| No EBITDA base | Y | 06 | Corporate EBITDA stress test not runnable; financial-institution override requires regulatory-capital, liquidity and asset-quality stress testing instead |
 
 ## 6. Sufficiency Verdict
 
 - **Verdict:** Insufficient data
-- **Reason:** Financial institution — requires a separate solvency framework (CET1 / LCR / NSFR / asset quality). NU's Q2 filing shows deposit-funded regulated subsidiaries and reports regulatory capital rather than an operating-company debt/EBITDA framework. [Q2 FY26 unaudited interim statements, Notes 22, 32–33, pp.29, 40–43]
-- **Sections that can run:** None under the balance-sheet-survival module's operating-company framework. A separate financial-institution workstream can assess regulatory capital, liquidity, deposit funding, asset quality, interest-rate risk and legal-entity restrictions using the current filing.
+- **Reason:** Financial institution — requires a separate solvency framework (CET1 / LCR / NSFR / asset quality). NU’s filings establish a regulated digital-financial-services group with deposit funding, loan and credit-card exposures, central-bank reserves and prudential capital; corporate debt/EBITDA, coverage and FCF-runway tests are not fit for purpose. [FY2025 Form 20-F, Item 4.B (Regulation)]; [Q2 2026 Interim Report, Notes 22, 32 and 33]
+- **Sections that can run:** None of the standard capital-structure, maturity-wall, liquidity, coverage/covenants, contingencies, or EBITDA stress-test agents should run under this module’s corporate-debt framework. A dedicated financial-institution solvency review can use the available regulatory-capital, liquidity-risk and credit-risk disclosures.
 - **Critical missing items:**
-  - Current entity-level regulatory liquidity disclosures (LCR / NSFR or the local regulatory equivalents) and liquidity-buffer composition.
-  - Current asset-quality detail sufficient to stress credit losses, including delinquency / non-performing exposures, coverage and cohort or vintage loss data.
-  - Undrawn availability and legal terms for the margin-loan credit facility, plus any cross-default, change-of-control and rating-trigger provisions.
-- **Single highest-value missing document:** Latest regulatory capital-and-liquidity returns for Nu Pagamentos, Nubank Mexico and Nu Colombia, including CET1 / Tier 1 / total capital, LCR / NSFR (or local equivalents), minimums and buffers.
+  - A financial-institution-specific module is required; this is an applicability failure, not a filing-data failure.
+  - Committed margin-loan availability / borrowing-base detail is not disclosed in the pool.
+  - The primary filing does not disclose change-of-control, cross-default or rating-trigger terms in a way that supports a complete corporate debt-document scan.
+- **Single highest-value missing document:** Latest primary-regulator prudential return for each material regulated perimeter, showing CET1/Tier 1/total capital, RWA, liquidity coverage or equivalent, asset quality and provisioning. It would independently validate and complete a dedicated bank-style solvency framework.
