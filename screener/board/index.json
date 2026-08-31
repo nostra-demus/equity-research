@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T09:16:00Z",
+  "generated_at": "2026-08-31T09:19:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-441",
+      "headline": "MS GROUP HLDGS (01451): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFERS BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF L.V.E.P. HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF, AND TO CANCEL ALL THE OUTSTANDING OPTIONS OF, MS GROUP HOLDINGS LIMITED (OTHER THAN THE EXCLUDED SHARES AND THE EXCLUDED OPTIONS)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100909.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:11:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "A mandatory unconditional cash offer has been dispatched to acquire all issued shares of MS Group Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A mandatory unconditional cash offer has been dispatched to acquire all issued shares of MS Group Holdings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MS GROUP HLDGS",
+          "ticker": "01451",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-438",
       "headline": "MODERN LAND (01107): INSIDE INFORMATION DELAY IN PUBLICATION OF INTERIM RESULTS AND DESPATCH OF INTERIM REPORT FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND CONTINUED SUSPENSION OF TRADING",
@@ -794,6 +843,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-447",
+      "headline": "Maruti Suzuki Raises Capex To Rs 77,500 Crore For Five Years Till FY31",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/maruti-suzuki-raises-capex-to-rs-77-500-crore-for-five-years-till-fy31-11981170#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T08:38:24Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Maruti Suzuki announced a major capex plan of ₹77,500 crore over five years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maruti Suzuki announced a major capex plan of ₹77,500 crore over five years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maruti Suzuki",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-331",
       "headline": "‎Alistithmar Capital, Ezdihar acquire Jeddah Cove for SAR 1.1B",
       "headline_en": null,
@@ -941,55 +1039,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-396",
-      "headline": "Maruti Suzuki Raises Five-Year Capex To ₹77,500 Crore, Steps Up Investment Plans Through FY31",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/maruti-suzuki-raises-five-year-capex-to-77500-crore-steps-up-investment-plans-through-fy31",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T07:25:09Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Maruti Suzuki raised five-year capex to Rs 77,500 crore, stepping up investment through FY31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki raised five-year capex to Rs 77,500 crore, stepping up investment through FY31.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": "MARUTI",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-231",
-      "headline": "Cronos halts network after Tectonic exploit involving estimated $75M",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/cronos-network-halt-tectonic-exploit-75-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T03:25:48Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Network halt due to a $75M exploit is a material operational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Network halt due to a $75M exploit is a material operational and financial risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cronos",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118413,9 +118413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 175174,
-    "news_picked_today": 868,
-    "news_dropped_today": 8776
+    "news_seen_today": 179132,
+    "news_picked_today": 877,
+    "news_dropped_today": 8791
   },
   "book_momentum": {
     "live_count": 8,
