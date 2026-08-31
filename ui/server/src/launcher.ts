@@ -6818,17 +6818,44 @@ function nulPaths(value: Buffer): string[] {
   return value.toString('utf8').split('\0').filter(Boolean)
 }
 
+export function trackedTerminalDeletionDisposition(
+  run: Pick<RunState, 'kind' | 'swarmId' | 'runRoot' | 'chained'>, relative: string,
+): 'allow' | 'restore' | 'forbid' {
+  const resumable = run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
+  if (resumable && isExactStaleRunFailureRemoval(run.runRoot, relative)) {
+    return 'allow'
+  }
+  if (!resumable || !run.runRoot) return 'forbid'
+  const exactRoot = run.runRoot.replace(/\\/g, '/').replace(/\/+$/, '')
+  const normalized = relative.replace(/\\/g, '/')
+  return normalized.startsWith(`${exactRoot}/`) ? 'restore' : 'forbid'
+}
+
+function preserveTrackedTerminalData(run: RunState, pathspecs: string[]): void {
+  const deleted = nulPaths(execFileSync('git', [
+    'diff', '--name-only', '-z', '--diff-filter=D', 'HEAD', '--', ...pathspecs,
+  ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
+  const restore: string[] = []
+  for (const relative of deleted) {
+    const disposition = trackedTerminalDeletionDisposition(run, relative)
+    if (disposition === 'forbid') throw new Error(`cockpit publication cannot delete terminal data: ${relative}`)
+    if (disposition === 'restore') restore.push(relative)
+  }
+  if (!restore.length) return
+  // A continuation may be prepared from an older saved root that does not contain every file already
+  // committed under its exact target root. Publication is append-only: retain those historical bytes
+  // rather than either deleting them or making an otherwise complete continuation impossible to ship.
+  execFileSync('git', ['restore', '--source=HEAD', '--worktree', '--', ...restore], {
+    cwd: REPO_ROOT, stdio: ['ignore', 'ignore', 'pipe'],
+  })
+}
+
 function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredPaths: string[]): {
   manifest: string; directory: string; paths: string[]
   entries: Array<{ path: string; snapshot: string; sha256: string }>
   hashes: Record<string, string>; cleanup: () => void
 } {
-  const deleted = nulPaths(execFileSync('git', [
-    'diff', '--name-only', '-z', '--diff-filter=D', 'HEAD', '--', ...pathspecs,
-  ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
-  const forbiddenDeletion = deleted.find((relative) =>
-    !isResumableResearchRun(run) || !isExactStaleRunFailureRemoval(run.runRoot, relative))
-  if (forbiddenDeletion) throw new Error(`cockpit publication cannot delete terminal data: ${forbiddenDeletion}`)
+  preserveTrackedTerminalData(run, pathspecs)
   const changed = nulPaths(execFileSync('git', [
     'diff', '--name-only', '-z', '--diff-filter=ACMRT', 'HEAD', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
