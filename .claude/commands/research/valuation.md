@@ -47,18 +47,22 @@ The valuation agents optionally read prior `business-model` and `earnings` modul
 
 ```
 if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
-  test -s "$RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s\n' "$RUN_ROOT/business-model/"
-  test -s "$RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s\n' "$RUN_ROOT/earnings/"
+  BUSINESS_MODEL_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/")"
+  EARNINGS_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/")"
 else
-  for m in business-model earnings; do
-    for d in $(ls -1d analyses/${ARGUMENTS}_*/${m}/ 2>/dev/null | sort -r); do
-      [ -s "${d}99_${m}-synthesis.md" ] && { echo "$d"; break; }
-    done
+  BUSINESS_MODEL_PATH=""
+  EARNINGS_PATH=""
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_business-model-synthesis.md" ] && { BUSINESS_MODEL_PATH="$d"; break; }
+  done
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_earnings-synthesis.md" ] && { EARNINGS_PATH="$d"; break; }
   done
 fi
+printf 'business-model=%s\nearnings=%s\n' "$BUSINESS_MODEL_PATH" "$EARNINGS_PATH"
 ```
 
-Capture the first result as `<BUSINESS_MODEL_PATH>` and the second as `<EARNINGS_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format embedded in the path. If a command returns an empty string, treat that module as `not available`.
+Capture the labelled values as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. The newest-first loops select the latest completed folders by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format embedded in the path. If a value is empty, treat that module as `not available`.
 
 Build the cross-module context string `<CROSS_MODULE_CONTEXT>` from what is available:
 

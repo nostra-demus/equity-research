@@ -74,17 +74,19 @@ export function extractRouting(markdown: string, field: string): string | null {
   return null
 }
 
-// Triage-specific: Sufficient / Partial / Insufficient (insufficient checked first to avoid substring hit).
+// Triage-specific: accept exactly one canonical verdict. A template/menu that leaves multiple choices
+// visible is not a decision and must never become durable terminal evidence.
 export function extractTriageStatus(markdown: string): 'Sufficient' | 'Partial' | 'Insufficient' | null {
   const lines = markdown.split(/\r?\n/)
   for (const ln of lines) {
     if (/verdict/i.test(ln)) {
-      if (/insufficient/i.test(ln)) return 'Insufficient'
-      if (/\bpartial\b/i.test(ln)) return 'Partial'
-      if (/\bsufficient\b/i.test(ln)) return 'Sufficient'
+      const statuses = [...ln.matchAll(/\binsufficient\b|\bpartial\b|\bsufficient\b/gi)]
+        .map((match) => match[0].toLowerCase())
+      if (new Set(statuses).size !== 1) continue
+      if (statuses[0] === 'insufficient') return 'Insufficient'
+      if (statuses[0] === 'partial') return 'Partial'
+      if (statuses[0] === 'sufficient') return 'Sufficient'
     }
   }
-  // fall back to the engine's own fail-fast regex shape
-  if (/verdict[*_:\s]*insufficient\s+data/i.test(markdown)) return 'Insufficient'
   return null
 }

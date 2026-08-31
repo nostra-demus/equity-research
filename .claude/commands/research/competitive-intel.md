@@ -50,20 +50,23 @@ This module declares `depends_on: [business-model, earnings]`: the peer set + se
 
 ```
 if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
-  test -s "$RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s\n' "$RUN_ROOT/business-model/"
-  test -s "$RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s\n' "$RUN_ROOT/earnings/"
+  BUSINESS_MODEL_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/")"
+  EARNINGS_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/")"
 else
+  BUSINESS_MODEL_PATH=""
+  EARNINGS_PATH=""
   # newest-first, but skip any folder whose module synthesis is missing/empty
   for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
-    [ -s "${d}99_business-model-synthesis.md" ] && { echo "$d"; break; }
+    [ -s "${d}99_business-model-synthesis.md" ] && { BUSINESS_MODEL_PATH="$d"; break; }
   done
   for d in $(ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r); do
-    [ -s "${d}99_earnings-synthesis.md" ] && { echo "$d"; break; }
+    [ -s "${d}99_earnings-synthesis.md" ] && { EARNINGS_PATH="$d"; break; }
   done
 fi
+printf 'business-model=%s\nearnings=%s\n' "$BUSINESS_MODEL_PATH" "$EARNINGS_PATH"
 ```
 
-Capture the results as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. Set either to `not available` if its loop prints nothing (no completed run of that dependency exists yet).
+Capture the labelled values as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. Set either to `not available` if its value is empty (no completed run of that dependency exists yet).
 
 Build the cross-module context string by joining one labelled sentence per resolved dependency (the exact format `frameworks/MODULE_PIPELINE.md` expects — the dependency name, first letter capitalised):
 

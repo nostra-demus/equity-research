@@ -45,15 +45,17 @@ Several earnings agents (specifically `revenue-drivers`, `margin-drivers`, `earn
 
 ```
 if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
-  test -s "$RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s\n' "$RUN_ROOT/business-model/"
+  BUSINESS_MODEL_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/")"
 else
+  BUSINESS_MODEL_PATH=""
   for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
-    [ -s "${d}99_business-model-synthesis.md" ] && { echo "$d"; break; }
+    [ -s "${d}99_business-model-synthesis.md" ] && { BUSINESS_MODEL_PATH="$d"; break; }
   done
 fi
+printf 'business-model=%s\n' "$BUSINESS_MODEL_PATH"
 ```
 
-Capture the result as `<BUSINESS_MODEL_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format embedded in the path. If the command returns an empty string (no prior business-model run for this ticker), set `<BUSINESS_MODEL_PATH>` to the literal string `not available`.
+Capture the value labelled `business-model` as `<BUSINESS_MODEL_PATH>`. The newest-first loop selects the latest completed folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format embedded in the path. If its value is empty, set `<BUSINESS_MODEL_PATH>` to the literal string `not available`.
 
 Build the cross-module context string:
 

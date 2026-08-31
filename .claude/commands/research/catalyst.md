@@ -48,18 +48,21 @@ The catalyst agents optionally read prior module outputs for the same ticker. **
 ```
 if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
   for m in business-model earnings balance-sheet-survival management-governance valuation; do
-    test -s "$RUN_ROOT/$m/99_${m}-synthesis.md" && printf '%s\n' "$RUN_ROOT/$m/"
+    MODULE_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/$m/99_${m}-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/$m/")"
+    printf '%s=%s\n' "$m" "$MODULE_PATH"
   done
 else
   for m in business-model earnings balance-sheet-survival management-governance valuation; do
+    MODULE_PATH=""
     for d in $(ls -1d analyses/${ARGUMENTS}_*/${m}/ 2>/dev/null | sort -r); do
-      [ -s "${d}99_${m}-synthesis.md" ] && { echo "$d"; break; }
+      [ -s "${d}99_${m}-synthesis.md" ] && { MODULE_PATH="$d"; break; }
     done
+    printf '%s=%s\n' "$m" "$MODULE_PATH"
   done
 fi
 ```
 
-Capture each first result. The `sort -r | head -n 1` selects the latest folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format in the path. If a command returns an empty string, treat that module as `not available`.
+Capture each value by its module label. The newest-first loops select the latest completed folders by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format in the path. If a value is empty, treat that module as `not available`.
 
 Build the cross-module context string `<CROSS_MODULE_CONTEXT>` by joining one sentence per AVAILABLE module, each capitalized as the agents expect:
 

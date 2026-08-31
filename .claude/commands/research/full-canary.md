@@ -43,9 +43,12 @@ Then execute the complete `/research:full` workflow, with these narrow substitut
   `analyses/<TICKER>_<today>`. Use the binding's frozen `decision_date` everywhere the normal workflow uses
   today's decision/run date.
 - Treat the completed or deliberately fail-fast-capped module set as the current frozen run, not as a prior decision. Never select a prior
-  run; set `<PRIOR_RUN>` to `none`. Do not read another analysis root as research context. Follow the normal
-  completed-module skip rule, then perform the master synthesis, memos, finish gates, audits, decision record,
-  idea assessment, metadata, and terminal publication against this exact root. In continuation mode this
+  run; set `<PRIOR_RUN>` to `none`. Do not read another analysis root as research context. Replace `full.md`
+  Step 8's normal skip rule for this terminal process: skip a module when it has either a valid canonical
+  synthesis or its discovered `fail_fast: true` triage with the single canonical verdict `Insufficient`.
+  Never dispatch, rerun, or write into either kind of terminal module folder. Then perform the master
+  synthesis, memos, finish gates, audits, decision record, idea assessment, metadata, and terminal publication
+  against this exact root. In continuation mode this
   explicitly means re-authoring all retained raw terminal files from the frozen module evidence before the
   publication call; their pre-existing bytes are not a substitute for this process's adjudication.
 - Use only the frozen `data/<TICKER>` snapshot and the receipt's exact price anchor. Do not fetch or use
