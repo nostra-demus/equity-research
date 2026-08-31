@@ -22,6 +22,7 @@ const {
   dispatchRecoverableChainIntent, recoverableChainPublicationIsSealed,
   legacyResearchCandidatesAfterProtectedRecovery, protectedResearchRecoveryOwnsSubject,
   revalidateRecoverableChainPlan, terminalizeRecoverablePublishedChain,
+  verifyRecoverableChainCompletedArtifacts,
 } = await import('../src/resume-supervisor')
 const {
   captureOutputLineageAttempt, readVerifiedOutputLineage, settleOutputLineageAttempt,
@@ -195,6 +196,31 @@ try {
   assert.equal((await revalidateRecoverableChainPlan(record())).continuationReceipt.fingerprint,
     reviewed.continuationReceipt.fingerprint,
     'a pre-first-module restart reopens the original plan despite changed live Drive bytes')
+
+  // Completing one old legacy run migrates its finished modules byte-for-byte. Those carried syntheses
+  // predate protected provider lineage in the new root, so their exact chain-sealed hash is the authority.
+  const migratedModule = reviewed.modules.find((module) => module.module === 'business-model')
+    ?? reviewed.modules[0]
+  assert.ok(migratedModule, 'research fixture has at least one module to migrate')
+  const migratedOutputRel = `${migratedModule.module}/99_${migratedModule.module}-synthesis.md`
+  const migratedOutputAbs = path.join(runRootAbs, migratedOutputRel)
+  fs.mkdirSync(path.dirname(migratedOutputAbs), { recursive: true })
+  fs.writeFileSync(migratedOutputAbs, '# Migrated module synthesis\n\nExact saved work.\n')
+  const migratedSha = `sha256:${createHash('sha256').update(fs.readFileSync(migratedOutputAbs)).digest('hex')}`
+  const migratedRecord: RecoverableChainIntentRecord = {
+    ...record([{ module: migratedModule.module, artifacts: [{ outputRel: migratedOutputRel, sha256: migratedSha }] }]),
+    reviewedPlan: { ...reviewed, reuse: [migratedModule.module] },
+  }
+  assert.doesNotThrow(() => verifyRecoverableChainCompletedArtifacts(
+    migratedRecord, frozenPool.generationDigest,
+  ), 'a byte-identical migrated module does not require newly invented provider lineage')
+  fs.appendFileSync(migratedOutputAbs, 'changed\n')
+  assert.throws(
+    () => verifyRecoverableChainCompletedArtifacts(migratedRecord, frozenPool.generationDigest),
+    /completed evidence changed/,
+    'a changed migrated module still fails closed before another provider call',
+  )
+  fs.rmSync(migratedOutputAbs, { force: true })
 
   // The same proof remains after a module closes. Bind one synthesis to the frozen generation, mutate Drive
   // again, and verify restart retains that module while planning only against the same immutable generation.
