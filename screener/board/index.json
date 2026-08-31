@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T02:22:05Z",
+  "generated_at": "2026-08-31T02:25:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-152",
@@ -547,6 +547,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-166",
+      "headline": "How the U.S.-Israeli war on Iran is reshaping global energy use",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/08/31/world/society/war-iran-global-energy-map/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:22:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran and the US poses a significant risk to global energy supply chains and pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Geopolitical escalation involving Iran and the US poses a significant risk to global energy supply chains and pricing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-068",
       "headline": "SP8: Streamplay FY26 Results [price-sensitive]",
       "headline_en": null,
@@ -1080,31 +1123,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-155",
-      "headline": "14D: Preliminary Final Report [price-sensitive]",
+      "inbox_id": "INB-20260831-157",
+      "headline": "EWC: Preliminary Final Report [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.14D?key=2924-03129231-2A1693747",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03129238-2A1693754",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:15:05Z",
+      "found_at": "2026-08-31T02:19:15Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company released preliminary final report.",
+      "prelim_note": "Preliminary final report provides key financial results for EWC.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Company released preliminary final report.",
+      "triage_reason": "Preliminary final report provides key financial results for EWC.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 65,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1118,7 +1161,56 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "14D",
+          "name": "EWC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-158",
+      "headline": "DRX: Half Year Accounts",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRX?key=2924-03129236-2A1693752",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T02:18:50Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Half-year accounts provide key financial results for DRX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Half-year accounts provide key financial results for DRX.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DRX",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1852,104 +1944,6 @@
           "name": "Red Sky Energy",
           "ticker": "ROG",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-012",
-      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - DATA FROM PHASE I CLINICAL TRIAL OF KYLO-11 \"LPA SIRNA\" PRESENTED AT ESC 2026 AND PUBLISHED IN THE LANCET",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100251.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company presented positive Phase I clinical trial data for KYLO-11 at ESC 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Company presented positive Phase I clinical trial data for KYLO-11 at ESC 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SBP GROUP",
-          "ticker": "01177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-021",
-      "headline": "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HWK?key=2924-03129140-6A1341248",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:54:09Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Approval of a mining permit for the Olympus Scandium Project is a key operational milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Approval of a mining permit for the Olympus Scandium Project is a key operational milestone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HWK",
-          "ticker": "HWK",
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -117125,9 +117119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 683,
-    "news_picked_today": 187,
-    "news_dropped_today": 480
+    "news_seen_today": 713,
+    "news_picked_today": 197,
+    "news_dropped_today": 500
   },
   "book_momentum": {
     "live_count": 8,
