@@ -58,6 +58,8 @@ try {
     const root = `analyses/ZZSTALE_${DATE}`
     const exact = `${root}/RUN_FAILURE.md`
     assert.equal(isExactStaleRunFailureRemoval(root, exact), true)
+    assert.equal(isExactStaleRunFailureRemoval(root.replace(/\//g, '\\'), exact), true,
+      'Git POSIX output matches a platform-native run root')
     assert.equal(isExactStaleRunFailureRemoval(root, `${root}/decision_record.json`), false,
       'terminal research artifacts remain deletion-protected')
     assert.equal(isExactStaleRunFailureRemoval(root, `analyses/OTHER_${DATE}/RUN_FAILURE.md`), false,

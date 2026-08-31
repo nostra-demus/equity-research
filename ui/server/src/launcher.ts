@@ -556,8 +556,8 @@ function clearRunFailure(runRoot: string | null): void {
   if (!runRoot) return
   for (const k of [...recordedFailure]) if (k === runRoot || k.startsWith(`${runRoot}\u0000`)) recordedFailure.delete(k)
   try {
-    const relative = `${runRoot}/${FAILURE_NOTE}`
-    const p = path.join(REPO_ROOT, relative)
+    const relative = `${runRoot.replace(/\\/g, '/')}/${FAILURE_NOTE}`
+    const p = path.join(REPO_ROOT, runRoot, FAILURE_NOTE)
     const existed = fs.existsSync(p)
     fs.rmSync(p, { force: true })
     const deleted = nulPaths(execFileSync('git', [
@@ -572,7 +572,8 @@ function clearRunFailure(runRoot: string | null): void {
  * legitimately deletes that one exact diagnostic, while every other terminal-data deletion remains
  * forbidden. The close owner later publishes the deletion only after the replacement run is proven done. */
 export function isExactStaleRunFailureRemoval(runRoot: string | null | undefined, relative: string): boolean {
-  return Boolean(runRoot && relative === `${runRoot}/${FAILURE_NOTE}`)
+  if (!runRoot) return false
+  return relative.replace(/\\/g, '/') === `${runRoot.replace(/\\/g, '/')}/${FAILURE_NOTE}`
 }
 
 export function staleRunFailureRemovalNeedsCommit(
