@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T17:37:36Z",
+  "generated_at": "2026-08-31T17:55:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-778",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-787",
+      "headline": "National Aluminium Company Limited: National Aluminium Company Limited has informed the Exchange regarding a press release dated August 31, 2026, titled \"45th AGM OF NALCO: NALCO s Record FY 2025-26 Performance Fuels Ambitious Expansion and Future-Ready Growth\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/bharatsahu_31082026202853_LetterPressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:59:02Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "National Aluminium Company Limited announced ambitious expansion plans following record performance in FY 2025-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Aluminium Company Limited announced ambitious expansion plans following record performance in FY 2025-26.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Aluminium Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-776",
       "headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
       "headline_en": null,
@@ -145,6 +194,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-788",
+      "headline": "Happiest Minds Technologies Ltd: The Board of Directors at its meeting held on August 31, 2026, has approved the scheme of amalgamation of Happiest Minds Technologies Limited with ITC Infotech India Limited and their shareholders ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/025ebfed-51ad-481e-a9e1-bfa707009bb3.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:57:07Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Happiest Minds Technologies Ltd's board approved a scheme of amalgamation with ITC Infotech India Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Happiest Minds Technologies Ltd's board approved a scheme of amalgamation with ITC Infotech India Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Happiest Minds Technologies Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ITC Infotech India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,104 +1973,6 @@
       "companies": [
         {
           "name": "AJL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-364",
-      "headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T06:40:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "TSE decision to delist Nippon Sheet Glass removes the stock from the primary exchange, a survival-level event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TSE decision to delist Nippon Sheet Glass removes the stock from the primary exchange, a survival-level event for shareholders.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nippon Sheet Glass Company, Limited",
-          "ticker": "5202.T",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-377",
-      "headline": "HPC: Appendix 4D and FY26 Half Year Financial Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HPC?key=2924-03129440-3A700550",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T06:39:01Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released its Appendix 4D and half-year financial report, which is a price-sensitive document.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company released its Appendix 4D and half-year financial report, which is a price-sensitive document.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HPC",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -117646,9 +117651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 998687,
-    "news_picked_today": 1789,
-    "news_dropped_today": 14719
+    "news_seen_today": 1013975,
+    "news_picked_today": 1819,
+    "news_dropped_today": 15217
   },
   "book_momentum": {
     "live_count": 8,
