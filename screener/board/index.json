@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T09:15:19Z",
+  "generated_at": "2026-08-31T09:16:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-438",
@@ -90176,6 +90176,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-278b5426f1c4",
+      "idea_version": "IDEAV-1415d0d2b7861732",
+      "idea_version_started_at": "2026-08-31T09:15:34Z",
+      "ticker": "INPST",
+      "company": "InPost",
+      "exchange": "Euronext",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its forward guidance despite a narrow earnings beat, signaling potential margin compression or slowing growth ahead.",
+      "why_now": "The guidance cut was announced on August 31, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b68696c742e9"
+      ],
+      "primary_source_event_id": "EVT-b68696c742e9",
+      "source_headlines": [
+        "InPost narrowly beats second-quarter forecasts but cuts guidance"
+      ],
+      "source_headline": "InPost narrowly beats second-quarter forecasts but cuts guidance",
+      "source_url": "https://www.reuters.com/business/inpost-narrowly-beats-second-quarter-forecasts-cuts-guidance-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T05:36:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T09:15:34Z",
+      "updated_at": "2026-08-31T09:15:34Z",
+      "decay_at": "2026-09-01T17:36:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7b1aea361ec7",
+      "idea_version": "IDEAV-43058c0072631bcd",
+      "idea_version_started_at": "2026-08-31T09:15:34Z",
+      "ticker": "PPGN",
+      "company": "PolyPeptide Group",
+      "exchange": "SIX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Samsung Biologics has initiated a public tender offer for the company, which typically drives the target's share price toward the offer premium.",
+      "why_now": "The takeover bid is scheduled to launch in September 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-116ffdb1617c",
+        "EVT-5962d765f0b7"
+      ],
+      "primary_source_event_id": "EVT-116ffdb1617c",
+      "source_headlines": [
+        "Samsung Biologics begins public tender offer for Polypeptide Group",
+        "Samsung Biologics to launch takeover bid for PolyPeptide in September"
+      ],
+      "source_headline": "삼성바이오로직스, 폴리펩타이드그룹 공개매수 돌입",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275857",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T05:45:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T09:15:34Z",
+      "updated_at": "2026-08-31T09:15:34Z",
+      "decay_at": "2026-09-01T17:45:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0a2a2f10b7b9",
       "idea_version": "IDEAV-d273023bf7c2388d",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -97486,219 +97631,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-080389da3464",
-      "idea_version": "IDEAV-c9d2c2d58b1e41a6",
-      "idea_version_started_at": "2026-08-29T17:43:44Z",
-      "ticker": "08270",
-      "company": "CHINA CBM",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CHINA CBM issued a positive profit alert, indicating better-than-expected earnings for the period.",
-      "why_now": "The positive profit alert was filed on August 28, 2026, signaling an immediate upward revision to earnings expectations.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2911d021f0ad"
-      ],
-      "primary_source_event_id": "EVT-2911d021f0ad",
-      "source_headlines": [
-        "CHINA CBM (08270): POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "CHINA CBM (08270): POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0828/2026082800571.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T08:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T17:43:44Z",
-      "updated_at": "2026-08-29T17:43:44Z",
-      "decay_at": "2026-08-29T20:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8dc111dadfd1",
-      "idea_version": "IDEAV-2a9d735b1b063659",
-      "idea_version_started_at": "2026-08-29T17:43:44Z",
-      "ticker": "WAREE",
-      "company": "Waaree Renewable Technologies Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Waaree Renewable Technologies has received a Letter of Award for EPC work on a 291 MWp Solar PV and 280 MWh BESS project, indicating significant new revenue generation.",
-      "why_now": "The LOA was announced on August 28, 2026, providing a fresh, concrete business win.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-30e4cee52522"
-      ],
-      "primary_source_event_id": "EVT-30e4cee52522",
-      "source_headlines": [
-        "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS."
-      ],
-      "source_headline": "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd1e2989-3126-4d55-a20a-71ab2c3efe88.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T07:51:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T17:43:44Z",
-      "updated_at": "2026-08-29T17:43:44Z",
-      "decay_at": "2026-08-29T19:51:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-dfcaa49f64a2",
-      "idea_version": "IDEAV-63e75ccd6ed2e15d",
-      "idea_version_started_at": "2026-08-29T17:43:44Z",
-      "ticker": "08370",
-      "company": "ZHI SHENG GP",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "ZHI SHENG GP issued a profit warning, indicating that its earnings will be lower than previously expected.",
-      "why_now": "The profit warning was filed on August 28, 2026, signaling an immediate downward revision to earnings expectations.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-26e8a16e42fc"
-      ],
-      "primary_source_event_id": "EVT-26e8a16e42fc",
-      "source_headlines": [
-        "ZHI SHENG GP (08370): PROFIT WARNING"
-      ],
-      "source_headline": "ZHI SHENG GP (08370): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0828/2026082800529.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T08:34:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T17:43:44Z",
-      "updated_at": "2026-08-29T17:43:44Z",
-      "decay_at": "2026-08-29T20:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-eb536eed0e8f",
       "idea_version": "IDEAV-06f83235e205d4b7",
       "idea_version_started_at": "2026-08-29T16:42:52Z",
@@ -98198,77 +98130,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0bcb86bfbe51",
-      "idea_version": "IDEAV-75d92ee54c01d1cc",
-      "idea_version_started_at": "2026-08-29T12:04:51Z",
-      "ticker": "01152",
-      "company": "MOMENTUM FIN",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Momentum Financial Holdings Limited issued a profit warning, signaling that its upcoming financial results will be weaker than anticipated, which will likely reduce its profitability.",
-      "why_now": "The company released this inside information and profit warning on August 28, 2026, providing a current negative catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-962cfd08eae3"
-      ],
-      "primary_source_event_id": "EVT-962cfd08eae3",
-      "source_headlines": [
-        "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "MOMENTUM FIN (01152): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800863.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T09:02:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T12:04:51Z",
-      "updated_at": "2026-08-29T12:04:51Z",
-      "decay_at": "2026-08-29T21:02:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3b0ee430113b",
       "idea_version": "IDEAV-e5b2584375e51428",
       "idea_version_started_at": "2026-08-29T10:43:25Z",
@@ -98411,148 +98272,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4160870ac271",
-      "idea_version": "IDEAV-ef39ccc7fc099fb2",
-      "idea_version_started_at": "2026-08-29T10:08:49Z",
-      "ticker": "WAREE.NS",
-      "company": "Waaree Renewable Technologies Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Waaree Renewable Technologies received a Letter of Award for a 291 MWp solar PV and 280 MWh BESS EPC project, a large, high-margin order that directly expands its revenue backlog and execution visibility.",
-      "why_now": "Exchange filing today (2026-08-28) confirms the LOA receipt with specific project scope and capacity details.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-30e4cee52522"
-      ],
-      "primary_source_event_id": "EVT-30e4cee52522",
-      "source_headlines": [
-        "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS."
-      ],
-      "source_headline": "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd1e2989-3126-4d55-a20a-71ab2c3efe88.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T07:51:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T10:08:49Z",
-      "updated_at": "2026-08-29T10:08:49Z",
-      "decay_at": "2026-08-29T19:51:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-23fd3ed9a739",
-      "idea_version": "IDEAV-e0d7f83c8b76271d",
-      "idea_version_started_at": "2026-08-29T08:47:38Z",
-      "ticker": "WAAREERTL",
-      "company": "Waaree Renewable Technologies Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant EPC contract for a 291 MWp solar project and 280 MWh battery energy storage system, providing a clear revenue catalyst.",
-      "why_now": "The Letter of Award was announced on August 28, 2026, providing immediate visibility into project execution.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-30e4cee52522"
-      ],
-      "primary_source_event_id": "EVT-30e4cee52522",
-      "source_headlines": [
-        "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS."
-      ],
-      "source_headline": "Waaree Renewable Technologies Ltd: Received LOA of EPC work for 291 MWp Solar PV & 280 MWh BESS.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/cd1e2989-3126-4d55-a20a-71ab2c3efe88.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T07:51:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T08:47:38Z",
-      "updated_at": "2026-08-29T08:47:38Z",
-      "decay_at": "2026-08-29T19:51:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -98627,7 +98346,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 215,
+      "file_count": 221,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -102439,8 +102158,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T21:02:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102513,8 +102232,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T20:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102587,8 +102306,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T20:34:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102661,8 +102380,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T19:51:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102735,8 +102454,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T19:51:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102809,8 +102528,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T19:51:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T09:15:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -118674,8 +118393,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 355,
-    "live_count": 83,
+    "surfaced_total": 357,
+    "live_count": 85,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
