@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T02:05:38Z",
+  "generated_at": "2026-08-31T02:10:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-141",
@@ -1866,6 +1866,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-150",
+      "headline": "Bathla ‘won’t last ’til the end of the week’ as staff go unpaid",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/bathla-won-t-last-til-the-end-of-the-week-as-staff-go-unpaid-20260828-p60sip?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:06:47Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company facing imminent collapse and inability to pay staff.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Company facing imminent collapse and inability to pay staff.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-107",
       "headline": "BNP Paribas Appeals Sudan Litigation",
       "headline_en": null,
@@ -1907,56 +1956,6 @@
           "name": "BNP Paribas",
           "ticker": null,
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-038",
-      "headline": "Nvidia supplier Unimicron probed over allegedly relabeling China-made parts",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/spotlight/supply-chain/nvidia-supplier-unimicron-probed-over-allegedly-relabeling-china-made-parts",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:06:08Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Supplier is under investigation for alleged product mislabeling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Supplier is under investigation for alleged product mislabeling.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unimicron",
-          "ticker": null,
-          "listing_country": "TW"
         }
       ],
       "size_bucket": "large",
@@ -116989,9 +116988,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 620,
-    "news_picked_today": 164,
-    "news_dropped_today": 440
+    "news_seen_today": 645,
+    "news_picked_today": 173,
+    "news_dropped_today": 456
   },
   "book_momentum": {
     "live_count": 8,
