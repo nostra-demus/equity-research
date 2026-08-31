@@ -1,6 +1,154 @@
 {
-  "generated_at": "2026-08-31T10:14:41Z",
+  "generated_at": "2026-08-31T10:19:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-479",
+      "headline": "TIAN YUAN GP (06119): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101237.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company announced a delay in filing its 2026 interim results and remains under continued trading suspension, indicating significant financial or operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a delay in filing its 2026 interim results and remains under continued trading suspension, indicating significant financial or operational distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TIAN YUAN GP",
+          "ticker": "06119",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-480",
+      "headline": "FIRST CAP GP (01269): UPDATE ON PROPOSED DEBT RESTRUCTURING - ENTERING INTO RESTRUCTURING SUPPORT AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101185.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company has entered into a restructuring support agreement, signaling a formal debt restructuring process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered into a restructuring support agreement, signaling a formal debt restructuring process.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FIRST CAP GP",
+          "ticker": "01269",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-482",
+      "headline": "Aar Shyam India Investment Company Ltd: Turnaround Corporate Advisors Pvt Ltd (\"Manager to the Offer\") has submitted to BSE a copy of Detailed Public Statement in terms of Regulation 3(1) and Regulation 4, read with Regulation ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/DFD358E4-864A-4859-B699-81CB7BF092F0-152408.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:54:23Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company is subject to a public tender offer/open offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is subject to a public tender offer/open offer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aar Shyam India Investment Company Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-458",
       "headline": "CON AERO TECH (00232): DESPATCH OF CIRCULAR IN RELATION TO (1) PROPOSED VERY SUBSTANTIAL DISPOSAL (2) PROPOSED DECLARATION OF SPECIAL DIVIDEND ON DISPOSAL AND CASH DIVIDEND ON PROPERTY DISPOSAL AND PROPOSED CAPITAL REORGANIZATION (3) NOTE 7 TO RULE 2 OF TAKEOVERS CODE (4) PROPOSED WITHDRAWAL OF LISTING AND WINDING UP PROPOSAL (5) CONNECTED TRANSACTION AND SPECIAL DEAL IN RELATION TO DISPOSAL OF PROPERTY (6) SPECIAL GENERAL MEETING AND CLOSURE OF REGISTER OF SHAREHOLDERS",
@@ -1862,153 +2010,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-295",
-      "headline": "Sungrow Shares Slump After Profit Tumbles by Almost a Third",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/sungrow-shares-slump-after-profit-tumbles-by-almost-a-third",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T04:29:04Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Sungrow shares slumped after the company reported a profit decline of nearly one-third.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sungrow shares slumped after the company reported a profit decline of nearly one-third.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sungrow",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-271",
-      "headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T04:19:04Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "A missile attack on Ozon facilities in Belgorod represents a direct operational impact and physical asset risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A missile attack on Ozon facilities in Belgorod represents a direct operational impact and physical asset risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ozon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-283",
-      "headline": "Tim Cook's Last Day As CEO: Apple's New Chief John Ternus Faces Major Management Overhaul",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/tim-cooks-last-day-as-ceo-apples-new-chief-john-ternus-faces-major-management-overhaul",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T04:08:37Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Reported departure of Apple CEO Tim Cook and management overhaul.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported departure of Apple CEO Tim Cook and management overhaul.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118412,9 +118413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 237237,
-    "news_picked_today": 997,
-    "news_dropped_today": 9991
+    "news_seen_today": 248214,
+    "news_picked_today": 1006,
+    "news_dropped_today": 10030
   },
   "book_momentum": {
     "live_count": 8,
