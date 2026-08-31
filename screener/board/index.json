@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T00:33:28Z",
+  "generated_at": "2026-08-31T00:38:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -196,6 +196,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-067",
+      "headline": "Samsung Heavy wins 444.5 bln-won deal for 2 container ships",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260831002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T00:29:07Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company secured a new shipbuilding contract worth 444.5 billion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company secured a new shipbuilding contract worth 444.5 billion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Heavy Industries",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -441,31 +490,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-050",
-      "headline": "CYP: Appendix 4E & Preliminary Final Report [price-sensitive]",
+      "inbox_id": "INB-20260831-064",
+      "headline": "SP8: Preliminary Final Report [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CYP?key=2924-03129152-3A700482",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SP8?key=2924-03129167-6A1341255",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T00:07:44Z",
+      "found_at": "2026-08-31T00:33:30Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released its preliminary final report and financial results.",
+      "prelim_note": "Preliminary final report is a price-sensitive disclosure of financial results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "The company released its preliminary final report and financial results.",
+      "triage_reason": "Preliminary final report is a price-sensitive disclosure of financial results.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -479,7 +528,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Cygnus Gold",
+          "name": "Spacetalk Ltd",
           "ticker": null,
           "listing_country": null
         }
@@ -1025,6 +1074,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-065",
+      "headline": "The quintessential insider who stepped into Puri’s big shoes is set to walk away",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/hdfc-bank-ceo-sashidhar-jagdishan-career-profile-11788077409658.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T00:30:30Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Reported departure of a key executive at HDFC Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Reported departure of a key executive at HDFC Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-063",
+      "headline": "Investors pile into HDFC Bank a day ahead of CEO exit disclosure",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-adr-before-ceo-sashidhar-jagdishan-exit-announcement-11788093234048.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T00:30:10Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Anticipated departure of the CEO at HDFC Bank creates management uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Anticipated departure of the CEO at HDFC Bank creates management uncertainty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1808,153 +1955,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-020",
-      "headline": "KME: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KME?key=2924-03129139-2A1693694",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:54:09Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Routine change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Routine change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KME",
-          "ticker": "KME",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-025",
-      "headline": "4DS: Proposed issue of securities - 4DS",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.4DS?key=2924-03129133-6A1341194",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:52:39Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Proposed issue of securities may lead to dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Proposed issue of securities may lead to dilution.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "4DS",
-          "ticker": "4DS",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-026",
-      "headline": "RIVERINE CHINA (01417): VOLUNTARY ANNOUNCEMENT - BUSINESS UPDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T22:20:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Routine business update announcement with no specific financial details provided.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine business update announcement with no specific financial details provided.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RIVERINE CHINA",
-          "ticker": "01417",
-          "listing_country": "CN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -116107,9 +116107,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 217,
-    "news_picked_today": 65,
-    "news_dropped_today": 152
+    "news_seen_today": 237,
+    "news_picked_today": 70,
+    "news_dropped_today": 167
   },
   "book_momentum": {
     "live_count": 8,
