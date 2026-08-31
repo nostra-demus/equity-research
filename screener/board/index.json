@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T15:02:17Z",
+  "generated_at": "2026-08-31T15:11:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-771",
+      "headline": "C SUCCESS FIN (03623): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 45% ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDEATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083103055.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:55:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company announced a discloseable and connected transaction to acquire a 45% stake in a target company via consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a discloseable and connected transaction to acquire a 45% stake in a target company via consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C SUCCESS FIN",
+          "ticker": "03623",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-770",
       "headline": "SHANGHAI XNG (03666): (1) FURTHER DELAY IN PUBLICATION OF THE 2025 ANNUAL RESULTS AND DESPATCH OF THE 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND DESPATCH OF THE 2026 INTERIM REPORT; (3) FURTHER POSTPONEMENT OF BOARD MEETINGS; AND (4) CONTINUED SUSPENSION OF TRADING",
@@ -1918,55 +1967,6 @@
       "companies": [
         {
           "name": "BLS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-152",
-      "headline": "MBH: FY26 Results Announcement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MBH?key=2924-03129225-3A700506",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:08:40Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company released FY26 financial results announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company released FY26 financial results announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MBH",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -117687,9 +117687,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 680855,
-    "news_picked_today": 1620,
-    "news_dropped_today": 13184
+    "news_seen_today": 713660,
+    "news_picked_today": 1633,
+    "news_dropped_today": 13243
   },
   "book_momentum": {
     "live_count": 8,
