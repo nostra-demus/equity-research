@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T00:14:41Z",
+  "generated_at": "2026-08-31T00:19:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -545,6 +545,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-056",
+      "headline": "CL8: Removal from Official List - Annual Listing Fees",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CL8?key=2924-03129153-6A1341250",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T00:08:24Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "CL8 is being removed from the official list due to unpaid annual listing fees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "CL8 is being removed from the official list due to unpaid annual listing fees.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CL8",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-048",
       "headline": "New Apple CEO John Ternus takes over on Sept. 1 ahead of iPhone 18 launch: What to know",
       "headline_en": null,
@@ -933,6 +982,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-053",
+      "headline": "HDFC Bank may turn to Plan B with just two months to find its next CEO",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/hdfc-bank-new-ceo-sashidhar-jagdishan-kaizad-bharucha-rbi-11788082709493.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T00:15:30Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "HDFC Bank faces a leadership transition deadline with only two months remaining to appoint a new CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "HDFC Bank faces a leadership transition deadline with only two months remaining to appoint a new CEO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-054",
+      "headline": "ASX falls; A2 Milk execs sell shares; Monash IVF earnings fall 41pc",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-as-warsh-forces-rate-pivot-gold-bitcoin-drop-20260830-p60stg?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T00:15:54Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Monash IVF reported a 41% decline in earnings, and A2 Milk executives sold shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Monash IVF reported a 41% decline in earnings, and A2 Milk executives sold shares.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A2 Milk",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Monash IVF",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1797,153 +1950,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-017",
-      "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100171.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Routine share buyback disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Routine share buyback disclosure.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC HOLDINGS",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-033",
-      "headline": "SB2: Dividend/Distribution - SB2",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SB2?key=2924-03129148-2A1693704",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T00:01:04Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Routine dividend announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Routine dividend announcement.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB2",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-010",
-      "headline": "WuXi AppTec Continues to Reward Shareholders, Further Increasing Interim Dividend to RMB 1.51 Billion",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/wuxi-apptec-continues-to-reward-shareholders-further-increasing-interim-dividend-to-rmb-1-51-billion-302864374.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-31T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company increased interim dividend to RMB 1.51 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Company increased interim dividend to RMB 1.51 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WuXi AppTec",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91637,78 +91643,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-72dc515e1743",
-      "idea_version": "IDEAV-7828b6441e55c2d3",
-      "idea_version_started_at": "2026-08-29T19:04:06Z",
-      "ticker": "C6L",
-      "company": "Singapore Airlines",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Temasek's backing of Singapore Airlines' investment in Air India, amid a $1.5 billion funding request, strengthens its strategic position and growth prospects in the Indian market.",
-      "why_now": "The news of Temasek's backing and the funding request was reported on August 29, 2026, providing a fresh positive catalyst.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8c7d396b3df8"
-      ],
-      "primary_source_event_id": "EVT-8c7d396b3df8",
-      "source_headlines": [
-        "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request"
-      ],
-      "source_headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
-      "source_url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T12:19:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T19:04:06Z",
-      "updated_at": "2026-08-29T19:04:06Z",
-      "decay_at": "2026-08-31T00:19:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b9d5031899a7",
       "idea_version": "IDEAV-a676fff74c3d9db9",
       "idea_version_started_at": "2026-08-29T18:43:39Z",
@@ -95346,6 +95280,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-72dc515e1743",
+      "idea_version": "IDEAV-7828b6441e55c2d3",
+      "idea_version_started_at": "2026-08-29T19:04:06Z",
+      "ticker": "C6L",
+      "company": "Singapore Airlines",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Temasek's backing of Singapore Airlines' investment in Air India, amid a $1.5 billion funding request, strengthens its strategic position and growth prospects in the Indian market.",
+      "why_now": "The news of Temasek's backing and the funding request was reported on August 29, 2026, providing a fresh positive catalyst.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8c7d396b3df8"
+      ],
+      "primary_source_event_id": "EVT-8c7d396b3df8",
+      "source_headlines": [
+        "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request"
+      ],
+      "source_headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
+      "source_url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T12:19:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T19:04:06Z",
+      "updated_at": "2026-08-29T19:04:06Z",
+      "decay_at": "2026-08-31T00:19:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5ca7ca4ccdb1",
       "idea_version": "IDEAV-46cad2b4d5f4ae4b",
       "idea_version_started_at": "2026-08-29T18:43:39Z",
@@ -96777,13 +96783,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 259,
-    "shown_count": 259,
+    "total_count": 260,
+    "shown_count": 260,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 120,
-        "shown_count": 120,
+        "total_count": 121,
+        "shown_count": 121,
         "hidden_count": 0
       },
       "short": {
@@ -96808,6 +96814,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-72dc515e1743",
+        "idea_version": "IDEAV-7828b6441e55c2d3",
+        "idea_version_started_at": "2026-08-29T19:04:06Z",
+        "ticker": "C6L",
+        "company": "Singapore Airlines",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Temasek's backing of Singapore Airlines' investment in Air India, amid a $1.5 billion funding request, strengthens its strategic position and growth prospects in the Indian market.",
+        "why_now": "The news of Temasek's backing and the funding request was reported on August 29, 2026, providing a fresh positive catalyst.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8c7d396b3df8"
+        ],
+        "primary_source_event_id": "EVT-8c7d396b3df8",
+        "source_headlines": [
+          "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request"
+        ],
+        "source_headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
+        "source_url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T12:19:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T19:04:06Z",
+        "updated_at": "2026-08-29T19:04:06Z",
+        "decay_at": "2026-08-31T00:19:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T00:19:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0b5dc86cd04c",
         "idea_version": "IDEAV-ae38bb0ccca7c1ba",
@@ -116001,7 +116082,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 327,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -116020,9 +116101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 141,
-    "news_picked_today": 53,
-    "news_dropped_today": 88
+    "news_seen_today": 163,
+    "news_picked_today": 57,
+    "news_dropped_today": 106
   },
   "book_momentum": {
     "live_count": 8,
