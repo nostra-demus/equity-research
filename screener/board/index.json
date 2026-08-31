@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T00:08:41Z",
+  "generated_at": "2026-08-31T00:14:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -398,20 +398,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-019",
-      "headline": "SB2: Appendix 4E and 2026 Annual Report [price-sensitive]",
+      "inbox_id": "INB-20260831-050",
+      "headline": "CYP: Appendix 4E & Preliminary Final Report [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SB2?key=2924-03129143-2A1693700",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CYP?key=2924-03129152-3A700482",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:57:19Z",
+      "found_at": "2026-08-31T00:07:44Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Release of annual report for 2026.",
+      "prelim_note": "The company released its preliminary final report and financial results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Release of annual report for 2026.",
+      "triage_score": 93,
+      "triage_reason": "The company released its preliminary final report and financial results.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -420,7 +420,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 0,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 0,
@@ -428,7 +428,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "size_bucket": "small"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -436,12 +436,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SB2",
-          "ticker": "SB2",
+          "name": "Cygnus Gold",
+          "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -540,6 +540,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-048",
+      "headline": "New Apple CEO John Ternus takes over on Sept. 1 ahead of iPhone 18 launch: What to know",
+      "headline_en": null,
+      "url": "https://gulfnews.com/technology/new-apple-ceo-john-ternus-takes-over-on-sept-1-ahead-of-iphone-18-launch-amid-ai-race-what-to-know-1.500657538",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-30T23:56:51Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Apple announced a CEO transition to John Ternus effective September 1.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Apple announced a CEO transition to John Ternus effective September 1.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -889,6 +938,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-047",
+      "headline": "CHONGQING IRON (01053): UNAUDITED INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100269.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T00:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company released unaudited interim financial results for the first half of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The company released unaudited interim financial results for the first half of 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chongqing Iron & Steel",
+          "ticker": "01053",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-004",
       "headline": "CHINA RES LAND (01109): ANNOUNCEMENT OF 2026 INTERIM RESULTS",
       "headline_en": null,
@@ -1125,6 +1223,55 @@
         {
           "name": "JUNSHI BIO",
           "ticker": "01877",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-049",
+      "headline": "CHONGQING IRON (01053): ANNOUNCEMENT ON THE OPERATING DATA FOR THE FIRST HALF OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100272.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T00:08:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company released operating data for the first half of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "The company released operating data for the first half of 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chongqing Iron & Steel",
+          "ticker": "01053",
           "listing_country": "CN"
         }
       ],
@@ -1514,6 +1661,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-052",
+      "headline": "Iran war live: IRGC attacks US bases in Jordan after US bombs Larak Island",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/31/iran-war-live-irgc-attacks-us-bases-in-jordan-after-us-bombs-larak-island?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-31T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Military escalation involving direct attacks between Iran and US forces represents a major geopolitical shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Military escalation involving direct attacks between Iran and US forces represents a major geopolitical shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-036",
       "headline": "Shein CEO’s wealth slumps $15 billion after whittled-down IPO",
       "headline_en": null,
@@ -1754,182 +1944,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-046",
-      "headline": "Hormuz Strait traffic drops to five vessels crossing per day over weekend",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/hormuz-strait-traffic-drops-five-vessels-crossing-day-over-weekend",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:02:59Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "A significant drop in traffic through the Strait of Hormuz indicates a major supply chain or geopolitical risk for global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "A significant drop in traffic through the Strait of Hormuz indicates a major supply chain or geopolitical risk for global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-041",
-      "headline": "HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS® Plus TAGRISSO® in Treatment-Naïve Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/31/3353003/0/en/hutchmed-announces-sanovo-trial-demonstrated-significant-progression-free-survival-benefit-of-orpathys-plus-tagrisso-in-treatment-na%C3%AFve-patients-with-met-overexpressing-egfr-mutate.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-31T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Clinical trial demonstrated significant progression-free survival benefit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Clinical trial demonstrated significant progression-free survival benefit.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUTCHMED",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-044",
-      "headline": "(URGENT) Seoul shares open 2.58 pct lower on Fed chief's hawkish comments",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260831001700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:01:42Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Market-wide sell-off triggered by hawkish Fed comments, resulting in a 2.58% drop in the Seoul index.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Market-wide sell-off triggered by hawkish Fed comments, resulting in a 2.58% drop in the Seoul index.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-045",
-      "headline": "Court set to rule on Unification Church leader's bribery case involving ex-first lady",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260831001600315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-30T23:55:58Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "not material",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "not material",
-      "region": "KR",
-      "relevance": "irrelevant",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -116219,9 +116233,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122,
-    "news_picked_today": 46,
-    "news_dropped_today": 76
+    "news_seen_today": 141,
+    "news_picked_today": 53,
+    "news_dropped_today": 88
   },
   "book_momentum": {
     "live_count": 8,
