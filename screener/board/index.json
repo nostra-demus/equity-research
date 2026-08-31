@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T03:37:17Z",
+  "generated_at": "2026-08-31T03:41:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-227",
@@ -348,6 +348,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-234",
+      "headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T03:36:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Itochu",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Dentsu Soken",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-231",
       "headline": "Cronos halts network after Tectonic exploit involving estimated $75M",
       "headline_en": null,
@@ -487,60 +541,6 @@
           "name": "GS Retail",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-183",
-      "headline": "Itochu Set to Take Dentsu Soken Private in $1.3 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/itochu-set-to-take-dentsu-soken-private-in-1-3-billion-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:19:24Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Itochu to acquire Dentsu Soken in a $1.3 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Itochu to acquire Dentsu Soken in a $1.3 billion deal.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Itochu",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Dentsu Soken",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -117806,9 +117806,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1037,
-    "news_picked_today": 301,
-    "news_dropped_today": 720
+    "news_seen_today": 1057,
+    "news_picked_today": 306,
+    "news_dropped_today": 735
   },
   "book_momentum": {
     "live_count": 8,
