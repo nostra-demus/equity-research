@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T00:14:05Z",
+  "generated_at": "2026-08-31T00:14:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -89690,6 +89690,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-64bff95fe52b",
+      "idea_version": "IDEAV-2e4ca8fd4079adeb",
+      "idea_version_started_at": "2026-08-31T00:14:23Z",
+      "ticker": "AL3",
+      "company": "AML3D",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AML3D delivered record revenue and a second-half profit for FY26, signaling improved financial health and growth.",
+      "why_now": "The company released its FY26 results on August 30, 2026, confirming strong performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ac19a669a92"
+      ],
+      "primary_source_event_id": "EVT-5ac19a669a92",
+      "source_headlines": [
+        "AL3: AML3D Delivers Record FY26 Revenue & Second Half Profit [price-sensitive]"
+      ],
+      "source_headline": "AL3: AML3D Delivers Record FY26 Revenue & Second Half Profit [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AL3?key=2924-03129078-6A1341235",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T23:32:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T00:14:23Z",
+      "updated_at": "2026-08-31T00:14:23Z",
+      "decay_at": "2026-09-01T11:32:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2661235dd2ec",
       "idea_version": "IDEAV-2b09b1a84f28e27b",
       "idea_version_started_at": "2026-08-30T22:58:34Z",
@@ -96626,290 +96697,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-87ee6f6e0a27",
-      "idea_version": "IDEAV-c7926b8790634ea9",
-      "idea_version_started_at": "2026-08-28T03:27:36Z",
-      "ticker": "OLL",
-      "company": "OLL",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong H1 2026 results with gross profit up 64% and revenue up 43%, indicating significant operational momentum.",
-      "why_now": "The results were filed on 2026-08-28, making this a live earnings-driven catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7dd61df7de65"
-      ],
-      "primary_source_event_id": "EVT-7dd61df7de65",
-      "source_headlines": [
-        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
-      ],
-      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-08-28T00:01:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T03:27:36Z",
-      "updated_at": "2026-08-28T03:27:36Z",
-      "decay_at": "2026-08-29T12:01:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7bcadd0aa831",
-      "idea_version": "IDEAV-0c52e9320ed9604e",
-      "idea_version_started_at": "2026-08-28T02:58:58Z",
-      "ticker": "OLL.AX",
-      "company": "OLL",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "OLL reported H1 2026 gross profit up 64% and revenue up 43%, a strong fundamental inflection that can drive re-rating if sustained.",
-      "why_now": "Results released via ASX price-sensitive announcement on 2026-08-28; the magnitude of beat makes it a live, fresh catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7dd61df7de65"
-      ],
-      "primary_source_event_id": "EVT-7dd61df7de65",
-      "source_headlines": [
-        "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]"
-      ],
-      "source_headline": "OLL: H1 2026 Results - Gross Profit Up 64% and Revenue Up 43% [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OLL?key=2924-03128110-6A1340878",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-08-28T00:01:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T02:58:58Z",
-      "updated_at": "2026-08-28T02:58:58Z",
-      "decay_at": "2026-08-29T12:01:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-a4214a5d21d84523",
-      "idea_version_started_at": "2026-08-28T03:27:36Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The NMPA approval of Fanregratinib for intrahepatic cholangiocarcinoma provides a new revenue stream in a high-unmet-need oncology segment.",
-      "why_now": "The regulatory approval was announced on 2026-08-28, providing immediate commercialization potential.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0bc1d52b950"
-      ],
-      "primary_source_event_id": "EVT-e0bc1d52b950",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-28T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T03:27:36Z",
-      "updated_at": "2026-08-28T03:27:36Z",
-      "decay_at": "2026-08-29T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-44c25bb92282",
-      "idea_version": "IDEAV-5b1a650e996c6c2a",
-      "idea_version_started_at": "2026-08-28T02:38:54Z",
-      "ticker": "00013.HK",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HUTCHMED received NMPA approval in China for ATLED (Fanregratinib) to treat FGFR2-fusion intrahepatic cholangiocarcinoma, opening a revenue stream in a hard-to-treat cancer indication.",
-      "why_now": "Approval announced via HKEX filing on 2026-08-28; the drug can now be commercialized in China.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0bc1d52b950"
-      ],
-      "primary_source_event_id": "EVT-e0bc1d52b950",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces NMPA Approval for ATLED (Fanregratinib) for the Treatment of Patients with FGFR2-Fusion/Rearrangement Intrahepatic Cholangiocarcinoma",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0828/2026082800127.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-28T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T02:38:54Z",
-      "updated_at": "2026-08-28T02:38:54Z",
-      "decay_at": "2026-08-29T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -96984,7 +96771,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 208,
+      "file_count": 212,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -100642,8 +100429,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T12:01:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T00:14:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100716,8 +100503,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T12:01:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T00:14:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100790,8 +100577,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T00:14:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100864,8 +100651,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T00:14:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -116213,8 +116000,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 326,
-    "live_count": 65,
+    "surfaced_total": 327,
+    "live_count": 66,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
