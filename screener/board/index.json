@@ -1,6 +1,401 @@
 {
-  "generated_at": "2026-08-31T11:21:20Z",
+  "generated_at": "2026-08-31T11:51:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-566",
+      "headline": "AB&B BIO-TECH-B (02627): INSIDE INFORMATION: (1) FURTHER DELAY IN PUBLICATION OF ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED DECEMBER 31, 2025 AND DISPATCH OF THE 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026 AND DISPATCH OF THE 2026 INTERIM REPORT; (3) FURTHER POSTPONEMENT OF BOARD MEETINGS; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101824.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced multiple delays in financial reporting and continued trading suspension, indicating severe operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced multiple delays in financial reporting and continued trading suspension, indicating severe operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AB&B BIO-TECH-B",
+          "ticker": "02627",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-570",
+      "headline": "TAIHE M-FIN (01915): DELAY IN PUBLICATION OF INTERIM RESULTS AND DESPATCH OF INTERIM REPORT FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101789.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:25:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company reported a delay in financial results and continued trading suspension, signaling potential governance or financial issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a delay in financial results and continued trading suspension, signaling potential governance or financial issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TAIHE M-FIN",
+          "ticker": "01915",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-528",
+      "headline": "MT Educare Ltd: Disclosures by listed entities of defaults on payment of interest/ repayment of principal amount for loans including revolving facilities like cash credit from banks ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c9e0696d-b111-46ca-8d58-cde7fdb7cfa9.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:09:56Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company disclosed defaults on loan interest and principal repayments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company disclosed defaults on loan interest and principal repayments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MT Educare Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-537",
+      "headline": "LFG INV HLDGS (03938): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY OCTAL CAPITAL LIMITED AND GRAND FIRE SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF LFG INVESTMENT HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY IT AND THE OFFEROR CONCERT PARTIES) AND THE CANCELLATION OF ALL OUTSTANDING OPTIONS (1) EXTENSION OF LONG STOP DATE; (2) FURTHER DELAY IN DESPATCH OF COMPOSITE DOCUMENT; AND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101605.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:08:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Update on a possible mandatory cash offer to acquire the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on a possible mandatory cash offer to acquire the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LFG INVESTMENT HOLDINGS LIMITED",
+          "ticker": "03938",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-524",
+      "headline": "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DIL&seq=106762450",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:05:07Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "SEBI has barred the company and its MD for 7 years and imposed a penalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI has barred the company and its MD for 7 years and imposed a penalty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Debock Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-549",
+      "headline": "8-K - Tamboran Resources Corp (0001997652) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1997652/000162828026059462/0001628280-26-059462-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-31T11:05:06Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "SEC filing confirms SLB's acquisition of Kelvion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC filing confirms SLB's acquisition of Kelvion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLB",
+          "ticker": "SLB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-539",
+      "headline": "CENTURY ENT INT (00959): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101575.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company reports delay in annual results and continued trading suspension, indicating significant operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reports delay in annual results and continued trading suspension, indicating significant operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CENTURY ENT INT",
+          "ticker": "00959",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-600",
+      "headline": "HENG TAI (00197): (1) VERY SUBSTANTIAL DISPOSAL AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED DISPOSAL OF A SUBSIDIARY; (2) MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED LEASEBACK OF PROPERTY; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101507.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T10:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Heng Tai announced a very substantial disposal of a subsidiary and a major connected transaction for a leaseback of property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Heng Tai announced a very substantial disposal of a subsidiary and a major connected transaction for a leaseback of property.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HENG TAI",
+          "ticker": "00197",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-523",
       "headline": "ICICI Bank Limited: ICICI Bank Limited has informed the Exchange about disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 -This is to inform you that ICICI Bank Limited (Bank), acting through its IFSC Banking Unit, has, today at 9:55 a.m. IST priced USD 500 million Senior Unsecured Fixed Rate Notes under the USD 7.5 billion Global Medium Term Note Programme of the Bank.",
@@ -1185,25 +1580,221 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-514",
-      "headline": "Aon to buy USI Insurance Services in $17 billion deal",
+      "inbox_id": "INB-20260831-587",
+      "headline": "SLB to Buy Data Center Cooling Firm Kelvion for $4.1 Billion",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/aon-buy-usi-insurance-services-17-billion-deal-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.wsj.com/business/energy-oil/slb-to-buy-data-center-cooling-firm-kelvion-for-4-1-billion-72d2b2b7?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T10:37:30Z",
+      "found_at": "2026-08-31T11:29:00Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Major $17 billion acquisition announcement.",
+      "prelim_note": "SLB is acquiring Kelvion for $4.1 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Major $17 billion acquisition announcement.",
+      "triage_reason": "SLB is acquiring Kelvion for $4.1 billion.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 90,
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLB",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-588",
+      "headline": "Eli Lilly to Buy Merida Biosciences for Up to $2.875 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/health/pharma/eli-lilly-to-buy-merida-biosciences-for-up-to-2-875-billion-91c1d351?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring Merida Biosciences for up to $2.875 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring Merida Biosciences for up to $2.875 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-560",
+      "headline": "John Ternus becomes Apple CEO, with AI as first big challenge",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/john-ternus-becomes-apple-ceo-111908957.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:19:08Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Appointment of a new CEO at a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Appointment of a new CEO at a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-591",
+      "headline": "Lilly to Buy Merida for $2.88 Billion for Autoimmune Work",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/lilly-to-buy-merida-for-2-88-billion-for-autoimmune-expansion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:09:53Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring Merida for $2.88 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring Merida for $2.88 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-542",
+      "headline": "ONEOK to Buy Brazos Midstream’s Permian Assets for $4.43 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/investing/oneok-to-buy-brazos-midstreams-permian-assets-for-4-43-billion-2d0d08f6?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:03:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "ONEOK agreed to buy Brazos Midstream's Permian assets for $4.43 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ONEOK agreed to buy Brazos Midstream's Permian assets for $4.43 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
@@ -1215,7 +1806,56 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONEOK",
+          "ticker": "OKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-586",
+      "headline": "Aon To Buy USI Insurance Services From KKR In $17 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aon-buy-usi-insurance-services-kkr-17-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:00:01Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Aon is acquiring USI Insurance Services for $17 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is acquiring USI Insurance Services for $17 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -1228,58 +1868,9 @@
           "listing_country": "US"
         },
         {
-          "name": "USI Insurance Services",
+          "name": "KKR",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-495",
-      "headline": "Maruti Suzuki raises its capex plans to ₹77,500 crore by FY31",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/maruti-suzuki-raises-its-capex-plans-to-77500-crore-by-fy31/article71410291.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T10:19:24Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Maruti Suzuki announced a significant increase in capex plans to 77,500 crore by FY31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki announced a significant increase in capex plans to 77,500 crore by FY31.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1288,97 +1879,46 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-488",
-      "headline": "Apollo Pipes plans ₹300-crore push into tiles and ceramics, approves ₹189-crore fundraise",
+      "inbox_id": "INB-20260831-548",
+      "headline": "CEO Lip-Bu Tan Just Gave 12 Million Reasons to Buy Intel Stock",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/apollo-pipes-plans-rs300-crore-push-into-tiles-and-ceramics-approves-rs189-crore-fundraise-19980488.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.fool.com/investing/2026/08/31/ceo-lip-bu-tan-just-gave-12-million-reasons-to-buy/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T10:00:39Z",
+      "found_at": "2026-08-31T10:45:00Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company announced a 300-crore expansion into a new segment and a 189-crore fundraise.",
+      "prelim_note": "Eli Lilly agreed to buy Merida Biosciences in a deal worth up to $2.88 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Company announced a 300-crore expansion into a new segment and a 189-crore fundraise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apollo Pipes",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-478",
-      "headline": "Apple CEO Tim Cook steps down today; John Ternus set to take over",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/tech/tim-cook-apple-ceo-steps-down-john-ternus",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T09:30:17Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Apple CEO Tim Cook steps down and John Ternus takes over — a critical leadership change at a mega-cap.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple CEO Tim Cook steps down and John Ternus takes over — a critical leadership change at a mega-cap.",
+      "triage_reason": "Eli Lilly agreed to buy Merida Biosciences in a deal worth up to $2.88 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "management",
-        "executive_exit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Apple Inc",
-          "ticker": "AAPL",
+          "name": "Eli Lilly",
+          "ticker": "LLY",
           "listing_country": "US"
         }
       ],
@@ -1388,547 +1928,32 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-414",
-      "headline": "Abu Dhabi based ePointZero to acquire 90% stake in Africa focused Azura Power",
+      "inbox_id": "INB-20260831-564",
+      "headline": "Teva Pharmaceuticals to acquire BioXcel assets for up to $125m",
       "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/abu-dhabi-based-epointzero-to-acquire-90-stake-in-africa-focused-azura-power",
-      "source_name": "Khaleej Times — Business",
+      "url": "https://finance.yahoo.com/healthcare/articles/teva-pharmaceuticals-acquire-bioxcel-assets-103223307.html",
+      "source_name": "Yahoo Finance",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T08:52:06Z",
+      "found_at": "2026-08-31T10:32:23Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "ePointZero to acquire a 90% stake in Azura Power.",
+      "prelim_note": "Acquisition of assets for $125m.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "ePointZero to acquire a 90% stake in Azura Power.",
-      "region": "OTHER",
+      "triage_reason": "Acquisition of assets for $125m.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ePointZero",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Azura Power",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-423",
-      "headline": "Bathla lenders in scramble for assets amid countdown to insolvency",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/bathla-won-t-last-til-the-end-of-the-week-as-staff-go-unpaid-20260828-p60sip?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T08:40:26Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Lenders are scrambling for assets as the company faces a countdown to insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lenders are scrambling for assets as the company faces a countdown to insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-447",
-      "headline": "Maruti Suzuki Raises Capex To Rs 77,500 Crore For Five Years Till FY31",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/maruti-suzuki-raises-capex-to-rs-77-500-crore-for-five-years-till-fy31-11981170#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T08:38:24Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Maruti Suzuki announced a major capex plan of ₹77,500 crore over five years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki announced a major capex plan of ₹77,500 crore over five years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-331",
-      "headline": "‎Alistithmar Capital, Ezdihar acquire Jeddah Cove for SAR 1.1B",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1932670",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T08:24:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Acquisition of Jeddah Cove for SAR 1.1B is a significant capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of Jeddah Cove for SAR 1.1B is a significant capital deployment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alistithmar Capital",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Ezdihar",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-390",
-      "headline": "Maruti Suzuki raises five-year capex plan to Rs 77,500 crore as it gears up for expansion",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/maruti-suzuki-raises-five-year-capex-plan-to-rs-77500-crore-as-it-gears-up-for-expansion/articleshow/133646272.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T07:51:56Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Maruti Suzuki raised five-year capex plan to Rs 77,500 crore for expansion through FY31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki raised five-year capex plan to Rs 77,500 crore for expansion through FY31.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": "MARUTI",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-391",
-      "headline": "Zee Entertainment Shares Crash 15% As Lenders Challenge NCLT Approval Of Subhash Chandra Repayment Plan",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/zee-entertainment-shares-crash-15-as-lenders-challenge-nclt-approval-of-subhash-chandra-repayment-plan",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T07:28:37Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Zee Entertainment shares crashed 15% as lenders challenged NCLT approval of repayment plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zee Entertainment shares crashed 15% as lenders challenged NCLT approval of repayment plan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zee Entertainment",
-          "ticker": "ZEEL",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-385",
-      "headline": "South Africa's Eskom annual net profit more than doubles to 30.3 billion rand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/africa/south-africas-eskom-annual-net-profit-more-than-doubles-303-billion-rand-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T06:40:12Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "South Africa's Eskom announced its annual net profit more than doubled to 30.3 billion rand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "South Africa's Eskom announced its annual net profit more than doubled to 30.3 billion rand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eskom",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-354",
-      "headline": "Delhi HC orders forensic audit of Fortis, IHH and RHT transactions in Daiichi-Singh case",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/delhi-hc-orders-forensic-audit-of-fortis-ihh-and-rht-transactions-in-daiichi-singh-case/articleshow/133643629.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T06:04:50Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "A court-ordered forensic audit into transactions involving Fortis, IHH, and RHT in a significant legal case could lead to financial penalties or operational changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A court-ordered forensic audit into transactions involving Fortis, IHH, and RHT in a significant legal case could lead to financial penalties or operational changes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortis Healthcare",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "IHH Healthcare",
-          "ticker": null,
-          "listing_country": "MY"
-        },
-        {
-          "name": "RHT Health Trust",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-333",
-      "headline": "Samsung Biologics to launch takeover bid for PolyPeptide in September",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/samsung-biologics-launch-takeover-bid-polypeptide-september-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:45:44Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Samsung Biologics is planning a takeover bid for PolyPeptide, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung Biologics is planning a takeover bid for PolyPeptide, representing a significant M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Biologics",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "PolyPeptide",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-327",
-      "headline": "InPost narrowly beats second-quarter forecasts but cuts guidance",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/inpost-narrowly-beats-second-quarter-forecasts-cuts-guidance-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:36:15Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company cut its guidance despite a narrow beat on earnings, which is a negative signal for future performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company cut its guidance despite a narrow beat on earnings, which is a negative signal for future performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "InPost",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-363",
-      "headline": "Itochu Plans 215.2 Bln Dentsu Soken Tender Offer At 2,880/Shr Yen",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/itochu-plans-2152-bln-dentsu-soken-tender-offer-2880-shr-yen",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:35:36Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Itochu announced a tender offer for Dentsu Soken valued at 215.2 billion Yen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Itochu announced a tender offer for Dentsu Soken valued at 215.2 billion Yen.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -1941,68 +1966,14 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Itochu",
+          "name": "Teva Pharmaceuticals",
           "ticker": null,
-          "listing_country": "JP"
+          "listing_country": "US"
         },
         {
-          "name": "Dentsu Soken",
+          "name": "BioXcel",
           "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-344",
-      "headline": "삼성바이오로직스, 폴리펩타이드그룹 공개매수 돌입",
-      "headline_en": "Samsung Biologics begins public tender offer for Polypeptide Group",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275857",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:30:11Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Samsung Biologics has initiated a public tender offer for Polypeptide Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung Biologics has initiated a public tender offer for Polypeptide Group.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Biologics",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Polypeptide Group",
-          "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -118409,9 +118380,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 333137,
-    "news_picked_today": 1080,
-    "news_dropped_today": 11228
+    "news_seen_today": 363431,
+    "news_picked_today": 1189,
+    "news_dropped_today": 11767
   },
   "book_momentum": {
     "live_count": 8,
