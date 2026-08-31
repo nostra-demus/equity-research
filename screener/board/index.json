@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T16:21:08Z",
+  "generated_at": "2026-08-31T17:00:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-778",
+      "headline": "Punj Lloyd Ltd: This is to inform you that in terms of Regulation 32 B of the IBBI (Liquidation Process) Regulations, 2016, the First meeting of the Reconstituted Committee of Creditors (CoC) of Punj Lloyd ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a23a0bc5-ced9-41fa-ab0c-fca6c6ee827e.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T16:13:22Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company is undergoing a liquidation process with a reconstituted committee of creditors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a liquidation process with a reconstituted committee of creditors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punj Lloyd Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-777",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of ANTARIKSH INDUSTRIES LIMITED",
@@ -1919,55 +1968,6 @@
       "companies": [
         {
           "name": "HPC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-321",
-      "headline": "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03129365-3A700530",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T05:36:10Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company received a binding offer for a divestment, which is a significant corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company received a binding offer for a divestment, which is a significant corporate event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EXL",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -117344,9 +117344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 892957,
-    "news_picked_today": 1708,
-    "news_dropped_today": 13792
+    "news_seen_today": 900980,
+    "news_picked_today": 1735,
+    "news_dropped_today": 14221
   },
   "book_momentum": {
     "live_count": 8,
