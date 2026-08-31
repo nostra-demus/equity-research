@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T04:11:19Z",
+  "generated_at": "2026-08-31T04:25:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-227",
@@ -343,6 +343,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-271",
+      "headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T04:19:04Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "A missile attack on Ozon facilities in Belgorod represents a direct operational impact and physical asset risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A missile attack on Ozon facilities in Belgorod represents a direct operational impact and physical asset risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ozon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,60 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-139",
-      "headline": "SK온, 美 네오볼타 파워와 9GWh 배터리 공급계약",
-      "headline_en": "SK On signs a 9GWh battery supply contract with US-based NeoVolta Power",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275826",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T01:42:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "SK On secured a significant 9GWh battery supply contract with NeoVolta Power in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SK On secured a significant 9GWh battery supply contract with NeoVolta Power in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK On",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "NeoVolta Power",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118098,9 +118093,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1230,
-    "news_picked_today": 356,
-    "news_dropped_today": 858
+    "news_seen_today": 1316,
+    "news_picked_today": 383,
+    "news_dropped_today": 917
   },
   "book_momentum": {
     "live_count": 8,
