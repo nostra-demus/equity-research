@@ -814,7 +814,7 @@ export function planCodexAutomaticContinuation(
   })
   const cleanIncomplete = classified.outcome === 'success'
     || (classified.outcome === 'error'
-      && ['codex_missing_turn_completed', 'model_capacity'].includes(classified.reason))
+      && (classified.reason === 'codex_missing_turn_completed' || classified.reason === 'model_capacity'))
   if (!cleanIncomplete) return { continue: false, reason: `provider_${classified.outcome}` }
 
   const currentCount = run.automaticContinuationCount ?? 0
