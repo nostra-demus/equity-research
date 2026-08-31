@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T12:03:37Z",
+  "generated_at": "2026-08-31T12:12:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-606",
@@ -1580,6 +1580,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-631",
+      "headline": "Key Nvidia and Intel supplier raided over alleged China origin fraud — Unimicron faces probe over PCB origin washing, risk of 40% U.S. tariff penalty",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/big-tech/key-nvidia-and-intel-supplier-raided-over-alleged-china-origin-fraud-unimicron-faces-probe-over-pcb-origin-washing-risk-of-40-percent-u-s-tariff-penalty",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:55:33Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Unimicron faces a probe over alleged origin fraud, risking 40% US tariffs, which impacts supply chains for Nvidia and Intel.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Unimicron faces a probe over alleged origin fraud, risking 40% US tariffs, which impacts supply chains for Nvidia and Intel.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Unimicron",
+          "ticker": null,
+          "listing_country": "TW"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-587",
       "headline": "SLB to Buy Data Center Cooling Firm Kelvion for $4.1 Billion",
       "headline_en": null,
@@ -1920,60 +1980,6 @@
         {
           "name": "ONEOK",
           "ticker": "OKE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-586",
-      "headline": "Aon To Buy USI Insurance Services From KKR In $17 Bln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aon-buy-usi-insurance-services-kkr-17-bln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T11:00:01Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is acquiring USI Insurance Services for $17 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is acquiring USI Insurance Services for $17 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -117879,9 +117885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 371306,
-    "news_picked_today": 1216,
-    "news_dropped_today": 11860
+    "news_seen_today": 387160,
+    "news_picked_today": 1229,
+    "news_dropped_today": 11919
   },
   "book_momentum": {
     "live_count": 8,
