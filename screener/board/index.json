@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T03:20:41Z",
+  "generated_at": "2026-08-31T03:21:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-198",
@@ -89712,6 +89712,154 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1f1e1ddecae9",
+      "idea_version": "IDEAV-086f83c221577d76",
+      "idea_version_started_at": "2026-08-31T03:20:55Z",
+      "ticker": "SOP",
+      "company": "Star Entertainment Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a $307 million annual loss and auditors have explicitly questioned its ability to continue as a going concern.",
+      "why_now": "The FY26 annual report and auditor warning were released on 2026-08-31.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3af489949609",
+        "EVT-c7f59be0577c",
+        "EVT-e0e7e432fad8"
+      ],
+      "primary_source_event_id": "EVT-3af489949609",
+      "source_headlines": [
+        "Star reports $307m loss as auditors warn survival still in question",
+        "Star Entertainment warns tough conditions to persist after annual loss",
+        "SOP: Appendix 4E and 2026 Annual Report [price-sensitive]"
+      ],
+      "source_headline": "Star reports $307m loss as auditors warn survival still in question",
+      "source_url": "https://www.afr.com/companies/games-and-wagering/star-reports-307m-loss-as-auditors-warn-survival-still-in-question-20260831-p60sx1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T01:23:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:20:55Z",
+      "updated_at": "2026-08-31T03:20:55Z",
+      "decay_at": "2026-09-01T13:23:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cf45c7e74897",
+      "idea_version": "IDEAV-f60db826d687c579",
+      "idea_version_started_at": "2026-08-31T03:20:55Z",
+      "ticker": "007070",
+      "company": "GS Retail",
+      "exchange": "KRX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a 12.8 billion won fine for a data breach involving 1.66 million customers, which will impact near-term earnings and likely damage brand reputation.",
+      "why_now": "The fine was announced on 2026-08-31.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c31e5cc4dd58"
+      ],
+      "primary_source_event_id": "EVT-c31e5cc4dd58",
+      "source_headlines": [
+        "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers"
+      ],
+      "source_headline": "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers",
+      "source_url": "https://en.yna.co.kr/view/AEN20260831003900315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:22:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:20:55Z",
+      "updated_at": "2026-08-31T03:20:55Z",
+      "decay_at": "2026-09-01T14:22:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7c03452ec8b3",
       "idea_version": "IDEAV-fafe1d3e8a8aabbc",
       "idea_version_started_at": "2026-08-31T02:41:25Z",
@@ -94366,77 +94514,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ad9e65208b35",
-      "idea_version": "IDEAV-52b0bb5639279ad2",
-      "idea_version_started_at": "2026-08-28T05:51:01Z",
-      "ticker": "F17.SI",
-      "company": "GuocoLand",
-      "exchange": "Singapore",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 70% decline in H2 net profit highlights significant margin compression and operational headwinds in their real estate portfolio.",
-      "why_now": "The earnings report was released on 2026-08-28, confirming the negative trend.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-882f77c6221c"
-      ],
-      "primary_source_event_id": "EVT-882f77c6221c",
-      "source_headlines": [
-        "GuocoLand H2 net profit down 70% at S$9.8 million"
-      ],
-      "source_headline": "GuocoLand H2 net profit down 70% at S$9.8 million",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/guocoland-h2-net-profit-down-70-s9-8-million",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T03:19:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T05:51:01Z",
-      "updated_at": "2026-08-28T05:51:01Z",
-      "decay_at": "2026-08-29T15:19:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a9381beff1e4",
       "idea_version": "IDEAV-aad3a464199f5a97",
       "idea_version_started_at": "2026-08-29T23:48:06Z",
@@ -97508,7 +97585,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 213,
+      "file_count": 214,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -101762,8 +101839,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T15:19:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T03:21:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -117480,8 +117557,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 338,
-    "live_count": 67,
+    "surfaced_total": 340,
+    "live_count": 69,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
