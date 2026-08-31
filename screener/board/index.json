@@ -1,6 +1,301 @@
 {
-  "generated_at": "2026-08-31T13:17:59Z",
+  "generated_at": "2026-08-31T14:15:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-758",
+      "headline": "XINYI GLASS (00868): INSIDE INFORMATION ANNOUNCEMENT - SUBMISSION OF LISTING APPLICATION FOR AUTOMOBILE GLASS BUSINESS ON THE HONG KONG STOCK EXCHANGE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102243.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:20:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company is pursuing a spin-off and separate listing of its automobile glass business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is pursuing a spin-off and separate listing of its automobile glass business.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xinyi Glass Holdings Ltd",
+          "ticker": "00868",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-723",
+      "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange regarding 'Disclosure in compliance with Para 3(C1) of SEBI Circular No. SEBI/HO/CFD/CMD1/CIR/2019/140 dated November 21, 2019, of default on payment of interest/repayment of principal amount on loans from Bank(s)'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SITINET_31082026184613_Default.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:16:23Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company disclosed a formal default on interest and principal payments to banks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company disclosed a formal default on interest and principal payments to banks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siti Networks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-732",
+      "headline": "MININGLAMP-W (02718): CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF 11.33% EQUITY INTEREST IN WUHAN YEYING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102227.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:14:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced the acquisition of an 11.33% equity interest in Wuhan Yeying.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced the acquisition of an 11.33% equity interest in Wuhan Yeying.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MININGLAMP-W",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-714",
+      "headline": "Siti Networks Ltd: Disclosures by listed entities of defaults on payment of interest/ repayment of principal amount for loans including revolving facilities like cash credit from banks ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/23dd940d-a3ee-4ed9-883d-d878736e3a38.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:11:35Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company has disclosed a default on payment of interest or principal for loans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has disclosed a default on payment of interest or principal for loans.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siti Networks Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-719",
+      "headline": "TIANJUDIHE (02479): (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102217.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:10:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Delay in financial results and continued trading suspension indicate material financial or operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delay in financial results and continued trading suspension indicate material financial or operational distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TIANJUDIHE",
+          "ticker": "02479",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-720",
+      "headline": "HANHUA HOLDING (03903): (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102193.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:03:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced a delay in financial reporting and continued trading suspension, indicating significant operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a delay in financial reporting and continued trading suspension, indicating significant operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HANHUA HOLDING",
+          "ticker": "03903",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-670",
       "headline": "Time Technoplast Limited: Time Technoplast Limited has informed the Exchange about securing order of Rs. 87.53 Crores for supply of Type IV Composite CNG Cylinders - Mobile Storage Cascades for CNG and CGD Network from Well-Established Public Sector Undertaking (PSU)",
@@ -1629,226 +1924,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-711",
-      "headline": "ePointZero to buy 90% stake in Azura Power",
+      "inbox_id": "INB-20260831-755",
+      "headline": "Eli Lilly inks $2.88B Merida buyout for autoimmune drugs against rogue antibodies",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/epointzero-buy-90-stake-azura-124509915.html",
-      "source_name": "Yahoo Finance",
+      "url": "https://www.fiercebiotech.com/biotech/eli-lilly-inks-29b-merida-buyout-autoimmune-drugs-against-rogue-antibodies",
+      "source_name": "FierceBiotech",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:45:09Z",
+      "found_at": "2026-08-31T13:22:51Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "ePointZero is acquiring a 90% stake in Azura Power.",
+      "prelim_note": "Eli Lilly is acquiring Merida for $2.88 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "ePointZero is acquiring a 90% stake in Azura Power.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ePointZero",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Azura Power",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-698",
-      "headline": "Aon CEO says insurance broker seeks to build 'premiere middle market platform' with purchase of rival USI",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/31/aon-ceo-says-usi-deal-seeks-to-build-premiere-middle-market-insurance-platform.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:35:32Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is seeking to acquire rival USI to expand its middle-market platform, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is seeking to acquire rival USI to expand its middle-market platform, representing a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "USI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-691",
-      "headline": "Firearms retailer files Chapter 11 bankruptcy as gun sales drop",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/white-oak-armory-files-chapter-11-bankruptcy-as-gun-sales-drop",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:33:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Firearms retailer filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Firearms retailer filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unknown Firearms Retailer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-682",
-      "headline": "GRT Jewellers to acquire 74.12% stake in Tribhovandas Bhimji Zaveri for ₹1,034 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/gold/grt-jewellers-to-acquire-7412-stake-in-tribhovandas-bhimji-zaveri-for-1034-crore/article71410820.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:26:09Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "GRT Jewellers to acquire a 74.12% stake in Tribhovandas Bhimji Zaveri for 1034 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GRT Jewellers to acquire a 74.12% stake in Tribhovandas Bhimji Zaveri for 1034 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tribhovandas Bhimji Zaveri",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-662",
-      "headline": "Aon to expand middle-market reach with $17bn USI takeover",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/aon-expand-middle-market-reach-121734709.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:17:34Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is acquiring USI for $17 billion to expand its middle-market reach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is acquiring USI for $17 billion to expand its middle-market reach.",
+      "triage_reason": "Eli Lilly is acquiring Merida for $2.88 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1860,110 +1949,7 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "USI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-664",
-      "headline": "Milky Mist Q1 Results: Profit zooms nearly 9 times YoY to Rs 65 crore; revenue rises 44%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/milky-mist-q1-results-profit-zooms-nearly-9-times-yoy-to-rs-65-crore-revenue-rises-44/articleshow/133652642.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:16:45Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Milky Mist reported Q1 profit growth of 9x YoY to Rs 65 crore and revenue growth of 44%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Milky Mist reported Q1 profit growth of 9x YoY to Rs 65 crore and revenue growth of 44%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Milky Mist",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-660",
-      "headline": "Lilly to buy Merida Biosciences for up to $2.88 billion in autoimmune drug push",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/eli-lilly-buy-merida-biosciences-288-billion-deal-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:16:30Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Eli Lilly is acquiring Merida Biosciences for $2.88 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly is acquiring Merida Biosciences for $2.88 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -92963,78 +92949,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8e94c093bd37",
-      "idea_version": "IDEAV-6c20ae480d77a47d",
-      "idea_version_started_at": "2026-08-30T02:40:35Z",
-      "ticker": "9618",
-      "company": "JD.com",
-      "exchange": "HKG",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.3 billion expansion into Hong Kong's physical retail space represents a significant capital commitment to capture market share from traditional brick-and-mortar incumbents.",
-      "why_now": "The scale of the expansion was detailed on August 30, 2024, signaling an immediate shift in the company's regional growth strategy and capital allocation.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4d54d4ee3c4"
-      ],
-      "primary_source_event_id": "EVT-b4d54d4ee3c4",
-      "source_headlines": [
-        "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model"
-      ],
-      "source_headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
-      "source_url": "https://www.scmp.com/business/article/3365657/jdcoms-us13b-expansion-could-test-hong-kongs-footfall-driven-retail-property-model?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T02:00:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:40:35Z",
-      "updated_at": "2026-08-30T02:40:35Z",
-      "decay_at": "2026-08-31T14:00:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-37bdf9faa176",
       "idea_version": "IDEAV-61498abe858f06e3",
       "idea_version_started_at": "2026-08-31T02:41:25Z",
@@ -93317,77 +93231,6 @@
       "surfaced_at": "2026-08-30T07:00:23Z",
       "updated_at": "2026-08-30T07:20:04Z",
       "decay_at": "2026-08-31T18:50:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2b9840c4ba25",
-      "idea_version": "IDEAV-f3101285fab969e1",
-      "idea_version_started_at": "2026-08-30T02:20:00Z",
-      "ticker": "OIL",
-      "company": "Oil India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Oil India's newly formed subsidiary, OIL Green Energy Limited, has signed MoUs with the Government of Haryana to develop four integrated waste-to-clean-energy projects, expanding its green energy footprint.",
-      "why_now": "The official exchange filing on August 30, 2026, serves as the immediate catalyst for this green transition milestone.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35c8c567786b"
-      ],
-      "primary_source_event_id": "EVT-35c8c567786b",
-      "source_headlines": [
-        "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects"
-      ],
-      "source_headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb684b0a-4957-4363-9e15-d3ff7819ebc2.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-30T01:54:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:20:00Z",
-      "updated_at": "2026-08-30T02:20:00Z",
-      "decay_at": "2026-08-31T13:54:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94613,79 +94456,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52c417019222",
-      "idea_version": "IDEAV-5f1026b2b2688024",
-      "idea_version_started_at": "2026-08-30T02:40:35Z",
-      "ticker": "INDUSINDBK",
-      "company": "IndusInd Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank is pivoting its management focus toward a roadmap to exceed a 1% Return on Assets (RoA), which would drive a re-rating of its valuation multiple if execution targets are met.",
-      "why_now": "New strategic clarity regarding the 1% RoA turnaround threshold is being communicated to the market as of August 30, 2024.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 40,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 9,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bde1dd24b4ed"
-      ],
-      "primary_source_event_id": "EVT-bde1dd24b4ed",
-      "source_headlines": [
-        "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround"
-      ],
-      "source_headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
-      "source_url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
-      "source_name": "Mint",
-      "materiality_max": 52,
-      "newest_source_at": "2026-08-30T01:31:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:40:35Z",
-      "updated_at": "2026-08-30T02:40:35Z",
-      "decay_at": "2026-08-31T13:31:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f706760db176",
       "idea_version": "IDEAV-9db919d9eab10fe3",
       "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -95662,6 +95432,78 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T22:28:34Z",
       "decay_at": "2026-08-30T09:29:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8e94c093bd37",
+      "idea_version": "IDEAV-6c20ae480d77a47d",
+      "idea_version_started_at": "2026-08-30T02:40:35Z",
+      "ticker": "9618",
+      "company": "JD.com",
+      "exchange": "HKG",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $1.3 billion expansion into Hong Kong's physical retail space represents a significant capital commitment to capture market share from traditional brick-and-mortar incumbents.",
+      "why_now": "The scale of the expansion was detailed on August 30, 2024, signaling an immediate shift in the company's regional growth strategy and capital allocation.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4d54d4ee3c4"
+      ],
+      "primary_source_event_id": "EVT-b4d54d4ee3c4",
+      "source_headlines": [
+        "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model"
+      ],
+      "source_headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
+      "source_url": "https://www.scmp.com/business/article/3365657/jdcoms-us13b-expansion-could-test-hong-kongs-footfall-driven-retail-property-model?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T02:00:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T02:40:35Z",
+      "updated_at": "2026-08-30T02:40:35Z",
+      "decay_at": "2026-08-31T14:00:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97598,6 +97440,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2b9840c4ba25",
+      "idea_version": "IDEAV-f3101285fab969e1",
+      "idea_version_started_at": "2026-08-30T02:20:00Z",
+      "ticker": "OIL",
+      "company": "Oil India Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Oil India's newly formed subsidiary, OIL Green Energy Limited, has signed MoUs with the Government of Haryana to develop four integrated waste-to-clean-energy projects, expanding its green energy footprint.",
+      "why_now": "The official exchange filing on August 30, 2026, serves as the immediate catalyst for this green transition milestone.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35c8c567786b"
+      ],
+      "primary_source_event_id": "EVT-35c8c567786b",
+      "source_headlines": [
+        "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects"
+      ],
+      "source_headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb684b0a-4957-4363-9e15-d3ff7819ebc2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-30T01:54:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T02:20:00Z",
+      "updated_at": "2026-08-30T02:20:00Z",
+      "decay_at": "2026-08-31T13:54:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0ecd9c1748cf",
       "idea_version": "IDEAV-602a188bece7f17c",
       "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -97810,6 +97723,79 @@
       "promoted_signal_id": "SIG-20260804-da21208a",
       "feedback": "up",
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-52c417019222",
+      "idea_version": "IDEAV-5f1026b2b2688024",
+      "idea_version_started_at": "2026-08-30T02:40:35Z",
+      "ticker": "INDUSINDBK",
+      "company": "IndusInd Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank is pivoting its management focus toward a roadmap to exceed a 1% Return on Assets (RoA), which would drive a re-rating of its valuation multiple if execution targets are met.",
+      "why_now": "New strategic clarity regarding the 1% RoA turnaround threshold is being communicated to the market as of August 30, 2024.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 40,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 9,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bde1dd24b4ed"
+      ],
+      "primary_source_event_id": "EVT-bde1dd24b4ed",
+      "source_headlines": [
+        "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround"
+      ],
+      "source_headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
+      "source_url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
+      "source_name": "Mint",
+      "materiality_max": 52,
+      "newest_source_at": "2026-08-30T01:31:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T02:40:35Z",
+      "updated_at": "2026-08-30T02:40:35Z",
+      "decay_at": "2026-08-31T13:31:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -97822,13 +97808,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 273,
-    "shown_count": 273,
+    "total_count": 276,
+    "shown_count": 276,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 126,
-        "shown_count": 126,
+        "total_count": 129,
+        "shown_count": 129,
         "hidden_count": 0
       },
       "short": {
@@ -97853,6 +97839,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8e94c093bd37",
+        "idea_version": "IDEAV-6c20ae480d77a47d",
+        "idea_version_started_at": "2026-08-30T02:40:35Z",
+        "ticker": "9618",
+        "company": "JD.com",
+        "exchange": "HKG",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $1.3 billion expansion into Hong Kong's physical retail space represents a significant capital commitment to capture market share from traditional brick-and-mortar incumbents.",
+        "why_now": "The scale of the expansion was detailed on August 30, 2024, signaling an immediate shift in the company's regional growth strategy and capital allocation.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4d54d4ee3c4"
+        ],
+        "primary_source_event_id": "EVT-b4d54d4ee3c4",
+        "source_headlines": [
+          "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model"
+        ],
+        "source_headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
+        "source_url": "https://www.scmp.com/business/article/3365657/jdcoms-us13b-expansion-could-test-hong-kongs-footfall-driven-retail-property-model?utm_source=rss_feed",
+        "source_name": "South China Morning Post",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T02:00:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T02:40:35Z",
+        "updated_at": "2026-08-30T02:40:35Z",
+        "decay_at": "2026-08-31T14:00:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T14:00:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2b9840c4ba25",
+        "idea_version": "IDEAV-f3101285fab969e1",
+        "idea_version_started_at": "2026-08-30T02:20:00Z",
+        "ticker": "OIL",
+        "company": "Oil India Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Oil India's newly formed subsidiary, OIL Green Energy Limited, has signed MoUs with the Government of Haryana to develop four integrated waste-to-clean-energy projects, expanding its green energy footprint.",
+        "why_now": "The official exchange filing on August 30, 2026, serves as the immediate catalyst for this green transition milestone.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-35c8c567786b"
+        ],
+        "primary_source_event_id": "EVT-35c8c567786b",
+        "source_headlines": [
+          "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects"
+        ],
+        "source_headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb684b0a-4957-4363-9e15-d3ff7819ebc2.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-30T01:54:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T02:20:00Z",
+        "updated_at": "2026-08-30T02:20:00Z",
+        "decay_at": "2026-08-31T13:54:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T13:54:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-52c417019222",
+        "idea_version": "IDEAV-5f1026b2b2688024",
+        "idea_version_started_at": "2026-08-30T02:40:35Z",
+        "ticker": "INDUSINDBK",
+        "company": "IndusInd Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The bank is pivoting its management focus toward a roadmap to exceed a 1% Return on Assets (RoA), which would drive a re-rating of its valuation multiple if execution targets are met.",
+        "why_now": "New strategic clarity regarding the 1% RoA turnaround threshold is being communicated to the market as of August 30, 2024.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 40,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 9,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bde1dd24b4ed"
+        ],
+        "primary_source_event_id": "EVT-bde1dd24b4ed",
+        "source_headlines": [
+          "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround"
+        ],
+        "source_headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
+        "source_url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
+        "source_name": "Mint",
+        "materiality_max": 52,
+        "newest_source_at": "2026-08-30T01:31:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T02:40:35Z",
+        "updated_at": "2026-08-30T02:40:35Z",
+        "decay_at": "2026-08-31T13:31:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T13:31:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f706760db176",
         "idea_version": "IDEAV-9db919d9eab10fe3",
@@ -118087,7 +118298,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 360,
-    "live_count": 85,
+    "live_count": 82,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -118106,9 +118317,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 509986,
-    "news_picked_today": 1385,
-    "news_dropped_today": 12411
+    "news_seen_today": 557966,
+    "news_picked_today": 1493,
+    "news_dropped_today": 12951
   },
   "book_momentum": {
     "live_count": 8,
