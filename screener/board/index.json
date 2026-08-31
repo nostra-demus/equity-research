@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T08:59:52Z",
+  "generated_at": "2026-08-31T09:07:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-402",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-432",
+      "headline": "REPUBLIC HC (08357): MAJOR TRANSACTION - DISPOSAL OF ENTIRE EQUITY INTEREST IN A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0831/2026083100604.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T08:34:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company is disposing of its entire equity interest in a subsidiary, which constitutes a major transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is disposing of its entire equity interest in a subsidiary, which constitutes a major transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REPUBLIC HC",
+          "ticker": "08357",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -637,6 +686,55 @@
         },
         {
           "name": "Azura Power",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-423",
+      "headline": "Bathla lenders in scramble for assets amid countdown to insolvency",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/bathla-won-t-last-til-the-end-of-the-week-as-staff-go-unpaid-20260828-p60sip?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T08:40:26Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Lenders are scrambling for assets as the company faces a countdown to insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lenders are scrambling for assets as the company faces a countdown to insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
           "ticker": null,
           "listing_country": null
         }
@@ -1912,114 +2010,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-176",
-      "headline": "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260831003900315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:22:01Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company fined 12.8 bln won for a major data breach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company fined 12.8 bln won for a major data breach.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GS Retail",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-190",
-      "headline": "Aon Reportedly Nears $17 Bln Deal To Acquire USI Insurance From KKR",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aon-reportedly-nears-17-bln-deal-acquire-usi-insurance-kkr",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:06:54Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is reportedly nearing a $17 billion acquisition of USI Insurance, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is reportedly nearing a $17 billion acquisition of USI Insurance, a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "USI Insurance",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118704,9 +118694,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 156324,
-    "news_picked_today": 837,
-    "news_dropped_today": 8663
+    "news_seen_today": 163848,
+    "news_picked_today": 857,
+    "news_dropped_today": 8739
   },
   "book_momentum": {
     "live_count": 8,
