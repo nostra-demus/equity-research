@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T12:46:38Z",
+  "generated_at": "2026-08-31T12:54:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-670",
@@ -1629,6 +1629,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-698",
+      "headline": "Aon CEO says insurance broker seeks to build 'premiere middle market platform' with purchase of rival USI",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/31/aon-ceo-says-usi-deal-seeks-to-build-premiere-middle-market-insurance-platform.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T12:35:32Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Aon is seeking to acquire rival USI to expand its middle-market platform, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is seeking to acquire rival USI to expand its middle-market platform, representing a significant M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-691",
       "headline": "Firearms retailer files Chapter 11 bankruptcy as gun sales drop",
       "headline_en": null,
@@ -1879,37 +1933,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-655",
-      "headline": "Aon acquires USI Insurance Services from KKR for $17 billion",
+      "inbox_id": "INB-20260831-699",
+      "headline": "Aon To Acquire USI Insurance Services From KKR For $17 Bln Cash",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/aon-acquires-usi-insurance-services-120021010.html",
-      "source_name": "Yahoo Finance",
+      "url": "https://www.nasdaq.com/articles/aon-acquire-usi-insurance-services-kkr-17-bln-cash",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:00:21Z",
+      "found_at": "2026-08-31T12:04:59Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is acquiring USI Insurance Services for $17 billion.",
+      "prelim_note": "Aon is acquiring USI Insurance Services from KKR for $17 billion in cash.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Aon is acquiring USI Insurance Services for $17 billion.",
+      "triage_reason": "Aon is acquiring USI Insurance Services from KKR for $17 billion in cash.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 90,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "mna"
@@ -1922,72 +1976,12 @@
           "listing_country": "US"
         },
         {
-          "name": "USI Insurance Services",
+          "name": "KKR",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-631",
-      "headline": "Key Nvidia and Intel supplier raided over alleged China origin fraud — Unimicron faces probe over PCB origin washing, risk of 40% U.S. tariff penalty",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/big-tech/key-nvidia-and-intel-supplier-raided-over-alleged-china-origin-fraud-unimicron-faces-probe-over-pcb-origin-washing-risk-of-40-percent-u-s-tariff-penalty",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T11:55:33Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Unimicron faces a probe over alleged origin fraud, risking 40% US tariffs, which impacts supply chains for Nvidia and Intel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Unimicron faces a probe over alleged origin fraud, risking 40% US tariffs, which impacts supply chains for Nvidia and Intel.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Unimicron",
-          "ticker": null,
-          "listing_country": "TW"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94471,78 +94465,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2492bf37da4d",
-      "idea_version": "IDEAV-29174308e80078e9",
-      "idea_version_started_at": "2026-08-30T02:20:00Z",
-      "ticker": "010130",
-      "company": "Korea Zinc",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Korea Institute of Corporate Governance and Sustainability has recommended voting for Park Yu-kyung and against Baek In-gyu for the audit committee, boosting governance reform prospects amidst ongoing shareholder battles.",
-      "why_now": "The proxy advisory recommendation on August 30, 2026, directly influences institutional voting behavior ahead of the upcoming shareholder meeting.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-227cc040c111"
-      ],
-      "primary_source_event_id": "EVT-227cc040c111",
-      "source_headlines": [
-        "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates"
-      ],
-      "source_headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-08-30T00:47:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:20:00Z",
-      "updated_at": "2026-08-30T02:20:00Z",
-      "decay_at": "2026-08-31T12:47:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ed07c7f4084a",
       "idea_version": "IDEAV-f9880a2cc6b37df1",
       "idea_version_started_at": "2026-08-30T06:00:05Z",
@@ -97748,6 +97670,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2492bf37da4d",
+      "idea_version": "IDEAV-29174308e80078e9",
+      "idea_version_started_at": "2026-08-30T02:20:00Z",
+      "ticker": "010130",
+      "company": "Korea Zinc",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Korea Institute of Corporate Governance and Sustainability has recommended voting for Park Yu-kyung and against Baek In-gyu for the audit committee, boosting governance reform prospects amidst ongoing shareholder battles.",
+      "why_now": "The proxy advisory recommendation on August 30, 2026, directly influences institutional voting behavior ahead of the upcoming shareholder meeting.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-227cc040c111"
+      ],
+      "primary_source_event_id": "EVT-227cc040c111",
+      "source_headlines": [
+        "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates"
+      ],
+      "source_headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-08-30T00:47:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T02:20:00Z",
+      "updated_at": "2026-08-30T02:20:00Z",
+      "decay_at": "2026-08-31T12:47:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -97828,13 +97822,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 270,
-    "shown_count": 270,
+    "total_count": 271,
+    "shown_count": 271,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 124,
-        "shown_count": 124,
+        "total_count": 125,
+        "shown_count": 125,
         "hidden_count": 0
       },
       "short": {
@@ -97859,6 +97853,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2492bf37da4d",
+        "idea_version": "IDEAV-29174308e80078e9",
+        "idea_version_started_at": "2026-08-30T02:20:00Z",
+        "ticker": "010130",
+        "company": "Korea Zinc",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The Korea Institute of Corporate Governance and Sustainability has recommended voting for Park Yu-kyung and against Baek In-gyu for the audit committee, boosting governance reform prospects amidst ongoing shareholder battles.",
+        "why_now": "The proxy advisory recommendation on August 30, 2026, directly influences institutional voting behavior ahead of the upcoming shareholder meeting.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-227cc040c111"
+        ],
+        "primary_source_event_id": "EVT-227cc040c111",
+        "source_headlines": [
+          "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates"
+        ],
+        "source_headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 89,
+        "newest_source_at": "2026-08-30T00:47:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T02:20:00Z",
+        "updated_at": "2026-08-30T02:20:00Z",
+        "decay_at": "2026-08-31T12:47:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T12:47:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-932317e51e1d",
         "idea_version": "IDEAV-4bb1c2b215ae2fe9",
@@ -117870,7 +117939,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 360,
-    "live_count": 88,
+    "live_count": 87,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -117889,9 +117958,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 450321,
-    "news_picked_today": 1328,
-    "news_dropped_today": 12084
+    "news_seen_today": 455308,
+    "news_picked_today": 1341,
+    "news_dropped_today": 12191
   },
   "book_momentum": {
     "live_count": 8,
