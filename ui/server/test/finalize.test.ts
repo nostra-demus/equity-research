@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
-import { finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
+import { childCouldReportDoneOnClose, finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
 import { readRunMarker } from '../src/outputs'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
@@ -129,6 +129,37 @@ try {
     assert.ok(fs.existsSync(path.join(root, 'final_thesis.md')), 'failed publication retains authored artifacts')
     assert.match(fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8'), /canonical commit step was unavailable/)
     assert.equal(readRunMarker(`analyses/ZZPUB_${DATE}`, '.interrupted')?.reason, 'publication_failed')
+  })
+
+  check('a queued terminal publication drains despite its intentionally pending Ideas marker', () => {
+    const root = path.join(ANALYSES_DIR, `ZZPUBQ_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# Final thesis\n')
+    fs.writeFileSync(path.join(root, 'memo.md'), '# Memo\n')
+    fs.writeFileSync(path.join(root, 'audit_dossier.md'), '# Audit dossier\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    fs.writeFileSync(path.join(root, 'idea_3_6m.json'), '{}\n')
+    fs.writeFileSync(path.join(root, 'RUN_METADATA.md'), '# Run metadata\n')
+    fs.writeFileSync(path.join(root, '.requires_idea_publication'), '')
+    const { run } = mkRun('full', 'ZZPUBQ')
+    run.provider = 'codex'
+    run.model = 'gpt-5.6-sol'
+    run.reasoningLevel = 'max'
+    run.profileKey = 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh'
+    run.executionProfile = {
+      key: run.profileKey,
+      parentModel: run.model,
+      parentReasoning: run.reasoningLevel,
+      specialistModel: 'gpt-5.6-terra',
+      specialistReasoning: 'xhigh',
+    }
+    run.publicationCompleted = false
+    assert.equal(childCouldReportDoneOnClose(run, { exitCode: 0 }), false,
+      'without a queued publication, the pending marker remains a terminal barrier')
+    run.publicationRequested = true
+    assert.equal(childCouldReportDoneOnClose(run, { exitCode: 0 }), true,
+      'the close owner must drain the queued publication that can clear the marker')
   })
 
   check('Codex clean exit without turn.completed names every unresolved canonical output', () => {
