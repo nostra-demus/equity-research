@@ -8,7 +8,7 @@ import { normalizeDataSubject, MANIFEST_SUBJECT_RE } from './data-subject'
 import { resolveManifestRunRoot } from './swarm-run-root'
 import { resolveDisplayFields } from './ledger-corrections'
 import { extractTriageStatus } from './verdict'
-import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
+import { validateAgentOutputText } from '../../../scripts/agent-output-validity.mjs'
 import type { AgentNode, DataReadinessDecl, MemoryProfile, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
 function readFrontmatter(filePath: string) {
@@ -433,12 +433,15 @@ function hasFailFastModuleOutcome(folder: string, module: ModuleNode | undefined
   if (!module) return false
   const triageFiles = Object.values(module.layers).flat()
     .filter((agent) => agent.nn === '00' && agent.failFast)
-    .map((agent) => `${agent.key.split('/').at(-1)}.md`)
+    .map((agent) => `${agent.nn}_${agent.slug}.md`)
   return triageFiles.some((file) => {
     const candidate = path.join(folder, file)
     try {
-      return validateAgentOutputFile(candidate).valid
-        && extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient'
+      const stat = fs.lstatSync(candidate)
+      if (!stat.isFile() || stat.isSymbolicLink()) return false
+      const content = fs.readFileSync(candidate, 'utf8')
+      return validateAgentOutputText(content).valid
+        && extractTriageStatus(content) === 'Insufficient'
     } catch {
       return false
     }
@@ -465,7 +468,7 @@ export function depsCompleteForModule(subjectId: string, module: string, swarmId
     const depModule = g.modules.find((entry) => entry.name === dep)
     const ok = !!folder && fs.existsSync(folder)
       && (fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
-        || hasFailFastModuleOutcome(folder, depModule))
+        || (swarmId === RESEARCH_SWARM_ID && hasFailFastModuleOutcome(folder, depModule)))
     if (!ok) missing.push(dep)
   }
   return { complete: missing.length === 0, missing }
