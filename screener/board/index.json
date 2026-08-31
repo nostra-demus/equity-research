@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T14:16:12Z",
+  "generated_at": "2026-08-31T14:28:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-759",
+      "headline": "ALSCO POOLING (02649): (1) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS AND DESPATCH OF 2026 INTERIM REPORT; (2) UPDATE ON THE LOAN REPAYMENT STATUS; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083102415.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T13:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Company announced a delay in financial reporting, update on loan repayment status, and continued trading suspension, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a delay in financial reporting, update on loan repayment status, and continued trading suspension, indicating significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ALSCO POOLING",
+          "ticker": "02649",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-758",
       "headline": "XINYI GLASS (00868): INSIDE INFORMATION ANNOUNCEMENT - SUBMISSION OF LISTING APPLICATION FOR AUTOMOBILE GLASS BUSINESS ON THE HONG KONG STOCK EXCHANGE",
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-755",
-      "headline": "Eli Lilly inks $2.88B Merida buyout for autoimmune drugs against rogue antibodies",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/eli-lilly-inks-29b-merida-buyout-autoimmune-drugs-against-rogue-antibodies",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T13:22:51Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Eli Lilly is acquiring Merida for $2.88 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly is acquiring Merida for $2.88 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117537,9 +117537,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 557966,
-    "news_picked_today": 1493,
-    "news_dropped_today": 12951
+    "news_seen_today": 592732,
+    "news_picked_today": 1512,
+    "news_dropped_today": 13004
   },
   "book_momentum": {
     "live_count": 8,
