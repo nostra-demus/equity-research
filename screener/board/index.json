@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T19:09:31Z",
+  "generated_at": "2026-08-31T19:26:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-796",
@@ -1046,6 +1046,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-797",
+      "headline": "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4586205/dow-secures-7-year-agreements-with-general-dynamics-and-lockheed-martin-to-trip/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-31T11:59:10Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "General Dynamics and Lockheed Martin secured 7-year agreements to triple and quadruple production of key defense systems.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "General Dynamics and Lockheed Martin secured 7-year agreements to triple and quadruple production of key defense systems.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Dynamics",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-606",
       "headline": "Ansal Housing Ltd-$: Disclosures by listed entities of defaults on payment of interest/ repayment of principal amount for loans including revolving facilities like cash credit from banks ....",
       "headline_en": null,
@@ -1930,55 +1985,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-438",
-      "headline": "MODERN LAND (01107): INSIDE INFORMATION DELAY IN PUBLICATION OF INTERIM RESULTS AND DESPATCH OF INTERIM REPORT FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100828.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Delay in financial reporting and continued suspension of trading indicates significant operational or financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delay in financial reporting and continued suspension of trading indicates significant operational or financial distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MODERN LAND",
-          "ticker": "01107",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89864,76 +89870,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3830e5036df7",
-      "idea_version": "IDEAV-a37bc0d9e4eef57c",
-      "idea_version_started_at": "2026-08-30T07:40:39Z",
-      "ticker": "AZN",
-      "company": "AstraZeneca",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AstraZeneca's relaxin pill demonstrated positive results in a mid-stage heart failure trial, indicating potential future revenue from a new drug.",
-      "why_now": "The trial results were announced at the #ESC26 conference.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49df10f6e05d"
-      ],
-      "primary_source_event_id": "EVT-49df10f6e05d",
-      "source_headlines": [
-        "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial"
-      ],
-      "source_headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
-      "source_url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
-      "source_name": "Endpoints News",
-      "materiality_max": 83,
-      "newest_source_at": "2026-08-30T07:19:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T07:40:39Z",
-      "updated_at": "2026-08-30T07:40:39Z",
-      "decay_at": "2026-08-31T19:19:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-92d139fb9b89",
       "idea_version": "IDEAV-a10cafda73fe54f2",
       "idea_version_started_at": "2026-08-30T22:29:01Z",
@@ -94452,6 +94388,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3830e5036df7",
+      "idea_version": "IDEAV-a37bc0d9e4eef57c",
+      "idea_version_started_at": "2026-08-30T07:40:39Z",
+      "ticker": "AZN",
+      "company": "AstraZeneca",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AstraZeneca's relaxin pill demonstrated positive results in a mid-stage heart failure trial, indicating potential future revenue from a new drug.",
+      "why_now": "The trial results were announced at the #ESC26 conference.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-49df10f6e05d"
+      ],
+      "primary_source_event_id": "EVT-49df10f6e05d",
+      "source_headlines": [
+        "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial"
+      ],
+      "source_headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
+      "source_url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
+      "source_name": "Endpoints News",
+      "materiality_max": 83,
+      "newest_source_at": "2026-08-30T07:19:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T07:40:39Z",
+      "updated_at": "2026-08-30T07:40:39Z",
+      "decay_at": "2026-08-31T19:19:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9e168a4e0799",
       "idea_version": "IDEAV-f52789b232384ccd",
       "idea_version_started_at": "2026-08-29T22:28:34Z",
@@ -96688,13 +96694,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 288,
-    "shown_count": 288,
+    "total_count": 289,
+    "shown_count": 289,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 138,
-        "shown_count": 138,
+        "total_count": 139,
+        "shown_count": 139,
         "hidden_count": 0
       },
       "short": {
@@ -96719,6 +96725,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3830e5036df7",
+        "idea_version": "IDEAV-a37bc0d9e4eef57c",
+        "idea_version_started_at": "2026-08-30T07:40:39Z",
+        "ticker": "AZN",
+        "company": "AstraZeneca",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "AstraZeneca's relaxin pill demonstrated positive results in a mid-stage heart failure trial, indicating potential future revenue from a new drug.",
+        "why_now": "The trial results were announced at the #ESC26 conference.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-49df10f6e05d"
+        ],
+        "primary_source_event_id": "EVT-49df10f6e05d",
+        "source_headlines": [
+          "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial"
+        ],
+        "source_headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
+        "source_url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
+        "source_name": "Endpoints News",
+        "materiality_max": 83,
+        "newest_source_at": "2026-08-30T07:19:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T07:40:39Z",
+        "updated_at": "2026-08-30T07:40:39Z",
+        "decay_at": "2026-08-31T19:19:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T19:19:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a499ce26ab02",
         "idea_version": "IDEAV-58bd58802bb42ba6",
@@ -118075,7 +118154,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 365,
-    "live_count": 75,
+    "live_count": 74,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -118094,9 +118173,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1210612,
-    "news_picked_today": 1899,
-    "news_dropped_today": 16433
+    "news_seen_today": 1272931,
+    "news_picked_today": 1931,
+    "news_dropped_today": 16641
   },
   "book_momentum": {
     "live_count": 8,
