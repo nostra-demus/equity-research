@@ -20,6 +20,7 @@ const {
   recordRecoveredPublicationAuthority,
 } = await import('../src/execution-provenance')
 const { writeRunMarker } = await import('../src/outputs')
+const { writeInterruptionMarker } = await import('../src/launcher')
 const { createRun } = await import('../src/registry')
 
 const runRoot = `analyses/ZZINTAUTH_${Date.now()}`
@@ -98,6 +99,11 @@ try {
   // immutable record; the older authority remains archived but cannot be selected under the new marker.
   const interruptedC = newRun('valuation')
   interrupt(interruptedC, 'provider_process_failed')
+  const markerPath = path.join(absoluteRoot, '.interrupted')
+  const firstMarker = fs.readFileSync(markerPath)
+  writeInterruptionMarker(interruptedC, 'turn_failed', 'duplicate terminal report')
+  assert.deepEqual(fs.readFileSync(markerPath), firstMarker,
+    'a duplicate terminal report for one protected attempt must not rewrite its timestamp-bound marker')
   assert.equal(readProviderInterruptionAuthority(runRoot)?.interruptionRunId, interruptedC.runId)
   assert.equal(readProviderInterruptionAuthority(runRoot, interruptedC.runId)?.runId, interruptedC.runId)
   assert.equal(readProviderInterruptionAuthority(runRoot, interruptedA.runId), null,
