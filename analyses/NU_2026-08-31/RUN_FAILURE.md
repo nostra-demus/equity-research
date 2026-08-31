@@ -4,8 +4,8 @@
 - orchestrator: chained full run (server)
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
-- reason: publication_failed
-- stopped_at_utc: 2026-08-31T11:08:37.321Z
+- reason: codex_error
+- stopped_at_utc: 2026-08-31T13:05:58.839Z
 
 ## Modules completed
 
@@ -19,21 +19,7 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-the provider exited without a supervisor-owned publication request
-
-Provider final message:
-Completed `analyses/NU_2026-08-31`.
-
-- Preserved [final_thesis.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/final_thesis.md) and [decision_record.json](/Users/admin/nostra-prod/analyses/NU_2026-08-31/decision_record.json).
-- Generated and validated [memo.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/memo.md), approximately 3,900 words.
-- Generated and validated [audit_dossier.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/audit_dossier.md), containing 49 source sections.
-- Decision: **Avoid**.
-- Integrity remains **PROVISIONAL** because the required “Suggested sizing” scorecard field is missing.
-- All child agents reached terminal status.
-
-Trusted cockpit publication queued: `63374eb8-fc74-441a-9e4b-da8201ff327a`.
-
-No commit SHA is reported—the supervisor publishes and backfills it after this process exits.
+Selected model is at capacity. Please try a different model.
 ```
 
 ## Resume
