@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-31T18:30:41Z",
+  "generated_at": "2026-08-31T18:45:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-796",
+      "headline": "10-K - Super Micro Computer, Inc. (0001375365) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1375365/000137536526000022/0001375365-26-000022-index.htm",
+      "source_name": "SEC EDGAR — Latest 10-K (Annual Report)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-31T18:21:23Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Super Micro Computer filed its 10-K after significant delays and concerns regarding its auditor and internal controls.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Super Micro Computer filed its 10-K after significant delays and concerns regarding its auditor and internal controls.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Micro Computer, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-795",
+      "headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T18:04:03Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "E2E Networks signed a binding term sheet worth approximately Rs. 1,000 Crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "E2E Networks signed a binding term sheet worth approximately Rs. 1,000 Crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "E2E Networks Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-778",
       "headline": "Punj Lloyd Ltd: This is to inform you that in terms of Regulation 32 B of the IBBI (Liquidation Process) Regulations, 2016, the First meeting of the Reconstituted Committee of Creditors (CoC) of Punj Lloyd ....",
@@ -1881,104 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-402",
-      "headline": "AP RENTALS (01496): PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100716.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T08:45:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Profit warning indicates a material decline in expected earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Profit warning indicates a material decline in expected earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AP RENTALS",
-          "ticker": "01496",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-432",
-      "headline": "REPUBLIC HC (08357): MAJOR TRANSACTION - DISPOSAL OF ENTIRE EQUITY INTEREST IN A SUBSIDIARY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0831/2026083100604.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T08:34:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company is disposing of its entire equity interest in a subsidiary, which constitutes a major transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company is disposing of its entire equity interest in a subsidiary, which constitutes a major transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "REPUBLIC HC",
-          "ticker": "08357",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89580,76 +89580,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-3bf20a51c926786c",
-      "idea_version_started_at": "2026-08-30T07:20:04Z",
-      "ticker": "AAPL",
-      "company": "Apple Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of Tim Cook, who oversaw a 28x increase in shareholder value, creates significant leadership uncertainty and a potential valuation premium reset for the world's largest consumer electronics firm.",
-      "why_now": "The transition is effective immediately on September 1, 2026, following the announcement on August 30.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-51adf0fae9d1"
-      ],
-      "primary_source_event_id": "EVT-51adf0fae9d1",
-      "source_headlines": [
-        "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders"
-      ],
-      "source_headline": "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders",
-      "source_url": "https://www.ndtvprofit.com/markets/tim-cook-bows-out-as-apple-ceo-on-sept-1-after-historic-25x-gains-to-shareholders-11977052#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T06:35:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:20:17Z",
-      "updated_at": "2026-08-30T07:20:04Z",
-      "decay_at": "2026-08-31T18:35:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d154be29c3e7",
       "idea_version": "IDEAV-d1a013c87ab91ff2",
       "idea_version_started_at": "2026-08-30T07:59:46Z",
@@ -94032,6 +93962,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-3bf20a51c926786c",
+      "idea_version_started_at": "2026-08-30T07:20:04Z",
+      "ticker": "AAPL",
+      "company": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of Tim Cook, who oversaw a 28x increase in shareholder value, creates significant leadership uncertainty and a potential valuation premium reset for the world's largest consumer electronics firm.",
+      "why_now": "The transition is effective immediately on September 1, 2026, following the announcement on August 30.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-51adf0fae9d1"
+      ],
+      "primary_source_event_id": "EVT-51adf0fae9d1",
+      "source_headlines": [
+        "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders"
+      ],
+      "source_headline": "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders",
+      "source_url": "https://www.ndtvprofit.com/markets/tim-cook-bows-out-as-apple-ceo-on-sept-1-after-historic-25x-gains-to-shareholders-11977052#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T06:35:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T06:20:17Z",
+      "updated_at": "2026-08-30T07:20:04Z",
+      "decay_at": "2026-08-31T18:35:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f706760db176",
       "idea_version": "IDEAV-9db919d9eab10fe3",
       "idea_version_started_at": "2026-08-30T02:00:09Z",
@@ -96617,8 +96617,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 286,
-    "shown_count": 286,
+    "total_count": 287,
+    "shown_count": 287,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -96627,8 +96627,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 149,
-        "shown_count": 149,
+        "total_count": 150,
+        "shown_count": 150,
         "hidden_count": 0
       }
     },
@@ -96648,6 +96648,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0448efa62005",
+        "idea_version": "IDEAV-3bf20a51c926786c",
+        "idea_version_started_at": "2026-08-30T07:20:04Z",
+        "ticker": "AAPL",
+        "company": "Apple Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The departure of Tim Cook, who oversaw a 28x increase in shareholder value, creates significant leadership uncertainty and a potential valuation premium reset for the world's largest consumer electronics firm.",
+        "why_now": "The transition is effective immediately on September 1, 2026, following the announcement on August 30.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-51adf0fae9d1"
+        ],
+        "primary_source_event_id": "EVT-51adf0fae9d1",
+        "source_headlines": [
+          "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders"
+        ],
+        "source_headline": "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders",
+        "source_url": "https://www.ndtvprofit.com/markets/tim-cook-bows-out-as-apple-ceo-on-sept-1-after-historic-25x-gains-to-shareholders-11977052#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T06:35:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T06:20:17Z",
+        "updated_at": "2026-08-30T07:20:04Z",
+        "decay_at": "2026-08-31T18:35:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T18:35:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ad181ba1eeef",
         "idea_version": "IDEAV-951e0f64ffbb637d",
@@ -117856,7 +117929,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 364,
-    "live_count": 76,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -117875,9 +117948,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1109310,
-    "news_picked_today": 1854,
-    "news_dropped_today": 15710
+    "news_seen_today": 1160515,
+    "news_picked_today": 1870,
+    "news_dropped_today": 15958
   },
   "book_momentum": {
     "live_count": 8,
