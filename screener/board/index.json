@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T11:52:13Z",
+  "generated_at": "2026-08-31T12:03:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-606",
+      "headline": "Ansal Housing Ltd-$: Disclosures by listed entities of defaults on payment of interest/ repayment of principal amount for loans including revolving facilities like cash credit from banks ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f2ca43c1-e5a8-4715-b54c-d5e571ea1994.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T11:51:33Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Ansal Housing Ltd has disclosed a default on payment of interest or repayment of principal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ansal Housing Ltd has disclosed a default on payment of interest or repayment of principal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ansal Housing Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-566",
       "headline": "AB&B BIO-TECH-B (02627): INSIDE INFORMATION: (1) FURTHER DELAY IN PUBLICATION OF ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED DECEMBER 31, 2025 AND DISPATCH OF THE 2025 ANNUAL REPORT; (2) DELAY IN PUBLICATION OF THE INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026 AND DISPATCH OF THE 2026 INTERIM REPORT; (3) FURTHER POSTPONEMENT OF BOARD MEETINGS; AND (4) CONTINUED SUSPENSION OF TRADING",
@@ -94,55 +143,6 @@
           "name": "TAIHE M-FIN",
           "ticker": "01915",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-528",
-      "headline": "MT Educare Ltd: Disclosures by listed entities of defaults on payment of interest/ repayment of principal amount for loans including revolving facilities like cash credit from banks ....",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c9e0696d-b111-46ca-8d58-cde7fdb7cfa9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T11:09:56Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company disclosed defaults on loan interest and principal repayments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company disclosed defaults on loan interest and principal repayments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MT Educare Ltd",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1678,6 +1678,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-624",
+      "headline": "SLB To Acquire Kelvion For $3.4 Bln To Expand Data Center Business",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/slb-acquire-kelvion-34-bln-expand-data-center-business",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:23:12Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "SLB to acquire Kelvion for $3.4 billion to expand data center business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SLB to acquire Kelvion for $3.4 billion to expand data center business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLB",
+          "ticker": "SLB",
+          "listing_country": "US"
+        },
+        {
+          "name": "Kelvion",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-605",
+      "headline": "Lilly to Buy This Autoimmune Drugmaker for $2.9 Billion in Cash. What It Means for the Stock.",
+      "headline_en": null,
+      "url": "https://www.barrons.com/articles/eli-lilly-stock-merida-biosciences-acquisition-3757be2f?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T11:23:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Eli Lilly to acquire an autoimmune drugmaker for $2.9 billion in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly to acquire an autoimmune drugmaker for $2.9 billion in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-560",
       "headline": "John Ternus becomes Apple CEO, with AI as first big challenge",
       "headline_en": null,
@@ -1869,109 +1973,6 @@
         },
         {
           "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-548",
-      "headline": "CEO Lip-Bu Tan Just Gave 12 Million Reasons to Buy Intel Stock",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/31/ceo-lip-bu-tan-just-gave-12-million-reasons-to-buy/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T10:45:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Eli Lilly agreed to buy Merida Biosciences in a deal worth up to $2.88 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly agreed to buy Merida Biosciences in a deal worth up to $2.88 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": "LLY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-564",
-      "headline": "Teva Pharmaceuticals to acquire BioXcel assets for up to $125m",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/teva-pharmaceuticals-acquire-bioxcel-assets-103223307.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T10:32:23Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Acquisition of assets for $125m.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of assets for $125m.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Teva Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "BioXcel",
           "ticker": null,
           "listing_country": "US"
         }
@@ -117878,9 +117879,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 363431,
-    "news_picked_today": 1189,
-    "news_dropped_today": 11767
+    "news_seen_today": 371306,
+    "news_picked_today": 1216,
+    "news_dropped_today": 11860
   },
   "book_momentum": {
     "live_count": 8,
