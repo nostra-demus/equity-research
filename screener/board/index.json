@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T04:59:30Z",
+  "generated_at": "2026-08-31T05:05:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-227",
@@ -343,6 +343,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-310",
+      "headline": "China’s three biggest airlines post heavy first-half losses as fuel shock bites",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/chinas-three-biggest-airlines-post-heavy-first-half-losses-fuel-shock-bites",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T05:01:16Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "China's three largest airlines reported heavy first-half losses driven by fuel cost shocks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China's three largest airlines reported heavy first-half losses driven by fuel cost shocks.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Air China",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "China Eastern Airlines",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "China Southern Airlines",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-308",
+      "headline": "Cronos halts blockchain after $75 million lending exploit hits lending app Tectonic",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/tech/2026/08/31/cronos-halts-blockchain-after-usd75-million-lending-exploit-hits-lending-app-tectonic",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T04:57:13Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "A $75 million exploit on the Tectonic lending app caused a blockchain halt, indicating significant operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $75 million exploit on the Tectonic lending app caused a blockchain halt, indicating significant operational and security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tectonic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,104 +1980,6 @@
           "name": "Jio Platforms",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-096",
-      "headline": "삼성중공업, 4445억원 규모 컨테이너선 2척 수주",
-      "headline_en": "Samsung Heavy Industries wins 444.5 billion KRW order for 2 container ships",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275810",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:55:39Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Samsung Heavy Industries secured a new order for two container ships valued at 444.5 billion KRW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Samsung Heavy Industries secured a new order for two container ships valued at 444.5 billion KRW.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Heavy Industries",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-097",
-      "headline": "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/comfortdelgro-joint-venture-selected-run-copenhagen-metro-under-27-billion-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:55:30Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "ComfortDelGro's joint venture won a $2.7 billion contract to operate the Copenhagen Metro.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ComfortDelGro's joint venture won a $2.7 billion contract to operate the Copenhagen Metro.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ComfortDelGro",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -118163,9 +118173,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1552,
-    "news_picked_today": 459,
-    "news_dropped_today": 1077
+    "news_seen_today": 1597,
+    "news_picked_today": 474,
+    "news_dropped_today": 1107
   },
   "book_momentum": {
     "live_count": 8,
