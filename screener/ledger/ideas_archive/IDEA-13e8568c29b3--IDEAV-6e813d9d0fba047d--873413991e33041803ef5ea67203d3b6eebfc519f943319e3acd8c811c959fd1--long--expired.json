@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-31T14:15:54Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-13e8568c29b3",
+    "idea_version": "IDEAV-6e813d9d0fba047d",
+    "idea_version_started_at": "2026-08-29T10:08:49Z",
+    "ticker": "ALCO",
+    "company": "Alcoa Corporation",
+    "exchange": "NYSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The U.S. Department of War is investing $100 million in Atalco, the sole remaining domestic alumina refinery, securing a critical supply chain asset for aluminum production where Alcoa is the primary U.S. producer and likely strategic partner.",
+    "why_now": "Official DoD announcement today (2026-08-28) confirms the equity investment and strategic rationale for domestic alumina security.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "policy_conditional",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-2da990ee974d"
+    ],
+    "primary_source_event_id": "EVT-2da990ee974d",
+    "source_headlines": [
+      "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery"
+    ],
+    "source_headline": "Department of War Announces a $100 Million Follow-on Equity Investment in Atalco to Secure the Sole Remaining Domestic Alumina Refinery",
+    "source_url": "https://www.war.gov/News/Releases/Release/Article/4585310/department-of-war-announces-a-100-million-follow-on-equity-investment-in-atalco/",
+    "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-28T14:00:34Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-29T10:08:49Z",
+    "updated_at": "2026-08-29T10:08:49Z",
+    "decay_at": "2026-08-30T02:00:34Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
