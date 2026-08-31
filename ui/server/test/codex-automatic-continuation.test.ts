@@ -6,6 +6,7 @@ import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import { planCodexAutomaticContinuation } from '../src/launcher'
 import { createRun, type RunState } from '../src/registry'
+import { handleStreamLine } from '../src/stream-parser'
 
 const profile = {
   key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
@@ -88,6 +89,21 @@ const cleanExit = { exitCode: 0 }
   assert.equal(planCodexAutomaticContinuation(run, { exitCode: 7 }).reason, 'provider_process_nonclean')
   run.cliResult = { subtype: 'out_of_credits', isError: true }
   assert.equal(planCodexAutomaticContinuation(run, cleanExit).reason, 'provider_error')
+}
+
+{
+  const run = makeRun()
+  run.agents.get('business-model/00_data-triage')!.status = 'done'
+  handleStreamLine(run,
+    '{"type":"turn.failed","error":{"message":"Selected model is at capacity. Please try a different model."}}')
+  const capacityRetry = planCodexAutomaticContinuation(run, { exitCode: 1, failed: true })
+  assert.equal(capacityRetry.continue, true,
+    'a model-capacity turn failure continues the exact admitted run instead of stranding saved work')
+  assert.equal(capacityRetry.reason, 'model_capacity_retry')
+  assert.deepEqual(capacityRetry.completedOutputs, ['business-model/00_data-triage.md'])
+  assert.deepEqual(capacityRetry.unresolvedOutputs, [
+    'business-model/09_moat.md', 'business-model/99_business-model-synthesis.md',
+  ])
 }
 
 {

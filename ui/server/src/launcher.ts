@@ -792,6 +792,7 @@ export function planCodexAutomaticContinuation(
   if (run.publicationRequested || run.publicationCompleted || run.publicationError) {
     return { continue: false, reason: 'publication_started' }
   }
+  const modelCapacity = run.cliResult?.isError === true && run.cliResult.subtype === 'model_capacity'
   // A screener signal may deliberately stop at a terminal routing before later discovered modules run.
   // RUN_METADATA is written only after that routing is adjudicated, so it is the exact parent-completion
   // barrier; requiring every expected orb would incorrectly continue valid PARK/LOG/watchlist outcomes.
@@ -805,14 +806,15 @@ export function planCodexAutomaticContinuation(
   if (!res || typeof res !== 'object') return { continue: false, reason: 'provider_process_nonclean' }
   const code = res.exitCode ?? res.code
   const terminated = res.isTerminated === true || res.killed === true || !!res.signal
-  if (terminated || res.failed === true || (typeof code === 'number' && code !== 0)) {
+  if (!modelCapacity && (terminated || res.failed === true || (typeof code === 'number' && code !== 0))) {
     return { continue: false, reason: 'provider_process_nonclean' }
   }
   const classified = getProviderAdapter(run.provider).classifyExit({
     result: res, stderr, status: run.status, cliResult: run.cliResult,
   })
   const cleanIncomplete = classified.outcome === 'success'
-    || (classified.outcome === 'error' && classified.reason === 'codex_missing_turn_completed')
+    || (classified.outcome === 'error'
+      && ['codex_missing_turn_completed', 'model_capacity'].includes(classified.reason))
   if (!cleanIncomplete) return { continue: false, reason: `provider_${classified.outcome}` }
 
   const currentCount = run.automaticContinuationCount ?? 0
@@ -825,7 +827,7 @@ export function planCodexAutomaticContinuation(
   if (stagnantTurns >= 2) return { continue: false, reason: 'no_artifact_progress' }
   return {
     continue: true,
-    reason: 'clean_incomplete_codex_process',
+    reason: modelCapacity ? 'model_capacity_retry' : 'clean_incomplete_codex_process',
     index: currentCount + 1,
     checkpoint: inventory.checkpoint,
     stagnantTurns,
