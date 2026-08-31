@@ -43,17 +43,26 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve cross-module paths (all five upstream modules)
 
-The catalyst agents optionally read prior module outputs for the same ticker. Resolve the upstream folder of each via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/`; only fall back to the latest prior-dated run (and then state "using prior-run upstream dated X" in your output) when this run lacks that module (fix F30):**
+The catalyst agents optionally read prior module outputs for the same ticker. **When `NOSTRA_CONTINUATION_RUN_ROOT` is set (including every cockpit Full chain), resolve only non-empty syntheses inside this exact `<RUN_ROOT>`; omit fail-fast-aborted dependencies and never fall back to older runs.** A standalone module run may fall back to the latest prior-dated completed dependency:
 
 ```
-ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/balance-sheet-survival/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/management-governance/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/valuation/ 2>/dev/null | sort -r | head -n 1
+if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
+  for m in business-model earnings balance-sheet-survival management-governance valuation; do
+    MODULE_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/$m/99_${m}-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/$m/")"
+    printf '%s=%s\n' "$m" "$MODULE_PATH"
+  done
+else
+  for m in business-model earnings balance-sheet-survival management-governance valuation; do
+    MODULE_PATH=""
+    for d in $(ls -1d analyses/${ARGUMENTS}_*/${m}/ 2>/dev/null | sort -r); do
+      [ -s "${d}99_${m}-synthesis.md" ] && { MODULE_PATH="$d"; break; }
+    done
+    printf '%s=%s\n' "$m" "$MODULE_PATH"
+  done
+fi
 ```
 
-Capture each first result. The `sort -r | head -n 1` selects the latest folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format in the path. If a command returns an empty string, treat that module as `not available`.
+Capture each value by its module label. The newest-first loops select the latest completed folders by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format in the path. If a value is empty, treat that module as `not available`.
 
 Build the cross-module context string `<CROSS_MODULE_CONTEXT>` by joining one sentence per AVAILABLE module, each capitalized as the agents expect:
 

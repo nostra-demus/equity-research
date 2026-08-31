@@ -17,6 +17,7 @@ import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
+import { extractTriageStatus } from '../src/verdict'
 import type {
   ChainIntentProgress,
   ChainIntentStart,
@@ -189,7 +190,26 @@ function writeSynthesis(runRoot: string, graph: SwarmGraph, moduleName: string):
   fs.writeFileSync(path.join(moduleRoot, synthesisFile(graph, moduleName)), `# ${moduleName} synthesis\n`)
 }
 
+function writeFailFastTriage(runRoot: string, graph: SwarmGraph, moduleName: string): string {
+  const module = graph.modules.find((candidate) => candidate.name === moduleName)
+  const triage = module && Object.values(module.layers).flat()
+    .find((agent) => agent.nn === '00' && agent.failFast)
+  assert.ok(triage, `expected ${moduleName} to have a fail-fast triage agent`)
+  const file = `${triage!.key.split('/').at(-1)}.md`
+  const moduleRoot = path.join(REPO_ROOT, runRoot, moduleName)
+  fs.mkdirSync(moduleRoot, { recursive: true })
+  fs.writeFileSync(path.join(moduleRoot, file), '# Data triage\n\nVerdict: Insufficient data\n')
+  return file
+}
+
 const sorted = (a: string[]) => [...a].sort()
+
+assert.equal(extractTriageStatus('**Verdict:** Insufficient data'), 'Insufficient')
+assert.equal(extractTriageStatus('Verdict: Sufficient'), 'Sufficient')
+assert.equal(extractTriageStatus('If Insufficient, report "Verdict: Insufficient data"\n\nVerdict: Sufficient'), 'Sufficient',
+  'checklist prose cannot override the canonical verdict carrier')
+assert.equal(extractTriageStatus('Verdict: Partial\n\nVerdict: Sufficient'), null,
+  'conflicting canonical terminal verdicts are not valid completion evidence')
 
 ;(async () => {
   await check('a child that finishes before launch ACK replays only after the ACK turn instead of stranding the chain', async () => {
@@ -373,6 +393,58 @@ const sorted = (a: string[]) => [...a].sort()
       f.finish('earnings')
       await f.tick()
       assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 1)
+      await f.tick()
+      f.finish('master')
+      await f.tick()
+      assert.deepEqual(durable.terminals(), ['done'])
+    } finally {
+      fs.rmSync(path.join(REPO_ROOT, runRoot), { recursive: true, force: true })
+    }
+  })
+
+  await check('a valid fail-fast Insufficient triage seals the module and advances the full chain', async () => {
+    const discovered = buildSwarmGraph()
+    const modules = discovered.modules.filter((module) => module.name === 'balance-sheet-survival')
+    const graph: SwarmGraph = {
+      ...discovered,
+      modules,
+      totals: {
+        modules: 1,
+        agents: modules[0]!.agentCount,
+        specialists: Object.values(modules[0]!.layers).flat().filter((agent) => !agent.isSynthesis).length,
+        synthesis: 1,
+      },
+    }
+    const runRoot = `analyses/ZZFAILFAST_${Date.now()}`
+    const durable = makeDurableChainFake(runRoot, () => false)
+    const f = makeFake({ graph })
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
+    try {
+      await launchFullChained('ZZFAILFAST', 'tester', 'local', {
+        provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+        expectedProfileKey: 'claude:sonnet:default',
+      }, f.deps, undefined, undefined, {
+        runRoot,
+        continuation: true,
+        recoveryRequestId: durable.transaction.requestId,
+        preparedRunPlanTransaction: durable.transaction,
+      })
+      const triageFile = writeFailFastTriage(runRoot, graph, 'balance-sheet-survival')
+      f.finish('balance-sheet-survival')
+      await f.tick()
+      const ready = durable.progress().find((entry) => entry.masterState === 'ready')
+      assert.equal(ready?.masterState, 'ready', 'the deliberate capped outcome unblocks the terminal master')
+      assert.deepEqual(ready?.completed, [{
+        module: 'balance-sheet-survival',
+        artifacts: [{
+          outputRel: `balance-sheet-survival/${triageFile}`,
+          sha256: `sha256:${createHash('sha256').update(fs.readFileSync(
+            path.join(REPO_ROOT, runRoot, 'balance-sheet-survival', triageFile),
+          )).digest('hex')}`,
+        }],
+      }])
+      assert.equal(f.launches.filter((launch) => launch.kind === 'rerun').length, 1,
+        'Full continues to master without fabricating a module synthesis')
       await f.tick()
       f.finish('master')
       await f.tick()

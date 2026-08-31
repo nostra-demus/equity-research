@@ -126,6 +126,13 @@ Before writing the final dossier, read inputs in this priority order:
 
 3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, management-governance, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
 
+   The orchestrator may also pass a typed terminal outcome `fail_fast_insufficient` for a discovered module,
+   with the exact `00_*` triage path. Read that triage as the module's intentional completed capped outcome:
+   carry its missing-data reasons and resulting caps into `missing_data`, confidence, the Risk Register, and
+   the module's chapter. Do not call it a crash, partial run, or successful synthesis, and do not invent the
+   analysis that the module deliberately refused to perform. Only the orchestrator's exact-root typed roster
+   may grant this status; a bare `00_*` file is not enough.
+
    **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: the Valuation section → `valuation`, the Governance & Stewardship section → `management-governance`, the Balance-Sheet & Survival section → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away. **Upstream-gap handling (fix F32):** if a module synthesis records that it ran WITHOUT one of its declared `depends_on` upstreams (a standalone-run gap), treat that as a data-sufficiency input — note it in `missing_data`, lower confidence, and do not let a module that lacked its cross-module context drive the headline unchecked. A missing upstream is a machine-checkable cap input, not just prose to skim past.
 
    Expected examples:
@@ -160,7 +167,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 The master synthesizer's primary job is to consume MODULE SYNTHESES, not to re-do specialist-level work. Module syntheses have already adjudicated their own sub-agents — trust that adjudication unless a sub-agent output directly contradicts it. Do not duplicate work that was already done at the module-synthesis level.
 
-If a module folder exists but its `99_*-synthesis.md` is missing, list this as a critical gap — the module ran partially and the master synthesizer cannot fully consume it.
+If a module folder exists but its `99_*-synthesis.md` is missing, list this as a critical gap — the module ran partially and the master synthesizer cannot fully consume it — unless the exact-root typed terminal roster declares its validated `fail_fast_insufficient` triage. That declared outcome is a completed data-sufficiency refusal and must instead be carried as an explicit confidence/rating cap.
 
 If folder names differ slightly from expectations, infer correct files by searching for ticker, company name, latest run date, module names (business-model, earnings, etc.), and `99_*-synthesis` filename patterns.
 
@@ -836,7 +843,7 @@ If math does not reconcile, do not publish — fix in Section 8 first.
 
 # PART III — MODULE CHAPTERS
 
-For each module that ran (i.e., for each `99_*-synthesis.md` file found in `analyses/{TICKER}_{DATE}/*/`), include that module's synthesis as a chapter — either verbatim, OR (per the No-Bloat Rule, when the synthesis is long) a tight decision-relevant compression that preserves the module's verdict, scores, and red flags, with the full `99_*-synthesis.md` path referenced for the audit trail. Do not pad or re-narrate numbers already given in Parts I–II. The order is: business-model first, then earnings, then any other modules in alphabetical order.
+For each module that ran (each `99_*-synthesis.md`, plus each exact-root typed `fail_fast_insufficient` outcome), include a chapter. For a synthesis, embed it verbatim or use a tight decision-relevant compression that preserves its verdict, scores, and red flags, with the full path referenced. For `fail_fast_insufficient`, label the chapter **Intentional fail-fast — Insufficient data**, cite the exact triage path, and preserve its missing inputs and caps without pretending a synthesis exists. Do not pad or re-narrate numbers already given in Parts I–II. The order is: business-model first, then earnings, then any other modules in alphabetical order.
 
 ## Chapter A: Business Model
 
@@ -854,7 +861,7 @@ If the module synthesis file is missing, write the equivalent gap statement.
 
 ## Chapter C, D, E... (as additional modules exist)
 
-For each additional `99_*-synthesis.md` found in `analyses/{TICKER}_{DATE}/*/`, add a chapter. Chapter labels are assigned by alphabetical order of module folder name (after the first two known modules).
+For each additional `99_*-synthesis.md` or exact-root typed `fail_fast_insufficient` outcome, add a chapter. Chapter labels are assigned by alphabetical order of module folder name (after the first two known modules).
 
 ---
 
@@ -955,7 +962,7 @@ Capital IQ Pro steps:
 
 ## 18. Balance Sheet and Survival Test
 
-(A dedicated `balance-sheet-survival` module now exists. If `analyses/{TICKER}_{DATE}/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` is present, this section MUST defer to it — summarize net leverage, the maturity wall, liquidity runway, covenant headroom, and the downside stress **break-points**. Feed its break-point (the EBITDA decline at which a covenant breaks or liquidity runs out) into the **bear case in §8**, the **Risk Register (§9)**, and **What Would Kill the Thesis (§10)**. A "Distress risk" solvency verdict caps the headline rating (§1) at "Watchlist" or lower unless the thesis is an explicit distressed/special-situation play. Produce this section from scratch ONLY if the module did not run.)
+(A dedicated `balance-sheet-survival` module now exists. If `analyses/{TICKER}_{DATE}/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` is present, this section MUST defer to it — summarize net leverage, the maturity wall, liquidity runway, covenant headroom, and the downside stress **break-points**. Feed its break-point (the EBITDA decline at which a covenant breaks or liquidity runs out) into the **bear case in §8**, the **Risk Register (§9)**, and **What Would Kill the Thesis (§10)**. A "Distress risk" solvency verdict caps the headline rating (§1) at "Watchlist" or lower unless the thesis is an explicit distressed/special-situation play. If the exact-root typed terminal outcome is `fail_fast_insufficient`, report the triage's missing solvency inputs and apply its data-sufficiency cap; do not produce the survival analysis from scratch and do not label the module failed. Produce this section from scratch ONLY if the module did not run and has no typed fail-fast outcome.)
 
 Explain:
 

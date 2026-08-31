@@ -4186,13 +4186,25 @@ export async function launchFullChained(
       .filter((agent) => agent.isSynthesis)
       .map((agent) => `${agent.key.split('/').at(-1)}.md`),
   ]))
+  const failFastTriageFiles = new Map(g.modules.map((m) => [
+    m.name,
+    Object.values(m.layers).flat()
+      .filter((agent) => agent.nn === '00' && agent.failFast)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`),
+  ]))
   const known = new Set(names)
   const depsOf = new Map(g.modules.map((m) => [m.name, m.dependsOn.filter((d) => known.has(d))]))
   const total = names.length
   const chainModules = names.map((name) => ({
     module: name,
     dependsOn: [...(depsOf.get(name) ?? [])].sort(),
-    synthesisOutputs: (synthesisFiles.get(name) ?? []).map((file) => `${name}/${file}`).sort(),
+    // Retain the legacy field name on disk, but declare every mechanically valid terminal outcome:
+    // either the synthesis or a discovered fail-fast triage. The transaction kernel rejects completed
+    // evidence outside this exact list.
+    synthesisOutputs: [
+      ...(synthesisFiles.get(name) ?? []),
+      ...(failFastTriageFiles.get(name) ?? []),
+    ].map((file) => `${name}/${file}`).sort(),
   }))
   // Acquire after all read-only graph construction but BEFORE the first marker/filesystem mutation. The
   // subject token and pool claim live until master terminal or abort; child ACKs/finishes never release them.
@@ -4306,7 +4318,14 @@ export async function launchFullChained(
   // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = datedRoot
   if (recoveredIntent) {
-    if (!isDeepStrictEqual(recoveredIntent.modules, chainModules)) {
+    const declarationCanUpgrade = recoveredIntent.modules.length === chainModules.length
+      && recoveredIntent.modules.every((prior, index) => {
+        const next = chainModules[index]
+        return next?.module === prior.module
+          && isDeepStrictEqual(next.dependsOn, prior.dependsOn)
+          && prior.synthesisOutputs.every((output) => next.synthesisOutputs.includes(output))
+      })
+    if (!declarationCanUpgrade) {
       throw new Error('recoverable full-chain module roster changed; refusing to widen or rebuild its scope')
     }
     const resolved = getProviderAdapter(selection.provider).resolveProfile({
@@ -4356,8 +4375,11 @@ export async function launchFullChained(
     for (const name of names) {
       if (recoveredIntent) continue
       try {
-        const finished = (synthesisFiles.get(name) ?? []).some((file) =>
-          validateAgentOutputFile(path.join(REPO_ROOT, resumeRoot, name, file)).valid)
+        const finished = validModuleOutcomeFiles(
+          path.join(REPO_ROOT, resumeRoot, name),
+          synthesisFiles.get(name) ?? [],
+          failFastTriageFiles.get(name) ?? [],
+        ).length > 0
         if (finished) { done.add(name); started.add(name) }
       } catch { /* this module isn't finished yet */ }
     }
@@ -4371,20 +4393,23 @@ export async function launchFullChained(
     if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
   }
   const completedChainEvidence = () => [...done].sort().map((name) => {
-    const artifacts = (synthesisFiles.get(name) ?? []).flatMap((file) => {
-      const absolute = path.join(REPO_ROOT, resumeRoot, name, file)
+    const moduleAbsolute = path.join(REPO_ROOT, resumeRoot, name)
+    const artifacts = validModuleOutcomeFiles(
+      moduleAbsolute,
+      synthesisFiles.get(name) ?? [],
+      failFastTriageFiles.get(name) ?? [],
+    ).flatMap((file) => {
       try {
-        if (!validateAgentOutputFile(absolute).valid) return []
         return [{
           outputRel: `${name}/${file}`,
-          sha256: `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`,
+          sha256: `sha256:${createHash('sha256').update(fs.readFileSync(path.join(moduleAbsolute, file))).digest('hex')}`,
         }]
       } catch {
         return []
       }
     })
     if (artifacts.length === 0) {
-      throw new Error(`completed chain module ${name} lost its validated synthesis before progress was sealed`)
+      throw new Error(`completed chain module ${name} lost its validated terminal outcome before progress was sealed`)
     }
     return { module: name, artifacts }
   })
@@ -5893,8 +5918,18 @@ export function assertParityCanaryStageRoot(rootAbsolute: string, stage: ParityC
 }
 
 function hasValidParitySynthesis(moduleAbsolute: string, files: string[]): boolean {
-  if (!files.length) return false
-  return files.some((file) => {
+  return validModuleOutcomeFiles(moduleAbsolute, files, []).length > 0
+}
+
+/** `/research:full` treats a fail-fast 00 triage verdict of Insufficient as a completed, capped module
+ * outcome. The frozen terminal gate must accept that same deliberate outcome, but only from a discovered
+ * fail-fast triage file that passes the canonical regular-file validator. */
+function validModuleOutcomeFiles(
+  moduleAbsolute: string,
+  synthesisFiles: string[],
+  failFastTriageFiles: string[],
+): string[] {
+  const validRegularFiles = (files: string[]) => files.filter((file) => {
     const candidate = path.join(moduleAbsolute, file)
     try {
       const info = fs.lstatSync(candidate)
@@ -5903,27 +5938,23 @@ function hasValidParitySynthesis(moduleAbsolute: string, files: string[]): boole
       return false
     }
   })
+  const syntheses = validRegularFiles(synthesisFiles)
+  if (syntheses.length) return syntheses
+  return validRegularFiles(failFastTriageFiles).filter((file) => {
+    try {
+      return extractTriageStatus(fs.readFileSync(path.join(moduleAbsolute, file), 'utf8')) === 'Insufficient'
+    } catch {
+      return false
+    }
+  })
 }
 
-/** `/research:full` treats a fail-fast 00 triage verdict of Insufficient as a completed, capped module
- * outcome. The frozen terminal gate must accept that same deliberate outcome, but only from a discovered
- * fail-fast triage file that passes the canonical regular-file validator. */
 function hasValidParityModuleOutcome(
   moduleAbsolute: string,
   synthesisFiles: string[],
   failFastTriageFiles: string[],
 ): boolean {
-  if (hasValidParitySynthesis(moduleAbsolute, synthesisFiles)) return true
-  return failFastTriageFiles.some((file) => {
-    const candidate = path.join(moduleAbsolute, file)
-    try {
-      const info = fs.lstatSync(candidate)
-      if (!info.isFile() || info.isSymbolicLink() || !validateAgentOutputFile(candidate).valid) return false
-      return extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient'
-    } catch {
-      return false
-    }
-  })
+  return validModuleOutcomeFiles(moduleAbsolute, synthesisFiles, failFastTriageFiles).length > 0
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).

@@ -340,6 +340,18 @@ function validateProfileAgainstPlan(profile: PreSpendRetryProfile, plan: ThesisP
   }
 }
 
+function chainModuleDeclarationsCanUpgrade(
+  prior: ChainIntentStart['modules'],
+  next: ChainIntentStart['modules'],
+): boolean {
+  return prior.length === next.length && prior.every((entry, index) => {
+    const candidate = next[index]
+    return candidate?.module === entry.module
+      && canonicalJsonText(candidate.dependsOn) === canonicalJsonText(entry.dependsOn)
+      && entry.synthesisOutputs.every((output) => candidate.synthesisOutputs.includes(output))
+  })
+}
+
 function validChainIntent(value: unknown, plan: ThesisPlan): value is ChainIntentJournal {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const intent = value as ChainIntentJournal
@@ -1243,15 +1255,21 @@ async function prepareRunPlanTransactionInternal(
           const stablePrior = {
             chainId: journal.chainIntent.chainId, user: journal.chainIntent.user,
             userVia: journal.chainIntent.userVia, selection: journal.chainIntent.selection,
-            modules: journal.chainIntent.modules,
           }
           const stableCandidate = {
             chainId: candidate.chainId, user: candidate.user, userVia: candidate.userVia,
-            selection: candidate.selection, modules: candidate.modules,
+            selection: candidate.selection,
           }
           if (canonicalJsonText(stablePrior) !== canonicalJsonText(stableCandidate)
-              || journal.chainIntent.terminalStatus !== null) {
+              || journal.chainIntent.terminalStatus !== null
+              || !chainModuleDeclarationsCanUpgrade(journal.chainIntent.modules, candidate.modules)) {
             throw new Error('full-chain intent changed or is already terminal')
+          }
+          if (canonicalJsonText(journal.chainIntent.modules) !== canonicalJsonText(candidate.modules)) {
+            journal = await writeJournal(journalDirectory, {
+              ...journal,
+              chainIntent: { ...journal.chainIntent, modules: candidate.modules, progressAt: now },
+            }) as TransactionJournalV3
           }
           return
         }

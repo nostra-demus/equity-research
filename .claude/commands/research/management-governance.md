@@ -68,7 +68,7 @@ mkdir -p "$RUN_ROOT"
 
 ## 4. Resolve cross-module paths (business-model, earnings, balance-sheet-survival)
 
-The governance agents optionally read prior module outputs for the same ticker. Resolve the upstream folder of each via Bash — **prefer THIS run's `<RUN_ROOT>/`; only fall back to the latest prior-dated run (and then state "using prior-run upstream dated X" in your output) when this run lacks that module (fix F30). One-click exact resume is stricter: when `NOSTRA_EXACT_MODULE_RESUME=1`, use ONLY modules both named in the comma-separated `NOSTRA_EXACT_MODULE_INPUTS` allowlist and staged in the immutable `<RUN_ROOT>` bound in Step 1; never fall back across dated folders. Those current paths are the exact inputs the cockpit checkpointed, published, locked against concurrent writes, and fingerprinted before launch:**
+The governance agents optionally read prior module outputs for the same ticker. **When `NOSTRA_CONTINUATION_RUN_ROOT` is set (including every cockpit Full chain), use only non-empty syntheses inside this exact `<RUN_ROOT>`; omit fail-fast-aborted dependencies and never fall back to older runs.** One-click exact resume (`NOSTRA_EXACT_MODULE_RESUME=1`) uses only modules named by `NOSTRA_EXACT_MODULE_INPUTS` in the exact staged root and must never fall back across dated folders. Only a standalone non-continuation module run may fall back to the latest prior-dated completed dependency:
 
 ```
 if [ "${NOSTRA_EXACT_MODULE_RESUME:-}" = "1" ]; then
@@ -76,6 +76,10 @@ if [ "${NOSTRA_EXACT_MODULE_RESUME:-}" = "1" ]; then
   case "$EXACT_INPUTS" in *,business-model,*) BUSINESS_MODEL_PATH="$(test -d "$RUN_ROOT/business-model" && printf '%s' "$RUN_ROOT/business-model/")" ;; *) BUSINESS_MODEL_PATH="" ;; esac
   case "$EXACT_INPUTS" in *,earnings,*) EARNINGS_PATH="$(test -d "$RUN_ROOT/earnings" && printf '%s' "$RUN_ROOT/earnings/")" ;; *) EARNINGS_PATH="" ;; esac
   case "$EXACT_INPUTS" in *,balance-sheet-survival,*) BALANCE_SHEET_SURVIVAL_PATH="$(test -d "$RUN_ROOT/balance-sheet-survival" && printf '%s' "$RUN_ROOT/balance-sheet-survival/")" ;; *) BALANCE_SHEET_SURVIVAL_PATH="" ;; esac
+elif [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
+  BUSINESS_MODEL_PATH="$(test -s "$RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s' "$RUN_ROOT/business-model/")"
+  EARNINGS_PATH="$(test -s "$RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s' "$RUN_ROOT/earnings/")"
+  BALANCE_SHEET_SURVIVAL_PATH="$(test -s "$RUN_ROOT/balance-sheet-survival/99_balance-sheet-survival-synthesis.md" && printf '%s' "$RUN_ROOT/balance-sheet-survival/")"
 else
   BUSINESS_MODEL_PATH="$(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1)"
   EARNINGS_PATH="$(ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1)"

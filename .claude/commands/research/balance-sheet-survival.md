@@ -43,15 +43,31 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve cross-module paths (business-model, earnings, valuation)
 
-The solvency agents optionally read prior module outputs for the same ticker. Resolve the upstream folder of each via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/`; only fall back to the latest prior-dated run (and then state "using prior-run upstream dated X" in your output) when this run lacks that module (fix F30):**
+The solvency agents optionally read prior module outputs for the same ticker. **When `NOSTRA_CONTINUATION_RUN_ROOT` is set (including every cockpit Full chain), resolve only non-empty syntheses inside this exact `<RUN_ROOT>`; omit fail-fast-aborted dependencies and never fall back to older runs.** A standalone module run may fall back to the latest prior-dated completed dependency:
 
 ```
-ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/valuation/ 2>/dev/null | sort -r | head -n 1
+if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
+  BUSINESS_MODEL_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/business-model/")"
+  EARNINGS_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/99_earnings-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/earnings/")"
+  VALUATION_PATH="$(test -s "$NOSTRA_CONTINUATION_RUN_ROOT/valuation/99_valuation-synthesis.md" && printf '%s' "$NOSTRA_CONTINUATION_RUN_ROOT/valuation/")"
+else
+  BUSINESS_MODEL_PATH=""
+  EARNINGS_PATH=""
+  VALUATION_PATH=""
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_business-model-synthesis.md" ] && { BUSINESS_MODEL_PATH="$d"; break; }
+  done
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_earnings-synthesis.md" ] && { EARNINGS_PATH="$d"; break; }
+  done
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/valuation/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_valuation-synthesis.md" ] && { VALUATION_PATH="$d"; break; }
+  done
+fi
+printf 'business-model=%s\nearnings=%s\nvaluation=%s\n' "$BUSINESS_MODEL_PATH" "$EARNINGS_PATH" "$VALUATION_PATH"
 ```
 
-Capture the results as `<BUSINESS_MODEL_PATH>`, `<EARNINGS_PATH>`, and `<VALUATION_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name (the `YYYY-MM-DD` in the path sorts correctly). If a command returns an empty string, treat that module as `not available`.
+Capture the labelled values as `<BUSINESS_MODEL_PATH>`, `<EARNINGS_PATH>`, and `<VALUATION_PATH>`. The newest-first loops select the latest completed folders by directory name (the `YYYY-MM-DD` in the path sorts correctly). If a value is empty, treat that module as `not available`.
 
 Build the cross-module context string `<CROSS_MODULE_CONTEXT>` by joining one well-formed sentence per available module, e.g.:
 

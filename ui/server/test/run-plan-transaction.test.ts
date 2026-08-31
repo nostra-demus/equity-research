@@ -529,12 +529,25 @@ try {
   }, {}, state)
   assert.deepEqual(recoveredChain.recoveredChainIntent, afterModuleGap.intent,
     'the reopened scheduler receives only journal-sealed completion evidence')
+  const failFastArtifactB = { outputRel: 'b/00_data-triage.md', sha256: `sha256:${'c'.repeat(64)}` }
+  await recoveredChain.beginChainIntent({
+    chainId,
+    user: 'tester',
+    userVia: 'local',
+    selection: chainProfile,
+    modules: [
+      { module: 'a', dependsOn: [], synthesisOutputs: [artifactA.outputRel, 'a/00_data-triage.md'] },
+      { module: 'b', dependsOn: ['a'], synthesisOutputs: [artifactB.outputRel, failFastArtifactB.outputRel] },
+    ],
+    completed: afterModuleGap.intent.completed,
+    nextModules: ['b'],
+  })
   recoveredChain.registerPaidChildAttempt('chain-module-b')
   await sealStarted(recoveredChain, 'chain-module-b')
   await recoveredChain.recordChainProgress({
     completed: [
       { module: 'a', artifacts: [artifactA] },
-      { module: 'b', artifacts: [artifactB] },
+      { module: 'b', artifacts: [failFastArtifactB] },
     ],
     nextModules: [],
     inflightModules: [],
@@ -545,6 +558,8 @@ try {
   assert.ok(beforeMaster)
   assert.equal(beforeMaster.intent.masterState, 'ready')
   assert.deepEqual(beforeMaster.intent.completed.map((entry) => entry.module), ['a', 'b'])
+  assert.ok(beforeMaster.intent.modules[1]?.synthesisOutputs.includes(failFastArtifactB.outputRel),
+    'a recovered legacy chain durably expands its declared terminal outcomes before sealing fail-fast evidence')
   const recoveredMaster = await resumeRecoverableChainIntent({
     record: beforeMaster,
     revalidatedPlan: chainPlan,
