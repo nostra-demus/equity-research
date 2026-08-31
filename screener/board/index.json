@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T03:21:16Z",
+  "generated_at": "2026-08-31T03:46:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-227",
+      "headline": "CAY: Target's Statement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03129299-6A1341292",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:30:15Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Target's statement is a formal document regarding a takeover bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Target's statement is a formal document regarding a takeover bid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cayenne Capital",
+          "ticker": "CAY",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-198",
       "headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
@@ -299,6 +348,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-234",
+      "headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T03:36:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Itochu is taking Dentsu Soken private in a $1.3 billion acquisition deal.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Itochu",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Dentsu Soken",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-231",
+      "headline": "Cronos halts network after Tectonic exploit involving estimated $75M",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/cronos-network-halt-tectonic-exploit-75-million?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T03:25:48Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Network halt due to a $75M exploit is a material operational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Network halt due to a $75M exploit is a material operational and financial risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cronos",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-215",
       "headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
       "headline_en": null,
@@ -389,60 +541,6 @@
           "name": "GS Retail",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-183",
-      "headline": "Itochu Set to Take Dentsu Soken Private in $1.3 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/itochu-set-to-take-dentsu-soken-private-in-1-3-billion-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:19:24Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Itochu to acquire Dentsu Soken in a $1.3 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Itochu to acquire Dentsu Soken in a $1.3 billion deal.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Itochu",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Dentsu Soken",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -753,6 +851,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-226",
+      "headline": "BMH: Appendix 4E and Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BMH?key=2924-03129295-6A1341293",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:25:55Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The release of a preliminary final report provides critical financial data for the fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The release of a preliminary final report provides critical financial data for the fiscal year.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BMH",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-220",
+      "headline": "ANO: Appendix 4E [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANO?key=2924-03129288-2A1693778",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:16:35Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Appendix 4E is a preliminary final report containing financial results, which is price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Appendix 4E is a preliminary final report containing financial results, which is price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1189,6 +1385,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-223",
+      "headline": "Goldman More Than Doubles Diesel Profit View as Wars Hit Flows",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/goldman-more-than-doubles-diesel-profit-view-as-wars-hit-flows",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T03:17:23Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Goldman Sachs has significantly increased its profit outlook for diesel trading due to supply chain disruptions caused by conflicts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Goldman Sachs has significantly increased its profit outlook for diesel trading due to supply chain disruptions caused by conflicts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goldman Sachs",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1733,240 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-218",
-      "headline": "Construction giant Megha Engineering's PV Krishna Reddy taps $700 million private credit to buy out uncle's share",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/construction/construction-giant-megha-engineerings-pv-krishna-reddy-taps-700-million-private-credit-to-buy-out-uncles-share/articleshow/133640265.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T03:07:26Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "A major construction firm's owner is utilizing $700 million in private credit for a significant equity buyout, indicating major capital restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A major construction firm's owner is utilizing $700 million in private credit for a significant equity buyout, indicating major capital restructuring.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Megha Engineering",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-199",
-      "headline": "China's Fosun International wins approval for ClubMed Hong Kong spin-off",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/chinas-fosun-international-wins-approval-clubmed-hong-kong-spin-off-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:54:53Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Fosun International received regulatory approval for the spin-off of ClubMed, a significant corporate restructuring event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Fosun International received regulatory approval for the spin-off of ClubMed, a significant corporate restructuring event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fosun International",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-098",
-      "headline": "Iran war news LIVE Updates: US to impose weekly secondary sanctions on Tehran? Bessent says, 'We're starting with banks'",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-news-live-updates-us-strikes-rocket-launchers-weekly-secondary-sanctions-tehran-strait-of-hormuz-donald-bessent-11788137421388.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T01:02:58Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The US government is planning to impose secondary sanctions on Iranian banks, escalating geopolitical tensions and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The US government is planning to impose secondary sanctions on Iranian banks, escalating geopolitical tensions and financial risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-062",
-      "headline": "+++ Iran-Krieg +++: Finanzminister: Planen wöchentlich neue Sanktionen gegen den Iran",
-      "headline_en": "+++ Iran War +++: Finance Minister: Planning new weekly sanctions against Iran",
-      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-usa-planen-woechentlich-neue-sanktionen-gegen-den-iran/100136895.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:18:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "German Finance Minister announces plans for weekly new sanctions against Iran, signaling geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "German Finance Minister announces plans for weekly new sanctions against Iran, signaling geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-111",
-      "headline": "SOP: Appendix 4E and 2026 Annual Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03129192-3A700491",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T01:22:15Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Release of annual report and financial results is a material disclosure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Release of annual report and financial results is a material disclosure event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Star Entertainment",
-          "ticker": "SOP",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89712,6 +89723,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0e1dd526da42",
+      "idea_version": "IDEAV-0b9f359a1dee813c",
+      "idea_version_started_at": "2026-08-31T03:36:56Z",
+      "ticker": "PIRAMALENT",
+      "company": "Piramal Enterprises Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Piramal Finance, a subsidiary of Piramal Enterprises, announced a significant capital raise of Rs. 3,850 crore, strengthening its financial position.",
+      "why_now": "The capital raise, backed by QIP participation and promoter warrants, was announced on August 31, 2026, providing a fresh positive catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d48851efa47"
+      ],
+      "primary_source_event_id": "EVT-4d48851efa47",
+      "source_headlines": [
+        "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
+      ],
+      "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:01:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:36:56Z",
+      "updated_at": "2026-08-31T03:36:56Z",
+      "decay_at": "2026-09-01T14:01:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c9bc08338424",
+      "idea_version": "IDEAV-9c523c87dab3eb8e",
+      "idea_version_started_at": "2026-08-31T03:36:56Z",
+      "ticker": "8001",
+      "company": "Itochu Corp",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion deal, which could be accretive to earnings or provide strategic benefits.",
+      "why_now": "The deal was reported on August 31, 2026, indicating a live M&A catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d3dcf7c702d"
+      ],
+      "primary_source_event_id": "EVT-8d3dcf7c702d",
+      "source_headlines": [
+        "Itochu Set to Take Dentsu Soken Private in $1.3 Billion Deal"
+      ],
+      "source_headline": "Itochu Set to Take Dentsu Soken Private in $1.3 Billion Deal",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-08-31/itochu-set-to-take-dentsu-soken-private-in-1-3-billion-deal",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:19:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:36:56Z",
+      "updated_at": "2026-08-31T03:36:56Z",
+      "decay_at": "2026-09-01T14:19:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1f1e1ddecae9",
       "idea_version": "IDEAV-086f83c221577d76",
       "idea_version_started_at": "2026-08-31T03:20:55Z",
@@ -91659,78 +91813,6 @@
       "surfaced_at": "2026-08-29T16:42:52Z",
       "updated_at": "2026-08-29T23:08:40Z",
       "decay_at": "2026-08-31T03:54:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-eb536eed0e8f",
-      "idea_version": "IDEAV-06f83235e205d4b7",
-      "idea_version_started_at": "2026-08-29T16:42:52Z",
-      "ticker": "TRINITY",
-      "company": "Trinity Tradelink Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Trinity Tradelink Ltd disclosed an audit qualification, indicating potential issues with its financial reporting.",
-      "why_now": "The filing regarding the audit qualification was made on August 29, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bdcaa8febcb"
-      ],
-      "primary_source_event_id": "EVT-2bdcaa8febcb",
-      "source_headlines": [
-        "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION"
-      ],
-      "source_headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:22:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T16:42:52Z",
-      "updated_at": "2026-08-29T16:42:52Z",
-      "decay_at": "2026-08-31T03:22:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96729,6 +96811,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-eb536eed0e8f",
+      "idea_version": "IDEAV-06f83235e205d4b7",
+      "idea_version_started_at": "2026-08-29T16:42:52Z",
+      "ticker": "TRINITY",
+      "company": "Trinity Tradelink Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Trinity Tradelink Ltd disclosed an audit qualification, indicating potential issues with its financial reporting.",
+      "why_now": "The filing regarding the audit qualification was made on August 29, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2bdcaa8febcb"
+      ],
+      "primary_source_event_id": "EVT-2bdcaa8febcb",
+      "source_headlines": [
+        "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION"
+      ],
+      "source_headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T15:22:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T16:42:52Z",
+      "updated_at": "2026-08-29T16:42:52Z",
+      "decay_at": "2026-08-31T03:22:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0b5dc86cd04c",
       "idea_version": "IDEAV-ae38bb0ccca7c1ba",
       "idea_version_started_at": "2026-08-29T14:33:23Z",
@@ -97591,8 +97745,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 269,
-    "shown_count": 269,
+    "total_count": 270,
+    "shown_count": 270,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -97601,8 +97755,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 145,
-        "shown_count": 145,
+        "total_count": 146,
+        "shown_count": 146,
         "hidden_count": 0
       }
     },
@@ -97622,6 +97776,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-eb536eed0e8f",
+        "idea_version": "IDEAV-06f83235e205d4b7",
+        "idea_version_started_at": "2026-08-29T16:42:52Z",
+        "ticker": "TRINITY",
+        "company": "Trinity Tradelink Ltd",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Trinity Tradelink Ltd disclosed an audit qualification, indicating potential issues with its financial reporting.",
+        "why_now": "The filing regarding the audit qualification was made on August 29, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2bdcaa8febcb"
+        ],
+        "primary_source_event_id": "EVT-2bdcaa8febcb",
+        "source_headlines": [
+          "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION"
+        ],
+        "source_headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T15:22:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T16:42:52Z",
+        "updated_at": "2026-08-29T16:42:52Z",
+        "decay_at": "2026-08-31T03:22:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T03:22:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2bf283da46ec",
         "idea_version": "IDEAV-798ac2349a3070f2",
@@ -117557,8 +117786,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 340,
-    "live_count": 69,
+    "surfaced_total": 342,
+    "live_count": 70,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -117577,9 +117806,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 965,
-    "news_picked_today": 281,
-    "news_dropped_today": 668
+    "news_seen_today": 1064,
+    "news_picked_today": 309,
+    "news_dropped_today": 739
   },
   "book_momentum": {
     "live_count": 8,
