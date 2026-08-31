@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T10:50:02Z",
+  "generated_at": "2026-08-31T11:21:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-523",
+      "headline": "ICICI Bank Limited: ICICI Bank Limited has informed the Exchange about disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 -This is to inform you that ICICI Bank Limited (Bank), acting through its IFSC Banking Unit, has, today at 9:55 a.m. IST priced USD 500 million Senior Unsecured Fixed Rate Notes under the USD 7.5 billion Global Medium Term Note Programme of the Bank.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_31082026160131_NSEBSE_31082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T10:34:18Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "ICICI Bank priced USD 500 million in senior unsecured notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ICICI Bank priced USD 500 million in senior unsecured notes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-489",
       "headline": "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon.",
@@ -1136,6 +1185,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-514",
+      "headline": "Aon to buy USI Insurance Services in $17 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/aon-buy-usi-insurance-services-17-billion-deal-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T10:37:30Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Major $17 billion acquisition announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major $17 billion acquisition announcement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI Insurance Services",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-495",
       "headline": "Maruti Suzuki raises its capex plans to ₹77,500 crore by FY31",
       "headline_en": null,
@@ -1903,104 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-323",
-      "headline": "India’s largest private lender HDFC Bank sees shares rise after CEO announces surprise exit",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/31/hdfc-largest-bank-india-ceo-exit.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:27:03Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The surprise exit of a CEO at a major financial institution is a significant management risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The surprise exit of a CEO at a major financial institution is a significant management risk event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-318",
-      "headline": "Embattled Sydney property developer Bathla warns it could fold by the end of the week",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/australia-news/2026/aug/31/embattled-sydney-property-developer-bathla-warns-it-could-fold-by-the-end-of-the-week",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:06:36Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Property developer Bathla warned it could fold by the end of the week.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Property developer Bathla warned it could fold by the end of the week.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118404,9 +118409,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 312658,
-    "news_picked_today": 1047,
-    "news_dropped_today": 10445
+    "news_seen_today": 333137,
+    "news_picked_today": 1080,
+    "news_dropped_today": 11228
   },
   "book_momentum": {
     "live_count": 8,
