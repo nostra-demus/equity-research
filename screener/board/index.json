@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T03:25:55Z",
+  "generated_at": "2026-08-31T03:30:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-198",
@@ -753,6 +753,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-226",
+      "headline": "BMH: Appendix 4E and Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BMH?key=2924-03129295-6A1341293",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:25:55Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The release of a preliminary final report provides critical financial data for the fiscal year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The release of a preliminary final report provides critical financial data for the fiscal year.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BMH",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,50 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-098",
-      "headline": "Iran war news LIVE Updates: US to impose weekly secondary sanctions on Tehran? Bessent says, 'We're starting with banks'",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-news-live-updates-us-strikes-rocket-launchers-weekly-secondary-sanctions-tehran-strait-of-hormuz-donald-bessent-11788137421388.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T01:02:58Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The US government is planning to impose secondary sanctions on Iranian banks, escalating geopolitical tensions and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The US government is planning to impose secondary sanctions on Iranian banks, escalating geopolitical tensions and financial risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117658,9 +117663,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 986,
-    "news_picked_today": 286,
-    "news_dropped_today": 684
+    "news_seen_today": 1007,
+    "news_picked_today": 290,
+    "news_dropped_today": 701
   },
   "book_momentum": {
     "live_count": 8,
