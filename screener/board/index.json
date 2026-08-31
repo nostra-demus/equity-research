@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T17:20:38Z",
+  "generated_at": "2026-08-31T17:21:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-778",
@@ -90138,6 +90138,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-74d751ef2f93",
+      "idea_version": "IDEAV-9e62a367a4302e45",
+      "idea_version_started_at": "2026-08-31T17:20:57Z",
+      "ticker": "GEMSPIN",
+      "company": "Gem Spinners India Ltd",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The managing director has been remanded to police custody, creating significant operational uncertainty and governance risk.",
+      "why_now": "The arrest occurred on August 29, 2026, and the disclosure was filed on August 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-702226608b77"
+      ],
+      "primary_source_event_id": "EVT-702226608b77",
+      "source_headlines": [
+        "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon."
+      ],
+      "source_headline": "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06b6b792-a238-4e00-84df-5229d529bd47.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T10:01:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T17:20:57Z",
+      "updated_at": "2026-08-31T17:20:57Z",
+      "decay_at": "2026-09-01T22:01:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-23f01420e111",
       "idea_version": "IDEAV-29f834b53f425e93",
       "idea_version_started_at": "2026-08-31T15:41:26Z",
@@ -94452,76 +94523,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4f1853282799",
-      "idea_version": "IDEAV-4fa1ad7c93e37aba",
-      "idea_version_started_at": "2026-08-30T00:06:22Z",
-      "ticker": "KVUE",
-      "company": "Kenvue Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
-      "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9bf4b4652007"
-      ],
-      "primary_source_event_id": "EVT-9bf4b4652007",
-      "source_headlines": [
-        "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
-      ],
-      "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
-      "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T16:26:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T00:06:22Z",
-      "updated_at": "2026-08-30T00:06:22Z",
-      "decay_at": "2026-08-30T04:26:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9dc53bf2a68a",
       "idea_version": "IDEAV-c16f9785c3c6ba07",
       "idea_version_started_at": "2026-08-29T23:27:48Z",
@@ -96604,7 +96605,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 251,
+      "file_count": 252,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -99022,8 +99023,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-30T04:26:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T17:21:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -117550,8 +117551,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 363,
-    "live_count": 79,
+    "surfaced_total": 364,
+    "live_count": 80,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
