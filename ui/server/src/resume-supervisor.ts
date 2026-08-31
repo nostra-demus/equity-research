@@ -26,7 +26,7 @@
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
-import { ANALYSES_DIR, STATE_DIR } from './config'
+import { ANALYSES_DIR, REPO_ROOT, STATE_DIR } from './config'
 import {
   assertProviderAvailable, checkProviderUsage, finalDeliverablesPresent, launch, launchFullChained,
   subjectChainActive,
@@ -658,6 +658,38 @@ function receiptOrbUniverse(plan: ThesisPlan): string[] {
   ])].sort()
 }
 
+/** Verify every module the durable chain already sealed. A migrated legacy module is intentionally copied
+ * byte-for-byte into a fresh protected root before that root has provider-output lineage; its chain-sealed
+ * hash is therefore the authority. Modules paid for inside this fresh run must additionally remain bound
+ * to the run's frozen evidence generation. */
+export function verifyRecoverableChainCompletedArtifacts(
+  record: RecoverableChainIntentRecord,
+  generation: string,
+): void {
+  const lineage = new Map(readVerifiedOutputLineage(record.targetRunRoot).entries
+    .map((entry) => [entry.output_rel, entry]))
+  const migratedModules = new Set(record.reviewedPlan.reuse)
+  const rootAbs = path.resolve(REPO_ROOT, record.targetRunRoot)
+  for (const completed of record.intent.completed) {
+    for (const artifact of completed.artifacts) {
+      const absolute = path.resolve(rootAbs, artifact.outputRel)
+      let sha256: string | null = null
+      if (absolute.startsWith(`${rootAbs}${path.sep}`)) {
+        try { sha256 = `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}` } catch {}
+      }
+      if (sha256 !== artifact.sha256) {
+        throw new Error(`recoverable full-chain completed evidence changed: ${artifact.outputRel}`)
+      }
+      if (migratedModules.has(completed.module)) continue
+      const protectedArtifact = lineage.get(artifact.outputRel)
+      if (!protectedArtifact || protectedArtifact.sha256 !== artifact.sha256
+          || protectedArtifact.generation_digest !== generation) {
+        throw new Error(`recoverable fresh Full generation changed: ${artifact.outputRel}`)
+      }
+    }
+  }
+}
+
 /** Rebuild the immutable inputs of a started chain while deliberately ignoring its own newly completed
  * outputs. The original receipt remains the authority; current disk bytes may only move payable orbs into
  * the durable chain intent, never add/remove roster identities, change data, or substitute a profile. */
@@ -715,15 +747,7 @@ export async function revalidateRecoverableChainPlan(record: RecoverableChainInt
   if (original.continuationReceipt.action === 'complete') {
     const generation = current.continuationReceipt.evidenceGenerationDigest
     if (!generation) throw new Error('recoverable fresh Full has no protected frozen generation')
-    for (const completed of record.intent.completed) {
-      for (const artifact of completed.artifacts) {
-        const protectedArtifact = lineage.get(artifact.outputRel)
-        if (!protectedArtifact || protectedArtifact.sha256 !== artifact.sha256
-            || protectedArtifact.generation_digest !== generation) {
-          throw new Error(`recoverable fresh Full generation changed: ${artifact.outputRel}`)
-        }
-      }
-    }
+    verifyRecoverableChainCompletedArtifacts(record, generation)
   }
   if (original.continuationReceipt.reusableArtifacts.length > 0) {
     for (const artifact of original.continuationReceipt.reusableArtifacts) {
