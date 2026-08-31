@@ -7,6 +7,8 @@ import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './s
 import { normalizeDataSubject, MANIFEST_SUBJECT_RE } from './data-subject'
 import { resolveManifestRunRoot } from './swarm-run-root'
 import { resolveDisplayFields } from './ledger-corrections'
+import { extractTriageStatus } from './verdict'
+import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 import type { AgentNode, DataReadinessDecl, MemoryProfile, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
 function readFrontmatter(filePath: string) {
@@ -427,9 +429,26 @@ export function latestModuleFolder(ticker: string, module: string): string | nul
   return dirs.length ? path.join(ANALYSES_DIR, dirs[0]) : null
 }
 
+function hasFailFastModuleOutcome(folder: string, module: ModuleNode | undefined): boolean {
+  if (!module) return false
+  const triageFiles = Object.values(module.layers).flat()
+    .filter((agent) => agent.nn === '00' && agent.failFast)
+    .map((agent) => `${agent.key.split('/').at(-1)}.md`)
+  return triageFiles.some((file) => {
+    const candidate = path.join(folder, file)
+    try {
+      return validateAgentOutputFile(candidate).valid
+        && extractTriageStatus(fs.readFileSync(candidate, 'utf8')) === 'Insufficient'
+    } catch {
+      return false
+    }
+  })
+}
+
 // Are a module's cross-module dependencies complete on disk? Checks ONLY module.dependsOn —
 // a no-deps module is trivially complete; it does NOT require the module's own synthesis. For each
-// dep, the EXACT folder the command would pick must contain its 99 synthesis (mirrors D4).
+// dep, the EXACT folder the command would pick must contain its 99 synthesis or the module's declared,
+// canonical fail-fast Insufficient triage outcome (mirrors the full-chain completion contract).
 // Swarm-aware: research resolves each dep's latest dated folder; other swarms resolve the
 // subject's single run folder.
 export function depsCompleteForModule(subjectId: string, module: string, swarmId: string = RESEARCH_SWARM_ID): { complete: boolean; missing: string[] } {
@@ -443,7 +462,10 @@ export function depsCompleteForModule(subjectId: string, module: string, swarmId
           const root = findRunRootForSubject(swarmId, subjectId)
           return root ? path.join(root, dep) : null
         })()
-    const ok = !!folder && fs.existsSync(folder) && fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
+    const depModule = g.modules.find((entry) => entry.name === dep)
+    const ok = !!folder && fs.existsSync(folder)
+      && (fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
+        || hasFailFastModuleOutcome(folder, depModule))
     if (!ok) missing.push(dep)
   }
   return { complete: missing.length === 0, missing }
