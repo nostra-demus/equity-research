@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-a9124f2e759d",
+  "idea_version": "IDEAV-fef92f0ddf7924fb",
+  "idea_version_started_at": "2026-08-31T11:51:47Z",
+  "ticker": "5202.T",
+  "company": "Nippon Sheet Glass",
+  "exchange": "Tokyo Stock Exchange",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is facing a formal delisting decision, which typically leads to severe liquidity constraints and equity value destruction.",
+  "why_now": "The exchange announced the decision today, August 31, 2026.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-1a9869935308"
+  ],
+  "primary_source_event_id": "EVT-1a9869935308",
+  "source_headlines": [
+    "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited"
+  ],
+  "source_headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
+  "source_url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
+  "source_name": "Japan Exchange Group (JPX) — Market News",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-31T06:40:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-31T11:51:47Z",
+  "updated_at": "2026-08-31T11:51:47Z",
+  "decay_at": "2026-09-01T18:40:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
