@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T08:54:48Z",
+  "generated_at": "2026-08-31T08:59:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-402",
@@ -588,6 +588,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-414",
+      "headline": "Abu Dhabi based ePointZero to acquire 90% stake in Africa focused Azura Power",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/abu-dhabi-based-epointzero-to-acquire-90-stake-in-africa-focused-azura-power",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T08:52:06Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "ePointZero to acquire a 90% stake in Azura Power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ePointZero to acquire a 90% stake in Azura Power.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ePointZero",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Azura Power",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1961,55 +2015,6 @@
         },
         {
           "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-123",
-      "headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T01:40:35Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "ONEOK is acquiring Permian Basin assets for $4.43 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ONEOK is acquiring Permian Basin assets for $4.43 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ONEOK",
           "ticker": null,
           "listing_country": "US"
         }
@@ -118699,9 +118704,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 148917,
-    "news_picked_today": 820,
-    "news_dropped_today": 8632
+    "news_seen_today": 156324,
+    "news_picked_today": 837,
+    "news_dropped_today": 8663
   },
   "book_momentum": {
     "live_count": 8,
