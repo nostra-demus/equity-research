@@ -8,7 +8,10 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
-import { childCouldReportDoneOnClose, finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
+import {
+  childCouldReportDoneOnClose, finalizeRunOnClose, isExactStaleRunFailureRemoval,
+  staleRunFailureRemovalNeedsCommit, __setFailureNoteCommitter,
+} from '../src/launcher'
 import { readRunMarker } from '../src/outputs'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
@@ -51,6 +54,21 @@ const errorResult = JSON.stringify({ type: 'result', subtype: 'error_max_turns',
 
 const cleanupDirs: string[] = []
 try {
+  check('a resumed run may clear only its exact stale failure note at terminal publication', () => {
+    const root = `analyses/ZZSTALE_${DATE}`
+    const exact = `${root}/RUN_FAILURE.md`
+    assert.equal(isExactStaleRunFailureRemoval(root, exact), true)
+    assert.equal(isExactStaleRunFailureRemoval(root.replace(/\//g, '\\'), exact), true,
+      'Git POSIX output matches a platform-native run root')
+    assert.equal(isExactStaleRunFailureRemoval(root, `${root}/decision_record.json`), false,
+      'terminal research artifacts remain deletion-protected')
+    assert.equal(isExactStaleRunFailureRemoval(root, `analyses/OTHER_${DATE}/RUN_FAILURE.md`), false,
+      'one run cannot delete another run\'s failure note')
+    assert.equal(staleRunFailureRemovalNeedsCommit(root, false, [exact]), true,
+      'a failure note already absent from the worktree still needs its tracked deletion committed')
+    assert.equal(staleRunFailureRemovalNeedsCommit(root, false, []), false)
+  })
+
   // 1. THE regression: clean `result` + clean exit on a full run with NO final deliverables
   //    must end INCOMPLETE, not done (the stream parser used to finish it as done first).
   check('clean result does not finalize; close marks a deliverable-less full run incomplete', () => {
