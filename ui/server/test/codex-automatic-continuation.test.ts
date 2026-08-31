@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
-import { planCodexAutomaticContinuation } from '../src/launcher'
+import { planCodexAutomaticContinuation, providerWritablePaths } from '../src/launcher'
 import { createRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
 
@@ -198,6 +198,21 @@ const cleanExit = { exitCode: 0 }
   } finally {
     fs.rmSync(absolute, { recursive: true, force: true })
   }
+}
+
+{
+  const run = makeRun()
+  run.kind = 'rerun'
+  run.module = 'master'
+  run.writeTargetsAbs = [
+    'final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json',
+  ].map((name) => path.join(REPO_ROOT, run.runRoot!, name))
+  const absolute = path.join(REPO_ROOT, run.runRoot!)
+  assert.ok(!providerWritablePaths(run).includes(absolute),
+    'the initial master rerun retains its admitted exact-path write scope')
+  run.automaticContinuationCount = 1
+  assert.deepEqual(providerWritablePaths(run), [absolute],
+    'the same-run continuation can finish every publication artifact inside its exact saved root')
 }
 
 console.log('Codex automatic continuation planner: ok')

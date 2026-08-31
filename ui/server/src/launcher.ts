@@ -1522,6 +1522,11 @@ export function providerWritablePaths(run: RunState): string[] {
     return [...new Set(run.writeTargetsAbs.map((value) => path.resolve(value)))]
   }
   if (run.kind === 'rerun') {
+    // A master continuation must finish the whole publication contract in this one already-admitted
+    // saved root: projection/admission files, terminal memos, and completion-marker removal are not all
+    // knowable as fixed filenames at admission. Keep the initial rerun narrow; widen only a replacement
+    // Codex process that retains the same run id, root, frozen inputs, and provider profile.
+    if (run.module === 'master' && (run.automaticContinuationCount ?? 0) > 0) return [root]
     const moduleRoots = run.coveredModules.map((module) => path.join(root, module))
     const rootFiles = run.writeTargetsAbs.filter((value) => path.dirname(path.resolve(value)) === root)
     return [...new Set([...moduleRoots, ...rootFiles.map((value) => path.resolve(value))])]
