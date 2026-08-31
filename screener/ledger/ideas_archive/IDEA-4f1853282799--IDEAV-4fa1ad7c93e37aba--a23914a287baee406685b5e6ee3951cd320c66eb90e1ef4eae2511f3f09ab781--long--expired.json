@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-31T17:21:01Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-4f1853282799",
+    "idea_version": "IDEAV-4fa1ad7c93e37aba",
+    "idea_version_started_at": "2026-08-30T00:06:22Z",
+    "ticker": "KVUE",
+    "company": "Kenvue Inc.",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Kimberly-Clark is actively seeking EU regulatory approval for its massive $40 billion acquisition of Kenvue.",
+    "why_now": "The formal filing for EU antitrust approval has just been initiated, setting off a regulatory decision window.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 61,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 6,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-9bf4b4652007"
+    ],
+    "primary_source_event_id": "EVT-9bf4b4652007",
+    "source_headlines": [
+      "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal"
+    ],
+    "source_headline": "Kimberly-Clark seeks EU approval for $40 billion Kenvue deal",
+    "source_url": "https://www.reuters.com/legal/transactional/kimberly-clark-seeks-eu-approval-40-billion-kenvue-deal-2026-08-28/",
+    "source_name": "Reuters — Latest (news sitemap)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-28T16:26:26Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-30T00:06:22Z",
+    "updated_at": "2026-08-30T00:06:22Z",
+    "decay_at": "2026-08-30T04:26:26Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
