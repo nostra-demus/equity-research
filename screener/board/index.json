@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T13:02:24Z",
+  "generated_at": "2026-08-31T13:17:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-670",
@@ -1629,6 +1629,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-711",
+      "headline": "ePointZero to buy 90% stake in Azura Power",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/epointzero-buy-90-stake-azura-124509915.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T12:45:09Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "ePointZero is acquiring a 90% stake in Azura Power.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ePointZero is acquiring a 90% stake in Azura Power.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ePointZero",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Azura Power",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-698",
       "headline": "Aon CEO says insurance broker seeks to build 'premiere middle market platform' with purchase of rival USI",
       "headline_en": null,
@@ -1923,60 +1977,6 @@
       "companies": [
         {
           "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-699",
-      "headline": "Aon To Acquire USI Insurance Services From KKR For $17 Bln Cash",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aon-acquire-usi-insurance-services-kkr-17-bln-cash",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T12:04:59Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Aon is acquiring USI Insurance Services from KKR for $17 billion in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aon is acquiring USI Insurance Services from KKR for $17 billion in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR",
           "ticker": null,
           "listing_country": "US"
         }
@@ -118106,9 +118106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 470109,
-    "news_picked_today": 1360,
-    "news_dropped_today": 12268
+    "news_seen_today": 509986,
+    "news_picked_today": 1385,
+    "news_dropped_today": 12411
   },
   "book_momentum": {
     "live_count": 8,
