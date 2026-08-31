@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T09:07:54Z",
+  "generated_at": "2026-08-31T09:15:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-438",
+      "headline": "MODERN LAND (01107): INSIDE INFORMATION DELAY IN PUBLICATION OF INTERIM RESULTS AND DESPATCH OF INTERIM REPORT FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100828.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Delay in financial reporting and continued suspension of trading indicates significant operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delay in financial reporting and continued suspension of trading indicates significant operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MODERN LAND",
+          "ticker": "01107",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-402",
       "headline": "AP RENTALS (01496): PROFIT WARNING",
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-215",
-      "headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:35:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Tesla announced a significant increase in its 2026 capital budget to $25 billion for scaling operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla announced a significant increase in its 2026 capital budget to $25 billion for scaling operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118694,9 +118694,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 163848,
-    "news_picked_today": 857,
-    "news_dropped_today": 8739
+    "news_seen_today": 175174,
+    "news_picked_today": 868,
+    "news_dropped_today": 8776
   },
   "book_momentum": {
     "live_count": 8,
