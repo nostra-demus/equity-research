@@ -65,7 +65,127 @@
       "decision_artifacts_optional": false,
       "started_at": "2026-08-31T01:52:15.685Z",
       "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "84a3cabd-c186-4af5-a514-553b0b9a697a",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "balance-sheet-survival"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:12:55.318Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "84a3cabd-c186-4af5-a514-553b0b9a697a",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:12:55.318Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "84a3cabd-c186-4af5-a514-553b0b9a697a",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:12:55.318Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "05a7c927-70a7-47a0-84dc-4bb284b29afa",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "balance-sheet-survival"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:32:55.249Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "05a7c927-70a7-47a0-84dc-4bb284b29afa",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:32:55.249Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "05a7c927-70a7-47a0-84dc-4bb284b29afa",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-08-31T02:32:55.249Z"
     }
   ],
-  "written_at": "2026-08-31T02:07:54.404Z"
+  "written_at": "2026-08-31T02:49:46.232Z"
 }
