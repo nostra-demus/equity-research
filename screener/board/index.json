@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T01:11:33Z",
+  "generated_at": "2026-08-31T01:31:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -147,6 +147,106 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-109",
+      "headline": "Star Entertainment warns tough conditions to persist after annual loss",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/star-entertainment-warns-tough-conditions-persist-after-annual-loss-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T01:23:46Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company reported an annual loss and warned that difficult operating conditions will persist.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported an annual loss and warned that difficult operating conditions will persist.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Entertainment",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-102",
+      "headline": "Star reports $307m loss as auditors warn survival still in question",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/games-and-wagering/star-reports-307m-loss-as-auditors-warn-survival-still-in-question-20260831-p60sx1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T01:20:21Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company reported a $307 million loss and auditors have raised concerns about its ability to continue as a going concern.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported a $307 million loss and auditors have raised concerns about its ability to continue as a going concern.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Entertainment Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -631,6 +731,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-111",
+      "headline": "SOP: Appendix 4E and 2026 Annual Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03129192-3A700491",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T01:22:15Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Release of annual report and financial results is a material disclosure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Release of annual report and financial results is a material disclosure event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Entertainment",
+          "ticker": "SOP",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-018",
       "headline": "XF1: Appendix 4E-Directors' Report and Financial Statements FY26 [price-sensitive]",
       "headline_en": null,
@@ -725,6 +874,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-103",
+      "headline": "Indian Billionaire Taps $700 Million Private Credit for Megha Buyout",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/indian-billionaire-taps-700-million-private-credit-for-megha-buyout",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T01:00:01Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "A $700 million private credit deal to fund a buyout indicates significant capital deployment for an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A $700 million private credit deal to fund a buyout indicates significant capital deployment for an acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megha Engineering and Infrastructures",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1073,6 +1272,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-110",
+      "headline": "ROG: Commencement of Drilling - Yarrow 4 Innamincka [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ROG?key=2924-03129194-3A700492",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T01:23:50Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Commencement of drilling at Yarrow 4 is a key operational milestone for an exploration company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Commencement of drilling at Yarrow 4 is a key operational milestone for an exploration company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Red Sky Energy",
+          "ticker": "ROG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-012",
       "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - DATA FROM PHASE I CLINICAL TRIAL OF KYLO-11 \"LPA SIRNA\" PRESENTED AT ESC 2026 AND PUBLISHED IN THE LANCET",
       "headline_en": null,
@@ -1264,6 +1512,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-107",
+      "headline": "BNP Paribas Appeals Sudan Litigation",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bnp-paribas-appeals-sudan-litigation",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T01:00:37Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "BNP Paribas is appealing a legal case related to Sudan, which carries potential financial and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "BNP Paribas is appealing a legal case related to Sudan, which carries potential financial and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BNP Paribas",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1651,300 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-089",
-      "headline": "BYD profit rises for first time in 5 quarters on overseas growth, pointing the way out of China car slump",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/byd-profit-rises-first-time-5-quarters-overseas-growth-pointing-way-out-china-car-slump",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:25:30Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "BYD reported profit growth for the first time in 5 quarters, signaling a potential turnaround.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "BYD reported profit growth for the first time in 5 quarters, signaling a potential turnaround.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-069",
-      "headline": "ASX falls; miners down; banks gain; Monash IVF earnings plummet 41pc",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-as-warsh-forces-rate-pivot-gold-bitcoin-drop-20260830-p60stg?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:44:57Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Monash IVF reported a 41% decline in earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Monash IVF reported a 41% decline in earnings.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monash IVF",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-076",
-      "headline": "Australian casino operator Star Entertainment reports smaller annual loss",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/australian-casino-operator-star-entertainment-reports-smaller-annual-loss",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:36:53Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Star Entertainment reported a smaller annual loss, indicating a slight improvement in financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Star Entertainment reported a smaller annual loss, indicating a slight improvement in financial performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Star Entertainment",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-057",
-      "headline": "Shein CEO Sky Xu’s wealth slumps US$15 billion after whittled-down IPO",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/shein-ceo-sky-xus-wealth-slumps-us15-billion-after-whittled-down-ipo",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:20:42Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The CEO's wealth valuation has decreased by US$15 billion following adjustments to the company's IPO valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The CEO's wealth valuation has decreased by US$15 billion following adjustments to the company's IPO valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-058",
-      "headline": "Tata Trusts seek regulator’s nod to break deadlock in Tata Sons chair selection",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/tata-trusts-noel-tata-tata-sons-new-chairman-selection-11788081659771.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:16:10Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Tata Trusts are seeking regulatory intervention to resolve a leadership deadlock at Tata Sons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Tata Trusts are seeking regulatory intervention to resolve a leadership deadlock at Tata Sons.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-053",
-      "headline": "HDFC Bank may turn to Plan B with just two months to find its next CEO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/hdfc-bank-new-ceo-sashidhar-jagdishan-kaizad-bharucha-rbi-11788082709493.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:15:30Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "HDFC Bank faces a leadership transition deadline with only two months remaining to appoint a new CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "HDFC Bank faces a leadership transition deadline with only two months remaining to appoint a new CEO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89198,76 +89201,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ab6392d211fe",
-      "idea_version": "IDEAV-9c3b865caa21cfaf",
-      "idea_version_started_at": "2026-08-29T23:08:40Z",
-      "ticker": "HDB",
-      "company": "HDFC Bank Limited",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Managing Director and CEO Sashidhar Jagdishan is stepping down, creating leadership uncertainty at India's largest private sector lender.",
-      "why_now": "The executive exit is scheduled for October 26, 2026, with the announcement on August 29, 2026, initiating a transition overhang.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bee2888c8f9"
-      ],
-      "primary_source_event_id": "EVT-2bee2888c8f9",
-      "source_headlines": [
-        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
-      ],
-      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
-      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:14:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T11:49:33Z",
-      "updated_at": "2026-08-29T23:08:40Z",
-      "decay_at": "2026-08-31T01:14:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d154be29c3e7",
       "idea_version": "IDEAV-d1a013c87ab91ff2",
       "idea_version_started_at": "2026-08-30T07:59:46Z",
@@ -91496,78 +91429,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-279942e1dba3",
-      "idea_version": "IDEAV-4170e58f2aea2ce3",
-      "idea_version_started_at": "2026-08-29T22:48:20Z",
-      "ticker": "HDFCBANK",
-      "company": "HDFC Bank Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of Sashidhar Jagdishan, the long-standing MD & CEO, on October 26, 2026, creates leadership uncertainty for HDFC Bank, which could impact investor confidence and strategic direction.",
-      "why_now": "The news of the CEO's impending departure was announced on August 29, 2026, creating a live catalyst as the market anticipates the leadership transition.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bee2888c8f9"
-      ],
-      "primary_source_event_id": "EVT-2bee2888c8f9",
-      "source_headlines": [
-        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
-      ],
-      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
-      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:14:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:13:07Z",
-      "updated_at": "2026-08-29T22:48:20Z",
-      "decay_at": "2026-08-31T01:14:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3c29910a96ce",
       "idea_version": "IDEAV-190057ec25bf68a0",
       "idea_version_started_at": "2026-08-29T21:53:05Z",
@@ -92568,6 +92429,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-c53632c038afea90",
+      "idea_version_started_at": "2026-08-31T01:11:53Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The SANOVO trial demonstrated significant progression-free survival benefits for ORPATHYS combined with TAGRISSO in lung cancer patients, validating the drug's clinical efficacy and potential for expanded market share in China.",
+      "why_now": "The positive trial results were announced on 2026-08-31, providing a clear catalyst for market re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dfcafbed04f0"
+      ],
+      "primary_source_event_id": "EVT-dfcafbed04f0",
+      "source_headlines": [
+        "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China"
+      ],
+      "source_headline": "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100249.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-08-31T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T01:11:53Z",
+      "updated_at": "2026-08-31T01:11:53Z",
+      "decay_at": "2026-09-01T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d4a4fe64b7cf",
+      "idea_version": "IDEAV-eca743b9b21c287a",
+      "idea_version_started_at": "2026-08-31T01:31:36Z",
+      "ticker": "HTM",
+      "company": "HTM",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 47% increase in the Mt Fisher mineral resource to 51,000oz of gold significantly enhances the project's valuation and potential mine life.",
+      "why_now": "The resource update was released in an official exchange filing on 2026-08-30.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ba473c0b5aaa"
+      ],
+      "primary_source_event_id": "EVT-ba473c0b5aaa",
+      "source_headlines": [
+        "HTM: MT FISHER MINERAL RESOURCE INCREASES 47% TO 51,000oz GOLD [price-sensitive]"
+      ],
+      "source_headline": "HTM: MT FISHER MINERAL RESOURCE INCREASES 47% TO 51,000oz GOLD [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HTM?key=2924-03129135-6A1341245",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-08-30T23:52:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T01:31:36Z",
+      "updated_at": "2026-08-31T01:31:36Z",
+      "decay_at": "2026-09-01T11:52:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5700fb1c3c6f",
       "idea_version": "IDEAV-4b12e680085f36c1",
       "idea_version_started_at": "2026-08-30T10:00:01Z",
@@ -93361,6 +93364,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ab6392d211fe",
+      "idea_version": "IDEAV-9c3b865caa21cfaf",
+      "idea_version_started_at": "2026-08-29T23:08:40Z",
+      "ticker": "HDB",
+      "company": "HDFC Bank Limited",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Managing Director and CEO Sashidhar Jagdishan is stepping down, creating leadership uncertainty at India's largest private sector lender.",
+      "why_now": "The executive exit is scheduled for October 26, 2026, with the announcement on August 29, 2026, initiating a transition overhang.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2bee2888c8f9"
+      ],
+      "primary_source_event_id": "EVT-2bee2888c8f9",
+      "source_headlines": [
+        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
+      ],
+      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:14:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-27T11:49:33Z",
+      "updated_at": "2026-08-29T23:08:40Z",
+      "decay_at": "2026-08-31T01:14:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ec44c459bda",
       "idea_version": "IDEAV-3565ea007ab7c9de",
       "idea_version_started_at": "2026-08-29T22:28:34Z",
@@ -93494,76 +93567,6 @@
       "surfaced_at": "2026-08-27T03:27:43Z",
       "updated_at": "2026-08-29T13:02:30Z",
       "decay_at": "2026-08-29T18:18:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6ef3d9cacc63",
-      "idea_version": "IDEAV-871bc7d2d2d4ca1c",
-      "idea_version_started_at": "2026-08-28T05:51:01Z",
-      "ticker": "000660.KS",
-      "company": "SK Hynix",
-      "exchange": "Korea",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
-      "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2f11eb103002"
-      ],
-      "primary_source_event_id": "EVT-2f11eb103002",
-      "source_headlines": [
-        "SK Hynix to Invest $4 Billion in Indiana, USA"
-      ],
-      "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-28T01:04:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-28T05:51:01Z",
-      "updated_at": "2026-08-28T05:51:01Z",
-      "decay_at": "2026-08-29T13:04:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94410,6 +94413,78 @@
       "surfaced_at": "2026-08-29T14:33:23Z",
       "updated_at": "2026-08-29T23:08:40Z",
       "decay_at": "2026-08-30T22:31:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-279942e1dba3",
+      "idea_version": "IDEAV-4170e58f2aea2ce3",
+      "idea_version_started_at": "2026-08-29T22:48:20Z",
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The departure of Sashidhar Jagdishan, the long-standing MD & CEO, on October 26, 2026, creates leadership uncertainty for HDFC Bank, which could impact investor confidence and strategic direction.",
+      "why_now": "The news of the CEO's impending departure was announced on August 29, 2026, creating a live catalyst as the market anticipates the leadership transition.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2bee2888c8f9"
+      ],
+      "primary_source_event_id": "EVT-2bee2888c8f9",
+      "source_headlines": [
+        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
+      ],
+      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T13:14:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:13:07Z",
+      "updated_at": "2026-08-29T22:48:20Z",
+      "decay_at": "2026-08-31T01:14:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96986,14 +97061,14 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 212,
+      "file_count": 213,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 262,
-    "shown_count": 262,
+    "total_count": 264,
+    "shown_count": 264,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -97002,8 +97077,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 141,
-        "shown_count": 141,
+        "total_count": 143,
+        "shown_count": 143,
         "hidden_count": 0
       }
     },
@@ -97023,6 +97098,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ab6392d211fe",
+        "idea_version": "IDEAV-9c3b865caa21cfaf",
+        "idea_version_started_at": "2026-08-29T23:08:40Z",
+        "ticker": "HDB",
+        "company": "HDFC Bank Limited",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Managing Director and CEO Sashidhar Jagdishan is stepping down, creating leadership uncertainty at India's largest private sector lender.",
+        "why_now": "The executive exit is scheduled for October 26, 2026, with the announcement on August 29, 2026, initiating a transition overhang.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2bee2888c8f9"
+        ],
+        "primary_source_event_id": "EVT-2bee2888c8f9",
+        "source_headlines": [
+          "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
+        ],
+        "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+        "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T13:14:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-27T11:49:33Z",
+        "updated_at": "2026-08-29T23:08:40Z",
+        "decay_at": "2026-08-31T01:14:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T01:14:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-279942e1dba3",
+        "idea_version": "IDEAV-4170e58f2aea2ce3",
+        "idea_version_started_at": "2026-08-29T22:48:20Z",
+        "ticker": "HDFCBANK",
+        "company": "HDFC Bank Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The departure of Sashidhar Jagdishan, the long-standing MD & CEO, on October 26, 2026, creates leadership uncertainty for HDFC Bank, which could impact investor confidence and strategic direction.",
+        "why_now": "The news of the CEO's impending departure was announced on August 29, 2026, creating a live catalyst as the market anticipates the leadership transition.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2bee2888c8f9"
+        ],
+        "primary_source_event_id": "EVT-2bee2888c8f9",
+        "source_headlines": [
+          "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
+        ],
+        "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
+        "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T13:14:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T15:13:07Z",
+        "updated_at": "2026-08-29T22:48:20Z",
+        "decay_at": "2026-08-31T01:14:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T01:14:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b9d5031899a7",
         "idea_version": "IDEAV-a676fff74c3d9db9",
@@ -100793,8 +101016,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-29T13:04:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-31T01:11:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -116438,7 +116661,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 330,
+    "surfaced_total": 332,
     "live_count": 66,
     "promoted_total": 1,
     "machine_confirmed": 0,
@@ -116458,9 +116681,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 372,
-    "news_picked_today": 111,
-    "news_dropped_today": 261
+    "news_seen_today": 443,
+    "news_picked_today": 127,
+    "news_dropped_today": 316
   },
   "book_momentum": {
     "live_count": 8,
