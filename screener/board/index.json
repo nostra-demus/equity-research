@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T06:21:46Z",
+  "generated_at": "2026-08-31T06:27:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-321",
@@ -443,6 +443,65 @@
           "name": "Ezdihar",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-354",
+      "headline": "Delhi HC orders forensic audit of Fortis, IHH and RHT transactions in Daiichi-Singh case",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/delhi-hc-orders-forensic-audit-of-fortis-ihh-and-rht-transactions-in-daiichi-singh-case/articleshow/133643629.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T06:04:50Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "A court-ordered forensic audit into transactions involving Fortis, IHH, and RHT in a significant legal case could lead to financial penalties or operational changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A court-ordered forensic audit into transactions involving Fortis, IHH, and RHT in a significant legal case could lead to financial penalties or operational changes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortis Healthcare",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IHH Healthcare",
+          "ticker": null,
+          "listing_country": "MY"
+        },
+        {
+          "name": "RHT Health Trust",
+          "ticker": null,
+          "listing_country": "SG"
         }
       ],
       "size_bucket": "unknown",
@@ -1949,55 +2008,6 @@
       "companies": [
         {
           "name": "ANO",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-211",
-      "headline": "AFL: FY26 Results Investor Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AFL?key=2924-03129286-6A1341287",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T03:09:40Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released its FY26 investor presentation, which is a price-sensitive event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released its FY26 investor presentation, which is a price-sensitive event for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AFL",
           "ticker": null,
           "listing_country": null
         }
@@ -118405,9 +118415,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12624,
-    "news_picked_today": 598,
-    "news_dropped_today": 4486
+    "news_seen_today": 17815,
+    "news_picked_today": 607,
+    "news_dropped_today": 4549
   },
   "book_momentum": {
     "live_count": 8,
