@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T12:41:05Z",
+  "generated_at": "2026-08-31T12:46:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-670",
@@ -1629,6 +1629,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-691",
+      "headline": "Firearms retailer files Chapter 11 bankruptcy as gun sales drop",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/white-oak-armory-files-chapter-11-bankruptcy-as-gun-sales-drop",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T12:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Firearms retailer filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Firearms retailer filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown Firearms Retailer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-682",
       "headline": "GRT Jewellers to acquire 74.12% stake in Tribhovandas Bhimji Zaveri for ₹1,034 crore",
       "headline_en": null,
@@ -1934,55 +1983,6 @@
         },
         {
           "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-587",
-      "headline": "SLB to Buy Data Center Cooling Firm Kelvion for $4.1 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/slb-to-buy-data-center-cooling-firm-kelvion-for-4-1-billion-72d2b2b7?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T11:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "SLB is acquiring Kelvion for $4.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SLB is acquiring Kelvion for $4.1 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SLB",
           "ticker": null,
           "listing_country": "US"
         }
@@ -117889,9 +117889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 440668,
-    "news_picked_today": 1315,
-    "news_dropped_today": 12049
+    "news_seen_today": 450321,
+    "news_picked_today": 1328,
+    "news_dropped_today": 12084
   },
   "book_momentum": {
     "live_count": 8,
