@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T12:35:17Z",
+  "generated_at": "2026-08-31T12:41:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-670",
@@ -1629,6 +1629,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-682",
+      "headline": "GRT Jewellers to acquire 74.12% stake in Tribhovandas Bhimji Zaveri for ₹1,034 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/gold/grt-jewellers-to-acquire-7412-stake-in-tribhovandas-bhimji-zaveri-for-1034-crore/article71410820.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T12:26:09Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "GRT Jewellers to acquire a 74.12% stake in Tribhovandas Bhimji Zaveri for 1034 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GRT Jewellers to acquire a 74.12% stake in Tribhovandas Bhimji Zaveri for 1034 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tribhovandas Bhimji Zaveri",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-662",
       "headline": "Aon to expand middle-market reach with $17bn USI takeover",
       "headline_en": null,
@@ -1939,61 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-624",
-      "headline": "SLB To Acquire Kelvion For $3.4 Bln To Expand Data Center Business",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/slb-acquire-kelvion-34-bln-expand-data-center-business",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T11:23:12Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "SLB to acquire Kelvion for $3.4 billion to expand data center business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SLB to acquire Kelvion for $3.4 billion to expand data center business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SLB",
-          "ticker": "SLB",
-          "listing_country": "US"
-        },
-        {
-          "name": "Kelvion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117895,9 +117889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 431176,
-    "news_picked_today": 1302,
-    "news_dropped_today": 12014
+    "news_seen_today": 440668,
+    "news_picked_today": 1315,
+    "news_dropped_today": 12049
   },
   "book_momentum": {
     "live_count": 8,
