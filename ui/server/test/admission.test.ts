@@ -34,10 +34,10 @@ function clearAll() {
   for (const r of tracked.splice(0)) finishRun(r, 'done')
 }
 
-function writeFixture(rel: string) {
+function writeFixture(rel: string, body = '# fixture\n') {
   const p = path.join(ANALYSES_DIR, `${T}_${DATE}`, rel)
   fs.mkdirSync(path.dirname(p), { recursive: true })
-  fs.writeFileSync(p, '# fixture\n')
+  fs.writeFileSync(p, body)
   return p
 }
 
@@ -74,6 +74,22 @@ try {
   check('D4 admit valuation (deps on disk)', () => {
     const d = admitRun(req('module', { coveredModules: ['valuation'] }))
     assert.equal(d.ok, true)
+  })
+
+  check('D4 admits a declared fail-fast Insufficient upstream outcome', () => {
+    const synthesis = abs(T, 'balance-sheet-survival/99_balance-sheet-survival-synthesis.md')
+    fs.rmSync(synthesis)
+    const triage = writeFixture(
+      'balance-sheet-survival/00_solvency-data-triage.md',
+      '# Solvency data triage\n\nVerdict: Insufficient\n',
+    )
+    try {
+      const d = admitRun(req('module', { coveredModules: ['valuation'] }))
+      assert.equal(d.ok, true)
+    } finally {
+      fs.rmSync(triage)
+      writeFixture('balance-sheet-survival/99_balance-sheet-survival-synthesis.md')
+    }
   })
 
   // D4 reject: catalyst needs all five; bss/mgmt-gov/valuation absent
