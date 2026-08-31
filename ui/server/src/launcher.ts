@@ -556,11 +556,29 @@ function clearRunFailure(runRoot: string | null): void {
   if (!runRoot) return
   for (const k of [...recordedFailure]) if (k === runRoot || k.startsWith(`${runRoot}\u0000`)) recordedFailure.delete(k)
   try {
-    const p = path.join(REPO_ROOT, runRoot, FAILURE_NOTE)
-    if (!fs.existsSync(p)) return
+    const relative = `${runRoot}/${FAILURE_NOTE}`
+    const p = path.join(REPO_ROOT, relative)
+    const existed = fs.existsSync(p)
     fs.rmSync(p, { force: true })
+    const deleted = nulPaths(execFileSync('git', [
+      'diff', '--name-only', '-z', '--diff-filter=D', 'HEAD', '--', relative,
+    ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
+    if (!staleRunFailureRemovalNeedsCommit(runRoot, existed, deleted)) return
     commitRunFile(runRoot, FAILURE_NOTE, `Clear stale failure note: ${path.basename(runRoot)} (run completed)`)
   } catch { /* best-effort */ }
+}
+
+/** A resumed run may inherit a tracked failure note from an earlier attempt. The provider-visible tree
+ * legitimately deletes that one exact diagnostic, while every other terminal-data deletion remains
+ * forbidden. The close owner later publishes the deletion only after the replacement run is proven done. */
+export function isExactStaleRunFailureRemoval(runRoot: string | null | undefined, relative: string): boolean {
+  return Boolean(runRoot && relative === `${runRoot}/${FAILURE_NOTE}`)
+}
+
+export function staleRunFailureRemovalNeedsCommit(
+  runRoot: string, fileExisted: boolean, deletedPaths: string[],
+): boolean {
+  return fileExisted || deletedPaths.some((relative) => isExactStaleRunFailureRemoval(runRoot, relative))
 }
 
 // Reset all per-attempt failure-note state for a DELIBERATE relaunch into an existing, still-incomplete
@@ -6807,7 +6825,9 @@ function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredP
   const deleted = nulPaths(execFileSync('git', [
     'diff', '--name-only', '-z', '--diff-filter=D', 'HEAD', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
-  if (deleted.length) throw new Error(`cockpit publication cannot delete terminal data: ${deleted[0]}`)
+  const forbiddenDeletion = deleted.find((relative) =>
+    !isResumableResearchRun(run) || !isExactStaleRunFailureRemoval(run.runRoot, relative))
+  if (forbiddenDeletion) throw new Error(`cockpit publication cannot delete terminal data: ${forbiddenDeletion}`)
   const changed = nulPaths(execFileSync('git', [
     'diff', '--name-only', '-z', '--diff-filter=ACMRT', 'HEAD', '--', ...pathspecs,
   ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
