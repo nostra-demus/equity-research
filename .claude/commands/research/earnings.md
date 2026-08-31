@@ -41,10 +41,16 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve business-model cross-module path
 
-Several earnings agents (specifically `revenue-drivers`, `margin-drivers`, `earnings-sensitivity`, and the synthesizer) optionally read prior `business-model` module outputs for the same ticker. Resolve the business-model upstream folder via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/business-model/`; only fall back to the latest prior-dated run (and then state "using prior-run business-model dated X" in your output) when this run lacks it (fix F30):**
+Several earnings agents (specifically `revenue-drivers`, `margin-drivers`, `earnings-sensitivity`, and the synthesizer) optionally read prior `business-model` module outputs for the same ticker. Resolve the business-model upstream folder via Bash. **When `NOSTRA_CONTINUATION_RUN_ROOT` is set (including every cockpit Full chain), use only a completed synthesis inside this exact `<RUN_ROOT>`; if it is absent because the dependency fail-fast aborted, omit it and never fall back to an older run.** Standalone runs may prefer this run and then fall back to the latest prior-dated completed run:
 
 ```
-ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
+if [ -n "${NOSTRA_CONTINUATION_RUN_ROOT:-}" ]; then
+  test -s "$RUN_ROOT/business-model/99_business-model-synthesis.md" && printf '%s\n' "$RUN_ROOT/business-model/"
+else
+  for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
+    [ -s "${d}99_business-model-synthesis.md" ] && { echo "$d"; break; }
+  done
+fi
 ```
 
 Capture the result as `<BUSINESS_MODEL_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name, which sorts correctly thanks to the `YYYY-MM-DD` date format embedded in the path. If the command returns an empty string (no prior business-model run for this ticker), set `<BUSINESS_MODEL_PATH>` to the literal string `not available`.

@@ -19,9 +19,12 @@ and frozen decision date. This is the ONE terminal adjudicator after the provide
 completed the discovered module DAG. By provider start `<RUN_ROOT>` contains the immutable binding, its
 required `.requires_idea_publication` and `.defer_module_memos` markers, the deterministic `_pool_extracts/`
 readiness cache, and one folder for every currently discovered module. A human-approved degraded-data launch
-may additionally have `readiness_override.json`. Require every discovered module's canonical `99_*` synthesis
-to exist and pass the artifact validator before continuing. Treat only those completed module folders and
-exact supervisor support paths as expected. Normally, fail if any module is missing/partial, or if any
+may additionally have `readiness_override.json`. Require every discovered module to have one mechanically
+valid terminal outcome before continuing: either its canonical `99_*` synthesis, or (only for a discovered
+`00_*` agent whose frontmatter has `fail_fast: true`) that exact triage file with canonical verdict
+`Insufficient`. Treat the latter as an intentionally aborted, conviction-capped module; do not fabricate a
+synthesis or rerun it. Treat only those completed/capped module folders and exact supervisor support paths as
+expected. Normally, fail if any module is missing/partial, or if any
 terminal artifact, failure/interruption marker, or other unexpected top-level entry already exists.
 
 One narrow exception is a supervisor-authorized same-root recovery: `NOSTRA_PARITY_CANARY_CONTINUATION=1`.
@@ -39,7 +42,7 @@ Then execute the complete `/research:full` workflow, with these narrow substitut
 - `<TICKER>` is the first argument. `<RUN_ROOT>` is the exact second argument; never construct or write
   `analyses/<TICKER>_<today>`. Use the binding's frozen `decision_date` everywhere the normal workflow uses
   today's decision/run date.
-- Treat the completed module set as the current frozen run, not as a prior decision. Never select a prior
+- Treat the completed or deliberately fail-fast-capped module set as the current frozen run, not as a prior decision. Never select a prior
   run; set `<PRIOR_RUN>` to `none`. Do not read another analysis root as research context. Follow the normal
   completed-module skip rule, then perform the master synthesis, memos, finish gates, audits, decision record,
   idea assessment, metadata, and terminal publication against this exact root. In continuation mode this

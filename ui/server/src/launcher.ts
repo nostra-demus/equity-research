@@ -4198,7 +4198,13 @@ export async function launchFullChained(
   const chainModules = names.map((name) => ({
     module: name,
     dependsOn: [...(depsOf.get(name) ?? [])].sort(),
-    synthesisOutputs: (synthesisFiles.get(name) ?? []).map((file) => `${name}/${file}`).sort(),
+    // Retain the legacy field name on disk, but declare every mechanically valid terminal outcome:
+    // either the synthesis or a discovered fail-fast triage. The transaction kernel rejects completed
+    // evidence outside this exact list.
+    synthesisOutputs: [
+      ...(synthesisFiles.get(name) ?? []),
+      ...(failFastTriageFiles.get(name) ?? []),
+    ].map((file) => `${name}/${file}`).sort(),
   }))
   // Acquire after all read-only graph construction but BEFORE the first marker/filesystem mutation. The
   // subject token and pool claim live until master terminal or abort; child ACKs/finishes never release them.
@@ -4312,7 +4318,14 @@ export async function launchFullChained(
   // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = datedRoot
   if (recoveredIntent) {
-    if (!isDeepStrictEqual(recoveredIntent.modules, chainModules)) {
+    const declarationCanUpgrade = recoveredIntent.modules.length === chainModules.length
+      && recoveredIntent.modules.every((prior, index) => {
+        const next = chainModules[index]
+        return next?.module === prior.module
+          && isDeepStrictEqual(next.dependsOn, prior.dependsOn)
+          && prior.synthesisOutputs.every((output) => next.synthesisOutputs.includes(output))
+      })
+    if (!declarationCanUpgrade) {
       throw new Error('recoverable full-chain module roster changed; refusing to widen or rebuild its scope')
     }
     const resolved = getProviderAdapter(selection.provider).resolveProfile({

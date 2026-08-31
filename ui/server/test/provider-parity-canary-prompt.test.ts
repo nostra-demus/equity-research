@@ -23,8 +23,8 @@ for (const expected of [
 }
 assert.match(
   command,
-  /Require every discovered module's canonical `99_\*` synthesis[\s\S]*pass the artifact validator/,
-  'the terminal adjudicator must refuse a partial module DAG',
+  /either its canonical `99_\*` synthesis[\s\S]*`fail_fast: true`[\s\S]*`Insufficient`/,
+  'the terminal adjudicator must accept only synthesis or a discovered fail-fast Insufficient outcome',
 )
 assert.match(command, /ONE terminal adjudicator/)
 for (const expected of [
@@ -42,5 +42,18 @@ for (const expected of [
   'scripts/commit-run.sh',
 ]) assert.ok(moduleCommand.includes(expected), `module canary loader is missing: ${expected}`)
 assert.match(moduleCommand, /intermediate module stages cannot publish/)
+
+for (const module of [
+  'earnings', 'competitive-intel', 'balance-sheet-survival',
+  'management-governance', 'valuation', 'catalyst',
+]) {
+  const canonical = fs.readFileSync(path.resolve(
+    testDir, `../../../.claude/commands/research/${module}.md`,
+  ), 'utf8')
+  assert.match(canonical, /NOSTRA_CONTINUATION_RUN_ROOT/,
+    `${module} must recognize the exact chained run root`)
+  assert.match(canonical, /never fall back to (?:an )?older run/,
+    `${module} must not import prior-run context into a chained Full`)
+}
 
 console.log('✓ provider-parity canary prompts enforce bounded modules plus one terminal adjudicator')
