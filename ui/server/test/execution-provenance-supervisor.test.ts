@@ -26,6 +26,10 @@ assert.equal(trackedTerminalDeletionDisposition(
   resumedDeletion, 'analyses/NU_2026-08-31/valuation/valuation_dossier.md',
 ), 'restore', 'a resumed run retains older tracked files absent from its saved source')
 assert.equal(trackedTerminalDeletionDisposition(
+  { ...resumedDeletion, runRoot: 'analyses\\NU_2026-08-31' },
+  'analyses\\NU_2026-08-31\\valuation\\valuation_dossier.md',
+), 'restore', 'run-root containment is stable across path separators')
+assert.equal(trackedTerminalDeletionDisposition(
   resumedDeletion, 'analyses/NU_2026-08-31/RUN_FAILURE.md',
 ), 'allow', 'the exact stale failure note remains the sole legitimate terminal deletion')
 assert.equal(trackedTerminalDeletionDisposition(

@@ -6826,8 +6826,8 @@ export function trackedTerminalDeletionDisposition(
     return 'allow'
   }
   if (!resumable || !run.runRoot) return 'forbid'
-  const exactRoot = run.runRoot.split(path.sep).join('/').replace(/\/+$/, '')
-  const normalized = relative.split(path.sep).join('/')
+  const exactRoot = run.runRoot.replace(/\\/g, '/').replace(/\/+$/, '')
+  const normalized = relative.replace(/\\/g, '/')
   return normalized.startsWith(`${exactRoot}/`) ? 'restore' : 'forbid'
 }
 
