@@ -915,11 +915,24 @@ export function streamResultAwaitsProcessClose(run: RunState): boolean {
 export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
   const code = res?.exitCode ?? res?.code
   const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
+  // Immutable-Idea publication deliberately keeps `.requires_idea_publication` until the supervisor
+  // finishes its post-process commit. That marker makes truncatedBeforeFinal() true, so using the final
+  // completion predicate here created a circular gate: the provider queued the terminal publication,
+  // close refused to drain it because publication was still pending, then discarded the queued intent.
+  // A queued request may cross only this pre-publication gate when every declared terminal artifact is
+  // fresh. Publication still has to validate, stamp, commit, clear the marker, and set publicationCompleted
+  // before finalizeRunOnClose can report success.
+  const readyForQueuedPublication = run.publicationRequested === true && !!run.runRoot
+    && run.swarmId === RESEARCH_SWARM_ID && (run.kind === 'full' || run.kind === 'rerun')
+    && (run.kind === 'full' ? ROOT_ARTIFACTS_FULL : ROOT_ARTIFACTS_RERUN)
+      .every((relative) => artifactIsFresh(run, relative))
+  const terminalIncomplete = truncatedBeforeFinal(run)
+    || (run.provider === 'codex' && codexContinuationTerminalOutputs(run)
+      .some((relative) => !codexContinuationArtifactComplete(run, relative)))
   return run.endedAt === undefined && (run.status as string) !== 'cancelled' && !run.cancelRequested
     && !streamResultErrors.has(run)
-    && !terminated && !(code && code !== 0) && res?.failed !== true && !truncatedBeforeFinal(run)
-    && !(run.provider === 'codex' && codexContinuationTerminalOutputs(run)
-      .some((relative) => !codexContinuationArtifactComplete(run, relative)))
+    && !terminated && !(code && code !== 0) && res?.failed !== true
+    && (readyForQueuedPublication || !terminalIncomplete)
 }
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
