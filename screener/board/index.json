@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T03:11:00Z",
+  "generated_at": "2026-08-31T03:17:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-198",
@@ -299,6 +299,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-215",
+      "headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:35:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Tesla announced a significant increase in its 2026 capital budget to $25 billion for scaling operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla announced a significant increase in its 2026 capital budget to $25 billion for scaling operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-176",
       "headline": "GS Retail fined 12.8 bln won over personal data leak of 1.66 mln customers",
       "headline_en": null,
@@ -397,55 +446,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-197",
-      "headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/30/teslas-2026-capital-budget-skyrocketed-to-25-billi/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T02:15:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Tesla announces a significant increase in its 2026 capital budget to $25 billion for scaling production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla announces a significant increase in its 2026 capital budget to $25 billion for scaling production.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -758,20 +758,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-202",
-      "headline": "AFL: FY26 Results Announcement [price-sensitive]",
+      "inbox_id": "INB-20260831-211",
+      "headline": "AFL: FY26 Results Investor Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AFL?key=2924-03129282-6A1341285",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AFL?key=2924-03129286-6A1341287",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T03:04:30Z",
+      "found_at": "2026-08-31T03:09:40Z",
       "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released its FY26 financial results, which is a primary source event for valuation.",
+      "prelim_note": "The company released its FY26 investor presentation, which is a price-sensitive event for shareholders.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "The company released its FY26 financial results, which is a primary source event for valuation.",
+      "triage_reason": "The company released its FY26 investor presentation, which is a price-sensitive event for shareholders.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -798,7 +798,7 @@
         {
           "name": "AFL",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -117500,9 +117500,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 913,
-    "news_picked_today": 261,
-    "news_dropped_today": 636
+    "news_seen_today": 939,
+    "news_picked_today": 271,
+    "news_dropped_today": 652
   },
   "book_momentum": {
     "live_count": 8,
