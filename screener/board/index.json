@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T01:55:48Z",
+  "generated_at": "2026-08-31T02:00:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-034",
@@ -738,6 +738,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-139",
+      "headline": "SK온, 美 네오볼타 파워와 9GWh 배터리 공급계약",
+      "headline_en": "SK On signs a 9GWh battery supply contract with US-based NeoVolta Power",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275826",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T01:42:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "SK On secured a significant 9GWh battery supply contract with NeoVolta Power in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "SK On secured a significant 9GWh battery supply contract with NeoVolta Power in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK On",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "NeoVolta Power",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,55 +1941,6 @@
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Strike Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-088",
-      "headline": "ASX eases as gold miners drop; Strike Energy soars on Rinehart deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-as-warsh-forces-rate-pivot-gold-bitcoin-drop-20260830-p60stg?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T00:57:14Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Strike Energy shares rose significantly following a deal with Rinehart.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Strike Energy shares rose significantly following a deal with Rinehart.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -116838,9 +116843,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 550,
-    "news_picked_today": 150,
-    "news_dropped_today": 384
+    "news_seen_today": 589,
+    "news_picked_today": 158,
+    "news_dropped_today": 415
   },
   "book_momentum": {
     "live_count": 8,
