@@ -254,6 +254,7 @@ export async function legacySingleRunMigrationPlan(plan: ThesisPlan, sourceRunRo
 function continuationSourceArtifactsSha256(
   targetRunRoot: string,
   carries: { module: string; copyFrom: string }[],
+  targetWasAbsent: boolean = false,
 ): string {
   const scopes = [
     { label: `target:${targetRunRoot}`, abs: path.join(REPO_ROOT, targetRunRoot) },
@@ -291,6 +292,10 @@ function continuationSourceArtifactsSha256(
     for (const name of fs.readdirSync(current).sort()) visit(scope, root, path.join(current, name))
   }
   for (const scope of scopes) {
+    if (targetWasAbsent && scope.label === `target:${targetRunRoot}`) {
+      rows.push({ scope: scope.label, path: '.', missing: true })
+      continue
+    }
     try { visit(scope.label, scope.abs, scope.abs) } catch (error: any) {
       if (error?.code === 'ENOENT') rows.push({ scope: scope.label, path: '.', missing: true })
       else throw error
@@ -2342,12 +2347,42 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
   const modules = new Set(graph.modules.map((module) => module.name))
   const reusable = new Map(input.reviewedPlan.continuationReceipt.reusableArtifacts
     .map((artifact) => [artifact.output_rel, artifact]))
+  const migratedCarry = new Map(input.reviewedPlan.carry
+    .map((entry) => [entry.module, entry]))
+  const sourceSealedMigration = input.reviewedPlan.continuationReceipt.action === 'complete'
+    && input.doneOrbKeys.length > 0
+    && continuationSourceArtifactsSha256(
+      input.reviewedPlan.targetRunRoot,
+      input.reviewedPlan.carry,
+      true,
+    ) === input.reviewedPlan.continuationReceipt.sourceArtifactsSha256
   const allowed = new Map<string, string>()
   for (const key of input.doneOrbKeys) {
     const outputRel = `${key}.md`
     const artifact = reusable.get(outputRel)
-    if (!artifact) throw new Error(`recoverable chain lost prepared lineage for ${outputRel}`)
-    allowed.set(outputRel, artifact.sha256)
+    if (artifact) {
+      allowed.set(outputRel, artifact.sha256)
+      continue
+    }
+    // A protected migration starts with an absent target, copies whole finished modules from one exact
+    // legacy root, and therefore has no provider-lineage rows for those old files. Its v2 receipt still
+    // seals the complete source trees. Re-prove that aggregate seal, then bind every reusable orb to the
+    // byte currently present at its exact carried source; the target must match below before any swap.
+    const slash = outputRel.indexOf('/')
+    const module = slash > 0 ? outputRel.slice(0, slash) : ''
+    const file = slash > 0 ? outputRel.slice(slash + 1) : ''
+    const carry = migratedCarry.get(module)
+    if (!sourceSealedMigration || !carry || !input.reviewedPlan.reuse.includes(module)
+        || !file || file.includes('/') || file.includes('\\')) {
+      throw new Error(`recoverable chain lost prepared lineage for ${outputRel}`)
+    }
+    const sourceModuleAbs = assertContainedModuleDir(carry.copyFrom, module)
+    const source = path.join(sourceModuleAbs, file)
+    const info = fs.lstatSync(source)
+    if (!info.isFile() || info.isSymbolicLink()) {
+      throw new Error(`recoverable chain carried artifact is unsafe: ${outputRel}`)
+    }
+    allowed.set(outputRel, `sha256:${createHash('sha256').update(fs.readFileSync(source)).digest('hex')}`)
   }
   for (const entry of input.completed) {
     if (!modules.has(entry.module) || entry.artifacts.length === 0) {
@@ -2356,6 +2391,10 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
     for (const artifact of entry.artifacts) {
       if (!artifact.outputRel.startsWith(`${entry.module}/`) || !/^sha256:[a-f0-9]{64}$/.test(artifact.sha256)) {
         throw new Error(`recoverable chain has an invalid completed artifact for ${entry.module}`)
+      }
+      const preparedSha256 = allowed.get(artifact.outputRel)
+      if (preparedSha256 && preparedSha256 !== artifact.sha256) {
+        throw new Error(`recoverable chain completed evidence disagrees with prepared lineage: ${artifact.outputRel}`)
       }
       allowed.set(artifact.outputRel, artifact.sha256)
     }

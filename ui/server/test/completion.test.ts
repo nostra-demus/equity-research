@@ -79,6 +79,7 @@ const {
   capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
   carryForwardModules, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareFullContinuation,
   legacySingleRunMigrationPlan, prepareModuleResume, prepareThesisPlanPrivately,
+  sanitizeRecoverableChainRoot,
 } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
 
@@ -1446,8 +1447,41 @@ function exactScope(runRoot: string) {
   assert.ok(!fs.existsSync(path.join(prepared.stagingRootAbs, 'beta')),
     'the unbound partial module cannot presence-skip paid work in the protected target')
   assert.deepEqual(prepared.doneOrbKeys, [])
+
+  const targetAbs = path.join(REPO, migrated.targetRunRoot)
+  fs.mkdirSync(path.dirname(targetAbs), { recursive: true })
+  fs.renameSync(prepared.stagingRootAbs, targetAbs)
+  write(`${migrated.targetRunRoot}/beta/00_unsealed-triage.md`, '# crashed paid child\n')
+  const synthesisRel = 'alpha/99_alpha-synthesis.md'
+  const synthesisSha = `sha256:${createHash('sha256')
+    .update(fs.readFileSync(path.join(targetAbs, synthesisRel))).digest('hex')}`
+  sanitizeRecoverableChainRoot({
+    runRoot: migrated.targetRunRoot,
+    reviewedPlan: migrated,
+    doneOrbKeys: migrated.continuationReceipt.reusableOrbKeys,
+    completed: [{ module: 'alpha', artifacts: [{ outputRel: synthesisRel, sha256: synthesisSha }] }],
+  })
+  for (const file of [
+    '01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md',
+    '99_alpha-synthesis.md',
+  ]) assert.ok(fs.existsSync(path.join(targetAbs, 'alpha', file)), `sealed migrated orb ${file} survives recovery`)
+  assert.ok(!fs.existsSync(path.join(targetAbs, 'beta/00_unsealed-triage.md')),
+    'an unsealed crashed-child artifact is removed before the exact recovery child starts')
+
+  fs.appendFileSync(path.join(REPO, root, 'alpha/01_alpha-thing.md'), 'changed after admission\n')
+  assert.throws(
+    () => sanitizeRecoverableChainRoot({
+      runRoot: migrated.targetRunRoot,
+      reviewedPlan: migrated,
+      doneOrbKeys: migrated.continuationReceipt.reusableOrbKeys,
+      completed: [{ module: 'alpha', artifacts: [{ outputRel: synthesisRel, sha256: synthesisSha }] }],
+    }),
+    /lost prepared lineage/,
+    'a changed legacy source invalidates its aggregate receipt before target files are reused',
+  )
+  fs.rmSync(targetAbs, { recursive: true, force: true })
   fs.rmSync(tx, { recursive: true, force: true })
-  console.log('✅ one legacy run migrates finished modules and rebuilds unbound partial work')
+  console.log('✅ one legacy run migrates finished modules, recovers sealed orbs, and rebuilds unbound work')
 }
 
 // ---- 23. exact Continue invalidates every downstream specialist when its upstream changes ----------
