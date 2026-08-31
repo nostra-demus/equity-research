@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T02:45:19Z",
+  "generated_at": "2026-08-31T02:50:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-152",
@@ -345,6 +345,114 @@
           "name": "Dentsu Soken",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-197",
+      "headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/30/teslas-2026-capital-budget-skyrocketed-to-25-billi/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:15:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Tesla announces a significant increase in its 2026 capital budget to $25 billion for scaling production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla announces a significant increase in its 2026 capital budget to $25 billion for scaling production.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-190",
+      "headline": "Aon Reportedly Nears $17 Bln Deal To Acquire USI Insurance From KKR",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aon-reportedly-nears-17-bln-deal-acquire-usi-insurance-kkr",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:06:54Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Aon is reportedly nearing a $17 billion acquisition of USI Insurance, a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is reportedly nearing a $17 billion acquisition of USI Insurance, a significant M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI Insurance",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1861,104 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-029",
-      "headline": "EXCELLAND ROBOT (03231): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T22:06:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Excelland Robot is initiating a global offering, which is a significant capital-raising event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Excelland Robot is initiating a global offering, which is a significant capital-raising event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Excelland Robot",
-          "ticker": "03231",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-030",
-      "headline": "LONGSYS (09976): GLOBAL OFFERING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T22:06:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Longsys is initiating a global offering, which is a significant capital-raising event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Longsys is initiating a global offering, which is a significant capital-raising event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Longsys",
-          "ticker": "09976",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -89141,77 +89151,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-ac20fff1a86eead0",
-      "idea_version_started_at": "2026-08-29T23:48:06Z",
-      "ticker": "META",
-      "company": "Meta Platforms, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
-      "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-63ce59bfa5c5",
-        "EVT-bef4b96e40e0"
-      ],
-      "primary_source_event_id": "EVT-63ce59bfa5c5",
-      "source_headlines": [
-        "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
-        "Meta settles social media addiction suit for up to $17.1 billion"
-      ],
-      "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
-      "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T14:49:07Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-28",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-29T16:03:33Z",
-      "updated_at": "2026-08-29T23:48:06Z",
-      "decay_at": "2026-08-31T02:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d154be29c3e7",
       "idea_version": "IDEAV-d1a013c87ab91ff2",
       "idea_version_started_at": "2026-08-30T07:59:46Z",
@@ -93378,6 +93317,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-ac20fff1a86eead0",
+      "idea_version_started_at": "2026-08-29T23:48:06Z",
+      "ticker": "META",
+      "company": "Meta Platforms, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
+      "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-63ce59bfa5c5",
+        "EVT-bef4b96e40e0"
+      ],
+      "primary_source_event_id": "EVT-63ce59bfa5c5",
+      "source_headlines": [
+        "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+        "Meta settles social media addiction suit for up to $17.1 billion"
+      ],
+      "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+      "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T14:49:07Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-28",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-29T16:03:33Z",
+      "updated_at": "2026-08-29T23:48:06Z",
+      "decay_at": "2026-08-31T02:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-865901eb21c3",
       "idea_version": "IDEAV-1a2f2037ab34fb0c",
       "idea_version_started_at": "2026-08-29T23:48:06Z",
@@ -97366,8 +97376,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 267,
-    "shown_count": 267,
+    "total_count": 268,
+    "shown_count": 268,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -97376,8 +97386,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 143,
-        "shown_count": 143,
+        "total_count": 144,
+        "shown_count": 144,
         "hidden_count": 0
       }
     },
@@ -97397,6 +97407,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-301c9958417a",
+        "idea_version": "IDEAV-ac20fff1a86eead0",
+        "idea_version_started_at": "2026-08-29T23:48:06Z",
+        "ticker": "META",
+        "company": "Meta Platforms, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
+        "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-63ce59bfa5c5",
+          "EVT-bef4b96e40e0"
+        ],
+        "primary_source_event_id": "EVT-63ce59bfa5c5",
+        "source_headlines": [
+          "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+          "Meta settles social media addiction suit for up to $17.1 billion"
+        ],
+        "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+        "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T14:49:07Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/META_2026-08-28",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-08-29T16:03:33Z",
+        "updated_at": "2026-08-29T23:48:06Z",
+        "decay_at": "2026-08-31T02:49:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T02:49:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1216c09ce08d",
         "idea_version": "IDEAV-3f0a4e653cd837f4",
@@ -117185,7 +117269,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 336,
-    "live_count": 67,
+    "live_count": 66,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -117204,9 +117288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 798,
-    "news_picked_today": 228,
-    "news_dropped_today": 554
+    "news_seen_today": 818,
+    "news_picked_today": 237,
+    "news_dropped_today": 565
   },
   "book_momentum": {
     "live_count": 8,
