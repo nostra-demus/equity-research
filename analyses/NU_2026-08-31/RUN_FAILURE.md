@@ -3,9 +3,9 @@
 - ticker: NU
 - orchestrator: chained full run (server)
 - status: FAILED — stopped mid-run before the final thesis
-- stopped_at: valuation
+- stopped_at: catalyst
 - reason: codex_error
-- stopped_at_utc: 2026-08-31T06:30:53.184Z
+- stopped_at_utc: 2026-08-31T07:50:46.474Z
 
 ## Modules completed
 
@@ -13,6 +13,7 @@
 - competitive-intel
 - earnings
 - management-governance
+- valuation
 
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
