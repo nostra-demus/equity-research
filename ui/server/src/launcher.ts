@@ -851,7 +851,22 @@ function interruptionMarker(run: RunState, reason: string, message?: string, res
   }
 }
 
-function writeInterruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number): void {
+export function writeInterruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number): void {
+  // A provider can report the same terminal failure more than once before its process group closes.
+  // Once this exact attempt's marker is protected, keep those authoritative bytes stable: writeRunMarker
+  // adds a fresh timestamp, which would otherwise break the immutable marker-to-attempt binding and strand
+  // the saved work instead of letting the resume supervisor continue it.
+  if (run.runRoot) {
+    const existing = readRunMarker(run.runRoot, '.interrupted')
+    const attemptId = run.providerAttemptId ?? run.runId
+    const authority = existing?.runId === run.runId && existing?.attemptId === attemptId
+      ? readProviderInterruptionAuthority(run.runRoot, run.runId)
+      : null
+    if (authority?.runId === attemptId && authority.provider === run.provider
+        && authority.model === run.model && authority.reasoningLevel === run.reasoningLevel
+        && authority.profileKey === run.profileKey
+        && isDeepStrictEqual(authority.executionProfile, run.executionProfile)) return
+  }
   writeRunMarker(run.runRoot, '.interrupted', interruptionMarker(run, reason, message, resetsAt))
   // The run-root marker is provider-writable. Automatic restart recovery may trust it only after the
   // protected supervisor state records its exact bytes alongside the immutable provider/profile.
