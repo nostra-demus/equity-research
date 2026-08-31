@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T05:43:12Z",
+  "generated_at": "2026-08-31T05:51:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-321",
@@ -392,6 +392,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-331",
+      "headline": "‎Alistithmar Capital, Ezdihar acquire Jeddah Cove for SAR 1.1B",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1932670",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T08:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Acquisition of Jeddah Cove for SAR 1.1B is a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of Jeddah Cove for SAR 1.1B is a significant capital deployment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alistithmar Capital",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Ezdihar",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,56 +1988,6 @@
       "companies": [
         {
           "name": "BLS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-167",
-      "headline": "EWC: FY26 Preliminary Results and Turbine Sale Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03129239-2A1693755",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:20:40Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released preliminary FY26 results and an update on a turbine sale, both marked as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released preliminary FY26 results and an update on a turbine sale, both marked as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EWC",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -118247,9 +118251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3570,
-    "news_picked_today": 552,
-    "news_dropped_today": 2185
+    "news_seen_today": 3648,
+    "news_picked_today": 569,
+    "news_dropped_today": 2246
   },
   "book_momentum": {
     "live_count": 8,
