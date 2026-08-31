@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-31T14:46:41Z",
+  "generated_at": "2026-08-31T14:52:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-767",
+      "headline": "Happiest Minds Technologies Limited: Happiest Minds Technologies Limited has informed the Exchange regarding a revised press release dated August 31, 2026, titled \"Happiest Minds Technologies announces merger with ITC Infotech to create a scaled, AI First Global Technology Services Enterprise with US$ 1 billion Revenue by FY28 \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/suhask_31082026200535_Reg30PressRelease31082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:36:14Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Happiest Minds is merging with ITC Infotech to create a scaled entity with a $1 billion revenue target by FY28.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Happiest Minds is merging with ITC Infotech to create a scaled entity with a $1 billion revenue target by FY28.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Happiest Minds Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ITC Infotech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-761",
       "headline": "Atcom Technologies Limited: Members of the Exchange are hereby informed about the Compulsory Delisting of Equity Shares of Atcom Technologies Limited w.e.f. September 02, 2026, in terms of Rule 21(2)(b) of the Securities Contracts (Regulations) Rules 1957 which has been compulsorily delisted by BSE Limited.",
@@ -46,60 +100,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-762",
-      "headline": "Happiest Minds Technologies Limited: Happiest Minds Technologies Limited has informed the Exchange regarding a press release dated August 31, 2026, titled \"Happiest Minds Technologies announces merger with ITC Infotech to create a scaled, AI First Global Technology Services Enterprise with US$ 1 billion Revenue by FY28\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/suhask_31082026194116_Reg30PressRelease31082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T14:11:45Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Happiest Minds Technologies announced a merger with ITC Infotech to create a business targeting US$ 1 billion in revenue by FY28.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Happiest Minds Technologies announced a merger with ITC Infotech to create a business targeting US$ 1 billion in revenue by FY28.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Happiest Minds Technologies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "ITC Infotech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -117686,9 +117686,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 642186,
-    "news_picked_today": 1577,
-    "news_dropped_today": 13083
+    "news_seen_today": 648668,
+    "news_picked_today": 1611,
+    "news_dropped_today": 13121
   },
   "book_momentum": {
     "live_count": 8,
