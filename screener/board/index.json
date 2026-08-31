@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-08-31T15:11:34Z",
+  "generated_at": "2026-08-31T15:18:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-776",
+      "headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083103079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T14:59:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company announced a delay in financial results, postponement of a board meeting, and a suspension of trading, indicating significant operational or accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a delay in financial results, postponement of a board meeting, and a suspension of trading, indicating significant operational or accounting issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MicroPort",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-771",
       "headline": "C SUCCESS FIN (03623): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 45% ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDEATION SHARES UNDER SPECIFIC MANDATE",
@@ -1920,55 +1970,6 @@
           "name": "Cayenne Capital",
           "ticker": "CAY",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-198",
-      "headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLS?key=2924-03129273-2A1693772",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:51:40Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company issued FY2027 guidance, which is a material event for investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company issued FY2027 guidance, which is a material event for investor expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BLS",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -117687,9 +117688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 713660,
-    "news_picked_today": 1633,
-    "news_dropped_today": 13243
+    "news_seen_today": 720491,
+    "news_picked_today": 1651,
+    "news_dropped_today": 13273
   },
   "book_momentum": {
     "live_count": 8,
