@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T21:25:46Z",
+  "generated_at": "2026-08-31T21:40:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-798",
@@ -92168,78 +92168,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c481b124778d",
-      "idea_version": "IDEAV-4714104a3d59f2a9",
-      "idea_version_started_at": "2026-08-30T10:40:30Z",
-      "ticker": "AA",
-      "company": "AA plc",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AA is reportedly facing a £5bn takeover bid from German insurer Allianz, which would likely result in a premium for its shares.",
-      "why_now": "News reports today indicate a potential takeover move by Allianz, creating an immediate catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3eb21d614e72"
-      ],
-      "primary_source_event_id": "EVT-3eb21d614e72",
-      "source_headlines": [
-        "AA faces £5bn takeover move by German insurer Allianz, reports claim"
-      ],
-      "source_headline": "AA faces £5bn takeover move by German insurer Allianz, reports claim",
-      "source_url": "https://www.theguardian.com/business/2026/aug/30/aa-takeover-german-insurer-allianz",
-      "source_name": "The Guardian — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T09:26:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T10:40:30Z",
-      "updated_at": "2026-08-30T10:40:30Z",
-      "decay_at": "2026-08-31T21:26:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-33b8457c918f",
       "idea_version": "IDEAV-1332c8b2a67d3026",
       "idea_version_started_at": "2026-08-30T10:20:45Z",
@@ -93941,6 +93869,78 @@
       "surfaced_at": "2026-08-29T12:26:38Z",
       "updated_at": "2026-08-29T22:28:34Z",
       "decay_at": "2026-08-30T09:29:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c481b124778d",
+      "idea_version": "IDEAV-4714104a3d59f2a9",
+      "idea_version_started_at": "2026-08-30T10:40:30Z",
+      "ticker": "AA",
+      "company": "AA plc",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AA is reportedly facing a £5bn takeover bid from German insurer Allianz, which would likely result in a premium for its shares.",
+      "why_now": "News reports today indicate a potential takeover move by Allianz, creating an immediate catalyst for the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3eb21d614e72"
+      ],
+      "primary_source_event_id": "EVT-3eb21d614e72",
+      "source_headlines": [
+        "AA faces £5bn takeover move by German insurer Allianz, reports claim"
+      ],
+      "source_headline": "AA faces £5bn takeover move by German insurer Allianz, reports claim",
+      "source_url": "https://www.theguardian.com/business/2026/aug/30/aa-takeover-german-insurer-allianz",
+      "source_name": "The Guardian — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T09:26:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T10:40:30Z",
+      "updated_at": "2026-08-30T10:40:30Z",
+      "decay_at": "2026-08-31T21:26:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96478,13 +96478,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 299,
-    "shown_count": 299,
+    "total_count": 300,
+    "shown_count": 300,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 143,
-        "shown_count": 143,
+        "total_count": 144,
+        "shown_count": 144,
         "hidden_count": 0
       },
       "short": {
@@ -96509,6 +96509,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c481b124778d",
+        "idea_version": "IDEAV-4714104a3d59f2a9",
+        "idea_version_started_at": "2026-08-30T10:40:30Z",
+        "ticker": "AA",
+        "company": "AA plc",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "AA is reportedly facing a £5bn takeover bid from German insurer Allianz, which would likely result in a premium for its shares.",
+        "why_now": "News reports today indicate a potential takeover move by Allianz, creating an immediate catalyst for the stock.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3eb21d614e72"
+        ],
+        "primary_source_event_id": "EVT-3eb21d614e72",
+        "source_headlines": [
+          "AA faces £5bn takeover move by German insurer Allianz, reports claim"
+        ],
+        "source_headline": "AA faces £5bn takeover move by German insurer Allianz, reports claim",
+        "source_url": "https://www.theguardian.com/business/2026/aug/30/aa-takeover-german-insurer-allianz",
+        "source_name": "The Guardian — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T09:26:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T10:40:30Z",
+        "updated_at": "2026-08-30T10:40:30Z",
+        "decay_at": "2026-08-31T21:26:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T21:26:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fbb98074a072",
         "idea_version": "IDEAV-e0011152693e59b6",
@@ -118693,7 +118768,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 365,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -118712,9 +118787,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1419866,
-    "news_picked_today": 1976,
-    "news_dropped_today": 18276
+    "news_seen_today": 1450321,
+    "news_picked_today": 1994,
+    "news_dropped_today": 18906
   },
   "book_momentum": {
     "live_count": 8,
