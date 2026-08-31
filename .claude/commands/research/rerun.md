@@ -150,6 +150,20 @@ with the Step-2 `<DATA_PATH>` and its exact extractor output. Standalone reruns 
 frozen Full/Continue chains verify and reuse only the admitted generation without reading Drive. On a
 normal cascade this is an idempotent second verification.
 
+Before dispatch, build `<MODULE_TERMINAL_OUTCOMES>` from this exact run root. For every discovered module,
+record exactly one of:
+
+- `synthesis — <RUN_ROOT>/<module>/99_*-synthesis.md` when the canonical synthesis is non-empty; or
+- `fail_fast_insufficient — <RUN_ROOT>/<module>/00_*.md` only when that discovered `00` agent's
+  frontmatter declares `fail_fast: true` and the exact non-empty output has one unconflicted canonical
+  `Verdict: Insufficient` / `Verdict: Insufficient data` carrier line; or
+- `missing` otherwise.
+
+This is terminal outcome typing, not a new completion heuristic. A `fail_fast_insufficient` module is an
+intentional completed capped outcome, not a crash and not a synthesis. Never infer it from an arbitrary
+`00` file, checklist prose, or a previous run. Append the complete typed roster to the Task message so the
+master can distinguish a deliberate data refusal from an interrupted module.
+
 Dispatch a single Task call (per `/research:full` step 10):
 
 - `subagent_type: "synthesizer"`
@@ -158,7 +172,8 @@ Dispatch a single Task call (per `/research:full` step 10):
     <GENERATION_ROOT>, and deterministic CIQ facts are at <GENERATION_ROOT>/ciq_facts.json in frozen mode
     (otherwise <RUN_ROOT>/_pool_extracts/ciq_facts.json). Keep citations labelled data/<TICKER>/.... If the
     frozen supervisor quartet is present, require these paths to match it; do not read live data/<TICKER>/
-    or any mutable fixed-name projection under <RUN_ROOT>/_pool_extracts/.
+    or any mutable fixed-name projection under <RUN_ROOT>/_pool_extracts/. Module terminal outcomes for
+    this exact invocation: <MODULE_TERMINAL_OUTCOMES>.
 
 Before dispatch, compile and append `master/synthesizer` under `frameworks/MEMORY_RUNTIME.md`; after
 `final_thesis.md` passes its ordinary existence/output checks, attest the declaration with output
@@ -212,7 +227,8 @@ Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is
 
 ## Modules completed
 
-<one line per `<RUN_ROOT>/<module>/` that has a non-empty `99_*-synthesis.md`>
+<one line per discovered module from `<MODULE_TERMINAL_OUTCOMES>`, including its terminal type and exact
+artifact path; include `fail_fast_insufficient` modules rather than omitting or relabelling them>
 
 ## Synthesizer status
 

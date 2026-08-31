@@ -77,16 +77,15 @@ export function extractRouting(markdown: string, field: string): string | null {
 // Triage-specific: accept exactly one canonical verdict. A template/menu that leaves multiple choices
 // visible is not a decision and must never become durable terminal evidence.
 export function extractTriageStatus(markdown: string): 'Sufficient' | 'Partial' | 'Insufficient' | null {
-  const lines = markdown.split(/\r?\n/)
-  for (const ln of lines) {
-    if (/verdict/i.test(ln)) {
-      const statuses = [...ln.matchAll(/\binsufficient\b|\bpartial\b|\bsufficient\b/gi)]
-        .map((match) => match[0].toLowerCase())
-      if (new Set(statuses).size !== 1) continue
-      if (statuses[0] === 'insufficient') return 'Insufficient'
-      if (statuses[0] === 'partial') return 'Partial'
-      if (statuses[0] === 'sufficient') return 'Sufficient'
-    }
+  const statuses = new Set<'Sufficient' | 'Partial' | 'Insufficient'>()
+  const carrier = /^[\s>*-]*(?:\*\*)?\s*verdict\s*:\s*(?:\*\*)?\s*(insufficient(?:\s+data)?|partial|sufficient)\s*(?:\*\*)?[.!]?\s*$/i
+  for (const ln of markdown.split(/\r?\n/)) {
+    const match = ln.match(carrier)
+    if (!match) continue
+    const status = match[1].toLowerCase()
+    statuses.add(status.startsWith('insufficient')
+      ? 'Insufficient'
+      : status === 'partial' ? 'Partial' : 'Sufficient')
   }
-  return null
+  return statuses.size === 1 ? [...statuses][0] : null
 }

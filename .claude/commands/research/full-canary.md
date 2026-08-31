@@ -51,6 +51,11 @@ Then execute the complete `/research:full` workflow, with these narrow substitut
   against this exact root. In continuation mode this
   explicitly means re-authoring all retained raw terminal files from the frozen module evidence before the
   publication call; their pre-existing bytes are not a substitute for this process's adjudication.
+- Before master synthesis, build the same exact-root typed module-outcome roster required by
+  `/research:rerun` Step 8: `synthesis`, `fail_fast_insufficient`, or `missing`, with each exact artifact path.
+  Pass it to the master and write the same labels into `RUN_METADATA.md`. A valid fail-fast triage is an
+  intentional completed capped outcome; never report it as a crash, a partial module, or a successful
+  solvency synthesis.
 - Use only the frozen `data/<TICKER>` snapshot and the receipt's exact price anchor. Do not fetch or use
   newer web evidence, a newer price, or a different data directory. A missing required input remains missing.
 - Preserve `.provider-parity-input.json` byte-for-byte. Every research output, module folder, synthesis,

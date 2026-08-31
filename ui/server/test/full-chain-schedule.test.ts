@@ -17,6 +17,7 @@ import { FULL_PER_MODULE, REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
+import { extractTriageStatus } from '../src/verdict'
 import type {
   ChainIntentProgress,
   ChainIntentStart,
@@ -202,6 +203,13 @@ function writeFailFastTriage(runRoot: string, graph: SwarmGraph, moduleName: str
 }
 
 const sorted = (a: string[]) => [...a].sort()
+
+assert.equal(extractTriageStatus('**Verdict:** Insufficient data'), 'Insufficient')
+assert.equal(extractTriageStatus('Verdict: Sufficient'), 'Sufficient')
+assert.equal(extractTriageStatus('If Insufficient, report "Verdict: Insufficient data"\n\nVerdict: Sufficient'), 'Sufficient',
+  'checklist prose cannot override the canonical verdict carrier')
+assert.equal(extractTriageStatus('Verdict: Partial\n\nVerdict: Sufficient'), null,
+  'conflicting canonical terminal verdicts are not valid completion evidence')
 
 ;(async () => {
   await check('a child that finishes before launch ACK replays only after the ACK turn instead of stranding the chain', async () => {

@@ -44,6 +44,10 @@ assert.match(rerun, /do not read live data\/<TICKER>\/\s+or any mutable fixed-na
   'the terminal master Task explicitly forbids both mutable evidence paths')
 assert.doesNotMatch(rerun, /extract_pool\.py "data\/<TICKER>\/"/,
   'the terminal chain command never refreshes from live Drive after admission')
+assert.match(rerun, /<MODULE_TERMINAL_OUTCOMES>[\s\S]*fail_fast_insufficient/,
+  'the terminal chain must pass typed exact-root module outcomes to the master')
+assert.match(rerun, /Modules completed[\s\S]*terminal type and exact[\s\S]*fail_fast_insufficient/,
+  'run metadata must retain the intentional fail-fast terminal type')
 
 const master = fs.readFileSync(path.join(agentsRoot, 'synthesizer.md'), 'utf8')
 assert.match(master, /# ACTUAL REPO PATHS AND EVIDENCE BINDING/)
@@ -63,6 +67,8 @@ assert.doesNotMatch(master, /\*\*Raw data\*\* — files inside `data\/\{TICKER\}
   'the master raw-data input cannot remain unconditionally bound to live Drive')
 assert.doesNotMatch(master, /\*\*Deterministic CIQ facts\*\* — `<RUN_ROOT>\/_pool_extracts\/ciq_facts\.json`/,
   'the master cannot retain the mutable CIQ projection as an unconditional source')
+assert.match(master, /typed terminal outcome `fail_fast_insufficient`[\s\S]*intentional completed capped outcome/,
+  'the master must distinguish a deliberate data refusal from a crashed module')
 
 const pipeline = fs.readFileSync(path.join(repo, 'frameworks', 'MODULE_PIPELINE.md'), 'utf8')
 assert.match(pipeline, /In this mode `data\/<TICKER>\/` is \*\*only a logical citation label\*\*/)
