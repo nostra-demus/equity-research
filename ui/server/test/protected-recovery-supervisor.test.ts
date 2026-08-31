@@ -259,6 +259,14 @@ try {
   const decision = path.join(runRootAbs, 'decision_record.json')
   fs.writeFileSync(finalThesis, '# Final thesis\n\nPublished exactly once.\n')
   fs.writeFileSync(decision, '{"decision":"Watchlist"}\n')
+  const publicationRequired = path.join(runRootAbs, '.requires_idea_publication')
+  fs.writeFileSync(publicationRequired, '')
+  assert.equal((await revalidateRecoverableChainPlan({
+    ...afterModule,
+    intent: { ...afterModule.intent, nextModules: [], masterState: 'failed' },
+  })).continuationReceipt.fingerprint, reviewed.continuationReceipt.fingerprint,
+  'provider-written final files narrow remaining work without changing the protected master identity')
+  fs.rmSync(publicationRequired)
   const hash = (absolute: string) => `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`
   const publicationHashes = {
     [`${reviewed.targetRunRoot}/final_thesis.md`]: hash(finalThesis),
