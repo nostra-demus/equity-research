@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-31T22:51:24Z",
+  "generated_at": "2026-08-31T23:02:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260831-800",
+      "headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T22:36:24Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company has issued a notice to proceed for the Gawara Baya Wind Farm, signaling a major capital expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has issued a notice to proceed for the Gawara Baya Wind Farm, signaling a major capital expenditure commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SYL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-798",
       "headline": "485BXT - Corgi ETF Trust I (0002078265) (Filer)",
@@ -1932,55 +1981,6 @@
         {
           "name": "Many Idea Cloud",
           "ticker": "06696",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-468",
-      "headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T09:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Top Form International issued a profit warning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Top Form International issued a profit warning.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Top Form International",
-          "ticker": "00333",
           "listing_country": "CN"
         }
       ],
@@ -92097,77 +92097,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-35d63271bd97",
-      "idea_version": "IDEAV-3ed696afd674b651",
-      "idea_version_started_at": "2026-08-30T12:50:24Z",
-      "ticker": "00753",
-      "company": "Air China",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The interim results provide a clear look at the carrier's margin recovery trajectory in the current travel environment.",
-      "why_now": "The report was filed on 2026-08-30 and is fresh data for valuation models.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c4f66351ba7"
-      ],
-      "primary_source_event_id": "EVT-4c4f66351ba7",
-      "source_headlines": [
-        "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026"
-      ],
-      "source_headline": "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000347.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T10:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T12:50:24Z",
-      "updated_at": "2026-08-30T12:50:24Z",
-      "decay_at": "2026-08-31T22:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-97a565315fa3",
       "idea_version": "IDEAV-ad54a8cd8ce09ea4",
       "idea_version_started_at": "2026-08-30T11:59:45Z",
@@ -93652,6 +93581,77 @@
       "surfaced_at": "2026-08-30T07:40:39Z",
       "updated_at": "2026-08-30T07:40:39Z",
       "decay_at": "2026-08-31T19:19:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-35d63271bd97",
+      "idea_version": "IDEAV-3ed696afd674b651",
+      "idea_version_started_at": "2026-08-30T12:50:24Z",
+      "ticker": "00753",
+      "company": "Air China",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The interim results provide a clear look at the carrier's margin recovery trajectory in the current travel environment.",
+      "why_now": "The report was filed on 2026-08-30 and is fresh data for valuation models.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c4f66351ba7"
+      ],
+      "primary_source_event_id": "EVT-4c4f66351ba7",
+      "source_headlines": [
+        "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026"
+      ],
+      "source_headline": "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000347.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T10:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T12:50:24Z",
+      "updated_at": "2026-08-30T12:50:24Z",
+      "decay_at": "2026-08-31T22:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96408,13 +96408,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 302,
-    "shown_count": 302,
+    "total_count": 303,
+    "shown_count": 303,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 146,
-        "shown_count": 146,
+        "total_count": 147,
+        "shown_count": 147,
         "hidden_count": 0
       },
       "short": {
@@ -96439,6 +96439,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-35d63271bd97",
+        "idea_version": "IDEAV-3ed696afd674b651",
+        "idea_version_started_at": "2026-08-30T12:50:24Z",
+        "ticker": "00753",
+        "company": "Air China",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The interim results provide a clear look at the carrier's margin recovery trajectory in the current travel environment.",
+        "why_now": "The report was filed on 2026-08-30 and is fresh data for valuation models.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c4f66351ba7"
+        ],
+        "primary_source_event_id": "EVT-4c4f66351ba7",
+        "source_headlines": [
+          "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026"
+        ],
+        "source_headline": "AIR CHINA (00753): INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000347.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T10:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T12:50:24Z",
+        "updated_at": "2026-08-30T12:50:24Z",
+        "decay_at": "2026-08-31T22:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T22:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-33b8457c918f",
         "idea_version": "IDEAV-1332c8b2a67d3026",
@@ -118851,7 +118925,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 366,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -118870,9 +118944,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1541612,
-    "news_picked_today": 2135,
-    "news_dropped_today": 21069
+    "news_seen_today": 1569584,
+    "news_picked_today": 2163,
+    "news_dropped_today": 21161
   },
   "book_momentum": {
     "live_count": 8,
