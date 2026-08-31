@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T03:02:59Z",
+  "generated_at": "2026-08-31T03:11:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-198",
@@ -758,6 +758,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-202",
+      "headline": "AFL: FY26 Results Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AFL?key=2924-03129282-6A1341285",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:04:30Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company released its FY26 financial results, which is a primary source event for valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company released its FY26 financial results, which is a primary source event for valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AFL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-208",
+      "headline": "OCC: Appendix 4E & Annual Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCC?key=2924-03129275-6A1341280",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T02:56:55Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company released its annual report and Appendix 4E, providing audited financial data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company released its annual report and Appendix 4E, providing audited financial data.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OCC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-201",
       "headline": "NGS: Appendix 4D and HY Report [price-sensitive]",
       "headline_en": null,
@@ -1096,6 +1194,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-209",
+      "headline": "Jio Platforms IPO: Mukesh Ambani's Reliance Group company gets SEBI nod for ₹37,700 crore issue | Full details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/jio-platforms-ipo-mukesh-ambanis-reliance-group-company-gets-sebi-nod-for-37-700-crore-issue-full-details-11788143908247.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:58:45Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Jio Platforms received regulatory approval for a ₹37,700 crore IPO, a major capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Jio Platforms received regulatory approval for a ₹37,700 crore IPO, a major capital event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-096",
       "headline": "삼성중공업, 4445억원 규모 컨테이너선 2척 수주",
       "headline_en": "Samsung Heavy Industries wins 444.5 billion KRW order for 2 container ships",
@@ -1292,6 +1439,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-210",
+      "headline": "Chinese Chipmaker Longsys Seeks $800 Million in HK Listing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/chinese-chipmaker-longsys-seeks-800-million-in-hk-listing",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T02:58:03Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Longsys is seeking to raise $800 million through a Hong Kong listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Longsys is seeking to raise $800 million through a Hong Kong listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Longsys",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-139",
       "headline": "SK온, 美 네오볼타 파워와 9GWh 배터리 공급계약",
       "headline_en": "SK On signs a 9GWh battery supply contract with US-based NeoVolta Power",
@@ -1341,6 +1537,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-205",
+      "headline": "FRS: Zenith Minerals - Sixth Extension of Offer Period [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRS?key=2924-03129283-6A1341284",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T03:04:40Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Zenith Minerals has extended its offer period for the sixth time, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Zenith Minerals has extended its offer period for the sixth time, indicating ongoing M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zenith Minerals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1678,55 +1923,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260831-189",
-      "headline": "SCP: Appendix 4E and Annual Report to shareholders FY26 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03129263-3A700515",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:36:10Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "The company released its Appendix 4E and annual report for FY26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company released its Appendix 4E and annual report for FY26.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SCP",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260831-168",
       "headline": "SHO: Preliminary Final Report [price-sensitive]",
       "headline_en": null,
@@ -1771,203 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-157",
-      "headline": "EWC: Preliminary Final Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03129238-2A1693754",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:19:15Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Preliminary final report provides key financial results for EWC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Preliminary final report provides key financial results for EWC.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EWC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-158",
-      "headline": "DRX: Half Year Accounts",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRX?key=2924-03129236-2A1693752",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T02:18:50Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Half-year accounts provide key financial results for DRX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Half-year accounts provide key financial results for DRX.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DRX",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-018",
-      "headline": "XF1: Appendix 4E-Directors' Report and Financial Statements FY26 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XF1?key=2924-03129144-2A1693701",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T23:57:59Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Release of annual financial statements for FY26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Release of annual financial statements for FY26.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XF1",
-          "ticker": "XF1",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-028",
-      "headline": "RISECOMM GP (01679): (1) CONNECTED TRANSACTIONS IN RELATION TO ISSUE OF CAPITALISATION SHARES AND CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; (2) PLACING OF NEW SHARES UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100041.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-30T22:11:00Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "Company is issuing new shares and convertible bonds, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company is issuing new shares and convertible bonds, which is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RISECOMM GP",
-          "ticker": "01679",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91518,77 +91517,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2bf283da46ec",
-      "idea_version": "IDEAV-798ac2349a3070f2",
-      "idea_version_started_at": "2026-08-29T21:34:21Z",
-      "ticker": "TVVISION",
-      "company": "TV Vision Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The formation of a Committee of Creditors (CoC) confirms the company has entered a formal insolvency resolution process, which typically leads to significant equity dilution or total loss for shareholders.",
-      "why_now": "The first meeting of the Committee of Creditors is scheduled for August 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab8b0ff15dff"
-      ],
-      "primary_source_event_id": "EVT-ab8b0ff15dff",
-      "source_headlines": [
-        "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026"
-      ],
-      "source_headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:03:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:47:43Z",
-      "updated_at": "2026-08-29T21:34:21Z",
-      "decay_at": "2026-08-31T03:03:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-eb536eed0e8f",
       "idea_version": "IDEAV-06f83235e205d4b7",
       "idea_version_started_at": "2026-08-29T16:42:52Z",
@@ -95225,6 +95153,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2bf283da46ec",
+      "idea_version": "IDEAV-798ac2349a3070f2",
+      "idea_version_started_at": "2026-08-29T21:34:21Z",
+      "ticker": "TVVISION",
+      "company": "TV Vision Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The formation of a Committee of Creditors (CoC) confirms the company has entered a formal insolvency resolution process, which typically leads to significant equity dilution or total loss for shareholders.",
+      "why_now": "The first meeting of the Committee of Creditors is scheduled for August 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab8b0ff15dff"
+      ],
+      "primary_source_event_id": "EVT-ab8b0ff15dff",
+      "source_headlines": [
+        "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026"
+      ],
+      "source_headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-29T15:03:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:47:43Z",
+      "updated_at": "2026-08-29T21:34:21Z",
+      "decay_at": "2026-08-31T03:03:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8a29f9caadb3",
       "idea_version": "IDEAV-05e11ec08f528464",
       "idea_version_started_at": "2026-08-29T21:34:21Z",
@@ -97515,8 +97514,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 268,
-    "shown_count": 268,
+    "total_count": 269,
+    "shown_count": 269,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -97525,8 +97524,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 144,
-        "shown_count": 144,
+        "total_count": 145,
+        "shown_count": 145,
         "hidden_count": 0
       }
     },
@@ -97546,6 +97545,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2bf283da46ec",
+        "idea_version": "IDEAV-798ac2349a3070f2",
+        "idea_version_started_at": "2026-08-29T21:34:21Z",
+        "ticker": "TVVISION",
+        "company": "TV Vision Ltd",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The formation of a Committee of Creditors (CoC) confirms the company has entered a formal insolvency resolution process, which typically leads to significant equity dilution or total loss for shareholders.",
+        "why_now": "The first meeting of the Committee of Creditors is scheduled for August 31, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ab8b0ff15dff"
+        ],
+        "primary_source_event_id": "EVT-ab8b0ff15dff",
+        "source_headlines": [
+          "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026"
+        ],
+        "source_headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-29T15:03:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T15:47:43Z",
+        "updated_at": "2026-08-29T21:34:21Z",
+        "decay_at": "2026-08-31T03:03:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-31T03:03:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-301c9958417a",
         "idea_version": "IDEAV-ac20fff1a86eead0",
@@ -117408,7 +117481,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 338,
-    "live_count": 68,
+    "live_count": 67,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -117427,9 +117500,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 866,
-    "news_picked_today": 247,
-    "news_dropped_today": 603
+    "news_seen_today": 913,
+    "news_picked_today": 261,
+    "news_dropped_today": 636
   },
   "book_momentum": {
     "live_count": 8,
