@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T10:30:04Z",
+  "generated_at": "2026-08-31T10:34:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260831-489",
@@ -191,6 +191,55 @@
           "name": "Aar Shyam India Investment Company Ltd",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260831-497",
+      "headline": "SMART FISH (00139): VERY SUBSTANTIAL DISPOSAL: DISPOSAL OF SHARES IN SHANDONG HI-SPEED HOLDINGS GROUP LIMITED AND NOTICE OF SPECIAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083101133.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-31T09:49:00Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "The company announced a very substantial disposal of shares in Shandong Hi-Speed Holdings Group Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a very substantial disposal of shares in Shandong Hi-Speed Holdings Group Limited.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SMART FISH",
+          "ticker": "00139",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1087,6 +1136,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260831-495",
+      "headline": "Maruti Suzuki raises its capex plans to ₹77,500 crore by FY31",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/maruti-suzuki-raises-its-capex-plans-to-77500-crore-by-fy31/article71410291.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T10:19:24Z",
+      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
+      "prelim_note": "Maruti Suzuki announced a significant increase in capex plans to 77,500 crore by FY31.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maruti Suzuki announced a significant increase in capex plans to 77,500 crore by FY31.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maruti Suzuki",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260831-488",
       "headline": "Apollo Pipes plans ₹300-crore push into tiles and ceramics, approves ₹189-crore fundraise",
       "headline_en": null,
@@ -1903,114 +2001,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-310",
-      "headline": "China’s three biggest airlines post heavy first-half losses as fuel shock bites",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/chinas-three-biggest-airlines-post-heavy-first-half-losses-fuel-shock-bites",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T05:01:16Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "China's three largest airlines reported heavy first-half losses driven by fuel cost shocks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "China's three largest airlines reported heavy first-half losses driven by fuel cost shocks.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Air China",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "China Eastern Airlines",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "China Southern Airlines",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260831-308",
-      "headline": "Cronos halts blockchain after $75 million lending exploit hits lending app Tectonic",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/tech/2026/08/31/cronos-halts-blockchain-after-usd75-million-lending-exploit-hits-lending-app-tectonic",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T04:57:13Z",
-      "sweep_file": "screener/inbox/2026-08-31_sweep.json",
-      "prelim_note": "A $75 million exploit on the Tectonic lending app caused a blockchain halt, indicating significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $75 million exploit on the Tectonic lending app caused a blockchain halt, indicating significant operational and security risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tectonic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -118414,9 +118404,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 274137,
-    "news_picked_today": 1017,
-    "news_dropped_today": 10091
+    "news_seen_today": 281864,
+    "news_picked_today": 1028,
+    "news_dropped_today": 10128
   },
   "book_momentum": {
     "live_count": 8,
