@@ -655,6 +655,10 @@ function receiptOrbUniverse(plan: ThesisPlan): string[] {
   return [...new Set([
     ...plan.continuationReceipt.reusableOrbKeys,
     ...plan.continuationReceipt.payableOrbKeys,
+    // A protected research chain always owns one terminal master identity. Once the provider has written
+    // final_thesis.md + decision_record.json, an ordinary plan quite correctly stops pricing that master;
+    // publication recovery must not mistake that normal progress for a changed module/orb roster.
+    'master/synthesizer',
   ])].sort()
 }
 
