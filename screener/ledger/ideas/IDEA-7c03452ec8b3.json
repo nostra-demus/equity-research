@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-7c03452ec8b3",
+  "idea_version": "IDEAV-fafe1d3e8a8aabbc",
+  "idea_version_started_at": "2026-08-31T02:41:25Z",
+  "ticker": "SGR",
+  "company": "Star Entertainment Group",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company reported a massive $307 million loss alongside a stark warning from its auditors that its ongoing survival remains in question, highlighting severe balance sheet distress.",
+  "why_now": "The annual results and auditor going-concern warnings were released on August 31, 2026, creating immediate downside pressure.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-3af489949609",
+    "EVT-c7f59be0577c"
+  ],
+  "primary_source_event_id": "EVT-3af489949609",
+  "source_headlines": [
+    "Star reports $307m loss as auditors warn survival still in question",
+    "Star Entertainment warns tough conditions to persist after annual loss"
+  ],
+  "source_headline": "Star reports $307m loss as auditors warn survival still in question",
+  "source_url": "https://www.afr.com/companies/games-and-wagering/star-reports-307m-loss-as-auditors-warn-survival-still-in-question-20260831-p60sx1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-31T01:23:46Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-31T02:41:25Z",
+  "updated_at": "2026-08-31T02:41:25Z",
+  "decay_at": "2026-09-01T13:23:46Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
