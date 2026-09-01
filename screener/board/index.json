@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T17:24:11Z",
+  "generated_at": "2026-09-01T17:37:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-917",
@@ -1926,45 +1926,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-928",
-      "headline": "Omaxe Limited: The Exchange has sought clarification from Omaxe Limited with respect to recent news item captioned SAT dismisses Omaxe appeal against SEBI order over financial statement irregularities. The response from the Company is attached.",
+      "inbox_id": "INB-20260901-933",
+      "headline": "Capri Global Capital Ltd: Credit Rating Intimation - CareEdge Global have assigned a Credit Rating of 'CareEdge BB-/Positive' proposed US dollar denominated senior secured bonds",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OMAXE_01092026205108_Reply_to_NSE_sd.pdf",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/55bd86a4-df9a-4245-b000-8b588a265ca9.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T15:21:45Z",
+      "found_at": "2026-09-01T17:07:51Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The SAT dismissed the company's appeal against a SEBI order regarding financial statement irregularities, maintaining regulatory pressure.",
+      "prelim_note": "CareEdge assigned a 'BB-/Positive' rating to the company's proposed US dollar denominated senior secured bonds.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The SAT dismissed the company's appeal against a SEBI order regarding financial statement irregularities, maintaining regulatory pressure.",
+      "triage_score": 97,
+      "triage_reason": "CareEdge assigned a 'BB-/Positive' rating to the company's proposed US dollar denominated senior secured bonds.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
+        "event": 7,
         "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "recency": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
+        "event_id": "debt_credit",
         "size_bucket": "mid"
       },
       "event_types": [
-        "litigation_enforcement"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Omaxe Limited",
+          "name": "Capri Global Capital Ltd",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -91702,78 +91702,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-278b5426f1c4",
-      "idea_version": "IDEAV-1415d0d2b7861732",
-      "idea_version_started_at": "2026-08-31T09:15:34Z",
-      "ticker": "INPST",
-      "company": "InPost",
-      "exchange": "Euronext",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company cut its forward guidance despite a narrow earnings beat, signaling potential margin compression or slowing growth ahead.",
-      "why_now": "The guidance cut was announced on August 31, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b68696c742e9"
-      ],
-      "primary_source_event_id": "EVT-b68696c742e9",
-      "source_headlines": [
-        "InPost narrowly beats second-quarter forecasts but cuts guidance"
-      ],
-      "source_headline": "InPost narrowly beats second-quarter forecasts but cuts guidance",
-      "source_url": "https://www.reuters.com/business/inpost-narrowly-beats-second-quarter-forecasts-cuts-guidance-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T05:36:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T09:15:34Z",
-      "updated_at": "2026-08-31T09:15:34Z",
-      "decay_at": "2026-09-01T17:36:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7b1aea361ec7",
       "idea_version": "IDEAV-43058c0072631bcd",
       "idea_version_started_at": "2026-08-31T09:15:34Z",
@@ -91841,77 +91769,6 @@
       "surfaced_at": "2026-08-31T09:15:34Z",
       "updated_at": "2026-08-31T09:15:34Z",
       "decay_at": "2026-09-01T17:45:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0a2a2f10b7b9",
-      "idea_version": "IDEAV-d273023bf7c2388d",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "EXL",
-      "company": "EXL Service Holdings Inc",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "EXL received a binding offer for its US divestment, a price-sensitive M&A event that could unlock capital and sharpen focus on higher-margin digital operations.",
-      "why_now": "ASX filing 2026-08-31; binding offer implies near-term deal certainty and potential special dividend or buyback signal.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0fb3945a8fea"
-      ],
-      "primary_source_event_id": "EVT-0fb3945a8fea",
-      "source_headlines": [
-        "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]"
-      ],
-      "source_headline": "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03129365-3A700530",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T05:36:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T17:36:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -93601,6 +93458,149 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-278b5426f1c4",
+      "idea_version": "IDEAV-1415d0d2b7861732",
+      "idea_version_started_at": "2026-08-31T09:15:34Z",
+      "ticker": "INPST",
+      "company": "InPost",
+      "exchange": "Euronext",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its forward guidance despite a narrow earnings beat, signaling potential margin compression or slowing growth ahead.",
+      "why_now": "The guidance cut was announced on August 31, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b68696c742e9"
+      ],
+      "primary_source_event_id": "EVT-b68696c742e9",
+      "source_headlines": [
+        "InPost narrowly beats second-quarter forecasts but cuts guidance"
+      ],
+      "source_headline": "InPost narrowly beats second-quarter forecasts but cuts guidance",
+      "source_url": "https://www.reuters.com/business/inpost-narrowly-beats-second-quarter-forecasts-cuts-guidance-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T05:36:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T09:15:34Z",
+      "updated_at": "2026-08-31T09:15:34Z",
+      "decay_at": "2026-09-01T17:36:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0a2a2f10b7b9",
+      "idea_version": "IDEAV-d273023bf7c2388d",
+      "idea_version_started_at": "2026-08-31T07:32:07Z",
+      "ticker": "EXL",
+      "company": "EXL Service Holdings Inc",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "EXL received a binding offer for its US divestment, a price-sensitive M&A event that could unlock capital and sharpen focus on higher-margin digital operations.",
+      "why_now": "ASX filing 2026-08-31; binding offer implies near-term deal certainty and potential special dividend or buyback signal.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0fb3945a8fea"
+      ],
+      "primary_source_event_id": "EVT-0fb3945a8fea",
+      "source_headlines": [
+        "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]"
+      ],
+      "source_headline": "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03129365-3A700530",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T05:36:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T07:32:07Z",
+      "updated_at": "2026-08-31T07:32:07Z",
+      "decay_at": "2026-09-01T17:36:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98870,18 +98870,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 352,
-    "shown_count": 352,
+    "total_count": 354,
+    "shown_count": 354,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 175,
-        "shown_count": 175,
+        "total_count": 176,
+        "shown_count": 176,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 177,
-        "shown_count": 177,
+        "total_count": 178,
+        "shown_count": 178,
         "hidden_count": 0
       }
     },
@@ -98901,6 +98901,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-278b5426f1c4",
+        "idea_version": "IDEAV-1415d0d2b7861732",
+        "idea_version_started_at": "2026-08-31T09:15:34Z",
+        "ticker": "INPST",
+        "company": "InPost",
+        "exchange": "Euronext",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company cut its forward guidance despite a narrow earnings beat, signaling potential margin compression or slowing growth ahead.",
+        "why_now": "The guidance cut was announced on August 31, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b68696c742e9"
+        ],
+        "primary_source_event_id": "EVT-b68696c742e9",
+        "source_headlines": [
+          "InPost narrowly beats second-quarter forecasts but cuts guidance"
+        ],
+        "source_headline": "InPost narrowly beats second-quarter forecasts but cuts guidance",
+        "source_url": "https://www.reuters.com/business/inpost-narrowly-beats-second-quarter-forecasts-cuts-guidance-2026-08-31/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T05:36:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T09:15:34Z",
+        "updated_at": "2026-08-31T09:15:34Z",
+        "decay_at": "2026-09-01T17:36:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T17:36:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0a2a2f10b7b9",
+        "idea_version": "IDEAV-d273023bf7c2388d",
+        "idea_version_started_at": "2026-08-31T07:32:07Z",
+        "ticker": "EXL",
+        "company": "EXL Service Holdings Inc",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "EXL received a binding offer for its US divestment, a price-sensitive M&A event that could unlock capital and sharpen focus on higher-margin digital operations.",
+        "why_now": "ASX filing 2026-08-31; binding offer implies near-term deal certainty and potential special dividend or buyback signal.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0fb3945a8fea"
+        ],
+        "primary_source_event_id": "EVT-0fb3945a8fea",
+        "source_headlines": [
+          "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]"
+        ],
+        "source_headline": "EXL: EXL Receives Binding Offer for US Divestment [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03129365-3A700530",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T05:36:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T07:32:07Z",
+        "updated_at": "2026-08-31T07:32:07Z",
+        "decay_at": "2026-09-01T17:36:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T17:36:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-260979e3048f",
         "idea_version": "IDEAV-55ba713513c579ba",
@@ -125031,7 +125180,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 19,
+    "live_count": 17,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -125050,9 +125199,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3969326,
-    "news_picked_today": 2123,
-    "news_dropped_today": 10285
+    "news_seen_today": 4044841,
+    "news_picked_today": 2129,
+    "news_dropped_today": 10495
   },
   "book_momentum": {
     "live_count": 8,
