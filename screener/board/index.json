@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T13:33:55Z",
+  "generated_at": "2026-09-01T13:39:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-816",
@@ -1183,6 +1183,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-838",
+      "headline": "Medtronic Boosts FY27 Outlook As Q1 Results Ahead Of Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/medtronic-boosts-fy27-outlook-q1-results-ahead-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T13:08:20Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Company beat Q1 guidance and raised FY27 outlook, indicating strong performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company beat Q1 guidance and raised FY27 outlook, indicating strong performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medtronic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-805",
       "headline": "Popular breakfast chain files Chapter 11 bankruptcy after lawsuit",
       "headline_en": null,
@@ -1930,55 +1980,6 @@
         },
         {
           "name": "Capricorn Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-706",
-      "headline": "Veritas Capital to Buy UK’s Bodycote for £1.65 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-01/veritas-capital-agrees-to-buy-uk-s-bodycote-for-1-65-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T06:29:51Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Veritas Capital to acquire Bodycote for £1.65 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Veritas Capital to acquire Bodycote for £1.65 billion.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bodycote",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -123800,9 +123801,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2268685,
-    "news_picked_today": 1840,
-    "news_dropped_today": 8528
+    "news_seen_today": 2285388,
+    "news_picked_today": 1858,
+    "news_dropped_today": 8558
   },
   "book_momentum": {
     "live_count": 8,
