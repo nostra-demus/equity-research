@@ -13,7 +13,8 @@ export interface RunManifestShape {
 /** Project durable run artifacts onto the cockpit without clearing newer live state.
  *
  * The manifest is disk truth after a missed terminal SSE frame, refresh, or engine restart. Only files
- * actually present are promoted to done; absent files never clear or fabricate an orb.
+ * actually present are promoted to done. An absent live node is retired only when the backend has said
+ * that exact owning run vanished; work owned by a newer run is never cleared or fabricated.
  */
 export function projectRunManifest(
   manifest: RunManifestShape,
@@ -27,6 +28,9 @@ export function projectRunManifest(
 } {
   const nodeRuntime = { ...currentRuntime }
   const root = typeof manifest.runRoot === 'string' && manifest.runRoot ? manifest.runRoot : null
+  const durableKeys = new Set(Object.values(manifest.modules ?? {}).flatMap((agents) =>
+    Array.isArray(agents) ? agents.flatMap((agent) => typeof agent?.agentKey === 'string' ? [agent.agentKey] : []) : []))
+  if (manifest.finalThesis) durableKeys.add('master/synthesizer')
   const validatedTerminalKeys = new Set(Object.values(manifest.terminalOutcomes ?? {})
     .map((outcome) => outcome?.agentKey).filter((key): key is string => typeof key === 'string'))
   const newerLiveOwner = !!settledRunId && Object.values(currentRuntime).some((current) =>
@@ -36,6 +40,12 @@ export function projectRunManifest(
     const current = nodeRuntime[key]
     return (current?.status === 'running' || current?.status === 'queued')
       && !!current.runId && !!settledRunId && current.runId !== settledRunId
+  }
+  if (settledRunId) {
+    for (const [key, current] of Object.entries(currentRuntime)) {
+      if (current?.runId === settledRunId && (current.status === 'running' || current.status === 'queued')
+          && !durableKeys.has(key)) delete nodeRuntime[key]
+    }
   }
   if (root) {
     for (const agents of Object.values(manifest.modules ?? {})) {

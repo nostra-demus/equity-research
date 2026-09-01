@@ -3,8 +3,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { emit, type RunState } from './registry'
+import { buildSwarmGraph } from './roster'
 import { swarmById } from './swarms'
 import { extractRouting, extractTriageStatus, extractVerdict } from './verdict'
+import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 
 function maybeLayerAdvanced(run: RunState, module: string, layer: number) {
   const expectedInLayer = [...run.expected.values()].filter((e) => e.module === module && e.layer === layer)
@@ -15,14 +17,14 @@ function maybeLayerAdvanced(run: RunState, module: string, layer: number) {
   }
 }
 
-function markDone(run: RunState, key: string, module: string, name: string, layer: number, outputPath: string, verdict: string | null, bytes: number) {
+function markDone(run: RunState, key: string, module: string, name: string, layer: number, outputPath: string, verdict: string | null, bytes: number, terminalValidated = false) {
   const a = run.agents.get(key) || { key, module, name, layer, status: 'running' as const }
   if (a.status === 'done') return false
   a.status = 'done'
   a.verdict = verdict || undefined
   a.outputPath = outputPath
   run.agents.set(key, a)
-  emit(run, { type: 'agent-done', runId: run.runId, agentKey: key, module, name, layer, outputPath, verdict, bytes, ts: Date.now() })
+  emit(run, { type: 'agent-done', runId: run.runId, agentKey: key, module, name, layer, outputPath, verdict, bytes, terminalValidated, ts: Date.now() })
   return true
 }
 
@@ -111,7 +113,12 @@ export function handleFile(run: RunState, fp: string) {
     if (status === 'Insufficient') aborted = true
   }
 
-  const changed = markDone(run, key, module, expected.name, expected.layer, `${run.runRoot}/${module}/${base}.md`, verdict, bytes)
+  const rosterNode = Object.values(buildSwarmGraph(run.swarmId).modules.find((entry) => entry.name === module)?.layers ?? {})
+    .flat().find((agent) => agent.key === key)
+  const terminalValidated = validateAgentOutputFile(fp).valid
+    && (isSynthesis || (isTriage && rosterNode?.failFast === true && aborted))
+
+  const changed = markDone(run, key, module, expected.name, expected.layer, `${run.runRoot}/${module}/${base}.md`, verdict, bytes, terminalValidated)
   if (!changed) return
 
   // swarm routing contract (gates + syntheses) — research runs no-op here

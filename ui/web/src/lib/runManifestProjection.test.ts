@@ -41,4 +41,15 @@ assert.deepEqual(concurrent.nodeRuntime['earnings/01_history'], { status: 'runni
 assert.equal('runRoot' in concurrent, false, 'a late manifest read cannot replace a newer live run\'s metadata')
 assert.equal('reports' in concurrent, false, 'a late manifest read cannot replace a newer live run\'s reports')
 
+const vanished = projectRunManifest({
+  runRoot: 'analyses/NU_2026-08-31', modules: { earnings: [{ agentKey: 'earnings/01_history', verdict: 'Sufficient' }] },
+}, {
+  'earnings/01_history': { status: 'running', runId: 'vanished-run' },
+  'earnings/02_growth': { status: 'queued', runId: 'vanished-run' },
+  'earnings/03_estimates': { status: 'running', runId: 'newer-run' },
+}, 'vanished-run')
+assert.equal(vanished.nodeRuntime['earnings/01_history'].status, 'done', 'saved output settles the vanished owner')
+assert.equal(vanished.nodeRuntime['earnings/02_growth'], undefined, 'unsaved work from a vanished run stops looking live')
+assert.equal(vanished.nodeRuntime['earnings/03_estimates'].status, 'running', 'a newer owner remains live')
+
 console.log('runManifestProjection.test.ts: durable artifact projection passed')

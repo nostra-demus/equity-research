@@ -234,7 +234,7 @@ export function GlobeScene({
   }, [nodes])
   const classOf = useMemo(() => new Map(nodes.map((n) => [n.key, orbClass(n)])), [nodes])
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => classOf.get(k) ?? 'specialist')), [nodeRuntime, classOf])
-  const statusSig = nodes.map((n) => `${nodeStatus(n.key)}:${nodeRuntime[n.key]?.verdict ?? ''}`).join('|')
+  const statusSig = nodes.map((n) => `${nodeStatus(n.key)}:${nodeRuntime[n.key]?.verdict ?? ''}:${nodeRuntime[n.key]?.terminalValidated ? 1 : 0}`).join('|')
   const statuses = useMemo(() => nodes.map((n) => nodeStatus(n.key)), [nodes, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
   const runActivity = useMemo(() => projectRunActivity({
     subject: selectedTicker,

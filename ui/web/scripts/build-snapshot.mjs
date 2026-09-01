@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url'
 import { safePublishedMemoDeltaPath } from './calls-snapshot-artifacts.mjs'
 import { normalizeStaticBoardArchive } from './ideas-archive-static.mjs'
 import { buildTasksSnapshot } from './tasks-snapshot.mjs'
+import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const WEB = path.resolve(__dirname, '..')
@@ -95,6 +96,17 @@ function triageStatus(md) {
     }
   }
   return 'Sufficient'
+}
+function canonicalTriageStatus(md) {
+  const statuses = new Set()
+  const carrier = /^[\s>*-]*(?:\*\*)?\s*verdict\s*:\s*(?:\*\*)?\s*(insufficient(?:\s+data)?|partial|sufficient)\s*(?:\*\*)?[.!]?\s*$/i
+  for (const line of md.split(/\r?\n/)) {
+    const match = line.match(carrier)
+    if (!match) continue
+    const status = match[1].toLowerCase()
+    statuses.add(status.startsWith('insufficient') ? 'Insufficient' : status === 'partial' ? 'Partial' : 'Sufficient')
+  }
+  return statuses.size === 1 ? [...statuses][0] : null
 }
 
 // ---- swarm graph (mirrors the server roster) ----
@@ -359,6 +371,7 @@ function buildTicker(ticker, runFolder) {
   try { decision = JSON.parse(fs.readFileSync(path.join(runDir, 'decision_record.json'), 'utf8')) } catch {}
 
   const manifestModules = {}
+  const terminalOutcomes = {}
   // per-module three tiers (synthesis / memo / dossier) — generic, no module name hardcoded (CLAUDE.md §26)
   const manifestModuleReports = {}
   const dataModules = {}
@@ -375,6 +388,18 @@ function buildTicker(ticker, runFolder) {
       if (base.startsWith('00_')) dataModules[mod] = { status: triageStatus(content), reasons: ['from committed run triage'], caps: [] }
     }
     manifestModules[mod] = agents
+    const rosterModule = swarmGraph.modules.find((entry) => entry.name === mod)
+    const rosterAgents = rosterModule ? Object.values(rosterModule.layers).flat() : []
+    const validSynthesis = rosterAgents.filter((agent) => agent.isSynthesis)
+      .find((agent) => validateAgentOutputFile(path.join(runDir, mod, `${agent.key.split('/').at(-1)}.md`)).valid)
+    const validFailFast = validSynthesis ? null : rosterAgents.filter((agent) => agent.nn === '00' && agent.failFast && !agent.isSynthesis)
+      .find((agent) => {
+        const file = path.join(runDir, mod, `${agent.key.split('/').at(-1)}.md`)
+        if (!validateAgentOutputFile(file).valid) return false
+        try { return canonicalTriageStatus(fs.readFileSync(file, 'utf8')) === 'Insufficient' } catch { return false }
+      })
+    const terminal = validSynthesis ?? validFailFast
+    if (terminal) terminalOutcomes[mod] = { kind: validSynthesis ? 'synthesis' : 'fail-fast', agentKey: terminal.key }
     // the module's three tiers: 99 synthesis (already copied above) + memo + dossier (copy them too)
     const synthesis = allFiles.find((f) => /^99_.*-synthesis\.md$/.test(f))
     const memo = allFiles.find((f) => /_memo\.md$/.test(f))
@@ -396,6 +421,7 @@ function buildTicker(ticker, runFolder) {
   const manifest = {
     runRoot,
     modules: manifestModules,
+    terminalOutcomes,
     moduleReports: manifestModuleReports,
     memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),

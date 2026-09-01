@@ -4651,7 +4651,7 @@ export const useStore = create<State>((set, get) => ({
         if (forSelected) {
           // preserve startedAt (set on agent-started, incl. the replayed backlog on reconnect) so the
           // finished orb can show its true duration
-          rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts, terminalValidated: true }
+          rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts, terminalValidated: e.terminalValidated === true }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'done', e.verdict)
         }
         break
