@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T15:34:16Z",
+  "generated_at": "2026-09-01T15:39:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-878",
@@ -1527,6 +1527,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-894",
+      "headline": "Volkswagen expects 2026 sales of 8.5 million vehicles, plans asset divestments",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/volkswagen-expects-2026-sales-8-5-million-vehicles-plans-asset-divestments",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:27:24Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Volkswagen provided a specific 2026 sales target of 8.5 million vehicles and announced plans for asset divestments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen provided a specific 2026 sales target of 8.5 million vehicles and announced plans for asset divestments.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-900",
+      "headline": "Shoprite buys Vida e Caffe, stake in R&A as earnings rise 12.2%",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/africa/south-africas-shoprite-annual-earnings-rise-122-2026-09-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:14:47Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Shoprite acquired Vida e Caffe and a stake in R&A while reporting a 12.2% earnings increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shoprite acquired Vida e Caffe and a stake in R&A while reporting a 12.2% earnings increase.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shoprite",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-885",
       "headline": "Swiss Life plans 600 job cuts by end of 2028, H1 profit rises",
       "headline_en": null,
@@ -1871,104 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-867",
-      "headline": "Descartes acquires Extensiv for $120M",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/articles/descartes-acquires-extensiv-120m-132905113.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T13:29:05Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Descartes is acquiring Extensiv for $120M, a significant capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Descartes is acquiring Extensiv for $120M, a significant capital deployment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Descartes Systems Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-840",
-      "headline": "Coupang (CPNG) Shares Drop 7.7% on Softer Q2 Guidance",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/coupang-cpng-shares-drop-7-132307692.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T13:23:07Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Coupang issued a guidance cut for Q2, resulting in a 7.7% share price drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coupang issued a guidance cut for Q2, resulting in a 7.7% share price drop.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coupang",
-          "ticker": "CPNG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -90850,76 +90852,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-23e00bbbd9ca",
-      "idea_version": "IDEAV-80e68decdc0c9b33",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "8001.T",
-      "company": "Itochu Corporation",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Itochu is acquiring Dentsu Soken for $1.3B to take it private, a strategic M&A move that could unlock value and signal confidence in digital marketing assets.",
-      "why_now": "Deal announced 2026-08-31; execution risk and regulatory approval timeline create a live catalyst window.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda666cde24d"
-      ],
-      "primary_source_event_id": "EVT-eda666cde24d",
-      "source_headlines": [
-        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-      ],
-      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T15:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-260979e3048f",
       "idea_version": "IDEAV-55ba713513c579ba",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -92198,78 +92130,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-991f6f17f91c",
-      "idea_version": "IDEAV-8519f3b8aeb6b307",
-      "idea_version_started_at": "2026-08-31T06:07:14Z",
-      "ticker": "4812",
-      "company": "Dentsu Soken Inc.",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion acquisition deal, which typically provides a premium to the current trading price.",
-      "why_now": "The deal has just been announced on August 31, 2026, creating an immediate arbitrage or premium-capture opportunity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda666cde24d"
-      ],
-      "primary_source_event_id": "EVT-eda666cde24d",
-      "source_headlines": [
-        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-      ],
-      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T06:07:14Z",
-      "updated_at": "2026-08-31T06:07:14Z",
-      "decay_at": "2026-09-01T15:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f2156a973feb",
       "idea_version": "IDEAV-7e13ee5618504518",
       "idea_version_started_at": "2026-08-31T06:07:14Z",
@@ -92487,33 +92347,31 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c9bc08338424",
-      "idea_version": "IDEAV-9cf3148ea4ae3000",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "8001",
-      "company": "Itochu Corp",
-      "exchange": "TSE",
+      "idea_id": "IDEA-23e00bbbd9ca",
+      "idea_version": "IDEAV-80e68decdc0c9b33",
+      "idea_version_started_at": "2026-08-31T07:32:07Z",
+      "ticker": "8001.T",
+      "company": "Itochu Corporation",
+      "exchange": "Tokyo Stock Exchange",
       "direction": "long",
       "pair_with": null,
-      "reason": "Itochu's move to take Dentsu Soken private in a $1.3 billion deal suggests a strategic acquisition that could enhance its market position or integrate valuable capabilities, potentially boosting future earnings.",
-      "why_now": "The announcement of the $1.3 billion deal to take Dentsu Soken private is a live M&A catalyst that could lead to a re-rating of Itochu.",
+      "reason": "Itochu is acquiring Dentsu Soken for $1.3B to take it private, a strategic M&A move that could unlock value and signal confidence in digital marketing assets.",
+      "why_now": "Deal announced 2026-08-31; execution risk and regulatory approval timeline create a live catalyst window.",
       "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
+      "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
         "impact": 21,
-        "specificity": 7,
+        "specificity": 15,
         "timing": 10,
-        "expression": 0,
+        "expression": 6,
         "corroboration": 0,
         "learning_adjustment": 0
       },
-      "trade_readiness": "watch_only",
+      "trade_readiness": "needs_data",
       "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
         "live liquidity",
         "dated catalyst",
         "independent confirmation",
@@ -92550,13 +92408,13 @@
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-31T03:36:56Z",
-      "updated_at": "2026-08-31T05:42:48Z",
+      "surfaced_at": "2026-08-31T07:32:07Z",
+      "updated_at": "2026-08-31T07:32:07Z",
       "decay_at": "2026-09-01T15:36:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": false
+      "stale": true
     },
     {
       "idea_id": "IDEA-0ac5d784c64f",
@@ -93961,6 +93819,150 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-991f6f17f91c",
+      "idea_version": "IDEAV-8519f3b8aeb6b307",
+      "idea_version_started_at": "2026-08-31T06:07:14Z",
+      "ticker": "4812",
+      "company": "Dentsu Soken Inc.",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion acquisition deal, which typically provides a premium to the current trading price.",
+      "why_now": "The deal has just been announced on August 31, 2026, creating an immediate arbitrage or premium-capture opportunity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eda666cde24d"
+      ],
+      "primary_source_event_id": "EVT-eda666cde24d",
+      "source_headlines": [
+        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
+      ],
+      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+      "source_name": "The Japan Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T03:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T06:07:14Z",
+      "updated_at": "2026-08-31T06:07:14Z",
+      "decay_at": "2026-09-01T15:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c9bc08338424",
+      "idea_version": "IDEAV-9cf3148ea4ae3000",
+      "idea_version_started_at": "2026-08-31T05:42:48Z",
+      "ticker": "8001",
+      "company": "Itochu Corp",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Itochu's move to take Dentsu Soken private in a $1.3 billion deal suggests a strategic acquisition that could enhance its market position or integrate valuable capabilities, potentially boosting future earnings.",
+      "why_now": "The announcement of the $1.3 billion deal to take Dentsu Soken private is a live M&A catalyst that could lead to a re-rating of Itochu.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eda666cde24d"
+      ],
+      "primary_source_event_id": "EVT-eda666cde24d",
+      "source_headlines": [
+        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
+      ],
+      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+      "source_name": "The Japan Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T03:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:36:56Z",
+      "updated_at": "2026-08-31T05:42:48Z",
+      "decay_at": "2026-09-01T15:36:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98869,13 +98871,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 343,
-    "shown_count": 343,
+    "total_count": 346,
+    "shown_count": 346,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 172,
-        "shown_count": 172,
+        "total_count": 175,
+        "shown_count": 175,
         "hidden_count": 0
       },
       "short": {
@@ -98900,6 +98902,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-23e00bbbd9ca",
+        "idea_version": "IDEAV-80e68decdc0c9b33",
+        "idea_version_started_at": "2026-08-31T07:32:07Z",
+        "ticker": "8001.T",
+        "company": "Itochu Corporation",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Itochu is acquiring Dentsu Soken for $1.3B to take it private, a strategic M&A move that could unlock value and signal confidence in digital marketing assets.",
+        "why_now": "Deal announced 2026-08-31; execution risk and regulatory approval timeline create a live catalyst window.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eda666cde24d"
+        ],
+        "primary_source_event_id": "EVT-eda666cde24d",
+        "source_headlines": [
+          "Itochu set to take Dentsu Soken private in $1.3 billion deal"
+        ],
+        "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+        "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+        "source_name": "The Japan Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T03:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T07:32:07Z",
+        "updated_at": "2026-08-31T07:32:07Z",
+        "decay_at": "2026-09-01T15:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T15:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-991f6f17f91c",
+        "idea_version": "IDEAV-8519f3b8aeb6b307",
+        "idea_version_started_at": "2026-08-31T06:07:14Z",
+        "ticker": "4812",
+        "company": "Dentsu Soken Inc.",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion acquisition deal, which typically provides a premium to the current trading price.",
+        "why_now": "The deal has just been announced on August 31, 2026, creating an immediate arbitrage or premium-capture opportunity.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eda666cde24d"
+        ],
+        "primary_source_event_id": "EVT-eda666cde24d",
+        "source_headlines": [
+          "Itochu set to take Dentsu Soken private in $1.3 billion deal"
+        ],
+        "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+        "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+        "source_name": "The Japan Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T03:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T06:07:14Z",
+        "updated_at": "2026-08-31T06:07:14Z",
+        "decay_at": "2026-09-01T15:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T15:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c9bc08338424",
+        "idea_version": "IDEAV-9cf3148ea4ae3000",
+        "idea_version_started_at": "2026-08-31T05:42:48Z",
+        "ticker": "8001",
+        "company": "Itochu Corp",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Itochu's move to take Dentsu Soken private in a $1.3 billion deal suggests a strategic acquisition that could enhance its market position or integrate valuable capabilities, potentially boosting future earnings.",
+        "why_now": "The announcement of the $1.3 billion deal to take Dentsu Soken private is a live M&A catalyst that could lead to a re-rating of Itochu.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eda666cde24d"
+        ],
+        "primary_source_event_id": "EVT-eda666cde24d",
+        "source_headlines": [
+          "Itochu set to take Dentsu Soken private in $1.3 billion deal"
+        ],
+        "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
+        "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
+        "source_name": "The Japan Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T03:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T03:36:56Z",
+        "updated_at": "2026-08-31T05:42:48Z",
+        "decay_at": "2026-09-01T15:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T15:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3f7560fdd91d",
         "idea_version": "IDEAV-03efb992f7ae079d",
@@ -124361,7 +124586,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 28,
+    "live_count": 25,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124380,9 +124605,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3055607,
-    "news_picked_today": 2028,
-    "news_dropped_today": 9324
+    "news_seen_today": 3073909,
+    "news_picked_today": 2036,
+    "news_dropped_today": 9364
   },
   "book_momentum": {
     "live_count": 8,
