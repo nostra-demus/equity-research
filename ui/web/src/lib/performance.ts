@@ -63,7 +63,7 @@ export interface PerformanceSummary {
 type CollectionMode = 'unknown' | 'live' | 'static'
 type Transport = (samples: BrowserPerformanceSample[], pageExit: boolean, droppedSamples: number) => Promise<boolean>
 
-const MAX_QUEUE = 300
+const MAX_QUEUE = 1_000
 const MAX_BATCH = 50
 const MAX_REPORTED_DROPS = 10_000
 const MAX_REPORTED_DURATION_MS = 10 * 60_000
@@ -183,7 +183,15 @@ export class BrowserPerformanceCollector {
       this.queue.splice(0, overflow)
       this.noteDropped(overflow)
     }
-    if (this.mode === 'live') this.schedule()
+    if (this.mode === 'live') {
+      // Crossing the batch boundary is the one wake-up. While a send is already in flight, later records
+      // simply accumulate behind it; the completion chain below drains the next full batch.
+      if (this.queue.length === MAX_BATCH) {
+        if (this.timer) clearTimeout(this.timer)
+        this.timer = null
+        void this.flush(false)
+      } else this.schedule()
+    }
   }
 
   private schedule(): void {
@@ -212,7 +220,8 @@ export class BrowserPerformanceCollector {
     // upload instead, so the speed verdict cannot silently turn green after missing observations.
     this.flushing = this.send(batch, pageExit).finally(() => {
       this.flushing = null
-      if (this.queue.length) this.schedule()
+      if (this.queue.length >= MAX_BATCH) void this.flush(false)
+      else if (this.queue.length) this.schedule()
     })
     return this.flushing
   }

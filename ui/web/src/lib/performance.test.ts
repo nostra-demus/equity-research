@@ -90,17 +90,46 @@ test('static/read-only mode stores and sends nothing', async () => {
 })
 
 test('page exit drains every pending batch because no later timer is guaranteed', async () => {
-  const batches: number[] = []
+  const batches: Array<{ count: number; pageExit: boolean }> = []
   const collector = new BrowserPerformanceCollector(async (samples, pageExit) => {
-    assert.equal(pageExit, true)
-    batches.push(samples.length)
+    batches.push({ count: samples.length, pageExit })
     return true
   })
   collector.setMode('live')
   for (let index = 0; index < 121; index++) collector.record('browser.run_event_paint', index)
   await collector.flush(true)
-  assert.deepEqual(batches, [50, 50, 21])
+  assert.deepEqual(batches, [
+    { count: 50, pageExit: false },
+    { count: 50, pageExit: true },
+    { count: 21, pageExit: true },
+  ])
   assert.equal(collector.pending().length, 0)
+  collector.setMode('static')
+})
+
+test('a 360-event replay starts full batches without overflowing the bounded queue', async () => {
+  const batches: number[] = []
+  const losses: number[] = []
+  let releaseFirst!: () => void
+  const firstBlocked = new Promise<void>((resolve) => { releaseFirst = resolve })
+  const collector = new BrowserPerformanceCollector(async (samples, _pageExit, droppedSamples) => {
+    batches.push(samples.length)
+    losses.push(droppedSamples)
+    if (batches.length === 1) await firstBlocked
+    return true
+  })
+  collector.setMode('live')
+  for (let index = 0; index < 360; index++) collector.record('browser.run_event_paint', index)
+  assert.equal(batches[0], 50, 'the first full batch starts immediately')
+  assert.equal(collector.pending().length, 310)
+
+  releaseFirst()
+  for (let attempt = 0; attempt < 20 && (collector.pending().length || batches.length < 8); attempt++) {
+    await collector.flush()
+    await new Promise<void>((resolve) => setImmediate(resolve))
+  }
+  assert.deepEqual(batches, [50, 50, 50, 50, 50, 50, 50, 10])
+  assert.deepEqual(losses, [0, 0, 0, 0, 0, 0, 0, 0])
   collector.setMode('static')
 })
 

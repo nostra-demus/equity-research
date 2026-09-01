@@ -171,6 +171,24 @@ test('collection loss survives restart and remains isolated to its release', asy
     'an old release loss cannot turn a new release red')
 })
 
+test('many losses schedule one persistence operation', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-drop-coalesce-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000 })
+  const persist = (telemetry as any).persistDroppedSamples.bind(telemetry)
+  let persistCalls = 0
+  ;(telemetry as any).persistDroppedSamples = () => {
+    persistCalls++
+    return persist()
+  }
+
+  for (let index = 0; index < 500; index++) telemetry.recordBrowser([], 1)
+  assert.equal(persistCalls, 0, 'loss accounting itself creates no promise or disk write per observation')
+  await telemetry.flush()
+  assert.equal(persistCalls, 1)
+  assert.equal((await telemetry.summary(24, NOW)).droppedSamples, 500)
+})
+
 test('summaries use only the active deployed release', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-release-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
@@ -216,7 +234,7 @@ test('retention keeps the UTC day that straddles the exact cutoff', async (t) =>
   assert.equal(fs.existsSync(expired), false)
 })
 
-test('concurrent summary polls share one filesystem read', async (t) => {
+test('concurrent summary windows share one filesystem read', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-single-flight-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
   const telemetry = new PerformanceTelemetry(stateDir, { release: 'test' })
@@ -231,14 +249,14 @@ test('concurrent summary polls share one filesystem read', async (t) => {
   }
 
   const first = telemetry.summary(24, NOW)
-  const second = telemetry.summary(24, NOW)
+  const second = telemetry.summary(168, NOW)
   for (let attempt = 0; attempt < 20 && reads === 0; attempt++) {
     await new Promise<void>((resolve) => setTimeout(resolve, 1))
   }
-  assert.equal(reads, 1, 'a second poll attaches to the existing summary instead of starting another read')
+  assert.equal(reads, 1, 'different accepted windows project one shared history snapshot')
   releaseRead()
   await Promise.all([first, second])
-  assert.equal(reads, 2, 'one current-window read and one baseline read complete in total')
+  assert.equal(reads, 1, 'the shared read covers both current and baseline windows')
 })
 
 test('fast API failures do not satisfy latency budgets', async (t) => {
@@ -307,4 +325,24 @@ test('an interrupted JSONL tail cannot consume the next successful sample', asyn
   assert.equal(health?.count, 1)
   assert.equal(health?.p95, 20)
   assert.equal(summary.droppedSamples, 1, 'the failed batch remains visible as measurement loss')
+})
+
+test('a multi-day append failure counts only rows that were not persisted', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-partial-batch-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const originalAppend = fs.promises.appendFile
+  ;(fs.promises as any).appendFile = async (file: fs.PathLike, data: string, options: unknown) => {
+    if (String(file).endsWith('2026-09-02.jsonl')) throw new Error('simulated second-day failure')
+    return (originalAppend as any)(file, data, options)
+  }
+  t.after(() => { (fs.promises as any).appendFile = originalAppend })
+
+  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000 })
+  telemetry.recordServer(10, '/api/health', 'ok', Date.parse('2026-09-01T23:59:59.000Z'))
+  telemetry.recordServer(20, '/api/health', 'ok', Date.parse('2026-09-02T00:00:01.000Z'))
+  await telemetry.flush()
+
+  const summary = await telemetry.summary(48, Date.parse('2026-09-02T12:00:00.000Z'))
+  assert.equal(summary.sampleCount, 1)
+  assert.equal(summary.droppedSamples, 1, 'the already-durable first-day row is not counted as lost')
 })

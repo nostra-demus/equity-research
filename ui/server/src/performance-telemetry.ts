@@ -115,7 +115,9 @@ const API_BUDGETS: Record<'server.api_latency' | 'browser.api_latency', Budget> 
 
 const RETENTION_DAYS = 14
 const DAY_MS = 24 * 60 * 60_000
-const MAX_DAILY_BYTES = 2 * 1024 * 1024
+// Normal always-open polling produces roughly 3.4 MiB/day before any run activity. Keep more than 2x
+// that steady-state load so the safety cap catches abnormal volume rather than ordinary cockpit use.
+const MAX_DAILY_BYTES = 8 * 1024 * 1024
 const MAX_BATCH = 100
 const MAX_VALUE_MS = 10 * 60_000
 const MAX_CLOCK_SKEW_MS = 24 * 60 * 60_000
@@ -270,13 +272,17 @@ export class PerformanceTelemetry {
   private flushTimer: NodeJS.Timeout | null = null
   private writer: Promise<void> | null = null
   private lastPruneDay = ''
+  private pruneInFlight: Promise<void> | null = null
   private droppedByHour = new Map<string, { release: string; startedAt: number; count: number }>()
   private dropsLoaded = false
   private dropsDirty = false
   private dropWriter: Promise<void> | null = null
+  private dropPersistTimer: NodeJS.Timeout | null = null
   private delimitedFiles = new Set<string>()
   private summaryCache: { hours: number; at: number; value: PerformanceSummary } | null = null
   private summaryInFlight = new Map<number, Promise<PerformanceSummary>>()
+  private historySnapshotCache: { at: number; samples: StoredPerformanceSample[] } | null = null
+  private historySnapshotInFlight: Promise<StoredPerformanceSample[]> | null = null
 
   constructor(stateDir: string, options: PerformanceTelemetryOptions = {}) {
     this.dir = path.join(stateDir, 'performance')
@@ -324,6 +330,7 @@ export class PerformanceTelemetry {
 
   async flush(): Promise<void> {
     if (this.flushTimer) { clearTimeout(this.flushTimer); this.flushTimer = null }
+    if (this.dropPersistTimer) { clearTimeout(this.dropPersistTimer); this.dropPersistTimer = null }
     if (!this.writer && this.queue.length) {
       this.writer = this.drainQueue().finally(() => {
         this.writer = null
@@ -338,43 +345,52 @@ export class PerformanceTelemetry {
   private async drainQueue(): Promise<void> {
     while (this.queue.length) {
       const batch = this.queue.splice(0, MAX_BATCH)
-      try { await this.writeBatch(batch) }
-      catch {
-        this.noteDropped(batch.length)
-      }
+      const dropped = await this.writeBatch(batch)
+      if (dropped > 0) this.noteDropped(dropped)
     }
   }
 
-  private async writeBatch(batch: StoredPerformanceSample[]): Promise<void> {
-    await fs.promises.mkdir(this.dir, { recursive: true, mode: 0o700 })
-    const byDay = new Map<string, StoredPerformanceSample[]>()
-    for (const sample of batch) {
-      const day = new Date(sample.ts).toISOString().slice(0, 10)
-      const rows = byDay.get(day) ?? []
-      rows.push(sample)
-      byDay.set(day, rows)
-    }
-    for (const [day, rows] of byDay) {
-      const file = path.join(this.dir, `${day}.jsonl`)
-      let size = 0
-      try { size = (await fs.promises.stat(file)).size } catch {}
-      // Verify once per file on process startup, and again only after an append failure. The steady-state
-      // writer avoids an extra open/read on every two-second batch while still healing restart debris.
-      if (size > 0 && !this.delimitedFiles.has(file)) size = await this.repairInterruptedTail(file, size)
-      const payload = rows.map((row) => JSON.stringify(row)).join('\n') + '\n'
-      if (size + Buffer.byteLength(payload) > this.maxDailyBytes) {
-        this.noteDropped(rows.length)
-        continue
+  private async writeBatch(batch: StoredPerformanceSample[]): Promise<number> {
+    let remaining = batch.length
+    let dropped = 0
+    try {
+      await fs.promises.mkdir(this.dir, { recursive: true, mode: 0o700 })
+      const byDay = new Map<string, StoredPerformanceSample[]>()
+      for (const sample of batch) {
+        const day = new Date(sample.ts).toISOString().slice(0, 10)
+        const rows = byDay.get(day) ?? []
+        rows.push(sample)
+        byDay.set(day, rows)
       }
-      try {
-        await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
-        this.delimitedFiles.add(file)
-      } catch (error) {
-        this.delimitedFiles.delete(file)
-        throw error
+      for (const [day, rows] of byDay) {
+        const file = path.join(this.dir, `${day}.jsonl`)
+        let size = 0
+        try { size = (await fs.promises.stat(file)).size } catch {}
+        // Verify once per file on process startup, and again only after an append failure. The steady-state
+        // writer avoids an extra open/read on every two-second batch while still healing restart debris.
+        if (size > 0 && !this.delimitedFiles.has(file)) size = await this.repairInterruptedTail(file, size)
+        const payload = rows.map((row) => JSON.stringify(row)).join('\n') + '\n'
+        if (size + Buffer.byteLength(payload) > this.maxDailyBytes) {
+          dropped += rows.length
+          remaining -= rows.length
+          continue
+        }
+        try {
+          await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
+          this.delimitedFiles.add(file)
+          remaining -= rows.length
+        } catch {
+          this.delimitedFiles.delete(file)
+          // Earlier day groups are already durable and capped groups were already counted. Only this day
+          // and the still-unattempted suffix were lost.
+          return dropped + remaining
+        }
       }
+      await this.pruneIfDue(Date.now())
+      return dropped
+    } catch {
+      return dropped + remaining
     }
-    await this.pruneIfDue(Date.now())
   }
 
   private async repairInterruptedTail(file: string, size: number): Promise<number> {
@@ -412,8 +428,17 @@ export class PerformanceTelemetry {
   private async pruneIfDue(now: number): Promise<void> {
     const today = new Date(now).toISOString().slice(0, 10)
     if (today === this.lastPruneDay) return
-    await this.prune(now)
-    this.lastPruneDay = today
+    if (this.pruneInFlight) {
+      await this.pruneInFlight
+      if (today === this.lastPruneDay) return
+    }
+    const work = this.prune(now).then(() => { this.lastPruneDay = today })
+    let tracked!: Promise<void>
+    tracked = work.finally(() => {
+      if (this.pruneInFlight === tracked) this.pruneInFlight = null
+    })
+    this.pruneInFlight = tracked
+    await tracked
   }
 
   private async prune(now: number): Promise<void> {
@@ -442,7 +467,16 @@ export class PerformanceTelemetry {
     this.pruneDroppedSamples(now)
     this.dropsDirty = true
     this.summaryCache = null
-    void this.persistDroppedSamples()
+    this.scheduleDroppedSamplePersistence()
+  }
+
+  private scheduleDroppedSamplePersistence(): void {
+    if (this.dropPersistTimer || this.dropWriter) return
+    this.dropPersistTimer = setTimeout(() => {
+      this.dropPersistTimer = null
+      void this.persistDroppedSamples()
+    }, this.flushDelayMs)
+    this.dropPersistTimer.unref?.()
   }
 
   private droppedWithin(since: number, until: number): number {
@@ -493,9 +527,9 @@ export class PerformanceTelemetry {
     }
   }
 
-  private async persistDroppedSamples(): Promise<void> {
+  private persistDroppedSamples(): Promise<void> {
     if (this.dropWriter) return this.dropWriter
-    if (!this.dropsDirty && this.dropsLoaded) return
+    if (!this.dropsDirty && this.dropsLoaded) return Promise.resolve()
     this.dropWriter = (async () => {
       await this.loadDroppedSamples()
       if (this.pruneDroppedSamples(Date.now())) this.dropsDirty = true
@@ -525,7 +559,12 @@ export class PerformanceTelemetry {
     })().catch(() => {
       // Telemetry must never block cockpit work. The in-memory incident remains red and the next flush
       // retries the atomic snapshot; a broken measurement disk cannot recursively record its own loss.
-    }).finally(() => { this.dropWriter = null })
+    }).finally(() => {
+      this.dropWriter = null
+      // A loss can land after the writer's final dirty check but before this cleanup. Preserve one bounded
+      // delayed retry rather than creating a promise or fsync for every discarded observation.
+      if (this.dropsDirty) this.scheduleDroppedSamplePersistence()
+    })
     return this.dropWriter
   }
 
@@ -561,6 +600,25 @@ export class PerformanceTelemetry {
     return out
   }
 
+  private readHistorySnapshot(now: number): Promise<StoredPerformanceSample[]> {
+    const cacheAge = this.historySnapshotCache ? now - this.historySnapshotCache.at : Infinity
+    if (this.historySnapshotCache && cacheAge >= 0 && cacheAge < SUMMARY_CACHE_MS) {
+      return Promise.resolve(this.historySnapshotCache.samples)
+    }
+    if (this.historySnapshotInFlight) return this.historySnapshotInFlight
+    const work = this.readSamples(now - this.retentionDays * DAY_MS, now)
+      .then((samples) => {
+        this.historySnapshotCache = { at: now, samples }
+        return samples
+      })
+    let tracked!: Promise<StoredPerformanceSample[]>
+    tracked = work.finally(() => {
+      if (this.historySnapshotInFlight === tracked) this.historySnapshotInFlight = null
+    })
+    this.historySnapshotInFlight = tracked
+    return tracked
+  }
+
   async summary(windowHours = 24, now = Date.now()): Promise<PerformanceSummary> {
     const hours = Math.max(1, Math.min(168, Math.round(windowHours)))
     const existing = this.summaryInFlight.get(hours)
@@ -584,8 +642,12 @@ export class PerformanceTelemetry {
     await this.flush()
     const windowMs = hours * 60 * 60_000
     const droppedSamples = this.droppedWithin(now - windowMs, now)
-    const current = await this.readSamples(now - windowMs, now)
-    const baseline = await this.readSamples(now - windowMs - 7 * 24 * 60 * 60_000, now - windowMs)
+    // Every accepted window is a projection of one shared, cached 14-day read. Rotating query-window
+    // values cannot create parallel filesystem scans after the HTTP deadline has returned.
+    const history = await this.readHistorySnapshot(now)
+    const current = history.filter((sample) => sample.ts >= now - windowMs && sample.ts <= now)
+    const baseline = history.filter((sample) => sample.ts >= now - windowMs - 7 * DAY_MS
+      && sample.ts <= now - windowMs)
     const groups = new Map<string, StoredPerformanceSample[]>()
     const baselineGroups = new Map<string, StoredPerformanceSample[]>()
     const add = (target: Map<string, StoredPerformanceSample[]>, sample: StoredPerformanceSample) => {
