@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T09:17:50Z",
+  "generated_at": "2026-09-01T09:41:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-744",
+      "headline": "PASHUN INT'L (00574): INSIDER INFORMATION WINDING-UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090101650.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T08:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Winding-up petition filed against Pashun International signals potential insolvency and survival risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Winding-up petition filed against Pashun International signals potential insolvency and survival risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pashun International",
+          "ticker": "00574",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-732",
       "headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
@@ -886,6 +935,55 @@
           "name": "HDFC Bank",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-737",
+      "headline": "Gap Inc. (GAP) Raises Its Outlook Even As Old Navy Stumbles",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/gap-inc-gap-raises-outlook-073906168.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T07:39:06Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Gap Inc. raised its financial outlook despite performance issues at its Old Navy segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gap Inc. raised its financial outlook despite performance issues at its Old Navy segment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gap Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1909,115 +2007,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-190",
-      "headline": "Three deaths in CAR-T trials prompt halt by Novartis; Bristol Myers programs also paused",
-      "headline_en": null,
-      "url": "https://endpoints.news/three-deaths-in-car-t-trials-prompt-halt-by-novartis-bristol-myers-programs-also-paused/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:01:19Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Novartis and Bristol Myers paused CAR-T trials due to three patient deaths, posing significant clinical and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis and Bristol Myers paused CAR-T trials due to three patient deaths, posing significant clinical and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Bristol Myers Squibb",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-294",
-      "headline": "KKR-Backed Beauty Firm Wella Files for IPO Showing Sales Growth",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/kkr-backed-beauty-firm-wella-files-for-ipo-showing-sales-growth",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T20:47:28Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Wella has filed for an IPO, signaling a major capital market event for the KKR-backed firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wella has filed for an IPO, signaling a major capital market event for the KKR-backed firm.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wella",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122568,9 +122557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1015382,
-    "news_picked_today": 1361,
-    "news_dropped_today": 6463
+    "news_seen_today": 1107128,
+    "news_picked_today": 1374,
+    "news_dropped_today": 6762
   },
   "book_momentum": {
     "live_count": 8,
