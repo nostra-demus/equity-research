@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T16:44:04Z",
+  "generated_at": "2026-09-01T16:54:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-917",
@@ -1581,6 +1581,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-919",
+      "headline": "upGrad completes Unacademy acquisition at just over $200 million, marking steep valuation reset",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/upgrad-completes-unacademy-acquisition-at-just-over-200-million-marking-steep-valuation-reset/article71416034.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T16:36:33Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "upGrad acquired Unacademy for $200 million, which represents a significant valuation reset for the target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "upGrad acquired Unacademy for $200 million, which represents a significant valuation reset for the target company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "upGrad",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Unacademy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-912",
       "headline": "GoPro to be acquired for $285M, will remain a public company",
       "headline_en": null,
@@ -1916,55 +1970,6 @@
         },
         {
           "name": "Capricorn Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-864",
-      "headline": "Apollo’s Brightspeed Casts Going Concern Doubt as Revenue Slides",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-01/apollo-s-brightspeed-casts-going-concern-doubt-as-revenue-slides",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T14:19:59Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Brightspeed has raised going concern doubts as revenue declines, signaling severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brightspeed has raised going concern doubts as revenue declines, signaling severe financial distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brightspeed",
           "ticker": null,
           "listing_country": "US"
         }
@@ -124977,9 +124982,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3612667,
-    "news_picked_today": 2091,
-    "news_dropped_today": 9861
+    "news_seen_today": 3744234,
+    "news_picked_today": 2094,
+    "news_dropped_today": 9906
   },
   "book_momentum": {
     "live_count": 8,
