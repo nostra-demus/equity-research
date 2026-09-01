@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T16:15:00Z",
+  "generated_at": "2026-09-01T16:24:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-878",
@@ -1576,6 +1576,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-916",
+      "headline": "This 4.5%-Yielding Pipeline Stock Just Made a $4.4 Billion Acquisition. Here's What It Means for the Dividend.",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/4-5-yielding-pipeline-stock-154401429.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:44:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A pipeline company announced a $4.4 billion acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A pipeline company announced a $4.4 billion acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-901",
       "headline": "Denny’s rival dining chain files for Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1670,49 +1713,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-906",
-      "headline": "This 4.5%-Yielding Pipeline Stock Just Made a $4.4 Billion Acquisition. Here's What It Means for the Dividend.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/01/this-4-5-yielding-pipeline-stock-just-made-a-usd4-4-billion-acquisition-here-s-what-it-means-for-the-dividend/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:24:01Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A pipeline company announced a $4.4 billion acquisition, which is a significant capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A pipeline company announced a $4.4 billion acquisition, which is a significant capital deployment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92125,78 +92125,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-81a62aef2e6f",
-      "idea_version": "IDEAV-13c7955f2f7261f4",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "OZON",
-      "company": "Ozon Holdings PLC",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A missile attack hitting Ozon facilities in Belgorod could disrupt operations, damage infrastructure, and lead to increased costs, negatively impacting the company's profitability and supply chain efficiency.",
-      "why_now": "The missile attack on Ozon's facilities is a current operational disruption that could immediately affect the company's performance.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2cc3490adc47"
-      ],
-      "primary_source_event_id": "EVT-2cc3490adc47",
-      "source_headlines": [
-        "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities"
-      ],
-      "source_headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
-      "source_url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T04:19:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T05:42:48Z",
-      "updated_at": "2026-08-31T05:42:48Z",
-      "decay_at": "2026-09-01T16:19:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-23e00bbbd9ca",
       "idea_version": "IDEAV-80e68decdc0c9b33",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -93885,6 +93813,78 @@
       "surfaced_at": "2026-08-29T15:13:07Z",
       "updated_at": "2026-08-31T05:42:48Z",
       "decay_at": "2026-09-01T15:59:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-81a62aef2e6f",
+      "idea_version": "IDEAV-13c7955f2f7261f4",
+      "idea_version_started_at": "2026-08-31T05:42:48Z",
+      "ticker": "OZON",
+      "company": "Ozon Holdings PLC",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A missile attack hitting Ozon facilities in Belgorod could disrupt operations, damage infrastructure, and lead to increased costs, negatively impacting the company's profitability and supply chain efficiency.",
+      "why_now": "The missile attack on Ozon's facilities is a current operational disruption that could immediately affect the company's performance.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2cc3490adc47"
+      ],
+      "primary_source_event_id": "EVT-2cc3490adc47",
+      "source_headlines": [
+        "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities"
+      ],
+      "source_headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
+      "source_url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T04:19:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T05:42:48Z",
+      "updated_at": "2026-08-31T05:42:48Z",
+      "decay_at": "2026-09-01T16:19:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98865,8 +98865,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 348,
-    "shown_count": 348,
+    "total_count": 349,
+    "shown_count": 349,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -98875,8 +98875,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 173,
-        "shown_count": 173,
+        "total_count": 174,
+        "shown_count": 174,
         "hidden_count": 0
       }
     },
@@ -98896,6 +98896,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-81a62aef2e6f",
+        "idea_version": "IDEAV-13c7955f2f7261f4",
+        "idea_version_started_at": "2026-08-31T05:42:48Z",
+        "ticker": "OZON",
+        "company": "Ozon Holdings PLC",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A missile attack hitting Ozon facilities in Belgorod could disrupt operations, damage infrastructure, and lead to increased costs, negatively impacting the company's profitability and supply chain efficiency.",
+        "why_now": "The missile attack on Ozon's facilities is a current operational disruption that could immediately affect the company's performance.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2cc3490adc47"
+        ],
+        "primary_source_event_id": "EVT-2cc3490adc47",
+        "source_headlines": [
+          "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities"
+        ],
+        "source_headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
+        "source_url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T04:19:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T05:42:48Z",
+        "updated_at": "2026-08-31T05:42:48Z",
+        "decay_at": "2026-09-01T16:19:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T16:19:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-91e36b52baa1",
         "idea_version": "IDEAV-3ec2dc4e48f5ce85",
@@ -124730,7 +124805,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124749,9 +124824,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3313664,
-    "news_picked_today": 2061,
-    "news_dropped_today": 9603
+    "news_seen_today": 3425259,
+    "news_picked_today": 2069,
+    "news_dropped_today": 9667
   },
   "book_momentum": {
     "live_count": 8,
