@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T03:23:28Z",
+  "generated_at": "2026-09-01T03:27:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -1816,6 +1816,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-442",
+      "headline": "Amazon Sued by FTC Over Claims It Misled Advertisers on Pricing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/amazon-faces-ftc-suit-claiming-it-misled-advertisers-on-pricing",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T18:46:25Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon.com, Inc.",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-457",
+      "headline": "FDIC Beats Investor Claim to $1.71 Billion Silicon Valley Bank Deposit",
+      "headline_en": null,
+      "url": "https://www.wsj.com/pro/bankruptcy/fdic-beats-investor-claim-to-1-71-billion-silicon-valley-bank-deposit-fdff001a?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T18:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The FDIC won a claim against investors for a $1.71 billion deposit from Silicon Valley Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The FDIC won a claim against investors for a $1.71 billion deposit from Silicon Valley Bank.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FDIC",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Silicon Valley Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-176",
       "headline": "SCHEDULE 13D/A - Hyperscale Data, Inc. (0000896493) (Filed by)",
       "headline_en": null,
@@ -1909,104 +2012,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-329",
-      "headline": "Yili H1 2026: Both revenue and core operating profit deliver growth",
-      "headline_en": null,
-      "url": "http://www.ecns.cn/business/2026-09-01/detail-ihfirzsm0924769.shtml",
-      "source_name": "ECNS (China News Service, English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T04:19:10Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Yili's H1 2026 forecast of revenue and core operating profit growth indicates positive future financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Yili's H1 2026 forecast of revenue and core operating profit growth indicates positive future financial performance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yili",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-400",
-      "headline": "Keppel DC Reit spends $1.5 billion on two freehold data centres in Japan",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/keppel-dc-reit-spends-1-5-billion-on-two-freehold-data-centres-in-japan",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:25:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Keppel DC Reit commits $1.5B for two freehold data centres in Japan, a major capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Keppel DC Reit commits $1.5B for two freehold data centres in Japan, a major capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keppel DC Reit",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -121973,9 +121978,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 293602,
-    "news_picked_today": 566,
-    "news_dropped_today": 1954
+    "news_seen_today": 297649,
+    "news_picked_today": 605,
+    "news_dropped_today": 2035
   },
   "book_momentum": {
     "live_count": 8,
