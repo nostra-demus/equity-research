@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-01T10:33:17Z",
+  "generated_at": "2026-09-01T10:38:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-756",
+      "headline": "Punj Lloyd Limited: Punj Lloyd Limited has informed the Exchange about Corporate Insolvency Resolution Process ; In terms of Regulation 30 of SEBI (LODR) Regulations, 2015, we hereby inform that the Company has received the resignation letter from Mr. Adhish Swaroop (ACS : 16034) from the position of Company Secretary & Compliance officer of the Company w.e.f 31.08.2026. Detailed Announcement along with the copy of Resignation letter is attached / submitted.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PUNJLLOYD_01092026155654_SEBILODRREG30ResignationofCSAS__2_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T10:27:21Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Punj Lloyd is undergoing a corporate insolvency resolution process and the company secretary has resigned.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Punj Lloyd is undergoing a corporate insolvency resolution process and the company secretary has resigned.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punj Lloyd Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-754",
       "headline": "NIO-SW (09866): ANNOUNCEMENT OF THE 2026 SECOND QUARTER RESULTS",
@@ -1948,56 +1998,6 @@
           "name": "Zee Entertainment",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-184",
-      "headline": "Keppel DC Reit spends US$1.2 billion on two freehold data centres in Japan",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/keppel-dc-reit-spends-us1-2-billion-two-freehold-data-centres-japan",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:13:08Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Keppel DC Reit is acquiring two data centers for US$1.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Keppel DC Reit is acquiring two data centers for US$1.2 billion.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keppel DC Reit",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "mid",
@@ -122921,9 +122921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1356028,
-    "news_picked_today": 1442,
-    "news_dropped_today": 7174
+    "news_seen_today": 1378841,
+    "news_picked_today": 1467,
+    "news_dropped_today": 7293
   },
   "book_momentum": {
     "live_count": 8,
