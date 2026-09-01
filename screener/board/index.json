@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T14:50:20Z",
+  "generated_at": "2026-09-01T15:00:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-877",
+      "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of Mitshi India Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260901-36/20260901-36.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T14:43:45Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Mitshi India Limited is subject to a takeover offer via an acquisition window.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitshi India Limited is subject to a takeover offer via an acquisition window.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitshi India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-847",
       "headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-714",
-      "headline": "‎Amwaj International says unable to publish H1 2026 results",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1933187",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T10:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Company is unable to publish H1 2026 financial results, a significant governance/reporting failure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company is unable to publish H1 2026 financial results, a significant governance/reporting failure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amwaj International",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92559,80 +92559,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3f7560fdd91d",
-      "idea_version": "IDEAV-03efb992f7ae079d",
-      "idea_version_started_at": "2026-08-31T04:01:48Z",
-      "ticker": "BLS",
-      "company": "MA Financial Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company released its FY2026 results alongside new FY2027 guidance, providing a clear window into forward earnings trajectory.",
-      "why_now": "The price-sensitive results and guidance were filed with the ASX on August 31, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-810ae964d409",
-        "EVT-77929fc5602a"
-      ],
-      "primary_source_event_id": "EVT-810ae964d409",
-      "source_headlines": [
-        "BLS: BLS FY2027 Guidance [price-sensitive]",
-        "BLS: BLS FY2026 Results Announcement [price-sensitive]"
-      ],
-      "source_headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLS?key=2924-03129273-2A1693772",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T02:51:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T04:01:48Z",
-      "updated_at": "2026-08-31T04:01:48Z",
-      "decay_at": "2026-09-01T14:51:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0ac5d784c64f",
       "idea_version": "IDEAV-166a62829813d08b",
       "idea_version_started_at": "2026-08-31T05:24:11Z",
@@ -94107,6 +94033,80 @@
       "surfaced_at": "2026-08-31T04:01:48Z",
       "updated_at": "2026-08-31T04:01:48Z",
       "decay_at": "2026-09-01T14:22:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3f7560fdd91d",
+      "idea_version": "IDEAV-03efb992f7ae079d",
+      "idea_version_started_at": "2026-08-31T04:01:48Z",
+      "ticker": "BLS",
+      "company": "MA Financial Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company released its FY2026 results alongside new FY2027 guidance, providing a clear window into forward earnings trajectory.",
+      "why_now": "The price-sensitive results and guidance were filed with the ASX on August 31, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-810ae964d409",
+        "EVT-77929fc5602a"
+      ],
+      "primary_source_event_id": "EVT-810ae964d409",
+      "source_headlines": [
+        "BLS: BLS FY2027 Guidance [price-sensitive]",
+        "BLS: BLS FY2026 Results Announcement [price-sensitive]"
+      ],
+      "source_headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLS?key=2924-03129273-2A1693772",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:51:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T04:01:48Z",
+      "updated_at": "2026-08-31T04:01:48Z",
+      "decay_at": "2026-09-01T14:51:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98869,13 +98869,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 342,
-    "shown_count": 342,
+    "total_count": 343,
+    "shown_count": 343,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 171,
-        "shown_count": 171,
+        "total_count": 172,
+        "shown_count": 172,
         "hidden_count": 0
       },
       "short": {
@@ -98900,6 +98900,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3f7560fdd91d",
+        "idea_version": "IDEAV-03efb992f7ae079d",
+        "idea_version_started_at": "2026-08-31T04:01:48Z",
+        "ticker": "BLS",
+        "company": "MA Financial Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company released its FY2026 results alongside new FY2027 guidance, providing a clear window into forward earnings trajectory.",
+        "why_now": "The price-sensitive results and guidance were filed with the ASX on August 31, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-810ae964d409",
+          "EVT-77929fc5602a"
+        ],
+        "primary_source_event_id": "EVT-810ae964d409",
+        "source_headlines": [
+          "BLS: BLS FY2027 Guidance [price-sensitive]",
+          "BLS: BLS FY2026 Results Announcement [price-sensitive]"
+        ],
+        "source_headline": "BLS: BLS FY2027 Guidance [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BLS?key=2924-03129273-2A1693772",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T02:51:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T04:01:48Z",
+        "updated_at": "2026-08-31T04:01:48Z",
+        "decay_at": "2026-09-01T14:51:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T14:51:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0ac5d784c64f",
         "idea_version": "IDEAV-166a62829813d08b",
@@ -124284,7 +124361,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124303,9 +124380,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2750356,
-    "news_picked_today": 1979,
-    "news_dropped_today": 8965
+    "news_seen_today": 2839135,
+    "news_picked_today": 1990,
+    "news_dropped_today": 9050
   },
   "book_momentum": {
     "live_count": 8,
