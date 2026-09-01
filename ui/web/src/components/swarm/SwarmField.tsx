@@ -3,6 +3,7 @@ import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { sufficiencyColor } from '../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
 import { moduleRunAffordance } from '../../lib/moduleRun'
+import { moduleCompletionOutcome } from '../../lib/moduleOutcome'
 import { PAUSED_RUN_HELP, PAUSED_RUN_LABEL, projectRunActivity } from '../../lib/runActivityProjection'
 import { useStore } from '../../lib/store'
 import { AgentNode } from './AgentNode'
@@ -130,7 +131,11 @@ export function SwarmField() {
 
       {/* cluster labels */}
       {layout.clusters.map((c) => {
-        const ms = dataStatus?.modules[c.module]?.status
+        const moduleNodes = layout.nodes.filter((n) => n.module === c.module)
+        const completion = moduleCompletionOutcome(moduleNodes, nodeRuntime)
+        // Saved module outcome beats pool readiness. They answer different questions, and showing
+        // "Sufficient" above a canonical insufficient fail-fast result contradicts backend disk truth.
+        const ms = completion.kind === 'fail-fast' ? completion.verdict : dataStatus?.modules[c.module]?.status
         const live = activeModules.has(c.module)
         const paused = pausedModules.has(c.module)
         const mod = moduleByName.get(c.module)
@@ -138,7 +143,7 @@ export function SwarmField() {
         const depLocked = !smartResume && mod?.depsComplete === false
         const miss = mod?.missingDeps?.join(', ')
         const runAffordance = smartResume
-          ? moduleRunAffordance(layout.nodes.filter((n) => n.module === c.module), nodeStatus)
+          ? moduleRunAffordance(moduleNodes, nodeStatus)
           : { complete: false, unfinishedSpecialists: 0, label: '▸ run module', title: 'Runs this module only' }
         // A newly added specialist can be run one-by-one before the old synthesis is refreshed. In that
         // state every visible orb looks done, but disk truth still has summary work to do. Keep research
@@ -196,6 +201,8 @@ export function SwarmField() {
             ) : launchPending?.key === `module:${c.module}` ? (
               // the click was heard — the label flips in the same frame, before the server acks
               <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
+            ) : completion.kind === 'fail-fast' ? (
+              <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="The module stopped at its valid data gate; no downstream paid work was required">✓ stopped correctly</div>
             ) : runAffordance.complete ? (
               <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title={runAffordance.title}>{runAffordance.label}</div>
             ) : (

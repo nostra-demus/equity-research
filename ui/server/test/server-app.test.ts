@@ -69,6 +69,7 @@ const readinessOwner = createRun({
   writeTargetsAbs: [], coveredModules: [], readDepsAbs: [], chainId: 'snapshot-chain', chained: true,
 })
 readinessOwner.status = 'awaiting-readiness-decision'
+readinessOwner.publicationPhase = 'terminal-in-progress'
 readinessOwner.readiness = {
   ticker: readinessOwner.ticker, kind: 'full', overall: 'blocked', fileCount: 0, usableCount: 0,
   physicalPool: { state: 'empty', fileCount: 0, nonEmptyFileCount: 0 },
@@ -78,6 +79,10 @@ readinessOwner.readiness = {
 const ownerSnapshot = await first.app.inject({ method: 'GET', url: `/api/runs/${readinessOwner.runId}` })
 assert.equal(ownerSnapshot.statusCode, 200)
 assert.equal(ownerSnapshot.json().readiness.issues[0].code, 'zero_files', 'refresh restores the exact actionable gate')
+assert.equal(ownerSnapshot.json().publicationPhase, 'terminal-in-progress', 'refresh restores the backend-owned save/publish phase')
+const activeSnapshot = await first.app.inject({ method: 'GET', url: '/api/runs' })
+assert.equal(activeSnapshot.json().active.find((run: any) => run.runId === readinessOwner.runId)?.publicationPhase,
+  'terminal-in-progress', 'polling carries the same save/publish phase as the exact snapshot')
 const emptyProceed = await first.app.inject({
   method: 'POST', url: `/api/runs/${readinessOwner.runId}/readiness-decision`, payload: { action: 'proceed' },
 })

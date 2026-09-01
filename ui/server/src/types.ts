@@ -1,6 +1,7 @@
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
+export type RunPublicationPhase = 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
 
 export interface MemoryProfile {
   version: 1
@@ -487,7 +488,7 @@ export type SseEvent = (
   // agent events never look like a hang. Emitted via emitTransient (NOT recorded in eventLog, never
   // replayed): it is ambient state, not history. lastStdoutAt = when the engine child last produced
   // output; lastActivity = the orchestrator's most recent tool call (what the system is DOING now).
-  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; publicationPhase?: RunPublicationPhase; ts: number }
   // TRANSIENT, one per orchestrator tool call — the step-by-step "what is it reading RIGHT NOW" feed.
   // The 3s heartbeat carries only the LATEST call, so a run that reads five documents between two
   // pulses shows four of them to nobody; this event is what makes the feed complete. Not recorded in

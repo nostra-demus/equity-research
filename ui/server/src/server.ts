@@ -1930,6 +1930,7 @@ app.get('/api/runs/:runId', async (req, reply) => {
     reasoningLevel: run.reasoningLevel,
     cliVersion: run.cliVersion,
     status: run.status,
+    publicationPhase: run.publicationPhase,
     // Refresh/reconnect must reconstruct the one actionable chain gate. Siblings stay in
     // readiness-checking and therefore expose no duplicate decision report.
     readiness: run.status === 'awaiting-readiness-decision' ? run.readiness : undefined,
@@ -4270,6 +4271,7 @@ app.get('/api/runs', async (req) => {
         continuation: r.continuation,
         swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt,
         provider: r.provider, executionProfile: r.executionProfile,
+        publicationPhase: r.publicationPhase,
       })),
   }
 })

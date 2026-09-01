@@ -1421,6 +1421,7 @@ export interface ActiveRunLite {
   cliVersion?: string
   chainId?: string
   executionEpoch?: string
+  publicationPhase?: RunPublicationPhase
 }
 export interface BoardSignal {
   signal_id: string
@@ -2499,6 +2500,8 @@ export interface RunActivity {
   executionProfile?: import('./provider').ProviderExecutionProfile
 }
 
+export type RunPublicationPhase = 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
+
 export type SseEvent = (
   | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; continuation?: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
@@ -2512,7 +2515,7 @@ export type SseEvent = (
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
   // transient liveness pulse (~3s per in-flight run; never replayed) — status/progress/cost between
   // agent events plus the engine's last output time and latest tool call ("what is it doing right now")
-  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; publicationPhase?: RunPublicationPhase; ts: number }
   // one per orchestrator tool call — the step-by-step feed behind "New data"'s live reading list. The
   // heartbeat only carries the LATEST call, so it alone would skip documents read between two pulses.
   // The server replays a bounded tail on subscribe, so attaching mid-run still shows the earlier steps.
