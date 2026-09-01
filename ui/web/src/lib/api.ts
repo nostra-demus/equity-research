@@ -12,6 +12,7 @@ import { publishedPaperExecutionResult } from './paperPortfolioView'
 import { retryTaskPlanning } from './taskPlanning'
 import { CHAT_MODELS, chatModelsReadAfterFailure, normalizeChatModelsRead, type ChatModelsRead } from './chatModels'
 import { normalizeProvidersRead, normalizeProviderStatus, providerCatalogForError, providerCatalogUnknown, providerLaunchFields, type FrozenProviderLaunch, type ProviderExecutionProfile, type ProvidersRead, type RunProvider } from './provider'
+import { performanceFetch, setPerformanceCollectionMode, type PerformanceSummary } from './performance'
 import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, ContinuationPlanReceipt, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataScanProgress, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IbkrPaperPortfolioRead, IntakePlan, IntensityStats, IntensityWindow, LaunchableRunKind, LaunchPreflight, MemoryRead, MemoryRuntimeRead, NewCompanyInput, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PaperExecutionResult, PendingAdmission, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, PortfolioManualInput, PortfolioManualRead, PortfolioLiveMark, PortfolioOverrides, PortfolioRead, PortfolioUploadResult, ResumableRunInfo, RunHistoryEntry, RunKind, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
@@ -164,24 +165,28 @@ export async function ensureMode(): Promise<'live' | 'static'> {
     // immediately, skipping the tunnel-slow /api/health probe (no read-only fallback).
     if (typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true) {
       mode = 'live'
+      setPerformanceCollectionMode('live')
       return mode
     }
     try {
-      const r = await fetch('/api/health', { signal: AbortSignal.timeout(6000) })
+      const r = await performanceFetch('/api/health', { signal: AbortSignal.timeout(6000) })
       if (r.ok) {
         // validate it's really the backend, not an SPA/HTML fallback returning 200
         const j = await r.json().catch(() => null)
         if (j && j.ok === true) {
           mode = 'live'
+          setPerformanceCollectionMode('live')
           return mode
         }
       }
     } catch {}
     try {
-      snap = await (await fetch(`${BASE}data/snapshot.json`)).json()
+      snap = await (await performanceFetch(`${BASE}data/snapshot.json`)).json()
       mode = 'static'
+      setPerformanceCollectionMode('static')
     } catch {
       mode = 'live' // no backend AND no snapshot — surface live errors rather than hide them
+      setPerformanceCollectionMode('live')
     }
     return mode!
   })()
@@ -207,14 +212,14 @@ export function snapshotGeneratedAt(): string | null {
 // heavy JSON; pass a shorter budget for small, frequently-polled endpoints (e.g. news status).
 async function get<T>(url: string, timeoutMs = 15_000, signal?: AbortSignal): Promise<T> {
   const timeout = AbortSignal.timeout(timeoutMs)
-  const r = await fetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout })
+  const r = await performanceFetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout })
   // Carry the status on the error (as post() already does) so a caller can tell "this doesn't exist yet"
   // (404) from "the engine is broken/unreachable" (500, timeout) instead of guessing from the message.
   if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
   return r.json() as Promise<T>
 }
 async function staticOutput(path: string): Promise<{ path: string; markdown: string }> {
-  const r = await fetch(`${BASE}data/${path}`)
+  const r = await performanceFetch(`${BASE}data/${path}`)
   if (!r.ok) throw new Error('not found')
   return { path, markdown: await r.text() }
 }
@@ -222,7 +227,7 @@ async function post<T>(url: string, body?: any, timeoutMs?: number, signal?: Abo
   // Only set the JSON content-type when there's actually a body. A bodyless POST (cancel, credit-check)
   // sent WITH content-type: application/json makes Fastify reject it 400 FST_ERR_CTP_EMPTY_JSON_BODY
   // before the route even runs — the real cause of the "cancel didn't work" bug.
-  const r = await fetch(url, {
+  const r = await performanceFetch(url, {
     method: 'POST',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -243,7 +248,7 @@ async function paperCommand(url: string, confirmation: 'SYNC PAPER' | 'CANCEL PA
 }
 
 async function put<T>(url: string, body?: any): Promise<T> {
-  const r = await fetch(url, {
+  const r = await performanceFetch(url, {
     method: 'PUT',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -254,14 +259,14 @@ async function put<T>(url: string, body?: any): Promise<T> {
 }
 
 async function del<T>(url: string): Promise<T> {
-  const r = await fetch(url, { method: 'DELETE' })
+  const r = await performanceFetch(url, { method: 'DELETE' })
   const j = await r.json().catch(() => ({}))
   if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
   return j as T
 }
 
 async function patch<T>(url: string, body?: any, timeoutMs?: number): Promise<T> {
-  const r = await fetch(url, {
+  const r = await performanceFetch(url, {
     method: 'PATCH',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
@@ -333,7 +338,7 @@ async function readSse(
 ): Promise<void> {
   let res: Response
   try {
-    res = await fetch(url, init)
+    res = await performanceFetch(url, init)
   } catch (e: any) {
     if (e?.name !== 'AbortError') onError(e?.message || 'network error')
     return
@@ -867,7 +872,7 @@ export const api = {
     // store falls back to a headline-only story rather than spinning the shimmer. (The default get() has no
     // timeout — the bug that let the shimmer hang.)
     const url = `/api/news/enrich?${qs.toString()}`
-    const r = await fetch(url, { signal: AbortSignal.timeout(28_000) })
+    const r = await performanceFetch(url, { signal: AbortSignal.timeout(28_000) })
     if (!r.ok) throw new Error(`${r.status} ${url}`)
     return r.json() as Promise<EventEnrichment>
   },
@@ -1057,6 +1062,13 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return get(`/api/credit`, 8_000)
   },
+  performanceSummary: async (hours = 24): Promise<PerformanceSummary> => {
+    if ((await ensureMode()) === 'static') return {
+      version: 1, release: 'static', generatedAt: new Date().toISOString(), windowHours: hours, retentionDays: 14,
+      sampleCount: 0, droppedSamples: 0, status: 'learning', metrics: [],
+    }
+    return get(`/api/performance/summary?hours=${Math.max(1, Math.min(168, Math.round(hours)))}`, 8_000)
+  },
   creditCheck: async (): Promise<Usage> => {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
@@ -1153,7 +1165,7 @@ export const api = {
   // live -> the engine's sandboxed /api/prompt; static -> the bundled snapshot under data/prompts/.
   prompt: async (path: string): Promise<{ path: string; markdown: string }> => {
     if ((await ensureMode()) === 'static') {
-      const r = await fetch(`${BASE}data/${staticPromptPath(path)}`)
+      const r = await performanceFetch(`${BASE}data/${staticPromptPath(path)}`)
       if (!r.ok) throw new Error('not found')
       return { path, markdown: await r.text() }
     }
@@ -1893,7 +1905,7 @@ export const api = {
     const recoverCommittedTurn = async (): Promise<boolean> => {
       if (!body.turnId || cb.signal.aborted) return false
       try {
-        const r = await fetch(`/api/chat/turn/${encodeURIComponent(body.turnId)}`, { signal: cb.signal })
+        const r = await performanceFetch(`/api/chat/turn/${encodeURIComponent(body.turnId)}`, { signal: cb.signal })
         if (!r.ok) return false
         const turn = await r.json() as CompletedChatTurn
         const question = [...body.messages].reverse().find((message) => message.role === 'user')?.content
@@ -1914,7 +1926,7 @@ export const api = {
     }
     let res: Response
     try {
-      res = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      res = await performanceFetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') await ambiguousFailure(e?.message || 'network error')
       return
@@ -1977,7 +1989,7 @@ export const api = {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
     let res: Response
     try {
-      res = await fetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      res = await performanceFetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
       return
@@ -2073,7 +2085,7 @@ export const api = {
   // delete one saved conversation
   deleteChat: async (id: string): Promise<{ deleted: boolean }> => {
     if ((await ensureMode()) === 'static') return { deleted: false }
-    const r = await fetch(`/api/chats/${encodeURIComponent(id)}`, { method: 'DELETE' })
+    const r = await performanceFetch(`/api/chats/${encodeURIComponent(id)}`, { method: 'DELETE' })
     const j = await r.json().catch(() => ({}))
     if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status })
     return j as { deleted: boolean }

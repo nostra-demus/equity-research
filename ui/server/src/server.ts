@@ -6,6 +6,7 @@ import { Transform } from 'node:stream'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { fileURLToPath } from 'node:url'
+import { performance as nodePerformance } from 'node:perf_hooks'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
@@ -183,6 +184,7 @@ import { researchMemoryMode } from './research-memory'
 import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel, type ReelTranscriptProgressEvent } from './reel-transcript'
 import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
 import type { RunProvider } from './providers/types'
+import { PerformanceTelemetry, normalizeServerOperation, performanceOutcomeForResponse, validateBrowserPerformanceSamples } from './performance-telemetry'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -209,6 +211,22 @@ export interface BuiltServerApp {
   app: FastifyInstance
   start: () => Promise<void>
   shutdown: (signal: string, code?: number) => Promise<void>
+}
+
+const PERFORMANCE_SUMMARY_TIMEOUT_MS = 1_500
+
+export async function withPerformanceReadDeadline<T>(work: Promise<T>, timeoutMs = PERFORMANCE_SUMMARY_TIMEOUT_MS): Promise<T> {
+  let timer: NodeJS.Timeout | null = null
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_resolve, reject) => {
+        timer = setTimeout(() => reject(new Error('performance summary read timed out')), timeoutMs)
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
 /** Build the complete control plane without claiming the process singleton, opening a listener, installing
@@ -268,6 +286,27 @@ await app.register(rateLimit, { max: 1000, timeWindow: '1 minute' })
 // caps come from GDRIVE config; the upload route additionally validates + sanitizes every filename.
 await app.register(multipart, { limits: { fileSize: GDRIVE.uploadMaxBytes, files: GDRIVE.uploadMaxFiles } })
 
+// Passive cockpit performance telemetry. The request clock lives outside the request object (WeakMap), so
+// there is no Fastify decoration/deploy-skew contract. onSend captures handler + serialization time, adds a
+// standard Server-Timing header for traces, and queues a tiny metadata-only sample; disk I/O is batched and
+// never awaited by the request. Streaming and telemetry routes are excluded because their wall time is not
+// response latency and measuring the collector would create recursive noise.
+const performanceTelemetry = new PerformanceTelemetry(STATE_DIR)
+const performanceRequestStarts = new WeakMap<FastifyRequest, number>()
+app.addHook('onRequest', async (req) => {
+  if (req.raw.url?.startsWith('/api/')) performanceRequestStarts.set(req, nodePerformance.now())
+})
+app.addHook('onSend', async (req, reply, payload) => {
+  const started = performanceRequestStarts.get(req)
+  const operation = normalizeServerOperation(req.routeOptions?.url)
+  if (started !== undefined && operation && !operation.startsWith('/api/performance') && !operation.endsWith('/stream')) {
+    const duration = nodePerformance.now() - started
+    reply.header('server-timing', `app;dur=${duration.toFixed(1)}`)
+    performanceTelemetry.recordServer(duration, operation, performanceOutcomeForResponse(operation, reply.statusCode))
+  }
+  return payload
+})
+
 // ---------- identity (who is acting) ----------
 // The engine sits behind Cloudflare Access (the public tunnel route enforces login), which injects the
 // authenticated email on every forwarded request. The origin binds to 127.0.0.1, reachable only via the
@@ -325,6 +364,26 @@ function startSSE(reply: FastifyReply) {
 app.get('/api/health', async (_req, reply) => {
   reply.header('cache-control', 'no-store')
   return { ok: true, repoRoot: REPO_ROOT, deploymentPending: providerDeployPending(STATE_DIR) }
+})
+
+// Browser samples are an intentionally closed vocabulary: timing value + coarse operation only. No run
+// ids, tickers, prompts, output text, URLs with query strings, or arbitrary dimensions can enter the
+// durable ledger. The endpoint is best-effort; a telemetry failure must never impair the cockpit itself.
+app.post('/api/performance/samples', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const batch = validateBrowserPerformanceSamples(req.body)
+  if (!batch) return reply.code(400).send({ error: 'invalid performance sample batch' })
+  performanceTelemetry.recordBrowser(batch.samples, batch.droppedSamples)
+  return reply.code(202).send({ accepted: batch.samples.length })
+})
+
+app.get('/api/performance/summary', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const raw = Number((req.query as any)?.hours ?? 24)
+  const hours = Number.isFinite(raw) ? Math.max(1, Math.min(168, Math.round(raw))) : 24
+  reply.header('cache-control', 'no-store')
+  try { return await withPerformanceReadDeadline(performanceTelemetry.summary(hours)) }
+  catch { return reply.code(503).send({ error: 'speed history is temporarily unavailable' }) }
 })
 
 // Durable launch intent is intentionally separate from the run registry: waiting for an update has not
@@ -7999,8 +8058,12 @@ async function shutdown(signal: string, code = 0) {
   for (const res of liveResponses) {
     try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
   }
-  try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
+  // Start closing the listener now, but never put HTTP drain ahead of the durable provider/paper writers.
+  // A bounded speed-summary handler can finish while these safety-critical drains proceed independently.
+  const appClosing = app.close().catch(() => {})
   try {
+    // Provider and paper-sync writers own durable research state, so they always drain before optional
+    // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
     await drainProviderRunsForShutdown()
     await drainIbkrPaperAutoSync()
   } catch (error) {
@@ -8011,6 +8074,13 @@ async function shutdown(signal: string, code = 0) {
   } finally {
     clearTimeout(slowDrainWarning)
   }
+  try {
+    await Promise.race([
+      performanceTelemetry.flush(),
+      new Promise<void>((resolve) => setTimeout(resolve, 1_000)),
+    ])
+  } catch {} // best-effort timing tail; bounded telemetry can never block a safe shutdown
+  try { await appClosing } catch {} // every summary request has its own short deadline; close with a clean FIN
   process.exit(code)
 }
 function installProcessHandlers() {

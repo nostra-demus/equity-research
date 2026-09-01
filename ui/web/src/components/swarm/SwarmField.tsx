@@ -61,7 +61,11 @@ export function SwarmField() {
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
   const nodesByModule = useMemo(() => {
     const grouped = new Map<string, PlacedNode[]>()
-    for (const node of layout?.nodes ?? []) grouped.set(node.module, [...(grouped.get(node.module) ?? []), node])
+    for (const node of layout?.nodes ?? []) {
+      const group = grouped.get(node.module)
+      if (group) group.push(node)
+      else grouped.set(node.module, [node])
+    }
     return grouped
   }, [layout])
 
