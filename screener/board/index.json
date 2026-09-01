@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T12:53:48Z",
+  "generated_at": "2026-09-01T13:00:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-790",
@@ -1085,6 +1085,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-805",
+      "headline": "Popular breakfast chain files Chapter 11 bankruptcy after lawsuit",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/buttermilk-eatery-files-chapter-11-bankruptcy-after-lawsuit",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T12:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A company filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A company filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-788",
       "headline": "upGrad completes all-stock acquisition of Unacademy Group in $200 million deal",
       "headline_en": null,
@@ -1941,55 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-623",
-      "headline": "LEADING JEWELLERY RETAILER GRT JEWELLERS TO ACQUIRE 74.12% of TRIBHOVANDAS BHIMJI ZAVERI LIMITED",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/connect/leading-jewellery-retailer-grt-jewellers-to-acquire-7412-of-tribhovandas-bhimji-zaveri-limited-4130944",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T05:10:17Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "GRT Jewellers is acquiring a 74.12% stake in Tribhovandas Bhimji Zaveri Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GRT Jewellers is acquiring a 74.12% stake in Tribhovandas Bhimji Zaveri Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tribhovandas Bhimji Zaveri Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93369,78 +93363,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-37bdf9faa176",
-      "idea_version": "IDEAV-61498abe858f06e3",
-      "idea_version_started_at": "2026-08-31T02:41:25Z",
-      "ticker": "C52",
-      "company": "ComfortDelGro",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ComfortDelGro's joint venture has been selected to operate the Copenhagen Metro under a massive $2.7 billion contract, significantly expanding its international rail operations footprint and long-term recurring revenue.",
-      "why_now": "The contract award was reported on August 31, 2026, representing a major, tangible commercial catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1cf46862f064"
-      ],
-      "primary_source_event_id": "EVT-1cf46862f064",
-      "source_headlines": [
-        "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract"
-      ],
-      "source_headline": "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract",
-      "source_url": "https://www.reuters.com/world/asia-pacific/comfortdelgro-joint-venture-selected-run-copenhagen-metro-under-27-billion-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-08-31T00:55:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T04:40:08Z",
-      "updated_at": "2026-08-31T02:41:25Z",
-      "decay_at": "2026-09-01T12:55:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3bb2116ecda7",
       "idea_version": "IDEAV-d4410115e6047b86",
       "idea_version_started_at": "2026-08-30T18:59:22Z",
@@ -97087,6 +97009,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-37bdf9faa176",
+      "idea_version": "IDEAV-61498abe858f06e3",
+      "idea_version_started_at": "2026-08-31T02:41:25Z",
+      "ticker": "C52",
+      "company": "ComfortDelGro",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ComfortDelGro's joint venture has been selected to operate the Copenhagen Metro under a massive $2.7 billion contract, significantly expanding its international rail operations footprint and long-term recurring revenue.",
+      "why_now": "The contract award was reported on August 31, 2026, representing a major, tangible commercial catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1cf46862f064"
+      ],
+      "primary_source_event_id": "EVT-1cf46862f064",
+      "source_headlines": [
+        "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract"
+      ],
+      "source_headline": "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract",
+      "source_url": "https://www.reuters.com/world/asia-pacific/comfortdelgro-joint-venture-selected-run-copenhagen-metro-under-27-billion-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-08-31T00:55:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T04:40:08Z",
+      "updated_at": "2026-08-31T02:41:25Z",
+      "decay_at": "2026-09-01T12:55:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-caa8876bf8f7",
       "idea_version": "IDEAV-e02287dbb5047eb5",
       "idea_version_started_at": "2026-08-31T02:21:42Z",
@@ -98890,13 +98884,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 331,
-    "shown_count": 331,
+    "total_count": 332,
+    "shown_count": 332,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 166,
-        "shown_count": 166,
+        "total_count": 167,
+        "shown_count": 167,
         "hidden_count": 0
       },
       "short": {
@@ -98921,6 +98915,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-37bdf9faa176",
+        "idea_version": "IDEAV-61498abe858f06e3",
+        "idea_version_started_at": "2026-08-31T02:41:25Z",
+        "ticker": "C52",
+        "company": "ComfortDelGro",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ComfortDelGro's joint venture has been selected to operate the Copenhagen Metro under a massive $2.7 billion contract, significantly expanding its international rail operations footprint and long-term recurring revenue.",
+        "why_now": "The contract award was reported on August 31, 2026, representing a major, tangible commercial catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1cf46862f064"
+        ],
+        "primary_source_event_id": "EVT-1cf46862f064",
+        "source_headlines": [
+          "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract"
+        ],
+        "source_headline": "ComfortDelGro joint venture selected to run Copenhagen Metro under $2.7 billion contract",
+        "source_url": "https://www.reuters.com/world/asia-pacific/comfortdelgro-joint-venture-selected-run-copenhagen-metro-under-27-billion-2026-08-31/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-08-31T00:55:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T04:40:08Z",
+        "updated_at": "2026-08-31T02:41:25Z",
+        "decay_at": "2026-09-01T12:55:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T12:55:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-caa8876bf8f7",
         "idea_version": "IDEAV-e02287dbb5047eb5",
@@ -123485,7 +123554,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123504,9 +123573,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2060046,
-    "news_picked_today": 1731,
-    "news_dropped_today": 8253
+    "news_seen_today": 2075751,
+    "news_picked_today": 1746,
+    "news_dropped_today": 8286
   },
   "book_momentum": {
     "live_count": 8,
