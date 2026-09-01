@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T08:27:53Z",
+  "generated_at": "2026-09-01T08:34:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-694",
@@ -643,6 +643,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-703",
+      "headline": "HDFC Bank’s bonds fall to record low after CEO’s shock exit",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/hdfc-banks-bonds-fall-to-record-low-after-ceos-shock-exit/articleshow/133673229.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T07:54:04Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "HDFC Bank bonds fell to record lows following the unexpected departure of the CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank bonds fell to record lows following the unexpected departure of the CEO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-702",
       "headline": "NCLT Stays Subhash Chandra Repayment Plan, ₹6.25 Crore Settlement Against ₹22,006 Crore Claims Put On Hold",
       "headline_en": null,
@@ -736,6 +786,55 @@
         },
         {
           "name": "Capricorn Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-706",
+      "headline": "Veritas Capital to Buy UK’s Bodycote for £1.65 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-01/veritas-capital-agrees-to-buy-uk-s-bodycote-for-1-65-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T06:29:51Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Veritas Capital to acquire Bodycote for £1.65 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Veritas Capital to acquire Bodycote for £1.65 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bodycote",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -1904,98 +2003,6 @@
           "name": "Edison International",
           "ticker": "EIX",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-567",
-      "headline": "Israel signs $3.5 billion air defense deal with Greece",
-      "headline_en": null,
-      "url": "https://www.defensenews.com/global/europe/2026/08/31/israel-signs-35-billion-air-defense-deal-with-greece/",
-      "source_name": "Defense News",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T16:50:39Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Israel signed a $3.5 billion air defense deal with Greece.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Israel signed a $3.5 billion air defense deal with Greece.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-586",
-      "headline": "OpenAI Expands ChatGPT Ads Worldwide As Advertising Revenue Hits $1 Billion Run Rate",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/openai-expands-chatgpt-ads-worldwide-as-advertising-revenue-hits-1-billion-run-rate-11983283#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T16:44:54Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -122399,9 +122406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 809263,
-    "news_picked_today": 1275,
-    "news_dropped_today": 6141
+    "news_seen_today": 826313,
+    "news_picked_today": 1288,
+    "news_dropped_today": 6176
   },
   "book_momentum": {
     "live_count": 8,
