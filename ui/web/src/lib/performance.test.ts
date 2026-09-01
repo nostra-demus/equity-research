@@ -63,7 +63,7 @@ test('page exit drains every pending batch because no later timer is guaranteed'
   collector.setMode('static')
 })
 
-test('page exit preserves the batch already in an ordinary upload', async () => {
+test('page exit does not duplicate the batch already in a keepalive upload', async () => {
   const calls: Array<{ values: number[]; pageExit: boolean }> = []
   let finishOrdinary!: () => void
   const ordinary = new Promise<void>((resolve) => { finishOrdinary = resolve })
@@ -79,8 +79,7 @@ test('page exit preserves the batch already in an ordinary upload', async () => 
   await collector.flush(true)
   assert.deepEqual(calls, [
     { values: [42], pageExit: false },
-    { values: [42], pageExit: true },
-  ])
+  ], 'the in-flight keepalive batch is not sent a second time during pagehide')
   finishOrdinary()
   await inFlight
   collector.setMode('static')

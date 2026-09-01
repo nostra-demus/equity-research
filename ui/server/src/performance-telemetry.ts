@@ -115,6 +115,7 @@ const MAX_BATCH = 100
 const MAX_VALUE_MS = 10 * 60_000
 const MAX_CLOCK_SKEW_MS = 24 * 60 * 60_000
 const SUMMARY_CACHE_MS = 15_000
+const DROP_BUCKET_MS = 60 * 60_000
 const DAY_FILE_RE = /^\d{4}-\d{2}-\d{2}\.jsonl$/
 const NAME_SET = new Set<string>(PERFORMANCE_SAMPLE_NAMES)
 const UNIT_BY_NAME: Record<PerformanceSampleName, PerformanceUnit> = Object.fromEntries(
@@ -224,7 +225,7 @@ export class PerformanceTelemetry {
   private flushTimer: NodeJS.Timeout | null = null
   private writer: Promise<void> | null = null
   private lastPruneDay = ''
-  private dropped = 0
+  private droppedByHour = new Map<number, number>()
   private summaryCache: { hours: number; at: number; value: PerformanceSummary } | null = null
 
   constructor(stateDir: string, options: PerformanceTelemetryOptions = {}) {
@@ -249,8 +250,7 @@ export class PerformanceTelemetry {
     // One stalled filesystem operation must not turn passive telemetry into an unbounded promise chain.
     // Keep at most a fixed tail waiting behind the single writer and count every discarded observation.
     if (this.queue.length >= this.maxPendingSamples) {
-      this.dropped++
-      this.summaryCache = null
+      this.noteDropped(1)
       return
     }
     this.queue.push({
@@ -288,8 +288,7 @@ export class PerformanceTelemetry {
       const batch = this.queue.splice(0, MAX_BATCH)
       try { await this.writeBatch(batch) }
       catch {
-        this.dropped += batch.length
-        this.summaryCache = null
+        this.noteDropped(batch.length)
       }
     }
   }
@@ -309,8 +308,7 @@ export class PerformanceTelemetry {
       try { size = (await fs.promises.stat(file)).size } catch {}
       const payload = rows.map((row) => JSON.stringify(row)).join('\n') + '\n'
       if (size + Buffer.byteLength(payload) > this.maxDailyBytes) {
-        this.dropped += rows.length
-        this.summaryCache = null
+        this.noteDropped(rows.length)
         continue
       }
       await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
@@ -335,6 +333,26 @@ export class PerformanceTelemetry {
         try { await fs.promises.unlink(path.join(this.dir, name)) } catch {}
       }
     }))
+  }
+
+  private noteDropped(count: number, now = Date.now()): void {
+    const bucket = Math.floor(now / DROP_BUCKET_MS) * DROP_BUCKET_MS
+    this.droppedByHour.set(bucket, (this.droppedByHour.get(bucket) ?? 0) + count)
+    const floor = now - this.retentionDays * 24 * 60 * 60_000 - DROP_BUCKET_MS
+    for (const startedAt of this.droppedByHour.keys()) {
+      if (startedAt < floor) this.droppedByHour.delete(startedAt)
+    }
+    this.summaryCache = null
+  }
+
+  private droppedWithin(since: number, until: number): number {
+    let count = 0
+    for (const [startedAt, dropped] of this.droppedByHour) {
+      // Hour buckets keep loss tracking bounded while still expiring an old incident from the selected
+      // health window. Include any bucket which overlaps the window rather than hiding a boundary loss.
+      if (startedAt <= until && startedAt + DROP_BUCKET_MS >= since) count += dropped
+    }
+    return count
   }
 
   private async readSamples(since: number, until: number): Promise<StoredPerformanceSample[]> {
@@ -372,6 +390,7 @@ export class PerformanceTelemetry {
     if (this.summaryCache?.hours === hours && cacheAge >= 0 && cacheAge < SUMMARY_CACHE_MS) return this.summaryCache.value
     await this.flush()
     const windowMs = hours * 60 * 60_000
+    const droppedSamples = this.droppedWithin(now - windowMs, now)
     const current = await this.readSamples(now - windowMs, now)
     const baseline = await this.readSamples(now - windowMs - 7 * 24 * 60 * 60_000, now - windowMs)
     const groups = new Map<string, StoredPerformanceSample[]>()
@@ -437,7 +456,7 @@ export class PerformanceTelemetry {
       return rank(a.status) - rank(b.status) || (b.budget ? b.p95 / b.budget : b.p95) - (a.budget ? a.p95 / a.budget : a.p95)
     })
     const budgeted = metrics.filter((metric) => metric.budget !== null)
-    const status = this.dropped > 0 || budgeted.some((metric) => metric.status === 'needs_attention')
+    const status = droppedSamples > 0 || budgeted.some((metric) => metric.status === 'needs_attention')
       ? 'needs_attention'
       : budgeted.some((metric) => metric.status === 'good') ? 'good' : 'learning'
     const result: PerformanceSummary = {
@@ -446,7 +465,7 @@ export class PerformanceTelemetry {
       windowHours: hours,
       retentionDays: this.retentionDays,
       sampleCount: current.length,
-      droppedSamples: this.dropped,
+      droppedSamples,
       status,
       metrics,
     }

@@ -129,7 +129,10 @@ async function defaultTransport(samples: BrowserPerformanceSample[], pageExit: b
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body,
-      keepalive: pageExit,
+      // Every telemetry upload is small and lifecycle-independent. Keeping ordinary uploads alive across
+      // navigation means pagehide only has to drain the still-queued tail and never duplicates a batch
+      // which the server may already have accepted.
+      keepalive: true,
     })
     return response.ok
   } catch {
@@ -142,7 +145,6 @@ export class BrowserPerformanceCollector {
   private queue: BrowserPerformanceSample[] = []
   private timer: ReturnType<typeof setTimeout> | null = null
   private flushing: Promise<void> | null = null
-  private inFlight: BrowserPerformanceSample[] | null = null
 
   constructor(private readonly transport: Transport = defaultTransport) {}
 
@@ -150,7 +152,6 @@ export class BrowserPerformanceCollector {
     this.mode = mode
     if (mode === 'static') {
       this.queue = []
-      this.inFlight = null
       if (this.timer) clearTimeout(this.timer)
       this.timer = null
       return
@@ -181,14 +182,12 @@ export class BrowserPerformanceCollector {
 
   async flush(pageExit = false): Promise<void> {
     if (this.mode !== 'live') return
-    // A closing page may have more than one batch pending, or an ordinary upload already in flight.
-    // Re-send the in-flight batch through sendBeacon/keepalive too: navigation may cancel its ordinary
-    // fetch, and there is no surviving document in which a failed continuation could retry it.
+    // Ordinary uploads always use fetch keepalive, so a closing page sends only the still-queued tail.
+    // Re-sending the already in-flight batch here could count it twice if the server accepted both copies.
     if (pageExit) {
       if (this.timer) clearTimeout(this.timer)
       this.timer = null
       const sends: Promise<boolean>[] = []
-      if (this.inFlight?.length) sends.push(this.transport(this.inFlight.slice(), true))
       while (this.queue.length) sends.push(this.transport(this.queue.splice(0, MAX_BATCH), true))
       await Promise.allSettled(sends)
       return
@@ -196,11 +195,9 @@ export class BrowserPerformanceCollector {
     if (this.queue.length === 0) return this.flushing ?? Promise.resolve()
     if (this.flushing) return this.flushing
     const batch = this.queue.splice(0, MAX_BATCH)
-    this.inFlight = batch
     // Best-effort means drop this batch on transport failure. Re-queueing would make an offline engine
     // wake the browser every five seconds forever — telemetry becoming the lag it is meant to detect.
     this.flushing = this.transport(batch, pageExit).catch(() => false).then(() => {}).finally(() => {
-      if (this.inFlight === batch) this.inFlight = null
       this.flushing = null
       if (this.queue.length) this.schedule()
     })

@@ -158,6 +158,9 @@ const ACTIVITY_CAP = 80
 const runSources = new Map<string, EventSource>()
 const runStreamHealth = new Map<string, { state: 'open' | 'error'; at: number }>()
 const runStreamRetryAt = new Map<string, number>()
+// A server outage can cause a fresh manual EventSource attempt every two seconds. Record the first failed
+// connect for that continuous outage, then wait for a successful open before allowing another failure sample.
+const runStreamConnectFailureRecorded = new Set<string>()
 type ReconnectOutcome = 'ready' | 'settled' | 'cancelled' | 'error'
 const reconnectRunInFlight = new Map<string, Promise<ReconnectOutcome>>()
 const chainedReadinessRecoveryTried = new Set<string>()
@@ -7386,6 +7389,7 @@ function connectRun(get: () => State, runId: string) {
   es.onopen = () => {
     opened = true
     runStreamRetryAt.delete(runId)
+    runStreamConnectFailureRecorded.delete(runId)
     runStreamHealth.set(runId, { state: 'open', at: Date.now() })
     recordBrowserPerformance('browser.run_stream_connect', performance.now() - connectStartedAt, 'ms', {
       operation: '/run/stream',
@@ -7407,7 +7411,8 @@ function connectRun(get: () => State, runId: string) {
   }
   es.onerror = () => {
     if (runSources.get(runId) !== es) return
-    if (!opened) {
+    if (!opened && !runStreamConnectFailureRecorded.has(runId)) {
+      runStreamConnectFailureRecorded.add(runId)
       recordBrowserPerformance('browser.run_stream_connect', performance.now() - connectStartedAt, 'ms', {
         operation: '/run/stream',
         outcome: 'error',
@@ -7670,6 +7675,7 @@ function closeRunSource(runId?: string) {
   }
   runStreamHealth.delete(runId)
   runStreamRetryAt.delete(runId)
+  runStreamConnectFailureRecorded.delete(runId)
 }
 
 // ---- the news wire's live stream (one global EventSource, like dataSource) ----
@@ -7906,6 +7912,7 @@ function closeAllRunSources() {
   runSources.clear()
   runStreamHealth.clear()
   runStreamRetryAt.clear()
+  runStreamConnectFailureRecorded.clear()
 }
 
 // A same-subject run-LOCK conflict — a run already holds this ticker's files. Force (stop it + relaunch)

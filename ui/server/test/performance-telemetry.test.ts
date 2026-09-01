@@ -90,6 +90,22 @@ test('daily storage is capped and old timing files are pruned', async (t) => {
   assert.equal(fs.existsSync(oldFile), false)
 })
 
+test('collection loss expires from health after the selected summary window', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-drop-window-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const observedAt = Date.now()
+  const telemetry = new PerformanceTelemetry(stateDir, { maxDailyBytes: 1, flushDelayMs: 60_000 })
+  telemetry.recordServer(1, '/api/health', 'ok', observedAt)
+
+  const duringIncident = await telemetry.summary(24, observedAt)
+  assert.equal(duringIncident.droppedSamples, 1)
+  assert.equal(duringIncident.status, 'needs_attention')
+
+  const afterWindow = await telemetry.summary(24, observedAt + 26 * 60 * 60_000)
+  assert.equal(afterWindow.droppedSamples, 0)
+  assert.equal(afterWindow.status, 'learning', 'one old collection incident cannot degrade health forever')
+})
+
 test('a summary read enforces retention even when collection is idle', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-idle-prune-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
