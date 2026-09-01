@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-09-01T13:58:25Z",
+  "generated_at": "2026-09-01T14:04:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-847",
+      "headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T13:48:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "MicroPort announced a delay in financial results and a suspension of trading, indicating potential distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MicroPort announced a delay in financial results and a suspension of trading, indicating potential distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MicroPort",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-842",
+      "headline": "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/68c52016-f5fc-4226-95d8-55bb72a1d216.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T13:41:49Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Resignation of a statutory auditor is a significant governance red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Resignation of a statutory auditor is a significant governance red flag.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RKD Agri & Retail Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-816",
       "headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)",
@@ -1882,104 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-702",
-      "headline": "NCLT Stays Subhash Chandra Repayment Plan, ₹6.25 Crore Settlement Against ₹22,006 Crore Claims Put On Hold",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nclt-stays-subhash-chandra-repayment-plan-625-crore-settlement-against-22006-crore-claims-put-on-hold",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:03:36Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "NCLT stays repayment plan for Subhash Chandra, putting ₹22,006 crore in claims at risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT stays repayment plan for Subhash Chandra, putting ₹22,006 crore in claims at risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Subhash Chandra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-727",
-      "headline": "Bodycote agrees £1.84bn takeover by US buyout firm Veritas",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/28a1331a-3f3d-4010-94d3-e07ab58970d5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T06:48:43Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Bodycote agreed to a £1.84bn takeover by Veritas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bodycote agreed to a £1.84bn takeover by Veritas.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bodycote",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92856,148 +92857,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-efa0efb703fc",
-      "idea_version": "IDEAV-3545ad255904655b",
-      "idea_version_started_at": "2026-08-31T04:01:48Z",
-      "ticker": "PEL",
-      "company": "Piramal Enterprises Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants, significantly strengthening its capital adequacy and lending capacity.",
-      "why_now": "The capital raise was officially announced via exchange filing on August 31, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d48851efa47"
-      ],
-      "primary_source_event_id": "EVT-4d48851efa47",
-      "source_headlines": [
-        "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
-      ],
-      "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T02:01:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T04:01:48Z",
-      "updated_at": "2026-08-31T04:01:48Z",
-      "decay_at": "2026-09-01T14:01:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0e1dd526da42",
-      "idea_version": "IDEAV-0b9f359a1dee813c",
-      "idea_version_started_at": "2026-08-31T03:36:56Z",
-      "ticker": "PIRAMALENT",
-      "company": "Piramal Enterprises Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Piramal Finance, a subsidiary of Piramal Enterprises, announced a significant capital raise of Rs. 3,850 crore, strengthening its financial position.",
-      "why_now": "The capital raise, backed by QIP participation and promoter warrants, was announced on August 31, 2026, providing a fresh positive catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d48851efa47"
-      ],
-      "primary_source_event_id": "EVT-4d48851efa47",
-      "source_headlines": [
-        "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
-      ],
-      "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T02:01:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T03:36:56Z",
-      "updated_at": "2026-08-31T03:36:56Z",
-      "decay_at": "2026-09-01T14:01:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cf45c7e74897",
       "idea_version": "IDEAV-f60db826d687c579",
       "idea_version_started_at": "2026-08-31T03:20:55Z",
@@ -94333,6 +94192,148 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-efa0efb703fc",
+      "idea_version": "IDEAV-3545ad255904655b",
+      "idea_version_started_at": "2026-08-31T04:01:48Z",
+      "ticker": "PEL",
+      "company": "Piramal Enterprises Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants, significantly strengthening its capital adequacy and lending capacity.",
+      "why_now": "The capital raise was officially announced via exchange filing on August 31, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d48851efa47"
+      ],
+      "primary_source_event_id": "EVT-4d48851efa47",
+      "source_headlines": [
+        "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
+      ],
+      "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:01:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T04:01:48Z",
+      "updated_at": "2026-08-31T04:01:48Z",
+      "decay_at": "2026-09-01T14:01:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0e1dd526da42",
+      "idea_version": "IDEAV-0b9f359a1dee813c",
+      "idea_version_started_at": "2026-08-31T03:36:56Z",
+      "ticker": "PIRAMALENT",
+      "company": "Piramal Enterprises Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Piramal Finance, a subsidiary of Piramal Enterprises, announced a significant capital raise of Rs. 3,850 crore, strengthening its financial position.",
+      "why_now": "The capital raise, backed by QIP participation and promoter warrants, was announced on August 31, 2026, providing a fresh positive catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d48851efa47"
+      ],
+      "primary_source_event_id": "EVT-4d48851efa47",
+      "source_headlines": [
+        "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
+      ],
+      "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:01:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:36:56Z",
+      "updated_at": "2026-08-31T03:36:56Z",
+      "decay_at": "2026-09-01T14:01:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98880,13 +98881,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 336,
-    "shown_count": 336,
+    "total_count": 338,
+    "shown_count": 338,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 168,
-        "shown_count": 168,
+        "total_count": 170,
+        "shown_count": 170,
         "hidden_count": 0
       },
       "short": {
@@ -98911,6 +98912,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0e1dd526da42",
+        "idea_version": "IDEAV-0b9f359a1dee813c",
+        "idea_version_started_at": "2026-08-31T03:36:56Z",
+        "ticker": "PIRAMALENT",
+        "company": "Piramal Enterprises Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Piramal Finance, a subsidiary of Piramal Enterprises, announced a significant capital raise of Rs. 3,850 crore, strengthening its financial position.",
+        "why_now": "The capital raise, backed by QIP participation and promoter warrants, was announced on August 31, 2026, providing a fresh positive catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d48851efa47"
+        ],
+        "primary_source_event_id": "EVT-4d48851efa47",
+        "source_headlines": [
+          "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
+        ],
+        "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T02:01:59Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T03:36:56Z",
+        "updated_at": "2026-08-31T03:36:56Z",
+        "decay_at": "2026-09-01T14:01:59Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T14:01:59Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-efa0efb703fc",
+        "idea_version": "IDEAV-3545ad255904655b",
+        "idea_version_started_at": "2026-08-31T04:01:48Z",
+        "ticker": "PEL",
+        "company": "Piramal Enterprises Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Piramal Finance is raising Rs. 3,850 crore through a QIP and promoter warrants, significantly strengthening its capital adequacy and lending capacity.",
+        "why_now": "The capital raise was officially announced via exchange filing on August 31, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d48851efa47"
+        ],
+        "primary_source_event_id": "EVT-4d48851efa47",
+        "source_headlines": [
+          "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants"
+        ],
+        "source_headline": "Piramal Finance Ltd: Press Release titled - Piramal Finance announces Rs. 3,850 crore Capital Raise, Backed by Strong QIP Participation and Promoter Warrants",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/c4b065df-f6e8-4729-8be2-38a90af8b5e9.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T02:01:59Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T04:01:48Z",
+        "updated_at": "2026-08-31T04:01:48Z",
+        "decay_at": "2026-09-01T14:01:59Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T14:01:59Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-97064c0977c4",
         "idea_version": "IDEAV-345686aa95ae9753",
@@ -123850,7 +123999,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 35,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123869,9 +124018,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2385933,
-    "news_picked_today": 1878,
-    "news_dropped_today": 8634
+    "news_seen_today": 2419950,
+    "news_picked_today": 1890,
+    "news_dropped_today": 8670
   },
   "book_momentum": {
     "live_count": 8,
