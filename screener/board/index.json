@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T13:39:05Z",
+  "generated_at": "2026-09-01T13:45:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-816",
@@ -1134,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-840",
+      "headline": "Coupang (CPNG) Shares Drop 7.7% on Softer Q2 Guidance",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/coupang-cpng-shares-drop-7-132307692.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T13:23:07Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Coupang issued a guidance cut for Q2, resulting in a 7.7% share price drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coupang issued a guidance cut for Q2, resulting in a 7.7% share price drop.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coupang",
+          "ticker": "CPNG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-829",
       "headline": "Descartes Systems Group acquires U.S.-company Extensiv for $120-million",
       "headline_en": null,
@@ -1926,60 +1975,6 @@
       "companies": [
         {
           "name": "Bodycote",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-673",
-      "headline": "Norway's DNO to buy UK-listed Capricorn Energy for $396 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/norways-dno-buy-uk-listed-capricorn-energy-396-million-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T06:32:58Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "DNO is acquiring Capricorn Energy for $396 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DNO is acquiring Capricorn Energy for $396 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DNO",
-          "ticker": null,
-          "listing_country": "NO"
-        },
-        {
-          "name": "Capricorn Energy",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -91216,76 +91211,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-97064c0977c4",
-      "idea_version": "IDEAV-345686aa95ae9753",
-      "idea_version_started_at": "2026-08-31T03:02:38Z",
-      "ticker": "OKE",
-      "company": "ONEOK",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Brazos Midstream's Permian Midland Basin assets for $4.43 billion expands the company's footprint in a high-growth production region, likely increasing long-term fee-based cash flows.",
-      "why_now": "The acquisition was announced on 2026-08-31.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-110ee9a8016a"
-      ],
-      "primary_source_event_id": "EVT-110ee9a8016a",
-      "source_headlines": [
-        "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion"
-      ],
-      "source_headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
-      "source_url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T01:40:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T03:02:38Z",
-      "updated_at": "2026-08-31T03:02:38Z",
-      "decay_at": "2026-09-01T13:40:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2eed0b77fa99",
       "idea_version": "IDEAV-1a7299fe7f874578",
       "idea_version_started_at": "2026-09-01T04:06:03Z",
@@ -93144,6 +93069,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-97064c0977c4",
+      "idea_version": "IDEAV-345686aa95ae9753",
+      "idea_version_started_at": "2026-08-31T03:02:38Z",
+      "ticker": "OKE",
+      "company": "ONEOK",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Brazos Midstream's Permian Midland Basin assets for $4.43 billion expands the company's footprint in a high-growth production region, likely increasing long-term fee-based cash flows.",
+      "why_now": "The acquisition was announced on 2026-08-31.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-110ee9a8016a"
+      ],
+      "primary_source_event_id": "EVT-110ee9a8016a",
+      "source_headlines": [
+        "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion"
+      ],
+      "source_headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
+      "source_url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T01:40:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T03:02:38Z",
+      "updated_at": "2026-08-31T03:02:38Z",
+      "decay_at": "2026-09-01T13:40:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-d536184d9010",
@@ -98885,13 +98880,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 335,
-    "shown_count": 335,
+    "total_count": 336,
+    "shown_count": 336,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 167,
-        "shown_count": 167,
+        "total_count": 168,
+        "shown_count": 168,
         "hidden_count": 0
       },
       "short": {
@@ -98916,6 +98911,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-97064c0977c4",
+        "idea_version": "IDEAV-345686aa95ae9753",
+        "idea_version_started_at": "2026-08-31T03:02:38Z",
+        "ticker": "OKE",
+        "company": "ONEOK",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Brazos Midstream's Permian Midland Basin assets for $4.43 billion expands the company's footprint in a high-growth production region, likely increasing long-term fee-based cash flows.",
+        "why_now": "The acquisition was announced on 2026-08-31.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-110ee9a8016a"
+        ],
+        "primary_source_event_id": "EVT-110ee9a8016a",
+        "source_headlines": [
+          "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion"
+        ],
+        "source_headline": "ONEOK to buy Brazos Midstream's Permian Midland Basin assets for $4.43 billion",
+        "source_url": "https://www.reuters.com/legal/litigation/oneok-buy-brazos-midstreams-permian-midland-basin-assets-443-billion-2026-08-31/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T01:40:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T03:02:38Z",
+        "updated_at": "2026-08-31T03:02:38Z",
+        "decay_at": "2026-09-01T13:40:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T13:40:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1f1e1ddecae9",
         "idea_version": "IDEAV-086f83c221577d76",
@@ -123782,7 +123850,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123801,9 +123869,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2285388,
-    "news_picked_today": 1858,
-    "news_dropped_today": 8558
+    "news_seen_today": 2302121,
+    "news_picked_today": 1872,
+    "news_dropped_today": 8592
   },
   "book_momentum": {
     "live_count": 8,
