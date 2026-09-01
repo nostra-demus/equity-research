@@ -208,7 +208,7 @@ export function SwarmField() {
               <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
             ) : completion.kind === 'fail-fast' ? (
               <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="The module stopped at its valid data gate; no downstream paid work was required">✓ stopped correctly</div>
-            ) : runAffordance.complete ? (
+            ) : completion.kind === 'synthesis' && (!smartResume || runAffordance.complete) ? (
               <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title={runAffordance.title}>{runAffordance.label}</div>
             ) : (
               <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={runAffordance.title}>{runAffordance.label}</div>

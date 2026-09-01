@@ -125,7 +125,7 @@ function buildSwarmGraph(rootDir = AGENTS, swarmMeta = null) {
   const discovered = moduleDirs.map((name) => {
     const synth = fs.readdirSync(path.join(rootDir, name)).find((f) => /^99_.*-synthesis\.md$/.test(f))
     const { data } = parseFrontmatter(fs.readFileSync(path.join(rootDir, name, synth), 'utf8'))
-    return { name, dependsOn: parseDeps(data.depends_on) }
+    return { name, dependsOn: parseDeps(data.depends_on), exactResume: data.exact_resume === true }
   })
   const order = topoSort(discovered)
   const modules = order.map((name, i) => {
@@ -141,7 +141,7 @@ function buildSwarmGraph(rootDir = AGENTS, swarmMeta = null) {
       const node = { key: `${name}/${base}`, module: name, nn, name: String(data.name || slug), slug, layer, failFast: data.fail_fast === true, description: String(data.description || '').trim(), tools: parseTools(data.tools), requiredUpstream: req, soloRunnable: req.length === 0, isSynthesis: nn === '99' }
       ;(layers[String(layer)] ||= []).push(node)
     }
-    return { name, order: i, dependsOn: d.dependsOn, layers, agentCount: files.length }
+    return { name, order: i, dependsOn: d.dependsOn, layers, agentCount: files.length, exactResume: d.exactResume }
   })
   let masterSynthesizer = { name: 'synthesizer', description: '' }
   if (!swarmMeta && isFile(path.join(rootDir, 'synthesizer.md'))) {
