@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T16:05:48Z",
+  "generated_at": "2026-09-01T16:15:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-878",
@@ -1527,6 +1527,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-912",
+      "headline": "GoPro to be acquired for $285M, will remain a public company",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/01/gopro-to-be-acquired-for-285m-will-remain-a-public-company/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:57:23Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "GoPro is being acquired for $285M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GoPro is being acquired for $285M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GoPro",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-901",
       "headline": "Denny’s rival dining chain files for Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-857",
-      "headline": "Marzetti’s (MZTI) Record Streak Hits a Wall With Outbreak and Guidance Cut",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/marzetti-mzti-record-streak-hits-140359560.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T14:03:59Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Marzetti issued a guidance cut following an operational outbreak, impacting financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marzetti issued a guidance cut following an operational outbreak, impacting financial expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marzetti",
-          "ticker": "MZTI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124749,9 +124749,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3221271,
-    "news_picked_today": 2054,
-    "news_dropped_today": 9538
+    "news_seen_today": 3313664,
+    "news_picked_today": 2061,
+    "news_dropped_today": 9603
   },
   "book_momentum": {
     "live_count": 8,
