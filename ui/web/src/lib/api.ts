@@ -1914,7 +1914,10 @@ export const api = {
     }
     let res: Response
     try {
-      res = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      // The Cloudflare offline gate removes its ordinary request deadline only for explicit SSE traffic.
+      // Without this Accept header, slow context assembly is misread as an offline origin after 15s even
+      // though the engine is healthy, and the user's safely rolled-back turn surfaces as `engine-offline`.
+      res = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') await ambiguousFailure(e?.message || 'network error')
       return
@@ -1977,7 +1980,7 @@ export const api = {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
     let res: Response
     try {
-      res = await fetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      res = await fetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
       return

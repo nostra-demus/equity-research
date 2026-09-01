@@ -32,6 +32,8 @@ test('classifies SSE before the health path', () => {
   assert.equal(classifyRequest(request('/api/health')), 'health')
   assert.equal(classifyRequest(request('/api/health?source=watchdog')), 'health')
   assert.equal(classifyRequest(request('/api/health', { headers: { accept: 'text/event-stream' } })), 'sse')
+  assert.equal(classifyRequest(request('/api/chat', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
+  assert.equal(classifyRequest(request('/api/news/chat', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
   assert.equal(classifyRequest(request('/api/swarm')), 'other')
 })
 
