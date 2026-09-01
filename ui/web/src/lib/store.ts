@@ -27,6 +27,7 @@ import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProv
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
 import { projectRunManifest } from './runManifestProjection'
 import { readChatModel, saveChatModel } from './chatModels'
+import { recordBrowserPerformance, recordNextPaint } from './performance'
 
 const SIGNAL_INPUT_NATURES = new Set([
   'news_headline', 'regulatory_filing', 'earnings_release', 'earnings_call_transcript',
@@ -157,7 +158,8 @@ const ACTIVITY_CAP = 80
 const runSources = new Map<string, EventSource>()
 const runStreamHealth = new Map<string, { state: 'open' | 'error'; at: number }>()
 const runStreamRetryAt = new Map<string, number>()
-const reconnectRunInFlight = new Map<string, Promise<void>>()
+type ReconnectOutcome = 'ready' | 'settled' | 'cancelled' | 'error'
+const reconnectRunInFlight = new Map<string, Promise<ReconnectOutcome>>()
 const chainedReadinessRecoveryTried = new Set<string>()
 const chainedReadinessRecoveryInFlight = new Set<string>()
 const chainedReadinessRecoveryTail = new Map<string, Promise<void>>()
@@ -331,6 +333,7 @@ let creditProbed = false
 // heartbeat — loadCore never touches them (in live mode).
 let coreGraphLoaded = false
 let coreTickersLoaded = false
+let coreReadyRecorded = false
 let coreRetryTimer: any = null
 
 // ---- engine heartbeat (the real source of truth for the online/offline indicator) ----
@@ -1992,6 +1995,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   selectTicker: async (t, runRoot) => {
+    const selectionStartedAt = performance.now()
     closeAllRunSources() // stop the previous company's live streams before anything else (no event bleed)
     if (dataScanRequest?.ticker !== t) {
       dataScanRequest?.controller.abort()
@@ -2054,6 +2058,9 @@ export const useStore = create<State>((set, get) => ({
       }
       schedulePoll(get, active.length > 0)
     } catch {}
+    if (get().selectToken === token && get().activeSwarm === sw && get().selectedTicker === t) {
+      recordNextPaint('browser.subject_ready', selectionStartedAt, '/subject/select')
+    }
   },
 
   requestDataPoolExpand: () => set((s) => ({ dataPoolExpandRequest: s.dataPoolExpandRequest + 1 })),
@@ -7373,18 +7380,26 @@ function connectRun(get: () => State, runId: string) {
   if (runSources.has(runId)) return
   const retryAt = runStreamRetryAt.get(runId) ?? 0
   if (retryAt > Date.now()) return
+  const connectStartedAt = performance.now()
   const es = new EventSource(api.runStreamUrl(runId))
   es.onopen = () => {
     runStreamRetryAt.delete(runId)
     runStreamHealth.set(runId, { state: 'open', at: Date.now() })
+    recordBrowserPerformance('browser.run_stream_connect', performance.now() - connectStartedAt, 'ms', {
+      operation: '/run/stream',
+    })
   }
   for (const t of RUN_EVENT_TYPES) {
     es.addEventListener(t, (ev: MessageEvent) => {
       runStreamHealth.set(runId, { state: 'open', at: Date.now() })
       get()._noteStreamLive() // run traffic also proves the engine is up — keep the indicator green
       try {
+        const frameStartedAt = performance.now()
         const frame = JSON.parse(ev.data)
-        if (sseFrameForRun(frame, runId, RUN_EVENT_TYPES)) get()._handleEvent(frame as SseEvent)
+        if (sseFrameForRun(frame, runId, RUN_EVENT_TYPES)) {
+          get()._handleEvent(frame as SseEvent)
+          recordNextPaint('browser.run_event_paint', frameStartedAt, `/event/${frame.type}`)
+        }
       } catch {}
     })
   }
@@ -7415,10 +7430,27 @@ async function reconnectRun(
 ): Promise<void> {
   const inFlightKey = `${runId}:${token}`
   const existing = reconnectRunInFlight.get(inFlightKey)
-  if (existing) return existing
+  if (existing) { await existing; return }
+  const reconnectStartedAt = performance.now()
   const task = reconnectRunOnce(set, get, runId, token, expected)
   reconnectRunInFlight.set(inFlightKey, task)
-  try { await task } finally {
+  try {
+    const outcome = await task
+    if (outcome === 'ready' || outcome === 'settled') {
+      recordNextPaint('browser.run_reconnect', reconnectStartedAt, `/reconnect/${outcome}`)
+    } else {
+      recordBrowserPerformance('browser.run_reconnect', performance.now() - reconnectStartedAt, 'ms', {
+        operation: `/reconnect/${outcome}`,
+        outcome: outcome === 'cancelled' ? 'cancelled' : 'error',
+      })
+    }
+  } catch (error) {
+    recordBrowserPerformance('browser.run_reconnect', performance.now() - reconnectStartedAt, 'ms', {
+      operation: '/reconnect/error',
+      outcome: 'error',
+    })
+    throw error
+  } finally {
     if (reconnectRunInFlight.get(inFlightKey) === task) reconnectRunInFlight.delete(inFlightKey)
   }
 }
@@ -7429,7 +7461,7 @@ async function reconnectRunOnce(
   runId: string,
   token: number,
   expected: { subject: string; swarm: string },
-): Promise<void> {
+): Promise<ReconnectOutcome> {
   try {
     const snap = await api.runSnapshot(runId)
     const current = get().activeRuns[runId]
@@ -7440,7 +7472,7 @@ async function reconnectRunOnce(
       ...(current?.swarmId ? { existing: current as ActiveRun & { swarmId: string } } : {}),
     })
     if (!identity || get().selectToken !== token || get().selectedTicker !== expected.subject
-        || get().activeSwarm !== expected.swarm) return
+        || get().activeSwarm !== expected.swarm) return 'cancelled'
     const rt = { ...get().nodeRuntime }
     const stream = get().runStream.filter((r) => r.runId !== runId)
     for (const a of snap.agents || []) {
@@ -7481,9 +7513,11 @@ async function reconnectRunOnce(
       set({ activeRuns, nodeRuntime: rt, runStream: stream, readinessGate: gates.current, readinessGateQueue: gates.queued, readinessRecovery: recovery })
     }
     connectRun(get, runId)
+    return 'ready'
   } catch (error: any) {
-    if (error?.status !== 404 || get().selectToken !== token || get().selectedTicker !== expected.subject
-        || get().activeSwarm !== expected.swarm) return
+    if (get().selectToken !== token || get().selectedTicker !== expected.subject
+        || get().activeSwarm !== expected.swarm) return 'cancelled'
+    if (error?.status !== 404) return 'error'
     // A 404 from the exact snapshot is authoritative: the stream's terminal/resolved frame was missed or
     // the in-memory run disappeared during restart. Remove only this stale live claim and its decision.
     const lostRun = get().activeRuns[runId]
@@ -7516,6 +7550,7 @@ async function reconnectRunOnce(
         }
       }).catch(() => {})
     }
+    return 'settled'
   }
 }
 
@@ -7547,6 +7582,10 @@ async function loadCore(get: () => State, set: (p: Partial<State>) => void, stat
     )
   if (withCredit) jobs.push(api.credit().then((c) => set({ credit: c })).catch(() => {}))
   await Promise.all(jobs) // every job is .catch'd → this never rejects
+  if (!coreReadyRecorded && coreGraphLoaded && coreTickersLoaded) {
+    coreReadyRecorded = true
+    recordNextPaint('browser.core_ready', 0, '/boot/core')
+  }
   if (stat) set({ connected: true }) // static showcase has no heartbeat — mark reachable once data is in
   if (coreRetryTimer) { clearTimeout(coreRetryTimer); coreRetryTimer = null }
   // Retry ONLY the still-missing parts; stop once both are loaded. Never in static mode (no engine to wait

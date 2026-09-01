@@ -14,6 +14,7 @@ import { executionProfileLabel, providerBlockedReason, providerIsBlocked, provid
 import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanaryRunRootIsValid, providerParityCanarySubject } from '../lib/parityCanary'
 import { Spin } from './Spin'
 import { ProviderProfileSelector } from './ProviderProfileSelector'
+import { PerformancePanel, PerformanceStatusChip } from './PerformancePanel'
 
 function BrandMark() {
   return (
@@ -824,7 +825,7 @@ function WorkspaceMenu({ screenerMode, hasData }: { screenerMode: boolean; hasDa
   )
 }
 
-function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: boolean; showScanner: boolean; showBridge: boolean }) {
+function StatusMenu({ screenerMode, showScanner, showBridge, onOpenPerformance }: { screenerMode: boolean; showScanner: boolean; showBridge: boolean; onOpenPerformance: () => void }) {
   const health = useStore((s) => s.health)
   const status = useStore((s) => s.newsStatus)
   const backlog = status?.backlog?.count ?? 0
@@ -838,6 +839,7 @@ function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: b
     >
       <div className="barmenu__label">System</div>
       <div className="barmenu__statusrow"><EngineStatusPill /></div>
+      <div className="barmenu__statusrow" data-menu-nav><PerformanceStatusChip onOpen={onOpenPerformance} /></div>
       {!screenerMode && <div className="barmenu__statusrow"><ReadinessStrip /></div>}
       <div className="barmenu__statusrow barmenu__statusrow--provider"><ProviderSelector /></div>
       {(showScanner || showBridge || screenerMode) && <div className="barmenu__rule" />}
@@ -849,6 +851,7 @@ function StatusMenu({ screenerMode, showScanner, showBridge }: { screenerMode: b
 }
 
 export function CommandBar() {
+  const [performanceOpen, setPerformanceOpen] = useState(false)
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const pipelines = useStore((s) => s.pipelines)
@@ -883,7 +886,8 @@ export function CommandBar() {
   // generically so the final-report button shows for any finished constellation-swarm run too
   const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
   return (
-    <div className="topbar">
+    <>
+      <div className="topbar">
       <div className="brand">
         <BrandMark />
         <div className="brand__title">
@@ -899,14 +903,14 @@ export function CommandBar() {
       {screenerMode ? (
         <>
           <StopControl />
-          <StatusMenu screenerMode showScanner showBridge={false} />
+          <StatusMenu screenerMode showScanner showBridge={false} onOpenPerformance={() => setPerformanceOpen(true)} />
           <ScreenerAskButton />
           <ScreenerControls />
         </>
       ) : (
         <>
           <StopControl />
-          <StatusMenu screenerMode={false} showScanner={!!swarms.find((s) => s.id === activeSwarm)?.wire} showBridge={activeSwarm === 'research'} />
+          <StatusMenu screenerMode={false} showScanner={!!swarms.find((s) => s.id === activeSwarm)?.wire} showBridge={activeSwarm === 'research'} onOpenPerformance={() => setPerformanceOpen(true)} />
           {decision?.final_thesis_path !== undefined || verdict ? (
             <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}
@@ -920,6 +924,8 @@ export function CommandBar() {
           <TickerPicker />
         </>
       )}
-    </div>
+      </div>
+      {performanceOpen && <PerformancePanel onClose={() => setPerformanceOpen(false)} />}
+    </>
   )
 }
