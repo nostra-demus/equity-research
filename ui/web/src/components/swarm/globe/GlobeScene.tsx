@@ -9,6 +9,7 @@ import { GLOBE } from './globe-consts'
 import { sufficiencyColor } from '../../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../../lib/eta'
 import { moduleRunAffordance } from '../../../lib/moduleRun'
+import { moduleCompletionOutcome } from '../../../lib/moduleOutcome'
 import { PAUSED_RUN_HELP, PAUSED_RUN_LABEL, projectRunActivity } from '../../../lib/runActivityProjection'
 import { useStore } from '../../../lib/store'
 import { AgentNode } from '../AgentNode'
@@ -226,9 +227,18 @@ export function GlobeScene({
   const { camera, size } = useThree()
 
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
+  const nodesByModule = useMemo(() => {
+    const grouped = new Map<string, GlobeNode[]>()
+    for (const node of nodes) {
+      const group = grouped.get(node.module)
+      if (group) group.push(node)
+      else grouped.set(node.module, [node])
+    }
+    return grouped
+  }, [nodes])
   const classOf = useMemo(() => new Map(nodes.map((n) => [n.key, orbClass(n)])), [nodes])
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => classOf.get(k) ?? 'specialist')), [nodeRuntime, classOf])
-  const statusSig = nodes.map((n) => nodeStatus(n.key)).join('')
+  const statusSig = nodes.map((n) => `${nodeStatus(n.key)}:${nodeRuntime[n.key]?.verdict ?? ''}:${nodeRuntime[n.key]?.terminalValidated ? 1 : 0}`).join('|')
   const statuses = useMemo(() => nodes.map((n) => nodeStatus(n.key)), [nodes, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
   const runActivity = useMemo(() => projectRunActivity({
     subject: selectedTicker,
@@ -292,12 +302,19 @@ export function GlobeScene({
   // edges split into three layers so every edge draws exactly once: pending backbone (faint), settled-complete
   // (calm), live-active (bright). The hovered orb/module's edges (incl. its hidden feeds) light up on top.
   const depCoreEdges = useMemo(() => layout.edges.filter((e) => e.kind !== 'feeds'), [layout.edges])
-  // modules whose synthesis orb is done — the completion notion the flows key off (promoted from an inline set)
+  // Modules with a canonical saved terminal outcome. Normally this is synthesis; a 00 fail-fast gate with
+  // an explicit insufficient verdict is also terminal in the launcher and must look settled here too.
   const completedModules = useMemo(() => {
     const s = new Set<string>()
-    for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') s.add(a.module)
+    for (const a of layout.moduleAnchors) {
+      const moduleNodes = nodesByModule.get(a.module) ?? []
+      const completion = moduleCompletionOutcome(moduleNodes, nodeRuntime)
+      const exactResume = activeSwarm === 'research' && moduleByName.get(a.module)?.exactResume === true
+      const rosterComplete = !exactResume || moduleRunAffordance(moduleNodes, nodeStatus).complete
+      if (completion.kind === 'fail-fast' || (completion.kind === 'synthesis' && rosterComplete)) s.add(a.module)
+    }
     return s
-  }, [layout.moduleAnchors, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [layout.moduleAnchors, nodesByModule, statusSig, activeSwarm, moduleByName]) // eslint-disable-line react-hooks/exhaustive-deps
   // LIVE flow — bright/fast: a completed upstream feeding a module that is running/queued right now, plus the
   // module→Memo spokes WHILE the run is still in flight. Empty once nothing is running (i.e. a finished run),
   // so a done run no longer shows "pretend-live" bright spokes.
@@ -494,14 +511,15 @@ export function GlobeScene({
 
       {/* module labels — the SAME .cluster__* controls: name, data-sufficiency, live timer, dep-lock, run module */}
       {layout.moduleAnchors.map((a, i) => {
-        const ms = dataStatus?.modules[a.module]?.status
         const live = activeModules.has(a.module)
         const paused = pausedModules.has(a.module)
         const mod = moduleByName.get(a.module)
         const smartResume = activeSwarm === 'research' && mod?.exactResume === true
         const depLocked = !smartResume && mod?.depsComplete === false
         const miss = mod?.missingDeps?.join(', ')
-        const moduleNodes = nodes.filter((n) => n.module === a.module)
+        const moduleNodes = nodesByModule.get(a.module) ?? []
+        const completion = moduleCompletionOutcome(moduleNodes, nodeRuntime)
+        const ms = completion.kind === 'fail-fast' ? completion.verdict : dataStatus?.modules[a.module]?.status
         const runAffordance = smartResume
           ? moduleRunAffordance(moduleNodes, nodeStatus)
           : { complete: false, unfinishedSpecialists: 0, label: '▸ run module', title: 'Runs this module only' }
@@ -519,7 +537,8 @@ export function GlobeScene({
           : null
         // a finished module (not live) gets a calm done marker instead of a blank "run module" affordance. Elapsed
         // is only known for modules finished in-session (SSE carries endedAt); a manifest-loaded run shows just "done".
-        const moduleDoneLabel = !live && (smartResume ? runAffordance.complete : completedModules.has(a.module))
+        const moduleDoneLabel = !live && (completion.kind === 'fail-fast'
+          || (completion.kind === 'synthesis' && (!smartResume || runAffordance.complete)))
         const doneStarts = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.startedAt).filter((t): t is number => typeof t === 'number') : []
         const doneEnds = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.endedAt).filter((t): t is number => typeof t === 'number') : []
         const doneElapsed = doneStarts.length && doneEnds.length ? Math.max(...doneEnds) - Math.min(...doneStarts) : null
@@ -566,7 +585,7 @@ export function GlobeScene({
                 ) : launchPending?.key === `module:${a.module}` ? (
                   <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
                 ) : moduleDoneLabel ? (
-                  <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="Module complete">✓ done{doneElapsed != null ? ` · ${fmtClock(doneElapsed)}` : ''}</div>
+                  <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title={completion.kind === 'fail-fast' ? 'The module stopped at its valid data gate; no downstream paid work was required' : 'Module complete'}>{completion.kind === 'fail-fast' ? '✓ stopped correctly' : '✓ done'}{doneElapsed != null ? ` · ${fmtClock(doneElapsed)}` : ''}</div>
                 ) : (
                   <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={runAffordance.title}>{runAffordance.label}</div>
                 )}

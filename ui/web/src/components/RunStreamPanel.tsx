@@ -6,6 +6,7 @@ import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, f
 import { LIVEISH, pendingForScope, runLabel, runsForScope } from '../lib/runScope'
 import { Spin } from './Spin'
 import { providerLabel } from '../lib/provider'
+import type { RunPublicationPhase } from '../lib/types'
 
 const dotColor: Record<string, string> = {
   running: 'var(--accent)',
@@ -24,6 +25,15 @@ const PHASE_LABEL: Record<string, string> = {
   starting: 'Starting the engine…',
   'readiness-checking': 'Checking the data pool…',
   'awaiting-readiness-decision': 'Paused — waiting for your data-check decision',
+}
+
+const PUBLICATION_LABEL: Partial<Record<RunPublicationPhase, string>> = {
+  'archive-in-progress': 'Saving supporting records…',
+  'archive-sealed': 'Supporting records saved — preparing the final result…',
+  'terminal-in-progress': 'Saving and publishing the finished work…',
+  'terminal-complete': 'Final work saved — finishing up…',
+  'terminal-failed': 'The final save failed — the run will report an error.',
+  'parity-attested': 'Final work verified — finishing up…',
 }
 
 // A finished run's bar, tinted by HOW it finished — so "full" never reads as "succeeded" on a run that
@@ -238,14 +248,18 @@ export function RunNowSection() {
                   : <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => cancelRun(run.runId)}>Cancel</button>)}
               </div>
               {/* live heartbeat: what the engine is doing + when it last spoke — the anti-"is it stuck?" line */}
-              {run.status === 'running' && (run.lastActivity || run.lastStdoutAt) && (() => {
+              {run.status === 'running' && (run.publicationPhase || run.lastActivity || run.lastStdoutAt) && (() => {
                 const quietMs = run.lastStdoutAt ? Math.max(0, now - run.lastStdoutAt) : null
                 const stale = quietMs != null && quietMs > 45_000
                 const doing = run.lastActivity ? (TOOL_GLOSS[run.lastActivity.tool] || `using ${run.lastActivity.tool}`) : null
+                const publishing = run.publicationPhase ? PUBLICATION_LABEL[run.publicationPhase] : null
+                const failedPublication = run.publicationPhase === 'terminal-failed'
                 return (
-                  <div className="sidepanel__meta" style={{ padding: '0 16px 4px', color: stale ? 'var(--warn, #d8a656)' : 'var(--text-faint)' }}>
-                    {stale
-                      ? `quiet for ${fmtClock(quietMs!)} — the model is thinking; Cancel is always live`
+                  <div className="sidepanel__meta" style={{ padding: '0 16px 4px', color: failedPublication ? 'var(--bad)' : stale && !publishing ? 'var(--warn, #d8a656)' : 'var(--text-faint)' }}>
+                    {publishing
+                      ? publishing
+                      : stale
+                      ? `No new model output for ${fmtClock(quietMs!)}; the engine still reports this run as active.`
                       : `engine active${doing ? ` · ${doing}` : ''}${quietMs != null ? ` · ${quietMs < 3000 ? 'just now' : fmtClock(quietMs) + ' ago'}` : ''}`}
                   </div>
                 )

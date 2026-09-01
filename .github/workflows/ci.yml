@@ -437,6 +437,9 @@ jobs:
       - name: Provider-transparent browser lifecycle (fake Claude + Codex CLIs)
         run: npm run test:e2e
 
+      - name: Cockpit speed replay (synthetic events; never launches research)
+        run: npm run test:performance
+
       - name: Build (vite build)
         run: npm run build
 

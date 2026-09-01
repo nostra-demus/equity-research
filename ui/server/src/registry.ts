@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
-import type { AgentRunState, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, ResearchMemoryRuntimeBinding, RunActivity, RunKind, RunStatus, SseEvent } from './types'
+import type { AgentRunState, ReadinessDecision, ReadinessReport, ResearchMemoryIdentity, ResearchMemoryRuntimeBinding, RunActivity, RunKind, RunPublicationPhase, RunStatus, SseEvent } from './types'
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 import type { OutputLineageAttempt } from './evidence-lineage'
 
@@ -76,7 +76,7 @@ export interface RunState {
   publicationRequested?: boolean
   publicationCompleted?: boolean
   publicationError?: string
-  publicationPhase?: 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
+  publicationPhase?: RunPublicationPhase
   /** Exact supervisor-verified commit containing the decision used by post-publication consumers. */
   publicationRevision?: string
   /** Synchronous supervisor-owned integrity check for the per-run publication capability transport. */
@@ -335,6 +335,7 @@ const heartbeatTimer = setInterval(() => {
       reasoningLevel: run.reasoningLevel,
       lastStdoutAt: run.lastStdoutAt,
       lastActivity: run.lastActivity,
+      publicationPhase: run.publicationPhase,
       ts: now,
     })
   }
