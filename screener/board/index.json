@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T21:58:59Z",
+  "generated_at": "2026-09-01T23:49:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-1014",
+      "headline": "425 - US Elemental Inc. (0002134552) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2134552/000121390026096304/0001213900-26-096304-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-01T21:22:08Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Form 425 filed indicates a merger or acquisition involving US Elemental Inc. is announced or in active discussion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 425 filed indicates a merger or acquisition involving US Elemental Inc. is announced or in active discussion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "US Elemental Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-1004",
       "headline": "6-K - Lakefront Biotherapeutics NV (0001421876) (Filer)",
@@ -1235,6 +1284,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-1020",
+      "headline": "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ff05461-3393-4bd6-9753-8ffb37fc5fde.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T07:07:08Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Company announced a buy-back of equity shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a buy-back of equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Man Infraconstruction Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-694",
       "headline": "VL E-Governance & IT Solutions Ltd (543958)",
       "headline_en": null,
@@ -1871,104 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-992",
-      "headline": "Stan Kroenke agrees to buy MLB's Angels, valuing team and regional network at $4 billion",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/01/stan-kroenke-controlling-stake-los-angeles-angels.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:03:31Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Stan Kroenke agreed to acquire the MLB's Angels for $4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stan Kroenke agreed to acquire the MLB's Angels for $4 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Los Angeles Angels",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-974",
-      "headline": "Nestle to divest mainstream supplements business for $1 billion",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/nestle-to-divest-mainstream-supplements-business-for-1-billion/articleshow/133689701.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T18:14:18Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Nestle is divesting a business unit for $1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nestle is divesting a business unit for $1 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91206,148 +91206,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-74d751ef2f93",
-      "idea_version": "IDEAV-9e62a367a4302e45",
-      "idea_version_started_at": "2026-08-31T17:20:57Z",
-      "ticker": "GEMSPIN",
-      "company": "Gem Spinners India Ltd",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The managing director has been remanded to police custody, creating significant operational uncertainty and governance risk.",
-      "why_now": "The arrest occurred on August 29, 2026, and the disclosure was filed on August 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-702226608b77"
-      ],
-      "primary_source_event_id": "EVT-702226608b77",
-      "source_headlines": [
-        "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon."
-      ],
-      "source_headline": "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06b6b792-a238-4e00-84df-5229d529bd47.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T10:01:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T17:20:57Z",
-      "updated_at": "2026-08-31T17:20:57Z",
-      "decay_at": "2026-09-01T22:01:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-23f01420e111",
-      "idea_version": "IDEAV-29f834b53f425e93",
-      "idea_version_started_at": "2026-08-31T15:41:26Z",
-      "ticker": "DEBOCK",
-      "company": "Debock Industries Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company and its Managing Director have been barred by SEBI for 7 years, creating severe operational and governance risk.",
-      "why_now": "The exchange is currently seeking clarification on the SEBI enforcement action as of August 31, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3f92066aeb53"
-      ],
-      "primary_source_event_id": "EVT-3f92066aeb53",
-      "source_headlines": [
-        "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited."
-      ],
-      "source_headline": "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited.",
-      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DIL&seq=106762450",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T11:05:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T15:41:26Z",
-      "updated_at": "2026-08-31T15:41:26Z",
-      "decay_at": "2026-09-01T23:05:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a9124f2e759d",
       "idea_version": "IDEAV-fef92f0ddf7924fb",
       "idea_version_started_at": "2026-08-31T11:51:47Z",
@@ -93100,6 +92958,148 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-74d751ef2f93",
+      "idea_version": "IDEAV-9e62a367a4302e45",
+      "idea_version_started_at": "2026-08-31T17:20:57Z",
+      "ticker": "GEMSPIN",
+      "company": "Gem Spinners India Ltd",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The managing director has been remanded to police custody, creating significant operational uncertainty and governance risk.",
+      "why_now": "The arrest occurred on August 29, 2026, and the disclosure was filed on August 31, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-702226608b77"
+      ],
+      "primary_source_event_id": "EVT-702226608b77",
+      "source_headlines": [
+        "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon."
+      ],
+      "source_headline": "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06b6b792-a238-4e00-84df-5229d529bd47.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T10:01:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T17:20:57Z",
+      "updated_at": "2026-08-31T17:20:57Z",
+      "decay_at": "2026-09-01T22:01:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-23f01420e111",
+      "idea_version": "IDEAV-29f834b53f425e93",
+      "idea_version_started_at": "2026-08-31T15:41:26Z",
+      "ticker": "DEBOCK",
+      "company": "Debock Industries Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company and its Managing Director have been barred by SEBI for 7 years, creating severe operational and governance risk.",
+      "why_now": "The exchange is currently seeking clarification on the SEBI enforcement action as of August 31, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f92066aeb53"
+      ],
+      "primary_source_event_id": "EVT-3f92066aeb53",
+      "source_headlines": [
+        "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited."
+      ],
+      "source_headline": "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited.",
+      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DIL&seq=106762450",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T11:05:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T15:41:26Z",
+      "updated_at": "2026-08-31T15:41:26Z",
+      "decay_at": "2026-09-01T23:05:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98869,8 +98869,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 360,
-    "shown_count": 360,
+    "total_count": 362,
+    "shown_count": 362,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -98879,8 +98879,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 183,
-        "shown_count": 183,
+        "total_count": 185,
+        "shown_count": 185,
         "hidden_count": 0
       }
     },
@@ -98900,6 +98900,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-23f01420e111",
+        "idea_version": "IDEAV-29f834b53f425e93",
+        "idea_version_started_at": "2026-08-31T15:41:26Z",
+        "ticker": "DEBOCK",
+        "company": "Debock Industries Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company and its Managing Director have been barred by SEBI for 7 years, creating severe operational and governance risk.",
+        "why_now": "The exchange is currently seeking clarification on the SEBI enforcement action as of August 31, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3f92066aeb53"
+        ],
+        "primary_source_event_id": "EVT-3f92066aeb53",
+        "source_headlines": [
+          "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited."
+        ],
+        "source_headline": "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited.",
+        "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DIL&seq=106762450",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T11:05:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T15:41:26Z",
+        "updated_at": "2026-08-31T15:41:26Z",
+        "decay_at": "2026-09-01T23:05:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T23:05:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-74d751ef2f93",
+        "idea_version": "IDEAV-9e62a367a4302e45",
+        "idea_version_started_at": "2026-08-31T17:20:57Z",
+        "ticker": "GEMSPIN",
+        "company": "Gem Spinners India Ltd",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The managing director has been remanded to police custody, creating significant operational uncertainty and governance risk.",
+        "why_now": "The arrest occurred on August 29, 2026, and the disclosure was filed on August 31, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-702226608b77"
+        ],
+        "primary_source_event_id": "EVT-702226608b77",
+        "source_headlines": [
+          "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon."
+        ],
+        "source_headline": "Gem Spinners India Ltd: This is to inform that Managing Director of the Company has been remanded under police custody on 29th August 2026 afternoon.",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06b6b792-a238-4e00-84df-5229d529bd47.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T10:01:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T17:20:57Z",
+        "updated_at": "2026-08-31T17:20:57Z",
+        "decay_at": "2026-09-01T22:01:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T22:01:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4ce2da4ef608",
         "idea_version": "IDEAV-8eaa49d9749138d2",
@@ -125623,7 +125771,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 11,
+    "live_count": 9,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -125642,9 +125790,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5103107,
-    "news_picked_today": 2357,
-    "news_dropped_today": 16723
+    "news_seen_today": 5329712,
+    "news_picked_today": 2465,
+    "news_dropped_today": 21079
   },
   "book_momentum": {
     "live_count": 8,
