@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T14:24:01Z",
+  "generated_at": "2026-09-01T14:29:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-847",
@@ -1233,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-857",
+      "headline": "Marzetti’s (MZTI) Record Streak Hits a Wall With Outbreak and Guidance Cut",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/marzetti-mzti-record-streak-hits-140359560.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:03:59Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Marzetti issued a guidance cut following an operational outbreak, impacting financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Marzetti issued a guidance cut following an operational outbreak, impacting financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marzetti",
+          "ticker": "MZTI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-856",
       "headline": "GoPro to be acquired by Starman Optical in $285 million deal",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
           "name": "HDFC Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-737",
-      "headline": "Gap Inc. (GAP) Raises Its Outlook Even As Old Navy Stumbles",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/gap-inc-gap-raises-outlook-073906168.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:39:06Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Gap Inc. raised its financial outlook despite performance issues at its Old Navy segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gap Inc. raised its financial outlook despite performance issues at its Old Navy segment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gap Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -124163,9 +124163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2575066,
-    "news_picked_today": 1932,
-    "news_dropped_today": 8820
+    "news_seen_today": 2592526,
+    "news_picked_today": 1940,
+    "news_dropped_today": 8836
   },
   "book_momentum": {
     "live_count": 8,
