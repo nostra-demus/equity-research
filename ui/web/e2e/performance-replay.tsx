@@ -20,7 +20,10 @@ declare global {
 
 const NODE_COUNT = 240
 const EVENT_COUNT = 360
-const EVENTS_PER_FRAME = 24
+// Thirty independently painted batches make p95 the second-slowest frame, so one unrelated runner
+// scheduling pause cannot fail the gate while two slow frames still do. With 24/event batches, one pause
+// represented 6.7% of every sample and therefore became the p95 by construction.
+const EVENTS_PER_FRAME = 12
 const RUN_ID = 'synthetic-performance-run'
 const SUBJECT = 'PERF-SYNTHETIC'
 const rootElement = document.querySelector<HTMLElement>('[data-testid="performance-replay"]')!

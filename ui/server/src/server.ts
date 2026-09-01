@@ -282,7 +282,7 @@ app.addHook('onRequest', async (req) => {
 })
 app.addHook('onSend', async (req, reply, payload) => {
   const started = performanceRequestStarts.get(req)
-  const operation = normalizeServerOperation(req.routeOptions.url)
+  const operation = normalizeServerOperation(req.routeOptions?.url)
   if (started !== undefined && operation && !operation.startsWith('/api/performance') && !operation.endsWith('/stream')) {
     const duration = nodePerformance.now() - started
     reply.header('server-timing', `app;dur=${duration.toFixed(1)}`)

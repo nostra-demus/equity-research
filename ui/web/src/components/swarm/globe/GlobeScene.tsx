@@ -229,7 +229,11 @@ export function GlobeScene({
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
   const nodesByModule = useMemo(() => {
     const grouped = new Map<string, GlobeNode[]>()
-    for (const node of nodes) grouped.set(node.module, [...(grouped.get(node.module) ?? []), node])
+    for (const node of nodes) {
+      const group = grouped.get(node.module)
+      if (group) group.push(node)
+      else grouped.set(node.module, [node])
+    }
     return grouped
   }, [nodes])
   const classOf = useMemo(() => new Map(nodes.map((n) => [n.key, orbClass(n)])), [nodes])
