@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T12:34:43Z",
+  "generated_at": "2026-09-01T12:44:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-790",
+      "headline": "DCM Shriram Ltd: Commissioning of Aluminium Extrusion Plant at Kota",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b576492d-194f-4dab-bdf3-4535b0c163f8.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T11:54:21Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "DCM Shriram Ltd has commissioned a new aluminium extrusion plant, representing a capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DCM Shriram Ltd has commissioned a new aluminium extrusion plant, representing a capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCM Shriram Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-778",
       "headline": "Jamna Auto Industries Limited: We wish to inform you that the Company has successfully completed the acquisition of 100% of the issued share capital of Owen Springs Limited, a company incorporated in England and Wales.",
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-644",
-      "headline": "WPP cutting up to 1,000 more jobs as AI reshapes advertising industry",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/91395fb6-1782-41b2-82e5-e2a40d754e3f?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T04:00:20Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WPP",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123504,9 +123504,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1940082,
-    "news_picked_today": 1690,
-    "news_dropped_today": 8150
+    "news_seen_today": 2029075,
+    "news_picked_today": 1706,
+    "news_dropped_today": 8206
   },
   "book_momentum": {
     "live_count": 8,
