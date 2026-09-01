@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.4",
+  "ticker": "NU",
+  "as_of": "2026-09-01",
+  "currency": "USD",
+  "business_type": "Financial",
+  "basis": "equity",
+  "shares": 4908.841,
+  "net_debt": -7811.0,
+  "net_debt_basis": "strict",
+  "current_price": 14.3,
+  "price_as_of": "2026-08-29",
+  "price_state": "pool-verified",
+  "scenarios": [
+    {
+      "label": "bull",
+      "basis": "equity",
+      "forward_metric": 1.1101,
+      "metric_basis": "NTM EPS bull proxy (equal to FY2027 consensus EPS; inference, not a vendor NTM case)",
+      "multiple": 10.0,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "applied",
+      "secondary_multiples": [
+        {
+          "value": 4.512602,
+          "basis": "P/TBV proxy on current 2026-06-30 TBVPS",
+          "note": "Current TBVPS is a mismatched-period cross-check against forward EPS; no forward TBVPS is available."
+        }
+      ],
+      "source": "07_scenario-and-fair-value.md §3 bull scenario table and §2 executed calculation",
+      "level": 11.101,
+      "drivers": "Credit-card and loan interest keeps converting into earnings, lower credit cost does not reverse, and the market again accepts the 10.0x growth-adjusted P/E."
+    },
+    {
+      "label": "base",
+      "basis": "equity",
+      "forward_metric": 0.97,
+      "metric_basis": "NTM EPS",
+      "multiple": 8.734223,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "implied",
+      "secondary_multiples": [
+        {
+          "value": 3.443982,
+          "basis": "P/TBV proxy on current 2026-06-30 TBVPS",
+          "note": "Current TBVPS is a mismatched-period cross-check against forward EPS; no forward TBVPS is available."
+        }
+      ],
+      "source": "07_scenario-and-fair-value.md §3 base scenario table and §2 executed calculation",
+      "level": 8.472197,
+      "drivers": "The US$7.653661 residual-income value and US$9.70 peer value reconcile at 60% and 40%; the implied P/E retains some return premium without using the invalid short own-history range."
+    },
+    {
+      "label": "bear",
+      "basis": "equity",
+      "forward_metric": 0.387911,
+      "metric_basis": "NTM EPS stress proxy implied by current TBVPS and a 15.77% ROTE proxy; not a vendor forecast",
+      "multiple": 7.61,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "implied",
+      "secondary_multiples": [
+        {
+          "value": 1.2,
+          "basis": "P/TBV proxy on current 2026-06-30 TBVPS",
+          "note": "This 1.20x peer-median P/TBV reference applied to current TBVPS is the bear-case machinery; no forward TBVPS is available."
+        }
+      ],
+      "source": "07_scenario-and-fair-value.md §3 bear scenario table and §2 executed calculation",
+      "level": 2.952,
+      "drivers": "The raw peer-median 1.20x P/TBV reference is applied to current TBVPS as credit cost worsens in a cyclical down-leg."
+    }
+  ],
+  "methods": {
+    "own_history": null,
+    "peers": 9.7,
+    "dcf": 7.653661,
+    "sotp": null
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.4,
+    "dcf": 0.6,
+    "sotp": 0.0
+  },
+  "method_basis": {
+    "own_history": null,
+    "peers": "NTM",
+    "dcf": "forward multi-year",
+    "sotp": null
+  },
+  "discount_rate": {
+    "rf": 0.0475,
+    "erp": 0.0423,
+    "beta": 1.0,
+    "country_risk_premium": 0.0318318,
+    "cost_of_equity": 0.1216318,
+    "wacc": null,
+    "after_tax_kd": null,
+    "source": "04_intrinsic-dcf.md §3 Cost of Equity"
+  },
+  "is_developed_mega_cap": false,
+  "peers_internals": {
+    "metric_name": "NTM P/E on NTM EPS of US$0.970",
+    "median_multiple": 7.61,
+    "applied_multiple": 10.0,
+    "discount_pct": -31.4,
+    "anchors": [
+      {
+        "multiple": 10.0,
+        "value": 9.7,
+        "label": "Growth-adjusted NTM P/E base"
+      },
+      {
+        "multiple": 7.61,
+        "value": 7.38,
+        "label": "Peer-median NTM P/E / return-normalised cross-check"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md §5 implied-value table and financial reconciliation"
+  }
+}

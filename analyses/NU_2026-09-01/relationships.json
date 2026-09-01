@@ -1,0 +1,825 @@
+{
+  "schema_version": "relationship-graph/v1",
+  "generated_by": "relationship_graph.py",
+  "ticker": "NU",
+  "anchor": {
+    "name": "Nu Holdings Ltd.",
+    "listing": "NYSE:NU",
+    "node_id": "nu-holdings-ltd"
+  },
+  "sources": [
+    {
+      "file": "Nu Holdings Ltd NYSE NU Customers.xls",
+      "path": "Nu Holdings Ltd NYSE NU Customers.xls",
+      "sheet": "Customers",
+      "orientation": "customers",
+      "rows": 1,
+      "anchor_named": "Nu Holdings Ltd.",
+      "anchor_listing": "NYSE:NU",
+      "scope_notes": [
+        "Recently disclosed customers only (within the last two years)",
+        "Include Customers for:Current subsidiaries"
+      ]
+    },
+    {
+      "file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "path": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "sheet": "Suppliers",
+      "orientation": "suppliers",
+      "rows": 10,
+      "anchor_named": "Nu Holdings Ltd.",
+      "anchor_listing": "NYSE:NU",
+      "scope_notes": [
+        "Recently disclosed suppliers only (within the last two years)",
+        "Include Suppliers for:Current subsidiaries"
+      ]
+    }
+  ],
+  "scope_notes": [
+    "Recently disclosed customers only (within the last two years)",
+    "Include Customers for:Current subsidiaries",
+    "Recently disclosed suppliers only (within the last two years)",
+    "Include Suppliers for:Current subsidiaries"
+  ],
+  "nodes": [
+    {
+      "node_id": "nu-bn-m-xico-s-a-de-cv",
+      "name": "Nu BN M\u00e9xico, S.A. de CV",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": null,
+      "description": null,
+      "roles": [],
+      "affiliation": "group",
+      "affiliation_basis": "named on the anchor's own side of a disclosed relationship, so the export places it inside the group",
+      "order": 1
+    },
+    {
+      "node_id": "nu-colombia-s-a",
+      "name": "Nu Colombia S.A.",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": null,
+      "description": null,
+      "roles": [],
+      "affiliation": "group",
+      "affiliation_basis": "named on the anchor's own side of a disclosed relationship, so the export places it inside the group",
+      "order": 1
+    },
+    {
+      "node_id": "nu-holdings-ltd",
+      "name": "Nu Holdings Ltd.",
+      "listing": "NYSE:NU",
+      "exchange": "NYSE",
+      "symbol": "NU",
+      "industry": null,
+      "description": null,
+      "roles": [],
+      "affiliation": "anchor",
+      "affiliation_basis": "the company this pool is about",
+      "order": 1
+    },
+    {
+      "node_id": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "name": "Nu Pagamentos S.A - Institui\u00e7\u00e3o de Pagamento",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": null,
+      "description": null,
+      "roles": [],
+      "affiliation": "group",
+      "affiliation_basis": "named on the anchor's own side of a disclosed relationship, so the export places it inside the group",
+      "order": 1
+    },
+    {
+      "node_id": "amazon-web-services-inc",
+      "name": "Amazon Web Services, Inc.",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Internet Services and Infrastructure",
+      "description": "Amazon Web Services, Inc. provides cloud computing services, including computing power, storage, databases, analytics, and artificial intelligence solutions. The company offers cloud-based products and services such as object storage through Amazon Simple Storage Service (S3), Amazon Quick Suite, Transform, Aurora, Amazon Bedrock, Amazon Connect, EC2, Nova, and SageMaker. It offers compute instanc\u2026",
+      "roles": [
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "circle-internet-group-inc",
+      "name": "Circle Internet Group, Inc.",
+      "listing": "NYSE:CRCL",
+      "exchange": "NYSE",
+      "symbol": "CRCL",
+      "industry": "Application Software",
+      "description": null,
+      "roles": [
+        "client services"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "computershare-trust-company-national-association",
+      "name": "Computershare Trust Company, National Association",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Investment Banking and Brokerage",
+      "description": null,
+      "roles": [
+        "transfer agent"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "edenred-se",
+      "name": "Edenred SE",
+      "listing": "ENXTPA:EDEN",
+      "exchange": "ENXTPA",
+      "symbol": "EDEN",
+      "industry": "Transaction and Payment Processing Services",
+      "description": "Edenred SE operates as a digital platform for services and payments for companies, employees, and merchants worldwide. It offers employee benefit solutions, including Ticket Restaurant, a solution that allows employees to take time out for lunch at a partner merchant; Ticket Alimentaci\u00f3n, which allows users to pay for groceries in stores and supermarkets; Edenred Regalo, a gift voucher; Ticket CES\u2026",
+      "roles": [
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "mastercard-international-incorporated",
+      "name": "MasterCard International Incorporated",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Transaction and Payment Processing Services",
+      "description": "MasterCard International Incorporated, doing business as MasterCard Worldwide, provides digital payment solutions. It operates a payment processing network that connects consumers, businesses, financial institutions, governments, the public sector, merchants, and issuers and partners in the United States and internationally. MasterCard International Incorporated was formerly known as Interbank Car\u2026",
+      "roles": [
+        "licensor",
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "mercedes-benz-grand-prix-limited",
+      "name": "Mercedes-Benz Grand Prix Limited",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Movies and Entertainment",
+      "description": "Mercedes-Benz Grand Prix Limited, trading as Mercedes-AMG Petronas Formula One Team, owns and operates a car racing team. The company also offers team wear, accessories, and fashion products for men and women online. Mercedes-Benz Grand Prix Limited was formerly known as Brawn GP Limited and changed its name to Mercedes-Benz Grand Prix Limited in January 2010. The company was incorporated in 1964\u2026",
+      "roles": [
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "numis-corporation-limited",
+      "name": "Numis Corporation Limited",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Investment Banking and Brokerage",
+      "description": "Numis Corporation Limited, through its subsidiaries, provides various investment banking services in the United Kingdom, the United States, and Ireland. The company offers investment banking services, including corporate broking, debt advisory, equity capital markets, growth capital solutions, IPOs, and mergers and acquisitions. It also provides equities services, such as research, and sales and t\u2026",
+      "roles": [
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "united-states-international-development-finance-corporation-dfc",
+      "name": "United States International Development Finance Corporation (DFC)",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "industry": "Specialized Finance",
+      "description": "United States International Development Finance Corporation (DFC) operates as the development finance institution. The institution facilitates the United States private investment in developing countries and emerging market economies; offers private sector tools run a critical bridge between federal resources and dynamic private sector driven development; and generates financial returns for the Am\u2026",
+      "roles": [
+        "creditor"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    },
+    {
+      "node_id": "wise-group-plc",
+      "name": "Wise Group plc",
+      "listing": "LSE:WISE",
+      "exchange": "LSE",
+      "symbol": "WISE",
+      "industry": "Transaction and Payment Processing Services",
+      "description": "Wise Group plc provides cross-border and domestic financial services in the United Kingdom, the rest of Europe, the Asia-Pacific, North America, and internationally. It offers money transfers, currency conversions, and account services. The company\u2019s products include Wise Account, a solution for individual customers to send, spend, hold, and get paid in one or more currencies; Wise Business, which\u2026",
+      "roles": [
+        "supplier"
+      ],
+      "affiliation": "third_party",
+      "affiliation_basis": "never appears on the anchor's side of a disclosed relationship and does not share the group's name",
+      "order": 2
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "circle-internet-group-inc->nu-pagamentos-s-a-institui-o-de-pagamento:client-services",
+      "counterparty": "circle-internet-group-inc",
+      "anchor_side": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "role": "client services",
+      "role_kind": "other",
+      "orientation": "customers",
+      "anchor_side_entity": "subsidiary",
+      "disclosed_by": "counterparty",
+      "source_ref": "Circle Internet Group, Inc. (NYSE:CRCL) 2025 Form S-1",
+      "source_file": "Nu Holdings Ltd NYSE NU Customers.xls",
+      "source_sheet": "Customers",
+      "source_row": 15
+    },
+    {
+      "edge_id": "amazon-web-services-inc->nu-holdings-ltd:supplier",
+      "counterparty": "amazon-web-services-inc",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 15
+    },
+    {
+      "edge_id": "computershare-trust-company-national-association->nu-holdings-ltd:transfer-agent",
+      "counterparty": "computershare-trust-company-national-association",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "transfer agent",
+      "role_kind": "other",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 16
+    },
+    {
+      "edge_id": "edenred-se->nu-holdings-ltd:supplier",
+      "counterparty": "edenred-se",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": "counterparty",
+      "source_ref": "Edenred SE (ENXTPA:EDEN) - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 17
+    },
+    {
+      "edge_id": "mastercard-international-incorporated->nu-bn-m-xico-s-a-de-cv:licensor",
+      "counterparty": "mastercard-international-incorporated",
+      "anchor_side": "nu-bn-m-xico-s-a-de-cv",
+      "role": "licensor",
+      "role_kind": "other",
+      "orientation": "suppliers",
+      "anchor_side_entity": "subsidiary",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 18
+    },
+    {
+      "edge_id": "mastercard-international-incorporated->nu-holdings-ltd:supplier",
+      "counterparty": "mastercard-international-incorporated",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 19
+    },
+    {
+      "edge_id": "mastercard-international-incorporated->nu-pagamentos-s-a-institui-o-de-pagamento:licensor",
+      "counterparty": "mastercard-international-incorporated",
+      "anchor_side": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "role": "licensor",
+      "role_kind": "other",
+      "orientation": "suppliers",
+      "anchor_side_entity": "subsidiary",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 20
+    },
+    {
+      "edge_id": "mercedes-benz-grand-prix-limited->nu-holdings-ltd:supplier",
+      "counterparty": "mercedes-benz-grand-prix-limited",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": null,
+      "source_ref": "Key DevelopmentClient Announcements Jan-21-2026",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 21
+    },
+    {
+      "edge_id": "numis-corporation-limited->nu-holdings-ltd:supplier",
+      "counterparty": "numis-corporation-limited",
+      "anchor_side": "nu-holdings-ltd",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "self",
+      "disclosed_by": "counterparty",
+      "source_ref": "Numis Corporation Limited - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 22
+    },
+    {
+      "edge_id": "united-states-international-development-finance-corporation-dfc->nu-colombia-s-a:creditor",
+      "counterparty": "united-states-international-development-finance-corporation-dfc",
+      "anchor_side": "nu-colombia-s-a",
+      "role": "creditor",
+      "role_kind": "financing",
+      "orientation": "suppliers",
+      "anchor_side_entity": "subsidiary",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 23
+    },
+    {
+      "edge_id": "wise-group-plc->nu-pagamentos-s-a-institui-o-de-pagamento:supplier",
+      "counterparty": "wise-group-plc",
+      "anchor_side": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity": "subsidiary",
+      "disclosed_by": "counterparty",
+      "source_ref": "Wise Group plc (LSE:WISE) - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "source_row": 24
+    }
+  ],
+  "counterparties": [
+    {
+      "node_id": "edenred-se",
+      "name": "Edenred SE",
+      "affiliation": "third_party",
+      "listing": "ENXTPA:EDEN",
+      "exchange": "ENXTPA",
+      "symbol": "EDEN",
+      "country": "France",
+      "industry": "Transaction and Payment Processing Services",
+      "description": "Edenred SE operates as a digital platform for services and payments for companies, employees, and merchants worldwide. It offers employee benefit solutions, including Ticket Restaurant, a solution that allows employees to take time out for lunch at a partner merchant; Ticket Alimentaci\u00f3n, which allows users to pay for groceries in stores and supermarkets; Edenred Regalo, a gift voucher; Ticket CES\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": "counterparty",
+      "source_ref": "Edenred SE (ENXTPA:EDEN) - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 96,
+      "link_strength_components": {
+        "disclosure_side": 30,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 14,
+        "investability": 14,
+        "corroboration": 0
+      },
+      "link_strength_cap": null,
+      "link_strength_cap_reason": null,
+      "evidence_gaps": [
+        "how much of Edenred SE's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "wise-group-plc",
+      "name": "Wise Group plc",
+      "affiliation": "third_party",
+      "listing": "LSE:WISE",
+      "exchange": "LSE",
+      "symbol": "WISE",
+      "country": "United Kingdom",
+      "industry": "Transaction and Payment Processing Services",
+      "description": "Wise Group plc provides cross-border and domestic financial services in the United Kingdom, the rest of Europe, the Asia-Pacific, North America, and internationally. It offers money transfers, currency conversions, and account services. The company\u2019s products include Wise Account, a solution for individual customers to send, spend, hold, and get paid in one or more currencies; Wise Business, which\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "anchor_side_entity": "Nu Pagamentos S.A - Institui\u00e7\u00e3o de Pagamento",
+      "anchor_side_relation": "subsidiary",
+      "disclosed_by": "counterparty",
+      "source_ref": "Wise Group plc (LSE:WISE) - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu Pagamentos S.A - Institui\u00e7\u00e3o de Pagamento. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 91,
+      "link_strength_components": {
+        "disclosure_side": 30,
+        "directness": 24,
+        "anchor_side": 9,
+        "role_kind": 14,
+        "investability": 14,
+        "corroboration": 0
+      },
+      "link_strength_cap": null,
+      "link_strength_cap_reason": null,
+      "evidence_gaps": [
+        "how much of Wise's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "circle-internet-group-inc",
+      "name": "Circle Internet Group, Inc.",
+      "affiliation": "third_party",
+      "listing": "NYSE:CRCL",
+      "exchange": "NYSE",
+      "symbol": "CRCL",
+      "country": "United States",
+      "industry": "Application Software",
+      "description": null,
+      "order": 2,
+      "role": "client services",
+      "role_kind": "other",
+      "orientation": "customers",
+      "anchor_side_entity_id": "nu-pagamentos-s-a-institui-o-de-pagamento",
+      "anchor_side_entity": "Nu Pagamentos S.A - Institui\u00e7\u00e3o de Pagamento",
+      "anchor_side_relation": "subsidiary",
+      "disclosed_by": "counterparty",
+      "source_ref": "Circle Internet Group, Inc. (NYSE:CRCL) 2025 Form S-1",
+      "source_file": "Nu Holdings Ltd NYSE NU Customers.xls",
+      "source_sheet": "Customers",
+      "mechanism": "Disclosed as a client services of Nu Pagamentos S.A - Institui\u00e7\u00e3o de Pagamento. The export does not say how money moves between them, so the link is recorded but not read as a trading one.",
+      "link_strength": 45,
+      "link_strength_components": {
+        "disclosure_side": 30,
+        "directness": 24,
+        "anchor_side": 9,
+        "role_kind": 4,
+        "investability": 14,
+        "corroboration": 0
+      },
+      "link_strength_cap": 45,
+      "link_strength_cap_reason": "the disclosed link is other, not operating",
+      "evidence_gaps": [],
+      "link_count": 1,
+      "all_roles": [
+        "client services"
+      ]
+    },
+    {
+      "node_id": "amazon-web-services-inc",
+      "name": "Amazon Web Services, Inc.",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Internet Services and Infrastructure",
+      "description": "Amazon Web Services, Inc. provides cloud computing services, including computing power, storage, databases, analytics, and artificial intelligence solutions. The company offers cloud-based products and services such as object storage through Amazon Simple Storage Service (S3), Amazon Quick Suite, Transform, Aurora, Amazon Bedrock, Amazon Connect, EC2, Nova, and SageMaker. It offers compute instanc\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 4,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 14,
+        "investability": 0,
+        "corroboration": 0
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "how much of Amazon Web Services's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here",
+        "the export does not make clear whose filing disclosed the relationship"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "computershare-trust-company-national-association",
+      "name": "Computershare Trust Company, National Association",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Investment Banking and Brokerage",
+      "description": null,
+      "order": 2,
+      "role": "transfer agent",
+      "role_kind": "other",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Disclosed as a transfer agent of Nu. The export does not say how money moves between them, so the link is recorded but not read as a trading one.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 4,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 4,
+        "investability": 0,
+        "corroboration": 0
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "the export does not make clear whose filing disclosed the relationship"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "transfer agent"
+      ]
+    },
+    {
+      "node_id": "mastercard-international-incorporated",
+      "name": "MasterCard International Incorporated",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Transaction and Payment Processing Services",
+      "description": "MasterCard International Incorporated, doing business as MasterCard Worldwide, provides digital payment solutions. It operates a payment processing network that connects consumers, businesses, financial institutions, governments, the public sector, merchants, and issuers and partners in the United States and internationally. MasterCard International Incorporated was formerly known as Interbank Car\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 4,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 14,
+        "investability": 0,
+        "corroboration": 8
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "how much of MasterCard International Incorporated's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here",
+        "the export does not make clear whose filing disclosed the relationship"
+      ],
+      "link_count": 3,
+      "all_roles": [
+        "licensor",
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "mercedes-benz-grand-prix-limited",
+      "name": "Mercedes-Benz Grand Prix Limited",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Movies and Entertainment",
+      "description": "Mercedes-Benz Grand Prix Limited, trading as Mercedes-AMG Petronas Formula One Team, owns and operates a car racing team. The company also offers team wear, accessories, and fashion products for men and women online. Mercedes-Benz Grand Prix Limited was formerly known as Brawn GP Limited and changed its name to Mercedes-Benz Grand Prix Limited in January 2010. The company was incorporated in 1964\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": null,
+      "source_ref": "Key DevelopmentClient Announcements Jan-21-2026",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 4,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 14,
+        "investability": 0,
+        "corroboration": 0
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "how much of Mercedes-Benz Grand Prix's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here",
+        "the export does not make clear whose filing disclosed the relationship"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "numis-corporation-limited",
+      "name": "Numis Corporation Limited",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Investment Banking and Brokerage",
+      "description": "Numis Corporation Limited, through its subsidiaries, provides various investment banking services in the United Kingdom, the United States, and Ireland. The company offers investment banking services, including corporate broking, debt advisory, equity capital markets, growth capital solutions, IPOs, and mergers and acquisitions. It also provides equities services, such as research, and sales and t\u2026",
+      "order": 2,
+      "role": "supplier",
+      "role_kind": "operating",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-holdings-ltd",
+      "anchor_side_entity": "Nu Holdings Ltd.",
+      "anchor_side_relation": "self",
+      "disclosed_by": "counterparty",
+      "source_ref": "Numis Corporation Limited - Form Doc",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Sells into Nu. If Nu is a meaningful share of what it sells, then Nu's volumes and the prices it agrees flow straight into this company's revenue and margin. The export does not say how large the relationship is.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 30,
+        "directness": 24,
+        "anchor_side": 14,
+        "role_kind": 14,
+        "investability": 0,
+        "corroboration": 0
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "how much of Numis's revenue Nu actually accounts for is not disclosed here",
+        "whether the relationship is contracted, sole-source, or easily switched is not disclosed here"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "supplier"
+      ]
+    },
+    {
+      "node_id": "united-states-international-development-finance-corporation-dfc",
+      "name": "United States International Development Finance Corporation (DFC)",
+      "affiliation": "third_party",
+      "listing": null,
+      "exchange": null,
+      "symbol": null,
+      "country": null,
+      "industry": "Specialized Finance",
+      "description": "United States International Development Finance Corporation (DFC) operates as the development finance institution. The institution facilitates the United States private investment in developing countries and emerging market economies; offers private sector tools run a critical bridge between federal resources and dynamic private sector driven development; and generates financial returns for the Am\u2026",
+      "order": 2,
+      "role": "creditor",
+      "role_kind": "financing",
+      "orientation": "suppliers",
+      "anchor_side_entity_id": "nu-colombia-s-a",
+      "anchor_side_entity": "Nu Colombia S.A.",
+      "anchor_side_relation": "subsidiary",
+      "disclosed_by": null,
+      "source_ref": "Nu Holdings Ltd. (NYSE:NU) 2026 Form 20-F",
+      "source_file": "Nu Holdings Ltd NYSE NU Suppliers.xls",
+      "source_sheet": "Suppliers",
+      "mechanism": "Lends to Nu Colombia S.A.. That is a credit link, not a trading one \u2014 Nu selling more does not by itself earn it anything.",
+      "link_strength": 25,
+      "link_strength_components": {
+        "disclosure_side": 4,
+        "directness": 24,
+        "anchor_side": 9,
+        "role_kind": 0,
+        "investability": 0,
+        "corroboration": 0
+      },
+      "link_strength_cap": 25,
+      "link_strength_cap_reason": "the export names no listing for it",
+      "evidence_gaps": [
+        "the export names no listed security for this counterparty \u2014 as it stands there is nothing to buy or sell",
+        "a lending relationship does not move with the anchor's volumes \u2014 treat it as credit exposure, not a trade",
+        "the export does not make clear whose filing disclosed the relationship"
+      ],
+      "link_count": 1,
+      "all_roles": [
+        "creditor"
+      ]
+    }
+  ],
+  "industry_clusters": [
+    {
+      "industry": "Transaction and Payment Processing Services",
+      "counterparty_count": 3,
+      "listed_count": 2,
+      "third_party_count": 3,
+      "counterparties": [
+        "Edenred SE",
+        "Wise Group plc",
+        "MasterCard International Incorporated"
+      ],
+      "roles": [
+        "supplier"
+      ]
+    },
+    {
+      "industry": "Investment Banking and Brokerage",
+      "counterparty_count": 2,
+      "listed_count": 0,
+      "third_party_count": 2,
+      "counterparties": [
+        "Computershare Trust Company, National Association",
+        "Numis Corporation Limited"
+      ],
+      "roles": [
+        "supplier",
+        "transfer agent"
+      ]
+    }
+  ],
+  "concentration": {
+    "relationship_rows": 11,
+    "intragroup_rows": 0,
+    "likely_group_rows": 0,
+    "intragroup_row_share_pct": 0.0,
+    "named_entities": 12,
+    "group_entities": 3,
+    "likely_group_entities": 0,
+    "third_party_entities": 9,
+    "listed_third_parties": 3,
+    "listed_suppliers": 2,
+    "listed_customers": 1,
+    "exchanges": [
+      "ENXTPA",
+      "LSE",
+      "NYSE"
+    ]
+  },
+  "warnings": []
+}

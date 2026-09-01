@@ -1,0 +1,466 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NU",
+  "company_name": "Nu Holdings Ltd.",
+  "exchange": "NYSE",
+  "currency": "USD",
+  "decision_date": "2026-09-01",
+  "run_root": "analyses/NU_2026-09-01",
+  "final_thesis_path": "analyses/NU_2026-09-01/final_thesis.md",
+  "decision": "Avoid",
+  "suggested_action": "Do not own at US$14.30; monitor Q3 2026, the Brazilian tax change, and a scope-matched Group cost of equity. Do not short without borrow/options evidence.",
+  "paper_treatment": "No trade, track avoided/foregone return",
+  "basket": "Rejected",
+  "entry_price": 14.3,
+  "entry_price_source": "data/NU/Company Comparable Analysis Nu Holdings Ltd .xls, Financial Data, as of 2026-08-29 — Capital IQ vendor",
+  "entry_price_timestamp": "2026-08-29",
+  "benchmark": "S&P 500 (SPY)",
+  "sector_benchmark": "",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -40.4388,
+  "downside_risk_pct": 79.3566,
+  "margin_of_safety_pct": -68.7874,
+  "risk_reward": -0.5096,
+  "scenarios": [
+    {
+      "scenario_id": "tail-durable-excess-returns",
+      "label": "tail_durable_excess_returns",
+      "probability": 10,
+      "probability_basis": "judgment",
+      "return_pct": 31.328671,
+      "price_target": 18.78,
+      "conditions": [
+        "A scope-matched NU Group required return proves materially lower than the engine build",
+        "Durable earnings and credit outcomes support the Capital IQ mean sell-side target"
+      ],
+      "source": "data/NU/NuHoldingsLtdNYSENUEstimatesReport.xls, Consensus, Target Price, export modified 2026-08-29 — Capital IQ vendor; analyses/NU_2026-09-01/valuation/05_reverse-dcf.md, §§2A–5",
+      "joint_probability_basis": "The conditions are related rather than independent: durable credit returns are one reason investors may accept a lower Group equity hurdle. The 10% weight is judgment on that joint positive tail, not multiplication of invented standalone probabilities."
+    },
+    {
+      "scenario_id": "bull",
+      "label": "bull",
+      "probability": 15,
+      "probability_basis": "judgment",
+      "return_pct": -22.370629,
+      "price_target": 11.101,
+      "conditions": [
+        "NTM EPS reaches the US$1.1101 bull proxy",
+        "Credit-cost relief does not reverse",
+        "The market pays 10.0x P/E"
+      ],
+      "source": "analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md, §§1–7, 2026-09-01",
+      "joint_probability_basis": "The EPS, credit-cost, and multiple conditions are related through the durability of returns. The 15% weight is judgment on their joint state, not multiplication of standalone probabilities."
+    },
+    {
+      "scenario_id": "base",
+      "label": "base",
+      "probability": 50,
+      "probability_basis": "judgment",
+      "return_pct": -40.753867,
+      "price_target": 8.472197,
+      "conditions": [
+        "The 60% residual-income and 40% growth-adjusted peer-P/E reconciliation remains the best central value"
+      ],
+      "source": "analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md, §§1–7, 2026-09-01",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "bear",
+      "label": "bear",
+      "probability": 25,
+      "probability_basis": "judgment",
+      "return_pct": -79.356643,
+      "price_target": 2.952,
+      "conditions": [
+        "Credit cost worsens",
+        "The 1.20x current-TBV peer-median reference becomes the operative down-leg"
+      ],
+      "source": "analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md, §§1–7, 2026-09-01",
+      "joint_probability_basis": "Credit deterioration would weaken both tangible-book growth and the multiple investors pay, so the conditions are related. The 25% weight is judgment on that joint downside state."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.35,
+    "rationale": "Q3 and the 1 January 2027 Brazilian tax event fall inside a 90–183 day window and can test the earnings, credit, and tax assumptions, but full value convergence requires more than one quarter, so only partial convergence is appropriate.",
+    "source": "analyses/NU_2026-09-01/catalyst/99_catalyst-synthesis.md, §§1–4; analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md, §§1–7"
+  },
+  "confidence_score": 53.0,
+  "data_sufficiency_score": 68,
+  "confidence_inputs": {
+    "data_sufficiency": 68,
+    "corroboration": 64,
+    "evidence_tier": 84,
+    "staleness_penalty": 0,
+    "edge_score": 45,
+    "edge_proof_present": true,
+    "decision": "Avoid",
+    "modules_absent": [
+      "solvency",
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": false,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "macro_conditional",
+        "points": 5,
+        "reason": "Brazil consumer credit, policy, FX, and rates affect the earnings and valuation path"
+      },
+      {
+        "type": "single_variable",
+        "points": 7,
+        "reason": "The residual-income conclusion is highly sensitive to the unresolved NU Group required return"
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 71.0,
+  "conviction": 53.0,
+  "sizing_hint": {
+    "band": "low",
+    "action": "lean avoid — monitor, no position"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 71.0,
+    "analysis_confidence_build": "0.5*dataSuff(68) + 0.25*corrob(64) + 0.25*tier(84) - stale(0) = 71.0",
+    "direction": "downside",
+    "documented_ceiling": 65.0,
+    "documented_ceiling_sources": [
+      100.0,
+      65.0,
+      80.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 65.0,
+    "direction_ceiling_reason": "downside: min(documented 65, analysis_conf 71) — NOT edge-gated",
+    "understanding_capped_to_ceiling": 65.0,
+    "downgrades": [
+      {
+        "type": "macro_conditional",
+        "points": 5,
+        "reason": "Brazil consumer credit, policy, FX, and rates affect the earnings and valuation path"
+      },
+      {
+        "type": "single_variable",
+        "points": 7,
+        "reason": "The residual-income conclusion is highly sensitive to the unresolved NU Group required return"
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 12.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 53.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "No headline-rating lock; conviction is capped at 65 because a bank-specific solvency conclusion is unavailable. No Critical red flag exists.",
+  "thesis_type": [
+    "Company-specific",
+    "Macro-conditional",
+    "FX / rates"
+  ],
+  "variant_perception_summary": "Nu's fast growth and strong Q2 are known, and the sell side remains constructive. The provisional difference is that current spread and revenue gains arrive before the full credit-loss outcome, H1 net income included a large deferred-tax benefit, and the current price exceeds every engine fair-value case. The edge is not proven because the Group required return is unresolved.",
+  "what_everyone_knows": "Nu is a fast-growing Latin American digital bank with 139 million Q2 customers, 83.5% activity, and strong Q2 revenue and EPS growth.",
+  "what_is_priced_in": "US$14.30 and a US$18.78 mean sell-side target reflect continued high growth and returns. A clean reverse read is unavailable; conditional on a 16.51% Brazil Investments CGU rate, the price requires 47.36% terminal ROE or 80.89% FY2027–30 profit growth, while 9.78% reconciles the same path.",
+  "what_market_may_be_missing": "Current credit-income and lower-credit-cost benefits may precede later losses, and the US$991.046m H1 deferred-tax benefit makes the period less cash-backed than headline net income suggests; neither point proves improper accounting.",
+  "edge_score": 45,
+  "edge_proof": "The skeptical edge is supported if a model-consistent Group cost of equity remains above the rate needed to justify US$14.30 and Q3 misses a raised bar or shows worse credit quality. It is falsified by a clean Group valuation at or above US$14.30 and a material Q3 dual beat with stable or better delinquency, credit cost, and expected-credit-loss coverage.",
+  "killer_risk": "The residual-income duration or required return is wrong; sustained residual earnings or a lower Group cost of equity could make US$8.47 too low.",
+  "kill_criteria": [
+    {
+      "condition": "A model-consistent Group residual-income/reverse valuation, using one scope-matched required return and one earnings path, values NU at or above US$14.30.",
+      "comparable_basis": "NU Group common equity in USD, same forecast path, same fade, same share count, and the current decision-line price; not the Brazil Investments CGU.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Rebuild after obtaining a sourced Group required return.",
+      "module_source": "valuation"
+    },
+    {
+      "condition": "Q3 2026 standalone revenue exceeds US$6.11484bn and GAAP EPS exceeds US$0.23272 while early delinquency, credit cost, and ECL coverage are stable or better year on year.",
+      "comparable_basis": "Standalone Q3 2025 revenue of US$4.173bn, EPS of US$0.1595, and the same company-defined credit metrics; no reported stub. The exact conjunction did not fire in Q1 or Q2 2026.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Nu Q3 2026 interim report and call, vendor-scheduled for 2026-11-12 but not issuer-confirmed.",
+      "module_source": "earnings / catalyst"
+    },
+    {
+      "condition": "Two consecutive standalone quarters materially beat both frozen revenue and EPS consensus while the same-basis credit measures remain stable or improve year on year.",
+      "comparable_basis": "Each standalone quarter against the same quarter a year earlier and its frozen pre-print consensus; the Q1/Q2 2026 pair did not pass.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Nu Q3 and Q4 2026 interim reports, expected in November 2026 and February 2027.",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "A matched peer and sector history supports NU's current 14.76x NTM P/E and 5.7x P/TBV through a credit cycle on comparable forward ROE, growth, and risk.",
+      "comparable_basis": "Same-period forward EPS and TBV, the same accounting scope, and a three-to-five-year sector-multiple history. The prior two periods had no matched sector history.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Refresh peer fundamentals and sector history after Q3 2026 results.",
+      "module_source": "valuation / competitive-intel"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "FC-NU-REVENUE-2026Q3",
+      "prediction": "Nu's Q3 2026 standalone revenue will be below US$5,936.74m.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-05 to 2026-11-20",
+      "window_start": "2026-11-05T00:00:00Z",
+      "window_end": "2026-11-20T23:59:59Z",
+      "status_as_of": "2026-09-01T23:59:59+05:30",
+      "evidence_today": "The frozen FQ3 bar requires 42.3% year-over-year growth after a 7.0% 90-day upward revenue revision, while the four-quarter prior is too small for a measured frequency [earnings/99_earnings-synthesis.md, §§4–8].",
+      "source_citation": "data/NU/NuHoldingsLtdNYSENUEstimatesReport.xls, Capital IQ FQ3 2026 Consensus and Trends, export modified 2026-08-29; Nu Q3 2026 interim report when filed",
+      "metric": "Q3 2026 standalone IFRS revenue",
+      "threshold": "US$5,936.74m",
+      "causal_steps": [
+        "The raised frozen consensus requires 42.3% growth from standalone Q3 2025.",
+        "A high comparison and the raised bar reduce the room for the reported quarter to clear consensus.",
+        "Nu's Q3 2026 interim report settles reported revenue against the frozen threshold."
+      ],
+      "confirmation_trigger": "The Q3 2026 interim report states standalone revenue below US$5,936.74m.",
+      "falsification_trigger": "The Q3 2026 interim report states standalone revenue at or above US$5,936.74m.",
+      "stock_bullish_trigger": "Reported Q3 standalone revenue is at or above US$5,936.74m and credit commentary does not deteriorate.",
+      "stock_bearish_trigger": "Reported Q3 standalone revenue is below US$5,936.74m.",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "forecast_id": "FC-NU-EPS-2026Q3",
+      "prediction": "Nu's Q3 2026 GAAP diluted EPS will be below US$0.22164.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-05 to 2026-11-20",
+      "window_start": "2026-11-05T00:00:00Z",
+      "window_end": "2026-11-20T23:59:59Z",
+      "status_as_of": "2026-09-01T23:59:59+05:30",
+      "evidence_today": "The frozen FQ3 EPS bar requires 39.0% year-over-year growth, while credit-risk expansion and faster IFRS operating-cost growth can offset revenue [earnings/99_earnings-synthesis.md, §§3–8].",
+      "source_citation": "data/NU/NuHoldingsLtdNYSENUEstimatesReport.xls, Capital IQ FQ3 2026 Consensus, export modified 2026-08-29; Nu Q3 2026 interim report when filed",
+      "metric": "Q3 2026 GAAP diluted EPS",
+      "threshold": "US$0.22164",
+      "causal_steps": [
+        "The frozen EPS consensus requires 39.0% growth from standalone Q3 2025.",
+        "Credit cost, allowance changes, and operating spending can prevent revenue growth from reaching GAAP EPS.",
+        "Nu's Q3 2026 interim report settles GAAP diluted EPS against the frozen threshold."
+      ],
+      "confirmation_trigger": "The Q3 2026 interim report states GAAP diluted EPS below US$0.22164.",
+      "falsification_trigger": "The Q3 2026 interim report states GAAP diluted EPS at or above US$0.22164.",
+      "stock_bullish_trigger": "Reported Q3 GAAP diluted EPS is at or above US$0.22164 and credit metrics do not deteriorate.",
+      "stock_bearish_trigger": "Reported Q3 GAAP diluted EPS is below US$0.22164.",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 68,
+      "verdict": "Average business — deeper work only if valuation is cheap"
+    },
+    "earnings": {
+      "score": 65,
+      "verdict": "Mixed earnings setup; setup favors miss"
+    },
+    "balance-sheet-survival": {
+      "score": null,
+      "verdict": "Intentional fail-fast — Insufficient data"
+    },
+    "catalyst": {
+      "score": 75,
+      "verdict": "Dated, evidenced events; mixed timing"
+    },
+    "competitive-intel": {
+      "score": 0,
+      "verdict": "Not assessable — no usable peer call; 0% coverage"
+    },
+    "management-governance": {
+      "score": 72,
+      "verdict": "Standard / mixed; gate PASS"
+    },
+    "valuation": {
+      "score": 70,
+      "verdict": "Materially overvalued"
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-EARN-08-MATERIAL",
+      "module": "earnings",
+      "severity": "High",
+      "description": "Five High findings converge on one credit-cycle risk: spread durability, the raised FQ3 bar, lender-specific cash/accrual divergence, the US$991.046m deferred-tax benefit, and the US$504.700m downside-macro allowance bound. These are not proof of a misstatement."
+    },
+    {
+      "id": "RF-AUD-007",
+      "module": "management-governance",
+      "severity": "High (non-gate)",
+      "description": "KPMG Brazil was censured and fined US$700,000 by the PCAOB for work involving another issuer; Nu was not named. Nu's FY2023–FY2025 audit opinions were clean and FY2025 ICFR was effective."
+    },
+    {
+      "id": "RF-DISC-002",
+      "module": "management-governance",
+      "severity": "Medium (specialist; non-gate)",
+      "description": "Recurring share-based compensation is excluded from adjusted net income; the FY2025 US$359.0m addback produced a US$203.7m after-tax or 7.1% uplift. This is a candor concern, not evidence of misstatement."
+    }
+  ],
+  "missing_data": [
+    "A dated, scope-matched NU Group common-equity cost of equity with beta/reference index and country-risk basis.",
+    "Primary-regulator prudential returns across every material regulated perimeter.",
+    "Country/product cohort contribution, acquisition payback, credit cost, and capital deployment.",
+    "Same-window peer earnings calls for Itaú, Bradesco, and Santander Brasil.",
+    "Borrow availability, recall risk, cost, and options pricing for a short.",
+    "Reconciliation of Capital IQ negative US$10.305bn LTM CFO to filing-built negative US$1.382bn.",
+    "Complete legal/person/entity sweeps and itemized AGM voting.",
+    "RUN_METADATA.md is absent; the invocation's exact terminal-outcome list governs module status.",
+    "Some catalyst sub-agent citations point to the 2026-08-31 run even though current-run equivalents exist; current-run and raw-source evidence governs this decision."
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "nu-group-cost-of-equity",
+      "priority": 1,
+      "series": "NU Group cost of equity with sourced beta, country-risk treatment, currency, and Group scope",
+      "why_it_caps": "The valuation conclusion is sensitive to a constructed 12.16% Group rate, while a conditional market reconciliation solves at 9.78%; the unresolved rate determines whether the residual-income downside is robust or mainly a rate artifact.",
+      "expected_impact": {
+        "if_supportive": "A defensible Group rate materially above the market-reconciliation rate would strengthen the conclusion that the current price embeds exceptional expectations, subject to prudential evidence.",
+        "if_adverse": "A defensible Group rate at or below the market-reconciliation rate could raise residual-income value enough to weaken or overturn the Avoid."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "intrinsic-dcf",
+          "why": "This orb owns the residual-income required-return input and the reconciliation to market-implied value.",
+          "confidence": 0.98
+        }
+      ],
+      "suggested_source": {
+        "name": "Licensed market-risk and peer cost-of-equity dataset",
+        "acquisition": "paid_api",
+        "access": "licensed",
+        "licensing_basis": "Licensed vendor data; confirm entitlement and field definitions when acquired"
+      },
+      "tier": 5,
+      "cadence": "monthly"
+    },
+    {
+      "need_id": "regulated-perimeter-prudential-returns",
+      "priority": 2,
+      "series": "Primary-regulator capital, liquidity, RWA, asset-quality, and provisioning return for every material Nu perimeter",
+      "why_it_caps": "The corporate solvency framework is invalid for this lender and the absence of consolidated bank-specific capital and liquidity evidence caps conviction at 65.",
+      "expected_impact": {
+        "if_supportive": "Buffers above applicable minima with stable liquidity and asset quality would resolve part of the survival uncertainty without changing valuation automatically.",
+        "if_adverse": "Thin buffers, weak liquidity, or supervisory remediation would add a solvency risk and strengthen the rejection case."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "balance-sheet-survival",
+          "agent": "solvency-data-triage",
+          "why": "This orb identified the bank-overlay evidence needed before a survival analysis can run.",
+          "confidence": 0.99
+        }
+      ],
+      "suggested_source": {
+        "name": "Applicable primary-regulator prudential return",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "Official public regulatory filing; confirm the applicable regulator's terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "country-product-cohort-economics",
+      "priority": 3,
+      "series": "Country- and product-level cohort contribution, acquisition payback, credit cost, and capital deployment",
+      "why_it_caps": "ARPAC less cost to serve omits funding, expected credit loss, acquisition cost, and capital, so the economic value of Mexico and Colombia expansion and cross-sell is not proven.",
+      "expected_impact": {
+        "if_supportive": "Positive filed cohort returns after funding, losses, and capital would strengthen the business-quality and premium-multiple case.",
+        "if_adverse": "Weak or negative cohort returns would weaken the moat and show that customer growth is consuming value."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "This orb owns the incomplete per-customer economic bridge.",
+          "confidence": 0.96
+        }
+      ],
+      "suggested_source": {
+        "name": "Nu quarterly or annual filing with country and product cohort economics",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "Official public company filing; confirm exchange terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "brazil-peer-calls",
+      "priority": 4,
+      "series": "Same-period earnings calls and matched operating disclosures for Itaú, Bradesco, and Santander Brasil",
+      "why_it_caps": "Peer-call coverage is 0%, so the run cannot corroborate Nu's credit, funding, pricing, or efficiency claims against Brazilian incumbents.",
+      "expected_impact": {
+        "if_supportive": "Peer evidence of industry-wide benign credit and funding with Nu-specific outperformance would strengthen the durability case.",
+        "if_adverse": "Peer warnings on consumer credit or funding, or evidence that Nu's metrics lag matched peers, would strengthen the risk case."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "competitive-intel",
+          "agent": "competitive-intel-triage",
+          "why": "This orb owns peer-call coverage and the subject reporting-basis map.",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "Licensed earnings-transcript and filing dataset",
+        "acquisition": "paid_api",
+        "access": "licensed",
+        "licensing_basis": "Licensed transcript and vendor data; confirm entitlement and reuse terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "event_driven"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-10-01",
+    "90d": "2026-11-30",
+    "180d": "2027-02-28",
+    "365d": "2027-09-01"
+  },
+  "created_by": "synthesizer",
+  "notes": "Avoid is a no-trade decision, not a short recommendation. The bank-specific balance-sheet-survival module intentionally failed fast, so no Distress, Stretched, or Fortress verdict is claimed. The runtime supervisor owns execution provenance and will stamp it separately.",
+  "business_type": "Bank / lender",
+  "primary_valuation_method": "Equity-direct residual income with growth-adjusted peer P/E cross-check",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-09-01_calibration_summary.json",
+    "status": "checked_no_action",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {
+      "bad base rate": "Matched bank metrics and bases are used in analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md §§3–7; no revenue-versus-profit category error drives the call.",
+      "valuation multiple error": "The 26.7% valid-method spread, zero weight on the 17-month own-history reversion, and the US$18.78 positive tail are explicit in analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md and final_thesis.md §8.",
+      "bad causal inference": "The same-basis NIM bridge prints 178 + 115 + 1 = 294bp and names the 1bp residual in analyses/NU_2026-09-01/earnings/99_earnings-synthesis.md §§3–5.",
+      "false negative": "The scenario set includes a 10% US$18.78 tail with +31.3287% return, sourced to the Capital IQ target-price summary and shown in final_thesis.md §8."
+    },
+    "rationale": "The as-of summary has three resolved forecasts versus a floor of ten, so Brier and reliability slices are withheld. Four error-taxonomy categories have count two, but each has a concrete current-run defense; the required check therefore found no reason for a haircut."
+  },
+  "integrity_gate": {
+    "status": "pass",
+    "violations": [],
+    "gate": "research:full step 10B"
+  }
+}
