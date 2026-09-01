@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NU",
+  "run_root": "analyses/NU_2026-08-31",
+  "verified_at": "2026-09-01T08:27:31+05:30",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/NU_2026-08-31/final_thesis.md",
+  "decision_record_path": "analyses/NU_2026-08-31/decision_record.json",
+  "final_thesis_sha256": "2c8857691cee82f7444eb99a5b810c498efaa67623715ea22c7698f280e2eacc",
+  "decision_record_sha256": "bbdf0231dd5914e958a7e69d1a26bfb9c2501779d1548de7f6746d4d9593029d",
+  "claims_checked": 12,
+  "claim_checks": [
+    {
+      "claim": "The applicable NU line is NYSE in USD at US$14.30 as of 2026-08-29.",
+      "citation": "data/NU/Company Comparable Analysis Nu Holdings Ltd .xls, Capital IQ Comps, Financial Data, 2026-08-29",
+      "source_checked": "Frozen-generation Capital IQ Comps extract and deterministic ciq_facts.json current_price",
+      "status": "verified",
+      "evidence": "resolve_citations hit_count=44. The subject row states Nu Holdings Ltd. (NYSE:NU), 14.3; ciq_facts current_price=14.3 and identifies Day Close Price Latest as of 2026-08-29 in USD.",
+      "severity": "info"
+    },
+    {
+      "claim": "The mean sell-side target is US$18.78, with median US$19.00 and range US$10.00-US$23.00.",
+      "citation": "data/NU/NuHoldingsLtdNYSENUEstimatesReport.xls, Capital IQ Estimates, Target Price, export 2026-08-29",
+      "source_checked": "Frozen-generation Capital IQ Estimates extract and ciq_facts.json consensus_view",
+      "status": "verified",
+      "evidence": "resolve_citations hit_count=6 for 18.78. The Target Price row states mean 18.78, median 19, high/low 23.00/10.00; ciq_facts carries the same mean and median.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 2026 had 139 million customers, 83.5% activity and US$17 monthly ARPAC.",
+      "citation": "data/NU/Filings/Nu_Holdings_Ltd_-_Form_Preliminary_Interim_Report(Aug-13-2026).pdf, Q2 2026, slides 6 and 15-16",
+      "source_checked": "Frozen-generation extract of the Q2 2026 preliminary interim presentation",
+      "status": "verified",
+      "evidence": "resolve_citations hit_count=82 for 139, 3 for 83.5 and 747 for 17; direct inspection of the cited presentation extract ties the three figures to customers, activity and ARPAC rather than relying on the noisy corpus hits.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 revenue grew 50.3% and diluted EPS grew 66.3% year over year.",
+      "citation": "data/NU/Filings/Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf, Q2/H1 2026, p.5",
+      "source_checked": "Frozen-generation H1 2026 interim-report extract, income statement and EPS row",
+      "status": "inference-labeled",
+      "evidence": "resolve_citations hit_count=11 for 50.3, 8 for 0.2162 and 25 for 0.1300. The filing states diluted EPS of 0.2162 versus 0.1300; (0.2162/0.1300)-1=66.3077%, which rounds to the published 66.3%.",
+      "severity": "info"
+    },
+    {
+      "claim": "The US$991.046m H1 deferred-tax benefit was 51.3% of H1 net income.",
+      "citation": "data/NU/Filings/Nu_Holdings_Ltd_-_Form_Interim_Report(Aug-14-2026).pdf, H1 2026, p.5 and Note 30 pp.36-37",
+      "source_checked": "Frozen-generation H1 2026 interim-report extract, USD-thousands presentation",
+      "status": "inference-labeled",
+      "evidence": "resolve_citations hit_count=4 for filing-unit value 991,046 and 8 for filing-unit H1 net income 1,932,520. US$991.046m is the filing's USD-thousands value converted to millions; 991,046/1,932,520=51.2826%, or 51.3%. The thesis keeps the qualifier that this is estimate dependence, not proof of misstatement.",
+      "severity": "info"
+    },
+    {
+      "claim": "Frozen Q3 2026 consensus is US$5,936.74m revenue and US$0.22164 GAAP EPS.",
+      "citation": "data/NU/NuHoldingsLtdNYSENUEstimatesReport.xls, Capital IQ FQ3 2026 Consensus/Trends/Revisions, export 2026-08-29",
+      "source_checked": "Frozen-generation Capital IQ Estimates extract",
+      "status": "verified",
+      "evidence": "resolve_citations hit_count=2 for 5,936.74 and 2 for 0.22164. Both values appear in the FQ3 2026 current-consensus rows.",
+      "severity": "info"
+    },
+    {
+      "claim": "The engine's 12-month bull/base/bear values are US$8.43/US$6.47/US$4.40.",
+      "citation": "analyses/NU_2026-08-31/valuation/99_valuation-synthesis.md, sections 1-7, 2026-08-31",
+      "source_checked": "Valuation synthesis model output and final-thesis valuation bridge",
+      "status": "inference-labeled",
+      "evidence": "resolve_citations hit_count=0 for 8.43 and 6.47; apparent 4.40 corpus hits are unrelated. These are explicitly model-derived outputs, not filed facts. The valuation synthesis supplies the P/TBV inputs and the US$6.47 equal blend of US$7.38 peer NTM-P/E and US$5.55 residual-income values.",
+      "severity": "info"
+    },
+    {
+      "claim": "The weighted scenario target is US$7.472 and expected return is -47.7483%.",
+      "citation": "analyses/NU_2026-08-31/final_thesis.md, sections 8 and 14; decision_record.json scenarios",
+      "source_checked": "Final thesis and decision_record.json deterministic scenario inputs",
+      "status": "inference-labeled",
+      "evidence": "resolve_citations hit_count=0 for 7.472 because it is a model result. Recalculation gives 0.10x18.78+0.20x8.43+0.40x6.47+0.30x4.40=7.472 and (7.472-14.30)/14.30=-47.7483%.",
+      "severity": "info"
+    },
+    {
+      "claim": "The 16.51% rate is a Brazil Investments CGU rate, while 9.78% is the group-implied rate that reconciles the modeled path to market price.",
+      "citation": "analyses/NU_2026-08-31/valuation/99_valuation-synthesis.md, reverse-DCF sections, 2026-08-31",
+      "source_checked": "Frozen-generation FY2025 Form 20-F extract plus valuation reverse-DCF output",
+      "status": "inference-labeled",
+      "evidence": "resolve_citations hit_count=4 for 16.51 in the Investments activities CGU disclosure. The single corpus hit for 9.78 is unrelated; 9.78% is correctly labeled as a reverse-DCF model implication, not a filed group cost of equity. The thesis preserves that distinction wherever it drives the decision.",
+      "severity": "info"
+    },
+    {
+      "claim": "Mechanical strict net cash is US$7,744.6m, built as US$13,551.6m cash less US$4,682.3m borrowings, US$1,058.3m repos and US$66.4m leases.",
+      "citation": "The Chapter C paragraph cites data/NU/ciq_facts.json, debt_maturity_wall, read 2026-08-30; its chapter source points to balance-sheet-survival/00_solvency-data-triage.md.",
+      "source_checked": "Final thesis Chapter C; balance-sheet triage; management-governance/99_management-governance-synthesis.md, A10-05/A10-06 source build; H1 filing p.8 and Notes 11, 21 and 24",
+      "status": "miscited",
+      "evidence": "The arithmetic ties, and resolve_citations hit_count=10 for filing-unit cash 13,551,611. The other three displayed aggregates are sums of filing sub-lines and have hit_count=0 as standalone filing values. The fully sourced build appears upstream in the management-governance synthesis, but the final-thesis paragraph cites only the CIQ debt-maturity fact and a balance triage that does not contain the build. This is a citation-carriage defect, not a numerical break, and the thesis expressly says the amount is not a bank-survival verdict.",
+      "severity": "medium"
+    },
+    {
+      "claim": "EBITDA is not decision-useful for this lender and Nu does not report a headline EBITDA used by the thesis.",
+      "citation": "analyses/NU_2026-08-31/final_thesis.md, section 17; data/NU/ciq_facts.json, ltm_ebitda_m",
+      "source_checked": "Final thesis consensus section and frozen-generation ciq_facts.json",
+      "status": "verified",
+      "evidence": "ciq_facts marks ltm_ebitda_m unknown with note: Income Statement sheet has no EBITDA row. The run uses bank-specific earnings, tangible book and residual income rather than debt/EBITDA.",
+      "severity": "info"
+    },
+    {
+      "claim": "The deterministic CIQ facts set resolves each concept from a unique workbook source.",
+      "citation": "Frozen-generation ciq_facts.json conflicts array",
+      "source_checked": "Frozen-generation ciq_facts.json",
+      "status": "data-hygiene",
+      "evidence": "The conflicts array names duplicate sources for Balance Sheet, Capital Structure Summary, Cash Flow, Income Statement, Multiples, Ratios and Segments, including paired standalone and combined Financials workbooks and duplicate Multiples/Segments exports. The deterministic facts layer selected a source, and no unreconciled duplicate moved the decision, but the stale duplicates should be pruned before the next run.",
+      "severity": "low"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Q2 diluted-EPS growth",
+      "reported": "66.3%",
+      "recomputed": "(0.2162 / 0.1300) - 1 = 66.3077%",
+      "ties": true,
+      "detail": "Rounds to one decimal place."
+    },
+    {
+      "quantity": "Deferred-tax benefit as share of H1 net income",
+      "reported": "51.3%",
+      "recomputed": "991,046 / 1,932,520 = 51.2826%",
+      "ties": true,
+      "detail": "Both inputs are from the same H1 filing in USD thousands."
+    },
+    {
+      "quantity": "Mechanical strict net cash",
+      "reported": "US$7,744.6m",
+      "recomputed": "13,551.6 - 4,682.3 - 1,058.3 - 66.4 = US$7,744.6m",
+      "ties": true,
+      "detail": "The §15 strict-basis arithmetic ties. This is explicitly not treated as regulatory liquidity or a bank survival verdict."
+    },
+    {
+      "quantity": "Scenario probability sum",
+      "reported": "100%",
+      "recomputed": "10% + 20% + 40% + 30% = 100%",
+      "ties": true,
+      "detail": "All scenario rows carry judgment probability bases; the two-condition positive tail carries a joint-probability explanation."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "US$7.472",
+      "recomputed": "0.10x18.78 + 0.20x8.43 + 0.40x6.47 + 0.30x4.40 = US$7.472",
+      "ties": true,
+      "detail": "Exact to the displayed precision."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "-47.7483%",
+      "recomputed": "(7.472 - 14.30) / 14.30 = -47.7482517%",
+      "ties": true,
+      "detail": "Rounds to -47.7483%; the direct probability-return sum also ties."
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.6897x",
+      "recomputed": "(7.472 - 14.30) / (14.30 - 4.40) = -0.689697x",
+      "ties": true,
+      "detail": "Uses the probability-weighted target and displayed bear value."
+    },
+    {
+      "quantity": "Margin of safety",
+      "reported": "-121.0201%",
+      "recomputed": "(6.47 - 14.30) / 6.47 = -121.0201%",
+      "ties": true,
+      "detail": "The thesis separately labels the 69.2308% loss to bear value, avoiding denominator confusion."
+    },
+    {
+      "quantity": "Q3 consensus growth bars",
+      "reported": "Revenue +42.3%; EPS +39.0%",
+      "recomputed": "5,936.74 / 4,173 - 1 = 42.264%; 0.22164 / 0.1595 - 1 = 38.959%",
+      "ties": true,
+      "detail": "Both are standalone Q3 against standalone Q3 2025; no cumulative-period mismatch."
+    },
+    {
+      "quantity": "Filing-versus-CIQ LTM CFO gap",
+      "reported": "US$8.923bn unresolved gap",
+      "recomputed": "US$10.3048bn - US$1.382bn = US$8.9228bn",
+      "ties": true,
+      "detail": "The thesis names both series, their different sources and the source-hierarchy adjudication."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Current price and tradable line",
+      "values_by_module": {
+        "final_thesis": "NU, NYSE, USD, US$14.30 as of 2026-08-29",
+        "valuation": "NU, NYSE, USD, US$14.30 as of 2026-08-29",
+        "decision_record": "entry_price=14.3 USD; exchange=NYSE"
+      },
+      "consistent": true,
+      "detail": "The line, venue, currency, price and date agree."
+    },
+    {
+      "anchor": "Diluted share count",
+      "values_by_module": {
+        "management_governance": "H1 2026 diluted weighted-average shares 4,908.841m",
+        "valuation": "4,908.841m diluted shares",
+        "ciq_facts": "4,830.7m basic shares outstanding, separately labeled"
+      },
+      "consistent": true,
+      "detail": "The valuation uses the filing's diluted weighted-average count. The lower CIQ number is basic shares outstanding and is not silently substituted."
+    },
+    {
+      "anchor": "Cash, debt and net-debt basis",
+      "values_by_module": {
+        "final_thesis": "strict net cash US$7,744.6m = cash US$13,551.6m - borrowings US$4,682.3m - repos US$1,058.3m - leases US$66.4m",
+        "management_governance": "same strict build; CIQ total debt US$5,896.7m and vendor-basis net debt US$(9,274.2)m separately labeled",
+        "ciq_facts": "total_debt_m=5,896.7; net_debt_m=-9,274.2, explicitly vendor broad basis"
+      },
+      "consistent": true,
+      "detail": "The strict filing build and the investment-inclusive vendor basis are not treated as interchangeable."
+    },
+    {
+      "anchor": "Cost of equity / discount rate",
+      "values_by_module": {
+        "final_thesis": "16.51% Brazil Investments CGU; 9.78% group-implied reconciliation rate",
+        "valuation": "same two rates with the same basis distinction",
+        "decision_record": "killer_risk preserves the CGU-versus-group-implied distinction"
+      },
+      "consistent": true,
+      "detail": "The rates differ intentionally by source and basis; no filed 16.51% group rate is claimed."
+    },
+    {
+      "anchor": "Valuation levels",
+      "values_by_module": {
+        "final_thesis": "bull/base/bear US$8.43/US$6.47/US$4.40",
+        "valuation": "bull/base/bear US$8.43/US$6.47/US$4.40",
+        "decision_record": "scenario targets US$8.43/US$6.47/US$4.40 plus US$18.78 reconciliation tail"
+      },
+      "consistent": true,
+      "detail": "The master adds and labels the consensus tail; it does not relabel it as an engine fair value."
+    },
+    {
+      "anchor": "EBITDA / operating-profit base",
+      "values_by_module": {
+        "final_thesis": "EBITDA not decision-useful for this lender",
+        "ciq_facts": "ltm_ebitda_m unknown; no EBITDA row",
+        "valuation": "bank methods use tangible book, earnings and residual income"
+      },
+      "consistent": true,
+      "detail": "No unsupported vendor EBITDA is attached to a filing or used in leverage/valuation."
+    },
+    {
+      "anchor": "CFO",
+      "values_by_module": {
+        "final_thesis": "H1 US$(1.242)bn; filing-built LTM US$(1.382)bn; CIQ LTM US$(10.305)bn",
+        "earnings": "same three values and filing-over-vendor adjudication",
+        "ciq_facts": "ltm_ocf_m=-10,304.8"
+      },
+      "consistent": true,
+      "detail": "The conflicting series is named, quantified and adjudicated rather than averaged away."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [],
+  "integrity_score": 89,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "All decision-driving filing, vendor and model anchors reconciled, and the deterministic finish gate already passed. One medium citation-carriage issue affects the mechanical strict-net-cash paragraph: its build is supported upstream but the final paragraph cites the debt-maturity sidecar instead of the filing-backed build. One low data-hygiene issue records duplicate CIQ exports across seven concepts. Neither changes the Avoid decision; the survival module remains an intentional fail-fast rather than a solvency conclusion."
+}

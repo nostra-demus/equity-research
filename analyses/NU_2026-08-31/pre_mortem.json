@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NU",
+  "run_root": "analyses/NU_2026-08-31",
+  "performed_at": "2026-09-01T08:27:31+05:30",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/NU_2026-08-31/final_thesis.md",
+  "decision_record_path": "analyses/NU_2026-08-31/decision_record.json",
+  "final_thesis_sha256": "2c8857691cee82f7444eb99a5b810c498efaa67623715ea22c7698f280e2eacc",
+  "decision_record_sha256": "bbdf0231dd5914e958a7e69d1a26bfb9c2501779d1548de7f6746d4d9593029d",
+  "original_decision": "Avoid",
+  "original_confidence": 52,
+  "adversarial_direction": "Steelman the bull case and test whether Avoid is a false negative.",
+  "pre_mortem_narrative": "Twelve months from the decision, Avoid has clearly failed because Nu kept compounding customers, revenue and earnings through a benign credit cycle, the market correctly used a group cost of equity near the 9.78% implied rate rather than the 16.51% Brazil Investments CGU rate, and successive quarterly beats proved that the Q2 acceleration was durable. The stock moved toward or through the US$18.78 sell-side mean while the engine's bank-peer and residual-income anchors stayed too conservative for a high-growth digital lender.",
+  "bear_case": "The Avoid case remains credible: every engine fair-value case is below US$14.30, the Q3 bar already requires about 42.3% revenue and 39.0% EPS growth, credit-income gains arrive before the full loss outcome, H1 earnings included a US$991.046m deferred-tax benefit, and the bank-specific prudential survival record is incomplete.",
+  "bull_case_steelman": "Nu is not a mature-bank clone. Q2 delivered 50.3% revenue growth, 66.3% diluted-EPS growth, 139 million customers and 83.5% activity; FY2025 ROE was 30.3%; FY2026 EPS revisions were 8 up and 0 down; and the sell-side mean target was US$18.78. If a properly sourced group cost of equity is near 9.78%, the current price is coherent without requiring the mature-bank peer convergence embedded in the engine's US$6.47 base. Durable digital-bank growth and returns could therefore make the whole downside distribution a discount-rate and peer-selection false negative.",
+  "killer_risk": "The engine used a 16.51% Brazil Investments CGU rate as the high-rate valuation reference when the appropriate group-wide post-tax USD cost of equity is actually near the 9.78% market-implied rate.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "A defensible NU Group cost of equity is 9.78% or lower on a matched group-wide, post-tax USD basis.",
+      "closeness_to_trigger": "Partway conceptually but not evidentially triggered: 9.78% already reconciles the market price, yet no sourced group-wide build proves that rate.",
+      "disconfirming_evidence_now": "The valuation module itself shows that 16.51% belongs to a Brazil Investments CGU and that 9.78% reconciles the same modeled earnings path to US$14.30.",
+      "severity": "high"
+    },
+    {
+      "criterion": "Q3 2026 standalone revenue exceeds US$6.11484bn and GAAP EPS exceeds US$0.23272 while early delinquency does not worsen year over year.",
+      "closeness_to_trigger": "Not measurable before the Q3 filing. Q2's dual beat shows the operating path is possible, but the exact Q3 conjunction has no reported result.",
+      "disconfirming_evidence_now": "Q2 revenue and diluted EPS grew 50.3% and 66.3%, respectively, which is evidence that Nu can clear demanding bars; early-delinquency durability still has to be tested on the stated basis.",
+      "severity": "high"
+    },
+    {
+      "criterion": "Two consecutive standalone quarters materially beat frozen revenue and EPS consensus while delinquency, credit cost and ECL coverage remain stable or improve year over year.",
+      "closeness_to_trigger": "Partway: Q2 beat both Street bars, but Q1 did not, so the required two-quarter sequence has not fired.",
+      "disconfirming_evidence_now": "One of the two required operating quarters is already visible, while credit-quality conditions remain the unresolved part of the conjunction.",
+      "severity": "high"
+    },
+    {
+      "criterion": "A matched direct-peer set justifies 3.90x or higher FY2027 P/TBV on comparable forward ROE, growth and credit risk.",
+      "closeness_to_trigger": "Far from triggered on the current work: the matched peer analysis supports no more than 2.30x.",
+      "disconfirming_evidence_now": "Nu's 30.3% FY2025 ROE and much faster revenue growth show why a mature-bank peer set may understate its warranted premium, but the run lacks a matched proof of 3.90x.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "NU closes at or below US$6.47 while the 12-month base fair value remains US$6.47 and prudential evidence has not deteriorated.",
+      "closeness_to_trigger": "Far from triggered at the frozen US$14.30 price.",
+      "disconfirming_evidence_now": "The market price is more than twice the engine base, so a patient Avoid can still miss substantial upside before its entry condition is reached.",
+      "severity": "medium"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "Credit-income and tax-quality concerns may make the current earnings run-rate less durable than headline growth suggests, while price sits above every engine fair-value case.",
+    "already_priced": true,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "A defensible group cost of equity at or below 9.78%, continued dual revenue/EPS beats, and stable or improving credit metrics would show that the market's premium reflects durable economics rather than overlooked late-cycle risk. The thesis already says there is no proven variant perception yet."
+  },
+  "value_trap_check": "For an Avoid decision, the mirror-image trap is rejecting a premium compounder with mature-bank anchors. Nu's premium may be earned by its growth and returns; the bull does not need an arbitrary re-rating if a lower group cost of equity and durable 30%+ returns are justified. The current record does not prove either condition across a full credit cycle.",
+  "base_rate_check": "The run provides no empirical reference class for high-growth Latin American digital lenders sustaining 30%+ returns through a full credit cycle, so neither the bullish persistence case nor the miss setup can be treated as a measured frequency. The scenario weights are correctly labeled judgment. The outside-view caution supports Avoid, but exceptional Q2 growth and positive estimate revisions make a zero-upside distribution untenable; the explicit 10% US$18.78 tail appropriately spans that path.",
+  "overconfidence_flags": [
+    "Discount-rate anchoring: the 16.51% disclosed CGU rate is unusually concrete but belongs to the wrong scope for a group valuation; its availability can make it feel more authoritative than it is.",
+    "Peer-frame anchoring: mature-bank multiples may understate what a faster-growing digital lender with high returns can command, even though the run correctly withholds cycle-neutral corroboration.",
+    "The original confidence is already cautious at 52 and explicitly deducts eight points for single-variable discount-rate dependence, so no larger haircut is justified without double-counting the same weakness."
+  ],
+  "disconfirming_evidence_present": [
+    "Q2 2026 revenue grew 50.3% and diluted EPS grew 66.3% year over year.",
+    "Q2 beat both Street revenue and EPS bars, leaving the two-consecutive-quarter kill criterion one successful quarter from starting anew.",
+    "FY2026 EPS revision breadth was 8 up and 0 down; revenue revision breadth was 5 up and 2 down.",
+    "The Capital IQ mean target was US$18.78, 31.3% above US$14.30, with a US$23.00 high.",
+    "The same modeled earnings path reconciles to market price at a 9.78% cost of equity; 16.51% is not a proven group rate.",
+    "FY2025 ROE of 30.3% and Nu's revenue growth premium weaken simple mature-bank convergence."
+  ],
+  "what_would_change_the_call": [
+    "A sourced group-wide, post-tax USD cost of equity at or below 9.78% would force the residual-income downside to be rebuilt and could invalidate Avoid.",
+    "Two consecutive material revenue/EPS beats with stable or improving delinquency, credit cost and ECL coverage would show that the raised bar and credit-income concerns were too conservative.",
+    "A matched digital-bank peer set supporting 3.90x or more FY2027 tangible book on comparable forward returns and credit risk would invalidate the mature-bank multiple anchor.",
+    "Primary-regulator prudential returns showing comfortable capital/liquidity buffers would remove an important uncertainty, although they would not alone close the valuation gap."
+  ],
+  "survives": true,
+  "confidence_haircut": 5,
+  "recommended_confidence": 47,
+  "recommended_rating_cap": "",
+  "verdict": "Survives with haircut",
+  "notes": "The Avoid direction survives because the price remains above every engine fair-value case and the required group discount-rate proof is absent. The five-point haircut reflects the already-visible Q2 dual beat and the scope error risk around 16.51%; it does not use information after the 2026-08-31 decision date and does not recommend a less restrictive rating than Avoid."
+}
