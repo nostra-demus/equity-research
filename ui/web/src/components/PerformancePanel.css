@@ -29,8 +29,9 @@
 .perfmetric--needs_attention .perfmetric__top span { color: var(--conv-warn); }
 .perfmetric__value { margin-top: 9px; color: var(--text); font: 650 25px/1 var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
 .perfmetric__value small { color: var(--text-faint); font: 10px var(--font-sans); letter-spacing: 0; }
-.perfmetric__budget, .perfmetric__trend { margin-top: 7px; color: var(--text-faint); font-size: 10px; }
+.perfmetric__budget, .perfmetric__trend, .perfmetric__errors { margin-top: 7px; color: var(--text-faint); font-size: 10px; }
 .perfmetric__trend { color: var(--text-muted); }
+.perfmetric__errors { color: var(--conv-warn); }
 .perfmetric code { display: block; overflow: hidden; margin-top: 7px; color: var(--text-faint); font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
 .perfpanel__routes { border: 1px solid var(--hairline); border-radius: var(--r-md); overflow: hidden; }
 .perfroute { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 9px 11px; background: var(--surface-2); }
@@ -39,6 +40,7 @@
 .perfroute span { color: var(--text); font: 11px var(--font-mono); font-variant-numeric: tabular-nums; }
 .perfroute small { color: var(--text-faint); font-size: 9px; }
 .perfpanel__notice, .perfpanel__privacy { padding: 12px; border: 1px dashed var(--hairline-strong); border-radius: var(--r-md); color: var(--text-muted); font-size: 12px; line-height: 1.55; }
+.perfpanel__notice--warning { border-color: color-mix(in srgb, var(--conv-warn) 58%, var(--hairline)); background: color-mix(in srgb, var(--conv-warn) 8%, transparent); color: var(--text); }
 .perfpanel__privacy strong { color: var(--text); }
 .perfchip { display: flex; align-items: center; justify-content: flex-start; gap: 9px; width: 100%; padding: 5px; color: var(--text-muted); font-size: 12px; text-align: left; }
 .perfchip:hover { color: var(--text); }

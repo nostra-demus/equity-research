@@ -44,7 +44,9 @@ export interface PerformanceMetricSummary {
   unit: PerformanceUnit
   operation?: string
   count: number
+  successCount: number
   errorCount: number
+  errorRate: number
   p50: number
   p75: number
   p95: number
@@ -206,6 +208,7 @@ export function validateBrowserPerformanceSamples(value: unknown, now = Date.now
 export interface PerformanceTelemetryOptions {
   retentionDays?: number
   maxDailyBytes?: number
+  maxPendingSamples?: number
   flushDelayMs?: number
   release?: string
 }
@@ -214,11 +217,12 @@ export class PerformanceTelemetry {
   readonly retentionDays: number
   private readonly dir: string
   private readonly maxDailyBytes: number
+  private readonly maxPendingSamples: number
   private readonly flushDelayMs: number
   private readonly release: string
   private queue: StoredPerformanceSample[] = []
   private flushTimer: NodeJS.Timeout | null = null
-  private flushPromise: Promise<void> = Promise.resolve()
+  private writer: Promise<void> | null = null
   private lastPruneDay = ''
   private dropped = 0
   private summaryCache: { hours: number; at: number; value: PerformanceSummary } | null = null
@@ -227,6 +231,7 @@ export class PerformanceTelemetry {
     this.dir = path.join(stateDir, 'performance')
     this.retentionDays = options.retentionDays ?? RETENTION_DAYS
     this.maxDailyBytes = options.maxDailyBytes ?? MAX_DAILY_BYTES
+    this.maxPendingSamples = Math.max(MAX_BATCH, options.maxPendingSamples ?? 1_000)
     this.flushDelayMs = options.flushDelayMs ?? 2_000
     this.release = options.release ?? releaseId()
   }
@@ -241,6 +246,13 @@ export class PerformanceTelemetry {
 
   private enqueue(sample: PerformanceSampleInput, source: 'server' | 'browser'): void {
     if (!Number.isFinite(sample.value) || sample.value < 0) return
+    // One stalled filesystem operation must not turn passive telemetry into an unbounded promise chain.
+    // Keep at most a fixed tail waiting behind the single writer and count every discarded observation.
+    if (this.queue.length >= this.maxPendingSamples) {
+      this.dropped++
+      this.summaryCache = null
+      return
+    }
     this.queue.push({
       version: 1,
       name: sample.name,
@@ -261,12 +273,25 @@ export class PerformanceTelemetry {
 
   async flush(): Promise<void> {
     if (this.flushTimer) { clearTimeout(this.flushTimer); this.flushTimer = null }
-    if (this.queue.length === 0) return this.flushPromise
-    const batch = this.queue.splice(0, this.queue.length)
-    this.flushPromise = this.flushPromise.then(() => this.writeBatch(batch)).catch(() => {
-      this.dropped += batch.length
+    if (this.writer) return this.writer
+    if (this.queue.length === 0) return
+    this.writer = this.drainQueue().finally(() => {
+      this.writer = null
+      // An enqueue can land between the drain loop's final check and this cleanup.
+      if (this.queue.length) void this.flush()
     })
-    return this.flushPromise
+    return this.writer
+  }
+
+  private async drainQueue(): Promise<void> {
+    while (this.queue.length) {
+      const batch = this.queue.splice(0, MAX_BATCH)
+      try { await this.writeBatch(batch) }
+      catch {
+        this.dropped += batch.length
+        this.summaryCache = null
+      }
+    }
   }
 
   private async writeBatch(batch: StoredPerformanceSample[]): Promise<void> {
@@ -285,19 +310,23 @@ export class PerformanceTelemetry {
       const payload = rows.map((row) => JSON.stringify(row)).join('\n') + '\n'
       if (size + Buffer.byteLength(payload) > this.maxDailyBytes) {
         this.dropped += rows.length
+        this.summaryCache = null
         continue
       }
       await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
     }
-    const today = new Date().toISOString().slice(0, 10)
-    if (today !== this.lastPruneDay) {
-      this.lastPruneDay = today
-      await this.prune()
-    }
+    await this.pruneIfDue(Date.now())
   }
 
-  private async prune(): Promise<void> {
-    const floor = Date.now() - this.retentionDays * 24 * 60 * 60_000
+  private async pruneIfDue(now: number): Promise<void> {
+    const today = new Date(now).toISOString().slice(0, 10)
+    if (today === this.lastPruneDay) return
+    await this.prune(now)
+    this.lastPruneDay = today
+  }
+
+  private async prune(now: number): Promise<void> {
+    const floor = now - this.retentionDays * 24 * 60 * 60_000
     let names: string[] = []
     try { names = await fs.promises.readdir(this.dir) } catch { return }
     await Promise.all(names.filter((name) => DAY_FILE_RE.test(name)).map(async (name) => {
@@ -334,6 +363,9 @@ export class PerformanceTelemetry {
 
   async summary(windowHours = 24, now = Date.now()): Promise<PerformanceSummary> {
     const hours = Math.max(1, Math.min(168, Math.round(windowHours)))
+    // Retention is a storage guarantee, not merely a read filter. A quiet engine may have no writes for
+    // weeks, so every operator summary read also performs the at-most-daily deletion pass.
+    await this.pruneIfDue(now)
     // The Status chip and an open drawer may ask almost together. Reuse a very short snapshot so reading
     // history cannot itself become observable cockpit work; normal samples may trail the panel by 15s.
     const cacheAge = this.summaryCache ? now - this.summaryCache.at : Infinity
@@ -357,19 +389,26 @@ export class PerformanceTelemetry {
       const [nameRaw, operationRaw] = key.split('\0')
       const name = nameRaw as PerformanceSampleName
       const operation = operationRaw || undefined
-      const values = rows.map((row) => row.value).sort((a, b) => a - b)
-      const baselineValues = (baselineGroups.get(key) ?? []).map((row) => row.value).sort((a, b) => a - b)
+      const successfulRows = rows.filter((row) => row.outcome === 'ok')
+      const errorCount = rows.filter((row) => row.outcome === 'error').length
+      const errorRate = rows.length ? Math.round((errorCount / rows.length) * 1_000) / 1_000 : 0
+      // Fast failures are not fast experiences. Latency percentiles and their sample floor use only
+      // successful requests; the separate error-rate gate prevents an erroring route from turning green.
+      const values = successfulRows.map((row) => row.value).sort((a, b) => a - b)
+      const baselineValues = (baselineGroups.get(key) ?? []).filter((row) => row.outcome === 'ok').map((row) => row.value).sort((a, b) => a - b)
       const budget = budgetFor(name, operation)
       const observed = budget ? percentile(values, budget.percentile) : percentile(values, 95)
       const status = !budget
         ? 'observed'
-        : rows.length < budget.minSamples
+        : rows.length >= budget.minSamples && errorRate > 0.05
+          ? 'needs_attention'
+        : successfulRows.length < budget.minSamples
           ? 'learning'
           : observed <= budget.value ? 'good' : 'needs_attention'
       const currentP95 = percentile(values, 95)
       const baselineP95 = baselineValues.length >= 10 ? percentile(baselineValues, 95) : null
       const changePct = baselineP95 && baselineP95 > 0 ? Math.round(((currentP95 - baselineP95) / baselineP95) * 1_000) / 10 : null
-      const trend = changePct === null || rows.length < 10
+      const trend = changePct === null || successfulRows.length < 10
         ? 'learning'
         : changePct > 20 ? 'slower' : changePct < -20 ? 'faster' : 'stable'
       metrics.push({
@@ -378,7 +417,9 @@ export class PerformanceTelemetry {
         unit: rows[0].unit,
         ...(operation ? { operation } : {}),
         count: rows.length,
-        errorCount: rows.filter((row) => row.outcome === 'error').length,
+        successCount: successfulRows.length,
+        errorCount,
+        errorRate,
         p50: percentile(values, 50),
         p75: percentile(values, 75),
         p95: currentP95,
@@ -396,7 +437,7 @@ export class PerformanceTelemetry {
       return rank(a.status) - rank(b.status) || (b.budget ? b.p95 / b.budget : b.p95) - (a.budget ? a.p95 / a.budget : a.p95)
     })
     const budgeted = metrics.filter((metric) => metric.budget !== null)
-    const status = budgeted.some((metric) => metric.status === 'needs_attention')
+    const status = this.dropped > 0 || budgeted.some((metric) => metric.status === 'needs_attention')
       ? 'needs_attention'
       : budgeted.some((metric) => metric.status === 'good') ? 'good' : 'learning'
     const result: PerformanceSummary = {

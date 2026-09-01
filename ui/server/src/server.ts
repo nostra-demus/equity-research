@@ -8042,8 +8042,9 @@ async function shutdown(signal: string, code = 0) {
     try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
   }
   try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
-  try { await performanceTelemetry.flush() } catch {} // best-effort timing tail; telemetry can never block a safe shutdown
   try {
+    // Provider and paper-sync writers own durable research state, so they always drain before optional
+    // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
     await drainProviderRunsForShutdown()
     await drainIbkrPaperAutoSync()
   } catch (error) {
@@ -8054,6 +8055,12 @@ async function shutdown(signal: string, code = 0) {
   } finally {
     clearTimeout(slowDrainWarning)
   }
+  try {
+    await Promise.race([
+      performanceTelemetry.flush(),
+      new Promise<void>((resolve) => setTimeout(resolve, 1_000)),
+    ])
+  } catch {} // best-effort timing tail; bounded telemetry can never block a safe shutdown
   process.exit(code)
 }
 function installProcessHandlers() {

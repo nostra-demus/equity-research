@@ -7381,8 +7381,10 @@ function connectRun(get: () => State, runId: string) {
   const retryAt = runStreamRetryAt.get(runId) ?? 0
   if (retryAt > Date.now()) return
   const connectStartedAt = performance.now()
+  let opened = false
   const es = new EventSource(api.runStreamUrl(runId))
   es.onopen = () => {
+    opened = true
     runStreamRetryAt.delete(runId)
     runStreamHealth.set(runId, { state: 'open', at: Date.now() })
     recordBrowserPerformance('browser.run_stream_connect', performance.now() - connectStartedAt, 'ms', {
@@ -7405,6 +7407,12 @@ function connectRun(get: () => State, runId: string) {
   }
   es.onerror = () => {
     if (runSources.get(runId) !== es) return
+    if (!opened) {
+      recordBrowserPerformance('browser.run_stream_connect', performance.now() - connectStartedAt, 'ms', {
+        operation: '/run/stream',
+        outcome: 'error',
+      })
+    }
     runStreamHealth.set(runId, { state: 'error', at: Date.now() })
     // EventSource's implicit retry cannot restore a readiness decision whose terminal frame disappeared
     // with a server restart. Retire this stream and let the exact snapshot reconcile before reattaching.
@@ -7538,17 +7546,20 @@ async function reconnectRunOnce(
     const lostRunRoot = lostRun?.runRoot
     if (lostRunRoot) {
       const rSw = lostRun.swarmId && lostRun.swarmId !== 'research' ? lostRun.swarmId : undefined
-      void api.runManifest(expected.subject, lostRunRoot, rSw).then((manifest) => {
+      try {
+        const manifest = await api.runManifest(expected.subject, lostRunRoot, rSw)
         if (get().selectToken !== token || get().selectedTicker !== expected.subject
-            || get().activeSwarm !== expected.swarm) return
+            || get().activeSwarm !== expected.swarm) return 'cancelled'
         set(projectRunManifest(manifest, get().nodeRuntime, runId))
         if (manifest.finalThesis || manifest.finalReport) {
-          void api.decision(expected.subject, rSw, lostRunRoot).then((decision) => {
-            if (get().selectToken === token && get().selectedTicker === expected.subject
-                && get().activeSwarm === expected.swarm) set({ decision })
-          }).catch(() => {})
+          try {
+            const decision = await api.decision(expected.subject, rSw, lostRunRoot)
+            if (get().selectToken !== token || get().selectedTicker !== expected.subject
+                || get().activeSwarm !== expected.swarm) return 'cancelled'
+            set({ decision })
+          } catch { return 'error' }
         }
-      }).catch(() => {})
+      } catch { return 'error' }
     }
     return 'settled'
   }

@@ -63,6 +63,29 @@ test('page exit drains every pending batch because no later timer is guaranteed'
   collector.setMode('static')
 })
 
+test('page exit preserves the batch already in an ordinary upload', async () => {
+  const calls: Array<{ values: number[]; pageExit: boolean }> = []
+  let finishOrdinary!: () => void
+  const ordinary = new Promise<void>((resolve) => { finishOrdinary = resolve })
+  const collector = new BrowserPerformanceCollector(async (samples, pageExit) => {
+    calls.push({ values: samples.map((sample) => sample.value), pageExit })
+    if (!pageExit) await ordinary
+    return true
+  })
+  collector.setMode('live')
+  collector.record('browser.run_event_paint', 42)
+  const inFlight = collector.flush()
+  await new Promise<void>((resolve) => setImmediate(resolve))
+  await collector.flush(true)
+  assert.deepEqual(calls, [
+    { values: [42], pageExit: false },
+    { values: [42], pageExit: true },
+  ])
+  finishOrdinary()
+  await inFlight
+  collector.setMode('static')
+})
+
 test('arbitrary context is collapsed before transport', async () => {
   let operation: string | undefined
   const collector = new BrowserPerformanceCollector(async (samples) => {

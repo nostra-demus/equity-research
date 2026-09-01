@@ -86,5 +86,58 @@ test('daily storage is capped and old timing files are pruned', async (t) => {
   telemetry.recordServer(1, '/api/health')
   const summary = await telemetry.summary(24)
   assert.equal(summary.droppedSamples, 1)
+  assert.equal(summary.status, 'needs_attention', 'collection loss cannot be presented as a green speed verdict')
   assert.equal(fs.existsSync(oldFile), false)
+})
+
+test('a summary read enforces retention even when collection is idle', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-idle-prune-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const perfDir = path.join(stateDir, 'performance')
+  fs.mkdirSync(perfDir, { recursive: true })
+  const oldFile = path.join(perfDir, '2000-01-01.jsonl')
+  fs.writeFileSync(oldFile, '{}\n')
+
+  await new PerformanceTelemetry(stateDir).summary(24, NOW)
+  assert.equal(fs.existsSync(oldFile), false)
+})
+
+test('fast API failures do not satisfy latency budgets', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-errors-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  for (let index = 0; index < 20; index++) telemetry.recordServer(2, '/api/health', 'error', NOW - index)
+
+  const summary = await telemetry.summary(24, NOW)
+  const health = summary.metrics.find((metric) => metric.operation === '/api/health')
+  assert.equal(health?.status, 'needs_attention')
+  assert.equal(health?.successCount, 0)
+  assert.equal(health?.errorCount, 20)
+  assert.equal(health?.errorRate, 1)
+  assert.equal(health?.p95, 0, 'failed responses are excluded from the latency percentile')
+})
+
+test('a stalled writer leaves only a bounded in-memory tail', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-stall-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const originalAppend = fs.promises.appendFile
+  let releaseWrite!: () => void
+  const blocked = new Promise<void>((resolve) => { releaseWrite = resolve })
+  ;(fs.promises as any).appendFile = async (...args: unknown[]) => {
+    await blocked
+    return (originalAppend as any)(...args)
+  }
+  t.after(() => { (fs.promises as any).appendFile = originalAppend })
+
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, maxPendingSamples: 100 })
+  telemetry.recordServer(1, '/api/health', 'ok', NOW)
+  const firstWrite = telemetry.flush()
+  await new Promise<void>((resolve) => setImmediate(resolve))
+  for (let index = 0; index < 125; index++) telemetry.recordServer(2, '/api/health', 'ok', NOW + index)
+  releaseWrite()
+  await firstWrite
+  const summary = await telemetry.summary(24, NOW + 1_000)
+  assert.equal(summary.sampleCount, 101)
+  assert.equal(summary.droppedSamples, 25)
+  assert.equal(summary.status, 'needs_attention')
 })

@@ -20,6 +20,11 @@ function trendCopy(metric: PerformanceMetricSummary): string {
   return `${Math.abs(metric.changePct).toFixed(0)}% ${metric.trend} than the recent baseline`
 }
 
+function errorCopy(metric: PerformanceMetricSummary): string | null {
+  if (metric.errorCount === 0) return null
+  return `${metric.errorCount} failed (${(metric.errorRate * 100).toFixed(metric.errorRate < 0.1 ? 1 : 0)}%)`
+}
+
 export function PerformanceStatusChip({ onOpen }: { onOpen: () => void }) {
   const [summary, setSummary] = useState<PerformanceSummary | null>(null)
   useEffect(() => {
@@ -93,6 +98,11 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
         </section>
 
         {error && <div className="perfpanel__notice">Speed history is temporarily unavailable. The cockpit itself is unaffected.</div>}
+        {!!summary?.droppedSamples && (
+          <div className="perfpanel__notice perfpanel__notice--warning">
+            Measurement loss: {summary.droppedSamples.toLocaleString()} timing sample{summary.droppedSamples === 1 ? '' : 's'} could not be retained in this engine process. Speed stays “Needs attention” until the engine restarts and complete collection resumes.
+          </div>
+        )}
         {loading && !summary ? <div className="perfpanel__notice">Reading recent timings…</div> : null}
         {!loading && !error && budgeted.length === 0 ? (
           <div className="perfpanel__notice">Learning from normal use. A budget is judged only after enough samples exist.</div>
@@ -107,8 +117,11 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
                 return (
                   <article className={`perfmetric perfmetric--${metric.status}`} key={`${metric.name}:${metric.operation ?? ''}`}>
                     <div className="perfmetric__top"><strong>{metric.label}</strong><span>{metric.status === 'needs_attention' ? 'over budget' : metric.status}</span></div>
-                    <div className="perfmetric__value">{reading(value, metric.unit)} <small>p{metric.budgetPercentile}</small></div>
+                    <div className="perfmetric__value">
+                      {metric.successCount ? reading(value, metric.unit) : 'No success'} <small>{metric.successCount ? `p${metric.budgetPercentile}` : ''}</small>
+                    </div>
                     <div className="perfmetric__budget">budget {reading(metric.budget!, metric.unit)} · {metric.count} samples</div>
+                    {errorCopy(metric) && <div className="perfmetric__errors">{errorCopy(metric)}</div>}
                     <div className="perfmetric__trend">{trendCopy(metric)}</div>
                     {metric.operation && <code>{metric.operation}</code>}
                   </article>
@@ -125,8 +138,8 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
               {observed.map((metric) => (
                 <div className="perfroute" key={`${metric.name}:${metric.operation ?? ''}`}>
                   <code>{metric.operation ?? metric.label}</code>
-                  <span>p95 {reading(metric.p95, metric.unit)}</span>
-                  <small>{metric.count} samples</small>
+                  <span>{metric.successCount ? `p95 ${reading(metric.p95, metric.unit)}` : 'no successful response'}</span>
+                  <small>{errorCopy(metric) ?? `${metric.count} samples`}</small>
                 </div>
               ))}
             </div>

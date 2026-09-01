@@ -5,22 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cockpit performance replay</title>
     <style>
-      :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #080b10; color: #e7edf5; }
       body { margin: 0; }
-      main { min-height: 100vh; padding: 20px; }
-      #nodes { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 5px; }
-      .node { min-width: 0; height: 28px; padding: 5px; overflow: hidden; border: 1px solid #202938; border-radius: 5px; background: #101621; font-size: 9px; white-space: nowrap; text-overflow: ellipsis; }
-      .node[data-status="running"] { border-color: #c7923e; }
-      .node[data-status="done"] { border-color: #46a678; }
-      #activity { height: 180px; margin-top: 12px; overflow: hidden; border: 1px solid #202938; border-radius: 7px; }
-      .event { height: 18px; padding: 2px 7px; border-bottom: 1px solid #171e2a; font: 9px ui-monospace, monospace; }
+      main { height: 900px; max-width: 840px; margin: 0 auto; overflow: hidden; padding: 20px; }
+      .performance-replay-shell { height: 100%; overflow: hidden; border: 1px solid var(--hairline-strong); background: var(--surface-1); }
     </style>
   </head>
   <body>
-    <main data-testid="performance-replay" data-ready="no">
-      <div id="nodes"></div>
-      <div id="activity"></div>
-    </main>
-    <script type="module" src="./performance-replay.ts"></script>
+    <main data-testid="performance-replay" data-ready="no"></main>
+    <script type="module" src="./performance-replay.tsx"></script>
   </body>
 </html>

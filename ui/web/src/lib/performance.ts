@@ -33,7 +33,9 @@ export interface PerformanceMetricSummary {
   unit: PerformanceUnit
   operation?: string
   count: number
+  successCount: number
   errorCount: number
+  errorRate: number
   p50: number
   p75: number
   p95: number
@@ -140,6 +142,7 @@ export class BrowserPerformanceCollector {
   private queue: BrowserPerformanceSample[] = []
   private timer: ReturnType<typeof setTimeout> | null = null
   private flushing: Promise<void> | null = null
+  private inFlight: BrowserPerformanceSample[] | null = null
 
   constructor(private readonly transport: Transport = defaultTransport) {}
 
@@ -147,6 +150,7 @@ export class BrowserPerformanceCollector {
     this.mode = mode
     if (mode === 'static') {
       this.queue = []
+      this.inFlight = null
       if (this.timer) clearTimeout(this.timer)
       this.timer = null
       return
@@ -176,20 +180,27 @@ export class BrowserPerformanceCollector {
   }
 
   async flush(pageExit = false): Promise<void> {
-    if (this.mode !== 'live' || this.queue.length === 0) return this.flushing ?? Promise.resolve()
+    if (this.mode !== 'live') return
     // A closing page may have more than one batch pending, or an ordinary upload already in flight.
-    // Drain every still-queued batch through sendBeacon/keepalive immediately; there may be no later timer.
+    // Re-send the in-flight batch through sendBeacon/keepalive too: navigation may cancel its ordinary
+    // fetch, and there is no surviving document in which a failed continuation could retry it.
     if (pageExit) {
+      if (this.timer) clearTimeout(this.timer)
+      this.timer = null
       const sends: Promise<boolean>[] = []
+      if (this.inFlight?.length) sends.push(this.transport(this.inFlight.slice(), true))
       while (this.queue.length) sends.push(this.transport(this.queue.splice(0, MAX_BATCH), true))
       await Promise.allSettled(sends)
       return
     }
+    if (this.queue.length === 0) return this.flushing ?? Promise.resolve()
     if (this.flushing) return this.flushing
     const batch = this.queue.splice(0, MAX_BATCH)
+    this.inFlight = batch
     // Best-effort means drop this batch on transport failure. Re-queueing would make an offline engine
     // wake the browser every five seconds forever — telemetry becoming the lag it is meant to detect.
     this.flushing = this.transport(batch, pageExit).catch(() => false).then(() => {}).finally(() => {
+      if (this.inFlight === batch) this.inFlight = null
       this.flushing = null
       if (this.queue.length) this.schedule()
     })
@@ -219,7 +230,11 @@ export function recordBrowserPerformance(
 
 export function recordNextPaint(name: BrowserPerformanceName, startedAt: number, operation?: string): void {
   if (typeof requestAnimationFrame !== 'function' || (typeof document !== 'undefined' && document.hidden)) return
-  requestAnimationFrame(() => recordBrowserPerformance(name, performance.now() - startedAt, 'ms', { operation }))
+  // rAF callbacks run before their frame is painted. The second frame boundary includes the first frame's
+  // React layout + paint instead of reporting only the work required to schedule it.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    recordBrowserPerformance(name, performance.now() - startedAt, 'ms', { operation })
+  }))
 }
 
 /** Fetch wrapper for every API transport. It stops at response headers, which separates network/backend
