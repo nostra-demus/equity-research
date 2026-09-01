@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T08:22:53Z",
+  "generated_at": "2026-09-01T08:27:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-694",
@@ -638,6 +638,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-702",
+      "headline": "NCLT Stays Subhash Chandra Repayment Plan, ₹6.25 Crore Settlement Against ₹22,006 Crore Claims Put On Hold",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/nclt-stays-subhash-chandra-repayment-plan-625-crore-settlement-against-22006-crore-claims-put-on-hold",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T07:03:36Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "NCLT stays repayment plan for Subhash Chandra, putting ₹22,006 crore in claims at risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT stays repayment plan for Subhash Chandra, putting ₹22,006 crore in claims at risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,61 +1996,6 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-599",
-      "headline": "PG&E Sinks 18%, Edison International Tumbles 23% as California Wildfire Bill Omits Liability Cap",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/08/31/pge-sinks-18-edison-international-tumbles-23-as-california-wildfire-bill-omits-liability-cap/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T16:39:21Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "California wildfire legislation omits a liability cap, exposing PG&E and Edison International to uncapped wildfire costs that could threaten solvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "California wildfire legislation omits a liability cap, exposing PG&E and Edison International to uncapped wildfire costs that could threaten solvency.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PG&E",
-          "ticker": "PCG",
-          "listing_country": "US"
-        },
-        {
-          "name": "Edison International",
-          "ticker": "EIX",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -122405,9 +122399,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 792331,
-    "news_picked_today": 1265,
-    "news_dropped_today": 6127
+    "news_seen_today": 809263,
+    "news_picked_today": 1275,
+    "news_dropped_today": 6141
   },
   "book_momentum": {
     "live_count": 8,
