@@ -6,7 +6,7 @@ export type ModuleCompletionOutcome =
   | { complete: true; kind: 'fail-fast'; verdict: 'Insufficient' }
 
 const isInsufficient = (verdict: string | null | undefined): boolean => {
-  const normalized = verdict?.trim().toLowerCase()
+  const normalized = verdict?.trim().toLowerCase().replace(/[.!]+$/, '')
   return normalized === 'insufficient' || normalized === 'insufficient data'
 }
 
@@ -18,7 +18,7 @@ const isInsufficient = (verdict: string | null | undefined): boolean => {
  */
 export function moduleCompletionOutcome(
   nodes: Pick<AgentNode, 'key' | 'nn' | 'failFast' | 'isSynthesis'>[],
-  runtime: Record<string, Pick<NodeRuntime, 'status' | 'verdict'> | undefined>,
+  runtime: Record<string, Pick<NodeRuntime, 'status' | 'verdict' | 'terminalValidated'> | undefined>,
 ): ModuleCompletionOutcome {
   const synthesis = nodes.find((node) => node.isSynthesis)
   if (synthesis && runtime[synthesis.key]?.status === 'done') {
@@ -26,7 +26,8 @@ export function moduleCompletionOutcome(
   }
 
   const failFast = nodes.find((node) => node.failFast && node.nn === '00' && !node.isSynthesis)
-  if (failFast && runtime[failFast.key]?.status === 'done' && isInsufficient(runtime[failFast.key]?.verdict)) {
+  if (failFast && runtime[failFast.key]?.status === 'done' && runtime[failFast.key]?.terminalValidated
+      && isInsufficient(runtime[failFast.key]?.verdict)) {
     return { complete: true, kind: 'fail-fast', verdict: 'Insufficient' }
   }
 

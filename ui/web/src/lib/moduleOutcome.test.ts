@@ -8,8 +8,12 @@ const nodes = [
 ]
 
 assert.deepEqual(moduleCompletionOutcome(nodes, {
-  [nodes[0].key]: { status: 'done', verdict: 'Insufficient data' },
+  [nodes[0].key]: { status: 'done', verdict: 'Insufficient data.', terminalValidated: true },
 }), { complete: true, kind: 'fail-fast', verdict: 'Insufficient' }, 'an explicit insufficient 00 gate is a settled module outcome')
+
+assert.equal(moduleCompletionOutcome(nodes, {
+  [nodes[0].key]: { status: 'done', verdict: 'Insufficient data' },
+}).complete, false, 'an unvalidated saved file cannot pretend the module settled')
 
 assert.equal(moduleCompletionOutcome(nodes, {
   [nodes[0].key]: { status: 'done', verdict: 'Sufficient' },
@@ -20,7 +24,7 @@ assert.equal(moduleCompletionOutcome(nodes, {
 }).complete, false, 'a verdict-free gate cannot silently become a terminal outcome')
 
 assert.deepEqual(moduleCompletionOutcome(nodes, {
-  [nodes[0].key]: { status: 'done', verdict: 'Insufficient data' },
+  [nodes[0].key]: { status: 'done', verdict: 'Insufficient data', terminalValidated: true },
   [nodes[2].key]: { status: 'done', verdict: 'Sufficient' },
 }), { complete: true, kind: 'synthesis', verdict: 'Sufficient' }, 'a synthesis remains the primary completed outcome')
 

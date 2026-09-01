@@ -2529,7 +2529,7 @@ export type SseEvent = (
 // startedAt/endedAt are SERVER timestamps (from the agent-started / agent-done SSE events), so a finished
 // orb's duration (endedAt - startedAt) is clock-skew-free. startedAt is set the instant the orchestrator
 // dispatches the orb — "the data reaching the orb" — which is when its live timer starts.
-export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
+export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number; terminalValidated?: boolean }
 
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb' | 'wire'

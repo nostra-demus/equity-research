@@ -27,7 +27,7 @@ import {
   assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
   creditCheck, decideReadiness, drainProviderRunsForShutdown, estimate, isSealedResearchRun, launch,
   getParityCanaryChainStatus, queuePublicationIntent, reapDeadSubjectRuns, reconcileOrphanedProviderGroups, recoverReadyPublications, sigIdFor,
-  isRecoverableParityInterruptionReason, subjectChainActive, todayDate, warmLaunchProbes,
+  isRecoverableParityInterruptionReason, moduleTerminalOutcome, subjectChainActive, todayDate, warmLaunchProbes,
   type RunProviderSelection,
 } from './launcher'
 import { newsBus } from './news/bus'
@@ -5665,7 +5665,12 @@ app.get('/api/output/run', async (req, reply) => {
   if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
   if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
   try {
-    return runManifest(r.runRoot, r.resolve, r.swarm !== 'research' ? terminalModuleName(r.swarm) : null)
+    const manifest = runManifest(r.runRoot, r.resolve, r.swarm !== 'research' ? terminalModuleName(r.swarm) : null)
+    const terminalOutcomes = Object.fromEntries(Object.keys(manifest.modules).flatMap((module) => {
+      const outcome = moduleTerminalOutcome(r.runRoot, module, r.swarm)
+      return outcome ? [[module, outcome]] : []
+    }))
+    return { ...manifest, terminalOutcomes }
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }

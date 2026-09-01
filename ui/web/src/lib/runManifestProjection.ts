@@ -3,6 +3,7 @@ import type { NodeRuntime } from './types'
 export interface RunManifestShape {
   runRoot?: string | null
   modules?: Record<string, Array<{ agentKey?: string; verdict?: string | null }>>
+  terminalOutcomes?: Record<string, { kind?: 'synthesis' | 'fail-fast'; agentKey?: string }>
   moduleReports?: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
   memo?: boolean
   finalThesis?: boolean
@@ -20,12 +21,17 @@ export function projectRunManifest(
   settledRunId?: string,
 ): {
   nodeRuntime: Record<string, NodeRuntime>
-  runRoot: string | null
-  reports: { memo: boolean; thesis: boolean; dossier: boolean }
-  moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
+  runRoot?: string | null
+  reports?: { memo: boolean; thesis: boolean; dossier: boolean }
+  moduleReports?: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
 } {
   const nodeRuntime = { ...currentRuntime }
   const root = typeof manifest.runRoot === 'string' && manifest.runRoot ? manifest.runRoot : null
+  const validatedTerminalKeys = new Set(Object.values(manifest.terminalOutcomes ?? {})
+    .map((outcome) => outcome?.agentKey).filter((key): key is string => typeof key === 'string'))
+  const newerLiveOwner = !!settledRunId && Object.values(currentRuntime).some((current) =>
+    (current?.status === 'running' || current?.status === 'queued')
+      && !!current.runId && current.runId !== settledRunId)
   const ownedByAnotherLiveRun = (key: string): boolean => {
     const current = nodeRuntime[key]
     return (current?.status === 'running' || current?.status === 'queued')
@@ -42,6 +48,7 @@ export function projectRunManifest(
           status: 'done',
           verdict: agent.verdict ?? null,
           outputPath: `${root}/${agent.agentKey}.md`,
+          terminalValidated: validatedTerminalKeys.has(agent.agentKey),
         }
       }
     }
@@ -54,9 +61,9 @@ export function projectRunManifest(
     }
   }
 
+  if (newerLiveOwner) return { nodeRuntime }
   return {
-    nodeRuntime,
-    runRoot: root,
+    nodeRuntime, runRoot: root,
     reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier },
     moduleReports: manifest.moduleReports ?? {},
   }

@@ -310,6 +310,34 @@ export function moduleSynthesisPresent(
   } catch { return false }
 }
 
+/** The exact terminal module outcome accepted by the launcher, for read-only cockpit reconciliation.
+ * Files are taken from the discovered roster and pass the same regular-file, non-symlink, content
+ * validation used by the frozen terminal gate before the browser is allowed to call them complete. */
+export function moduleTerminalOutcome(
+  runRoot: string | null,
+  moduleName?: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+): { kind: 'synthesis' | 'fail-fast'; agentKey: string } | null {
+  if (!runRoot || !moduleName) return null
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  const moduleAbsolute = path.join(root, moduleName)
+  try {
+    const module = buildSwarmGraph(swarmId).modules.find((candidate) => candidate.name === moduleName)
+    if (!module) return null
+    const agents = Object.values(module.layers).flat()
+    const syntheses = agents.filter((agent) => agent.isSynthesis)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`)
+    const failFastTriages = agents.filter((agent) => agent.nn === '00' && agent.failFast && !agent.isSynthesis)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`)
+    const accepted = validModuleOutcomeFiles(moduleAbsolute, syntheses, failFastTriages)[0]
+    if (!accepted) return null
+    return {
+      kind: syntheses.includes(accepted) ? 'synthesis' : 'fail-fast',
+      agentKey: `${moduleName}/${accepted.replace(/\.md$/, '')}`,
+    }
+  } catch { return null }
+}
+
 const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
 
 function ideaPublicationMarkerPath(runRoot: string): string {
