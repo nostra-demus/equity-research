@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T11:52:59Z",
+  "generated_at": "2026-09-01T11:57:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-776",
+      "headline": "Jamna Auto Industries Ltd: This is to inform that the Company has successfully completed the acquisition of 100% Issued Share Capital of M/s. Owens Springs Limited.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06e987ab-d6e0-4391-a2a2-a7a70320d85a.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T11:49:58Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company completed the acquisition of 100% of Owens Springs Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company completed the acquisition of 100% of Owens Springs Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jamna Auto Industries Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-774",
       "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-362",
-      "headline": "Frasers Property acquires Cuppage Terrace in Orchard Road area for $175 million",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/property/frasers-property-acquires-cuppage-terrace-in-orchard-road-area-for-175-million",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Frasers Property is acquiring a property asset for $175 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Frasers Property is acquiring a property asset for $175 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Frasers Property",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93650,77 +93650,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-54e5db2972c0",
-      "idea_version": "IDEAV-71f01a7673f8dd8f",
-      "idea_version_started_at": "2026-08-31T02:21:42Z",
-      "ticker": "HWK",
-      "company": "HWK",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HWK received a mining entry permit for its Olympus Scandium Project, which is a critical step towards commencing operations and generating revenue from the project.",
-      "why_now": "The price-sensitive mining entry permit approval was announced today, August 30, 2026, via an ASX filing.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cc6614ab334a"
-      ],
-      "primary_source_event_id": "EVT-cc6614ab334a",
-      "source_headlines": [
-        "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]"
-      ],
-      "source_headline": "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HWK?key=2924-03129140-6A1341248",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-08-30T23:54:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T02:21:42Z",
-      "updated_at": "2026-08-31T02:21:42Z",
-      "decay_at": "2026-09-01T11:54:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ffe996f99401",
       "idea_version": "IDEAV-c985da1a198247a9",
       "idea_version_started_at": "2026-08-31T02:05:21Z",
@@ -98083,6 +98012,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-54e5db2972c0",
+      "idea_version": "IDEAV-71f01a7673f8dd8f",
+      "idea_version_started_at": "2026-08-31T02:21:42Z",
+      "ticker": "HWK",
+      "company": "HWK",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HWK received a mining entry permit for its Olympus Scandium Project, which is a critical step towards commencing operations and generating revenue from the project.",
+      "why_now": "The price-sensitive mining entry permit approval was announced today, August 30, 2026, via an ASX filing.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cc6614ab334a"
+      ],
+      "primary_source_event_id": "EVT-cc6614ab334a",
+      "source_headlines": [
+        "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]"
+      ],
+      "source_headline": "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HWK?key=2924-03129140-6A1341248",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-08-30T23:54:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T02:21:42Z",
+      "updated_at": "2026-08-31T02:21:42Z",
+      "decay_at": "2026-09-01T11:54:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d4a4fe64b7cf",
       "idea_version": "IDEAV-eca743b9b21c287a",
       "idea_version_started_at": "2026-08-31T01:31:36Z",
@@ -98885,13 +98885,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 326,
-    "shown_count": 326,
+    "total_count": 327,
+    "shown_count": 327,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 162,
-        "shown_count": 162,
+        "total_count": 163,
+        "shown_count": 163,
         "hidden_count": 0
       },
       "short": {
@@ -98916,6 +98916,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-54e5db2972c0",
+        "idea_version": "IDEAV-71f01a7673f8dd8f",
+        "idea_version_started_at": "2026-08-31T02:21:42Z",
+        "ticker": "HWK",
+        "company": "HWK",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HWK received a mining entry permit for its Olympus Scandium Project, which is a critical step towards commencing operations and generating revenue from the project.",
+        "why_now": "The price-sensitive mining entry permit approval was announced today, August 30, 2026, via an ASX filing.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cc6614ab334a"
+        ],
+        "primary_source_event_id": "EVT-cc6614ab334a",
+        "source_headlines": [
+          "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]"
+        ],
+        "source_headline": "HWK: Mining Entry Permit Approved for Olympus Scandium Project [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HWK?key=2924-03129140-6A1341248",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-08-30T23:54:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T02:21:42Z",
+        "updated_at": "2026-08-31T02:21:42Z",
+        "decay_at": "2026-09-01T11:54:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T11:54:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d4a4fe64b7cf",
         "idea_version": "IDEAV-eca743b9b21c287a",
@@ -123108,7 +123182,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123127,9 +123201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1726649,
-    "news_picked_today": 1605,
-    "news_dropped_today": 7851
+    "news_seen_today": 1753919,
+    "news_picked_today": 1616,
+    "news_dropped_today": 7888
   },
   "book_momentum": {
     "live_count": 8,
