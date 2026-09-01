@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T14:29:39Z",
+  "generated_at": "2026-09-01T14:39:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-847",
@@ -44,6 +44,55 @@
           "name": "MicroPort",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-871",
+      "headline": "Kfin Technologies Limited: KFINTECH: KFin Technologies Limited has informed the Exchange that Board of Directors of the Company at their meeting held today have approved the Composite Scheme of Amalgamation.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KFINTECHNSE_01092026191540_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T13:45:54Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company board approved a composite scheme of amalgamation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company board approved a composite scheme of amalgamation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kfin Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1233,6 +1282,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-864",
+      "headline": "Apollo’s Brightspeed Casts Going Concern Doubt as Revenue Slides",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-01/apollo-s-brightspeed-casts-going-concern-doubt-as-revenue-slides",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:19:59Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Brightspeed has raised going concern doubts as revenue declines, signaling severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brightspeed has raised going concern doubts as revenue declines, signaling severe financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brightspeed",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-857",
       "headline": "Marzetti’s (MZTI) Record Streak Hits a Wall With Outbreak and Guidance Cut",
       "headline_en": null,
@@ -1380,6 +1478,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-867",
+      "headline": "Descartes acquires Extensiv for $120M",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/descartes-acquires-extensiv-120m-132905113.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T13:29:05Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Descartes is acquiring Extensiv for $120M, a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Descartes is acquiring Extensiv for $120M, a significant capital deployment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Descartes Systems Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-840",
       "headline": "Coupang (CPNG) Shares Drop 7.7% on Softer Q2 Guidance",
       "headline_en": null,
@@ -1421,55 +1568,6 @@
           "name": "Coupang",
           "ticker": "CPNG",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-829",
-      "headline": "Descartes Systems Group acquires U.S.-company Extensiv for $120-million",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-descartes-systems-group-acquires-us-company-extensiv-for-120-million/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T13:18:06Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Descartes Systems Group is acquiring Extensiv for $120 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Descartes Systems Group is acquiring Extensiv for $120 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Descartes Systems Group",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -1523,6 +1621,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-865",
+      "headline": "Denny’s rival dining chain files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/buttermilk-eatery-files-chapter-11-bankruptcy-after-lawsuit",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T12:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Denny's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1822,159 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-735",
-      "headline": "Unacademy’s $3.44 billion valuation to $200 million acquisition by upGrad: Gaurav Munjal reflects on journey",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/unacademys-3-44-billion-valuation-to-200-million-acquisition-by-upgrad-gaurav-munjal-reflects-on-journey-11788243091634.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T08:58:03Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The acquisition of Unacademy at a valuation of $200 million represents a massive write-down from its previous $3.44 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The acquisition of Unacademy at a valuation of $200 million represents a massive write-down from its previous $3.44 billion valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unacademy",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "upGrad",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-717",
-      "headline": "Britain's Gamma Communications agrees to $1.5 billion takeover by Epiris",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/britains-gamma-communications-agrees-15-billion-takeover-by-epiris-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:58:46Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Gamma Communications agreed to a $1.5 billion takeover by Epiris.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Gamma Communications agreed to a $1.5 billion takeover by Epiris.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gamma Communications",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-703",
-      "headline": "HDFC Bank’s bonds fall to record low after CEO’s shock exit",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/hdfc-banks-bonds-fall-to-record-low-after-ceos-shock-exit/articleshow/133673229.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:54:04Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "HDFC Bank bonds fell to record lows following the unexpected departure of the CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HDFC Bank bonds fell to record lows following the unexpected departure of the CEO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91066,146 +91060,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0ac5d784c64f",
-      "idea_version": "IDEAV-166a62829813d08b",
-      "idea_version_started_at": "2026-08-31T05:24:11Z",
-      "ticker": "TSLA",
-      "company": "Tesla, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion to scale up its Optimus robot program, which will significantly increase capital expenditure and drag down free cash flow generation.",
-      "why_now": "The capital budget expansion to $25 billion was reported on August 31, 2026, presenting an immediate negative catalyst for free cash flow models.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b5f38a3152c9"
-      ],
-      "primary_source_event_id": "EVT-b5f38a3152c9",
-      "source_headlines": [
-        "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
-      ],
-      "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
-      "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T02:35:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-31T05:24:11Z",
-      "updated_at": "2026-08-31T05:24:11Z",
-      "decay_at": "2026-09-01T14:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c26051237597",
-      "idea_version": "IDEAV-5dc69b085a03e77b",
-      "idea_version_started_at": "2026-08-31T04:55:39Z",
-      "ticker": "TSLA",
-      "company": "Tesla Inc",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion, with a significant portion allocated to scaling up Optimus, indicating aggressive growth and potential for future revenue streams.",
-      "why_now": "This substantial increase in capital expenditure for 2026 was reported on August 31, 2026, signaling a near-term strategic focus.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b5f38a3152c9"
-      ],
-      "primary_source_event_id": "EVT-b5f38a3152c9",
-      "source_headlines": [
-        "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
-      ],
-      "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
-      "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T02:35:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-31T04:55:39Z",
-      "updated_at": "2026-08-31T04:55:39Z",
-      "decay_at": "2026-09-01T14:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2eed0b77fa99",
       "idea_version": "IDEAV-1a7299fe7f874578",
       "idea_version_started_at": "2026-09-01T04:06:03Z",
@@ -92777,6 +92631,146 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-0ac5d784c64f",
+      "idea_version": "IDEAV-166a62829813d08b",
+      "idea_version_started_at": "2026-08-31T05:24:11Z",
+      "ticker": "TSLA",
+      "company": "Tesla, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion to scale up its Optimus robot program, which will significantly increase capital expenditure and drag down free cash flow generation.",
+      "why_now": "The capital budget expansion to $25 billion was reported on August 31, 2026, presenting an immediate negative catalyst for free cash flow models.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b5f38a3152c9"
+      ],
+      "primary_source_event_id": "EVT-b5f38a3152c9",
+      "source_headlines": [
+        "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
+      ],
+      "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+      "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:35:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-31T05:24:11Z",
+      "updated_at": "2026-08-31T05:24:11Z",
+      "decay_at": "2026-09-01T14:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c26051237597",
+      "idea_version": "IDEAV-5dc69b085a03e77b",
+      "idea_version_started_at": "2026-08-31T04:55:39Z",
+      "ticker": "TSLA",
+      "company": "Tesla Inc",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion, with a significant portion allocated to scaling up Optimus, indicating aggressive growth and potential for future revenue streams.",
+      "why_now": "This substantial increase in capital expenditure for 2026 was reported on August 31, 2026, signaling a near-term strategic focus.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b5f38a3152c9"
+      ],
+      "primary_source_event_id": "EVT-b5f38a3152c9",
+      "source_headlines": [
+        "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
+      ],
+      "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+      "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T02:35:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-31T04:55:39Z",
+      "updated_at": "2026-08-31T04:55:39Z",
+      "decay_at": "2026-09-01T14:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-97064c0977c4",
@@ -98875,18 +98869,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 340,
-    "shown_count": 340,
+    "total_count": 342,
+    "shown_count": 342,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 170,
-        "shown_count": 170,
+        "total_count": 171,
+        "shown_count": 171,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 170,
-        "shown_count": 170,
+        "total_count": 171,
+        "shown_count": 171,
         "hidden_count": 0
       }
     },
@@ -98906,6 +98900,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0ac5d784c64f",
+        "idea_version": "IDEAV-166a62829813d08b",
+        "idea_version_started_at": "2026-08-31T05:24:11Z",
+        "ticker": "TSLA",
+        "company": "Tesla, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion to scale up its Optimus robot program, which will significantly increase capital expenditure and drag down free cash flow generation.",
+        "why_now": "The capital budget expansion to $25 billion was reported on August 31, 2026, presenting an immediate negative catalyst for free cash flow models.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b5f38a3152c9"
+        ],
+        "primary_source_event_id": "EVT-b5f38a3152c9",
+        "source_headlines": [
+          "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
+        ],
+        "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+        "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T02:35:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TSLA_2026-07-25",
+          "latest_decision": "Short Candidate",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-08-31T05:24:11Z",
+        "updated_at": "2026-08-31T05:24:11Z",
+        "decay_at": "2026-09-01T14:35:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T14:35:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c26051237597",
+        "idea_version": "IDEAV-5dc69b085a03e77b",
+        "idea_version_started_at": "2026-08-31T04:55:39Z",
+        "ticker": "TSLA",
+        "company": "Tesla Inc",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tesla's 2026 capital budget has skyrocketed to $25 billion, with a significant portion allocated to scaling up Optimus, indicating aggressive growth and potential for future revenue streams.",
+        "why_now": "This substantial increase in capital expenditure for 2026 was reported on August 31, 2026, signaling a near-term strategic focus.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b5f38a3152c9"
+        ],
+        "primary_source_event_id": "EVT-b5f38a3152c9",
+        "source_headlines": [
+          "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus"
+        ],
+        "source_headline": "Tesla's 2026 Capital Budget Skyrocketed to $25 Billion, With a Lot Going to Scaling Up Optimus",
+        "source_url": "https://www.nasdaq.com/articles/teslas-2026-capital-budget-skyrocketed-25-billion-lot-going-scaling-optimus",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T02:35:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TSLA_2026-07-25",
+          "latest_decision": "Short Candidate",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-08-31T04:55:39Z",
+        "updated_at": "2026-08-31T04:55:39Z",
+        "decay_at": "2026-09-01T14:35:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T14:35:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-192245eacbdf",
         "idea_version": "IDEAV-16a9e4b5deec02f9",
@@ -124144,7 +124284,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 31,
+    "live_count": 29,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124163,9 +124303,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2592526,
-    "news_picked_today": 1940,
-    "news_dropped_today": 8836
+    "news_seen_today": 2697266,
+    "news_picked_today": 1957,
+    "news_dropped_today": 8891
   },
   "book_momentum": {
     "live_count": 8,
