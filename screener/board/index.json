@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T09:41:56Z",
+  "generated_at": "2026-09-01T09:49:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-747",
+      "headline": "Welspun Investments and Commercials Ltd: Please find attached herewith outcome of the Board meeting held on September 01, 2026, with respect to acquisition of 100% equity stake in Vishwakarma Realty Private Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/55991dd1-b1f7-4350-b29d-3b2b7c586f31.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T09:32:10Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company announced the acquisition of a 100% equity stake in Vishwakarma Realty Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced the acquisition of a 100% equity stake in Vishwakarma Realty Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Investments and Commercials Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-744",
       "headline": "PASHUN INT'L (00574): INSIDER INFORMATION WINDING-UP PETITION",
@@ -1953,60 +2002,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-419",
-      "headline": "Nvidia Mega-Deal Ushers MediaTek Into Top AI Chipmaker Club",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:04:02Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Nvidia's mega-deal facilitates MediaTek's entry into the high-end AI chipmaker market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia's mega-deal facilitates MediaTek's entry into the high-end AI chipmaker market.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "MediaTek",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122557,9 +122552,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1107128,
-    "news_picked_today": 1374,
-    "news_dropped_today": 6762
+    "news_seen_today": 1138217,
+    "news_picked_today": 1383,
+    "news_dropped_today": 6897
   },
   "book_momentum": {
     "live_count": 8,
