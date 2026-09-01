@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T17:49:54Z",
+  "generated_at": "2026-09-01T18:04:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-917",
@@ -1581,6 +1581,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-939",
+      "headline": "Arrow Electronics (ARW) Trades at 10x Earnings: Is This Semiconductor Recovery Stock a Buy?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/arrow-electronics-arw-trades-10x-171258556.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T17:12:58Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Qorvo agreed to be acquired by Skyworks, a major semiconductor M&A deal that will materially reshape both companies' outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qorvo agreed to be acquired by Skyworks, a major semiconductor M&A deal that will materially reshape both companies' outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qorvo Inc.",
+          "ticker": "QRVO",
+          "listing_country": "US"
+        },
+        {
+          "name": "Skyworks Solutions Inc.",
+          "ticker": "SWKS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-919",
       "headline": "upGrad completes Unacademy acquisition at just over $200 million, marking steep valuation reset",
       "headline_en": null,
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-933",
-      "headline": "Capri Global Capital Ltd: Credit Rating Intimation - CareEdge Global have assigned a Credit Rating of 'CareEdge BB-/Positive' proposed US dollar denominated senior secured bonds",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/55bd86a4-df9a-4245-b000-8b588a265ca9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T17:07:51Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "CareEdge assigned a 'BB-/Positive' rating to the company's proposed US dollar denominated senior secured bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "CareEdge assigned a 'BB-/Positive' rating to the company's proposed US dollar denominated senior secured bonds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capri Global Capital Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125275,9 +125280,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4195696,
-    "news_picked_today": 2151,
-    "news_dropped_today": 10569
+    "news_seen_today": 4347129,
+    "news_picked_today": 2172,
+    "news_dropped_today": 10716
   },
   "book_momentum": {
     "live_count": 8,
