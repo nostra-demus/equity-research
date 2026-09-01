@@ -1064,7 +1064,7 @@ export const api = {
   },
   performanceSummary: async (hours = 24): Promise<PerformanceSummary> => {
     if ((await ensureMode()) === 'static') return {
-      version: 1, generatedAt: new Date().toISOString(), windowHours: hours, retentionDays: 14,
+      version: 1, release: 'static', generatedAt: new Date().toISOString(), windowHours: hours, retentionDays: 14,
       sampleCount: 0, droppedSamples: 0, status: 'learning', metrics: [],
     }
     return get(`/api/performance/summary?hours=${Math.max(1, Math.min(168, Math.round(hours)))}`, 8_000)

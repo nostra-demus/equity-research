@@ -1,12 +1,35 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { BrowserPerformanceCollector, normalizePerformanceOperation } from './performance'
+import {
+  BrowserPerformanceCollector,
+  normalizePerformanceOperation,
+  performanceOutcomeForFetchError,
+  performanceOutcomeForStatus,
+} from './performance'
 
 test('API operations discard query strings and dynamic identifiers', () => {
   assert.equal(normalizePerformanceOperation('/api/runs/RUN-secret-123?token=private'), '/api/runs/:runId')
   assert.equal(normalizePerformanceOperation('/api/news?query=confidential'), '/api/news/*')
   assert.equal(normalizePerformanceOperation('/api/output/run?path=analyses/TSLA'), '/api/output/run')
   assert.equal(normalizePerformanceOperation('/assets/company-TSLA.svg'), '/asset/*')
+})
+
+test('automatic timeouts are errors while caller aborts and expected absence are not', () => {
+  assert.equal(performanceOutcomeForFetchError({ name: 'TimeoutError' }), 'error')
+  assert.equal(performanceOutcomeForFetchError({ name: 'AbortError' }), 'cancelled')
+  assert.equal(performanceOutcomeForStatus('/api/output/run', 404), 'cancelled')
+  assert.equal(performanceOutcomeForStatus('/api/output/run', 500), 'error')
+})
+
+test('extreme lifecycle timings are bounded without poisoning their batch', async () => {
+  const sent: unknown[][] = []
+  const collector = new BrowserPerformanceCollector(async (samples) => { sent.push(samples); return true })
+  collector.setMode('live')
+  collector.record('browser.core_ready', 700_000)
+  collector.record('browser.layout_shift', 11, 'score')
+  await collector.flush()
+  assert.deepEqual(sent[0]?.map((sample: any) => sample.value), [600_000, 10])
+  collector.setMode('static')
 })
 
 test('the browser collector is batched, bounded, and best-effort', async () => {

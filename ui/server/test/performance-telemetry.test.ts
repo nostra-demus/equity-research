@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
-import { PerformanceTelemetry, validateBrowserPerformanceSamples } from '../src/performance-telemetry'
+import { PerformanceTelemetry, performanceOutcomeForResponse, validateBrowserPerformanceSamples } from '../src/performance-telemetry'
 
 const NOW = Date.parse('2026-09-01T12:00:00.000Z')
 
@@ -37,6 +37,12 @@ test('browser telemetry accepts only the fixed privacy-safe contract', () => {
   }] }, NOW), null, 'a metric cannot be submitted with a different unit')
   assert.equal(validateBrowserPerformanceSamples({ samples: [], droppedSamples: 10_001 }, NOW), null,
     'a client loss report is an integer with a strict bound')
+})
+
+test('an expected missing run is not classified as a speed failure', () => {
+  assert.equal(performanceOutcomeForResponse('/api/output/run', 404), 'cancelled')
+  assert.equal(performanceOutcomeForResponse('/api/output/run', 500), 'error')
+  assert.equal(performanceOutcomeForResponse('/api/health', 404), 'error')
 })
 
 test('backend heartbeat alone cannot publish a system-wide Fast verdict', async (t) => {
@@ -92,6 +98,7 @@ test('durable summaries apply p75/p95 budgets and compare with a recent baseline
   telemetry.recordServer(900, '/api/news/*', 'ok', NOW - 60_000)
 
   const summary = await telemetry.summary(24, NOW)
+  assert.equal(summary.release, 'test')
   assert.equal(summary.sampleCount, 41)
   assert.equal(summary.status, 'needs_attention', 'one measured budget miss is never averaged away')
   const ready = summary.metrics.find((metric) => metric.name === 'browser.core_ready')
@@ -110,7 +117,7 @@ test('durable summaries apply p75/p95 budgets and compare with a recent baseline
   assert.equal(fs.statSync(file).mode & 0o777, 0o600)
 
   fs.appendFileSync(file, 'null\n42\n[]\n{"version":1}\n')
-  const afterCorruption = await new PerformanceTelemetry(stateDir).summary(24, NOW)
+  const afterCorruption = await new PerformanceTelemetry(stateDir, { release: 'test' }).summary(24, NOW)
   assert.equal(afterCorruption.metrics.find((metric) => metric.name === 'browser.core_ready')?.count, 20,
     'corrupt JSON values are isolated without hiding valid timing rows')
 })
@@ -146,6 +153,40 @@ test('collection loss expires from health after the selected summary window', as
   assert.equal(afterWindow.status, 'learning', 'one old collection incident cannot degrade health forever')
 })
 
+test('collection loss survives restart and remains isolated to its release', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-drop-restart-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const first = new PerformanceTelemetry(stateDir, {
+    maxDailyBytes: 1, flushDelayMs: 60_000, release: 'release-a',
+  })
+  first.recordServer(1, '/api/health', 'ok', NOW)
+  assert.equal((await first.summary(24, NOW)).droppedSamples, 1)
+
+  const restarted = new PerformanceTelemetry(stateDir, { release: 'release-a' })
+  assert.equal((await restarted.summary(24, NOW + 1)).droppedSamples, 1,
+    'a routine server restart cannot erase an active measurement-loss incident')
+
+  const nextRelease = new PerformanceTelemetry(stateDir, { release: 'release-b' })
+  assert.equal((await nextRelease.summary(24, NOW + 1)).droppedSamples, 0,
+    'an old release loss cannot turn a new release red')
+})
+
+test('summaries use only the active deployed release', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-release-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const oldRelease = new PerformanceTelemetry(stateDir, { release: 'old', flushDelayMs: 60_000 })
+  for (let index = 0; index < 20; index++) oldRelease.recordServer(5, '/api/health', 'ok', NOW - index)
+  await oldRelease.flush()
+
+  const activeRelease = new PerformanceTelemetry(stateDir, { release: 'active', flushDelayMs: 60_000 })
+  activeRelease.recordServer(900, '/api/health', 'ok', NOW)
+  const summary = await activeRelease.summary(24, NOW)
+  assert.equal(summary.release, 'active')
+  assert.equal(summary.sampleCount, 1)
+  assert.equal(summary.metrics.find((metric) => metric.operation === '/api/health')?.p95, 900,
+    'a large fast history from the old deploy cannot dilute the new deploy')
+})
+
 test('a summary read enforces retention even when collection is idle', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-idle-prune-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
@@ -156,6 +197,48 @@ test('a summary read enforces retention even when collection is idle', async (t)
 
   await new PerformanceTelemetry(stateDir).summary(24, NOW)
   assert.equal(fs.existsSync(oldFile), false)
+})
+
+test('retention keeps the UTC day that straddles the exact cutoff', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-boundary-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const perfDir = path.join(stateDir, 'performance')
+  fs.mkdirSync(perfDir, { recursive: true })
+  const boundary = path.join(perfDir, '2026-09-01.jsonl')
+  const expired = path.join(perfDir, '2026-08-31.jsonl')
+  fs.writeFileSync(boundary, '{}\n')
+  fs.writeFileSync(expired, '{}\n')
+
+  await new PerformanceTelemetry(stateDir, { release: 'test' }).summary(
+    24, Date.parse('2026-09-15T12:00:00.000Z'),
+  )
+  assert.equal(fs.existsSync(boundary), true)
+  assert.equal(fs.existsSync(expired), false)
+})
+
+test('concurrent summary polls share one filesystem read', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-single-flight-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test' })
+  const originalRead = (telemetry as any).readSamples.bind(telemetry)
+  let releaseRead!: () => void
+  const blocked = new Promise<void>((resolve) => { releaseRead = resolve })
+  let reads = 0
+  ;(telemetry as any).readSamples = async (...args: unknown[]) => {
+    reads++
+    await blocked
+    return originalRead(...args)
+  }
+
+  const first = telemetry.summary(24, NOW)
+  const second = telemetry.summary(24, NOW)
+  for (let attempt = 0; attempt < 20 && reads === 0; attempt++) {
+    await new Promise<void>((resolve) => setTimeout(resolve, 1))
+  }
+  assert.equal(reads, 1, 'a second poll attaches to the existing summary instead of starting another read')
+  releaseRead()
+  await Promise.all([first, second])
+  assert.equal(reads, 2, 'one current-window read and one baseline read complete in total')
 })
 
 test('fast API failures do not satisfy latency budgets', async (t) => {

@@ -184,7 +184,7 @@ import { researchMemoryMode } from './research-memory'
 import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel, type ReelTranscriptProgressEvent } from './reel-transcript'
 import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
 import type { RunProvider } from './providers/types'
-import { PerformanceTelemetry, normalizeServerOperation, validateBrowserPerformanceSamples } from './performance-telemetry'
+import { PerformanceTelemetry, normalizeServerOperation, performanceOutcomeForResponse, validateBrowserPerformanceSamples } from './performance-telemetry'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -302,7 +302,7 @@ app.addHook('onSend', async (req, reply, payload) => {
   if (started !== undefined && operation && !operation.startsWith('/api/performance') && !operation.endsWith('/stream')) {
     const duration = nodePerformance.now() - started
     reply.header('server-timing', `app;dur=${duration.toFixed(1)}`)
-    performanceTelemetry.recordServer(duration, operation, reply.statusCode >= 400 ? 'error' : 'ok')
+    performanceTelemetry.recordServer(duration, operation, performanceOutcomeForResponse(operation, reply.statusCode))
   }
   return payload
 })

@@ -45,12 +45,20 @@ try {
   assert.equal(accepted.statusCode, 202)
   assert.deepEqual(accepted.json(), { accepted: 1 })
 
+  const expectedNoRun = await runtime.app.inject({
+    method: 'GET', url: '/api/output/run?ticker=ZZZZPERFTEST',
+  })
+  assert.equal(expectedNoRun.statusCode, 404)
+
   const summary = await runtime.app.inject({ method: 'GET', url: '/api/performance/summary?hours=24' })
   assert.equal(summary.statusCode, 200)
   assert.equal(summary.headers['cache-control'], 'no-store')
   assert.equal(summary.json().metrics.some((metric: any) => metric.name === 'browser.api_latency'
     && metric.operation === '/api/health' && metric.p95 === 42), true)
   assert.equal(summary.json().droppedSamples, 2, 'browser transport loss reaches the server health window')
+  const noRunTiming = summary.json().metrics.find((metric: any) => metric.name === 'server.api_latency'
+    && metric.operation === '/api/output/run')
+  assert.equal(noRunTiming?.errorCount, 0, 'the normal no-saved-run probe is not a speed failure')
 
   const serverSource = fs.readFileSync(new URL('../src/server.ts', import.meta.url), 'utf8')
   const closeStarted = serverSource.indexOf('const appClosing = app.close()')

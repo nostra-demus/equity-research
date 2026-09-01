@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { execFileSync } from 'node:child_process'
 
 export const PERFORMANCE_SAMPLE_NAMES = [
   'server.api_latency',
@@ -61,6 +62,7 @@ export interface PerformanceMetricSummary {
 
 export interface PerformanceSummary {
   version: 1
+  release: string
   generatedAt: string
   windowHours: number
   retentionDays: number
@@ -112,6 +114,7 @@ const API_BUDGETS: Record<'server.api_latency' | 'browser.api_latency', Budget> 
 }
 
 const RETENTION_DAYS = 14
+const DAY_MS = 24 * 60 * 60_000
 const MAX_DAILY_BYTES = 2 * 1024 * 1024
 const MAX_BATCH = 100
 const MAX_VALUE_MS = 10 * 60_000
@@ -119,7 +122,9 @@ const MAX_CLOCK_SKEW_MS = 24 * 60 * 60_000
 const MAX_BROWSER_REPORTED_DROPS = 10_000
 const SUMMARY_CACHE_MS = 15_000
 const DROP_BUCKET_MS = 60 * 60_000
+const DROP_STATE_FILE = 'dropped-samples.json'
 const DAY_FILE_RE = /^\d{4}-\d{2}-\d{2}\.jsonl$/
+const RELEASE_RE = /^[A-Za-z0-9._-]{1,80}$/
 const NAME_SET = new Set<string>(PERFORMANCE_SAMPLE_NAMES)
 const UNIT_BY_NAME: Record<PerformanceSampleName, PerformanceUnit> = Object.fromEntries(
   PERFORMANCE_SAMPLE_NAMES.map((name) => [name, name === 'browser.layout_shift' ? 'score' : 'ms']),
@@ -158,8 +163,21 @@ export interface ValidatedBrowserPerformanceBatch {
 }
 
 function releaseId(): string {
-  const raw = process.env.CF_PAGES_COMMIT_SHA || process.env.GIT_COMMIT || process.env.COMMIT_SHA || 'local'
-  return /^[A-Za-z0-9._-]{1,80}$/.test(raw) ? raw : 'local'
+  for (const raw of [process.env.CF_PAGES_COMMIT_SHA, process.env.GIT_COMMIT, process.env.COMMIT_SHA]) {
+    if (raw && RELEASE_RE.test(raw)) return raw
+  }
+  try {
+    // The launch service starts in ui/server and carries ENGINE_REPO_ROOT. Resolve once at boot so local
+    // production samples retain deploy provenance even when a CI-only commit variable is unavailable.
+    const raw = execFileSync('git', ['rev-parse', '--verify', 'HEAD'], {
+      cwd: process.env.ENGINE_REPO_ROOT || process.cwd(),
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      timeout: 500,
+    }).trim()
+    if (RELEASE_RE.test(raw)) return raw
+  } catch {}
+  return 'local'
 }
 
 function roundValue(value: number, unit: PerformanceUnit): number {
@@ -191,6 +209,13 @@ export function normalizeServerOperation(route: string | undefined): string | un
     .replace(/:runId\b/g, ':runId')
     .replace(/:ticker\b/g, ':ticker')
     .slice(0, 160)
+}
+
+export function performanceOutcomeForResponse(operation: string | undefined, statusCode: number): PerformanceOutcome {
+  // A company with no saved run is a normal empty state. Keep its duration for observability without
+  // treating that expected probe as an operational failure.
+  if (operation === '/api/output/run' && statusCode === 404) return 'cancelled'
+  return statusCode >= 400 ? 'error' : 'ok'
 }
 
 export function validateBrowserPerformanceSamples(value: unknown, now = Date.now()): ValidatedBrowserPerformanceBatch | null {
@@ -245,9 +270,13 @@ export class PerformanceTelemetry {
   private flushTimer: NodeJS.Timeout | null = null
   private writer: Promise<void> | null = null
   private lastPruneDay = ''
-  private droppedByHour = new Map<number, number>()
+  private droppedByHour = new Map<string, { release: string; startedAt: number; count: number }>()
+  private dropsLoaded = false
+  private dropsDirty = false
+  private dropWriter: Promise<void> | null = null
   private delimitedFiles = new Set<string>()
   private summaryCache: { hours: number; at: number; value: PerformanceSummary } | null = null
+  private summaryInFlight = new Map<number, Promise<PerformanceSummary>>()
 
   constructor(stateDir: string, options: PerformanceTelemetryOptions = {}) {
     this.dir = path.join(stateDir, 'performance')
@@ -295,14 +324,15 @@ export class PerformanceTelemetry {
 
   async flush(): Promise<void> {
     if (this.flushTimer) { clearTimeout(this.flushTimer); this.flushTimer = null }
-    if (this.writer) return this.writer
-    if (this.queue.length === 0) return
-    this.writer = this.drainQueue().finally(() => {
-      this.writer = null
-      // An enqueue can land between the drain loop's final check and this cleanup.
-      if (this.queue.length) void this.flush()
-    })
-    return this.writer
+    if (!this.writer && this.queue.length) {
+      this.writer = this.drainQueue().finally(() => {
+        this.writer = null
+        // An enqueue can land between the drain loop's final check and this cleanup.
+        if (this.queue.length) void this.flush()
+      })
+    }
+    if (this.writer) await this.writer
+    await this.persistDroppedSamples()
   }
 
   private async drainQueue(): Promise<void> {
@@ -392,7 +422,9 @@ export class PerformanceTelemetry {
     try { names = await fs.promises.readdir(this.dir) } catch { return }
     await Promise.all(names.filter((name) => DAY_FILE_RE.test(name)).map(async (name) => {
       const day = Date.parse(`${name.slice(0, 10)}T00:00:00.000Z`)
-      if (Number.isFinite(day) && day < floor) {
+      // A daily file can straddle the exact retention boundary. Keep it until its final possible sample
+      // is outside the window; readSamples still filters individual rows by timestamp.
+      if (Number.isFinite(day) && day + DAY_MS <= floor) {
         try { await fs.promises.unlink(path.join(this.dir, name)) } catch {}
       }
     }))
@@ -400,22 +432,101 @@ export class PerformanceTelemetry {
 
   private noteDropped(count: number, now = Date.now()): void {
     const bucket = Math.floor(now / DROP_BUCKET_MS) * DROP_BUCKET_MS
-    this.droppedByHour.set(bucket, (this.droppedByHour.get(bucket) ?? 0) + count)
-    const floor = now - this.retentionDays * 24 * 60 * 60_000 - DROP_BUCKET_MS
-    for (const startedAt of this.droppedByHour.keys()) {
-      if (startedAt < floor) this.droppedByHour.delete(startedAt)
-    }
+    const key = `${this.release}\0${bucket}`
+    const existing = this.droppedByHour.get(key)
+    this.droppedByHour.set(key, {
+      release: this.release,
+      startedAt: bucket,
+      count: (existing?.count ?? 0) + count,
+    })
+    this.pruneDroppedSamples(now)
+    this.dropsDirty = true
     this.summaryCache = null
+    void this.persistDroppedSamples()
   }
 
   private droppedWithin(since: number, until: number): number {
     let count = 0
-    for (const [startedAt, dropped] of this.droppedByHour) {
+    for (const bucket of this.droppedByHour.values()) {
       // Hour buckets keep loss tracking bounded while still expiring an old incident from the selected
       // health window. Include any bucket which overlaps the window rather than hiding a boundary loss.
-      if (startedAt <= until && startedAt + DROP_BUCKET_MS >= since) count += dropped
+      if (bucket.release === this.release && bucket.startedAt <= until
+          && bucket.startedAt + DROP_BUCKET_MS >= since) count += bucket.count
     }
     return count
+  }
+
+  private pruneDroppedSamples(now: number): boolean {
+    const floor = now - this.retentionDays * DAY_MS - DROP_BUCKET_MS
+    let changed = false
+    for (const [key, bucket] of this.droppedByHour) {
+      if (bucket.startedAt < floor) {
+        this.droppedByHour.delete(key)
+        changed = true
+      }
+    }
+    return changed
+  }
+
+  private async loadDroppedSamples(): Promise<void> {
+    if (this.dropsLoaded) return
+    this.dropsLoaded = true
+    let parsed: unknown
+    try { parsed = JSON.parse(await fs.promises.readFile(path.join(this.dir, DROP_STATE_FILE), 'utf8')) }
+    catch { return }
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return
+    const state = parsed as Record<string, unknown>
+    if (state.version !== 1 || !Array.isArray(state.buckets)) return
+    for (const candidate of state.buckets) {
+      if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) continue
+      const bucket = candidate as Record<string, unknown>
+      if (typeof bucket.release !== 'string' || !RELEASE_RE.test(bucket.release)
+          || typeof bucket.startedAt !== 'number' || !Number.isSafeInteger(bucket.startedAt) || bucket.startedAt < 0
+          || typeof bucket.count !== 'number' || !Number.isSafeInteger(bucket.count) || bucket.count <= 0) continue
+      const key = `${bucket.release}\0${bucket.startedAt}`
+      const existing = this.droppedByHour.get(key)
+      this.droppedByHour.set(key, {
+        release: bucket.release,
+        startedAt: bucket.startedAt,
+        count: Math.min(Number.MAX_SAFE_INTEGER, (existing?.count ?? 0) + bucket.count),
+      })
+    }
+  }
+
+  private async persistDroppedSamples(): Promise<void> {
+    if (this.dropWriter) return this.dropWriter
+    if (!this.dropsDirty && this.dropsLoaded) return
+    this.dropWriter = (async () => {
+      await this.loadDroppedSamples()
+      if (this.pruneDroppedSamples(Date.now())) this.dropsDirty = true
+      while (this.dropsDirty) {
+        this.dropsDirty = false
+        this.pruneDroppedSamples(Date.now())
+        await fs.promises.mkdir(this.dir, { recursive: true, mode: 0o700 })
+        const target = path.join(this.dir, DROP_STATE_FILE)
+        const temp = `${target}.tmp-${process.pid}`
+        const body = `${JSON.stringify({ version: 1, buckets: [...this.droppedByHour.values()] })}\n`
+        try {
+          const handle = await fs.promises.open(temp, 'w', 0o600)
+          try {
+            await handle.chmod(0o600)
+            await handle.writeFile(body, 'utf8')
+            await handle.sync()
+          } finally {
+            await handle.close()
+          }
+          await fs.promises.rename(temp, target)
+        } catch (error) {
+          this.dropsDirty = true
+          try { await fs.promises.rm(temp, { force: true }) } catch {}
+          throw error
+        }
+      }
+    })().catch(() => {
+      // Telemetry must never block cockpit work. The in-memory incident remains red and the next flush
+      // retries the atomic snapshot; a broken measurement disk cannot recursively record its own loss.
+    }).finally(() => { this.dropWriter = null })
+    return this.dropWriter
   }
 
   private async readSamples(since: number, until: number): Promise<StoredPerformanceSample[]> {
@@ -432,8 +543,16 @@ export class PerformanceTelemetry {
         try {
           const row = JSON.parse(line)
           if (row && typeof row === 'object' && !Array.isArray(row)
-              && row.version === 1 && NAME_SET.has(row.name) && row.ts >= since && row.ts <= until
-              && Number.isFinite(row.value) && (row.unit === 'ms' || row.unit === 'score')) {
+              && row.version === 1 && typeof row.name === 'string' && NAME_SET.has(row.name)
+              && typeof row.ts === 'number' && Number.isSafeInteger(row.ts) && row.ts >= since && row.ts <= until
+              && typeof row.value === 'number' && Number.isFinite(row.value) && row.value >= 0
+              && row.unit === UNIT_BY_NAME[row.name as PerformanceSampleName]
+              && (row.source === 'server' || row.source === 'browser')
+              && (row.name === 'server.api_latency') === (row.source === 'server')
+              && (row.outcome === 'ok' || row.outcome === 'error' || row.outcome === 'cancelled')
+              && typeof row.release === 'string' && RELEASE_RE.test(row.release)
+              && row.release === this.release
+              && (row.operation === undefined || (typeof row.operation === 'string' && row.operation.length <= 160))) {
             out.push(row as StoredPerformanceSample)
           }
         } catch { /* one interrupted line never hides the rest of the durable history */ }
@@ -444,6 +563,17 @@ export class PerformanceTelemetry {
 
   async summary(windowHours = 24, now = Date.now()): Promise<PerformanceSummary> {
     const hours = Math.max(1, Math.min(168, Math.round(windowHours)))
+    const existing = this.summaryInFlight.get(hours)
+    if (existing) return existing
+    const work = this.buildSummary(hours, now)
+    this.summaryInFlight.set(hours, work)
+    try { return await work }
+    finally {
+      if (this.summaryInFlight.get(hours) === work) this.summaryInFlight.delete(hours)
+    }
+  }
+
+  private async buildSummary(hours: number, now: number): Promise<PerformanceSummary> {
     // Retention is a storage guarantee, not merely a read filter. A quiet engine may have no writes for
     // weeks, so every operator summary read also performs the at-most-daily deletion pass.
     await this.pruneIfDue(now)
@@ -527,6 +657,7 @@ export class PerformanceTelemetry {
       : hasGoodCoverage ? 'good' : 'learning'
     const result: PerformanceSummary = {
       version: 1,
+      release: this.release,
       generatedAt: new Date(now).toISOString(),
       windowHours: hours,
       retentionDays: this.retentionDays,

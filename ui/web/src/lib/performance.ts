@@ -50,6 +50,7 @@ export interface PerformanceMetricSummary {
 
 export interface PerformanceSummary {
   version: 1
+  release: string
   generatedAt: string
   windowHours: number
   retentionDays: number
@@ -65,6 +66,7 @@ type Transport = (samples: BrowserPerformanceSample[], pageExit: boolean, droppe
 const MAX_QUEUE = 300
 const MAX_BATCH = 50
 const MAX_REPORTED_DROPS = 10_000
+const MAX_REPORTED_DURATION_MS = 10 * 60_000
 const FLUSH_MS = 5_000
 const API_FAMILIES = new Set([
   'activity', 'bridge', 'calendar', 'calls', 'chat', 'chats', 'credit', 'credit-check', 'data-needs',
@@ -164,7 +166,10 @@ export class BrowserPerformanceCollector {
 
   record(name: BrowserPerformanceName, value: number, unit: PerformanceUnit = 'ms', options: { operation?: string; outcome?: PerformanceOutcome; ts?: number } = {}): void {
     if (this.mode === 'static' || !Number.isFinite(value) || value < 0) return
-    const rounded = unit === 'score' ? Math.round(value * 10_000) / 10_000 : Math.round(value * 10) / 10
+    // A boot that eventually recovers after ten minutes is still useful (and very red) evidence. Bound
+    // lifecycle outliers to the server contract so one recovery cannot make its whole upload invalid.
+    const bounded = unit === 'score' ? Math.min(value, 10) : Math.min(value, MAX_REPORTED_DURATION_MS)
+    const rounded = unit === 'score' ? Math.round(bounded * 10_000) / 10_000 : Math.round(bounded * 10) / 10
     this.queue.push({
       name,
       value: rounded,
@@ -260,6 +265,17 @@ export function recordNextPaint(name: BrowserPerformanceName, startedAt: number,
   }))
 }
 
+export function performanceOutcomeForStatus(operation: string, status: number): PerformanceOutcome {
+  if (operation === '/api/output/run' && status === 404) return 'cancelled'
+  return status >= 200 && status < 300 ? 'ok' : 'error'
+}
+
+export function performanceOutcomeForFetchError(error: unknown): PerformanceOutcome {
+  // AbortError means the caller intentionally moved on. AbortSignal.timeout() uses TimeoutError: that is
+  // a real failed user wait and must trip the error-rate budget rather than disappear as a cancellation.
+  return (error as { name?: unknown } | null)?.name === 'AbortError' ? 'cancelled' : 'error'
+}
+
 /** Fetch wrapper for every API transport. It stops at response headers, which separates network/backend
  * latency from later JSON parsing and React work. The collector endpoint bypasses itself. */
 export async function performanceFetch(url: string, init?: RequestInit): Promise<Response> {
@@ -270,13 +286,13 @@ export async function performanceFetch(url: string, init?: RequestInit): Promise
     const response = await fetch(url, init)
     recordBrowserPerformance('browser.api_latency', performance.now() - started, 'ms', {
       operation,
-      outcome: response.ok ? 'ok' : 'error',
+      outcome: performanceOutcomeForStatus(operation, response.status),
     })
     return response
   } catch (error: any) {
     recordBrowserPerformance('browser.api_latency', performance.now() - started, 'ms', {
       operation,
-      outcome: error?.name === 'AbortError' || error?.name === 'TimeoutError' ? 'cancelled' : 'error',
+      outcome: performanceOutcomeForFetchError(error),
     })
     throw error
   }
