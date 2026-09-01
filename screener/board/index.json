@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T05:23:53Z",
+  "generated_at": "2026-09-01T05:32:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-587",
@@ -589,6 +589,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-644",
+      "headline": "WPP cutting up to 1,000 more jobs as AI reshapes advertising industry",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/91395fb6-1782-41b2-82e5-e2a40d754e3f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T04:00:20Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WPP",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,103 +1962,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-137",
-      "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
+      "inbox_id": "INB-20260901-656",
+      "headline": "Nvidia’s $3.5B MediaTek bet reveals its plan for tackling Big Tech’s AI chip buildout",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083102641.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T22:06:00Z",
+      "url": "https://techcrunch.com/2026/08/31/nvidias-3-5b-mediatek-bet-reveals-its-plan-for-tackling-big-techs-ai-chip-buildout/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T15:15:25Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company announced delays in financial reporting and a possible suspension of trading.",
+      "prelim_note": "Nvidia is making a $3.5 billion investment in MediaTek to expand its AI chip footprint.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company announced delays in financial reporting and a possible suspension of trading.",
-      "region": "CN",
+      "triage_score": 100,
+      "triage_reason": "Nvidia is making a $3.5 billion investment in MediaTek to expand its AI chip footprint.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FS ANTHRACITE",
-          "ticker": "01738",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-355",
-      "headline": "UPDATED: Novartis halts autoimmune CAR-T trials after 3 deaths, as BMS also pauses studies",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/novartis-bristol-myers-squibb-halt-car-t-cell-trials-due-immune-events",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:29:14Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Novartis and BMS halted autoimmune CAR-T trials following 3 deaths, posing a major clinical and regulatory setback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Novartis and BMS halted autoimmune CAR-T trials following 3 deaths, posing a major clinical and regulatory setback.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
-        "event": 2,
+        "event": 9,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
+        "recency": 1,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "operations",
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "product",
-        "operations"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "Bristol Myers Squibb",
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
+        },
+        {
+          "name": "MediaTek",
+          "ticker": null,
+          "listing_country": "TW"
         }
       ],
       "size_bucket": "mega",
@@ -122340,9 +122338,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 439530,
-    "news_picked_today": 981,
-    "news_dropped_today": 3603
+    "news_seen_today": 443477,
+    "news_picked_today": 1015,
+    "news_dropped_today": 3737
   },
   "book_momentum": {
     "live_count": 8,
