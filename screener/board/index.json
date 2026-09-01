@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T03:39:32Z",
+  "generated_at": "2026-09-01T07:00:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-587",
+      "headline": "C SUCCESS FIN (03623): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 45% ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDEATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103055.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "C Success Fin announced the acquisition of a 45% stake in a target company via share issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C Success Fin announced the acquisition of a 45% stake in a target company via share issuance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C Success Fin",
+          "ticker": "03623",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-464",
       "headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
@@ -491,6 +540,202 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-659",
+      "headline": "Tim Cook Steps Down As Apple CEO, John Ternus Takes Over Leadership",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tim-cook-steps-down-as-apple-ceo-john-ternus-takes-over-leadership",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T05:27:24Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "CEO transition at a mega-cap company is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO transition at a mega-cap company is a material event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-623",
+      "headline": "LEADING JEWELLERY RETAILER GRT JEWELLERS TO ACQUIRE 74.12% of TRIBHOVANDAS BHIMJI ZAVERI LIMITED",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/connect/leading-jewellery-retailer-grt-jewellers-to-acquire-7412-of-tribhovandas-bhimji-zaveri-limited-4130944",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T05:10:17Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "GRT Jewellers is acquiring a 74.12% stake in Tribhovandas Bhimji Zaveri Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GRT Jewellers is acquiring a 74.12% stake in Tribhovandas Bhimji Zaveri Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tribhovandas Bhimji Zaveri Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-644",
+      "headline": "WPP cutting up to 1,000 more jobs as AI reshapes advertising industry",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/91395fb6-1782-41b2-82e5-e2a40d754e3f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T04:00:20Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WPP is cutting up to 1,000 jobs due to AI-driven industry shifts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WPP",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-589",
+      "headline": "'I Am Not Leaving Apple': Tim Cook Tells Staff As He Steps Down As CEO After 15-Year Run",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/i-am-not-leaving-apple-tim-cook-tells-staff-as-he-steps-down-as-ceo-after-15-year-run",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T03:49:19Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Tim Cook is stepping down as CEO of Apple after 15 years, representing a major leadership transition for a mega-cap company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tim Cook is stepping down as CEO of Apple after 15 years, representing a major leadership transition for a mega-cap company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1276,136 +1521,80 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-137",
-      "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
+      "inbox_id": "INB-20260901-536",
+      "headline": "Trade Setup For Sept 1: Nifty Faces Key Test At 23,950 As Negative Global Cues Threaten Bear Attack",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083102641.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T22:06:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company announced delays in financial reporting and a possible suspension of trading.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company announced delays in financial reporting and a possible suspension of trading.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FS ANTHRACITE",
-          "ticker": "01738",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-355",
-      "headline": "UPDATED: Novartis halts autoimmune CAR-T trials after 3 deaths, as BMS also pauses studies",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/novartis-bristol-myers-squibb-halt-car-t-cell-trials-due-immune-events",
-      "source_name": "FierceBiotech",
+      "url": "https://www.ndtvprofit.com/markets/trade-setup-for-sept-1-nifty-faces-key-test-at-23-950-as-negative-global-cues-threaten-bear-attack-11983826#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:29:14Z",
+      "found_at": "2026-08-31T17:29:55Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Novartis and BMS halted autoimmune CAR-T trials following 3 deaths, posing a major clinical and regulatory setback.",
+      "prelim_note": "SLB announced a $3.4 billion investment bet on the AI data center boom, a major capex commitment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Novartis and BMS halted autoimmune CAR-T trials following 3 deaths, posing a major clinical and regulatory setback.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "SLB announced a $3.4 billion investment bet on the AI data center boom, a major capex commitment.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 5,
-        "event": 2,
+        "scope": 6,
+        "event": 6,
         "size": 2,
-        "recency": 5,
+        "recency": 2,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
+        "event_id": "capex",
+        "size_bucket": "large"
       },
       "event_types": [
-        "product",
-        "operations"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "Bristol Myers Squibb",
-          "ticker": null,
+          "name": "SLB",
+          "ticker": "SLB",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-153",
-      "headline": "Netanyahu boasts about his influence on US in prolonging war on Iran",
+      "inbox_id": "INB-20260901-537",
+      "headline": "War on Iran: US bombs Iran",
       "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/netanyahu-boasts-about-his-influence-us-prolonging-war-iran",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:43:38Z",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/31/war-on-iran-us-bombs-iran?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-31T17:22:32Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Geopolitical escalation involving US-Iran tensions poses significant risk to regional stability and energy markets.",
+      "prelim_note": "Direct military conflict between the US and Iran represents a major geopolitical escalation affecting global markets and oil supply.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geopolitical escalation involving US-Iran tensions poses significant risk to regional stability and energy markets.",
+      "triage_score": 100,
+      "triage_reason": "Direct military conflict between the US and Iran represents a major geopolitical escalation affecting global markets and oil supply.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 95,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 95,
         "source_tier": 0,
         "scope": 9,
         "event": 0,
         "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "recency": 2,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -1424,242 +1613,46 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-495",
-      "headline": "Shein begins trading shares in Hong Kong after long-awaited IPO",
+      "inbox_id": "INB-20260901-538",
+      "headline": "Why Edison International Stock Just Crashed",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/shein-listing-live-online-fashion-giant-begin-trading-shares-hong-kong-after-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.fool.com/investing/2026/08/31/why-edison-international-stock-just-crashed/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-09-01T03:20:26Z",
+      "found_at": "2026-08-31T17:22:13Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Shein has completed its IPO and begun trading in Hong Kong.",
+      "prelim_note": "A stock crash indicates a significant negative event, likely related to earnings, regulatory issues, or operational failure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Shein has completed its IPO and begun trading in Hong Kong.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-496",
-      "headline": "South Korea proposes record $597 billion 2027 budget to supercharge AI investment",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/south-koreas-president-lee-says-interest-rate-rise-is-unavoidable-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T03:19:11Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "South Korea proposed a record $597 billion budget for 2027 with a focus on AI investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "South Korea proposed a record $597 billion budget for 2027 with a focus on AI investment.",
-      "region": "KR",
+      "triage_score": 100,
+      "triage_reason": "A stock crash indicates a significant negative event, likely related to earnings, regulatory issues, or operational failure.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-361",
-      "headline": "FS ANTHRACITE (01738): SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100253.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T02:18:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "FS Anthracite announced a suspension of trading, which is a significant liquidity and operational event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "FS Anthracite announced a suspension of trading, which is a significant liquidity and operational event.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
         "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FS Anthracite",
-          "ticker": "01738",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-166",
-      "headline": "ZHONGZI INTL H (08118): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0901/2026090100147.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Zhongzi Intl H has resumed trading after a suspension, which is a positive development for liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Zhongzi Intl H has resumed trading after a suspension, which is a positive development for liquidity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zhongzi Intl H",
-          "ticker": "08118",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-224",
-      "headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:04:02Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Nvidia's strategic investment in MediaTek triggered a 10% share surge, signaling a major partnership in AI chips.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Nvidia's strategic investment in MediaTek triggered a 10% share surge, signaling a major partnership in AI chips.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "event": 5,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": "earnings_revenue_margin",
         "size_bucket": "large"
       },
       "event_types": [
-        "mna",
-        "capital_actions"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MediaTek",
-          "ticker": "2454.TW",
-          "listing_country": "TW"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
+          "name": "Edison International",
+          "ticker": "EIX",
           "listing_country": "US"
         }
       ],
@@ -1669,138 +1662,40 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-284",
-      "headline": "The Strait of Hormuz Conflict Just Escalated Again. Here's What It Means for Shell.",
+      "inbox_id": "INB-20260901-567",
+      "headline": "Israel signs $3.5 billion air defense deal with Greece",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/strait-hormuz-conflict-just-escalated-again-heres-what-it-means-shell",
-      "source_name": "Nasdaq",
+      "url": "https://www.defensenews.com/global/europe/2026/08/31/israel-signs-35-billion-air-defense-deal-with-greece/",
+      "source_name": "Defense News",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T20:52:01Z",
+      "found_at": "2026-08-31T16:50:39Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
+      "prelim_note": "Israel signed a $3.5 billion air defense deal with Greece.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
+      "triage_score": 100,
+      "triage_reason": "Israel signed a $3.5 billion air defense deal with Greece.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-188",
-      "headline": "TZN: Finance Facility Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TZN?key=2924-03130109-2A1694173",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T01:13:20Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Company announced a finance facility update which is marked as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Company announced a finance facility update which is marked as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TZN",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-162",
-      "headline": "US accepts military sale of helicopters to Iraq for $800 million",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-accepts-military-sale-helicopters-iraq-800-million",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T23:55:22Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The US government has approved an $800 million military helicopter sale to Iraq, representing a significant defense contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The US government has approved an $800 million military helicopter sale to Iraq, representing a significant defense contract.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
+        "event": 9,
         "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
+        "recency": 2,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "mna",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [],
@@ -1810,193 +1705,303 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-136",
-      "headline": "VONGROUP (00318): UPDATE IN RELATION TO THE DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; DELAY IN SENDING OF THE 2026 ANNUAL REPORT",
+      "inbox_id": "INB-20260901-586",
+      "headline": "OpenAI Expands ChatGPT Ads Worldwide As Advertising Revenue Hits $1 Billion Run Rate",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100085.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T23:53:00Z",
+      "url": "https://www.ndtvprofit.com/business/openai-expands-chatgpt-ads-worldwide-as-advertising-revenue-hits-1-billion-run-rate-11983283#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T16:44:54Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company announced a delay in the publication of its 2026 annual results and report.",
+      "prelim_note": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company announced a delay in the publication of its 2026 annual results and report.",
-      "region": "CN",
+      "triage_score": 100,
+      "triage_reason": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
+        "materiality": 70,
+        "source_tier": 0,
         "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VONGROUP",
-          "ticker": "00318",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-191",
-      "headline": "MAN WAH HLDGS (01999): INSIDE INFORMATION LEGAL PROCEEDINGS IN RELATION TO SOUTHERN MOTION, INC.",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-31T22:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Legal proceedings involving a subsidiary represent potential operational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Legal proceedings involving a subsidiary represent potential operational and financial risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Man Wah Holdings",
-          "ticker": "01999",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-407",
-      "headline": "Bathla administrators say funding situation is ‘dire’",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/bathla-administrators-say-funding-situation-is-dire-20260901-p60t7i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:02:02Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Bathla administrators describe funding situation as 'dire' — confirms distress and likely losses for creditors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Bathla administrators describe funding situation as 'dire' — confirms distress and likely losses for creditors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
       },
       "event_types": [
-        "default_distress"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bathla",
+          "name": "OpenAI",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": null
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-442",
-      "headline": "Amazon Sued by FTC Over Claims It Misled Advertisers on Pricing",
+      "inbox_id": "INB-20260901-599",
+      "headline": "PG&E Sinks 18%, Edison International Tumbles 23% as California Wildfire Bill Omits Liability Cap",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/amazon-faces-ftc-suit-claiming-it-misled-advertisers-on-pricing",
-      "source_name": "Bloomberg",
+      "url": "https://247wallst.com/investing/2026/08/31/pge-sinks-18-edison-international-tumbles-23-as-california-wildfire-bill-omits-liability-cap/",
+      "source_name": "24/7 Wall St.",
       "input_nature": "news_headline",
-      "found_at": "2026-08-31T18:46:25Z",
+      "found_at": "2026-08-31T16:39:21Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
+      "prelim_note": "California wildfire legislation omits a liability cap, exposing PG&E and Edison International to uncapped wildfire costs that could threaten solvency.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
+      "triage_score": 100,
+      "triage_reason": "California wildfire legislation omits a liability cap, exposing PG&E and Edison International to uncapped wildfire costs that could threaten solvency.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
+        "scope": 5,
         "event": 6,
         "size": 2,
         "recency": 2,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
+        "regulatory",
         "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Amazon.com, Inc.",
-          "ticker": "AMZN",
+          "name": "PG&E",
+          "ticker": "PCG",
+          "listing_country": "US"
+        },
+        {
+          "name": "Edison International",
+          "ticker": "EIX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-601",
+      "headline": "ONGC Bets Rs 1 Lakh Crore On Deepwater Exploration To Offset Oil & Gas Output Decline",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/ongc-bets-rs-1-lakh-crore-on-deepwater-exploration-to-offset-oil-gas-output-decline-11983500#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T16:08:27Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "ONGC announced a Rs 1 lakh crore investment in deepwater exploration to address output declines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ONGC announced a Rs 1 lakh crore investment in deepwater exploration to address output declines.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-607",
+      "headline": "SLB’s $3.4B Kelvion Deal Targets AI Data Center Cooling Boom",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/slb-3-4b-kelvion-deal-160227854.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T16:02:27Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "SLB announces a major $3.4 billion acquisition of Kelvion to target the AI data center cooling market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SLB announces a major $3.4 billion acquisition of Kelvion to target the AI data center cooling market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLB",
+          "ticker": "SLB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-613",
+      "headline": "Nvidia investirá US$3,5 bi em fabricante de chips MediaTek",
+      "headline_en": "Nvidia to invest $3.5 billion in chipmaker MediaTek",
+      "url": "https://www.reuters.com/pt/tecnologia/HMQZ2FUQCNPP5CHEL45ULCAMKU-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T15:59:55Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Nvidia is reportedly investing $3.5 billion in chipmaker MediaTek, a major strategic capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly investing $3.5 billion in chipmaker MediaTek, a major strategic capital deployment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "MediaTek",
+          "ticker": "2454",
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-622",
+      "headline": "P&G Fiscal 2027 Outlook Brings an 8% Core EPS Headwind Into Focus",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pg-fiscal-2027-outlook-brings-8-core-eps-headwind-focus",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T15:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Procter & Gamble identifies an 8% core EPS headwind in its fiscal 2027 outlook, a significant quantified negative guidance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Procter & Gamble identifies an 8% core EPS headwind in its fiscal 2027 outlook, a significant quantified negative guidance update.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -90606,6 +90611,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-7f632fc10e45",
+      "idea_version": "IDEAV-dd5c9321956be446",
+      "idea_version_started_at": "2026-09-01T05:23:34Z",
+      "ticker": "HFCL.NS",
+      "company": "HFCL Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HFCL secured a USD 244 million (approx. INR 2,329 crore) long-term supply agreement for Optical Fiber Cables, a material contract win that directly boosts revenue visibility and order book for a company with a market cap around INR 12,000 crore.",
+      "why_now": "Exchange filing dated 2026-09-01 announces the contract win; the stock can react immediately to the order inflow news.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fb98353f6e64"
+      ],
+      "primary_source_event_id": "EVT-fb98353f6e64",
+      "source_headlines": [
+        "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)"
+      ],
+      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_01092026084937_STX_Announcement_2329_Crore_Order_01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T03:19:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-01T05:23:34Z",
+      "updated_at": "2026-09-01T05:23:34Z",
+      "decay_at": "2026-09-02T15:19:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5c23343bcf9d",
       "idea_version": "IDEAV-611b2e1d3c15cd37",
       "idea_version_started_at": "2026-09-01T01:49:20Z",
@@ -91303,166 +91377,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3bb2116ecda7",
-      "idea_version": "IDEAV-d4410115e6047b86",
-      "idea_version_started_at": "2026-08-30T18:59:22Z",
-      "ticker": "KKR",
-      "company": "KKR & Co. Inc.",
-      "exchange": "NYSE",
+      "idea_id": "IDEA-2eed0b77fa99",
+      "idea_version": "IDEAV-1a7299fe7f874578",
+      "idea_version_started_at": "2026-09-01T04:06:03Z",
+      "ticker": "2454.TW",
+      "company": "MediaTek",
+      "exchange": "Taiwan",
       "direction": "long",
       "pair_with": null,
-      "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
-      "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc4bc47f7047",
-        "EVT-7b406abe3985",
-        "EVT-f623aef7dfce"
-      ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
-      "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-        "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
-        "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
-      ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T17:05:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T18:59:22Z",
-      "updated_at": "2026-08-30T18:59:22Z",
-      "decay_at": "2026-09-01T05:05:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6f55bf31e25a",
-      "idea_version": "IDEAV-2d43af8978c497d0",
-      "idea_version_started_at": "2026-08-30T18:59:22Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Engineers have authorized a strike for October, threatening to halt the recent momentum in 737 production rates and increase labor costs.",
-      "why_now": "The strike authorization occurred on August 30, 2026, creating a specific downside catalyst for October.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cebb0aeaf2e8"
-      ],
-      "primary_source_event_id": "EVT-cebb0aeaf2e8",
-      "source_headlines": [
-        "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
-      ],
-      "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/boeing-building-737s-faster-years-182701948.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T18:27:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T18:39:27Z",
-      "updated_at": "2026-08-30T18:59:22Z",
-      "decay_at": "2026-09-01T06:27:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-177f467dfd2a",
-      "idea_version": "IDEAV-48449690aa68a6bc",
-      "idea_version_started_at": "2026-08-30T16:05:18Z",
-      "ticker": "AON",
-      "company": "Aon plc",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
-      "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
+      "reason": "Nvidia's strategic investment in MediaTek validates its AI chip roadmap and creates a direct commercial partnership with the leading AI compute provider.",
+      "why_now": "Bloomberg reported the investment on 2026-09-01 and shares already surged 10%, confirming immediate market reaction to the catalyst.",
       "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 18,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
@@ -91490,96 +91421,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-dc4bc47f7047"
+        "EVT-1e8b3a963f85"
       ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "primary_source_event_id": "EVT-1e8b3a963f85",
       "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment"
       ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T15:40:00Z",
+      "source_headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
+      "source_name": "Bloomberg",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-01T01:04:02Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-08-30T16:05:18Z",
-      "updated_at": "2026-08-30T16:05:18Z",
-      "decay_at": "2026-09-01T03:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-cd9532d864b1",
-      "idea_version": "IDEAV-c959bbe94b436257",
-      "idea_version_started_at": "2026-08-30T15:45:17Z",
-      "ticker": "AON",
-      "company": "Aon",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
-      "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc4bc47f7047"
-      ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
-      "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
-      ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T15:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T15:45:17Z",
-      "updated_at": "2026-08-30T15:45:17Z",
-      "decay_at": "2026-09-01T03:40:00Z",
+      "surfaced_at": "2026-09-01T04:06:03Z",
+      "updated_at": "2026-09-01T04:06:03Z",
+      "decay_at": "2026-09-02T13:04:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94663,6 +94524,289 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-3bb2116ecda7",
+      "idea_version": "IDEAV-d4410115e6047b86",
+      "idea_version_started_at": "2026-08-30T18:59:22Z",
+      "ticker": "KKR",
+      "company": "KKR & Co. Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
+      "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047",
+        "EVT-7b406abe3985",
+        "EVT-f623aef7dfce"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+        "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T17:05:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T18:59:22Z",
+      "updated_at": "2026-08-30T18:59:22Z",
+      "decay_at": "2026-09-01T05:05:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-2d43af8978c497d0",
+      "idea_version_started_at": "2026-08-30T18:59:22Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Engineers have authorized a strike for October, threatening to halt the recent momentum in 737 production rates and increase labor costs.",
+      "why_now": "The strike authorization occurred on August 30, 2026, creating a specific downside catalyst for October.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cebb0aeaf2e8"
+      ],
+      "primary_source_event_id": "EVT-cebb0aeaf2e8",
+      "source_headlines": [
+        "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
+      ],
+      "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/boeing-building-737s-faster-years-182701948.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T18:27:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T18:39:27Z",
+      "updated_at": "2026-08-30T18:59:22Z",
+      "decay_at": "2026-09-01T06:27:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-177f467dfd2a",
+      "idea_version": "IDEAV-48449690aa68a6bc",
+      "idea_version_started_at": "2026-08-30T16:05:18Z",
+      "ticker": "AON",
+      "company": "Aon plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
+      "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T15:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T16:05:18Z",
+      "updated_at": "2026-08-30T16:05:18Z",
+      "decay_at": "2026-09-01T03:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cd9532d864b1",
+      "idea_version": "IDEAV-c959bbe94b436257",
+      "idea_version_started_at": "2026-08-30T15:45:17Z",
+      "ticker": "AON",
+      "company": "Aon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+      "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T15:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T15:45:17Z",
+      "updated_at": "2026-08-30T15:45:17Z",
+      "decay_at": "2026-09-01T03:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-3d9be100b359",
@@ -98762,18 +98906,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 312,
-    "shown_count": 312,
+    "total_count": 316,
+    "shown_count": 316,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 152,
-        "shown_count": 152,
+        "total_count": 154,
+        "shown_count": 154,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 160,
-        "shown_count": 160,
+        "total_count": 162,
+        "shown_count": 162,
         "hidden_count": 0
       }
     },
@@ -98793,6 +98937,301 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6f55bf31e25a",
+        "idea_version": "IDEAV-2d43af8978c497d0",
+        "idea_version_started_at": "2026-08-30T18:59:22Z",
+        "ticker": "BA",
+        "company": "Boeing",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Engineers have authorized a strike for October, threatening to halt the recent momentum in 737 production rates and increase labor costs.",
+        "why_now": "The strike authorization occurred on August 30, 2026, creating a specific downside catalyst for October.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cebb0aeaf2e8"
+        ],
+        "primary_source_event_id": "EVT-cebb0aeaf2e8",
+        "source_headlines": [
+          "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike."
+        ],
+        "source_headline": "Boeing Is Building 737s Faster Than It Has in Years. But Its Engineers Just Authorized an October Strike.",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/boeing-building-737s-faster-years-182701948.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T18:27:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T18:39:27Z",
+        "updated_at": "2026-08-30T18:59:22Z",
+        "decay_at": "2026-09-01T06:27:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T06:27:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3bb2116ecda7",
+        "idea_version": "IDEAV-d4410115e6047b86",
+        "idea_version_started_at": "2026-08-30T18:59:22Z",
+        "ticker": "KKR",
+        "company": "KKR & Co. Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
+        "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047",
+          "EVT-7b406abe3985",
+          "EVT-f623aef7dfce"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+          "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+          "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T17:05:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T18:59:22Z",
+        "updated_at": "2026-08-30T18:59:22Z",
+        "decay_at": "2026-09-01T05:05:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T05:05:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-177f467dfd2a",
+        "idea_version": "IDEAV-48449690aa68a6bc",
+        "idea_version_started_at": "2026-08-30T16:05:18Z",
+        "ticker": "AON",
+        "company": "Aon plc",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
+        "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T15:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T16:05:18Z",
+        "updated_at": "2026-08-30T16:05:18Z",
+        "decay_at": "2026-09-01T03:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T03:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cd9532d864b1",
+        "idea_version": "IDEAV-c959bbe94b436257",
+        "idea_version_started_at": "2026-08-30T15:45:17Z",
+        "ticker": "AON",
+        "company": "Aon",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+        "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T15:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T15:45:17Z",
+        "updated_at": "2026-08-30T15:45:17Z",
+        "decay_at": "2026-09-01T03:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T03:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d9be100b359",
         "idea_version": "IDEAV-52d7e610638c04e4",
@@ -121947,8 +122386,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 371,
-    "live_count": 57,
+    "surfaced_total": 373,
+    "live_count": 55,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -121967,9 +122406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 309514,
-    "news_picked_today": 648,
-    "news_dropped_today": 2208
+    "news_seen_today": 549803,
+    "news_picked_today": 1202,
+    "news_dropped_today": 5038
   },
   "book_momentum": {
     "live_count": 8,
