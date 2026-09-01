@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-08-31T23:44:17.005Z
+- stopped_at_utc: 2026-09-01T01:38:02.671Z
 
 ## Modules completed
 
@@ -22,26 +22,24 @@
 cockpit publication cannot delete terminal data: analyses/NU_2026-08-31/balance-sheet-survival/execution_provenance.receipt.json
 
 Provider final message:
-Continuation completed for `analyses/NU_2026-08-31`.
+Completed the continuation for `analyses/NU_2026-08-31`.
 
-- Target: `master/synthesizer`; its completed thesis and decision record were preserved. No synthesis cascade was rerun.
-- Decision: **Avoid** — operating execution is good, but US$14.30 exceeds every company-underwritten fair-value case.
-- [memo.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/memo.md): generated and validated, 3,496 words.
-- [audit_dossier.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/audit_dossier.md): generated and validated, 47 source artifacts and 1.40 MB.
-- Finish gate: **PASS**.
-- Evidence audit: **Minor issues, no blocking findings**.
-- Pre-mortem: **Survives**, confidence 53→53.
-- Expectations-gap: **PASS**; edge remains weak and not exploitable.
-- [idea_admission.json](/Users/admin/nostra-prod/analyses/NU_2026-08-31/idea_admission.json): `not_applicable` because provider-bound NU market history was unavailable.
-- [RUN_METADATA.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/RUN_METADATA.md): updated from final disk state.
+- Target: `master/synthesizer`; no module syntheses or specialists rerun.
+- Decision: **Avoid**, confidence 58/100.
+- Modules: six completed; balance-sheet-survival ended fail-fast with `Insufficient data`.
+- [memo.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/memo.md): validated, 3,186 words.
+- [audit_dossier.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/audit_dossier.md): validated, 47 sections.
+- [final_thesis.md](/Users/admin/nostra-prod/analyses/NU_2026-08-31/final_thesis.md) and [decision_record.json](/Users/admin/nostra-prod/analyses/NU_2026-08-31/decision_record.json) remained unchanged.
+- Integrity: `GATE: PROVISIONAL`; verification found Material issues, 39/100. Pre-mortem verdict: `Thesis broken`, recommended confidence 58→0.
+- Idea assessment: `not_assessable`; admission `not_applicable` because canonical NU market history was unavailable.
 - Intake receipt: none.
-- Completion barrier: passed with zero live subagents and all required artifacts valid.
+- Completion barrier: passed; zero live children.
 
-Tracked cockpit publication was accepted:
+Publication was accepted by the trusted cockpit supervisor:
 
-`PUBLICATION_QUEUED=fbe7fcd2-80dc-42e9-9370-eab103cf505d`
+`PUBLICATION_QUEUED=a3ee1e02-6b30-499e-aaa3-191f763caf07`
 
-No commit SHA is reported yet; the trusted supervisor will commit and push after the provider processes exit.
+No commit SHA is available yet; the supervisor will publish and backfill it after process exit.
 ```
 
 ## Resume
