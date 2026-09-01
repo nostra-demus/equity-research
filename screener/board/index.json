@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T10:48:29Z",
+  "generated_at": "2026-09-01T10:53:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-769",
+      "headline": "CHINA POWER (02380): Issuance of RMB1 Billion Short-Term Commercial Paper (Merger and Acquisition) by SPIC Hydropower in the PRC",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103181.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T10:43:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company is issuing RMB 1 billion in commercial paper to fund an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is issuing RMB 1 billion in commercial paper to fund an acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Power",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-756",
       "headline": "Punj Lloyd Limited: Punj Lloyd Limited has informed the Exchange about Corporate Insolvency Resolution Process ; In terms of Regulation 30 of SEBI (LODR) Regulations, 2015, we hereby inform that the Company has received the resignation letter from Mr. Adhish Swaroop (ACS : 16034) from the position of Company Secretary & Compliance officer of the Company w.e.f 31.08.2026. Detailed Announcement along with the copy of Resignation letter is attached / submitted.",
@@ -1956,55 +2005,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-194",
-      "headline": "Singapore's Keppel DC REIT, Keppel to buy two Tokyo data centres for $1.2 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/keppel-dc-reit-buy-two-tokyo-data-centres-12-billion-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:29:50Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Keppel DC REIT to acquire two data centers for $1.2 billion is a major capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Keppel DC REIT to acquire two data centers for $1.2 billion is a major capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keppel DC REIT",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122925,9 +122925,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1413132,
-    "news_picked_today": 1487,
-    "news_dropped_today": 7393
+    "news_seen_today": 1436202,
+    "news_picked_today": 1494,
+    "news_dropped_today": 7410
   },
   "book_momentum": {
     "live_count": 8,
