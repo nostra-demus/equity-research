@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T11:17:52Z",
+  "generated_at": "2026-09-01T11:23:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-769",
@@ -933,6 +933,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-773",
+      "headline": "CrowdStrike’s (CRWD) Blowout Quarter Comes With A Guidance Reality Check",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/crowdstrike-crwd-blowout-quarter-comes-105315744.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T10:53:15Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "CrowdStrike reported strong quarterly results but provided a guidance reality check that may impact market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CrowdStrike reported strong quarterly results but provided a guidance reality check that may impact market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CrowdStrike",
+          "ticker": "CRWD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,60 +1990,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-351",
-      "headline": "India's GRT Jewellers to gain control of peer Tribhovandas Bhimji Zaveri in up to $109 million stake buy",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/indias-grt-jewellers-to-gain-control-of-peer-tribhovandas-bhimji-zaveri-in-up-to-109-million-stake-buy-19981006.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:13:06Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "GRT Jewellers is acquiring a controlling stake in Tribhovandas Bhimji Zaveri for $109 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GRT Jewellers is acquiring a controlling stake in Tribhovandas Bhimji Zaveri for $109 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GRT Jewellers",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Tribhovandas Bhimji Zaveri",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122914,9 +122910,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1555953,
-    "news_picked_today": 1536,
-    "news_dropped_today": 7560
+    "news_seen_today": 1581313,
+    "news_picked_today": 1552,
+    "news_dropped_today": 7592
   },
   "book_momentum": {
     "live_count": 8,
