@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T15:55:36Z",
+  "generated_at": "2026-09-01T16:05:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-878",
@@ -1527,6 +1527,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-901",
+      "headline": "Denny’s rival dining chain files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/denny-rival-dining-chain-files-153300154.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Denny's rival",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-894",
       "headline": "Volkswagen expects 2026 sales of 8.5 million vehicles, plans asset divestments",
       "headline_en": null,
@@ -1572,6 +1621,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-906",
+      "headline": "This 4.5%-Yielding Pipeline Stock Just Made a $4.4 Billion Acquisition. Here's What It Means for the Dividend.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/01/this-4-5-yielding-pipeline-stock-just-made-a-usd4-4-billion-acquisition-here-s-what-it-means-for-the-dividend/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T15:24:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A pipeline company announced a $4.4 billion acquisition, which is a significant capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A pipeline company announced a $4.4 billion acquisition, which is a significant capital deployment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,104 +1965,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-856",
-      "headline": "GoPro to be acquired by Starman Optical in $285 million deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/gopro-be-acquired-by-starman-optical-285-million-deal-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T14:01:47Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "GoPro is to be acquired by Starman Optical in a confirmed transaction valued at $285 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GoPro is to be acquired by Starman Optical in a confirmed transaction valued at $285 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GoPro",
-          "ticker": "GPRO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-850",
-      "headline": "John Ternus takes over as Apple CEO: Net worth, marriage, career; why Apple chose him to succeed Tim Cook",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/all-about-new-apple-ceo-john-ternus-net-worth-education-and-is-he-married-11788268483886.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T13:33:32Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "John Ternus is appointed as the new CEO of Apple, succeeding Tim Cook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "John Ternus is appointed as the new CEO of Apple, succeeding Tim Cook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91062,77 +91056,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-91e36b52baa1",
-      "idea_version": "IDEAV-3ec2dc4e48f5ce85",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "HDFCBANK.NS",
-      "company": "HDFC Bank Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "CEO Sashidhar Jagdishan's sudden resignation creates leadership vacuum at India's largest private bank during a critical integration and growth phase.",
-      "why_now": "Resignation announced 2026-08-31; succession uncertainty and RBI approval process create near-term overhang.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a52b961eabb"
-      ],
-      "primary_source_event_id": "EVT-5a52b961eabb",
-      "source_headlines": [
-        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
-      ],
-      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:59:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T15:59:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-95df61b251da",
       "idea_version": "IDEAV-220278c21e7ec5ee",
       "idea_version_started_at": "2026-09-01T03:16:47Z",
@@ -92196,79 +92119,6 @@
       "surfaced_at": "2026-08-31T06:07:14Z",
       "updated_at": "2026-08-31T06:07:14Z",
       "decay_at": "2026-09-01T16:29:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-279942e1dba3",
-      "idea_version": "IDEAV-c5b6b612f37e1397",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "HDFCBANK",
-      "company": "HDFC Bank Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of CEO Sashidhar Jagdishan, despite a temporary share price rise, introduces leadership uncertainty that could negatively impact HDFC Bank's strategic direction and investor confidence over time.",
-      "why_now": "The CEO's resignation is a fresh event that creates leadership uncertainty, which often leads to a re-evaluation of the company's future prospects.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a52b961eabb"
-      ],
-      "primary_source_event_id": "EVT-5a52b961eabb",
-      "source_headlines": [
-        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
-      ],
-      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:59:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:13:07Z",
-      "updated_at": "2026-08-31T05:42:48Z",
-      "decay_at": "2026-09-01T15:59:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -93472,6 +93322,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-91e36b52baa1",
+      "idea_version": "IDEAV-3ec2dc4e48f5ce85",
+      "idea_version_started_at": "2026-08-31T07:32:07Z",
+      "ticker": "HDFCBANK.NS",
+      "company": "HDFC Bank Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "CEO Sashidhar Jagdishan's sudden resignation creates leadership vacuum at India's largest private bank during a critical integration and growth phase.",
+      "why_now": "Resignation announced 2026-08-31; succession uncertainty and RBI approval process create near-term overhang.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a52b961eabb"
+      ],
+      "primary_source_event_id": "EVT-5a52b961eabb",
+      "source_headlines": [
+        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
+      ],
+      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
+      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T03:59:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T07:32:07Z",
+      "updated_at": "2026-08-31T07:32:07Z",
+      "decay_at": "2026-09-01T15:59:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d607ee50459a",
       "idea_version": "IDEAV-ceca7ba21cdbb4c3",
       "idea_version_started_at": "2026-08-30T09:40:14Z",
@@ -93891,6 +93812,79 @@
       "surfaced_at": "2026-08-31T06:07:14Z",
       "updated_at": "2026-08-31T06:07:14Z",
       "decay_at": "2026-09-01T15:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-279942e1dba3",
+      "idea_version": "IDEAV-c5b6b612f37e1397",
+      "idea_version_started_at": "2026-08-31T05:42:48Z",
+      "ticker": "HDFCBANK",
+      "company": "HDFC Bank Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of CEO Sashidhar Jagdishan, despite a temporary share price rise, introduces leadership uncertainty that could negatively impact HDFC Bank's strategic direction and investor confidence over time.",
+      "why_now": "The CEO's resignation is a fresh event that creates leadership uncertainty, which often leads to a re-evaluation of the company's future prospects.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a52b961eabb"
+      ],
+      "primary_source_event_id": "EVT-5a52b961eabb",
+      "source_headlines": [
+        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
+      ],
+      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
+      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T03:59:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-29T15:13:07Z",
+      "updated_at": "2026-08-31T05:42:48Z",
+      "decay_at": "2026-09-01T15:59:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98871,8 +98865,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 346,
-    "shown_count": 346,
+    "total_count": 348,
+    "shown_count": 348,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -98881,8 +98875,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 171,
-        "shown_count": 171,
+        "total_count": 173,
+        "shown_count": 173,
         "hidden_count": 0
       }
     },
@@ -98902,6 +98896,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-91e36b52baa1",
+        "idea_version": "IDEAV-3ec2dc4e48f5ce85",
+        "idea_version_started_at": "2026-08-31T07:32:07Z",
+        "ticker": "HDFCBANK.NS",
+        "company": "HDFC Bank Ltd",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "CEO Sashidhar Jagdishan's sudden resignation creates leadership vacuum at India's largest private bank during a critical integration and growth phase.",
+        "why_now": "Resignation announced 2026-08-31; succession uncertainty and RBI approval process create near-term overhang.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5a52b961eabb"
+        ],
+        "primary_source_event_id": "EVT-5a52b961eabb",
+        "source_headlines": [
+          "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
+        ],
+        "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
+        "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T03:59:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T07:32:07Z",
+        "updated_at": "2026-08-31T07:32:07Z",
+        "decay_at": "2026-09-01T15:59:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T15:59:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-279942e1dba3",
+        "idea_version": "IDEAV-c5b6b612f37e1397",
+        "idea_version_started_at": "2026-08-31T05:42:48Z",
+        "ticker": "HDFCBANK",
+        "company": "HDFC Bank Ltd",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of CEO Sashidhar Jagdishan, despite a temporary share price rise, introduces leadership uncertainty that could negatively impact HDFC Bank's strategic direction and investor confidence over time.",
+        "why_now": "The CEO's resignation is a fresh event that creates leadership uncertainty, which often leads to a re-evaluation of the company's future prospects.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5a52b961eabb"
+        ],
+        "primary_source_event_id": "EVT-5a52b961eabb",
+        "source_headlines": [
+          "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
+        ],
+        "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
+        "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T03:59:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-29T15:13:07Z",
+        "updated_at": "2026-08-31T05:42:48Z",
+        "decay_at": "2026-09-01T15:59:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T15:59:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-23e00bbbd9ca",
         "idea_version": "IDEAV-80e68decdc0c9b33",
@@ -124586,7 +124730,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 25,
+    "live_count": 23,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124605,9 +124749,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3129105,
-    "news_picked_today": 2045,
-    "news_dropped_today": 9451
+    "news_seen_today": 3221271,
+    "news_picked_today": 2054,
+    "news_dropped_today": 9538
   },
   "book_momentum": {
     "live_count": 8,
