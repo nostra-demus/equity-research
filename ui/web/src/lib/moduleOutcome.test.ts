@@ -23,9 +23,13 @@ assert.equal(moduleCompletionOutcome(nodes, {
   [nodes[0].key]: { status: 'done', verdict: null },
 }).complete, false, 'a verdict-free gate cannot silently become a terminal outcome')
 
+assert.equal(moduleCompletionOutcome(nodes, {
+  [nodes[2].key]: { status: 'done', verdict: 'Sufficient' },
+}).complete, false, 'an invalid synthesis file cannot pretend the module settled')
+
 assert.deepEqual(moduleCompletionOutcome(nodes, {
   [nodes[0].key]: { status: 'done', verdict: 'Insufficient data', terminalValidated: true },
-  [nodes[2].key]: { status: 'done', verdict: 'Sufficient' },
+  [nodes[2].key]: { status: 'done', verdict: 'Sufficient', terminalValidated: true },
 }), { complete: true, kind: 'synthesis', verdict: 'Sufficient' }, 'a synthesis remains the primary completed outcome')
 
 console.log('moduleOutcome.test.ts: module terminal display truth passed')

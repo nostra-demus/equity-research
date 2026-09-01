@@ -21,7 +21,7 @@ export function moduleCompletionOutcome(
   runtime: Record<string, Pick<NodeRuntime, 'status' | 'verdict' | 'terminalValidated'> | undefined>,
 ): ModuleCompletionOutcome {
   const synthesis = nodes.find((node) => node.isSynthesis)
-  if (synthesis && runtime[synthesis.key]?.status === 'done') {
+  if (synthesis && runtime[synthesis.key]?.status === 'done' && runtime[synthesis.key]?.terminalValidated) {
     return { complete: true, kind: 'synthesis', verdict: runtime[synthesis.key]?.verdict ?? null }
   }
 

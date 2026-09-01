@@ -303,10 +303,14 @@ export function GlobeScene({
   const completedModules = useMemo(() => {
     const s = new Set<string>()
     for (const a of layout.moduleAnchors) {
-      if (moduleCompletionOutcome(nodesByModule.get(a.module) ?? [], nodeRuntime).complete) s.add(a.module)
+      const moduleNodes = nodesByModule.get(a.module) ?? []
+      const completion = moduleCompletionOutcome(moduleNodes, nodeRuntime)
+      const exactResume = activeSwarm === 'research' && moduleByName.get(a.module)?.exactResume === true
+      const rosterComplete = !exactResume || moduleRunAffordance(moduleNodes, nodeStatus).complete
+      if (completion.kind === 'fail-fast' || (completion.kind === 'synthesis' && rosterComplete)) s.add(a.module)
     }
     return s
-  }, [layout.moduleAnchors, nodesByModule, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [layout.moduleAnchors, nodesByModule, statusSig, activeSwarm, moduleByName]) // eslint-disable-line react-hooks/exhaustive-deps
   // LIVE flow — bright/fast: a completed upstream feeding a module that is running/queued right now, plus the
   // module→Memo spokes WHILE the run is still in flight. Empty once nothing is running (i.e. a finished run),
   // so a done run no longer shows "pretend-live" bright spokes.
@@ -529,7 +533,8 @@ export function GlobeScene({
           : null
         // a finished module (not live) gets a calm done marker instead of a blank "run module" affordance. Elapsed
         // is only known for modules finished in-session (SSE carries endedAt); a manifest-loaded run shows just "done".
-        const moduleDoneLabel = !live && (completion.complete || (smartResume && runAffordance.complete))
+        const moduleDoneLabel = !live && (completion.kind === 'fail-fast'
+          || (completion.kind === 'synthesis' && (!smartResume || runAffordance.complete)))
         const doneStarts = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.startedAt).filter((t): t is number => typeof t === 'number') : []
         const doneEnds = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.endedAt).filter((t): t is number => typeof t === 'number') : []
         const doneElapsed = doneStarts.length && doneEnds.length ? Math.max(...doneEnds) - Math.min(...doneStarts) : null
