@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T04:14:25Z",
+  "generated_at": "2026-09-01T04:18:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-587",
+      "headline": "C SUCCESS FIN (03623): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 45% ISSUED SHARE CAPITAL IN THE TARGET COMPANY INVOLVING ISSUE OF CONSIDEATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103055.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "C Success Fin announced the acquisition of a 45% stake in a target company via share issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C Success Fin announced the acquisition of a 45% stake in a target company via share issuance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C Success Fin",
+          "ticker": "03623",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-464",
       "headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
@@ -1749,6 +1798,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-588",
+      "headline": "MIN: Conclusion of ASIC investigation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MIN?key=2924-03130171-6A1341627",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T04:03:40Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "MinRes concluded an ASIC investigation, removing a source of regulatory uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "MinRes concluded an ASIC investigation, removing a source of regulatory uncertainty.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mineral Resources",
+          "ticker": "MIN",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-361",
       "headline": "FS ANTHRACITE (01738): SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1894,110 +1992,6 @@
           "name": "Nvidia",
           "ticker": "NVDA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-515",
-      "headline": "ITC Infotech to merge with Happiest Minds, buy 22% promoter stake for Rs 1,330 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/itc-infotech-to-merge-with-happiest-minds-buy-22-promoter-stake-for-rs-1330-crore/articleshow/133659997.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T17:43:51Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "ITC Infotech to merge with Happiest Minds and acquire 22% promoter stake for ₹1,330 crore — a named deal value M&A and stake purchase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "ITC Infotech to merge with Happiest Minds and acquire 22% promoter stake for ₹1,330 crore — a named deal value M&A and stake purchase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITC Infotech",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Happiest Minds Technologies",
-          "ticker": "HAPPSTMNDS",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-561",
-      "headline": "ONGC plans ₹1 trillion investment in deepwater exploration by FY31",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/ongc-plans-1-trillion-investment-in-deepwater-exploration-by-fy31-11788189691681.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T16:56:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "ONGC plans ₹1 trillion (≈$12B) investment in deepwater exploration by FY31, a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "ONGC plans ₹1 trillion (≈$12B) investment in deepwater exploration by FY31, a major capex commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ONGC",
-          "ticker": "ONGC",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -122183,9 +122177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 342544,
-    "news_picked_today": 764,
-    "news_dropped_today": 2572
+    "news_seen_today": 346147,
+    "news_picked_today": 771,
+    "news_dropped_today": 2589
   },
   "book_momentum": {
     "live_count": 8,
