@@ -1,6 +1,1961 @@
 {
-  "generated_at": "2026-08-31T23:55:47Z",
+  "generated_at": "2026-09-01T00:53:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-053",
+      "headline": "Shein Set to Debut in Test of Investor Demand for Consumer Plays",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/shein-set-to-debut-in-test-of-investor-demand-for-consumer-plays",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Shein is preparing for a public debut, which is a significant event for investor demand in the consumer sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Shein is preparing for a public debut, which is a significant event for investor demand in the consumer sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-020",
+      "headline": "ONGC to invest Rs 1L cr in 5 years",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/ongc-to-invest-rs-1l-cr-in-5-years/articleshow/133665122.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:33:46Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "ONGC announces a Rs 1 lakh crore (about $12 billion) investment over 5 years, a major capital expenditure plan that could significantly boost its production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "ONGC announces a Rs 1 lakh crore (about $12 billion) investment over 5 years, a major capital expenditure plan that could significantly boost its production capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oil and Natural Gas Corporation",
+          "ticker": "ONGC",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-060",
+      "headline": "Amazon é processada nos EUA por práticas de vendas de anúncios",
+      "headline_en": "Amazon is sued in the US over ad sales practices",
+      "url": "https://www.reuters.com/pt/tecnologia/25PQUTFTLZOL7LGECQI7S44TQA-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:36:09Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Amazon is facing a lawsuit in the US regarding its advertising sales practices, which could impact its ad revenue model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Amazon is facing a lawsuit in the US regarding its advertising sales practices, which could impact its ad revenue model.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-066",
+      "headline": "Activist investor Elliott builds Air Liquide stake, pushes for changes, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/activist-investor-elliott-has-stake-air-liquide-pushes-changes-sources-say-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:15:46Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Activist investor Elliott has built a stake in Air Liquide and is pushing for changes, signaling potential strategic shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Activist investor Elliott has built a stake in Air Liquide and is pushing for changes, signaling potential strategic shifts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Liquide",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-080",
+      "headline": "Reckitt’s Mead Johnson Wins Infant Formula Case in Federal Trial",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/reckitt-s-mead-johnson-wins-infant-formula-case-in-federal-trial",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:44:53Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Reckitt's Mead Johnson unit won a federal trial regarding infant formula, mitigating legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Reckitt's Mead Johnson unit won a federal trial regarding infant formula, mitigating legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reckitt",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-081",
+      "headline": "Amazon sued by FTC, 22 US states over ad sales practices",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/ftc-file-lawsuit-alleging-amazon-deceived-advertisers-wsj-reports-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:44:21Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Amazon is being sued by the FTC and 22 states over alleged anti-competitive ad sales practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Amazon is being sued by the FTC and 22 states over alleged anti-competitive ad sales practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-023",
+      "headline": "EOW Files C-Summary Reports In Three FIRs Over Alleged ₹1,243-Crore Lilavati Trust Financial Irregularities",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/eow-files-c-summary-reports-in-three-firs-over-alleged-1243-crore-lilavati-trust-financial-irregularities",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "EOW files C-summary reports in three FIRs over alleged ₹1,243-crore Lilavati Trust financial irregularities, a regulatory enforcement action that could affect the trust's operations and reputation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "EOW files C-summary reports in three FIRs over alleged ₹1,243-crore Lilavati Trust financial irregularities, a regulatory enforcement action that could affect the trust's operations and reputation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lilavati Trust",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-062",
+      "headline": "Trump administration announces drug pricing deals with CSL, Astellas and others",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/trump-administration-announce-drug-pricing-deals-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:28:26Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The Trump administration announced drug pricing deals with CSL and Astellas, which may impact future revenue margins for these firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The Trump administration announced drug pricing deals with CSL and Astellas, which may impact future revenue margins for these firms.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Astellas",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-067",
+      "headline": "US to announce sharply lower vehicle fuel economy requirements",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/us-announce-sharply-lower-vehicle-fuel-economy-requirements-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:06:45Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The US government is planning to lower vehicle fuel economy requirements, which impacts the regulatory compliance costs and product strategy for the entire automotive sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The US government is planning to lower vehicle fuel economy requirements, which impacts the regulatory compliance costs and product strategy for the entire automotive sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-055",
+      "headline": "Nissan and Honda agree to work together on software for cars",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/japanese-automakers-nissan-and-honda-agree-to-work-together-on-software-for-cars",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:06:59Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Nissan and Honda are partnering on automotive software, a strategic move to improve competitiveness in the EV/tech space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Nissan and Honda are partnering on automotive software, a strategic move to improve competitiveness in the EV/tech space.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nissan",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-022",
+      "headline": "Trump Says Pharma Companies Commit To Lowering Prices | Balance of Power: Late Edition 08/31/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-08-31/balance-of-power-late-edition-08-31-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:27:50Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Trump says pharma companies commit to lowering prices, a regulatory/political pressure that could reduce revenue for the pharmaceutical sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Trump says pharma companies commit to lowering prices, a regulatory/political pressure that could reduce revenue for the pharmaceutical sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-064",
+      "headline": "New York cannot enforce $75 billion climate 'superfund' law, US judge rules",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/new-york-cannot-enforce-75-billion-climate-superfund-law-us-judge-rules-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:24:12Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A US judge ruled that New York cannot enforce a $75 billion climate 'superfund' law, impacting state-level regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "A US judge ruled that New York cannot enforce a $75 billion climate 'superfund' law, impacting state-level regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-068",
+      "headline": "EPA grants 1.76 billion biofuel exemptions, weighs shifting obligations to larger refiners",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/us-expected-approve-expanded-biofuel-waivers-early-monday-sources-say-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:05:55Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The EPA is granting 1.76 billion in biofuel exemptions, creating a shift in regulatory obligations that affects the cost structure of refiners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "The EPA is granting 1.76 billion in biofuel exemptions, creating a shift in regulatory obligations that affects the cost structure of refiners.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-111",
+      "headline": "Honda And Nissan Join Forces On Software And Electronics",
+      "headline_en": null,
+      "url": "https://www.carscoops.com/2026/08/honda-nissan-software-partnership/",
+      "source_name": "Carscoops",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Honda and Nissan are partnering on software and electronics development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Honda and Nissan are partnering on software and electronics development.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Nissan",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-021",
+      "headline": "Bessent expects Japan to take action to boost yen, signals BOJ rate-hike chance",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/09/01/bessent-japan-yen-boj-rate-hike/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Bessent expects Japan to take action to boost yen and signals BOJ rate-hike chance, which could impact Japanese equities and currency markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Bessent expects Japan to take action to boost yen and signals BOJ rate-hike chance, which could impact Japanese equities and currency markets.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-006",
+      "headline": "Maruti plans small EV push, targets wider charging infrastructure",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/maruti-plans-small-ev-push-targets-wider-charging-infrastructure/articleshow/133665142.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:38:22Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Maruti's EV push and charging infrastructure expansion could boost future revenue and market share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Maruti's EV push and charging infrastructure expansion could boost future revenue and market share.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maruti Suzuki",
+          "ticker": "MARUTI",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-059",
+      "headline": "Unionized workers at Hyundai Motor accept wage deal",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260901000500315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:01:51Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Hyundai Motor union members accepted a wage deal, avoiding potential strike-related production disruptions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Hyundai Motor union members accepted a wage deal, avoiding potential strike-related production disruptions.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-050",
+      "headline": "Israeli Court Says Papaya Gaming Should Improve Its Debt Settlement Proposal to Repay $730 Million to Skillz, a FIRY (NYSE: FIRY) Company, and Declines to Send It to a Creditor Vote",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260831697498/en/Israeli-Court-Says-Papaya-Gaming-Should-Improve-Its-Debt-Settlement-Proposal-to-Repay-730-Million-to-Skillz-a-FIRY-NYSE-FIRY-Company-and-Declines-to-Send-It-to-a-Creditor-Vote/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Court ruling regarding a $730 million debt settlement dispute involving Skillz.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Court ruling regarding a $730 million debt settlement dispute involving Skillz.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Skillz",
+          "ticker": "FIRY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-007",
+      "headline": "ASX to fall; Former Seven boss joins WiseTech Global",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-us-bond-yields-press-higher-oil-tops-us90-20260901-p60t7v?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:43:11Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Former Seven boss joining WiseTech Global could signal strategic leadership changes, but impact is uncertain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Former Seven boss joining WiseTech Global could signal strategic leadership changes, but impact is uncertain.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WiseTech Global",
+          "ticker": "WTC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-103",
+      "headline": "Ascendis and BioMarin Enter Binding Term Sheet for a Global Settlement and License Agreement Related to YUVIWEL® (Navepegritide) | ASND Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ASND/ascendis-and-bio-marin-enter-binding-term-sheet-for-a-global-rheatr5s02tr.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Ascendis and BioMarin entered a binding settlement and license agreement for YUVIWEL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Ascendis and BioMarin entered a binding settlement and license agreement for YUVIWEL.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ascendis Pharma",
+          "ticker": "ASND",
+          "listing_country": "US"
+        },
+        {
+          "name": "BioMarin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-112",
+      "headline": "Apollo Funds Agree to Sell Kelvion, a Global Leader in Cooling Solutions for Data Centers and Diversified Industrials, to SLB for $4.1 billion | APO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/APO/apollo-funds-agree-to-sell-kelvion-a-global-leader-in-cooling-dt6d2cykze5h.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T10:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "SLB agreed to acquire Kelvion from Apollo Funds for $4.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "SLB agreed to acquire Kelvion from Apollo Funds for $4.1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": "APO",
+          "listing_country": "US"
+        },
+        {
+          "name": "SLB",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-115",
+      "headline": "KKR To Sell USI to Aon plc in $17 Billion Transaction | KKR Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/KKR/kkr-to-sell-usi-to-aon-plc-in-17-billion-8scxm260gfth.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "KKR to sell USI to Aon plc in a $17 billion transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "KKR to sell USI to Aon plc in a $17 billion transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": "KKR",
+          "listing_country": "US"
+        },
+        {
+          "name": "Aon plc",
+          "ticker": "AON",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-065",
+      "headline": "Boeing, engineers union to resume contract negotiations on Sept 8, union says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/boeing-engineers-union-agree-resume-contract-talks-sept-8-union-says-2026-08-31/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:21:25Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Boeing and its engineers union are set to resume contract negotiations on Sept 8, a key step in avoiding labor disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Boeing and its engineers union are set to resume contract negotiations on Sept 8, a key step in avoiding labor disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-093",
+      "headline": "S-Pankki Oyj täydentää 16.7.2026 päivättyä tarjousasiakirjaa koskien tekemäänsä vapaaehtoista julkista käteisostotarjousta kaikista Oma Säästöpankki Oyj:n osakkeista",
+      "headline_en": "S-Pankki Oyj supplements the offer document dated 16.7.2026 regarding its voluntary public cash tender offer for all shares in Oma Säästöpankki Oyj",
+      "url": "https://www.globenewswire.com/news-release/2026/08/31/3353184/0/fi/s-pankki-oyj-t%C3%A4ydent%C3%A4%C3%A4-16-7-2026-p%C3%A4iv%C3%A4tty%C3%A4-tarjousasiakirjaa-koskien-tekem%C3%A4%C3%A4ns%C3%A4-vapaaehtoista-julkista-k%C3%A4teisostotarjousta-kaikista-oma-s%C3%A4%C3%A4st%C3%B6pankki-oyj-n-osakkeista.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T11:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "S-Pankki Oyj is supplementing its tender offer document for the acquisition of Oma Säästöpankki Oyj.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "S-Pankki Oyj is supplementing its tender offer document for the acquisition of Oma Säästöpankki Oyj.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S-Pankki Oyj",
+          "ticker": null,
+          "listing_country": "FI"
+        },
+        {
+          "name": "Oma Säästöpankki Oyj",
+          "ticker": null,
+          "listing_country": "FI"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-009",
+      "headline": "Hyundai Motor's South Korean union approves wage deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/hyundai-motors-south-korean-union-approves-wage-deal-yonhap-says-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:49:45Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Hyundai's union wage deal approval could impact labor costs and production stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Hyundai's union wage deal approval could impact labor costs and production stability.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": "005380",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-101",
+      "headline": "Summit Midstream Corporation Announces Final Investment Decision on Double E Pipeline Mainline Compression Expansion | SMC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SMC/summit-midstream-corporation-announces-final-investment-decision-on-eomz10o0nm6k.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Summit Midstream announced a final investment decision for a pipeline compression expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Summit Midstream announced a final investment decision for a pipeline compression expansion project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Summit Midstream",
+          "ticker": "SMC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-035",
+      "headline": "ONE Nuclear Executes Binding LOI for Project Cayman, a 2.88 GW Louisiana Energy Project with Co-Located Data Center Campus | HVII Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/HVII/one-nuclear-executes-binding-loi-for-project-cayman-a-2-88-gw-4i9ttkw3ltcs.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "ONE Nuclear announced a 2.88 GW energy project with a co-located data center campus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "ONE Nuclear announced a 2.88 GW energy project with a co-located data center campus.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONE Nuclear",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-076",
+      "headline": "Corvex Announces Significant Data Center Expansion; Increasing Current Capacity 5x with Contracted Path to 13x | MOVE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/MOVE/corvex-announces-significant-data-center-expansion-increasing-v182tg9zlf2d.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T11:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Corvex announced a significant data center expansion, increasing current capacity 5x with a contracted path to 13x.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Corvex announced a significant data center expansion, increasing current capacity 5x with a contracted path to 13x.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corvex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-054",
+      "headline": "China Makes Cars So Fast That It’s Starting to Worry Regulators",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/china-makes-cars-so-fast-that-it-s-starting-to-worry-regulators",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Rapid production growth in the Chinese auto sector is attracting regulatory scrutiny, potentially impacting future operational freedom.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Rapid production growth in the Chinese auto sector is attracting regulatory scrutiny, potentially impacting future operational freedom.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-058",
+      "headline": "Victoria Beckham’s label makes first profit in 18 years since launching",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/victoria-beckham-david-beckham-financial-times-netflix-jennifer-lopez-b3042378.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:13:12Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Victoria Beckham's label achieving its first profit in 18 years is a significant operational turnaround.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Victoria Beckham's label achieving its first profit in 18 years is a significant operational turnaround.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victoria Beckham",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-121",
+      "headline": "HCWC Announces Host Digital Secures $1.25 Billion, 15-Year AI Data Center Lease",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/31/3353118/0/en/hcwc-announces-host-digital-secures-1-25-billion-15-year-ai-data-center-lease.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "HCWC's Host Digital secures a $1.25 billion, 15-year AI data center lease — a large, long-duration revenue commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "HCWC's Host Digital secures a $1.25 billion, 15-year AI data center lease — a large, long-duration revenue commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCWC",
+          "ticker": "HCWC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-063",
+      "headline": "Governo prevê superávit primário de R$18,6 bi para 2027 em projeto orçamentário",
+      "headline_en": "Government forecasts a primary surplus of R$18.6 billion for 2027 in budget project",
+      "url": "https://www.reuters.com/pt/negocio/6YIKHCNRNRJ25GCQK4FRBITQS4-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:27:06Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The Brazilian government projects a primary surplus of R$18.6 billion for 2027 in its budget proposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "The Brazilian government projects a primary surplus of R$18.6 billion for 2027 in its budget proposal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-079",
+      "headline": "Hedge Fund Disclosure Deadline Delayed Again by SEC, CFTC",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/hedge-fund-disclosure-deadline-delayed-again-by-sec-cftc",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:44:42Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The SEC and CFTC have delayed the hedge fund disclosure deadline again.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The SEC and CFTC have delayed the hedge fund disclosure deadline again.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-117",
+      "headline": "GameStop Announces Amendment to Convertible Notes Exchange; Approximately $358.4 Million to be Settled in Cash in Lieu of Stock",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260830044447/en/GameStop-Announces-Amendment-to-Convertible-Notes-Exchange-Approximately-358.4-Million-to-be-Settled-in-Cash-in-Lieu-of-Stock/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T10:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "GameStop is settling $358.4 million of convertible notes in cash rather than stock, impacting liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "GameStop is settling $358.4 million of convertible notes in cash rather than stock, impacting liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GameStop",
+          "ticker": "GME",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-024",
+      "headline": "As Trump pivots to Venezuela for energy, U.S. big oil and big money invest in Canada",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/commentary/article-trump-pivots-venezuela-energy-us-big-oil-money-invest-canada/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T23:02:35Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "US pivot to Venezuela for energy and investment in Canada signals a shift in energy supply dynamics, potentially benefiting Canadian oil and gas producers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "US pivot to Venezuela for energy and investment in Canada signals a shift in energy supply dynamics, potentially benefiting Canadian oil and gas producers.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-131",
+      "headline": "Dimensional Fund Advisors Ltd. : Form 8.3 - DCC Energy PLC - Ordinary Shares",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/31/3353100/0/en/dimensional-fund-advisors-ltd-form-8-3-dcc-energy-plc-ordinary-shares.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T09:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "EQT completes its combination with Coller Capital, creating a larger private-markets platform with expanded AUM.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "EQT completes its combination with Coller Capital, creating a larger private-markets platform with expanded AUM.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT AB",
+          "ticker": "EQT",
+          "listing_country": "SE"
+        },
+        {
+          "name": "Coller Capital",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-132",
+      "headline": "EQT slutför samgåendet med Coller Capital",
+      "headline_en": "EQT completes merger with Coller Capital",
+      "url": "https://news.cision.com/se/eqt/r/eqt-slutfor-samgaendet-med-coller-capital,c4389694",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "EQT completed its merger with Coller Capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "EQT completed its merger with Coller Capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-057",
+      "headline": "Amul named world's strongest dairy brand in 2026, beats global brands Yili, Vinamilk, Valio",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/world/story/amul-named-worlds-strongest-dairy-brand-in-2026-beats-global-brands-yili-vinamilk-valio-552246-2026-09-01?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:25:02Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Amul being named the world's strongest dairy brand is a positive reputational milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Amul being named the world's strongest dairy brand is a positive reputational milestone.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amul",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-056",
+      "headline": "Uber Japan to add Nissan's new Elgrand van to premium service",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260831/p2a/00m/0bu/018000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T22:00:12Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Uber Japan is expanding its premium service fleet with Nissan vehicles, a minor operational update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Uber Japan is expanding its premium service fleet with Nissan vehicles, a minor operational update.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nissan",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-126",
+      "headline": "FirstCash Upsizes and Extends Term of Unsecured Bank Credit Facility; Size of Committed Facility Increased from $700 Million to $1.1 Billion; Maturity Date Extended to August 2031 | FCFS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FCFS/first-cash-upsizes-and-extends-term-of-unsecured-bank-credit-gocw5d3jtpxr.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-31T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "FirstCash upsizes its unsecured bank credit facility from $700M to $1.1B and extends maturity to August 2031, materially increasing liquidity and extending the debt runway.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "FirstCash upsizes its unsecured bank credit facility from $700M to $1.1B and extends maturity to August 2031, materially increasing liquidity and extending the debt runway.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FirstCash Holdings Inc",
+          "ticker": "FCFS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260831-800",
       "headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
@@ -92310,78 +94265,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5647a867aaf8",
-      "idea_version": "IDEAV-07586e118c05932c",
-      "idea_version_started_at": "2026-08-30T12:50:24Z",
-      "ticker": "ADPORTS",
-      "company": "AD Ports Group",
-      "exchange": "ADX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The board's support for the ADQ offer signals a potential consolidation or privatization event that typically narrows the discount to intrinsic value.",
-      "why_now": "The board backing was announced on 2026-08-30.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3afceae830c7"
-      ],
-      "primary_source_event_id": "EVT-3afceae830c7",
-      "source_headlines": [
-        "‎AD Ports board backs ADQ offer"
-      ],
-      "source_headline": "‎AD Ports board backs ADQ offer",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1932606",
-      "source_name": "Argaam — UAE Main News (English)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-08-30T12:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T12:50:24Z",
-      "updated_at": "2026-08-30T12:50:24Z",
-      "decay_at": "2026-09-01T00:50:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52c1133413b1",
       "idea_version": "IDEAV-c53632c038afea90",
       "idea_version_started_at": "2026-08-31T01:11:53Z",
@@ -95462,6 +97345,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5647a867aaf8",
+      "idea_version": "IDEAV-07586e118c05932c",
+      "idea_version_started_at": "2026-08-30T12:50:24Z",
+      "ticker": "ADPORTS",
+      "company": "AD Ports Group",
+      "exchange": "ADX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The board's support for the ADQ offer signals a potential consolidation or privatization event that typically narrows the discount to intrinsic value.",
+      "why_now": "The board backing was announced on 2026-08-30.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3afceae830c7"
+      ],
+      "primary_source_event_id": "EVT-3afceae830c7",
+      "source_headlines": [
+        "‎AD Ports board backs ADQ offer"
+      ],
+      "source_headline": "‎AD Ports board backs ADQ offer",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1932606",
+      "source_name": "Argaam — UAE Main News (English)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-08-30T12:53:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T12:50:24Z",
+      "updated_at": "2026-08-30T12:50:24Z",
+      "decay_at": "2026-09-01T00:50:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c5f3a906c673",
       "idea_version": "IDEAV-f6d31f1c9f43306b",
       "idea_version_started_at": "2026-08-30T12:50:24Z",
@@ -96478,13 +98433,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 308,
-    "shown_count": 308,
+    "total_count": 309,
+    "shown_count": 309,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 148,
-        "shown_count": 148,
+        "total_count": 149,
+        "shown_count": 149,
         "hidden_count": 0
       },
       "short": {
@@ -96509,6 +98464,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5647a867aaf8",
+        "idea_version": "IDEAV-07586e118c05932c",
+        "idea_version_started_at": "2026-08-30T12:50:24Z",
+        "ticker": "ADPORTS",
+        "company": "AD Ports Group",
+        "exchange": "ADX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The board's support for the ADQ offer signals a potential consolidation or privatization event that typically narrows the discount to intrinsic value.",
+        "why_now": "The board backing was announced on 2026-08-30.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3afceae830c7"
+        ],
+        "primary_source_event_id": "EVT-3afceae830c7",
+        "source_headlines": [
+          "‎AD Ports board backs ADQ offer"
+        ],
+        "source_headline": "‎AD Ports board backs ADQ offer",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1932606",
+        "source_name": "Argaam — UAE Main News (English)",
+        "materiality_max": 96,
+        "newest_source_at": "2026-08-30T12:53:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T12:50:24Z",
+        "updated_at": "2026-08-30T12:50:24Z",
+        "decay_at": "2026-09-01T00:50:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T00:50:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-91e5824ed7dd",
         "idea_version": "IDEAV-96812f8704292485",
@@ -119366,7 +121396,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 367,
-    "live_count": 57,
+    "live_count": 56,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -119376,7 +121406,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1847,
+    "inbox_unconsumed": 1887,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -119385,9 +121415,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1700582,
-    "news_picked_today": 2281,
-    "news_dropped_today": 21667
+    "news_seen_today": 45852,
+    "news_picked_today": 136,
+    "news_dropped_today": 488
   },
   "book_momentum": {
     "live_count": 8,
