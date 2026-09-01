@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T10:38:17Z",
+  "generated_at": "2026-09-01T10:43:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-756",
@@ -933,6 +933,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-764",
+      "headline": "Unacademy Acquired By UpGrad For Over $200 Million After Valuation Drops From Unicorn Peak",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/unacademy-acquired-by-upgrad-for-over-200-million-after-valuation-drops-from-unicorn-peak",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T10:12:56Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Acquisition of Unacademy by UpGrad for over $200 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of Unacademy by UpGrad for over $200 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unacademy",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "UpGrad",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,56 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-192",
-      "headline": "NCLT forms 5-member special bench to decide Zee founder Subhash Chandra’s Rs 22,006-crore repayment plan",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/nclt-forms-5-member-special-bench-to-decide-zee-founder-subhash-chandras-rs-22006-crore-repayment-plan/articleshow/133665700.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:23:25Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "NCLT forming a special bench to decide on a Rs 22,006-crore repayment plan is a major credit event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NCLT forming a special bench to decide on a Rs 22,006-crore repayment plan is a major credit event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zee Entertainment",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122921,9 +122925,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1378841,
-    "news_picked_today": 1467,
-    "news_dropped_today": 7293
+    "news_seen_today": 1401623,
+    "news_picked_today": 1480,
+    "news_dropped_today": 7352
   },
   "book_momentum": {
     "live_count": 8,
