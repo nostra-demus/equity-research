@@ -207,10 +207,9 @@ function defaultLabel(name: PerformanceSampleName, operation?: string): string {
 
 export function normalizeServerOperation(route: string | undefined): string | undefined {
   if (!route || !route.startsWith('/api/')) return undefined
-  return route
-    .replace(/:runId\b/g, ':runId')
-    .replace(/:ticker\b/g, ':ticker')
-    .slice(0, 160)
+  // Fastify supplies the registered route template here, not the request URL, so parameter names are
+  // already privacy-safe placeholders (for example, /api/runs/:runId).
+  return route.slice(0, 160)
 }
 
 export function performanceOutcomeForResponse(operation: string | undefined, statusCode: number): PerformanceOutcome {
@@ -576,7 +575,12 @@ export class PerformanceTelemetry {
       const day = Date.parse(`${name.slice(0, 10)}T00:00:00.000Z`)
       if (!Number.isFinite(day) || day > until || day + 24 * 60 * 60_000 < since) continue
       let raw = ''
-      try { raw = await fs.promises.readFile(path.join(this.dir, name), 'utf8') } catch { continue }
+      try { raw = await fs.promises.readFile(path.join(this.dir, name), 'utf8') }
+      catch {
+        // Missing history is unknown performance, never evidence that the cockpit is fast. Let the
+        // deadline-wrapped route surface an unavailable summary instead of silently omitting a bad day.
+        throw new Error(`retained performance history is unreadable: ${name}`)
+      }
       for (const line of raw.split('\n')) {
         if (!line) continue
         try {

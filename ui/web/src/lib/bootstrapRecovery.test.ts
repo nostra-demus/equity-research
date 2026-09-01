@@ -30,6 +30,7 @@ class FakeEventSource {
 ;(globalThis as any).EventSource = FakeEventSource
 
 const { api } = await import('./api')
+const { flushBrowserPerformance } = await import('./performance')
 const {
   BOOTSTRAP_RETRY_MS,
   bootstrapSwarmId,
@@ -185,9 +186,20 @@ try {
   assert.equal(alreadyHealthyDiscoveryCalls, 1)
   assert.deepEqual(useStore.getState().swarms, [])
   assert.equal(pendingRetryCount(), 0)
-  globalThis.fetch = async () => new Response('{"ok":true}', { status: 200, headers: { 'content-type': 'application/json' } })
+  const performanceBodies: any[] = []
+  globalThis.fetch = async (input, init) => {
+    if (String(input) === '/api/performance/samples') {
+      performanceBodies.push(JSON.parse(String(init?.body || '{}')))
+      return new Response('{}', { status: 202, headers: { 'content-type': 'application/json' } })
+    }
+    return new Response('{"ok":true}', { status: 200, headers: { 'content-type': 'application/json' } })
+  }
   await useStore.getState()._tickHealth()
   await settle()
+  await flushBrowserPerformance()
+  assert.ok(performanceBodies.some((body) => body.samples?.some((sample: any) =>
+    sample.name === 'browser.api_latency' && sample.operation === '/api/health')),
+  'the recurring production health heartbeat contributes browser round-trip coverage')
   assert.equal(alreadyHealthyDiscoveryCalls, 2, 'a later healthy poll must heal discovery even when health was already online')
   assert.deepEqual(useStore.getState().swarms, [research, screener])
 

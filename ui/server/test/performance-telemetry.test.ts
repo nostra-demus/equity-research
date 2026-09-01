@@ -261,6 +261,24 @@ test('concurrent summary windows share one filesystem read', async (t) => {
   assert.equal(reads, 1, 'the shared read covers both current and baseline windows')
 })
 
+test('an unreadable retained history file fails closed', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-unreadable-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000 })
+  telemetry.recordServer(10, '/api/health', 'ok', NOW)
+  await telemetry.flush()
+
+  const originalRead = fs.promises.readFile
+  ;(fs.promises as any).readFile = async (file: fs.PathLike, ...args: unknown[]) => {
+    if (String(file).endsWith('.jsonl')) throw new Error('simulated retained-file EIO')
+    return (originalRead as any)(file, ...args)
+  }
+  t.after(() => { (fs.promises as any).readFile = originalRead })
+
+  await assert.rejects(telemetry.summary(24, NOW), /retained performance history is unreadable/,
+    'missing observations cannot be summarized as a healthy partial history')
+})
+
 test('fast API failures do not satisfy latency budgets', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-errors-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))

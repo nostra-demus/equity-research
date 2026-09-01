@@ -27,7 +27,7 @@ import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProv
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
 import { projectRunManifest } from './runManifestProjection'
 import { readChatModel, saveChatModel } from './chatModels'
-import { recordBrowserPerformance, recordNextPaint } from './performance'
+import { performanceFetch, recordBrowserPerformance, recordNextPaint } from './performance'
 
 const SIGNAL_INPUT_NATURES = new Set([
   'news_headline', 'regulatory_filing', 'earnings_release', 'earnings_call_transcript',
@@ -4551,7 +4551,7 @@ export const useStore = create<State>((set, get) => ({
     let outcome: 'ok' | 'engine' | 'session' = 'engine'
     let deploymentPending = false
     try {
-      const r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
+      const r = await performanceFetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
       if (r.headers.get('x-engine-status') === 'offline' || r.status >= 520) {
         outcome = 'engine' // the edge Worker / Cloudflare says the origin is down
