@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:24:41Z",
+  "generated_at": "2026-09-01T01:29:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -447,6 +447,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-184",
+      "headline": "Keppel DC Reit spends US$1.2 billion on two freehold data centres in Japan",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/keppel-dc-reit-spends-us1-2-billion-two-freehold-data-centres-japan",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:13:08Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Keppel DC Reit is acquiring two data centers for US$1.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Keppel DC Reit is acquiring two data centers for US$1.2 billion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keppel DC Reit",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-171",
       "headline": "Keppel DC REIT to buy two Tokyo data centres for $1.2 billion",
       "headline_en": null,
@@ -684,6 +734,55 @@
           "name": "Zhongzi Intl H",
           "ticker": "08118",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-188",
+      "headline": "TZN: Finance Facility Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TZN?key=2924-03130109-2A1694173",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T01:13:20Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Company announced a finance facility update which is marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company announced a finance facility update which is marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TZN",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -1275,6 +1374,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-183",
+      "headline": "Sundar Pichai Says Alphabet Can't Build AI Capacity Fast Enough, and Anthropic Has Secured 5 Gigawatts of It.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/31/sundar-pichai-says-alphabet-can-t-build-ai-capacity-fast-enough-and-anthropic-has-secured-5-gigawatts-of-it/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T00:42:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Anthropic secured 5 gigawatts of power capacity, a massive infrastructure investment for AI operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Anthropic secured 5 gigawatts of power capacity, a massive infrastructure investment for AI operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-020",
       "headline": "ONGC to invest Rs 1L cr in 5 years",
       "headline_en": null,
@@ -1613,6 +1766,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-178",
+      "headline": "US army secretary resigns after months of tension",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/czjz31dk1xmo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:01:03Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The resignation of the US Army Secretary indicates high-level management instability within a major government department.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The resignation of the US Army Secretary indicates high-level management instability within a major government department.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "US Army",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-023",
       "headline": "EOW Files C-Summary Reports In Three FIRs Over Alleged ₹1,243-Crore Lilavati Trust Financial Irregularities",
       "headline_en": null,
@@ -1735,201 +1937,6 @@
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-158",
-      "headline": "ARCH Venture Partners targets $3 billion raise for latest fund",
-      "headline_en": null,
-      "url": "https://endpoints.news/arch-venture-partners-targets-3-billion-raise-for-latest-fund/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:55:30Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "ARCH Venture Partners is targeting a $3 billion raise for its latest fund, indicating significant capital inflow for its portfolio companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "ARCH Venture Partners is targeting a $3 billion raise for its latest fund, indicating significant capital inflow for its portfolio companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARCH Venture Partners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-055",
-      "headline": "Nissan and Honda agree to work together on software for cars",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/business/japanese-automakers-nissan-and-honda-agree-to-work-together-on-software-for-cars",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:06:59Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Nissan and Honda are partnering on automotive software, a strategic move to improve competitiveness in the EV/tech space.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Nissan and Honda are partnering on automotive software, a strategic move to improve competitiveness in the EV/tech space.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nissan",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-159",
-      "headline": "UAE’s Edge chases European defence spending surge",
-      "headline_en": null,
-      "url": "https://www.agbi.com/defence/2026/09/uaes-edge-chases-european-defence-spending-surge/",
-      "source_name": "AGBI — Arabian Gulf Business Insight",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "UAE-based Edge Group is actively pursuing expansion into the European defense market to capture increased regional spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "UAE-based Edge Group is actively pursuing expansion into the European defense market to capture increased regional spending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edge Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-022",
-      "headline": "Trump Says Pharma Companies Commit To Lowering Prices | Balance of Power: Late Edition 08/31/2026",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-31/balance-of-power-late-edition-08-31-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T23:27:50Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Trump says pharma companies commit to lowering prices, a regulatory/political pressure that could reduce revenue for the pharmaceutical sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Trump says pharma companies commit to lowering prices, a regulatory/political pressure that could reduce revenue for the pharmaceutical sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
         "source_tier": 0,
         "scope": 2,
         "event": 4,
@@ -121488,9 +121495,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 113147,
-    "news_picked_today": 201,
-    "news_dropped_today": 759
+    "news_seen_today": 117926,
+    "news_picked_today": 212,
+    "news_dropped_today": 796
   },
   "book_momentum": {
     "live_count": 8,
