@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T05:04:26Z",
+  "generated_at": "2026-09-01T05:19:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-587",
@@ -1815,6 +1815,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-622",
+      "headline": "P&G Fiscal 2027 Outlook Brings an 8% Core EPS Headwind Into Focus",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pg-fiscal-2027-outlook-brings-8-core-eps-headwind-focus",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T15:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Procter & Gamble identifies an 8% core EPS headwind in its fiscal 2027 outlook, a significant quantified negative guidance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Procter & Gamble identifies an 8% core EPS headwind in its fiscal 2027 outlook, a significant quantified negative guidance update.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-137",
       "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
       "headline_en": null,
@@ -1958,55 +2007,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-495",
-      "headline": "Shein begins trading shares in Hong Kong after long-awaited IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/shein-listing-live-online-fashion-giant-begin-trading-shares-hong-kong-after-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T03:20:26Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Shein has completed its IPO and begun trading in Hong Kong.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Shein has completed its IPO and begun trading in Hong Kong.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91309,79 +91309,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3bb2116ecda7",
-      "idea_version": "IDEAV-d4410115e6047b86",
-      "idea_version_started_at": "2026-08-30T18:59:22Z",
-      "ticker": "KKR",
-      "company": "KKR & Co. Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
-      "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc4bc47f7047",
-        "EVT-7b406abe3985",
-        "EVT-f623aef7dfce"
-      ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
-      "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-        "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
-        "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
-      ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T17:05:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T18:59:22Z",
-      "updated_at": "2026-08-30T18:59:22Z",
-      "decay_at": "2026-09-01T05:05:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-2d43af8978c497d0",
       "idea_version_started_at": "2026-08-30T18:59:22Z",
@@ -94599,6 +94526,79 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-3bb2116ecda7",
+      "idea_version": "IDEAV-d4410115e6047b86",
+      "idea_version_started_at": "2026-08-30T18:59:22Z",
+      "ticker": "KKR",
+      "company": "KKR & Co. Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
+      "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047",
+        "EVT-7b406abe3985",
+        "EVT-f623aef7dfce"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+        "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T17:05:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T18:59:22Z",
+      "updated_at": "2026-08-30T18:59:22Z",
+      "decay_at": "2026-09-01T05:05:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-177f467dfd2a",
@@ -98838,13 +98838,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 314,
-    "shown_count": 314,
+    "total_count": 315,
+    "shown_count": 315,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 153,
-        "shown_count": 153,
+        "total_count": 154,
+        "shown_count": 154,
         "hidden_count": 0
       },
       "short": {
@@ -98869,6 +98869,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3bb2116ecda7",
+        "idea_version": "IDEAV-d4410115e6047b86",
+        "idea_version_started_at": "2026-08-30T18:59:22Z",
+        "ticker": "KKR",
+        "company": "KKR & Co. Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $17 billion sale of USI Insurance would represent a significant liquidity event and successful exit for KKR, boosting its cash position and performance fees.",
+        "why_now": "The deal is reportedly nearing completion as of August 30, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047",
+          "EVT-7b406abe3985",
+          "EVT-f623aef7dfce"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+          "Aon Nears Deal to Buy Insurance Brokerage From KKR, WSJ Reports",
+          "Aon close to acquiring USI Insurance from KKR in $17 billion deal, WSJ reports"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T17:05:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T18:59:22Z",
+        "updated_at": "2026-08-30T18:59:22Z",
+        "decay_at": "2026-09-01T05:05:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T05:05:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-177f467dfd2a",
         "idea_version": "IDEAV-48449690aa68a6bc",
@@ -122170,7 +122246,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 372,
-    "live_count": 56,
+    "live_count": 55,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -122189,9 +122265,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 405028,
-    "news_picked_today": 951,
-    "news_dropped_today": 3441
+    "news_seen_today": 435641,
+    "news_picked_today": 969,
+    "news_dropped_today": 3591
   },
   "book_momentum": {
     "live_count": 8,
