@@ -155,7 +155,7 @@ If two methods disagreed on fair value, list the disagreement, the value each pr
 | Only one valuation method usable | | Valuation confidence | max 50 |
 | No cash flow AND DCF is only method | | Valuation confidence | max 45 |
 | SOTP not possible for multi-segment | | Overall usefulness | max 80 |
-| Methods disagree >40% unreconciled | | Valuation confidence | max 55 |
+| Full high-to-low field of valid value-producing methods exceeds 40% | | Valuation confidence | max 55 (explanation does not waive the cap) |
 | Terminal value >75% of DCF EV | | Valuation confidence | max 60 |
 | Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | | Valuation attractiveness | max 60; value-trap flag mandatory; verdict no better than "Modestly undervalued" on a cheap multiple alone |
 | Sector Cycle Reality Test flags `02` and/or `03` cycle-elevated/depressed, unreconciled | | Valuation confidence | max 60 on that method; max 55 combined if `02` AND `03` flagged the same direction |
@@ -254,6 +254,7 @@ If a lever is genuinely unavailable, write `null` — never fabricate one to fil
 - [ ] Direction flags are correct: Downside risk is inverted (higher = worse); Valuation attractiveness and Margin of safety are NOT inverted (higher = better/cheaper).
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The fair-value output is the bull/base/bear LEVELS (points) pulled from `07`, with the cross-method dispersion (football field) shown separately — the base case is a point, never a band — and the current price (or "not available", with price-state if `indicative`) shown.
+- [ ] The dispersion cap uses the full high-to-low field of valid value-producing methods, never a hand-picked weighted pair; a >40% field caps confidence at 55 even when reconciled in prose.
 - [ ] Score caps from MODULE_RULES are applied in Section 4 — every row has an explicit Y/N.
 - [ ] Section 3's Sector Cycle Reality Test roll-up states `02`/`03`'s cycle-elevated/depressed flags (or "Not assessable"), and a same-direction flag on both is named as non-independent — not silently dropped on the way up from the specialists.
 - [ ] If `01`'s price-state is not `pool-verified` (`indicative` or `none`), the canonical no-price cap is applied — margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and attractiveness are all "Not assessable," confidence is capped at 55, and the Abstract says observed up/downside is not computable.
@@ -263,6 +264,7 @@ If a lever is genuinely unavailable, write `null` — never fabricate one to fil
 - [ ] The Abstract is 80–120 words, flowing prose, no bullets, no banned phrases.
 - [ ] No new analysis appears that wasn't in upstream outputs.
 - [ ] The methods treated as primary match the business type (Business-Type Method Map) — no operating-FCFF DCF or EV multiple is the headline for a financial or REIT.
+- [ ] For a financial, every bull/base/bear level is shown on the same forward period as both P/TBV and implied P/E with forward ROTE (`EPS / TBVPS`), and `P/TBV = P/E × ROTE` reconciles; no peer-high ceiling is imposed by construction.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
