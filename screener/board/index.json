@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T12:28:20Z",
+  "generated_at": "2026-09-01T12:34:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-778",
@@ -1036,6 +1036,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-788",
+      "headline": "upGrad completes all-stock acquisition of Unacademy Group in $200 million deal",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/upgrad-completes-all-stock-acquisition-unacademy-group-usd-200-million-deal-19981650.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T12:23:56Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "upGrad acquired Unacademy Group in a $200 million all-stock deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "upGrad acquired Unacademy Group in a $200 million all-stock deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "upGrad",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Unacademy Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-773",
       "headline": "CrowdStrike’s (CRWD) Blowout Quarter Comes With A Guidance Reality Check",
       "headline_en": null,
@@ -1936,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-589",
-      "headline": "'I Am Not Leaving Apple': Tim Cook Tells Staff As He Steps Down As CEO After 15-Year Run",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/i-am-not-leaving-apple-tim-cook-tells-staff-as-he-steps-down-as-ceo-after-15-year-run",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T03:49:19Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Tim Cook is stepping down as CEO of Apple after 15 years, representing a major leadership transition for a mega-cap company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tim Cook is stepping down as CEO of Apple after 15 years, representing a major leadership transition for a mega-cap company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93436,78 +93441,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-caa8876bf8f7",
-      "idea_version": "IDEAV-e02287dbb5047eb5",
-      "idea_version_started_at": "2026-08-31T02:21:42Z",
-      "ticker": "010140",
-      "company": "Samsung Heavy Industries",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Samsung Heavy Industries secured a new order worth 444.5 billion won for two container ships, which will directly boost its order backlog and future revenue.",
-      "why_now": "The new commercial deal was announced today, August 31, 2026, by Yonhap News Agency.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-182938c8ba76"
-      ],
-      "primary_source_event_id": "EVT-182938c8ba76",
-      "source_headlines": [
-        "Samsung Heavy wins 444.5 bln-won deal for 2 container ships"
-      ],
-      "source_headline": "Samsung Heavy wins 444.5 bln-won deal for 2 container ships",
-      "source_url": "https://en.yna.co.kr/view/AEN20260831002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-08-31T00:29:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T02:21:42Z",
-      "updated_at": "2026-08-31T02:21:42Z",
-      "decay_at": "2026-09-01T12:29:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3bb2116ecda7",
       "idea_version": "IDEAV-d4410115e6047b86",
       "idea_version_started_at": "2026-08-30T18:59:22Z",
@@ -97154,6 +97087,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-caa8876bf8f7",
+      "idea_version": "IDEAV-e02287dbb5047eb5",
+      "idea_version_started_at": "2026-08-31T02:21:42Z",
+      "ticker": "010140",
+      "company": "Samsung Heavy Industries",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Samsung Heavy Industries secured a new order worth 444.5 billion won for two container ships, which will directly boost its order backlog and future revenue.",
+      "why_now": "The new commercial deal was announced today, August 31, 2026, by Yonhap News Agency.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-182938c8ba76"
+      ],
+      "primary_source_event_id": "EVT-182938c8ba76",
+      "source_headlines": [
+        "Samsung Heavy wins 444.5 bln-won deal for 2 container ships"
+      ],
+      "source_headline": "Samsung Heavy wins 444.5 bln-won deal for 2 container ships",
+      "source_url": "https://en.yna.co.kr/view/AEN20260831002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-08-31T00:29:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T02:21:42Z",
+      "updated_at": "2026-08-31T02:21:42Z",
+      "decay_at": "2026-09-01T12:29:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ad181ba1eeef",
       "idea_version": "IDEAV-951e0f64ffbb637d",
       "idea_version_started_at": "2026-08-30T06:40:16Z",
@@ -98885,13 +98890,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 330,
-    "shown_count": 330,
+    "total_count": 331,
+    "shown_count": 331,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 165,
-        "shown_count": 165,
+        "total_count": 166,
+        "shown_count": 166,
         "hidden_count": 0
       },
       "short": {
@@ -98916,6 +98921,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-caa8876bf8f7",
+        "idea_version": "IDEAV-e02287dbb5047eb5",
+        "idea_version_started_at": "2026-08-31T02:21:42Z",
+        "ticker": "010140",
+        "company": "Samsung Heavy Industries",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Samsung Heavy Industries secured a new order worth 444.5 billion won for two container ships, which will directly boost its order backlog and future revenue.",
+        "why_now": "The new commercial deal was announced today, August 31, 2026, by Yonhap News Agency.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-182938c8ba76"
+        ],
+        "primary_source_event_id": "EVT-182938c8ba76",
+        "source_headlines": [
+          "Samsung Heavy wins 444.5 bln-won deal for 2 container ships"
+        ],
+        "source_headline": "Samsung Heavy wins 444.5 bln-won deal for 2 container ships",
+        "source_url": "https://en.yna.co.kr/view/AEN20260831002700320",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-08-31T00:29:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T02:21:42Z",
+        "updated_at": "2026-08-31T02:21:42Z",
+        "decay_at": "2026-09-01T12:29:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T12:29:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ffe996f99401",
         "idea_version": "IDEAV-c985da1a198247a9",
@@ -123405,7 +123485,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123424,9 +123504,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1910615,
-    "news_picked_today": 1676,
-    "news_dropped_today": 8092
+    "news_seen_today": 1940082,
+    "news_picked_today": 1690,
+    "news_dropped_today": 8150
   },
   "book_momentum": {
     "live_count": 8,
