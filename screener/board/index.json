@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T03:39:32Z",
+  "generated_at": "2026-09-01T03:51:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-464",
@@ -1276,6 +1276,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-536",
+      "headline": "Trade Setup For Sept 1: Nifty Faces Key Test At 23,950 As Negative Global Cues Threaten Bear Attack",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/trade-setup-for-sept-1-nifty-faces-key-test-at-23-950-as-negative-global-cues-threaten-bear-attack-11983826#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T17:29:55Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "SLB announced a $3.4 billion investment bet on the AI data center boom, a major capex commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SLB announced a $3.4 billion investment bet on the AI data center boom, a major capex commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLB",
+          "ticker": "SLB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-137",
       "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
       "headline_en": null,
@@ -1669,6 +1718,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-515",
+      "headline": "ITC Infotech to merge with Happiest Minds, buy 22% promoter stake for Rs 1,330 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/itc-infotech-to-merge-with-happiest-minds-buy-22-promoter-stake-for-rs-1330-crore/articleshow/133659997.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T17:43:51Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "ITC Infotech to merge with Happiest Minds and acquire 22% promoter stake for ₹1,330 crore — a named deal value M&A and stake purchase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "ITC Infotech to merge with Happiest Minds and acquire 22% promoter stake for ₹1,330 crore — a named deal value M&A and stake purchase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITC Infotech",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Happiest Minds Technologies",
+          "ticker": "HAPPSTMNDS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-284",
       "headline": "The Strait of Hormuz Conflict Just Escalated Again. Here's What It Means for Shell.",
       "headline_en": null,
@@ -1903,104 +2007,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-407",
-      "headline": "Bathla administrators say funding situation is ‘dire’",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/bathla-administrators-say-funding-situation-is-dire-20260901-p60t7i?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T02:02:02Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Bathla administrators describe funding situation as 'dire' — confirms distress and likely losses for creditors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Bathla administrators describe funding situation as 'dire' — confirms distress and likely losses for creditors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-442",
-      "headline": "Amazon Sued by FTC Over Claims It Misled Advertisers on Pricing",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/amazon-faces-ftc-suit-claiming-it-misled-advertisers-on-pricing",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T18:46:25Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The FTC has sued Amazon over claims that it misled advertisers on pricing, presenting regulatory and legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon.com, Inc.",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -91446,146 +91452,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-177f467dfd2a",
-      "idea_version": "IDEAV-48449690aa68a6bc",
-      "idea_version_started_at": "2026-08-30T16:05:18Z",
-      "ticker": "AON",
-      "company": "Aon plc",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
-      "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc4bc47f7047"
-      ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
-      "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
-      ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T15:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T16:05:18Z",
-      "updated_at": "2026-08-30T16:05:18Z",
-      "decay_at": "2026-09-01T03:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-cd9532d864b1",
-      "idea_version": "IDEAV-c959bbe94b436257",
-      "idea_version_started_at": "2026-08-30T15:45:17Z",
-      "ticker": "AON",
-      "company": "Aon",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
-      "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc4bc47f7047"
-      ],
-      "primary_source_event_id": "EVT-dc4bc47f7047",
-      "source_headlines": [
-        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
-      ],
-      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
-      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T15:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T15:45:17Z",
-      "updated_at": "2026-08-30T15:45:17Z",
-      "decay_at": "2026-09-01T03:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-91e36b52baa1",
       "idea_version": "IDEAV-3ec2dc4e48f5ce85",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -94663,6 +94529,146 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-177f467dfd2a",
+      "idea_version": "IDEAV-48449690aa68a6bc",
+      "idea_version_started_at": "2026-08-30T16:05:18Z",
+      "ticker": "AON",
+      "company": "Aon plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
+      "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T15:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T16:05:18Z",
+      "updated_at": "2026-08-30T16:05:18Z",
+      "decay_at": "2026-09-01T03:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cd9532d864b1",
+      "idea_version": "IDEAV-c959bbe94b436257",
+      "idea_version_started_at": "2026-08-30T15:45:17Z",
+      "ticker": "AON",
+      "company": "Aon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+      "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc4bc47f7047"
+      ],
+      "primary_source_event_id": "EVT-dc4bc47f7047",
+      "source_headlines": [
+        "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+      ],
+      "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+      "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T15:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T15:45:17Z",
+      "updated_at": "2026-08-30T15:45:17Z",
+      "decay_at": "2026-09-01T03:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-3d9be100b359",
@@ -98762,18 +98768,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 312,
-    "shown_count": 312,
+    "total_count": 314,
+    "shown_count": 314,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 152,
-        "shown_count": 152,
+        "total_count": 153,
+        "shown_count": 153,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 160,
-        "shown_count": 160,
+        "total_count": 161,
+        "shown_count": 161,
         "hidden_count": 0
       }
     },
@@ -98793,6 +98799,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-177f467dfd2a",
+        "idea_version": "IDEAV-48449690aa68a6bc",
+        "idea_version_started_at": "2026-08-30T16:05:18Z",
+        "ticker": "AON",
+        "company": "Aon plc",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Aon is nearing a massive $17 billion acquisition of insurance brokerage USI, which is highly likely to pressure its margins, increase leverage, and dilute near-term earnings per share.",
+        "why_now": "The deal is reported as nearing completion as of August 30, 2026, presenting an immediate catalyst for a negative market reaction to the transaction's scale and funding requirements.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T15:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T16:05:18Z",
+        "updated_at": "2026-08-30T16:05:18Z",
+        "decay_at": "2026-09-01T03:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T03:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cd9532d864b1",
+        "idea_version": "IDEAV-c959bbe94b436257",
+        "idea_version_started_at": "2026-08-30T15:45:17Z",
+        "ticker": "AON",
+        "company": "Aon",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Aon's potential acquisition of USI for approximately $17 billion would expand its market share and service offerings in the insurance brokerage sector, likely leading to synergies and increased earnings per share.",
+        "why_now": "The Wall Street Journal reported on August 30, 2026, that Aon is nearing a deal for USI, indicating an imminent M&A catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc4bc47f7047"
+        ],
+        "primary_source_event_id": "EVT-dc4bc47f7047",
+        "source_headlines": [
+          "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI"
+        ],
+        "source_headline": "Aon Nears Roughly $17 Billion Deal for Insurance Brokerage USI",
+        "source_url": "https://www.wsj.com/finance/aon-nears-roughly-17-billion-deal-for-insurance-brokerage-usi-fcc9fba9?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T15:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T15:45:17Z",
+        "updated_at": "2026-08-30T15:45:17Z",
+        "decay_at": "2026-09-01T03:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T03:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d9be100b359",
         "idea_version": "IDEAV-52d7e610638c04e4",
@@ -121948,7 +122100,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 371,
-    "live_count": 57,
+    "live_count": 55,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -121967,9 +122119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 309514,
-    "news_picked_today": 648,
-    "news_dropped_today": 2208
+    "news_seen_today": 320863,
+    "news_picked_today": 697,
+    "news_dropped_today": 2351
   },
   "book_momentum": {
     "live_count": 8,
