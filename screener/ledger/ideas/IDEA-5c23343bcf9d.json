@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-5c23343bcf9d",
+  "idea_version": "IDEAV-611b2e1d3c15cd37",
+  "idea_version_started_at": "2026-09-01T01:49:20Z",
+  "ticker": "GD",
+  "company": "General Dynamics",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The company secured a 7-year government contract to triple production of PAC-3 missile systems, directly increasing manufacturing throughput and long-term order backlogs.",
+  "why_now": "The contract was officially announced on August 31, 2026, and represents a major shift in production scale.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ab1fa143d53c"
+  ],
+  "primary_source_event_id": "EVT-ab1fa143d53c",
+  "source_headlines": [
+    "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production"
+  ],
+  "source_headline": "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production",
+  "source_url": "https://www.war.gov/News/Releases/Release/Article/4586205/dow-secures-7-year-agreements-with-general-dynamics-and-lockheed-martin-to-trip/",
+  "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-31T11:59:10Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-01T01:49:20Z",
+  "updated_at": "2026-09-01T01:49:20Z",
+  "decay_at": "2026-09-01T23:59:10Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
