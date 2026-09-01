@@ -18,7 +18,7 @@ import urllib.parse
 
 HERE = pathlib.Path(__file__).resolve().parent
 HELPER = HERE / "deploy-authorization.py"
-TOKEN = "ghs_fixture_secret_1234567890"
+TOKEN = "ghs_fixture.segment_secret.1234567890"
 JOB_NAMES = [
     "ui/server — typecheck + tests",
     "eval — decision-record contracts + framework anchors",

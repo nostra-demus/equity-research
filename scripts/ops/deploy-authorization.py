@@ -46,7 +46,7 @@ MAX_TTL_SECONDS = 24 * 60 * 60
 MAX_API_BYTES = 2 * 1024 * 1024
 WORKFLOW_PATH = ".github/workflows/ci.yml"
 REPOSITORY_RE = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
-TOKEN_RE = re.compile(r"[A-Za-z0-9_=-]{20,512}\Z")
+TOKEN_RE = re.compile(r"[A-Za-z0-9_.=-]{20,512}\Z")
 REQUIRED_PUSH_JOBS = {
     "ui-server": "ui/server — typecheck + tests",
     "eval-contracts": "eval — decision-record contracts + framework anchors",
