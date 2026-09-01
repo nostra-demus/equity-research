@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:29:14Z",
+  "generated_at": "2026-09-01T01:34:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -600,6 +600,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-190",
+      "headline": "Three deaths in CAR-T trials prompt halt by Novartis; Bristol Myers programs also paused",
+      "headline_en": null,
+      "url": "https://endpoints.news/three-deaths-in-car-t-trials-prompt-halt-by-novartis-bristol-myers-programs-also-paused/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T00:01:19Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Novartis and Bristol Myers paused CAR-T trials due to three patient deaths, posing significant clinical and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis and Bristol Myers paused CAR-T trials due to three patient deaths, posing significant clinical and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Bristol Myers Squibb",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-137",
       "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
       "headline_en": null,
@@ -1025,6 +1080,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-189",
+      "headline": "NCLT sends Subhash Chandra insolvency plan back to chairperson as benches fail to reach majority",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/nclt-sends-subhash-chandra-insolvency-plan-back-to-chairperson-as-benches-fail-to-reach-majority-552420-2026-09-01?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:20:02Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The NCLT rejected an insolvency plan for Subhash Chandra's entities, delaying resolution and increasing uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The NCLT rejected an insolvency plan for Subhash Chandra's entities, delaying resolution and increasing uncertainty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,103 +1962,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-062",
-      "headline": "Trump administration announces drug pricing deals with CSL, Astellas and others",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/trump-administration-announce-drug-pricing-deals-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:28:26Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The Trump administration announced drug pricing deals with CSL and Astellas, which may impact future revenue margins for these firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The Trump administration announced drug pricing deals with CSL and Astellas, which may impact future revenue margins for these firms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSL",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Astellas",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-067",
-      "headline": "US to announce sharply lower vehicle fuel economy requirements",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/us-announce-sharply-lower-vehicle-fuel-economy-requirements-2026-08-31/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:06:45Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The US government is planning to lower vehicle fuel economy requirements, which impacts the regulatory compliance costs and product strategy for the entire automotive sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The US government is planning to lower vehicle fuel economy requirements, which impacts the regulatory compliance costs and product strategy for the entire automotive sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -121495,9 +121502,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117926,
-    "news_picked_today": 212,
-    "news_dropped_today": 796
+    "news_seen_today": 127415,
+    "news_picked_today": 215,
+    "news_dropped_today": 817
   },
   "book_momentum": {
     "live_count": 8,
