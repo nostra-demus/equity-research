@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T14:43:54Z",
+  "generated_at": "2026-09-01T14:50:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-847",
@@ -1282,6 +1282,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-876",
+      "headline": "DNO agrees to acquire Capricorn Energy for $396m",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/dno-agrees-acquire-capricorn-energy-142652983.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:26:52Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "DNO has agreed to acquire Capricorn Energy for $396 million, a clear M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DNO has agreed to acquire Capricorn Energy for $396 million, a clear M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DNO",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Capricorn Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-864",
       "headline": "Apollo’s Brightspeed Casts Going Concern Doubt as Revenue Slides",
       "headline_en": null,
@@ -1915,60 +1969,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-764",
-      "headline": "Unacademy Acquired By UpGrad For Over $200 Million After Valuation Drops From Unicorn Peak",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/unacademy-acquired-by-upgrad-for-over-200-million-after-valuation-drops-from-unicorn-peak",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T10:12:56Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Acquisition of Unacademy by UpGrad for over $200 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of Unacademy by UpGrad for over $200 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unacademy",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "UpGrad",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124303,9 +124303,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2714938,
-    "news_picked_today": 1965,
-    "news_dropped_today": 8907
+    "news_seen_today": 2750356,
+    "news_picked_today": 1979,
+    "news_dropped_today": 8965
   },
   "book_momentum": {
     "live_count": 8,
