@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-01T11:57:58Z",
+  "generated_at": "2026-09-01T12:04:02Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260901-776",
-      "headline": "Jamna Auto Industries Ltd: This is to inform that the Company has successfully completed the acquisition of 100% Issued Share Capital of M/s. Owens Springs Limited.",
+      "inbox_id": "INB-20260901-778",
+      "headline": "Jamna Auto Industries Limited: We wish to inform you that the Company has successfully completed the acquisition of 100% of the issued share capital of Owen Springs Limited, a company incorporated in England and Wales.",
       "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/06e987ab-d6e0-4391-a2a2-a7a70320d85a.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/JAMNAAUTO_01092026172229_Intimation_1_Sept.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T11:49:58Z",
+      "found_at": "2026-09-01T11:53:01Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company completed the acquisition of 100% of Owens Springs Limited.",
+      "prelim_note": "Company completed the acquisition of 100% of Owen Springs Limited.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company completed the acquisition of 100% of Owens Springs Limited.",
+      "triage_reason": "Company completed the acquisition of 100% of Owen Springs Limited.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -24,15 +24,15 @@
         "source_tier": 8,
         "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "mna"
@@ -40,12 +40,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Jamna Auto Industries Ltd",
+          "name": "Jamna Auto Industries Limited",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -93508,148 +93508,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-338c316cf23c",
-      "idea_version": "IDEAV-07c0666a45e9479a",
-      "idea_version_started_at": "2026-08-31T00:54:02Z",
-      "ticker": "CBE",
-      "company": "Cobre",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing majority ownership of the Sierra Atacama project significantly increases the company's resource exposure and operational control.",
-      "why_now": "The announcement was made on 2026-08-31.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-04af02bbf711"
-      ],
-      "primary_source_event_id": "EVT-04af02bbf711",
-      "source_headlines": [
-        "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]"
-      ],
-      "source_headline": "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBE?key=2924-03129147-2A1693705",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-08-31T00:00:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T00:54:02Z",
-      "updated_at": "2026-08-31T00:54:02Z",
-      "decay_at": "2026-09-01T12:00:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-c53632c038afea90",
-      "idea_version_started_at": "2026-08-31T01:11:53Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The SANOVO trial demonstrated significant progression-free survival benefits for ORPATHYS combined with TAGRISSO in lung cancer patients, validating the drug's clinical efficacy and potential for expanded market share in China.",
-      "why_now": "The positive trial results were announced on 2026-08-31, providing a clear catalyst for market re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dfcafbed04f0"
-      ],
-      "primary_source_event_id": "EVT-dfcafbed04f0",
-      "source_headlines": [
-        "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China"
-      ],
-      "source_headline": "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100249.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-08-31T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T01:11:53Z",
-      "updated_at": "2026-08-31T01:11:53Z",
-      "decay_at": "2026-09-01T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ffe996f99401",
       "idea_version": "IDEAV-c985da1a198247a9",
       "idea_version_started_at": "2026-08-31T02:05:21Z",
@@ -97655,6 +97513,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-338c316cf23c",
+      "idea_version": "IDEAV-07c0666a45e9479a",
+      "idea_version_started_at": "2026-08-31T00:54:02Z",
+      "ticker": "CBE",
+      "company": "Cobre",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing majority ownership of the Sierra Atacama project significantly increases the company's resource exposure and operational control.",
+      "why_now": "The announcement was made on 2026-08-31.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-04af02bbf711"
+      ],
+      "primary_source_event_id": "EVT-04af02bbf711",
+      "source_headlines": [
+        "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]"
+      ],
+      "source_headline": "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBE?key=2924-03129147-2A1693705",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-08-31T00:00:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T00:54:02Z",
+      "updated_at": "2026-08-31T00:54:02Z",
+      "decay_at": "2026-09-01T12:00:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5647a867aaf8",
       "idea_version": "IDEAV-07586e118c05932c",
       "idea_version_started_at": "2026-08-30T12:50:24Z",
@@ -98006,6 +97935,77 @@
       "surfaced_at": "2026-08-30T08:20:10Z",
       "updated_at": "2026-08-30T08:20:10Z",
       "decay_at": "2026-08-31T19:55:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-c53632c038afea90",
+      "idea_version_started_at": "2026-08-31T01:11:53Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The SANOVO trial demonstrated significant progression-free survival benefits for ORPATHYS combined with TAGRISSO in lung cancer patients, validating the drug's clinical efficacy and potential for expanded market share in China.",
+      "why_now": "The positive trial results were announced on 2026-08-31, providing a clear catalyst for market re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dfcafbed04f0"
+      ],
+      "primary_source_event_id": "EVT-dfcafbed04f0",
+      "source_headlines": [
+        "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China"
+      ],
+      "source_headline": "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100249.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-08-31T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T01:11:53Z",
+      "updated_at": "2026-08-31T01:11:53Z",
+      "decay_at": "2026-09-01T12:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98885,13 +98885,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 327,
-    "shown_count": 327,
+    "total_count": 329,
+    "shown_count": 329,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 163,
-        "shown_count": 163,
+        "total_count": 165,
+        "shown_count": 165,
         "hidden_count": 0
       },
       "short": {
@@ -98916,6 +98916,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-338c316cf23c",
+        "idea_version": "IDEAV-07c0666a45e9479a",
+        "idea_version_started_at": "2026-08-31T00:54:02Z",
+        "ticker": "CBE",
+        "company": "Cobre",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Securing majority ownership of the Sierra Atacama project significantly increases the company's resource exposure and operational control.",
+        "why_now": "The announcement was made on 2026-08-31.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-04af02bbf711"
+        ],
+        "primary_source_event_id": "EVT-04af02bbf711",
+        "source_headlines": [
+          "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]"
+        ],
+        "source_headline": "CBE: Cobre Secures Majority Ownership of Sierra Atacama [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBE?key=2924-03129147-2A1693705",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 96,
+        "newest_source_at": "2026-08-31T00:00:59Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T00:54:02Z",
+        "updated_at": "2026-08-31T00:54:02Z",
+        "decay_at": "2026-09-01T12:00:59Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T12:00:59Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-52c1133413b1",
+        "idea_version": "IDEAV-c53632c038afea90",
+        "idea_version_started_at": "2026-08-31T01:11:53Z",
+        "ticker": "00013",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The SANOVO trial demonstrated significant progression-free survival benefits for ORPATHYS combined with TAGRISSO in lung cancer patients, validating the drug's clinical efficacy and potential for expanded market share in China.",
+        "why_now": "The positive trial results were announced on 2026-08-31, providing a clear catalyst for market re-rating.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dfcafbed04f0"
+        ],
+        "primary_source_event_id": "EVT-dfcafbed04f0",
+        "source_headlines": [
+          "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China"
+        ],
+        "source_headline": "HUTCHMED (00013): HUTCHMED Announces SANOVO Trial Demonstrated Significant Progression-Free Survival Benefit of ORPATHYS Plus TAGRISSO in Treatment-Naive Patients with MET-Overexpressing EGFR-mutated Lung Cancer in China",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100249.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 91,
+        "newest_source_at": "2026-08-31T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T01:11:53Z",
+        "updated_at": "2026-08-31T01:11:53Z",
+        "decay_at": "2026-09-01T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-54e5db2972c0",
         "idea_version": "IDEAV-71f01a7673f8dd8f",
@@ -123182,7 +123330,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 44,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -123201,9 +123349,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1753919,
-    "news_picked_today": 1616,
-    "news_dropped_today": 7888
+    "news_seen_today": 1781482,
+    "news_picked_today": 1622,
+    "news_dropped_today": 7930
   },
   "book_momentum": {
     "live_count": 8,
