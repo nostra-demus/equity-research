@@ -2642,13 +2642,14 @@ export interface ChatMessage {
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
 // tied to a real event, never a fabricated progress guess:
 //   sending   -> the request left the browser
+//   sources   -> the server reserved the turn and is loading the selected evidence shelves
 //   context   -> the server confirmed the scope + assembled the closed-book context (chat-meta arrived)
 //   starting  -> the server is spawning the engine CLI (chat-status: starting)
 //   connected -> the CLI session initialized; the model is consuming the context (chat-status: connected)
 //   modeling  -> a quantified what-if is being computed by the engine (chat-status: modeling)
 //   thinking  -> an extended-thinking block is streaming (chat-status: thinking + chat-thinking deltas)
 //   writing   -> the visible answer is streaming (chat-status: writing / first chat-token)
-export type ChatWorkStage = 'sending' | 'context' | 'modeling' | 'starting' | 'connected' | 'thinking' | 'writing'
+export type ChatWorkStage = 'sending' | 'sources' | 'context' | 'modeling' | 'starting' | 'connected' | 'thinking' | 'writing'
 export interface ChatWork { stage: ChatWorkStage; model?: string; startedAt: number; stageAt: number }
 export interface ChatRequest {
   ticker?: string

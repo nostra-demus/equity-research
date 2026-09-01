@@ -60,7 +60,7 @@ import { enrichEvent, listCoveredTickers, peekCachedEnrichment } from './news/en
 import { verdictOf } from './news/impact-floor'
 import { autoBridgeItem, bridgeEventToSubject, findWireItem, listBridgedSubjects } from './research-bridge'
 import { applyNewsRerank, assembleNewsChatContext, buildNewsChatPrompts, newsSemanticNamedAnchors } from './news/chat'
-import { NewsChatRequestGate, bindNewsChatRequestAbort, runNewsChatFallback, shouldUseNewsChatFallback } from './news/chat-provider'
+import { NewsChatRequestGate, bindNewsChatRequestAbort } from './news/chat-provider'
 import { searchSemanticIndex } from './retrieval/semantic'
 import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
@@ -96,7 +96,7 @@ import {
 } from './tasks'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
-import { chatTurnsInFlight, runChatTurn } from './chat-llm'
+import { chatTurnsInFlight, runChatTurn, warmCodexChatRuntime } from './chat-llm'
 import { publicChatModelCatalogue, resolveChatRequestModel } from './chat-models'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
@@ -5862,7 +5862,7 @@ app.get('/api/chat/scopes', async (req, reply) => {
 // One durable chat turn. The client resends a bounded recent transcript for model context; the server keeps
 // the complete saved conversation and searches the user's other durable conversations as working memory.
 // Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then live
-// progress — chat-status {stage: starting|connected|thinking|writing} at each REAL lifecycle event and
+// progress — chat-status {stage: sources|starting|connected|thinking|writing} at each REAL lifecycle event and
 // chat-thinking per reasoning delta (the model's own thought process) — then chat-token per answer delta,
 // then a terminal chat-done {costUsd} or chat-error {message}.
 const ChatBody = z.object({
@@ -6030,50 +6030,15 @@ app.post('/api/chat', async (req, reply) => {
   }
   if (!assembled.present) { requestAbort.dispose(); return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint }) }
 
-  // One Ask brain, several shelves. Existing durable transcripts are searched directly, so the user's full
-  // History becomes useful immediately without a backfill job. News retrieval is automatic for Screener
-  // signals and freshness questions; a research-only question avoids the extra retrieval work.
+  // Resolve the optional shelves before admission, but do not read them yet. Once the durable turn is
+  // reserved we can open the stream immediately, show honest source-loading progress, and read independent
+  // shelves together instead of making the user wait for news and Calls one after the other.
   const memoryRoute = routeAskMemory(last.content, swarmId, parsed.data.memoryMode)
   // A Screener user naturally asks "does this change the call?" without repeating the company/headline.
   // Anchor retrieval with the selected signal's authoritative ledger label; otherwise a generic question
   // could search the whole wire and surface an unrelated top story.
   const signalMemoryAnchor = swarmId === 'screener' ? screenerSubjectLabels().get(subject) : undefined
   const memoryQuestion = signalMemoryAnchor ? `${signalMemoryAnchor}\n${last.content}` : last.content
-  const memory: AskMemoryPromptContext = {
-    route: memoryRoute,
-    priorChats: memoryRoute.useHistory ? searchConversationMemory({
-      user: chatUser,
-      question: memoryQuestion,
-      subject,
-      swarm: swarmId,
-      excludeId: parsed.data.conversationId,
-      limit: 4,
-      allowSubjectOnly: memoryRoute.historyIntent,
-    }) : [],
-  }
-  if (memoryRoute.useNews && !ac.signal.aborted) {
-    try {
-      const news = await retrieveNewsForAsk('7d', memoryQuestion, ac.signal)
-      if (news.present) memory.news = news
-    } catch {
-      // Memory shelves are additive. A wire/index failure must not take the frozen research answer down;
-      // the receipt simply omits that shelf instead of pretending it was used.
-    }
-  }
-  // The Calls ledger is equity-only. Commodity and future swarms own separate decision ledgers, so a
-  // shared symbol such as GOLD must never inject a Barrick equity call into a commodity answer.
-  if (!ac.signal.aborted && swarmById(swarmId)?.decisionMemory === 'equity_calls') {
-    try {
-      const projection = await listAllCalls()
-      const identifiers = [subject, signalMemoryAnchor || '']
-      const matched = selectCallMemories(projection.calls, identifiers)
-      if (matched.length) memory.calls = matched
-    } catch {
-      // The call ledger is an additive shelf. If its published Git authority is briefly unavailable,
-      // the existing research/news answer still works and the receipt honestly omits decision memory.
-    }
-  }
-  if (closed || ac.signal.aborted) { requestAbort.dispose(); return }
 
   // Reserve this turn under the authoritative identity (from Cloudflare Access, NOT the body). The resolved
   // id is echoed in chat-meta so later turns attach here; the question + answer reach History together only
@@ -6126,6 +6091,50 @@ app.post('/api/chat', async (req, reply) => {
   const sse = startSSE(reply)
   const { res, send } = sse
   ping = sse.ping
+  send({ type: 'chat-status', stage: 'sources' })
+
+  // One Ask brain, several shelves. Existing durable transcripts are searched directly, so the user's full
+  // History becomes useful immediately without a backfill job. News retrieval is automatic for Screener
+  // signals and freshness questions; a research-only question avoids the extra retrieval work.
+  let priorChats: AskMemoryPromptContext['priorChats'] = []
+  if (memoryRoute.useHistory) {
+    try {
+      priorChats = searchConversationMemory({
+        user: chatUser,
+        question: memoryQuestion,
+        subject,
+        swarm: swarmId,
+        excludeId: conversationId,
+        limit: 4,
+        allowSubjectOnly: memoryRoute.historyIntent,
+      })
+    } catch {
+      // Durable History is an additive shelf. A damaged index cannot take the current frozen run down.
+    }
+  }
+  const memory: AskMemoryPromptContext = { route: memoryRoute, priorChats }
+  const newsPromise = memoryRoute.useNews && !ac.signal.aborted
+    ? retrieveNewsForAsk('7d', memoryQuestion, ac.signal).catch(() => null)
+    : Promise.resolve(null)
+  // The Calls ledger is equity-only. Commodity and future swarms own separate decision ledgers, so a
+  // shared symbol such as GOLD must never inject a Barrick equity call into a commodity answer.
+  const callsPromise = !ac.signal.aborted && swarmById(swarmId)?.decisionMemory === 'equity_calls'
+    ? listAllCalls()
+      .then((projection) => selectCallMemories(projection.calls, [subject, signalMemoryAnchor || '']))
+      .catch(() => [])
+    : Promise.resolve([])
+  const [news, calls] = await Promise.all([newsPromise, callsPromise])
+  if (news?.present) memory.news = news
+  if (calls.length) memory.calls = calls
+  if (closed || ac.signal.aborted) {
+    await rollbackCanceledQuestion()
+    if (ping) clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
+    ac.signal.removeEventListener('abort', onAbort)
+    requestAbort.dispose()
+    return
+  }
+
   const memoryReceipt = askMemoryMeta(swarmId === 'screener' ? 'current signal' : 'current research', memory)
   send({
     type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath,
@@ -6502,59 +6511,26 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
     send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence, decisionMemoryCount: callMemories.length })
     const { system, user } = buildNewsChatPrompts({ assembled, messages, calls: callMemories })
     try {
-      // Hold primary text until the turn succeeds. If the primary emits a partial answer and then reports
-      // a quota/timeout error, the fallback starts from a clean response rather than being concatenated to
-      // a sentence from another model.
-      const primaryChunks: string[] = []
-      const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => primaryChunks.push(t) })
       let answer = ''
-      let answerCostUsd = out.costUsd || 0
-      let answerModel = model
-      let fallbackFrom: string | undefined
-      if (out.error && out.error !== 'aborted' && shouldUseNewsChatFallback(out.error)) {
-        send({ type: 'news-chat-status', stage: 'backup-provider' })
-        const backupChunks: string[] = []
-        const backup = await runNewsChatFallback({
-          system, user, signal: ac.signal, onToken: (t) => { backupChunks.push(t); send({ type: 'news-chat-token', content: t }) },
-          config: {
-            enabled: NEWS.chatGroqFallbackEnabled,
-            providerSpendingAllowed: newsProviderSpendingAllowed(),
-            apiKey: NEWS.groqApiKey,
-            baseUrl: NEWS.groqBaseUrl,
-            model: NEWS.groqModel,
-            timeoutMs: NEWS.chatGroqFallbackTimeoutMs,
-            maxTokens: NEWS.chatGroqFallbackMaxTokens,
-            stateDir: STATE_DIR,
-            rpm: NEWS.groqRpm,
-            tpm: NEWS.groqTpm,
-            dailyReqCap: NEWS.groqDailyReqCap,
-            dailyTokenCap: NEWS.groqDailyTokenCap,
-            dailyTokenTarget: NEWS.groqDailyTokenTarget,
-            paceFloorFrac: NEWS.groqPaceFloorFrac,
-            limiterWaitMs: NEWS.chatGroqFallbackLimiterWaitMs,
-            cooldownMs: NEWS.llmCooldownMs,
-            cooldownMaxMs: NEWS.llmCooldownMaxMs,
-          },
-        })
-        if (!backup.error) {
-          answer = backupChunks.join('')
-          answerCostUsd = backup.costUsd
-          answerModel = backup.model || NEWS.groqModel
-          fallbackFrom = model
-        } else if (backup.error !== 'aborted') {
-          await rollbackCanceledQuestion()
-          send({ type: 'news-chat-error', message: 'The answer providers are unavailable. Try again in a moment.' })
-        }
-      } else if (out.error && out.error !== 'aborted') {
+      send({ type: 'news-chat-status', stage: 'starting' })
+      const out = await runChatTurn({
+        system, user, model, signal: ac.signal,
+        onToken: (content) => { answer += content; send({ type: 'news-chat-token', content }) },
+        onSignal: (signal) => {
+          if (signal.kind === 'ready') send({ type: 'news-chat-status', stage: 'connected', model: signal.model })
+          else if (signal.kind === 'thinking-start') send({ type: 'news-chat-status', stage: 'thinking' })
+          else if (signal.kind === 'answer-start') send({ type: 'news-chat-status', stage: 'writing' })
+        },
+      })
+      const answerCostUsd = out.costUsd || 0
+      if (out.error) {
         await rollbackCanceledQuestion()
-        send({ type: 'news-chat-error', message: 'The answer could not be generated. Try again in a moment.' })
-      }
-      else if (!out.error) {
-        answer = primaryChunks.join('')
-        for (const content of primaryChunks) send({ type: 'news-chat-token', content })
-      }
-
-      if (answer && !closed && !ac.signal.aborted) {
+        if (!closed && !ac.signal.aborted && out.error !== 'aborted') {
+          // Keep the selected model authoritative. The user may manually choose another model and Retry;
+          // this route never substitutes a hidden provider or model behind the picker.
+          send({ type: 'news-chat-error', message: out.error })
+        }
+      } else if (answer && !closed && !ac.signal.aborted) {
         const pending = pendingSavedQuestion
         let completionSafe = true
         if (pending) {
@@ -6578,10 +6554,10 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
             }
           }
         }
-        if (completionSafe && !closed) send({ type: 'news-chat-done', costUsd: answerCostUsd, model: answerModel, ...(fallbackFrom ? { fallbackFrom } : {}) })
+        if (completionSafe && !closed) send({ type: 'news-chat-done', costUsd: answerCostUsd, model })
       } else if (!answer) {
         await rollbackCanceledQuestion()
-        if (!closed && !ac.signal.aborted && !out.error) {
+        if (!closed && !ac.signal.aborted) {
           send({ type: 'news-chat-error', message: 'The model returned no answer. Retry the same question.' })
         }
       }
@@ -8160,6 +8136,11 @@ async function start() {
     void warmFacets(REPO_ROOT, { archiveDir: NEWS.newsArchiveDir })
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
+    // Warm Codex Ask's local feature contract without starting a model turn or spending usage. The cache
+    // remains bound to the executable identity, so an in-place CLI update is re-verified on the next Ask.
+    if (CHAT.allowedModels.some((model) => model.startsWith('codex:'))) {
+      void warmCodexChatRuntime().catch(() => {})
+    }
     // A queued Run/Continue intent survives restart, but already-paid protected recovery owns boot admission
     // priority. Await one exact disk-truth pass before the pending drain can spend or touch the same subject;
     // the deployer barrier still keeps that drain inert until health verification completes.

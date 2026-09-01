@@ -12,8 +12,9 @@ import type { MobileChat } from './useMobileChat'
 const Markdown = lazy(() => import('./Markdown'))
 
 const WORK_LABELS: Record<ChatWork['stage'], string> = {
-  sending: 'Sending your question…',
-  context: 'Context assembled — starting the engine…',
+  sending: 'Loading research…',
+  sources: 'Loading your selected sources…',
+  context: 'Research ready — starting your selected model…',
   modeling: 'Modeling the scenario…',
   starting: 'Starting the engine…',
   connected: 'Reading the context…',

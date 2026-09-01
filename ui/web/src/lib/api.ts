@@ -1881,7 +1881,8 @@ export const api = {
   },
   // POST one chat turn and read the streamed SSE body. Runs use EventSource (GET-only) elsewhere; chat is
   // a POST, so it needs the fetch + ReadableStream reader. AbortError-silent: the user's own close (signal
-  // abort) is not surfaced as an error. Frames: chat-meta -> (chat-status | chat-thinking)* interleaved
+  // abort) is not surfaced as an error. Frames: chat-status(sources) -> chat-meta ->
+  // (chat-status | chat-thinking)* interleaved
   // with chat-token* -> chat-done | chat-error. onStatus/onThinking are optional and simply absent from an
   // older engine's stream (deploy skew §5) — the turn still works without them.
   chatStream: async (

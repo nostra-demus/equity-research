@@ -4273,11 +4273,11 @@ export const useStore = create<State>((set, get) => ({
         // capture the server-minted conversation id so later turns append to the same saved thread.
         // meta arriving = the server assembled the closed-book context — a real stage transition.
         onMeta: (m) => { if (chatAbort !== controller || controller.signal.aborted) return; set({ chatSource: m.sourcePath, chatMemory: m.memory, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }); advance('context') },
-        // real lifecycle stages streamed by the server (starting → connected → thinking → writing);
+        // real lifecycle stages streamed by the server (sources → starting → connected → thinking → writing);
         // an unknown/future stage is ignored rather than mis-rendered.
         onStatus: (st) => {
           if (chatAbort !== controller || controller.signal.aborted) return
-          if (st.stage === 'modeling' || st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
+          if (st.stage === 'sources' || st.stage === 'modeling' || st.stage === 'starting' || st.stage === 'connected' || st.stage === 'thinking' || st.stage === 'writing') advance(st.stage, st.model)
         },
         // the model's own reasoning, streamed verbatim — grows the assistant turn's thinking text live
         onThinking: (tok) => {

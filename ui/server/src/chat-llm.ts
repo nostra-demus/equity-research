@@ -157,8 +157,11 @@ export function codexChatFeatureDisables(output: string): string[] {
     .sort()
 }
 
-// Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The short TTL also
-// makes an in-place CLI upgrade self-heal without a server restart; rejected probes are never cached.
+// Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The cache is bound to
+// the executable's hashed inode identity, so it invalidates immediately when the CLI changes in place. The
+// bounded lifetime also lets an unusually long-lived server self-heal if an external launch setting changes.
+// Rejected probes are never cached.
+const CODEX_CHAT_FEATURE_CACHE_TTL_MS = 15 * 60_000
 let codexChatFeatureCache: { commandIdentity: string; expiresAt: number; pending: Promise<string[]> } | null = null
 
 async function inspectCodexChatFeatures(command: string, commandIdentity: string): Promise<string[]> {
@@ -194,7 +197,7 @@ async function inspectCodexChatFeatures(command: string, commandIdentity: string
     }
     return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
   })()
-  const entry = { commandIdentity, expiresAt: now + 60_000, pending }
+  const entry = { commandIdentity, expiresAt: now + CODEX_CHAT_FEATURE_CACHE_TTL_MS, pending }
   codexChatFeatureCache = entry
   try {
     return await pending
@@ -202,6 +205,16 @@ async function inspectCodexChatFeatures(command: string, commandIdentity: string
     if (codexChatFeatureCache === entry) codexChatFeatureCache = null
     throw error
   }
+}
+
+/**
+ * Warm only Codex's local closed-book launch contract. This does not start a model turn, spend usage,
+ * select a model, or retain credentials; it merely fills the executable-identity-bound feature cache.
+ */
+export async function warmCodexChatRuntime(): Promise<void> {
+  const env = codexChildEnv()
+  const pinned = pinCodexExecutable(resolveCodexBin(), env)
+  await inspectCodexChatFeatures(pinned.command, pinned.identity)
 }
 
 /** Pure launch contract kept exported so tests pin every closed-book Codex boundary. */

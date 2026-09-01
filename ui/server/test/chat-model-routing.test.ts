@@ -135,5 +135,12 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const webCatalogue = fs.readFileSync(path.join(here, '../../web/src/lib/chatModels.ts'), 'utf8')
 const webIds = [...webCatalogue.matchAll(/\{ id: '([^']+)', provider:/g)].map((match) => match[1])
 assert.deepEqual(webIds, ids, 'server routing and every web picker use the same model ids')
+const serverSource = fs.readFileSync(path.join(here, '../src/server.ts'), 'utf8')
+assert.doesNotMatch(serverSource, /runNewsChatFallback|shouldUseNewsChatFallback|backup-provider/,
+  'no Ask surface silently substitutes a backup provider after the user selects a model')
+assert.match(serverSource, /Promise\.all\(\[newsPromise, callsPromise\]\)/,
+  'independent Ask evidence shelves load together instead of serially delaying the selected model')
+assert.match(serverSource, /chat-status', stage: 'sources'/,
+  'research Ask exposes honest source-loading progress before the selected model starts')
 
 console.log('chat-model-routing: provider routing, closed-book Codex launch, events, and web parity passed')

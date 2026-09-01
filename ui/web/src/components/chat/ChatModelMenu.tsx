@@ -17,7 +17,7 @@ export function ChatModelMenu({
   onOpenChange: (open: boolean) => void
   onSelect: (model: string) => void
 }) {
-  const choices = useChatModelChoices(model, onSelect)
+  const choices = useChatModelChoices(model)
   return (
     <div style={{ position: 'relative' }} data-chat-model-picker="true">
       <button
@@ -25,7 +25,7 @@ export function ChatModelMenu({
         style={{ height: 30 }}
         aria-expanded={open}
         onClick={() => onOpenChange(!open)}
-        title="Model used for the answer"
+        title="Used exactly for the answer — the engine never switches models automatically"
       >
         {chatModelLabel(model)} ▾
       </button>
@@ -42,7 +42,8 @@ export function ChatModelMenu({
                     className="dlmenu__item"
                     role="menuitemradio"
                     aria-checked={choice.id === model}
-                    onClick={() => { onSelect(choice.id); onOpenChange(false) }}
+                    disabled={choice.disabled}
+                    onClick={() => { if (!choice.disabled) onSelect(choice.id); onOpenChange(false) }}
                   >
                     <b>{choice.label}{choice.id === model ? ' ✓' : ''}</b><span>{choice.sub}</span>
                   </button>

@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { api } from './api'
-import { chatModelChoices, saveChatModel, type ChatModelChoice } from './chatModels'
+import { chatModelChoices, type ChatModelChoice } from './chatModels'
 
 /** Keep every Ask picker aligned with the server's actual model allow-list. */
-export function useChatModelChoices(model: string, onSelect: (model: string) => void): readonly ChatModelChoice[] {
+export function useChatModelChoices(model: string): readonly ChatModelChoice[] {
   const [choices, setChoices] = useState<readonly ChatModelChoice[]>(() => chatModelChoices([model]))
-  const onSelectRef = useRef(onSelect)
   const modelRef = useRef(model)
 
-  useEffect(() => { onSelectRef.current = onSelect }, [onSelect])
   useEffect(() => { modelRef.current = model }, [model])
 
   useEffect(() => {
@@ -26,13 +24,13 @@ export function useChatModelChoices(model: string, onSelect: (model: string) => 
         const read = await api.chatModels()
         if (cancelled) return
         const available = chatModelChoices(read.models)
-        setChoices(available)
         const currentModel = modelRef.current
-        if (available.length && !read.models.includes(currentModel)) {
-          const fallback = available.find((choice) => choice.id === read.defaultModel)?.id || available[0].id
-          saveChatModel(fallback)
-          onSelectRef.current(fallback)
-        }
+        const current = chatModelChoices([currentModel])[0]
+        // Never switch the user's selected model behind their back. If the host stops admitting it, retain
+        // the row as an explicit unavailable choice until the user manually picks another model.
+        setChoices(current && !read.models.includes(currentModel)
+          ? [{ ...current, sub: 'selected · unavailable on this host', disabled: true }, ...available]
+          : available)
         retryMs = 2_000
         retryTimer = setTimeout(() => { void load() }, 60_000)
       } catch {
