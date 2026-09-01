@@ -150,6 +150,9 @@ export function SwarmField() {
         const runAffordance = smartResume
           ? moduleRunAffordance(moduleNodes, nodeStatus)
           : { complete: false, unfinishedSpecialists: 0, label: '▸ run module', title: 'Runs this module only' }
+        const displayAffordance = smartResume && runAffordance.complete && completion.kind !== 'synthesis'
+          ? { ...runAffordance, complete: false, label: '▸ refresh summary', title: 'The saved summary is incomplete or invalid; click to refresh it' }
+          : runAffordance
         // A newly added specialist can be run one-by-one before the old synthesis is refreshed. In that
         // state every visible orb looks done, but disk truth still has summary work to do. Keep research
         // headings actionable so the fresh plan can detect and finish that last step.
@@ -180,7 +183,7 @@ export function SwarmField() {
             tabIndex={headingAction ? 0 : undefined}
             aria-label={paused
               ? `${c.module.replace(/-/g, ' ')}: ${PAUSED_RUN_HELP}`
-              : headingAction ? `${c.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
+              : headingAction ? `${c.module.replace(/-/g, ' ')}: ${displayAffordance.label.replace(/^▸\s*/, '')}. ${displayAffordance.title}` : undefined}
           >
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
@@ -209,9 +212,9 @@ export function SwarmField() {
             ) : completion.kind === 'fail-fast' ? (
               <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="The module stopped at its valid data gate; no downstream paid work was required">✓ stopped correctly</div>
             ) : completion.kind === 'synthesis' && (!smartResume || runAffordance.complete) ? (
-              <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title={runAffordance.title}>{runAffordance.label}</div>
+              <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="The saved module summary is complete and valid">✓ done</div>
             ) : (
-              <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={runAffordance.title}>{runAffordance.label}</div>
+              <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={displayAffordance.title}>{displayAffordance.label}</div>
             )}
           </div>
         )
