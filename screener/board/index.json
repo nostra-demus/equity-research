@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T13:24:15Z",
+  "generated_at": "2026-09-01T13:28:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-816",
+      "headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103609.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T13:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A voluntary cash partial offer has been made to acquire up to 115 million shares of Fu Shou Yuan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A voluntary cash partial offer has been made to acquire up to 115 million shares of Fu Shou Yuan.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fu Shou Yuan International Group Limited",
+          "ticker": "01448",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-790",
       "headline": "DCM Shriram Ltd: Commissioning of Aluminium Extrusion Plant at Kota",
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-659",
-      "headline": "Tim Cook Steps Down As Apple CEO, John Ternus Takes Over Leadership",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tim-cook-steps-down-as-apple-ceo-john-ternus-takes-over-leadership",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T05:27:24Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "CEO transition at a mega-cap company is a material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO transition at a mega-cap company is a material event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123800,9 +123800,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2235613,
-    "news_picked_today": 1813,
-    "news_dropped_today": 8483
+    "news_seen_today": 2252090,
+    "news_picked_today": 1825,
+    "news_dropped_today": 8495
   },
   "book_momentum": {
     "live_count": 8,
