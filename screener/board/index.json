@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T02:50:05Z",
+  "generated_at": "2026-09-01T02:58:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -1021,6 +1021,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-413",
+      "headline": "Amazon’s stock falls as FTC alleges billions of dollars in hidden ad fees",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=c98e9b90-7c30-4da1-ac55-4740b24004c2&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T19:38:12Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Amazon faces FTC allegations regarding billions of dollars in hidden advertising fees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon faces FTC allegations regarding billions of dollars in hidden advertising fees.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-137",
       "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
       "launched_signal_id": null,
       "triage_score": 92,
       "triage_reason": "Activist investor Elliott has taken a stake in Air Liquide, which typically signals potential for operational or strategic changes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Liquide",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-287",
-      "headline": "Elliott builds stake in French industrial gas group Air Liquide",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T20:50:27Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Elliott building a stake in Air Liquide is a material event for the company's governance and strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Elliott building a stake in Air Liquide is a material event for the company's governance and strategy.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -121886,9 +121886,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 232276,
-    "news_picked_today": 491,
-    "news_dropped_today": 1717
+    "news_seen_today": 248725,
+    "news_picked_today": 515,
+    "news_dropped_today": 1765
   },
   "book_momentum": {
     "live_count": 8,
