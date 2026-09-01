@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T14:08:28Z",
+  "generated_at": "2026-09-01T14:14:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-847",
@@ -1233,6 +1233,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-856",
+      "headline": "GoPro to be acquired by Starman Optical in $285 million deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/gopro-be-acquired-by-starman-optical-285-million-deal-2026-09-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:01:47Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "GoPro is to be acquired by Starman Optical in a confirmed transaction valued at $285 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GoPro is to be acquired by Starman Optical in a confirmed transaction valued at $285 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GoPro",
+          "ticker": "GPRO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-850",
+      "headline": "John Ternus takes over as Apple CEO: Net worth, marriage, career; why Apple chose him to succeed Tim Cook",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/all-about-new-apple-ceo-john-ternus-net-worth-education-and-is-he-married-11788268483886.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T13:33:32Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "John Ternus is appointed as the new CEO of Apple, succeeding Tim Cook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "John Ternus is appointed as the new CEO of Apple, succeeding Tim Cook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-840",
       "headline": "Coupang (CPNG) Shares Drop 7.7% on Softer Q2 Guidance",
       "headline_en": null,
@@ -1874,110 +1972,6 @@
           "name": "Gap Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-721",
-      "headline": "UpGrad Completes Unacademy Acquisition For Over $200 Million; CEO Shares Details",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/upgrad-completes-unacademy-acquisition-for-over-200-million-ceo-shares-details-11985888#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:37:42Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "UpGrad acquired Unacademy for over $200 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UpGrad acquired Unacademy for over $200 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UpGrad",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Unacademy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-730",
-      "headline": "Bunzl upgrades guidance and launches £500m buyback as US arm recovers",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/bunzl-upgrades-guidance-and-launches-500m-buyback-as-us-arm-recovers/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T07:13:48Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Bunzl upgraded guidance and announced a £500m buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bunzl upgraded guidance and announced a £500m buyback.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bunzl",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -124018,9 +124012,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2437170,
-    "news_picked_today": 1893,
-    "news_dropped_today": 8691
+    "news_seen_today": 2471661,
+    "news_picked_today": 1921,
+    "news_dropped_today": 8759
   },
   "book_momentum": {
     "live_count": 8,
