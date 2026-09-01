@@ -320,9 +320,12 @@ export class PerformanceTelemetry {
       for (const line of raw.split('\n')) {
         if (!line) continue
         try {
-          const row = JSON.parse(line) as StoredPerformanceSample
-          if (row.version === 1 && NAME_SET.has(row.name) && row.ts >= since && row.ts <= until
-              && Number.isFinite(row.value) && (row.unit === 'ms' || row.unit === 'score')) out.push(row)
+          const row = JSON.parse(line)
+          if (row && typeof row === 'object' && !Array.isArray(row)
+              && row.version === 1 && NAME_SET.has(row.name) && row.ts >= since && row.ts <= until
+              && Number.isFinite(row.value) && (row.unit === 'ms' || row.unit === 'score')) {
+            out.push(row as StoredPerformanceSample)
+          }
         } catch { /* one interrupted line never hides the rest of the durable history */ }
       }
     }

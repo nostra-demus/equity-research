@@ -52,10 +52,13 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     void load()
     const timer = setInterval(() => void load(), REFRESH_MS)
+    return () => clearInterval(timer)
+  }, [load])
+  useEffect(() => {
     const key = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose() }
     document.addEventListener('keydown', key)
-    return () => { clearInterval(timer); document.removeEventListener('keydown', key) }
-  }, [load, onClose])
+    return () => document.removeEventListener('keydown', key)
+  }, [onClose])
 
   const budgeted = useMemo(() => summary?.metrics.filter((metric) => metric.budget !== null) ?? [], [summary])
   const observed = useMemo(() => summary?.metrics.filter((metric) => metric.budget === null).slice(0, 8) ?? [], [summary])

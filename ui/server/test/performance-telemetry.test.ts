@@ -68,6 +68,11 @@ test('durable summaries apply p75/p95 budgets and compare with a recent baseline
   const raw = fs.readFileSync(file, 'utf8')
   assert.doesNotMatch(raw, /TSLA|run-[a-z0-9]|question|response/i)
   assert.equal(fs.statSync(file).mode & 0o777, 0o600)
+
+  fs.appendFileSync(file, 'null\n42\n[]\n{"version":1}\n')
+  const afterCorruption = await new PerformanceTelemetry(stateDir).summary(24, NOW)
+  assert.equal(afterCorruption.metrics.find((metric) => metric.name === 'browser.core_ready')?.count, 20,
+    'corrupt JSON values are isolated without hiding valid timing rows')
 })
 
 test('daily storage is capped and old timing files are pruned', async (t) => {
