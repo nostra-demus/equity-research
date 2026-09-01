@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T13:28:47Z",
+  "generated_at": "2026-09-01T13:33:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-816",
@@ -1134,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-829",
+      "headline": "Descartes Systems Group acquires U.S.-company Extensiv for $120-million",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-descartes-systems-group-acquires-us-company-extensiv-for-120-million/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T13:18:06Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Descartes Systems Group is acquiring Extensiv for $120 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Descartes Systems Group is acquiring Extensiv for $120 million.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Descartes Systems Group",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-805",
       "headline": "Popular breakfast chain files Chapter 11 bankruptcy after lawsuit",
       "headline_en": null,
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-670",
-      "headline": "Epiris Agrees to Buy UK’s Gamma Communications for £1 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-01/epiris-agrees-to-buy-uk-s-gamma-communications-for-1-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T06:25:36Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Epiris agreed to acquire Gamma Communications for £1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Epiris agreed to acquire Gamma Communications for £1 billion.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gamma Communications",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -123800,9 +123800,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2252090,
-    "news_picked_today": 1825,
-    "news_dropped_today": 8495
+    "news_seen_today": 2268685,
+    "news_picked_today": 1840,
+    "news_dropped_today": 8528
   },
   "book_momentum": {
     "live_count": 8,
