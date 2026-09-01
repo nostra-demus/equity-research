@@ -83,6 +83,21 @@ try {
     assert.equal(B.agents.has('business-model/03_segment-map'), false)
     assert.equal(B.runRoot, `analyses/${FNEW}`)
   })
+
+  const C = mkRun('module', `analyses/${FOLD}`, [{
+    key: 'business-model/00_data-triage', module: 'business-model', name: 'data-triage', layer: 0,
+  }])
+  runs.push(C)
+  const cEvents: any[] = []
+  C.subscribers.add({ id: 'validation-test', send: (event) => cEvents.push(event) })
+  const malformedTriage = path.join(ANALYSES_DIR, FOLD, 'business-model/00_data-triage.md')
+  fs.writeFileSync(malformedTriage, 'Verdict: Insufficient data.\nThis has enough bytes but no required top-level header.\n')
+  handleFile(C, malformedTriage)
+  check('a malformed live watcher output never claims canonical terminal validation', () => {
+    const done = cEvents.find((event) => event.type === 'agent-done')
+    assert.ok(done, 'the watcher should still report the raw orb event')
+    assert.equal(done.terminalValidated, false)
+  })
 } finally {
   for (const r of runs) finishRun(r, 'done')
   fs.rmSync(path.join(ANALYSES_DIR, FOLD), { recursive: true, force: true })

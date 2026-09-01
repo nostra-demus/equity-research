@@ -16,7 +16,7 @@ import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import { preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { isDataScanProgress } from './dataScan'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -25,6 +25,7 @@ import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProfileKey, readRunProvider, saveRunProfileKey, saveRunProvider, selectedProviderProfile, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
 import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
+import { projectRunManifest } from './runManifestProjection'
 import { readChatModel, saveChatModel } from './chatModels'
 
 const SIGNAL_INPUT_NATURES = new Set([
@@ -440,6 +441,7 @@ export interface ActiveRun {
   agentsTotal?: number
   lastStdoutAt?: number // when the engine child last produced ANY output — the "alive" signal
   lastActivity?: RunActivity // the orchestrator's latest tool call — what it's DOING
+  publicationPhase?: RunPublicationPhase // backend-owned save/publish state after provider work ends
 }
 
 export interface ReadinessGateState {
@@ -2018,12 +2020,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const manifest = await api.runManifest(t, isResearch ? runRoot : undefined, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
-      const seed: Record<string, NodeRuntime> = {}
-      for (const [, agents] of Object.entries<any>(manifest.modules || {})) {
-        for (const a of agents) seed[a.agentKey] = { status: 'done', verdict: a.verdict, outputPath: `${manifest.runRoot}/${a.agentKey}.md` }
-      }
-      if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
-      set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
+      set(projectRunManifest(manifest))
     } catch {}
     // AFTER the manifest sets runRoot: document intake is a manifest capability shared by research and
     // constellation swarms. An exact historical research selection must read that run, while a singleton
@@ -4654,7 +4651,7 @@ export const useStore = create<State>((set, get) => ({
         if (forSelected) {
           // preserve startedAt (set on agent-started, incl. the replayed backlog on reconnect) so the
           // finished orb can show its true duration
-          rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts }
+          rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts, terminalValidated: e.terminalValidated === true }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'done', e.verdict)
         }
         break
@@ -4678,7 +4675,7 @@ export const useStore = create<State>((set, get) => ({
         if (r) {
           patch.activeRuns = {
             ...get().activeRuns,
-            [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
+            [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, publicationPhase: e.publicationPhase ?? r.publicationPhase, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
           }
         }
         break
@@ -4760,8 +4757,7 @@ export const useStore = create<State>((set, get) => ({
           // just landed instead of the by-ticker refresh resolving back to the older standing run.
           api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
             if (!eventSelectionStillOwnsView()) return
-            if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
-            set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
+            set(projectRunManifest(m, get().nodeRuntime, e.runId))
           }).catch(() => {})
           if (isFinal) {
             patch.coreBloom = true
@@ -4820,7 +4816,7 @@ export const useStore = create<State>((set, get) => ({
             get().setToast({ msg, tone: 'bad' })
             const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
             api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
-              if (eventSelectionStillOwnsView()) set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
+              if (eventSelectionStillOwnsView()) set(projectRunManifest(m, get().nodeRuntime, e.runId))
             }).catch(() => {})
           }
           break
@@ -4832,7 +4828,7 @@ export const useStore = create<State>((set, get) => ({
             // surface whatever DID get written so the cockpit isn't blank (in the run's OWN swarm)
             const rSw = r?.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
             if (runOnScreen) api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
-              if (eventSelectionStillOwnsView()) set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
+              if (eventSelectionStillOwnsView()) set(projectRunManifest(m, get().nodeRuntime, e.runId))
             }).catch(() => {})
           } else {
             const failedProvider = isRunProvider(e.provider) ? e.provider : isRunProvider(r?.provider) ? r.provider : undefined
@@ -6903,7 +6899,7 @@ export const useStore = create<State>((set, get) => ({
           set({
             activeRuns: {
               ...get().activeRuns,
-              [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
+              [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, publicationPhase: e.publicationPhase ?? r.publicationPhase, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
             },
           })
         }
@@ -7452,7 +7448,7 @@ async function reconnectRunOnce(
       if (a.status !== 'queued') stream.unshift({ runId, ticker: identity.ticker, key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
     }
     const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
-    const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, continuation: identity.continuation ?? snap.continuation, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
+    const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, continuation: identity.continuation ?? snap.continuation, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt, publicationPhase: snap.publicationPhase } }
     const report = snap.readiness as ReadinessReport | undefined
     if (snap.status === 'awaiting-readiness-decision' && report?.ticker === identity.ticker && Array.isArray(report.issues)) {
       if (identity.chainId && !isPhysicallyEmptyReadiness(report)) {
@@ -7490,6 +7486,7 @@ async function reconnectRunOnce(
         || get().activeSwarm !== expected.swarm) return
     // A 404 from the exact snapshot is authoritative: the stream's terminal/resolved frame was missed or
     // the in-memory run disappeared during restart. Remove only this stale live claim and its decision.
+    const lostRun = get().activeRuns[runId]
     const gates = terminateReadinessGateMember(get().readinessGate, get().readinessGateQueue, runId)
     const activeRuns = { ...get().activeRuns }
     if (activeRuns[runId] && LIVE_RUN.has(activeRuns[runId].status)) delete activeRuns[runId]
@@ -7501,6 +7498,24 @@ async function reconnectRunOnce(
     })
     chainedReadinessRecoveryTried.delete(runId)
     closeRunSource(runId)
+    // The browser can miss the terminal SSE frame while the backend still finishes and saves output.
+    // Re-read that exact run's durable manifest before leaving the graph stale. No run root means there is
+    // no exact artifact identity to reconcile, so fail closed rather than resolving a different run.
+    const lostRunRoot = lostRun?.runRoot
+    if (lostRunRoot) {
+      const rSw = lostRun.swarmId && lostRun.swarmId !== 'research' ? lostRun.swarmId : undefined
+      void api.runManifest(expected.subject, lostRunRoot, rSw).then((manifest) => {
+        if (get().selectToken !== token || get().selectedTicker !== expected.subject
+            || get().activeSwarm !== expected.swarm) return
+        set(projectRunManifest(manifest, get().nodeRuntime, runId))
+        if (manifest.finalThesis || manifest.finalReport) {
+          void api.decision(expected.subject, rSw, lostRunRoot).then((decision) => {
+            if (get().selectToken === token && get().selectedTicker === expected.subject
+                && get().activeSwarm === expected.swarm) set({ decision })
+          }).catch(() => {})
+        }
+      }).catch(() => {})
+    }
   }
 }
 

@@ -1421,6 +1421,7 @@ export interface ActiveRunLite {
   cliVersion?: string
   chainId?: string
   executionEpoch?: string
+  publicationPhase?: RunPublicationPhase
 }
 export interface BoardSignal {
   signal_id: string
@@ -2499,10 +2500,12 @@ export interface RunActivity {
   executionProfile?: import('./provider').ProviderExecutionProfile
 }
 
+export type RunPublicationPhase = 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
+
 export type SseEvent = (
   | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; continuation?: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
-  | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
+  | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; terminalValidated?: boolean; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
@@ -2512,7 +2515,7 @@ export type SseEvent = (
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
   // transient liveness pulse (~3s per in-flight run; never replayed) — status/progress/cost between
   // agent events plus the engine's last output time and latest tool call ("what is it doing right now")
-  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; publicationPhase?: RunPublicationPhase; ts: number }
   // one per orchestrator tool call — the step-by-step feed behind "New data"'s live reading list. The
   // heartbeat only carries the LATEST call, so it alone would skip documents read between two pulses.
   // The server replays a bounded tail on subscribe, so attaching mid-run still shows the earlier steps.
@@ -2526,7 +2529,7 @@ export type SseEvent = (
 // startedAt/endedAt are SERVER timestamps (from the agent-started / agent-done SSE events), so a finished
 // orb's duration (endedAt - startedAt) is clock-skew-free. startedAt is set the instant the orchestrator
 // dispatches the orb — "the data reaching the orb" — which is when its live timer starts.
-export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
+export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number; terminalValidated?: boolean }
 
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb' | 'wire'

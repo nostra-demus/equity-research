@@ -1,6 +1,7 @@
 import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
+export type RunPublicationPhase = 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
 
 export interface MemoryProfile {
   version: 1
@@ -468,7 +469,7 @@ export interface RunActivity {
 export type SseEvent = (
   | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; continuation?: boolean; swarm?: string; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; cliVersion?: string; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
-  | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
+  | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; terminalValidated?: boolean; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
@@ -487,7 +488,7 @@ export type SseEvent = (
   // agent events never look like a hang. Emitted via emitTransient (NOT recorded in eventLog, never
   // replayed): it is ambient state, not history. lastStdoutAt = when the engine child last produced
   // output; lastActivity = the orchestrator's most recent tool call (what the system is DOING now).
-  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; ts: number }
+  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; provider: RunProvider; executionProfile: ProviderExecutionProfile; profileKey: string; model: string; reasoningLevel?: string; costUsd?: number; lastStdoutAt?: number; lastActivity?: RunActivity; publicationPhase?: RunPublicationPhase; ts: number }
   // TRANSIENT, one per orchestrator tool call — the step-by-step "what is it reading RIGHT NOW" feed.
   // The 3s heartbeat carries only the LATEST call, so a run that reads five documents between two
   // pulses shows four of them to nobody; this event is what makes the feed complete. Not recorded in
