@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-09-01T15:00:18Z",
+  "generated_at": "2026-09-01T15:09:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-878",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T14:54:08Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "DPSC Limited has entered the Corporate Insolvency Resolution Process, indicating a formal bankruptcy/insolvency filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DPSC Limited has entered the Corporate Insolvency Resolution Process, indicating a formal bankruptcy/insolvency filing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-879",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202004_IntimationofOutcomeof6thCoCMeetingunderReg30ofLODR01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T14:50:17Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a formal insolvency process with ongoing Committee of Creditors meetings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a formal insolvency process with ongoing Committee of Creditors meetings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-883",
+      "headline": "STARGLORY HLDGS (08213): DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0901/2026090103759.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T14:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Company announced the acquisition of a 51% equity interest in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced the acquisition of a 51% equity interest in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starglory Holdings",
+          "ticker": "08213",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-877",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of Mitshi India Limited.",
@@ -1331,6 +1478,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-885",
+      "headline": "Swiss Life plans 600 job cuts by end of 2028, H1 profit rises",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/swiss-life-plans-600-job-143645891.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:36:45Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Company announced 600 job cuts alongside H1 profit growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced 600 job cuts alongside H1 profit growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Swiss Life",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-876",
       "headline": "DNO agrees to acquire Capricorn Energy for $396m",
       "headline_en": null,
@@ -1773,202 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-805",
-      "headline": "Popular breakfast chain files Chapter 11 bankruptcy after lawsuit",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/buttermilk-eatery-files-chapter-11-bankruptcy-after-lawsuit",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T12:33:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A company filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A company filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-788",
-      "headline": "upGrad completes all-stock acquisition of Unacademy Group in $200 million deal",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/upgrad-completes-all-stock-acquisition-unacademy-group-usd-200-million-deal-19981650.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T12:23:56Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "upGrad acquired Unacademy Group in a $200 million all-stock deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "upGrad acquired Unacademy Group in a $200 million all-stock deal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "upGrad",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Unacademy Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-773",
-      "headline": "CrowdStrike’s (CRWD) Blowout Quarter Comes With A Guidance Reality Check",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/crowdstrike-crwd-blowout-quarter-comes-105315744.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T10:53:15Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "CrowdStrike reported strong quarterly results but provided a guidance reality check that may impact market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CrowdStrike reported strong quarterly results but provided a guidance reality check that may impact market expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CrowdStrike",
-          "ticker": "CRWD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-771",
-      "headline": "New Apple CEO John Ternus takes over from Tim Cook, ending 15-year tenure",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6062715-apple-ceo-john-ternus-takes-reins-tim-cook-resigns/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T10:50:40Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Apple is undergoing a CEO transition from Tim Cook to John Ternus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple is undergoing a CEO transition from Tim Cook to John Ternus.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124380,9 +124381,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2839135,
-    "news_picked_today": 1990,
-    "news_dropped_today": 9050
+    "news_seen_today": 2928582,
+    "news_picked_today": 2008,
+    "news_dropped_today": 9104
   },
   "book_momentum": {
     "live_count": 8,
