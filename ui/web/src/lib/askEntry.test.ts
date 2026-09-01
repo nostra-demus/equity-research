@@ -242,10 +242,12 @@ let recoveredAnswer = ''
 let recoveredCards: unknown[] | undefined
 let recoveryDone = 0
 let recoveryError = ''
+let researchChatAccept = ''
 ;(globalThis as any).window = { __ENGINE_LIVE__: true }
-;(globalThis as any).fetch = async (input: RequestInfo | URL) => {
+;(globalThis as any).fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
   const url = String(input)
   if (url === '/api/chat') {
+    researchChatAccept = new Headers(init?.headers).get('accept') || ''
     return new Response('event: chat-meta\ndata: {"conversationId":"chat_recover_deadbeef","scopeResolved":"whole run"}\n\nevent: chat-token\ndata: {"content":"partial"}\n\n', { status: 200 })
   }
   if (url === '/api/chat/turn/turn_recovery123') {
@@ -271,6 +273,7 @@ try {
   assert.deepEqual(recoveredCards, recoveredComputed, 'the real recovery endpoint payload must carry computed cards')
   assert.equal(recoveryDone, 1)
   assert.equal(recoveryError, '')
+  assert.equal(researchChatAccept, 'text/event-stream', 'research Ask must bypass the edge request deadline as an explicit SSE stream')
 } finally {
   ;(globalThis as any).fetch = priorFetch
   if (priorWindowForRecovery === undefined) delete (globalThis as any).window

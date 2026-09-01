@@ -33,6 +33,39 @@ await check('data-needs read budget covers the measured cold-host path while rem
   assert.ok(DATA_NEEDS_CLIENT_TIMEOUT_MS > 14_000)
 })
 
+await check('every long-running pipeline request identifies itself as an SSE stream to the edge gate', async () => {
+  const requests: { path: string; accept: string }[] = []
+  globalThis.fetch = (async (input, init) => {
+    const path = new URL(String(input), 'https://fixture.test').pathname
+    requests.push({ path, accept: new Headers(init?.headers).get('accept') || '' })
+    const frame = path.endsWith('/scan')
+      ? 'event: scan-verdict\ndata: {"verdict":{}}\n\n'
+      : path === '/api/pipelines/discover'
+        ? 'event: discover-done\ndata: {"found":0,"autoBuilt":0}\n\n'
+        : 'event: build-done\ndata: {"outcome":"assessed"}\n\n'
+    return new Response(frame, { status: 200, headers: { 'content-type': 'text/event-stream' } })
+  }) as typeof fetch
+
+  await api.pipelineScanStream('ZZZ', 'fixture', 'PIPE-scan', {
+    signal: new AbortController().signal,
+    onVerdict: () => {}, onError: (message) => assert.fail(message),
+  })
+  await api.pipelineDiscoverStream('ZZZ', 'fixture', {}, {
+    signal: new AbortController().signal,
+    onFound: () => {}, onDone: () => {}, onError: (message) => assert.fail(message),
+  })
+  await api.pipelineBuildStream('PIPE-build', {
+    signal: new AbortController().signal,
+    onStep: () => {}, onDone: () => {}, onAbsent: () => {}, onError: (message) => assert.fail(message),
+  })
+
+  assert.deepEqual(requests, [
+    { path: '/api/pipeline/ZZZ/scan', accept: 'text/event-stream' },
+    { path: '/api/pipelines/discover', accept: 'text/event-stream' },
+    { path: '/api/pipelines/build/PIPE-build/stream', accept: 'text/event-stream' },
+  ])
+})
+
 await check('a rejected connector build preserves the server explanation, not just HTTP 409', async () => {
   globalThis.fetch = (async () => new Response(JSON.stringify({
     ok: false, status: 'connector_exists',

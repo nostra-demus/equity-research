@@ -1725,7 +1725,7 @@ export const api = {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
     await readSse(
       `/api/pipeline/${encodeURIComponent(subject)}/scan?swarm=${encodeURIComponent(swarm)}`,
-      { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pipeline_id: pipelineId }), signal: cb.signal },
+      { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify({ pipeline_id: pipelineId }), signal: cb.signal },
       cb.signal,
       (ev, parsed) => {
         if (ev === 'scan-status') cb.onStatus?.(parsed)
@@ -1786,7 +1786,7 @@ export const api = {
     }
     await readSse(
       `/api/pipelines/discover?swarm=${encodeURIComponent(swarm)}`,
-      { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ subject, ...opts }), signal: cb.signal },
+      { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify({ subject, ...opts }), signal: cb.signal },
       cb.signal,
       (ev, parsed) => {
         if (ev === 'discover-status') cb.onStatus?.(parsed)
@@ -1831,7 +1831,7 @@ export const api = {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
     await readSse(
       `/api/pipelines/build/${encodeURIComponent(pipelineId)}/stream`,
-      { signal: cb.signal },
+      { headers: { accept: 'text/event-stream' }, signal: cb.signal },
       cb.signal,
       (ev, parsed) => {
         if (ev === 'build-step') cb.onStep({ tool: parsed.tool ?? '', target: parsed.target ?? '' })
@@ -1926,7 +1926,10 @@ export const api = {
     }
     let res: Response
     try {
-      res = await performanceFetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      // The Cloudflare offline gate removes its ordinary request deadline only for explicit SSE traffic.
+      // Without this Accept header, slow context assembly is misread as an offline origin after 15s even
+      // though the engine is healthy, and the user's safely rolled-back turn surfaces as `engine-offline`.
+      res = await performanceFetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') await ambiguousFailure(e?.message || 'network error')
       return
@@ -1989,7 +1992,7 @@ export const api = {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
     let res: Response
     try {
-      res = await performanceFetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+      res = await performanceFetch('/api/news/chat', { method: 'POST', headers: { 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify(body), signal: cb.signal })
     } catch (e: any) {
       if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
       return

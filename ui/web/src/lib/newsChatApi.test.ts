@@ -15,7 +15,11 @@ let passed = 0
 const check = async (name: string, fn: () => Promise<void>) => { await fn(); passed++; console.log(`  ok  ${name}`) }
 
 await check('reports a clean EOF when no done frame commits the answer', async () => {
-  globalThis.fetch = (async () => response('event: news-chat-token\ndata: {"content":"partial"}\n\n')) as typeof fetch
+  let accept = ''
+  globalThis.fetch = (async (_input, init) => {
+    accept = new Headers(init?.headers).get('accept') || ''
+    return response('event: news-chat-token\ndata: {"content":"partial"}\n\n')
+  }) as typeof fetch
   const errors: string[] = []
   await api.newsChatStream(
     { window: '24h', messages: [{ role: 'user', content: 'Question' }] },
@@ -26,6 +30,7 @@ await check('reports a clean EOF when no done frame commits the answer', async (
     },
   )
   assert.deepEqual(errors, ['News chat ended before the answer completed. Please retry.'])
+  assert.equal(accept, 'text/event-stream', 'news Ask must bypass the edge request deadline as an explicit SSE stream')
 })
 
 await check('keeps an aborted EOF silent', async () => {
