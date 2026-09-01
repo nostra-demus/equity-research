@@ -29,7 +29,9 @@ export function PerformanceStatusChip({ onOpen }: { onOpen: () => void }) {
   const [summary, setSummary] = useState<PerformanceSummary | null>(null)
   useEffect(() => {
     let alive = true
-    const read = () => void api.performanceSummary(24).then((next) => { if (alive) setSummary(next) }).catch(() => {})
+    const read = () => void api.performanceSummary(24)
+      .then((next) => { if (alive) setSummary(next) })
+      .catch(() => { if (alive) setSummary(null) })
     read()
     const timer = setInterval(read, 60_000)
     return () => { alive = false; clearInterval(timer) }
@@ -51,7 +53,7 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
   const load = useCallback(async () => {
     setError(false)
     try { setSummary(await api.performanceSummary(24)) }
-    catch { setError(true) }
+    catch { setSummary(null); setError(true) }
     finally { setLoading(false) }
   }, [])
   useEffect(() => {
@@ -100,7 +102,7 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
         {error && <div className="perfpanel__notice">Speed history is temporarily unavailable. The cockpit itself is unaffected.</div>}
         {!!summary?.droppedSamples && (
           <div className="perfpanel__notice perfpanel__notice--warning">
-            Measurement loss: {summary.droppedSamples.toLocaleString()} timing sample{summary.droppedSamples === 1 ? '' : 's'} could not be retained in this engine process. Speed stays “Needs attention” until the engine restarts and complete collection resumes.
+            Measurement loss: {summary.droppedSamples.toLocaleString()} timing sample{summary.droppedSamples === 1 ? '' : 's'} could not be retained in this {summary.windowHours}-hour window. Speed stays “Needs attention” while that loss remains inside the selected window.
           </div>
         )}
         {loading && !summary ? <div className="perfpanel__notice">Reading recent timings…</div> : null}

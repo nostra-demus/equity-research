@@ -38,6 +38,24 @@ test('the browser collector is batched, bounded, and best-effort', async () => {
   throwing.setMode('static')
 })
 
+test('a failed browser batch reports its bounded loss on the next successful upload', async () => {
+  const lossReports: number[] = []
+  let attempt = 0
+  const collector = new BrowserPerformanceCollector(async (_samples, _pageExit, droppedSamples) => {
+    lossReports.push(droppedSamples)
+    attempt++
+    return attempt > 1
+  })
+  collector.setMode('live')
+  collector.record('browser.core_ready', 700)
+  await collector.flush()
+  collector.record('browser.core_ready', 650)
+  await collector.flush()
+
+  assert.deepEqual(lossReports, [0, 1], 'the missing observation is reported once with the recovery batch')
+  collector.setMode('static')
+})
+
 test('static/read-only mode stores and sends nothing', async () => {
   let calls = 0
   const collector = new BrowserPerformanceCollector(async () => { calls++; return true })

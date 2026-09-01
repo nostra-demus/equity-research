@@ -213,6 +213,22 @@ export interface BuiltServerApp {
   shutdown: (signal: string, code?: number) => Promise<void>
 }
 
+const PERFORMANCE_SUMMARY_TIMEOUT_MS = 1_500
+
+export async function withPerformanceReadDeadline<T>(work: Promise<T>, timeoutMs = PERFORMANCE_SUMMARY_TIMEOUT_MS): Promise<T> {
+  let timer: NodeJS.Timeout | null = null
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_resolve, reject) => {
+        timer = setTimeout(() => reject(new Error('performance summary read timed out')), timeoutMs)
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
 /** Build the complete control plane without claiming the process singleton, opening a listener, installing
  * process handlers, recovering provider processes, or starting background schedulers. Tests use `app.inject`
  * against this boundary; production calls `start()` exactly once from the executable entry point below. */
@@ -355,10 +371,10 @@ app.get('/api/health', async (_req, reply) => {
 // durable ledger. The endpoint is best-effort; a telemetry failure must never impair the cockpit itself.
 app.post('/api/performance/samples', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
-  const samples = validateBrowserPerformanceSamples(req.body)
-  if (!samples) return reply.code(400).send({ error: 'invalid performance sample batch' })
-  performanceTelemetry.recordBrowser(samples)
-  return reply.code(202).send({ accepted: samples.length })
+  const batch = validateBrowserPerformanceSamples(req.body)
+  if (!batch) return reply.code(400).send({ error: 'invalid performance sample batch' })
+  performanceTelemetry.recordBrowser(batch.samples, batch.droppedSamples)
+  return reply.code(202).send({ accepted: batch.samples.length })
 })
 
 app.get('/api/performance/summary', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -366,7 +382,8 @@ app.get('/api/performance/summary', { config: { rateLimit: { max: 120, timeWindo
   const raw = Number((req.query as any)?.hours ?? 24)
   const hours = Number.isFinite(raw) ? Math.max(1, Math.min(168, Math.round(raw))) : 24
   reply.header('cache-control', 'no-store')
-  return performanceTelemetry.summary(hours)
+  try { return await withPerformanceReadDeadline(performanceTelemetry.summary(hours)) }
+  catch { return reply.code(503).send({ error: 'speed history is temporarily unavailable' }) }
 })
 
 // Durable launch intent is intentionally separate from the run registry: waiting for an update has not
@@ -8041,7 +8058,9 @@ async function shutdown(signal: string, code = 0) {
   for (const res of liveResponses) {
     try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
   }
-  try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
+  // Start closing the listener now, but never put HTTP drain ahead of the durable provider/paper writers.
+  // A bounded speed-summary handler can finish while these safety-critical drains proceed independently.
+  const appClosing = app.close().catch(() => {})
   try {
     // Provider and paper-sync writers own durable research state, so they always drain before optional
     // timing data. A stalled telemetry filesystem must never delay singleton-safe provider shutdown.
@@ -8061,6 +8080,7 @@ async function shutdown(signal: string, code = 0) {
       new Promise<void>((resolve) => setTimeout(resolve, 1_000)),
     ])
   } catch {} // best-effort timing tail; bounded telemetry can never block a safe shutdown
+  try { await appClosing } catch {} // every summary request has its own short deadline; close with a clean FIN
   process.exit(code)
 }
 function installProcessHandlers() {

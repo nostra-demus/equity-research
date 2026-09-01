@@ -2010,17 +2010,31 @@ export const useStore = create<State>((set, get) => ({
     const sw = get().activeSwarm
     const isResearch = sw === 'research'
     const token = ++selectGen
+    let selectionFailed = false
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
     set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, dataScan: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, readinessGate: null, readinessGateQueue: [], readinessRecovery: {}, ...CHAT_RESET })
-    const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
+    let graph: SwarmGraph
+    try {
+      graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
+    } catch (error) {
+      if (get().selectToken === token && get().activeSwarm === sw && get().selectedTicker === t) {
+        recordBrowserPerformance('browser.subject_ready', performance.now() - selectionStartedAt, 'ms', {
+          operation: '/subject/select', outcome: 'error',
+        })
+      }
+      throw error
+    }
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
-    if (isResearch) await get().refreshData()
+    if (isResearch) {
+      await get().refreshData()
+      selectionFailed = get().selectToken === token && get().dataScan?.stage === 'failed'
+    }
     void get().refreshPipelines() // the cross-swarm pipeline library (the Data button gates on this, §5)
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -2062,7 +2076,13 @@ export const useStore = create<State>((set, get) => ({
       schedulePoll(get, active.length > 0)
     } catch {}
     if (get().selectToken === token && get().activeSwarm === sw && get().selectedTicker === t) {
-      recordNextPaint('browser.subject_ready', selectionStartedAt, '/subject/select')
+      if (selectionFailed) {
+        recordBrowserPerformance('browser.subject_ready', performance.now() - selectionStartedAt, 'ms', {
+          operation: '/subject/select', outcome: 'error',
+        })
+      } else {
+        recordNextPaint('browser.subject_ready', selectionStartedAt, '/subject/select')
+      }
     }
   },
 

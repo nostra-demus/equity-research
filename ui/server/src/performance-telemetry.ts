@@ -87,7 +87,9 @@ const BUDGETS: Partial<Record<PerformanceSampleName, Budget>> = {
   'browser.largest_contentful_paint': { label: 'Main content', value: 2_500, percentile: 75, minSamples: 10, unit: 'ms' },
   'browser.interaction_latency': { label: 'Click response', value: 200, percentile: 75, minSamples: 10, unit: 'ms' },
   'browser.layout_shift': { label: 'Visual stability', value: 0.1, percentile: 75, minSamples: 10, unit: 'score' },
-  'browser.long_task': { label: 'Main-thread freeze', value: 100, percentile: 95, minSamples: 10, unit: 'ms' },
+  // PerformanceObserver reports only tasks which already crossed the browser's 50ms long-task line.
+  // Treat each as an incident: one severe freeze must be visible immediately, not after ten freezes.
+  'browser.long_task': { label: 'Main-thread freeze', value: 100, percentile: 95, minSamples: 1, unit: 'ms' },
   'browser.run_stream_connect': { label: 'Live connection', value: 1_000, percentile: 95, minSamples: 10, unit: 'ms' },
   'browser.run_event_paint': { label: 'Live update shown', value: 250, percentile: 95, minSamples: 20, unit: 'ms' },
   'browser.run_reconnect': { label: 'Run recovery', value: 1_000, percentile: 95, minSamples: 10, unit: 'ms' },
@@ -114,6 +116,7 @@ const MAX_DAILY_BYTES = 2 * 1024 * 1024
 const MAX_BATCH = 100
 const MAX_VALUE_MS = 10 * 60_000
 const MAX_CLOCK_SKEW_MS = 24 * 60 * 60_000
+const MAX_BROWSER_REPORTED_DROPS = 10_000
 const SUMMARY_CACHE_MS = 15_000
 const DROP_BUCKET_MS = 60 * 60_000
 const DAY_FILE_RE = /^\d{4}-\d{2}-\d{2}\.jsonl$/
@@ -139,6 +142,20 @@ const SAFE_BROWSER_OPERATIONS = new Set([
     'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
     .map((event) => `/event/${event}`),
 ])
+
+// "Fast" is a system verdict, not a synonym for one healthy backend heartbeat. Require evidence from
+// browser boot, an ordinary company selection, a live run paint, and the browser-to-health round trip.
+const GOOD_COVERAGE = [
+  { name: 'browser.core_ready' },
+  { name: 'browser.subject_ready' },
+  { name: 'browser.run_event_paint' },
+  { name: 'browser.api_latency', operation: '/api/health' },
+] as const
+
+export interface ValidatedBrowserPerformanceBatch {
+  samples: PerformanceSampleInput[]
+  droppedSamples: number
+}
 
 function releaseId(): string {
   const raw = process.env.CF_PAGES_COMMIT_SHA || process.env.GIT_COMMIT || process.env.COMMIT_SHA || 'local'
@@ -176,10 +193,13 @@ export function normalizeServerOperation(route: string | undefined): string | un
     .slice(0, 160)
 }
 
-export function validateBrowserPerformanceSamples(value: unknown, now = Date.now()): PerformanceSampleInput[] | null {
+export function validateBrowserPerformanceSamples(value: unknown, now = Date.now()): ValidatedBrowserPerformanceBatch | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return null
   const body = value as Record<string, unknown>
-  if (Object.keys(body).some((key) => key !== 'samples') || !Array.isArray(body.samples) || body.samples.length > MAX_BATCH) return null
+  if (Object.keys(body).some((key) => !['samples', 'droppedSamples'].includes(key))
+      || !Array.isArray(body.samples) || body.samples.length > MAX_BATCH
+      || (body.droppedSamples !== undefined && (typeof body.droppedSamples !== 'number' || !Number.isInteger(body.droppedSamples)
+        || Number(body.droppedSamples) < 0 || Number(body.droppedSamples) > MAX_BROWSER_REPORTED_DROPS))) return null
   const out: PerformanceSampleInput[] = []
   for (const row of body.samples) {
     if (!row || typeof row !== 'object' || Array.isArray(row)) return null
@@ -203,7 +223,7 @@ export function validateBrowserPerformanceSamples(value: unknown, now = Date.now
       ...(sample.outcome !== undefined ? { outcome: sample.outcome as PerformanceOutcome } : {}),
     })
   }
-  return out
+  return { samples: out, droppedSamples: Number(body.droppedSamples ?? 0) }
 }
 
 export interface PerformanceTelemetryOptions {
@@ -226,6 +246,7 @@ export class PerformanceTelemetry {
   private writer: Promise<void> | null = null
   private lastPruneDay = ''
   private droppedByHour = new Map<number, number>()
+  private delimitedFiles = new Set<string>()
   private summaryCache: { hours: number; at: number; value: PerformanceSummary } | null = null
 
   constructor(stateDir: string, options: PerformanceTelemetryOptions = {}) {
@@ -241,7 +262,8 @@ export class PerformanceTelemetry {
     this.enqueue({ name: 'server.api_latency', value, unit: 'ms', operation, outcome, ts }, 'server')
   }
 
-  recordBrowser(samples: PerformanceSampleInput[]): void {
+  recordBrowser(samples: PerformanceSampleInput[], droppedSamples = 0): void {
+    if (droppedSamples > 0) this.noteDropped(Math.min(MAX_BROWSER_REPORTED_DROPS, Math.floor(droppedSamples)))
     for (const sample of samples) this.enqueue(sample, 'browser')
   }
 
@@ -306,14 +328,55 @@ export class PerformanceTelemetry {
       const file = path.join(this.dir, `${day}.jsonl`)
       let size = 0
       try { size = (await fs.promises.stat(file)).size } catch {}
+      // Verify once per file on process startup, and again only after an append failure. The steady-state
+      // writer avoids an extra open/read on every two-second batch while still healing restart debris.
+      if (size > 0 && !this.delimitedFiles.has(file)) size = await this.repairInterruptedTail(file, size)
       const payload = rows.map((row) => JSON.stringify(row)).join('\n') + '\n'
       if (size + Buffer.byteLength(payload) > this.maxDailyBytes) {
         this.noteDropped(rows.length)
         continue
       }
-      await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
+      try {
+        await fs.promises.appendFile(file, payload, { encoding: 'utf8', mode: 0o600 })
+        this.delimitedFiles.add(file)
+      } catch (error) {
+        this.delimitedFiles.delete(file)
+        throw error
+      }
     }
     await this.pruneIfDue(Date.now())
+  }
+
+  private async repairInterruptedTail(file: string, size: number): Promise<number> {
+    const handle = await fs.promises.open(file, 'r+')
+    try {
+      const last = Buffer.allocUnsafe(1)
+      const tail = await handle.read(last, 0, 1, size - 1)
+      if (tail.bytesRead === 1 && last[0] === 0x0a) return size
+
+      // appendFile can leave a partial final row when storage fills mid-write. The failed batch is already
+      // counted as lost; truncate only that unterminated row so the next valid row cannot be merged into it.
+      const chunk = Buffer.allocUnsafe(4_096)
+      let cursor = size
+      while (cursor > 0) {
+        const start = Math.max(0, cursor - chunk.length)
+        const length = cursor - start
+        const read = await handle.read(chunk, 0, length, start)
+        for (let index = read.bytesRead - 1; index >= 0; index--) {
+          if (chunk[index] !== 0x0a) continue
+          const repairedSize = start + index + 1
+          await handle.truncate(repairedSize)
+          await handle.sync()
+          return repairedSize
+        }
+        cursor = start
+      }
+      await handle.truncate(0)
+      await handle.sync()
+      return 0
+    } finally {
+      await handle.close()
+    }
   }
 
   private async pruneIfDue(now: number): Promise<void> {
@@ -419,7 +482,7 @@ export class PerformanceTelemetry {
       const observed = budget ? percentile(values, budget.percentile) : percentile(values, 95)
       const status = !budget
         ? 'observed'
-        : rows.length >= budget.minSamples && errorRate > 0.05
+        : errorCount > 0 && (successfulRows.length === 0 || (rows.length >= budget.minSamples && errorRate > 0.05))
           ? 'needs_attention'
         : successfulRows.length < budget.minSamples
           ? 'learning'
@@ -456,9 +519,12 @@ export class PerformanceTelemetry {
       return rank(a.status) - rank(b.status) || (b.budget ? b.p95 / b.budget : b.p95) - (a.budget ? a.p95 / a.budget : a.p95)
     })
     const budgeted = metrics.filter((metric) => metric.budget !== null)
+    const hasGoodCoverage = GOOD_COVERAGE.every((required) => metrics.some((metric) =>
+      metric.name === required.name && metric.status === 'good'
+      && (!('operation' in required) || metric.operation === required.operation)))
     const status = droppedSamples > 0 || budgeted.some((metric) => metric.status === 'needs_attention')
       ? 'needs_attention'
-      : budgeted.some((metric) => metric.status === 'good') ? 'good' : 'learning'
+      : hasGoodCoverage ? 'good' : 'learning'
     const result: PerformanceSummary = {
       version: 1,
       generatedAt: new Date(now).toISOString(),

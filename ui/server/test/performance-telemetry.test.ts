@@ -11,11 +11,14 @@ test('browser telemetry accepts only the fixed privacy-safe contract', () => {
   const accepted = validateBrowserPerformanceSamples({ samples: [{
     name: 'browser.api_latency', value: 18.234, unit: 'ms', ts: NOW,
     operation: '/api/runs/:runId', outcome: 'ok',
-  }] }, NOW)
-  assert.deepEqual(accepted, [{
-    name: 'browser.api_latency', value: 18.2, unit: 'ms', ts: NOW,
-    operation: '/api/runs/:runId', outcome: 'ok',
-  }])
+  }], droppedSamples: 3 }, NOW)
+  assert.deepEqual(accepted, {
+    samples: [{
+      name: 'browser.api_latency', value: 18.2, unit: 'ms', ts: NOW,
+      operation: '/api/runs/:runId', outcome: 'ok',
+    }],
+    droppedSamples: 3,
+  })
 
   assert.equal(validateBrowserPerformanceSamples({ samples: [{
     name: 'browser.api_latency', value: 10, unit: 'ms', ts: NOW, operation: '/ticker/TSLA',
@@ -32,6 +35,43 @@ test('browser telemetry accepts only the fixed privacy-safe contract', () => {
   assert.equal(validateBrowserPerformanceSamples({ samples: [{
     name: 'browser.layout_shift', value: 0.01, unit: 'ms', ts: NOW,
   }] }, NOW), null, 'a metric cannot be submitted with a different unit')
+  assert.equal(validateBrowserPerformanceSamples({ samples: [], droppedSamples: 10_001 }, NOW), null,
+    'a client loss report is an integer with a strict bound')
+})
+
+test('backend heartbeat alone cannot publish a system-wide Fast verdict', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-coverage-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  for (let index = 0; index < 20; index++) telemetry.recordServer(10, '/api/health', 'ok', NOW - index)
+
+  const summary = await telemetry.summary(24, NOW)
+  assert.equal(summary.metrics.find((metric) => metric.operation === '/api/health')?.status, 'good')
+  assert.equal(summary.status, 'learning', 'Fast requires browser boot, selection, live paint, and round-trip coverage')
+
+  const complete = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  for (let index = 0; index < 20; index++) {
+    complete.recordBrowser([
+      { name: 'browser.api_latency', value: 20, unit: 'ms', operation: '/api/health', ts: NOW - index },
+      { name: 'browser.run_event_paint', value: 50, unit: 'ms', operation: '/event/run-activity', ts: NOW - index },
+    ])
+    if (index < 10) complete.recordBrowser([
+      { name: 'browser.core_ready', value: 500, unit: 'ms', operation: '/boot/core', ts: NOW - index },
+      { name: 'browser.subject_ready', value: 500, unit: 'ms', operation: '/subject/select', ts: NOW - index },
+    ])
+  }
+  assert.equal((await complete.summary(24, NOW)).status, 'good', 'complete in-budget core coverage can publish Fast')
+})
+
+test('one severe long task is an immediate incident', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-freeze-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  telemetry.recordBrowser([{ name: 'browser.long_task', value: 2_000, unit: 'ms', ts: NOW }])
+
+  const summary = await telemetry.summary(24, NOW)
+  assert.equal(summary.metrics.find((metric) => metric.name === 'browser.long_task')?.status, 'needs_attention')
+  assert.equal(summary.status, 'needs_attention')
 })
 
 test('durable summaries apply p75/p95 budgets and compare with a recent baseline', async (t) => {
@@ -156,4 +196,32 @@ test('a stalled writer leaves only a bounded in-memory tail', async (t) => {
   assert.equal(summary.sampleCount, 101)
   assert.equal(summary.droppedSamples, 25)
   assert.equal(summary.status, 'needs_attention')
+})
+
+test('an interrupted JSONL tail cannot consume the next successful sample', async (t) => {
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-tail-'))
+  t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const originalAppend = fs.promises.appendFile
+  let interrupt = true
+  ;(fs.promises as any).appendFile = async (file: fs.PathLike, data: string, options: unknown) => {
+    if (interrupt) {
+      interrupt = false
+      fs.appendFileSync(file, String(data).slice(0, 12))
+      throw new Error('simulated interrupted append')
+    }
+    return (originalAppend as any)(file, data, options)
+  }
+  t.after(() => { (fs.promises as any).appendFile = originalAppend })
+
+  const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
+  telemetry.recordServer(10, '/api/health', 'ok', NOW)
+  await telemetry.flush()
+  telemetry.recordServer(20, '/api/health', 'ok', NOW + 1)
+  await telemetry.flush()
+
+  const summary = await telemetry.summary(24, NOW + 2)
+  const health = summary.metrics.find((metric) => metric.operation === '/api/health')
+  assert.equal(health?.count, 1)
+  assert.equal(health?.p95, 20)
+  assert.equal(summary.droppedSamples, 1, 'the failed batch remains visible as measurement loss')
 })

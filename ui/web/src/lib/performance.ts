@@ -60,10 +60,11 @@ export interface PerformanceSummary {
 }
 
 type CollectionMode = 'unknown' | 'live' | 'static'
-type Transport = (samples: BrowserPerformanceSample[], pageExit: boolean) => Promise<boolean>
+type Transport = (samples: BrowserPerformanceSample[], pageExit: boolean, droppedSamples: number) => Promise<boolean>
 
 const MAX_QUEUE = 300
 const MAX_BATCH = 50
+const MAX_REPORTED_DROPS = 10_000
 const FLUSH_MS = 5_000
 const API_FAMILIES = new Set([
   'activity', 'bridge', 'calendar', 'calls', 'chat', 'chats', 'credit', 'credit-check', 'data-needs',
@@ -117,8 +118,8 @@ function cleanOperation(value: string | undefined): string | undefined {
   return family && API_FAMILIES.has(family) ? value : '/context/other'
 }
 
-async function defaultTransport(samples: BrowserPerformanceSample[], pageExit: boolean): Promise<boolean> {
-  const body = JSON.stringify({ samples })
+async function defaultTransport(samples: BrowserPerformanceSample[], pageExit: boolean, droppedSamples: number): Promise<boolean> {
+  const body = JSON.stringify({ samples, ...(droppedSamples > 0 ? { droppedSamples } : {}) })
   if (pageExit && typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
     try {
       if (navigator.sendBeacon('/api/performance/samples', new Blob([body], { type: 'application/json' }))) return true
@@ -145,6 +146,7 @@ export class BrowserPerformanceCollector {
   private queue: BrowserPerformanceSample[] = []
   private timer: ReturnType<typeof setTimeout> | null = null
   private flushing: Promise<void> | null = null
+  private dropped = 0
 
   constructor(private readonly transport: Transport = defaultTransport) {}
 
@@ -152,6 +154,7 @@ export class BrowserPerformanceCollector {
     this.mode = mode
     if (mode === 'static') {
       this.queue = []
+      this.dropped = 0
       if (this.timer) clearTimeout(this.timer)
       this.timer = null
       return
@@ -170,7 +173,11 @@ export class BrowserPerformanceCollector {
       ...(options.operation ? { operation: cleanOperation(options.operation) } : {}),
       ...(options.outcome ? { outcome: options.outcome } : {}),
     })
-    if (this.queue.length > MAX_QUEUE) this.queue.splice(0, this.queue.length - MAX_QUEUE)
+    if (this.queue.length > MAX_QUEUE) {
+      const overflow = this.queue.length - MAX_QUEUE
+      this.queue.splice(0, overflow)
+      this.noteDropped(overflow)
+    }
     if (this.mode === 'live') this.schedule()
   }
 
@@ -187,8 +194,8 @@ export class BrowserPerformanceCollector {
     if (pageExit) {
       if (this.timer) clearTimeout(this.timer)
       this.timer = null
-      const sends: Promise<boolean>[] = []
-      while (this.queue.length) sends.push(this.transport(this.queue.splice(0, MAX_BATCH), true))
+      const sends: Promise<void>[] = []
+      while (this.queue.length) sends.push(this.send(this.queue.splice(0, MAX_BATCH), true))
       await Promise.allSettled(sends)
       return
     }
@@ -196,12 +203,27 @@ export class BrowserPerformanceCollector {
     if (this.flushing) return this.flushing
     const batch = this.queue.splice(0, MAX_BATCH)
     // Best-effort means drop this batch on transport failure. Re-queueing would make an offline engine
-    // wake the browser every five seconds forever — telemetry becoming the lag it is meant to detect.
-    this.flushing = this.transport(batch, pageExit).catch(() => false).then(() => {}).finally(() => {
+    // wake the browser every five seconds forever. Its bounded loss count rides on the next successful
+    // upload instead, so the speed verdict cannot silently turn green after missing observations.
+    this.flushing = this.send(batch, pageExit).finally(() => {
       this.flushing = null
       if (this.queue.length) this.schedule()
     })
     return this.flushing
+  }
+
+  private noteDropped(count: number): void {
+    this.dropped = Math.min(MAX_REPORTED_DROPS, this.dropped + count)
+  }
+
+  private async send(batch: BrowserPerformanceSample[], pageExit: boolean): Promise<void> {
+    // Reserve prior loss to exactly one concurrent request. If that request also fails, restore both its
+    // carried loss and its own samples; a later successful upload reports the bounded total once.
+    const carriedDropped = this.dropped
+    this.dropped = 0
+    let sent = false
+    try { sent = await this.transport(batch, pageExit, carriedDropped) } catch {}
+    if (!sent) this.noteDropped(carriedDropped + batch.length)
   }
 
   pending(): readonly BrowserPerformanceSample[] {
@@ -214,6 +236,10 @@ let monitoringStarted = false
 
 export function setPerformanceCollectionMode(mode: 'live' | 'static'): void {
   collector.setMode(mode)
+}
+
+export function flushBrowserPerformance(pageExit = false): Promise<void> {
+  return collector.flush(pageExit)
 }
 
 export function recordBrowserPerformance(
@@ -273,5 +299,5 @@ export function startBrowserPerformanceMonitoring(): void {
     } catch {}
   }
 
-  window.addEventListener('pagehide', () => { void collector.flush(true) }, { capture: true })
+  window.addEventListener('pagehide', () => { void flushBrowserPerformance(true) }, { capture: true })
 }
