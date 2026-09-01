@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T02:37:03Z",
+  "generated_at": "2026-09-01T02:42:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -1066,6 +1066,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-361",
+      "headline": "FS ANTHRACITE (01738): SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100253.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T02:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "FS Anthracite announced a suspension of trading, which is a significant liquidity and operational event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "FS Anthracite announced a suspension of trading, which is a significant liquidity and operational event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FS Anthracite",
+          "ticker": "01738",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-166",
       "headline": "ZHONGZI INTL H (08118): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1944,56 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-347",
-      "headline": "US regulator claims Amazon manipulated advertising prices",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/bafde798-4860-45bb-9226-633a211e8508?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T20:08:49Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "US regulators are alleging price manipulation by Amazon, which poses a significant regulatory and legal risk to the company's advertising business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "US regulators are alleging price manipulation by Amazon, which poses a significant regulatory and legal risk to the company's advertising business model.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -121816,9 +121815,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 215115,
-    "news_picked_today": 425,
-    "news_dropped_today": 1543
+    "news_seen_today": 223714,
+    "news_picked_today": 437,
+    "news_dropped_today": 1579
   },
   "book_momentum": {
     "live_count": 8,
