@@ -1,0 +1,66 @@
+# Moat — NU
+
+## 1. Named Competitors
+
+- **Itaú Unibanco Holding S.A.** — BOVESPA: ITUB4 / NYSE: ITUB ADR; a Brazilian consumer-credit, deposit, card and payments competitor named by Nu. [data/NU/FY2025 Form 20-F, Item 3.D “Substantial and increasingly intense competition”; Competitive Map — NU, 2026-09-01, §2]
+- **Banco Bradesco S.A.** — BOVESPA: BBDC4 / NYSE: BBD ADR; a named Brazilian consumer-credit competitor. [data/NU/FY2025 Form 20-F, Item 3.D “Substantial and increasingly intense competition”; Competitive Map — NU, 2026-09-01, §2]
+- **Banco Santander (Brasil) S.A.** — BOVESPA: SANB11 / NYSE: BSBR ADR; a named Brazilian consumer-credit competitor. [data/NU/FY2025 Form 20-F, Item 3.D “Substantial and increasingly intense competition”; Competitive Map — NU, 2026-09-01, §2]
+
+## 2. Moat Sources
+
+| Possible Moat | Present? (Y/N) | Evidence | Strength /100 |
+|---|---|---|---:|
+| Brand | Y | Nu had 131.0m customers at 2025 year-end, including 113m in Brazil, and BCB data identified it as Brazil’s largest private financial institution by customer count. That is broad awareness and reach; a brand-driven price premium or retention advantage versus the named banks is not disclosed. [data/NU/FY2025 Form 20-F, Item 4.B, pp.20–21] | 50 |
+| Cost advantage | Y | Nu’s FY2025 CAC was US$7.4 per customer, of which paid marketing was about 32%. Management estimates cost to serve plus G&A per active customer was about 85% below Brazilian incumbents; its 14,314 customers per employee divided by the cited incumbent average of 1,234 equals 11.6x. The 85% comparison is management’s estimate, not a matched disclosure for the three named banks. [data/NU/FY2025 Form 20-F, Item 5.A, p.157] | 65 |
+| Distribution | Y | App-led distribution reached 131.0m customers at FY2025; in Mexico, Nu reported more than 30,000 cash-in/cash-out points. This is broad reach, but the filing does not establish exclusive distribution. [data/NU/FY2025 Form 20-F, Item 4.B, pp.20–21; Mexico discussion] | 55 |
+| Scale | Y | Nu had US$41.9bn of directly acquired customer deposits at FY2025 and 131.0m customers. The selected incumbents remain larger in the upstream comparable-analysis revenue read, so Nu’s scale lowers unit cost but does not establish superior banking scale. [data/NU/FY2025 Form 20-F, Item 5.A, pp.157–59; Competitive Map — NU, 2026-09-01, §2] | 55 |
+| Technology / IP | Y | Nu describes proprietary NuCore, its cloud-based core financial-services platform, and NuX, its internally developed credit engine. The filing does not disclose patents, exclusive rights, or a matched credit-loss advantage against the named banks. [data/NU/FY2025 Form 20-F, Item 4.B “NuCore Technology Platform” and “NuX Credit Engine”] | 45 |
+| Licenses / regulation | Y | Regulated banking and payment permissions create entry requirements, but Pix and Open Finance are intended to increase competition and access to customer data. This is an industry barrier, not a demonstrated Nu-specific edge. [data/NU/FY2025 Form 20-F, Item 4.B “Our Regulatory Position” and “Favorable Regulatory Environment”; Item 3.D, Open Finance risk] | 35 |
+| Network effects | N | More customers can create more underwriting data, but the available evidence does not show that an additional customer makes a Nu account, card or loan more valuable to another customer. That feedback belongs to data scale, not a proven direct network effect. [data/NU/FY2025 Form 20-F, Item 4.B “NuX Credit Engine”] | 20 |
+| Switching costs | Y | More than 62% of active customers met Nu’s definition of a primary banking relationship at FY2025. The counterweight is material: customers generally do not have long-term contracts and deposits may be withdrawn without notice; Open Finance can make competing offers easier. [data/NU/FY2025 Form 20-F, Item 4.B, pp.20–21; Item 3.D “Our ability to attract and retain customers…” and Open Finance risk] | 45 |
+| Natural resource access | N | No natural-resource access is relevant to a digital retail bank and lender. [data/NU/FY2025 Form 20-F, Item 4.B, Business Overview] | 0 |
+| Location advantage | N | Nu’s presence in Brazil, Mexico and Colombia is an addressable-market footprint, not an exclusive location advantage. Brazil concentration is a risk as well as a source of scale. [data/NU/FY2025 Form 20-F, Note 34, geographic information] | 0 |
+
+## 3. Competitive Economics
+
+NU reports IFRS in U.S. dollars. For banks, gross and EBIT margins are not clean peer measures: funding cost and expected credit loss sit in financial-service costs, and the peer export supplies LTM net-income margins rather than gross or EBIT margins. Those numbers are retained with their own labels, not treated as interchangeable.
+
+| Company / Competitor | Gross Margin | EBIT Margin | Return on capital (ROIC, or ROE for financials) | Period | Source |
+|---|---:|---:|---:|---|---|
+| Nu Holdings | 42.0% reported gross-profit margin | Not disclosed as EBIT; closest pre-tax-income/reported-revenue proxy 24.5%, not EBIT | 17.2% available-history simple average of calculated IFRS ROE for FY2022–FY2025; FY2025 alone 30.3% | FY2022–FY2025; FY2025 margin | [data/NU/FY2025 Form 20-F, Consolidated Statements of Profit or Loss and Financial Position, pp.155, 157; data/NU/FY2024 Form 20-F, Consolidated Statements] |
+| Competitor 1 — Itaú Unibanco | Not disclosed; 32.58% LTM net-income margin on CIQ basis, not gross margin | Not disclosed | 24.3% annualized recurring managerial ROE | 2Q26 / LTM as labelled | [Competitive Map — NU, 2026-09-01, §2; data/NU/Company Comparable Analysis, Operating Statistics, as of 2026-08-29 — vendor export; Itaú 2Q26 earnings release, 2026-08-04] |
+| Competitor 2 — Banco Bradesco | Not disclosed; 26.07% LTM net-income margin on CIQ basis, not gross margin | Not disclosed | 16.2% consolidated ROAE | 2Q26 / LTM as labelled | [Competitive Map — NU, 2026-09-01, §2; data/NU/Company Comparable Analysis, Operating Statistics, as of 2026-08-29 — vendor export; Bradesco 2Q26 Economic and Financial Analysis, p.7] |
+| Competitor 3 — Banco Santander (Brasil) | Not disclosed; 28.66% LTM net-income margin on CIQ basis, not gross margin | Not disclosed | 12.5% recurring managerial ROAE | 2Q26 / LTM as labelled | [Competitive Map — NU, 2026-09-01, §2; data/NU/Company Comparable Analysis, Operating Statistics, as of 2026-08-29 — vendor export; Santander Brasil 2Q26 Earnings Release, p.3] |
+
+NU’s calculated annual IFRS ROEs are FY2022 **-7.8%**, FY2023 **18.2%**, FY2024 **28.1%**, and FY2025 **30.3%**. Each is net income attributable to shareholders divided by average total equity; the 17.2% is their simple average. It is an available-history, loss-inclusive through-cycle proxy, not proof of a full consumer-credit cycle. No management group-ROE headline is substituted for this calculation. [data/NU/FY2025 Form 20-F, Consolidated Statements of Profit or Loss and Financial Position, pp.155, 157; data/NU/FY2024 Form 20-F, Consolidated Statements; data/NU/FY2023 Form 20-F, Consolidated Statements]
+
+The capital-data sidecar reports CIQ “Revenue” of US$3.707bn in FY2023 and US$6.991bn in FY2025, while the audited Form 20-F reports total revenue of about US$8.0bn and US$15.775bn respectively. The sidecar labels its series reclassified and says not to calculate year-on-year growth across bases; no bridge is supplied. This material discrepancy is why the Form 20-F’s own gross-profit and pre-tax margins, not the CIQ revenue series, are used above. [data/NU/FY2023 Form 20-F, Item 5.A; data/NU/FY2025 Form 20-F, Item 5.A, pp.171, 177; CIQ Financials→Income Statement + Ratios, multi-year columns — vendor export]
+
+**The economic moat test (required).** Return on capital **Not assessable** against cost of capital: **17.2% available-history Group ROE; FY2025 30.3% Group ROE** versus **Group cost of equity not determinable from available data**. The 16.51% filed rate is excluded from the test because it is the cost of equity used only for a Brazil-focused Investments-activities CGU goodwill-impairment model, not the listed Group’s matching return hurdle. [data/NU/FY2025 Form 20-F, Note 4 goodwill impairment analysis, pp.F-37–F-38]
+
+## 4. Where The Company Sits
+
+1. **Relative to peers — Insufficient data to compare against named peers.** Nu’s 17.2% loss-inclusive FY2022–FY2025 IFRS ROE cannot be put in a reliable league table against the banks’ current, management-defined 2Q26 returns. There are also no matched gross- or EBIT-margin measures.
+2. **Absolute (the economic moat test) — Not assessable.** Nu has a 17.2% available-history Group ROE and 30.3% FY2025 Group ROE, but no matching Group cost of equity. The 16.51% Investments-activities-CGU rate is a comparator only and must not be treated as a Group spread. [data/NU/FY2025 Form 20-F, Note 4, pp.F-37–F-38]
+
+## 5. Moat Verdict
+
+**Narrow moat — trajectory not assessable.** Nu’s clearest advantages are lower-cost digital acquisition and service, supported by a large deposit and customer base. They are structural advantages today, but the Group economic-moat test cannot be completed without a Group-scoped cost of equity, and the named peers’ current ROEs do not establish clear return superiority.
+
+Over the next five years, the cost advantage needs to survive credit-cycle pressure: Group ROE needs to remain above a sourced, matching Group cost of equity while gross margin, credit loss and funding cost are not offsetting each other. The business-quality agent scores industry rate-of-change at 50/100 (mixed): the core banking need is durable, but digital competition, instant payments and regulation limit how long any customer-experience advantage can be assumed to last. [Business Quality — NU, 2026-09-01, §1; data/NU/FY2025 Form 20-F, Item 3.D]
+
+**Moat trajectory — not assessable.**
+
+| Metric (same 3–5 year window) | Start | Latest | Direction | Supports / contradicts the stated trajectory |
+|---|---:|---:|---|---|
+| Gross margin | 43.5% FY2023 | 42.0% FY2025 | Down 150 bps | Contradicts widening. [data/NU/FY2023 Form 20-F, Item 5.A; data/NU/FY2025 Form 20-F, Item 5.A, p.177] |
+| EBITDA margin | Not disclosed for this bank | Not disclosed for this bank | Not assessable | EBITDA is not a disclosed bank-performance measure. [data/NU/FY2025 Form 20-F, Consolidated Statement of Profit or Loss, p.155] |
+| EBIT or operating margin | 19.2% FY2023 pre-tax income / reported revenue, not EBIT | 24.5% FY2025 pre-tax income / reported revenue, not EBIT | Up 530 bps | Supports operating leverage, subject to the non-EBIT limitation. [data/NU/FY2023 Form 20-F, Consolidated Statement of Profit or Loss; data/NU/FY2025 Form 20-F, Consolidated Statement of Profit or Loss, p.155] |
+| Return on capital (ROIC / ROCE) vs cost of capital | FY2022 ROE -7.8%; Group cost of equity not disclosed | FY2025 ROE 30.3%; Group cost of equity not disclosed | ROE improved; economic spread not assessable | Supports better accounting returns, but cannot establish a widening moat without a matching capital-cost series. [data/NU/FY2025 Form 20-F, Consolidated Statements, pp.155, 157; data/NU/FY2024 and FY2023 Form 20-Fs, Consolidated Statements] |
+| Market share (or the closest disclosed volume/position proxy) | 65m customers, Q2 2022 | 139m customers, Q2 2026 | Up 74m customers; market share not disclosed | Supports scale, not a market-share conclusion. [data/NU/Q2 2026 Earnings Presentation, slide 6] |
+| Cash conversion (CFO ÷ EBITDA) | Not meaningful for a deposit-funded bank | Not meaningful for a deposit-funded bank | Not assessable | Deposits and lending flow through operating cash flow, while EBITDA is not reported; this is not a usable bank cash-conversion test. [data/NU/FY2025 Form 20-F, Consolidated Statement of Cash Flows] |
+| Pricing / realised price or mix | US$8 monthly ARPAC, Q2 2022 | US$17 monthly ARPAC, Q2 2026 | Up US$9 | Supports monetisation and mix, but ARPAC is revenue per active customer and is not a pure price series. [data/NU/Q2 2026 Earnings Presentation, slides 6, 28] |
+
+The panel is mixed. The **150 bps gross-margin decline** contradicts a widening read, while the **530 bps pre-tax-margin increase**, customer growth and ARPAC increase point the other way. The pre-tax improvement can coexist with weaker gross economics because FY2025 operating expenses were 17.5% of revenue versus 24.3% in FY2023, but that does not make gross-margin pressure disappear; ARPAC can reflect product mix, credit growth and interest income as well as price. There is no disclosed market-share series, and no matching Group cost of equity, so the available data does not establish either widening or erosion. [data/NU/FY2023 Form 20-F, Item 5.A; data/NU/FY2025 Form 20-F, Item 5.A, pp.161, 177]
+
+The single data item most likely to change this trajectory from not assessable is a **NU Group-scoped cost of equity** disclosed on the same scope and currency basis as Group ROE. No timing is disclosed. The next audited Group ROE will arrive with the FY2026 Form 20-F; its exact date is not disclosed, though the prior two Form 20-Fs in the pool are dated 2025-04-16 and 2026-04-08, so an early-April-2027 filing window is an inference, not company guidance. [data/NU/Nu_Holdings_Ltd_-_Form_20-F(Apr-16-2025).pdf; data/NU/Nu_Holdings_Ltd_-_Form_20-F(Apr-08-2026).pdf]
