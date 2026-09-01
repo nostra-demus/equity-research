@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:49:41Z",
+  "generated_at": "2026-09-01T02:10:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -447,6 +447,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-230",
+      "headline": "Anthropic signs $35 billion cloud deal with Nvidia-backed Lambda, source says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/anthropic-signs-35-billion-cloud-deal-with-nvidia-backed-lambda-source-says-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:36:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Anthropic signed a $35B cloud deal with Nvidia-backed Lambda, a massive commercial commitment validating AI infrastructure demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic signed a $35B cloud deal with Nvidia-backed Lambda, a massive commercial commitment validating AI infrastructure demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Lambda",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-194",
       "headline": "Singapore's Keppel DC REIT, Keppel to buy two Tokyo data centres for $1.2 billion",
       "headline_en": null,
@@ -596,55 +656,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-154",
-      "headline": "Anthropic seals US$35 billion deal with Nvidia-backed cloud provider Lambda: Bloomberg",
+      "inbox_id": "INB-20260901-220",
+      "headline": "Venezuela oil deal: NABEP gets 100-year concessions, to pay $200 billion in royalty and taxes in first 25 years",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/anthropic-seals-us35-billion-deal-nvidia-backed-cloud-provider-lambda-bloomberg",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.livemint.com/news/us-news/venezuela-oil-deal-nabep-gets-100-year-concessions-to-pay-200-billion-in-royalty-and-taxes-in-first-25-years-11788224401393.html",
+      "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:43:23Z",
+      "found_at": "2026-09-01T01:07:16Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Anthropic is entering a significant $35 billion deal with a cloud provider, indicating major capital investment and strategic expansion.",
+      "prelim_note": "NABEP secures a 100-year Venezuelan oil concession with a committed $200 billion royalty/tax stream over the first 25 years, a massive long-term revenue and capex commitment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Anthropic is entering a significant $35 billion deal with a cloud provider, indicating major capital investment and strategic expansion.",
-      "region": "GLOBAL",
+      "triage_reason": "NABEP secures a 100-year Venezuelan oil concession with a committed $200 billion royalty/tax stream over the first 25 years, a massive long-term revenue and capex commitment.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "capex",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "mna"
+        "commercial",
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anthropic",
+          "name": "NABEP",
           "ticker": null,
           "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -700,6 +756,109 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-294",
+      "headline": "KKR-Backed Beauty Firm Wella Files for IPO Showing Sales Growth",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-31/kkr-backed-beauty-firm-wella-files-for-ipo-showing-sales-growth",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:47:28Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Wella has filed for an IPO, signaling a major capital market event for the KKR-backed firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wella has filed for an IPO, signaling a major capital market event for the KKR-backed firm.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wella",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-300",
+      "headline": "Trump’s Venezuelan Oil Company Plans Massive Drilling Push",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/trumps-venezuelan-oil-company-plans-massive-drilling-push-db439e19?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A massive drilling push by a Venezuelan oil company represents a significant capacity expansion and potential supply shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A massive drilling push by a Venezuelan oil company represents a significant capacity expansion and potential supply shift.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PDVSA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -842,6 +1001,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-224",
+      "headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:04:02Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Nvidia's strategic investment in MediaTek triggered a 10% share surge, signaling a major partnership in AI chips.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Nvidia's strategic investment in MediaTek triggered a 10% share surge, signaling a major partnership in AI chips.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MediaTek",
+          "ticker": "2454.TW",
+          "listing_country": "TW"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-284",
+      "headline": "The Strait of Hormuz Conflict Just Escalated Again. Here's What It Means for Shell.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/strait-hormuz-conflict-just-escalated-again-heres-what-it-means-shell",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:52:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1184,6 +1447,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-282",
+      "headline": "Activist investor Elliott has stake in Air Liquide, pushes for changes, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/activist-investor-elliott-has-stake-air-liquide-pushes-changes-sources-say-2026-08-31/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:55:44Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Activist investor Elliott has taken a stake in Air Liquide, which typically signals potential for operational or strategic changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Activist investor Elliott has taken a stake in Air Liquide, which typically signals potential for operational or strategic changes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Liquide",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-287",
+      "headline": "Elliott builds stake in French industrial gas group Air Liquide",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:50:27Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Elliott building a stake in Air Liquide is a material event for the company's governance and strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Elliott building a stake in Air Liquide is a material event for the company's governance and strategy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Liquide",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-143",
       "headline": "I'll make sure lenders are paid their final dues: Creditors challenge Essel Group founder's insolvency process",
       "headline_en": null,
@@ -1228,6 +1589,110 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-267",
+      "headline": "Lockheed Martin, General Dynamics get framework deals to surge Patriot, THAAD production",
+      "headline_en": null,
+      "url": "https://www.defensenews.com/industry/techwatch/2026/08/31/lockheed-martin-general-dynamics-get-framework-deals-to-surge-patriot-thaad-production/",
+      "source_name": "Defense News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:08:08Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Lockheed Martin and General Dynamics received framework deals to increase production of Patriot and THAAD systems.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Lockheed Martin and General Dynamics received framework deals to increase production of Patriot and THAAD systems.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "General Dynamics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-281",
+      "headline": "OpenAI’s ad business reaches $1 bn milestone",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/251439/business/openais-ad-business-reaches-1-bn-milestone",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "OpenAI reached a $1 billion annual revenue run rate for its advertising business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "OpenAI reached a $1 billion annual revenue run rate for its advertising business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1478,494 +1943,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-147",
-      "headline": "Australian regulator investigates Western Union over money laundering controls",
+      "inbox_id": "INB-20260901-206",
+      "headline": "BIDU-W BIDU-WR (09888 89888): VOLUNTARY ANNOUNCEMENT BAIDU ANNOUNCES DUAL PRIMARY LISTING ON THE MAIN BOARD OF THE STOCK EXCHANGE OF HONG KONG LIMITED",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/australian-regulator-launches-western-union-probe-over-high-risk-payment-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:44:47Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100093.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T00:00:00Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Western Union is under investigation by Australian regulators for potential money laundering control failures.",
+      "prelim_note": "Baidu announced a dual primary listing on the Hong Kong Main Board, expanding its investor base and liquidity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "Western Union is under investigation by Australian regulators for potential money laundering control failures.",
-      "region": "OTHER",
+      "triage_reason": "Baidu announced a dual primary listing on the Hong Kong Main Board, expanding its investor base and liquidity.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Western Union",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-157",
-      "headline": "California, Writers Guild ask court to reject Paramount request for $1.88 billion bond",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/california-opposes-paramount-request-188-billion-bond-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:10:32Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Paramount faces a significant $1.88 billion bond request in ongoing litigation, impacting cash flow and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Paramount faces a significant $1.88 billion bond request in ongoing litigation, impacting cash flow and legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-203",
-      "headline": "KKR-backed OPI nail polish owner Wella Co files for US IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/opi-nail-polish-owner-wella-co-files-us-ipo-2026-08-31/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T21:41:28Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Wella Co, backed by KKR, has filed for a US IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Wella Co, backed by KKR, has filed for a US IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 5,
-        "event": 9,
+        "event": 0,
         "size": 2,
-        "recency": 3,
+        "recency": 4,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wella Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-174",
-      "headline": "DUN: Bloodwood Gold Project Granted [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DUN?key=2924-03130090-6A1341606",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:23:14Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company was granted the Bloodwood Gold Project, which is a material development for a mining exploration entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The company was granted the Bloodwood Gold Project, which is a material development for a mining exploration entity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "small"
+        "size_bucket": "large"
       },
       "event_types": [
-        "commercial"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dundas Minerals",
-          "ticker": "DUN",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-183",
-      "headline": "Sundar Pichai Says Alphabet Can't Build AI Capacity Fast Enough, and Anthropic Has Secured 5 Gigawatts of It.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/31/sundar-pichai-says-alphabet-can-t-build-ai-capacity-fast-enough-and-anthropic-has-secured-5-gigawatts-of-it/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:42:01Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Anthropic secured 5 gigawatts of power capacity, a massive infrastructure investment for AI operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Anthropic secured 5 gigawatts of power capacity, a massive infrastructure investment for AI operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
+          "name": "Baidu Inc.",
+          "ticker": "BIDU",
+          "listing_country": "US"
         },
         {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-020",
-      "headline": "ONGC to invest Rs 1L cr in 5 years",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/ongc-to-invest-rs-1l-cr-in-5-years/articleshow/133665122.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T23:33:46Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "ONGC announces a Rs 1 lakh crore (about $12 billion) investment over 5 years, a major capital expenditure plan that could significantly boost its production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "ONGC announces a Rs 1 lakh crore (about $12 billion) investment over 5 years, a major capital expenditure plan that could significantly boost its production capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil and Natural Gas Corporation",
-          "ticker": "ONGC",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-060",
-      "headline": "Amazon é processada nos EUA por práticas de vendas de anúncios",
-      "headline_en": "Amazon is sued in the US over ad sales practices",
-      "url": "https://www.reuters.com/pt/tecnologia/25PQUTFTLZOL7LGECQI7S44TQA-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:36:09Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Amazon is facing a lawsuit in the US regarding its advertising sales practices, which could impact its ad revenue model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Amazon is facing a lawsuit in the US regarding its advertising sales practices, which could impact its ad revenue model.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-066",
-      "headline": "Activist investor Elliott builds Air Liquide stake, pushes for changes, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/activist-investor-elliott-has-stake-air-liquide-pushes-changes-sources-say-2026-08-31/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:15:46Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Activist investor Elliott has built a stake in Air Liquide and is pushing for changes, signaling potential strategic shifts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Activist investor Elliott has built a stake in Air Liquide and is pushing for changes, signaling potential strategic shifts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Liquide",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-080",
-      "headline": "Reckitt’s Mead Johnson Wins Infant Formula Case in Federal Trial",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-31/reckitt-s-mead-johnson-wins-infant-formula-case-in-federal-trial",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T21:44:53Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Reckitt's Mead Johnson unit won a federal trial regarding infant formula, mitigating legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Reckitt's Mead Johnson unit won a federal trial regarding infant formula, mitigating legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reckitt",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-141",
-      "headline": "Pernod Ricard India cuts at least 200 jobs in two years in major operational restructuring",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/pernod-ricard-india-cuts-at-least-200-jobs-in-two-years-in-major-operational-restructuring-11788012460260.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T00:30:17Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Pernod Ricard India is undergoing a major operational restructuring involving at least 200 job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Pernod Ricard India is undergoing a major operational restructuring involving at least 200 job cuts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pernod Ricard India",
-          "ticker": null,
-          "listing_country": "IN"
+          "name": "Baidu Inc.",
+          "ticker": "9888",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -121717,9 +121740,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 141787,
-    "news_picked_today": 238,
-    "news_dropped_today": 914
+    "news_seen_today": 159568,
+    "news_picked_today": 350,
+    "news_dropped_today": 1354
   },
   "book_momentum": {
     "live_count": 8,
