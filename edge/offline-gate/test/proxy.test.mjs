@@ -34,6 +34,9 @@ test('classifies SSE before the health path', () => {
   assert.equal(classifyRequest(request('/api/health', { headers: { accept: 'text/event-stream' } })), 'sse')
   assert.equal(classifyRequest(request('/api/chat', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
   assert.equal(classifyRequest(request('/api/news/chat', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
+  assert.equal(classifyRequest(request('/api/pipeline/ZZZ/scan', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
+  assert.equal(classifyRequest(request('/api/pipelines/discover', { method: 'POST', headers: { accept: 'text/event-stream' } })), 'sse')
+  assert.equal(classifyRequest(request('/api/pipelines/build/PIPE-build/stream', { headers: { accept: 'text/event-stream' } })), 'sse')
   assert.equal(classifyRequest(request('/api/swarm')), 'other')
 })
 
