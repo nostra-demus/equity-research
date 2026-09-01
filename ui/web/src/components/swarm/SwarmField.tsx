@@ -59,6 +59,11 @@ export function SwarmField() {
   const layout = useMemo(() => (graph ? computeLayout(graph, size.w, size.h, dockH) : null), [graph, size.w, size.h, dockH])
   const moduleOrder = useMemo(() => new Map((graph?.modules || []).map((m, i) => [m.name, i])), [graph])
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
+  const nodesByModule = useMemo(() => {
+    const grouped = new Map<string, PlacedNode[]>()
+    for (const node of layout?.nodes ?? []) grouped.set(node.module, [...(grouped.get(node.module) ?? []), node])
+    return grouped
+  }, [layout])
 
   // each orb's runtime class (gate / specialist / synthesis), and the run-adaptive expected duration per
   // class learned from orbs that have already finished this session (seeded until the first one lands)
@@ -131,7 +136,7 @@ export function SwarmField() {
 
       {/* cluster labels */}
       {layout.clusters.map((c) => {
-        const moduleNodes = layout.nodes.filter((n) => n.module === c.module)
+        const moduleNodes = nodesByModule.get(c.module) ?? []
         const completion = moduleCompletionOutcome(moduleNodes, nodeRuntime)
         // Saved module outcome beats pool readiness. They answer different questions, and showing
         // "Sufficient" above a canonical insufficient fail-fast result contradicts backend disk truth.
