@@ -24,12 +24,18 @@ test('the browser collector is batched, bounded, and best-effort', async () => {
   assert.equal(collector.pending().length, 0)
   collector.setMode('static')
 
-  const retrying = new BrowserPerformanceCollector(async () => false)
-  retrying.setMode('live')
-  retrying.record('browser.core_ready', 700)
-  await retrying.flush()
-  assert.equal(retrying.pending().length, 1, 'a failed ordinary upload remains queued for a later try')
-  retrying.setMode('static')
+  const offline = new BrowserPerformanceCollector(async () => false)
+  offline.setMode('live')
+  offline.record('browser.core_ready', 700)
+  await offline.flush()
+  assert.equal(offline.pending().length, 0, 'a failed upload is dropped instead of creating a permanent retry loop')
+  offline.setMode('static')
+
+  const throwing = new BrowserPerformanceCollector(async () => { throw new Error('offline') })
+  throwing.setMode('live')
+  throwing.record('browser.core_ready', 700)
+  await assert.doesNotReject(() => throwing.flush(), 'telemetry transport errors never escape into cockpit work')
+  throwing.setMode('static')
 })
 
 test('static/read-only mode stores and sends nothing', async () => {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../lib/api'
 import type { PerformanceMetricSummary, PerformanceSummary } from '../lib/performance'
 
@@ -39,6 +39,7 @@ export function PerformanceStatusChip({ onOpen }: { onOpen: () => void }) {
 }
 
 export function PerformancePanel({ onClose }: { onClose: () => void }) {
+  const reducedMotion = useReducedMotion()
   const [summary, setSummary] = useState<PerformanceSummary | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -63,10 +64,10 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
     <motion.aside
       className="perfpanel"
       aria-label="Cockpit speed"
-      initial={{ x: '100%', opacity: 0 }}
+      initial={reducedMotion ? false : { x: '100%', opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: '100%', opacity: 0 }}
-      transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+      transition={reducedMotion ? { duration: 0 } : { duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
     >
       <header className="perfpanel__head">
         <div>

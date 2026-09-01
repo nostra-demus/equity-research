@@ -187,9 +187,9 @@ export class BrowserPerformanceCollector {
     }
     if (this.flushing) return this.flushing
     const batch = this.queue.splice(0, MAX_BATCH)
-    this.flushing = this.transport(batch, pageExit).then((ok) => {
-      if (!ok && !pageExit) this.queue.unshift(...batch)
-    }).finally(() => {
+    // Best-effort means drop this batch on transport failure. Re-queueing would make an offline engine
+    // wake the browser every five seconds forever — telemetry becoming the lag it is meant to detect.
+    this.flushing = this.transport(batch, pageExit).catch(() => false).then(() => {}).finally(() => {
       this.flushing = null
       if (this.queue.length) this.schedule()
     })
