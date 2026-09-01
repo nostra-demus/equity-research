@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T02:10:23Z",
+  "generated_at": "2026-09-01T02:24:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -447,21 +447,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-230",
-      "headline": "Anthropic signs $35 billion cloud deal with Nvidia-backed Lambda, source says",
+      "inbox_id": "INB-20260901-320",
+      "headline": "Anthropic seals $35 billion cloud deal with Nvidia-backed Lambda",
       "headline_en": null,
-      "url": "https://www.reuters.com/technology/anthropic-signs-35-billion-cloud-deal-with-nvidia-backed-lambda-source-says-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.thehindubusinessline.com/info-tech/anthropic-seals-35-billion-cloud-deal-with-nvidia-backed-lambda/article71413454.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:36:01Z",
+      "found_at": "2026-09-01T01:51:14Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Anthropic signed a $35B cloud deal with Nvidia-backed Lambda, a massive commercial commitment validating AI infrastructure demand.",
+      "prelim_note": "A $35 billion cloud deal between Anthropic and Nvidia-backed Lambda is a significant commercial agreement that will impact revenue and operations for both companies.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Anthropic signed a $35B cloud deal with Nvidia-backed Lambda, a massive commercial commitment validating AI infrastructure demand.",
-      "region": "US",
+      "triage_reason": "A $35 billion cloud deal between Anthropic and Nvidia-backed Lambda is a significant commercial agreement that will impact revenue and operations for both companies.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -469,7 +469,7 @@
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 2,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 0,
@@ -477,31 +477,31 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "commercial",
         "mna"
       ],
-      "issuer_linkage": "primary",
+      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "Anthropic",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
         },
         {
           "name": "Lambda",
           "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1398,6 +1398,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-329",
+      "headline": "Yili H1 2026: Both revenue and core operating profit deliver growth",
+      "headline_en": null,
+      "url": "http://www.ecns.cn/business/2026-09-01/detail-ihfirzsm0924769.shtml",
+      "source_name": "ECNS (China News Service, English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T04:19:10Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Yili's H1 2026 forecast of revenue and core operating profit growth indicates positive future financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Yili's H1 2026 forecast of revenue and core operating profit growth indicates positive future financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yili",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-199",
       "headline": "Caledonia cashes out $375m in Light & Wonder block trade",
       "headline_en": null,
@@ -1442,6 +1491,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-317",
+      "headline": "Indian PM Modi implores Putin to end Ukraine war amid U.S. tariff threat on Russian oil",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/01/russia-india-ukraine-war-oil-modi-putin.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T01:51:28Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Indian PM Modi implored Putin to end the Ukraine war amid a U.S. tariff threat on Russian oil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Indian PM Modi implored Putin to end the Ukraine war amid a U.S. tariff threat on Russian oil.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1540,6 +1632,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-330",
+      "headline": "Amazon sued by FTC, more than 20 US states over alleged manipulation of advertising prices",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/amazon-sued-by-ftc-more-than-20-us-states-over-alleged-manipulation-of-advertising-prices-11788207706736.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:40:49Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Amazon faces a significant antitrust lawsuit from the FTC and multiple states regarding pricing practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Amazon faces a significant antitrust lawsuit from the FTC and multiple states regarding pricing practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1698,6 +1840,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-347",
+      "headline": "US regulator claims Amazon manipulated advertising prices",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/bafde798-4860-45bb-9226-633a211e8508?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T20:08:49Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "US regulators are alleging price manipulation by Amazon, which poses a significant regulatory and legal risk to the company's advertising business model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "US regulators are alleging price manipulation by Amazon, which poses a significant regulatory and legal risk to the company's advertising business model.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-189",
       "headline": "NCLT sends Subhash Chandra insolvency plan back to chairperson as benches fail to reach majority",
       "headline_en": null,
@@ -1788,207 +1980,6 @@
           "name": "Shein",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-173",
-      "headline": "DGR: UPDATE TO - DGR INVESTMENT IN SAVANNAH GOLDFIELDS",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DGR?key=2924-03130101-2A1694170",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:47:29Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company provided an update regarding its investment in Savannah Goldfields.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company provided an update regarding its investment in Savannah Goldfields.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DGR",
-          "ticker": "DGR",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-150",
-      "headline": "LVE: Return of Capital - LVE",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LVE?key=2924-03130080-2A1694157",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:15:24Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company is returning capital to shareholders, which impacts the capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company is returning capital to shareholders, which impacts the capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LVE",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-144",
-      "headline": "ACW: ACW unlisted options fully underwritten [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACW?key=2924-03130078-2A1694153",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:12:04Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "ACW announced the underwriting of unlisted options, which is a capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "ACW announced the underwriting of unlisted options, which is a capital structure event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACW",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-206",
-      "headline": "BIDU-W BIDU-WR (09888 89888): VOLUNTARY ANNOUNCEMENT BAIDU ANNOUNCES DUAL PRIMARY LISTING ON THE MAIN BOARD OF THE STOCK EXCHANGE OF HONG KONG LIMITED",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090100093.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Baidu announced a dual primary listing on the Hong Kong Main Board, expanding its investor base and liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Baidu announced a dual primary listing on the Hong Kong Main Board, expanding its investor base and liquidity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baidu Inc.",
-          "ticker": "BIDU",
-          "listing_country": "US"
-        },
-        {
-          "name": "Baidu Inc.",
-          "ticker": "9888",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -121740,9 +121731,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 159568,
-    "news_picked_today": 350,
-    "news_dropped_today": 1354
+    "news_seen_today": 189481,
+    "news_picked_today": 405,
+    "news_dropped_today": 1491
   },
   "book_momentum": {
     "live_count": 8,
