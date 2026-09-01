@@ -261,6 +261,39 @@ print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; 
 sys.exit(0 if ok else 1)
 PY
 
+echo "== financial-valuation scope + dual-read regression guard (prompt-lint — born from the 2026-08-31 NU valuation diagnostic) =="
+"$PY" - "$DIR/../.." <<'PY' || rc=1
+import os, sys
+root=sys.argv[1]
+def read(p):
+    with open(os.path.join(root,p),encoding="utf-8") as f: return f.read()
+ok=True
+present=[
+  (".claude/agents/valuation/MODULE_RULES.md", "same valuation object, cash flows, currency, tax basis, and method", "scope-match canonical rule"),
+  (".claude/agents/valuation/04_intrinsic-dcf.md", "A CGU / subsidiary impairment rate", "intrinsic-rate scope guard"),
+  (".claude/agents/business-model/09_moat.md", "same entity / group scope", "moat rate/return scope guard"),
+  (".claude/agents/valuation/03_relative-valuation-peers.md", "P/TBV = P/E × ROTE", "financial dual-read peer check"),
+  (".claude/agents/valuation/07_scenario-and-fair-value.md", "peer-set maximum is not a hard ceiling", "scenario peer-ceiling guard"),
+  (".claude/agents/valuation/99_valuation-synthesis.md", "never a hand-picked weighted pair", "full-field dispersion cap"),
+  (".claude/agents/synthesizer.md", "Never add a consensus or other tail case solely", "no procedural consensus tail"),
+]
+for path,needle,desc in present:
+    if needle not in read(path):
+        print(f"  FAIL: {desc} missing from {path} -> {needle!r}"); ok=False
+old={
+  ".claude/agents/valuation/MODULE_RULES.md": ["usually the best-evidenced cost-of-capital number"],
+  ".claude/agents/valuation/04_intrinsic-dcf.md": ["usually the best-evidenced cost-of-capital figure"],
+  ".claude/agents/valuation/99_valuation-synthesis.md": ["Methods disagree >40% unreconciled"],
+}
+for path,needles in old.items():
+    text=read(path)
+    for needle in needles:
+        if needle in text:
+            print(f"  FAIL: NU defect instruction returned in {path} -> {needle!r}"); ok=False
+print("  PASS: group-rate scope, bank dual-read, peer-ceiling, full-dispersion, and no-tail rules are pinned" if ok else "  -> NU valuation regression guard FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 echo "== extract_pool.py: data-readiness pre-flight (entity extraction + blocker detection) =="
 # Guards the deterministic readiness GATE: entity-from-header (incl. the ALL-CAPS cover-page case
 # that is the PV-vs-CV incident), zero-files / mixed-entity blockers, and pure-JSON stdout.
