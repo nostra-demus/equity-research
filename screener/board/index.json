@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T15:25:17Z",
+  "generated_at": "2026-09-01T15:34:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-878",
@@ -1680,6 +1680,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-892",
+      "headline": "Lowe's Cuts 2026 Outlook as DIY Pressure Tests Its Growth Engines",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lowes-cuts-2026-outlook-diy-pressure-tests-its-growth-engines",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T14:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Lowe's cut its 2026 outlook due to ongoing DIY market pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lowe's cut its 2026 outlook due to ongoing DIY market pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lowe's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-857",
       "headline": "Marzetti’s (MZTI) Record Streak Hits a Wall With Outbreak and Guidance Cut",
       "headline_en": null,
@@ -1920,56 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-838",
-      "headline": "Medtronic Boosts FY27 Outlook As Q1 Results Ahead Of Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/medtronic-boosts-fy27-outlook-q1-results-ahead-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T13:08:20Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Company beat Q1 guidance and raised FY27 outlook, indicating strong performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company beat Q1 guidance and raised FY27 outlook, indicating strong performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medtronic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124381,9 +124380,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2983068,
-    "news_picked_today": 2027,
-    "news_dropped_today": 9253
+    "news_seen_today": 3055607,
+    "news_picked_today": 2028,
+    "news_dropped_today": 9324
   },
   "book_momentum": {
     "live_count": 8,
