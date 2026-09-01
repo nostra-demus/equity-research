@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T18:13:47Z",
+  "generated_at": "2026-09-01T19:33:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-917",
@@ -301,6 +301,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-965",
+      "headline": "CSSC SHIPPING (03877): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE CONSTRUCTION OF VESSELS AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103681.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T14:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "CSSC Shipping announced a major connected transaction regarding the construction of vessels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CSSC Shipping announced a major connected transaction regarding the construction of vessels.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSSC Shipping",
+          "ticker": "03877",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-947",
+      "headline": "25-NSE - Crinetics Pharmaceuticals, Inc. (0001658247) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1658247/000135445726000839/0001354457-26-000839-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-01T13:50:31Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Crinetics Pharmaceuticals delisted from Nasdaq per Form 25-NSE filing — forced removal from trading is a survival-level adverse event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crinetics Pharmaceuticals delisted from Nasdaq per Form 25-NSE filing — forced removal from trading is a survival-level adverse event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crinetics Pharmaceuticals, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-847",
       "headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
       "headline_en": null,
@@ -444,6 +542,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-948",
+      "headline": "KFin Technologies Ltd: The Board of Directors of the Company at their meeting held today have approved the Composite scheme of Amalgamation",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/058a3999-1a3d-4b61-8c52-d56d17e50541.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T13:37:42Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company board approved a composite scheme of amalgamation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company board approved a composite scheme of amalgamation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KFin Technologies Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1824,155 +1971,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-901",
-      "headline": "Denny’s rival dining chain files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/small-business/articles/denny-rival-dining-chain-files-153300154.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:33:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A dining chain has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Denny's rival",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-894",
-      "headline": "Volkswagen expects 2026 sales of 8.5 million vehicles, plans asset divestments",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/volkswagen-expects-2026-sales-8-5-million-vehicles-plans-asset-divestments",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:27:24Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Volkswagen provided a specific 2026 sales target of 8.5 million vehicles and announced plans for asset divestments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen provided a specific 2026 sales target of 8.5 million vehicles and announced plans for asset divestments.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-900",
-      "headline": "Shoprite buys Vida e Caffe, stake in R&A as earnings rise 12.2%",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/africa/south-africas-shoprite-annual-earnings-rise-122-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:14:47Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Shoprite acquired Vida e Caffe and a stake in R&A while reporting a 12.2% earnings increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shoprite acquired Vida e Caffe and a stake in R&A while reporting a 12.2% earnings increase.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shoprite",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -90786,75 +90784,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a9124f2e759d",
-      "idea_version": "IDEAV-fef92f0ddf7924fb",
-      "idea_version_started_at": "2026-08-31T11:51:47Z",
-      "ticker": "5202.T",
-      "company": "Nippon Sheet Glass",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing a formal delisting decision, which typically leads to severe liquidity constraints and equity value destruction.",
-      "why_now": "The exchange announced the decision today, August 31, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a9869935308"
-      ],
-      "primary_source_event_id": "EVT-1a9869935308",
-      "source_headlines": [
-        "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited"
-      ],
-      "source_headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
-      "source_url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T06:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T11:51:47Z",
-      "updated_at": "2026-08-31T11:51:47Z",
-      "decay_at": "2026-09-01T18:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2eed0b77fa99",
       "idea_version": "IDEAV-1a7299fe7f874578",
       "idea_version_started_at": "2026-09-01T04:06:03Z",
@@ -91704,6 +91633,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-a9124f2e759d",
+      "idea_version": "IDEAV-fef92f0ddf7924fb",
+      "idea_version_started_at": "2026-08-31T11:51:47Z",
+      "ticker": "5202.T",
+      "company": "Nippon Sheet Glass",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a formal delisting decision, which typically leads to severe liquidity constraints and equity value destruction.",
+      "why_now": "The exchange announced the decision today, August 31, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1a9869935308"
+      ],
+      "primary_source_event_id": "EVT-1a9869935308",
+      "source_headlines": [
+        "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited"
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T06:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T11:51:47Z",
+      "updated_at": "2026-08-31T11:51:47Z",
+      "decay_at": "2026-09-01T18:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-23e00bbbd9ca",
@@ -98874,8 +98872,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 355,
-    "shown_count": 355,
+    "total_count": 356,
+    "shown_count": 356,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -98884,8 +98882,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 178,
-        "shown_count": 178,
+        "total_count": 179,
+        "shown_count": 179,
         "hidden_count": 0
       }
     },
@@ -98905,6 +98903,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a9124f2e759d",
+        "idea_version": "IDEAV-fef92f0ddf7924fb",
+        "idea_version_started_at": "2026-08-31T11:51:47Z",
+        "ticker": "5202.T",
+        "company": "Nippon Sheet Glass",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing a formal delisting decision, which typically leads to severe liquidity constraints and equity value destruction.",
+        "why_now": "The exchange announced the decision today, August 31, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1a9869935308"
+        ],
+        "primary_source_event_id": "EVT-1a9869935308",
+        "source_headlines": [
+          "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited"
+        ],
+        "source_headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
+        "source_url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
+        "source_name": "Japan Exchange Group (JPX) — Market News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T06:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T11:51:47Z",
+        "updated_at": "2026-08-31T11:51:47Z",
+        "decay_at": "2026-09-01T18:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T18:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7b1aea361ec7",
         "idea_version": "IDEAV-43058c0072631bcd",
@@ -125260,7 +125330,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 16,
+    "live_count": 15,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -125279,9 +125349,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4366226,
-    "news_picked_today": 2186,
-    "news_dropped_today": 10846
+    "news_seen_today": 4673400,
+    "news_picked_today": 2249,
+    "news_dropped_today": 12583
   },
   "book_momentum": {
     "live_count": 8,
