@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T04:06:24Z",
+  "generated_at": "2026-09-01T04:14:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-464",
@@ -1460,6 +1460,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-586",
+      "headline": "OpenAI Expands ChatGPT Ads Worldwide As Advertising Revenue Hits $1 Billion Run Rate",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/openai-expands-chatgpt-ads-worldwide-as-advertising-revenue-hits-1-billion-run-rate-11983283#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-31T16:44:54Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI's advertising revenue has reached a $1 billion run rate, indicating significant commercial scaling.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-137",
       "headline": "FS ANTHRACITE (01738): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; (2) DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT; (3) POSTPONEMENT OF BOARD MEETING; (4) POSSIBLE SUSPENSION OF TRADING; AND (5) POSSIBLE BREACH OF LISTING RULES 13.49(6) AND 13.48(1)",
       "headline_en": null,
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-284",
-      "headline": "The Strait of Hormuz Conflict Just Escalated Again. Here's What It Means for Shell.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/strait-hormuz-conflict-just-escalated-again-heres-what-it-means-shell",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T20:52:01Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Escalation of conflict in the Strait of Hormuz poses a major supply shock risk to global energy markets and companies like Shell.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122183,9 +122183,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 335376,
-    "news_picked_today": 745,
-    "news_dropped_today": 2519
+    "news_seen_today": 342544,
+    "news_picked_today": 764,
+    "news_dropped_today": 2572
   },
   "book_momentum": {
     "live_count": 8,
