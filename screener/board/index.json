@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T17:15:17Z",
+  "generated_at": "2026-09-01T17:24:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-917",
@@ -1926,52 +1926,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260901-876",
-      "headline": "DNO agrees to acquire Capricorn Energy for $396m",
+      "inbox_id": "INB-20260901-928",
+      "headline": "Omaxe Limited: The Exchange has sought clarification from Omaxe Limited with respect to recent news item captioned SAT dismisses Omaxe appeal against SEBI order over financial statement irregularities. The response from the Company is attached.",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/dno-agrees-acquire-capricorn-energy-142652983.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T14:26:52Z",
+      "url": "https://nsearchives.nseindia.com/corporate/OMAXE_01092026205108_Reply_to_NSE_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T15:21:45Z",
       "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "DNO has agreed to acquire Capricorn Energy for $396 million, a clear M&A event.",
+      "prelim_note": "The SAT dismissed the company's appeal against a SEBI order regarding financial statement irregularities, maintaining regulatory pressure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DNO has agreed to acquire Capricorn Energy for $396 million, a clear M&A event.",
-      "region": "US",
+      "triage_score": 95,
+      "triage_reason": "The SAT dismissed the company's appeal against a SEBI order regarding financial statement irregularities, maintaining regulatory pressure.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
         "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
         "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DNO",
+          "name": "Omaxe Limited",
           "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Capricorn Energy",
-          "ticker": null,
-          "listing_country": "US"
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -125055,9 +125050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3856410,
-    "news_picked_today": 2102,
-    "news_dropped_today": 10234
+    "news_seen_today": 3969326,
+    "news_picked_today": 2123,
+    "news_dropped_today": 10285
   },
   "book_momentum": {
     "live_count": 8,
