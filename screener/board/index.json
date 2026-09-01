@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-01T19:33:43Z",
+  "generated_at": "2026-09-01T19:53:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260901-967",
+      "headline": "Nephrocare Health Services Limited: Nephrocare Health Services Limited has informed the Exchange about Acquisition of 100% participatory interest in Dialysis Center Almaty LLP, Kazakhstan",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NEPHROCARE1_01092026234645_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T18:16:54Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Nephrocare acquired 100% stake in Dialysis Center Almaty LLP, Kazakhstan; material M&A but headline provides no purchase price, funding source, or expected earnings impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nephrocare acquired 100% stake in Dialysis Center Almaty LLP, Kazakhstan; material M&A but headline provides no purchase price, funding source, or expected earnings impact.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nephrocare Health Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260901-917",
       "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
@@ -1728,6 +1777,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-974",
+      "headline": "Nestle to divest mainstream supplements business for $1 billion",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/nestle-to-divest-mainstream-supplements-business-for-1-billion/articleshow/133689701.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T18:14:18Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Nestle is divesting a business unit for $1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nestle is divesting a business unit for $1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-973",
+      "headline": "Tata Motors gets ECB nod for ₹40,000-crore Iveco takeover",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/tata-motors-gets-ecb-nod-for-40000-crore-iveco-takeover/article71416966.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T18:13:01Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Tata Motors received regulatory approval for a ₹40,000-crore acquisition of Iveco.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors received regulatory approval for a ₹40,000-crore acquisition of Iveco.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-941",
       "headline": "John Ternus succeeds Tim Cook as Apple CEO after 15 years",
       "headline_en": null,
@@ -1825,152 +1977,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-919",
-      "headline": "upGrad completes Unacademy acquisition at just over $200 million, marking steep valuation reset",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/upgrad-completes-unacademy-acquisition-at-just-over-200-million-marking-steep-valuation-reset/article71416034.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T16:36:33Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "upGrad acquired Unacademy for $200 million, which represents a significant valuation reset for the target company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "upGrad acquired Unacademy for $200 million, which represents a significant valuation reset for the target company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "upGrad",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Unacademy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-912",
-      "headline": "GoPro to be acquired for $285M, will remain a public company",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/09/01/gopro-to-be-acquired-for-285m-will-remain-a-public-company/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:57:23Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "GoPro is being acquired for $285M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GoPro is being acquired for $285M.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GoPro",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-916",
-      "headline": "This 4.5%-Yielding Pipeline Stock Just Made a $4.4 Billion Acquisition. Here's What It Means for the Dividend.",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/4-5-yielding-pipeline-stock-154401429.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T15:44:01Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A pipeline company announced a $4.4 billion acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A pipeline company announced a $4.4 billion acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -125349,9 +125355,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4673400,
-    "news_picked_today": 2249,
-    "news_dropped_today": 12583
+    "news_seen_today": 4749795,
+    "news_picked_today": 2271,
+    "news_dropped_today": 12873
   },
   "book_momentum": {
     "live_count": 8,
