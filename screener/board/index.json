@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T01:16:03Z",
+  "generated_at": "2026-09-01T01:24:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-167",
@@ -784,6 +784,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260901-176",
+      "headline": "SCHEDULE 13D/A - Hyperscale Data, Inc. (0000896493) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/896493/000092189526002441/0000921895-26-002441-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-01T00:00:46Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or investor intent for Hyperscale Data, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or investor intent for Hyperscale Data, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyperscale Data, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-177",
+      "headline": "SCHEDULE 13D/A - UNIVERSAL SAFETY PRODUCTS, INC. (0000102109) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/102109/000092189526002441/0000921895-26-002441-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-01T00:00:46Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or investor intent for Universal Safety Products, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or investor intent for Universal Safety Products, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Universal Safety Products, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260901-143",
       "headline": "I'll make sure lenders are paid their final dues: Creditors challenge Essel Group founder's insolvency process",
       "headline_en": null,
@@ -877,6 +975,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-173",
+      "headline": "DGR: UPDATE TO - DGR INVESTMENT IN SAVANNAH GOLDFIELDS",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DGR?key=2924-03130101-2A1694170",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T00:47:29Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company provided an update regarding its investment in Savannah Goldfields.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The company provided an update regarding its investment in Savannah Goldfields.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DGR",
+          "ticker": "DGR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1074,6 +1221,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-174",
+      "headline": "DUN: Bloodwood Gold Project Granted [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DUN?key=2924-03130090-6A1341606",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-01T00:23:14Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "The company was granted the Bloodwood Gold Project, which is a material development for a mining exploration entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The company was granted the Bloodwood Gold Project, which is a material development for a mining exploration entity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dundas Minerals",
+          "ticker": "DUN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1752,195 +1948,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-064",
-      "headline": "New York cannot enforce $75 billion climate 'superfund' law, US judge rules",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/new-york-cannot-enforce-75-billion-climate-superfund-law-us-judge-rules-2026-08-31/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:24:12Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A US judge ruled that New York cannot enforce a $75 billion climate 'superfund' law, impacting state-level regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "A US judge ruled that New York cannot enforce a $75 billion climate 'superfund' law, impacting state-level regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-068",
-      "headline": "EPA grants 1.76 billion biofuel exemptions, weighs shifting obligations to larger refiners",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/us-expected-approve-expanded-biofuel-waivers-early-monday-sources-say-2026-08-31/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T22:05:55Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The EPA is granting 1.76 billion in biofuel exemptions, creating a shift in regulatory obligations that affects the cost structure of refiners.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "The EPA is granting 1.76 billion in biofuel exemptions, creating a shift in regulatory obligations that affects the cost structure of refiners.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-111",
-      "headline": "Honda And Nissan Join Forces On Software And Electronics",
-      "headline_en": null,
-      "url": "https://www.carscoops.com/2026/08/honda-nissan-software-partnership/",
-      "source_name": "Carscoops",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-31T21:44:00Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "Honda and Nissan are partnering on software and electronics development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Honda and Nissan are partnering on software and electronics development.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Nissan",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-135",
-      "headline": "MFD: FY26 Half Yearly Results Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MFD?key=2924-03130075-3A700688",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T00:10:04Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "The company released its FY26 half-yearly results presentation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "The company released its FY26 half-yearly results presentation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MFD",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -93967,79 +93974,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-94673fd188cf",
-      "idea_version": "IDEAV-6612f3ddaaf6c670",
-      "idea_version_started_at": "2026-08-30T14:35:23Z",
-      "ticker": "HNGIL",
-      "company": "Hindusthan National Glass & Industries Ltd",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hindusthan National Glass & Industries Ltd (HNGIL) is pursuing a default notice against Bira 91 for ₹11.77 crore, which could improve HNGIL's financial position if successful.",
-      "why_now": "HNGIL has issued a default notice to Bira 91 and plans to move to the NCLT, indicating an active legal process to recover funds.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda6160582c5",
-        "EVT-ba840434a00f"
-      ],
-      "primary_source_event_id": "EVT-eda6160582c5",
-      "source_headlines": [
-        "HNGIL issues default notice to Bira 91, plans to move NCLT",
-        "Bira 91 beer maker in more trouble? HNGIL slaps B9 Beverages with ₹11.77 crore default notice, plans to move NCLT"
-      ],
-      "source_headline": "HNGIL issues default notice to Bira 91, plans to move NCLT",
-      "source_url": "https://www.cnbctv18.com/business/companies/hngil-issues-default-notice-to-bira-91-plans-to-move-nclt-19979848.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T13:17:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T14:35:23Z",
-      "updated_at": "2026-08-30T14:35:23Z",
-      "decay_at": "2026-09-01T01:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-37bdf9faa176",
       "idea_version": "IDEAV-61498abe858f06e3",
       "idea_version_started_at": "2026-08-31T02:41:25Z",
@@ -95240,6 +95174,79 @@
       "surfaced_at": "2026-08-30T16:55:17Z",
       "updated_at": "2026-08-30T16:55:17Z",
       "decay_at": "2026-08-31T23:48:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-94673fd188cf",
+      "idea_version": "IDEAV-6612f3ddaaf6c670",
+      "idea_version_started_at": "2026-08-30T14:35:23Z",
+      "ticker": "HNGIL",
+      "company": "Hindusthan National Glass & Industries Ltd",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hindusthan National Glass & Industries Ltd (HNGIL) is pursuing a default notice against Bira 91 for ₹11.77 crore, which could improve HNGIL's financial position if successful.",
+      "why_now": "HNGIL has issued a default notice to Bira 91 and plans to move to the NCLT, indicating an active legal process to recover funds.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eda6160582c5",
+        "EVT-ba840434a00f"
+      ],
+      "primary_source_event_id": "EVT-eda6160582c5",
+      "source_headlines": [
+        "HNGIL issues default notice to Bira 91, plans to move NCLT",
+        "Bira 91 beer maker in more trouble? HNGIL slaps B9 Beverages with ₹11.77 crore default notice, plans to move NCLT"
+      ],
+      "source_headline": "HNGIL issues default notice to Bira 91, plans to move NCLT",
+      "source_url": "https://www.cnbctv18.com/business/companies/hngil-issues-default-notice-to-bira-91-plans-to-move-nclt-19979848.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-30T13:17:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-30T14:35:23Z",
+      "updated_at": "2026-08-30T14:35:23Z",
+      "decay_at": "2026-09-01T01:17:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98423,13 +98430,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 309,
-    "shown_count": 309,
+    "total_count": 310,
+    "shown_count": 310,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 149,
-        "shown_count": 149,
+        "total_count": 150,
+        "shown_count": 150,
         "hidden_count": 0
       },
       "short": {
@@ -98454,6 +98461,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-94673fd188cf",
+        "idea_version": "IDEAV-6612f3ddaaf6c670",
+        "idea_version_started_at": "2026-08-30T14:35:23Z",
+        "ticker": "HNGIL",
+        "company": "Hindusthan National Glass & Industries Ltd",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Hindusthan National Glass & Industries Ltd (HNGIL) is pursuing a default notice against Bira 91 for ₹11.77 crore, which could improve HNGIL's financial position if successful.",
+        "why_now": "HNGIL has issued a default notice to Bira 91 and plans to move to the NCLT, indicating an active legal process to recover funds.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eda6160582c5",
+          "EVT-ba840434a00f"
+        ],
+        "primary_source_event_id": "EVT-eda6160582c5",
+        "source_headlines": [
+          "HNGIL issues default notice to Bira 91, plans to move NCLT",
+          "Bira 91 beer maker in more trouble? HNGIL slaps B9 Beverages with ₹11.77 crore default notice, plans to move NCLT"
+        ],
+        "source_headline": "HNGIL issues default notice to Bira 91, plans to move NCLT",
+        "source_url": "https://www.cnbctv18.com/business/companies/hngil-issues-default-notice-to-bira-91-plans-to-move-nclt-19979848.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-30T13:17:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-30T14:35:23Z",
+        "updated_at": "2026-08-30T14:35:23Z",
+        "decay_at": "2026-09-01T01:17:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-01T01:17:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5647a867aaf8",
         "idea_version": "IDEAV-07586e118c05932c",
@@ -121386,7 +121469,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 367,
-    "live_count": 56,
+    "live_count": 55,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -121405,9 +121488,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 89348,
-    "news_picked_today": 189,
-    "news_dropped_today": 699
+    "news_seen_today": 113147,
+    "news_picked_today": 201,
+    "news_dropped_today": 759
   },
   "book_momentum": {
     "live_count": 8,
