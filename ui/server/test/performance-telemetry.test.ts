@@ -156,18 +156,20 @@ test('collection loss expires from health after the selected summary window', as
 test('collection loss survives restart and remains isolated to its release', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-drop-restart-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const observedAt = Date.now()
+  const summarizedAt = observedAt + 60_000
   const first = new PerformanceTelemetry(stateDir, {
     maxDailyBytes: 1, flushDelayMs: 60_000, release: 'release-a',
   })
-  first.recordServer(1, '/api/health', 'ok', NOW)
-  assert.equal((await first.summary(24, NOW)).droppedSamples, 1)
+  first.recordServer(1, '/api/health', 'ok', observedAt)
+  assert.equal((await first.summary(24, summarizedAt)).droppedSamples, 1)
 
   const restarted = new PerformanceTelemetry(stateDir, { release: 'release-a' })
-  assert.equal((await restarted.summary(24, NOW + 1)).droppedSamples, 1,
+  assert.equal((await restarted.summary(24, summarizedAt + 1)).droppedSamples, 1,
     'a routine server restart cannot erase an active measurement-loss incident')
 
   const nextRelease = new PerformanceTelemetry(stateDir, { release: 'release-b' })
-  assert.equal((await nextRelease.summary(24, NOW + 1)).droppedSamples, 0,
+  assert.equal((await nextRelease.summary(24, summarizedAt + 1)).droppedSamples, 0,
     'an old release loss cannot turn a new release red')
 })
 
@@ -186,7 +188,7 @@ test('many losses schedule one persistence operation', async (t) => {
   assert.equal(persistCalls, 0, 'loss accounting itself creates no promise or disk write per observation')
   await telemetry.flush()
   assert.equal(persistCalls, 1)
-  assert.equal((await telemetry.summary(24, NOW)).droppedSamples, 500)
+  assert.equal((await telemetry.summary(24, Date.now() + 60_000)).droppedSamples, 500)
 })
 
 test('summaries use only the active deployed release', async (t) => {
@@ -277,6 +279,7 @@ test('fast API failures do not satisfy latency budgets', async (t) => {
 test('a stalled writer leaves only a bounded in-memory tail', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-stall-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const observedAt = Date.now()
   const originalAppend = fs.promises.appendFile
   let releaseWrite!: () => void
   const blocked = new Promise<void>((resolve) => { releaseWrite = resolve })
@@ -287,13 +290,13 @@ test('a stalled writer leaves only a bounded in-memory tail', async (t) => {
   t.after(() => { (fs.promises as any).appendFile = originalAppend })
 
   const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000, maxPendingSamples: 100 })
-  telemetry.recordServer(1, '/api/health', 'ok', NOW)
+  telemetry.recordServer(1, '/api/health', 'ok', observedAt)
   const firstWrite = telemetry.flush()
   await new Promise<void>((resolve) => setImmediate(resolve))
-  for (let index = 0; index < 125; index++) telemetry.recordServer(2, '/api/health', 'ok', NOW + index)
+  for (let index = 0; index < 125; index++) telemetry.recordServer(2, '/api/health', 'ok', observedAt + index)
   releaseWrite()
   await firstWrite
-  const summary = await telemetry.summary(24, NOW + 1_000)
+  const summary = await telemetry.summary(24, Date.now() + 60_000)
   assert.equal(summary.sampleCount, 101)
   assert.equal(summary.droppedSamples, 25)
   assert.equal(summary.status, 'needs_attention')
@@ -302,6 +305,7 @@ test('a stalled writer leaves only a bounded in-memory tail', async (t) => {
 test('an interrupted JSONL tail cannot consume the next successful sample', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-tail-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const observedAt = Date.now()
   const originalAppend = fs.promises.appendFile
   let interrupt = true
   ;(fs.promises as any).appendFile = async (file: fs.PathLike, data: string, options: unknown) => {
@@ -315,12 +319,12 @@ test('an interrupted JSONL tail cannot consume the next successful sample', asyn
   t.after(() => { (fs.promises as any).appendFile = originalAppend })
 
   const telemetry = new PerformanceTelemetry(stateDir, { flushDelayMs: 60_000 })
-  telemetry.recordServer(10, '/api/health', 'ok', NOW)
+  telemetry.recordServer(10, '/api/health', 'ok', observedAt)
   await telemetry.flush()
-  telemetry.recordServer(20, '/api/health', 'ok', NOW + 1)
+  telemetry.recordServer(20, '/api/health', 'ok', observedAt + 1)
   await telemetry.flush()
 
-  const summary = await telemetry.summary(24, NOW + 2)
+  const summary = await telemetry.summary(24, Date.now() + 60_000)
   const health = summary.metrics.find((metric) => metric.operation === '/api/health')
   assert.equal(health?.count, 1)
   assert.equal(health?.p95, 20)
@@ -330,19 +334,21 @@ test('an interrupted JSONL tail cannot consume the next successful sample', asyn
 test('a multi-day append failure counts only rows that were not persisted', async (t) => {
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cockpit-performance-partial-batch-'))
   t.after(() => fs.rmSync(stateDir, { recursive: true, force: true }))
+  const today = new Date().toISOString().slice(0, 10)
+  const dayStart = Date.parse(`${today}T00:00:00.000Z`)
   const originalAppend = fs.promises.appendFile
   ;(fs.promises as any).appendFile = async (file: fs.PathLike, data: string, options: unknown) => {
-    if (String(file).endsWith('2026-09-02.jsonl')) throw new Error('simulated second-day failure')
+    if (String(file).endsWith(`${today}.jsonl`)) throw new Error('simulated second-day failure')
     return (originalAppend as any)(file, data, options)
   }
   t.after(() => { (fs.promises as any).appendFile = originalAppend })
 
   const telemetry = new PerformanceTelemetry(stateDir, { release: 'test', flushDelayMs: 60_000 })
-  telemetry.recordServer(10, '/api/health', 'ok', Date.parse('2026-09-01T23:59:59.000Z'))
-  telemetry.recordServer(20, '/api/health', 'ok', Date.parse('2026-09-02T00:00:01.000Z'))
+  telemetry.recordServer(10, '/api/health', 'ok', dayStart - 1_000)
+  telemetry.recordServer(20, '/api/health', 'ok', dayStart + 1_000)
   await telemetry.flush()
 
-  const summary = await telemetry.summary(48, Date.parse('2026-09-02T12:00:00.000Z'))
+  const summary = await telemetry.summary(48, Date.now() + 60_000)
   assert.equal(summary.sampleCount, 1)
   assert.equal(summary.droppedSamples, 1, 'the already-durable first-day row is not counted as lost')
 })
