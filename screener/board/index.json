@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T10:58:53Z",
+  "generated_at": "2026-09-01T11:03:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260901-769",
@@ -933,6 +933,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260901-771",
+      "headline": "New Apple CEO John Ternus takes over from Tim Cook, ending 15-year tenure",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/technology/6062715-apple-ceo-john-ternus-takes-reins-tim-cook-resigns/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T10:50:40Z",
+      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
+      "prelim_note": "Apple is undergoing a CEO transition from Tim Cook to John Ternus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple is undergoing a CEO transition from Tim Cook to John Ternus.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,66 +1994,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260901-320",
-      "headline": "Anthropic seals $35 billion cloud deal with Nvidia-backed Lambda",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/anthropic-seals-35-billion-cloud-deal-with-nvidia-backed-lambda/article71413454.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T01:51:14Z",
-      "sweep_file": "screener/inbox/2026-09-01_sweep.json",
-      "prelim_note": "A $35 billion cloud deal between Anthropic and Nvidia-backed Lambda is a significant commercial agreement that will impact revenue and operations for both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $35 billion cloud deal between Anthropic and Nvidia-backed Lambda is a significant commercial agreement that will impact revenue and operations for both companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "mna"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Lambda",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -122925,9 +122914,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459492,
-    "news_picked_today": 1506,
-    "news_dropped_today": 7446
+    "news_seen_today": 1471462,
+    "news_picked_today": 1514,
+    "news_dropped_today": 7462
   },
   "book_momentum": {
     "live_count": 8,
