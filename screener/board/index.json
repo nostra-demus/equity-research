@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T17:26:21Z",
+  "generated_at": "2026-09-02T17:50:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -690,31 +690,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260902-771",
-      "headline": "Uber’s $14.8 Billion Delivery Hero Takeover Gains Board Backing",
+      "inbox_id": "INB-20260902-778",
+      "headline": "Uber’s $15 Billion Takeover Bid Gets Delivery Hero Board Backing",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/delivery-hero-board-recommends-holders-accept-uber-takeover-bid-mtkbg82t",
-      "source_name": "Bloomberg",
+      "url": "https://www.wsj.com/business/ubers-15-billion-takeover-bid-gets-delivery-hero-board-backing-2f6c992e?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T16:34:13Z",
+      "found_at": "2026-09-02T17:00:00Z",
       "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Uber to acquire Delivery Hero for $14.8 billion with board backing, a major strategic M&A affecting both companies' capital deployment and competitive position.",
+      "prelim_note": "Uber has made a $15 billion takeover bid for Delivery Hero, which has received board backing.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Uber to acquire Delivery Hero for $14.8 billion with board backing, a major strategic M&A affecting both companies' capital deployment and competitive position.",
+      "triage_reason": "Uber has made a $15 billion takeover bid for Delivery Hero, which has received board backing.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 87,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 87,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -735,7 +735,105 @@
         {
           "name": "Delivery Hero",
           "ticker": null,
-          "listing_country": "DE"
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-776",
+      "headline": "Uber lays off 3,300 employees in largest cuts since the pandemic",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/economy/2026/9/2/uber-lays-off-3300-employees-in-largest-cuts-since-the-pandemic?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-02T16:55:52Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is laying off 3,300 employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is laying off 3,300 employees.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-775",
+      "headline": "Uber to cut over 3,000 jobs in major global restructuring",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cp3ky2w4y9no?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:51:49Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is cutting over 3,000 jobs in a major global restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is cutting over 3,000 jobs in a major global restructuring.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1879,105 +1977,6 @@
           "name": "Ryanair",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-546",
-      "headline": "Italy's Lottomatica to buy Spain's CIRSA to create Blackstone-backed betting giant",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/italys-lottomatica-take-over-spains-cirsa-create-combined-betting-company-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T08:29:37Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Lottomatica is set to acquire CIRSA to create a betting giant, a major M&A event in the gaming sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lottomatica is set to acquire CIRSA to create a betting giant, a major M&A event in the gaming sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lottomatica",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-564",
-      "headline": "Ryanair warns of higher fares as it cuts winter flights",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e0e95d40-4fae-43ea-9b22-f1d292e94ba3?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T08:25:15Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Ryanair warned of higher fares and announced a cut to winter flight capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ryanair warned of higher fares and announced a cut to winter flight capacity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ryanair",
-          "ticker": null,
-          "listing_country": "IE"
         }
       ],
       "size_bucket": "large",
@@ -124704,9 +124703,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2018018,
-    "news_picked_today": 1575,
-    "news_dropped_today": 20817
+    "news_seen_today": 2057052,
+    "news_picked_today": 1617,
+    "news_dropped_today": 21183
   },
   "book_momentum": {
     "live_count": 8,
