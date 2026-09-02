@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T09:24:44Z",
+  "generated_at": "2026-09-02T09:30:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-541",
@@ -338,6 +338,56 @@
           "name": "Lottomatica",
           "ticker": null,
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-564",
+      "headline": "Ryanair warns of higher fares as it cuts winter flights",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e0e95d40-4fae-43ea-9b22-f1d292e94ba3?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T08:25:15Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Ryanair warned of higher fares and announced a cut to winter flight capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ryanair warned of higher fares and announced a cut to winter flight capacity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryanair",
+          "ticker": null,
+          "listing_country": "IE"
         }
       ],
       "size_bucket": "large",
@@ -1883,55 +1933,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-398",
-      "headline": "UltraTech Cement Limited: UltraTech Cement Limited has informed the Exchange regarding 'UltraTech to scale up supply chain electrification with 600+ heavy-duty electric truck fleet '.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ULTRACEMCO1_02092026103650_SE_Letter_-_EV.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T05:07:04Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "UltraTech Cement announces capex programme to scale supply chain electrification with 600+ heavy-duty electric trucks — named, quantified investment in strategic infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "UltraTech Cement announces capex programme to scale supply chain electrification with 600+ heavy-duty electric trucks — named, quantified investment in strategic infrastructure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UltraTech Cement Limited",
-          "ticker": "ULTRATECH",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125584,9 +125585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 929071,
-    "news_picked_today": 973,
-    "news_dropped_today": 12323
+    "news_seen_today": 939475,
+    "news_picked_today": 992,
+    "news_dropped_today": 12376
   },
   "book_momentum": {
     "live_count": 8,
