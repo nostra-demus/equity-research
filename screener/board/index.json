@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T21:32:45Z",
+  "generated_at": "2026-09-02T21:42:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-993",
@@ -734,6 +734,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-1013",
+      "headline": "Watchdog fines Citibank's London branch £4.7m for breaching Russian sanctions",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16100077/Watchdog-fines-Citibanks-London-branch-4-7m-breaching-Russian-sanctions.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T21:00:52Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Citibank's London branch was fined £4.7 million for breaching Russian sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Citibank's London branch was fined £4.7 million for breaching Russian sanctions.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citigroup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-795",
-      "headline": "Spire Healthcare buyer squares Circle as £1bn takeover looms",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/spire-healthcare-buyer-squares-circle-as-1bn-takeover-looms-13580466",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T16:39:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Circle Health Group is reportedly preparing a £1bn takeover bid for Spire Healthcare.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Circle Health Group is reportedly preparing a £1bn takeover bid for Spire Healthcare.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spire Healthcare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125155,9 +125155,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2344722,
-    "news_picked_today": 2154,
-    "news_dropped_today": 24630
+    "news_seen_today": 2353959,
+    "news_picked_today": 2164,
+    "news_dropped_today": 24812
   },
   "book_momentum": {
     "live_count": 8,
