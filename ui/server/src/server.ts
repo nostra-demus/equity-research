@@ -367,7 +367,7 @@ app.get('/api/health', async (_req, reply) => {
     ok: true,
     repoRoot: REPO_ROOT,
     deploymentPending: providerDeployPending(STATE_DIR),
-    deployment: readDeploymentStatus(STATE_DIR),
+    deployment: await readDeploymentStatus(STATE_DIR),
   }
 })
 

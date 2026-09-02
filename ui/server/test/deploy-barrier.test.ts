@@ -39,15 +39,15 @@ try {
     schemaVersion: 1, status: 'pending', targetSha: target, deployedSha: deployed,
     authorizedCodeSha: null, pendingSince: 1, checkedAt: 2, reason: 'ci_not_green',
   }) + '\n', { mode: 0o600 })
-  assert.deepEqual(readDeploymentStatus(root), {
+  assert.deepEqual(await readDeploymentStatus(root), {
     schemaVersion: 1, status: 'pending', targetSha: target, deployedSha: deployed,
     authorizedCodeSha: null, pendingSince: 1, checkedAt: 2, reason: 'ci_not_green',
   }, 'the health path reads the exact durable deployment-lag observation')
   fs.chmodSync(deploymentStatusPath(root), 0o644)
-  assert.equal(readDeploymentStatus(root), null, 'unsafe deployment status permissions fail closed')
+  assert.equal(await readDeploymentStatus(root), null, 'unsafe deployment status permissions fail closed')
   fs.unlinkSync(deploymentStatusPath(root))
   fs.symlinkSync('/dev/null', deploymentStatusPath(root))
-  assert.equal(readDeploymentStatus(root), null, 'deployment status never follows a symlink')
+  assert.equal(await readDeploymentStatus(root), null, 'deployment status never follows a symlink')
   fs.unlinkSync(deploymentStatusPath(root))
 
   const incumbent = acquireProviderRunDeployLease(root)

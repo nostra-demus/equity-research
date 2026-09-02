@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import type { FileHandle } from 'node:fs/promises'
 import path from 'node:path'
 import { STATE_DIR } from './config'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from './singleton-lock'
@@ -45,18 +46,19 @@ export function deploymentStatusPath(stateDir = STATE_DIR): string {
 }
 
 /** Read the deployer's small owner-only observation. Invalid/stale-shaped bytes are never guessed. */
-export function readDeploymentStatus(stateDir = STATE_DIR): DeploymentStatus | null {
+export async function readDeploymentStatus(stateDir = STATE_DIR): Promise<DeploymentStatus | null> {
   const statusPath = deploymentStatusPath(stateDir)
-  let descriptor: number | null = null
+  let handle: FileHandle | null = null
   try {
-    const named = fs.lstatSync(statusPath)
+    const named = await fs.promises.lstat(statusPath)
     if (!named.isFile() || named.isSymbolicLink() || named.size > 16 * 1024 || (named.mode & 0o077) !== 0) return null
-    const uid = typeof process.getuid === 'function' ? process.getuid() : named.uid
+    if (typeof process.getuid !== 'function') return null
+    const uid = process.getuid()
     if (named.uid !== uid || named.nlink !== 1) return null
-    descriptor = fs.openSync(statusPath, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
-    const opened = fs.fstatSync(descriptor)
+    handle = await fs.promises.open(statusPath, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const opened = await handle.stat()
     if (opened.dev !== named.dev || opened.ino !== named.ino || opened.uid !== uid || opened.nlink !== 1) return null
-    const value = JSON.parse(fs.readFileSync(descriptor, 'utf8')) as Partial<DeploymentStatus>
+    const value = JSON.parse(await handle.readFile('utf8')) as Partial<DeploymentStatus>
     const nullableSha = (candidate: unknown) => candidate === null || (typeof candidate === 'string' && SHA.test(candidate))
     const pendingSinceValid = value.status === 'pending'
       ? typeof value.pendingSince === 'number' && Number.isSafeInteger(value.pendingSince) && value.pendingSince > 0
@@ -73,7 +75,7 @@ export function readDeploymentStatus(stateDir = STATE_DIR): DeploymentStatus | n
   } catch {
     return null
   } finally {
-    if (descriptor !== null) try { fs.closeSync(descriptor) } catch {}
+    if (handle !== null) try { await handle.close() } catch {}
   }
 }
 
