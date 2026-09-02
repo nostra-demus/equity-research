@@ -21,7 +21,10 @@ LOCK="$GIT_DIR/nostra-market-feed.lock.d"
 # One writer at a time. A lock older than an hour can only be an orphan from a killed process and is
 # reclaimed with rmdir (never recursive delete) — the fetch itself normally completes in seconds.
 if ! mkdir "$LOCK" 2>/dev/null; then
-  lock_epoch="$(stat -c %Y "$LOCK" 2>/dev/null || stat -f %m "$LOCK" 2>/dev/null || echo 0)"
+  # If neither stat variant can read the lock's mtime, fall back to NOW (age 0) — never epoch 0. Defaulting
+  # to 0 would compute a huge lock_age and trip the >3600 orphan-reclaim below, rmdir'ing a lock a live
+  # writer still holds and allowing two fetchers to run at once. An unknown age must fail CLOSED (skip).
+  lock_epoch="$(stat -c %Y "$LOCK" 2>/dev/null || stat -f %m "$LOCK" 2>/dev/null || date +%s)"
   lock_age=$(( $(date +%s) - lock_epoch ))
   if [ "$lock_age" -gt 3600 ]; then
     rmdir "$LOCK" 2>/dev/null || { log "MARKET-FEED SKIP — lock contended"; exit 0; }

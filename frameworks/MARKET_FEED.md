@@ -118,7 +118,9 @@ does not prove liquidity, and the adapter never guesses an FX rate.
 ## What writes it
 
 The **S&P 500 slice is auto-populated on the doer machine.** `scripts/fetch_market_feed.py` pulls the
-daily index close from FRED (`SP500`, public domain) through the connectors' own SSRF-bounded
+daily index close from FRED (`SP500` — proprietary to S&P Dow Jones Indices LLC, free to access and use
+via FRED as an internal benchmark reference but **not** redistributable; the sidecar records
+`redistribution: prohibited`) through the connectors' own SSRF-bounded
 `fetch_bytes`, and writes `data/_market/fred/sp500_<as_of>.csv` plus its `.source.json` provenance
 sidecar — nothing else, and it never guesses a symbol it wasn't asked to fetch. `scripts/ops/install-services.sh`
 installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (daily, 07:10, ahead of

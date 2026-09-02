@@ -59,7 +59,13 @@ def test_it_writes_the_shape_the_readers_expect() -> None:
         with open(path + ".source.json", encoding="utf-8") as fh:
             sidecar = json.load(fh)
         assert sidecar["as_of"] == "2026-08-24"
-        assert sidecar["license"] == "public_domain"
+        # SP500 is proprietary to S&P Dow Jones Indices LLC — FRED serves it free to access and use, but
+        # reproduction/redistribution is prohibited, so the sidecar must NOT claim public-domain /
+        # redistributable rights. Enum values follow frameworks/EXTERNAL_DATA.md §7
+        # (redistribution ∈ allowed | derived_only | prohibited | unknown).
+        assert sidecar["license"] == "proprietary", sidecar["license"]
+        assert sidecar["licensing"]["redistribution"] == "prohibited", sidecar["licensing"]
+        assert sidecar["licensing"]["use"] == "allowed", sidecar["licensing"]
         received = dt.datetime.fromisoformat(sidecar["received"].replace("Z", "+00:00"))
         assert sidecar["received"].endswith("Z") and received.tzinfo is not None
 
