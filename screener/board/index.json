@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-02T14:45:56Z",
+  "generated_at": "2026-09-02T15:17:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260902-727",
+      "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of SHANKARA BUILDING PRODUCTS LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260902-41/20260902-41.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T14:24:05Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Shankara Building Products Limited is subject to an open offer for acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shankara Building Products Limited is subject to an open offer for acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shankara Building Products Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260902-675",
       "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -538,6 +587,111 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-737",
+      "headline": "Apax Lines Up About €1 Billion Debt to Buy Gerresheimer Units",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-02/apax-lines-up-about-1-billion-debt-to-buy-gerresheimer-units",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T14:29:12Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Apax raises €1 billion debt to acquire Gerresheimer units; quantified M&A deal value represents material capital deployment and divestiture by a public company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apax raises €1 billion debt to acquire Gerresheimer units; quantified M&A deal value represents material capital deployment and divestiture by a public company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apax",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Gerresheimer",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-740",
+      "headline": "ED Raids 12 Locations Across 4 States In Parimatch Illegal Betting Money Laundering Probe",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/ed-raids-12-locations-across-4-states-in-parimatch-illegal-betting-money-laundering-probe",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T14:25:57Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "India's Enforcement Directorate raids 12 Parimatch locations across 4 states for illegal betting and money-laundering; confirmed multi-jurisdiction enforcement action poses critical regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India's Enforcement Directorate raids 12 Parimatch locations across 4 states for illegal betting and money-laundering; confirmed multi-jurisdiction enforcement action poses critical regulatory and reputational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Parimatch",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1825,158 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-081",
-      "headline": "Arada partners with Syrian Sovereign Fund on $7 billion joint venture project",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/arada-partners-syrian-sovereign-fund-7-billion-joint-venture-project",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:26:41Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Arada entered a $7 billion joint venture project with the Syrian Sovereign Fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Arada entered a $7 billion joint venture project with the Syrian Sovereign Fund.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arada",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-092",
-      "headline": "Insolvent Bathla Faces 24-Hour Deadline for Deal With Creditors",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/insolvent-bathla-faces-24-hour-deadline-for-deal-with-creditors",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:18:14Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Bathla is facing a 24-hour deadline to reach a deal with creditors to avoid insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bathla is facing a 24-hour deadline to reach a deal with creditors to avoid insolvency.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-336",
-      "headline": "Anthropic signs $35 bil computing deal with startup backed by Nvidia",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/tech/anthropic-signs-35b-computing-deal-with-startup-backed-by-nvidia",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:48:12Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Anthropic signed a $35 billion computing deal with a startup backed by Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic signed a $35 billion computing deal with a startup backed by Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124840,9 +124842,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1666523,
-    "news_picked_today": 1388,
-    "news_dropped_today": 18316
+    "news_seen_today": 1774818,
+    "news_picked_today": 1416,
+    "news_dropped_today": 18816
   },
   "book_momentum": {
     "live_count": 8,
