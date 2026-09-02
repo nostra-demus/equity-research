@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T13:01:05Z",
+  "generated_at": "2026-09-02T13:26:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-675",
@@ -535,6 +535,105 @@
           "name": "GLOBAL UIN",
           "ticker": "08496",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-692",
+      "headline": "Citibank hit with £5m fine for violating UK sanctions on Russia",
+      "headline_en": null,
+      "url": "https://www.cityam.com/citibank-hit-with-5m-fine-for-violating-uk-sanctions-on-russia/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T12:47:29Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Citibank was fined £5 million for violating UK sanctions on Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Citibank was fined £5 million for violating UK sanctions on Russia.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citibank",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-688",
+      "headline": "TScan Therapeutics Cuts Workforce by 75% and Shifts Focus to Solid Tumor Program",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/tscan-therapeutics-cuts-workforce-75-123041433.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T12:30:41Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "TScan Therapeutics is cutting 75% of its workforce and pivoting its core business strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TScan Therapeutics is cutting 75% of its workforce and pivoting its core business strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TScan Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1880,105 +1979,6 @@
           "name": "Asur",
           "ticker": null,
           "listing_country": "MX"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-356",
-      "headline": "Stock Market Today, Sept. 1: Nio Falls on Q2 Revenue Miss Despite August Delivery Strength",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stock-market-today-sept-1-nio-falls-q2-revenue-miss-despite-august-delivery-strength",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:05:18Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Nio reports Q2 revenue miss despite strong delivery numbers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nio reports Q2 revenue miss despite strong delivery numbers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nio",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-374",
-      "headline": "Dell Sees Surge in AI Server Sales, Boosts Outlook",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-01/dell-sees-surge-in-ai-server-sales-boosts-outlook-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:03:11Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Dell reported a surge in AI server sales and raised its financial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell reported a surge in AI server sales and raised its financial outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -92628,76 +92628,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2eed0b77fa99",
-      "idea_version": "IDEAV-1a7299fe7f874578",
-      "idea_version_started_at": "2026-09-01T04:06:03Z",
-      "ticker": "2454.TW",
-      "company": "MediaTek",
-      "exchange": "Taiwan",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nvidia's strategic investment in MediaTek validates its AI chip roadmap and creates a direct commercial partnership with the leading AI compute provider.",
-      "why_now": "Bloomberg reported the investment on 2026-09-01 and shares already surged 10%, confirming immediate market reaction to the catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e8b3a963f85"
-      ],
-      "primary_source_event_id": "EVT-1e8b3a963f85",
-      "source_headlines": [
-        "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment"
-      ],
-      "source_headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
-      "source_name": "Bloomberg",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-01T01:04:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T04:06:03Z",
-      "updated_at": "2026-09-01T04:06:03Z",
-      "decay_at": "2026-09-02T13:04:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-67edac5436ac",
       "idea_version": "IDEAV-97073d3129664fd8",
       "idea_version_started_at": "2026-09-02T12:20:12Z",
@@ -94027,6 +93957,76 @@
       "surfaced_at": "2026-08-30T14:35:23Z",
       "updated_at": "2026-08-30T14:35:23Z",
       "decay_at": "2026-09-01T02:26:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2eed0b77fa99",
+      "idea_version": "IDEAV-1a7299fe7f874578",
+      "idea_version_started_at": "2026-09-01T04:06:03Z",
+      "ticker": "2454.TW",
+      "company": "MediaTek",
+      "exchange": "Taiwan",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia's strategic investment in MediaTek validates its AI chip roadmap and creates a direct commercial partnership with the leading AI compute provider.",
+      "why_now": "Bloomberg reported the investment on 2026-09-01 and shares already surged 10%, confirming immediate market reaction to the catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e8b3a963f85"
+      ],
+      "primary_source_event_id": "EVT-1e8b3a963f85",
+      "source_headlines": [
+        "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment"
+      ],
+      "source_headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
+      "source_name": "Bloomberg",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-01T01:04:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-01T04:06:03Z",
+      "updated_at": "2026-09-01T04:06:03Z",
+      "decay_at": "2026-09-02T13:04:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97337,13 +97337,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 369,
-    "shown_count": 369,
+    "total_count": 370,
+    "shown_count": 370,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 184,
-        "shown_count": 184,
+        "total_count": 185,
+        "shown_count": 185,
         "hidden_count": 0
       },
       "short": {
@@ -97368,6 +97368,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2eed0b77fa99",
+        "idea_version": "IDEAV-1a7299fe7f874578",
+        "idea_version_started_at": "2026-09-01T04:06:03Z",
+        "ticker": "2454.TW",
+        "company": "MediaTek",
+        "exchange": "Taiwan",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Nvidia's strategic investment in MediaTek validates its AI chip roadmap and creates a direct commercial partnership with the leading AI compute provider.",
+        "why_now": "Bloomberg reported the investment on 2026-09-01 and shares already surged 10%, confirming immediate market reaction to the catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e8b3a963f85"
+        ],
+        "primary_source_event_id": "EVT-1e8b3a963f85",
+        "source_headlines": [
+          "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment"
+        ],
+        "source_headline": "MediaTek Shares Soar 10% After Blockbuster Nvidia Investment",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-01/mediatek-shares-soar-10-after-blockbuster-nvidia-investment",
+        "source_name": "Bloomberg",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-01T01:04:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-01T04:06:03Z",
+        "updated_at": "2026-09-01T04:06:03Z",
+        "decay_at": "2026-09-02T13:04:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T13:04:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-95df61b251da",
         "idea_version": "IDEAV-220278c21e7ec5ee",
@@ -124753,7 +124826,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 376,
-    "live_count": 5,
+    "live_count": 4,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124772,9 +124845,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1311736,
-    "news_picked_today": 1250,
-    "news_dropped_today": 16654
+    "news_seen_today": 1473855,
+    "news_picked_today": 1261,
+    "news_dropped_today": 16931
   },
   "book_momentum": {
     "live_count": 8,
