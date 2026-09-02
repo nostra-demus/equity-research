@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T15:26:44Z",
+  "generated_at": "2026-09-02T15:43:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -685,6 +685,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-753",
+      "headline": "Pacific Gas & Electric Launches Strategic Review, Cuts 2027 Capital Plan by $2B",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/pacific-gas-electric-launches-strategic-150323220.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T15:03:23Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Pacific Gas & Electric announced a strategic review and a $2B reduction in its 2027 capital expenditure plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pacific Gas & Electric announced a strategic review and a $2B reduction in its 2027 capital expenditure plan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacific Gas & Electric",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,49 +1980,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-223",
-      "headline": "Iran war news LIVE: US completes military strikes against Tehran, but Trump warns of more amid retaliation",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-live-latest-updates-donald-trump-middle-east-conflict-bahrain-uae-kuwait-qatar-jordan-ceasefire-11788313084288.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T02:21:31Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Escalation of military conflict between the US and Iran, with warnings of further strikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Escalation of military conflict between the US and Iran, with warnings of further strikes.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -124983,9 +124990,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1785021,
-    "news_picked_today": 1447,
-    "news_dropped_today": 18929
+    "news_seen_today": 1814944,
+    "news_picked_today": 1456,
+    "news_dropped_today": 19256
   },
   "book_momentum": {
     "live_count": 8,
