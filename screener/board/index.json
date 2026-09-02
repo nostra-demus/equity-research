@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T17:51:23Z",
+  "generated_at": "2026-09-02T18:17:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -690,6 +690,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-790",
+      "headline": "Uber to cut more than 3,000 jobs as part of a major restructuring",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/uber-job-cuts-restructure-workforce-b3043688.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T17:30:29Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is cutting more than 3,000 jobs as part of a major restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is cutting more than 3,000 jobs as part of a major restructuring.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-778",
       "headline": "Uber’s $15 Billion Takeover Bid Gets Delivery Hero Board Backing",
       "headline_en": null,
@@ -793,50 +842,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260902-775",
-      "headline": "Uber to cut over 3,000 jobs in major global restructuring",
+      "inbox_id": "INB-20260902-795",
+      "headline": "Spire Healthcare buyer squares Circle as £1bn takeover looms",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cp3ky2w4y9no?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
+      "url": "https://news.sky.com/story/spire-healthcare-buyer-squares-circle-as-1bn-takeover-looms-13580466",
+      "source_name": "Sky News — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T16:51:49Z",
+      "found_at": "2026-09-02T16:39:00Z",
       "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Uber is cutting over 3,000 jobs in a major global restructuring.",
+      "prelim_note": "Circle Health Group is reportedly preparing a £1bn takeover bid for Spire Healthcare.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Uber is cutting over 3,000 jobs in a major global restructuring.",
-      "region": "GLOBAL",
+      "triage_reason": "Circle Health Group is reportedly preparing a £1bn takeover bid for Spire Healthcare.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
+        "event_id": "mna",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Uber",
+          "name": "Spire Healthcare",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-584",
-      "headline": "Ryanair trims traffic target, warns rivals face winter squeeze amid fuel costs",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/ryanair-slashes-winter-capacity-unhedged-jet-fuel-costs-bite-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T09:25:57Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Ryanair trimmed its traffic target and warned of a winter squeeze due to fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ryanair trimmed its traffic target and warned of a winter squeeze due to fuel costs.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ryanair",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124916,9 +124916,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2057052,
-    "news_picked_today": 1617,
-    "news_dropped_today": 21183
+    "news_seen_today": 2105350,
+    "news_picked_today": 1650,
+    "news_dropped_today": 21462
   },
   "book_momentum": {
     "live_count": 8,
