@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T19:27:49Z",
+  "generated_at": "2026-09-02T19:36:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -685,6 +685,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-881",
+      "headline": "Fortrea boosts early-phase CRO platform with $45M acquisition of Worldwide division",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/cro/fortrea-boosts-early-phase-platform-45-million-cro-acquisition",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:19:06Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Fortrea is acquiring a division of Worldwide Clinical Trials for $45M to expand its early-phase CRO platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fortrea is acquiring a division of Worldwide Clinical Trials for $45M to expand its early-phase CRO platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortrea",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
       "companies": [
         {
           "name": "Citigroup",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-659",
-      "headline": "Nvidia Nears $14 Billion Deal to Buy Hugging Face | The Pulse 9/2/2026",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-02/the-pulse-9-2-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:33:39Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Nvidia is reportedly nearing a $14 billion deal to acquire Hugging Face.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly nearing a $14 billion deal to acquire Hugging Face.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -125139,9 +125139,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2200004,
-    "news_picked_today": 1793,
-    "news_dropped_today": 22351
+    "news_seen_today": 2210167,
+    "news_picked_today": 1795,
+    "news_dropped_today": 22469
   },
   "book_momentum": {
     "live_count": 8,
