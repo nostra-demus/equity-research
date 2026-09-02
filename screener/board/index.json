@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T15:43:04Z",
+  "generated_at": "2026-09-02T15:51:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -685,6 +685,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-767",
+      "headline": "Dell stock price news: Shares jump 14% on record Q2 results as AI server demand surges — data details",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/dell-stock-price-news-shares-jump-14-on-record-q2-results-as-ai-server-demand-surges-data-details-11788356963938.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T15:21:52Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell reported a 14% share price jump following record Q2 results driven by AI server demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported a 14% share price jump following record Q2 results driven by AI server demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1978,6 @@
           "name": "Cirsa",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-222",
-      "headline": "Rams owner Stan Kroenke reaches deal to acquire MLB’s Angels",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/sports/2026/09/02/baseball/mlb/kroenke-acquire-la-angels/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T03:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Stan Kroenke has reached a deal to acquire the MLB's Los Angeles Angels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stan Kroenke has reached a deal to acquire the MLB's Los Angeles Angels.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Los Angeles Angels",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -124990,9 +124990,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1814944,
-    "news_picked_today": 1456,
-    "news_dropped_today": 19256
+    "news_seen_today": 1825124,
+    "news_picked_today": 1480,
+    "news_dropped_today": 19328
   },
   "book_momentum": {
     "live_count": 8,
