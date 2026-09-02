@@ -49,7 +49,8 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
         encoding="utf-8",
     )
     production_token.chmod(0o700)
-    run("git", "add", "scripts/ops/gh-app-token.sh", cwd=repo)
+    (repo / "ui" / ".gitignore").write_text("**/.state/\n", encoding="utf-8")
+    run("git", "add", "scripts/ops/gh-app-token.sh", "ui/.gitignore", cwd=repo)
     run("git", "commit", "-qm", "base token helper", cwd=repo)
     base = run("git", "rev-parse", "HEAD", cwd=repo).stdout.strip()
     run("git", "push", "-q", "origin", "main", cwd=repo)
@@ -201,7 +202,7 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
     log = (production_home / "Library" / "Logs" / "nostradamus-deploy.log").read_text(encoding="utf-8")
     intent = production / "ui" / "server" / ".state" / "provider-deploy-pending"
     assert watcher.returncode == 0 and local_after == base
-    assert "BLOCKED production program" in log and "lacks an exact successful main-push workflow" in log
+    assert "BLOCKED production program" in log and "lacks an exact successful main-push workflow" in log, log
     assert not intent.exists()
     assert trusted_token_sentinel.exists(), "the installed owner-only token helper should handle clean preflight"
     assert not production_token_sentinel.exists(), "the production checkout token helper must never execute"

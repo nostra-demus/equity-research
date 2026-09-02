@@ -54,6 +54,7 @@ SUCCESSMARK="$OPS/.deploy.succeeded"                 # "<sha> <epoch-ms>" of the
 RUN_BARRIER_DIR="${ENGINE_STATE_DIR:-$PROD/ui/server/.state}"
 RUN_BARRIER_LOCK="$RUN_BARRIER_DIR/provider-deploy-barrier.flock"
 DEPLOY_INTENT="$RUN_BARRIER_DIR/provider-deploy-pending"
+DEPLOY_STATUS="$RUN_BARRIER_DIR/deployment-status.json"
 DEPLOY_AUTHORIZATION_DIR="${NOSTRA_DEPLOY_AUTHORIZATION_DIR:-$OPS/deploy-authorizations}"
 DEPLOY_AUTHORIZATION_HELPER="${NOSTRA_DEPLOY_AUTHORIZATION_HELPER:-$OPS/deploy-authorization.py}"
 DEPLOY_GITHUB_REPOSITORY="${NOSTRA_DEPLOY_GITHUB_REPOSITORY:-nostra-demus/equity-research}"
@@ -127,6 +128,88 @@ write_deploy_success() {
 }
 
 valid_git_sha() { [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]; }
+
+# Publish the release observer's latest exact state for the cockpit. The provider intent above remains the
+# admission barrier; this separate record also covers terminal blockers (dirty code, red/missing CI, local
+# divergence) without pretending a deploy is actively draining runs. pendingSince survives watcher ticks for
+# the same target, so a two-minute poll cannot reset or hide a multi-hour release delay.
+write_deploy_status() {
+  local target="${1:-}" deployed="${2:-}" approved="${3:-}" reason="${4:-observed}"
+  valid_git_sha "$target" || return 1
+  [ -z "$deployed" ] || valid_git_sha "$deployed" || return 1
+  [ -z "$approved" ] || valid_git_sha "$approved" || return 1
+  case "$reason" in
+    observed|dirty_nondata|ci_not_green|authorization_ready|deploying|deployed|local_diverged|build_failed|audit_pending) ;;
+    *) return 1 ;;
+  esac
+  "$PYTHON" -I - "$DEPLOY_STATUS" "$target" "$deployed" "$approved" "$reason" <<'PYSTATUS'
+import json
+import os
+import pathlib
+import stat
+import sys
+import tempfile
+import time
+
+status_path = pathlib.Path(sys.argv[1])
+target, deployed, approved, reason = sys.argv[2:]
+parent = status_path.parent
+parent_info = parent.lstat()
+if (not stat.S_ISDIR(parent_info.st_mode) or parent.is_symlink()
+        or parent_info.st_uid != os.getuid() or parent_info.st_mode & 0o077):
+    raise SystemExit(1)
+
+previous = None
+try:
+    info = status_path.lstat()
+    if (not stat.S_ISREG(info.st_mode) or status_path.is_symlink() or info.st_uid != os.getuid()
+            or info.st_nlink != 1 or info.st_mode & 0o077 or info.st_size > 16 * 1024):
+        raise SystemExit(1)
+    previous = json.loads(status_path.read_text(encoding="utf-8"))
+except FileNotFoundError:
+    pass
+except (UnicodeError, json.JSONDecodeError, OSError):
+    raise SystemExit(1)
+
+now = time.time_ns() // 1_000_000
+current = bool(deployed) and target == deployed
+pending_since = None
+if not current:
+    if (isinstance(previous, dict) and previous.get("status") == "pending"
+            and (previous.get("targetSha") == target or previous.get("deployedSha") == (deployed or None))
+            and isinstance(previous.get("pendingSince"), int)
+            and not isinstance(previous.get("pendingSince"), bool)):
+        pending_since = previous["pendingSince"]
+    else:
+        pending_since = now
+
+value = {
+    "schemaVersion": 1,
+    "status": "current" if current else "pending",
+    "targetSha": target,
+    "deployedSha": deployed or None,
+    "authorizedCodeSha": approved or None,
+    "pendingSince": pending_since,
+    "checkedAt": now,
+    "reason": reason,
+}
+descriptor, staged_raw = tempfile.mkstemp(prefix=".deployment-status.", dir=parent)
+staged = pathlib.Path(staged_raw)
+try:
+    os.fchmod(descriptor, 0o600)
+    with os.fdopen(descriptor, "w", encoding="utf-8", closefd=True) as handle:
+        json.dump(value, handle, separators=(",", ":"), sort_keys=True)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(staged, status_path)
+finally:
+    try:
+        staged.unlink()
+    except FileNotFoundError:
+        pass
+PYSTATUS
+}
 
 # Publish one durable writer-intent before attempting the lifecycle flock. The current provider/scanner
 # lease is allowed to finish, but deploy-barrier.ts refuses every later shared admission while this exact
@@ -1512,6 +1595,9 @@ elif [ "${1:-}" = --check-deploy-authorization ] && [ "$#" -eq 2 ]; then
   cd "$PROD" 2>/dev/null || exit 1
   deploy_authorization_allows "$2" >/dev/null
   exit $?
+elif [ "${1:-}" = --write-deployment-status ] && [ "$#" -eq 4 ]; then
+  write_deploy_status "$2" "$3" "" "$4"
+  exit $?
 elif [ "$#" -gt 0 ]; then
   exit 2
 fi
@@ -1595,7 +1681,7 @@ rollback_to_mark() {
 # fall behind HEAD — no matter how HEAD advanced.
 reconcile_build() {
   local changed="$1" target="$2" web=0 server=0 weblock=0 serverlock=0 ci_ok=1 failed=0 audit_failed=0
-  local f fsha fts deployed_after rollback_result head_after
+  local f fsha fts deployed_after rollback_result head_after deploy_reason
   case "$DEPLOY_STARTED_AT" in ''|0|*[!0-9]*) DEPLOY_STARTED_AT="$(date +%s)" ;; esac
   # Circuit breaker: if this EXACT target already failed to build recently, don't hammer it every ~120s.
   # (Without this, a structurally-broken commit on main would hot-loop npm build + engine restarts forever.)
@@ -1696,7 +1782,15 @@ reconcile_build() {
     elif [ "$audit_failed" != 0 ]; then
       clear_deploy_intent
     fi
+    if [ "$(cat "$MARK" 2>/dev/null || true)" = "$target" ]; then
+      deploy_reason=deployed
+      [ "$audit_failed" = 0 ] || deploy_reason=audit_pending
+      write_deploy_status "$target" "$target" "${AUTHORIZED_CODE_COMMIT:-}" "$deploy_reason" \
+        || log "  WARN could not publish healthy deployment status"
+    fi
   elif [ "$failed" != 0 ]; then
+    write_deploy_status "$target" "$(cat "$MARK" 2>/dev/null || true)" "${AUTHORIZED_CODE_COMMIT:-}" build_failed \
+      || log "  WARN could not publish failed deployment status"
     if [ -n "${AUTHORIZED_CODE_COMMIT:-}" ]; then
       deployed_after="$(cat "$MARK" 2>/dev/null || true)"
       valid_git_sha "$deployed_after" || deployed_after="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
@@ -1807,6 +1901,10 @@ LOCAL_HINT="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
 MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
 REMOTE_HINT="$("$GIT" rev-parse origin/main 2>/dev/null || true)"
 HINT_AUTHORIZED_COMMIT=""
+if valid_git_sha "$REMOTE_HINT"; then
+  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" observed \
+    || log "WARN could not publish deployment status observation"
+fi
 # Audit recovery is deliberately before writer intent and before any build decision. A failed append may
 # follow a deployment that is already healthy and live; retry the exact durable event only. Until it is
 # repaired, block later code releases but leave research admissions and the running engine untouched.
@@ -1838,6 +1936,8 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
   # must not be allowed to trigger release credentials. The later gate remains to close the network race.
   if [ "$authorization_required" = 1 ] && has_nondata_dirty; then
     clear_deploy_intent
+    write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" dirty_nondata \
+      || log "WARN could not publish dirty-checkout deployment blocker"
     log_codex_import_blocker
     log "BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before authorization — production checkout has a dirty non-data (code/ops) path (§28)"
     exit 0
@@ -1847,6 +1947,8 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
       intent_needed=1
     else
       clear_deploy_intent
+      write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" ci_not_green \
+        || log "WARN could not publish CI deployment blocker"
       log "BLOCKED production program ${REMOTE_HINT:0:9} lacks an exact successful main-push workflow with all five required jobs"
       exit 0
     fi
@@ -1875,6 +1977,8 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
   # repository lease below as the race-closing enforcement gate.
   if [ "$intent_needed" = 1 ] && has_nondata_dirty; then
     clear_deploy_intent
+    write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "$HINT_AUTHORIZED_COMMIT" dirty_nondata \
+      || log "WARN could not publish dirty-checkout deployment blocker"
     log_codex_import_blocker
     log "BLOCKED reviewed deployment ${REMOTE_HINT:0:9} before admission pause — production checkout has a dirty non-data (code/ops) path (§28)"
     exit 0
@@ -1882,6 +1986,8 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
   if [ "$intent_needed" = 1 ]; then
     set_deploy_intent "$REMOTE_HINT" \
       || log "WARN could not publish provider deploy intent — this tick still attempts the lifecycle lock"
+    write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "$HINT_AUTHORIZED_COMMIT" deploying \
+      || log "WARN could not publish active deployment status"
   else
     clear_deploy_intent
   fi
@@ -2097,6 +2203,8 @@ fi
 # origin/main must CONTAIN HEAD (pure fast-forward). If HEAD is ahead — a local data commit not
 # yet pushed — skip; the next push reconciles. Never reset.
 if ! "$GIT" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
+  write_deploy_status "$REMOTE" "$MARKER" "$AUTHORIZED_CODE_COMMIT" local_diverged \
+    || log "WARN could not publish local-divergence deployment blocker"
   log "SKIP HEAD not an ancestor of origin/main (unpushed local commit?) local=${LOCAL:0:9} remote=${REMOTE:0:9}"
   exit 0
 fi

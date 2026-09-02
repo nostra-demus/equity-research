@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import type { FileHandle } from 'node:fs/promises'
 import path from 'node:path'
 import { STATE_DIR } from './config'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from './singleton-lock'
@@ -12,6 +13,25 @@ import { acquireRetainedFlockSync, releaseRetainedFlock } from './singleton-lock
  */
 export const PROVIDER_DEPLOY_BARRIER_FILE = 'provider-deploy-barrier.flock'
 export const PROVIDER_DEPLOY_INTENT_FILE = 'provider-deploy-pending'
+export const DEPLOYMENT_STATUS_FILE = 'deployment-status.json'
+
+export type DeploymentStatus = {
+  schemaVersion: 1
+  status: 'current' | 'pending'
+  targetSha: string
+  deployedSha: string | null
+  authorizedCodeSha: string | null
+  pendingSince: number | null
+  checkedAt: number
+  reason: 'observed' | 'dirty_nondata' | 'ci_not_green' | 'authorization_ready' | 'deploying'
+    | 'deployed' | 'local_diverged' | 'build_failed' | 'audit_pending'
+}
+
+const SHA = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/
+const DEPLOYMENT_REASONS = new Set<DeploymentStatus['reason']>([
+  'observed', 'dirty_nondata', 'ci_not_green', 'authorization_ready', 'deploying',
+  'deployed', 'local_diverged', 'build_failed', 'audit_pending',
+])
 
 export function providerDeployBarrierPath(stateDir = STATE_DIR): string {
   return path.join(stateDir, PROVIDER_DEPLOY_BARRIER_FILE)
@@ -19,6 +39,44 @@ export function providerDeployBarrierPath(stateDir = STATE_DIR): string {
 
 export function providerDeployIntentPath(stateDir = STATE_DIR): string {
   return path.join(stateDir, PROVIDER_DEPLOY_INTENT_FILE)
+}
+
+export function deploymentStatusPath(stateDir = STATE_DIR): string {
+  return path.join(stateDir, DEPLOYMENT_STATUS_FILE)
+}
+
+/** Read the deployer's small owner-only observation. Invalid/stale-shaped bytes are never guessed. */
+export async function readDeploymentStatus(stateDir = STATE_DIR): Promise<DeploymentStatus | null> {
+  const statusPath = deploymentStatusPath(stateDir)
+  let handle: FileHandle | null = null
+  try {
+    const named = await fs.promises.lstat(statusPath)
+    if (!named.isFile() || named.isSymbolicLink() || named.size > 16 * 1024 || (named.mode & 0o077) !== 0) return null
+    if (typeof process.getuid !== 'function') return null
+    const uid = process.getuid()
+    if (named.uid !== uid || named.nlink !== 1) return null
+    handle = await fs.promises.open(statusPath, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
+    const opened = await handle.stat()
+    if (opened.dev !== named.dev || opened.ino !== named.ino || opened.uid !== uid || opened.nlink !== 1) return null
+    const value = JSON.parse(await handle.readFile('utf8')) as Partial<DeploymentStatus>
+    const nullableSha = (candidate: unknown) => candidate === null || (typeof candidate === 'string' && SHA.test(candidate))
+    const pendingSinceValid = value.status === 'pending'
+      ? typeof value.pendingSince === 'number' && Number.isSafeInteger(value.pendingSince) && value.pendingSince > 0
+      : value.pendingSince === null
+    if (value.schemaVersion !== 1 || (value.status !== 'current' && value.status !== 'pending')
+      || typeof value.targetSha !== 'string' || !SHA.test(value.targetSha)
+      || !nullableSha(value.deployedSha) || !nullableSha(value.authorizedCodeSha)
+      || !pendingSinceValid || typeof value.checkedAt !== 'number' || !Number.isSafeInteger(value.checkedAt)
+      || value.checkedAt <= 0 || typeof value.reason !== 'string'
+      || !DEPLOYMENT_REASONS.has(value.reason as DeploymentStatus['reason'])) return null
+    if (value.status === 'current' && value.deployedSha !== value.targetSha) return null
+    if (value.status === 'pending' && value.deployedSha === value.targetSha) return null
+    return value as DeploymentStatus
+  } catch {
+    return null
+  } finally {
+    if (handle !== null) try { await handle.close() } catch {}
+  }
 }
 
 /**
