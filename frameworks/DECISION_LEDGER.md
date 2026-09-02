@@ -163,9 +163,10 @@ set instead of a raw `analyses/*/decision_record.json` glob. The cockpit's live 
 together). `scripts/eval.py` deliberately does NOT drop superseded runs — every committed folder is still
 evaluated and remains visible as a structural fixture. A valid superseded run is historical rather than
 standing, so its recorded failures are advisory and do not block release of its corrected replacement. A
-replacement is valid only when its terminal decision record, thesis, memo, audit dossier, and validated
-runtime provenance all exist and agree on the exact run root; source and target tickers must match and the
-target decision must be newer. A decision record alone cannot retire a call.
+replacement is valid only when its terminal decision record, thesis, memo, and audit dossier exist and agree
+on the exact run root; post-provenance-rollout replacements also require validated runtime provenance.
+Source and target tickers must match and the target decision must be newer. A decision record alone cannot
+retire a call.
 A malformed, incomplete, dangling, or circular supersession fails closed and remains release-gating. The evaluator also
 validates that a Selected/Short call is never left standing with a corrected-away twin.
 

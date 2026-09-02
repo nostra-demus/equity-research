@@ -83,7 +83,12 @@ import os
 import re
 import sys
 
-from execution_provenance import ProvenanceError, validate_attempt, validate_projection
+from execution_provenance import (
+    PROVIDER_ROLLOUT_CUTOFF,
+    ProvenanceError,
+    validate_attempt,
+    validate_projection,
+)
 
 CORRECTIONS_SCHEMA = "corrections/v1"
 _RUN_DIR_RE = re.compile(r"_\d{4}-\d{2}-\d{2}$")
@@ -352,10 +357,12 @@ def supersession_target_violations(source_run_dir, target_run_dir):
         return ["source or target decision_date is invalid"]
     if target_date <= source_date:
         return ["supersession target decision_date is not newer than the source"]
-    try:
-        validate_projection(target.get("execution_provenance"), "replacement execution_provenance")
-    except ProvenanceError as error:
-        return [f"replacement execution provenance is invalid: {error}"]
+    rollout_date = datetime.date.fromisoformat(PROVIDER_ROLLOUT_CUTOFF[:10])
+    if target_date >= rollout_date:
+        try:
+            validate_projection(target.get("execution_provenance"), "replacement execution_provenance")
+        except ProvenanceError as error:
+            return [f"replacement execution provenance is invalid: {error}"]
     return []
 
 

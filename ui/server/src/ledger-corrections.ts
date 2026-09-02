@@ -9,6 +9,7 @@ import path from 'node:path'
 import { ANALYSES_DIR } from './config'
 
 export const CORRECTIONS_SCHEMA = 'corrections/v1'
+const PROVIDER_ROLLOUT_DECISION_DATE = '2026-08-21'
 
 interface Erratum {
   field: string
@@ -155,7 +156,8 @@ export function validSupersessionTarget(sourceRunAbs: string, targetRunAbs: stri
         || !/^\d{4}-\d{2}-\d{2}$/.test(String(source?.decision_date || ''))
         || !/^\d{4}-\d{2}-\d{2}$/.test(String(target?.decision_date || ''))
         || target.decision_date <= source.decision_date
-        || target?.execution_provenance?.source !== 'cockpit_runtime') return false
+        || (target.decision_date >= PROVIDER_ROLLOUT_DECISION_DATE
+          && target?.execution_provenance?.source !== 'cockpit_runtime')) return false
     return true
   } catch { return false }
 }

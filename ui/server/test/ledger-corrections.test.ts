@@ -141,6 +141,12 @@ check('validSupersessionTarget: requires complete, same-ticker, newer publicatio
     record.ticker = 'OTHER'
     fs.writeFileSync(path.join(target, 'decision_record.json'), JSON.stringify(record))
     assert.equal(validSupersessionTarget(source, target, target), false)
+    record.ticker = 'TICK'
+    record.decision_date = '2026-07-10'
+    delete record.execution_provenance
+    fs.writeFileSync(path.join(source, 'decision_record.json'), JSON.stringify({ ticker: 'TICK', decision_date: '2026-07-03' }))
+    fs.writeFileSync(path.join(target, 'decision_record.json'), JSON.stringify(record))
+    assert.equal(validSupersessionTarget(source, target, target), true, 'pre-rollout target remains valid')
   })
 })
 
