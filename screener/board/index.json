@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T14:13:24Z",
+  "generated_at": "2026-09-02T14:28:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-675",
@@ -538,6 +538,153 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-719",
+      "headline": "Uber to lay off 10% of staff in biggest cuts since COVID",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/uber-cut-3300-jobs-overhaul-bloomberg-news-reports-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T13:57:32Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is laying off 10% of its staff, the largest reduction since COVID.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is laying off 10% of its staff, the largest reduction since COVID.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-715",
+      "headline": "La Caisse Acquires 24 Per Cent Stake In Altius Telecom Infra For ₹12,100 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/la-caisse-acquires-24-per-cent-stake-in-altius-telecom-infra-for-12100-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T13:33:21Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "La Caisse acquired a 24% stake in Altius Telecom Infra for ₹12,100 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "La Caisse acquired a 24% stake in Altius Telecom Infra for ₹12,100 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Altius Telecom Infra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-723",
+      "headline": "Citibank’s London unit fined £4.7m for breaching Russia sanctions",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/london-citibank-russia-b1295517.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T12:58:50Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Citibank's London unit was fined £4.7m for breaching Russia sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Citibank's London unit was fined £4.7m for breaching Russia sanctions.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citibank",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1830,158 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-337",
-      "headline": "Dell surges 9% after lifting fiscal 2027 forecast on AI server strength",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/01/dell-q2-earnings-report-2027.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:40:18Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Dell raised its fiscal 2027 forecast driven by AI server demand, causing a 9% stock surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell raised its fiscal 2027 forecast driven by AI server demand, causing a 9% stock surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-344",
-      "headline": "Nvidia Invests $3.5 Billion in MediaTek to Expand Beyond GPUs",
-      "headline_en": null,
-      "url": "https://decrypt.co/377128/nvidia-invests-3-5-billion-mediatek",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:31:04Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Nvidia is investing $3.5 billion into MediaTek to expand its business operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is investing $3.5 billion into MediaTek to expand its business operations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "MediaTek",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-355",
-      "headline": "Motiva conclui venda de aeroportos para mexicana Asur com entrada de R$5,2 bi no caixa",
-      "headline_en": "Motiva completes sale of airports to Mexican company Asur with R$5.2 billion cash inflow",
-      "url": "https://www.reuters.com/pt/negocio/EFMJIBLMVRLI3AI3W5B7KKCD6E-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:08:22Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Motiva completes sale of airports to Asur for R$5.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Motiva completes sale of airports to Asur for R$5.2 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Asur",
-          "ticker": null,
-          "listing_country": "MX"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124845,9 +124840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1595103,
-    "news_picked_today": 1321,
-    "news_dropped_today": 17831
+    "news_seen_today": 1645914,
+    "news_picked_today": 1352,
+    "news_dropped_today": 17968
   },
   "book_momentum": {
     "live_count": 8,
