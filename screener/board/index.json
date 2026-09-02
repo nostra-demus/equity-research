@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-09-02T05:24:17Z",
+  "generated_at": "2026-09-02T06:27:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260902-400",
+      "headline": "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17a3003c-9c1e-4c96-8e76-b77ffa9ee48a.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T05:05:12Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Coal India filed a Draft Red Herring Prospectus for its subsidiary MCL, signaling a potential IPO or spin-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coal India filed a Draft Red Herring Prospectus for its subsidiary MCL, signaling a potential IPO or spin-off.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-397",
+      "headline": "CAY: Third Supplementary Bidder's Statement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03130783-6A1341861",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T04:33:15Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "The company issued a third supplementary bidder's statement regarding an ongoing takeover bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a third supplementary bidder's statement regarding an ongoing takeover bid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cayenne Capital",
+          "ticker": "CAY",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-406",
+      "headline": "ZJ TRANS B2807 (05737): Early redemption of U.S.$220,000,000 4.78 per cent. bonds due 2028 issued by Zhenjiang Transportation Industry Group Co., Ltd.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0902/2026090200377.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T04:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Zhenjiang Transportation Industry Group is performing an early redemption of $220 million in bonds due 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhenjiang Transportation Industry Group is performing an early redemption of $220 million in bonds due 2028.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhenjiang Transportation Industry Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260902-243",
       "headline": "Capri Global Capital Ltd: Press Release - Capri Global Raises US$ 300 Million via Maiden US Dollar Bond Issuance",
@@ -747,6 +894,344 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-498",
+      "headline": "Stan Kroenke Buys Los Angeles Angels In $4 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/zacharyfolk/2026/09/01/stan-kroenke-buys-los-angeles-angels-in-4-billion-deal/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:40:15Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Stan Kroenke is acquiring the Los Angeles Angels in a $4 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stan Kroenke is acquiring the Los Angeles Angels in a $4 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Los Angeles Angels",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-509",
+      "headline": "Dell surges 10% after lifting fiscal 2027 forecast on AI server strength",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/01/dell-q2-earnings-report-2027.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:27:45Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell shares surge 10% after raising fiscal 2027 forecast due to AI server demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell shares surge 10% after raising fiscal 2027 forecast due to AI server demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-511",
+      "headline": "Dell Technologies Boosts Fiscal Year Outlook by $25 Billion as Server Revenue Surges",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/dell-technologies-boosts-fiscal-year-outlook-by-25-billion-as-server-revenue-surges-378fc240?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell Technologies increased its fiscal year outlook by $25 billion due to server demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell Technologies increased its fiscal year outlook by $25 billion due to server demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-514",
+      "headline": "UAE developer Arada enters Syria with $7bn New Damascus city including 11,000 homes",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/uae-developer-arada-enters-syria-with-7bn-new-damascus-city-including-11000-homes",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:14:11Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Arada is launching a $7 billion real estate development project in Syria.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arada is launching a $7 billion real estate development project in Syria.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arada",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-518",
+      "headline": "Dell Gains After Surging AI Server Sales Spur Boost in Outlook",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-01/dell-raises-annual-revenue-outlook-on-sustained-ai-server-sales",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:07:38Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell reported surging AI server sales and raised its annual sales forecast.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported surging AI server sales and raised its annual sales forecast.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-519",
+      "headline": "Dell Boosts Annual Sales Forecast by $25 Billion; Shares Rise",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-01/dell-raises-annual-revenue-outlook-on-sustained-ai-server-sales",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-01T20:07:38Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell increased its annual sales forecast by $25 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell increased its annual sales forecast by $25 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-460",
+      "headline": "Israeli air strikes reported in south Lebanon",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-air-strikes-reported-south-lebanon",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T04:59:57Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Israeli air strikes in south Lebanon mark a military escalation on Israel's northern border.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Israeli air strikes in south Lebanon mark a military escalation on Israel's northern border.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-253",
       "headline": "Oil up nearly 1% as US and Iran trade fresh strikes",
       "headline_en": null,
@@ -815,6 +1300,135 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-444",
+      "headline": "US journalist jailed for 2 years for working as a Chinese agent",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/china/diplomacy/article/3366062/us-journalist-jailed-2-years-working-chinese-agent?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T05:07:08Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "A US journalist has been jailed for two years for working as a Chinese agent, indicating significant geopolitical and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A US journalist has been jailed for two years for working as a Chinese agent, indicating significant geopolitical and legal risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-421",
+      "headline": "Crude oil futures rise as US conducts fresh strikes on Iranian targets",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/commodities/crude-oil-futures-rise-as-us-conducts-fresh-strikes-on-iranian-targets/article71418065.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T04:43:48Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Crude oil futures rose as the US conducted fresh strikes on Iranian targets, indicating an escalation of geopolitical conflict that can impact global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Crude oil futures rose as the US conducted fresh strikes on Iranian targets, indicating an escalation of geopolitical conflict that can impact global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-476",
+      "headline": "Oil prices extend gains as US and Iran trade fresh strikes",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/oil-up-nearly-1-us-iran-trade-fresh-strikes-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T03:53:45Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Oil prices are rising due to military strikes between the US and Iran, representing a supply-side risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Oil prices are rising due to military strikes between the US and Iran, representing a supply-side risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -1017,6 +1631,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-398",
+      "headline": "UltraTech Cement Limited: UltraTech Cement Limited has informed the Exchange regarding 'UltraTech to scale up supply chain electrification with 600+ heavy-duty electric truck fleet '.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ULTRACEMCO1_02092026103650_SE_Letter_-_EV.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T05:07:04Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "UltraTech Cement announces capex programme to scale supply chain electrification with 600+ heavy-duty electric trucks — named, quantified investment in strategic infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "UltraTech Cement announces capex programme to scale supply chain electrification with 600+ heavy-duty electric trucks — named, quantified investment in strategic infrastructure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UltraTech Cement Limited",
+          "ticker": "ULTRATECH",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1251,700 +1914,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-349",
-      "headline": "U.S. military launches fresh strikes in the Strait of Hormuz",
-      "headline_en": null,
-      "url": "https://www.axios.com/2026/09/01/hormuz-centcom-strikes-trump-iran",
-      "source_name": "Axios",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:26:28Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "US military strikes in the Strait of Hormuz represent a major escalation in a critical global shipping lane.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "US military strikes in the Strait of Hormuz represent a major escalation in a critical global shipping lane.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-099",
-      "headline": "ABE: Reinstatement to Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ABE?key=2924-03130717-2A1694504",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T01:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Reinstatement to quotation after suspension resolves regulatory or operational distress that caused delisting; restores trading and investor access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Reinstatement to quotation after suspension resolves regulatory or operational distress that caused delisting; restores trading and investor access.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABE",
-          "ticker": "ABE",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-101",
-      "headline": "KAR: Becoming a substantial holder from CBA",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03130714-3A700824",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T01:46:45Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Commonwealth Bank of Australia has disclosed crossing the 5% substantial-holder threshold in KAR, a material ownership event that often precedes a takeover bid or strategic stake, but does not yet name a deal value or stated intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Commonwealth Bank of Australia has disclosed crossing the 5% substantial-holder threshold in KAR, a material ownership event that often precedes a takeover bid or strategic stake, but does not yet name a deal value or stated intent.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KAR",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Commonwealth Bank of Australia",
-          "ticker": "CBA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-321",
-      "headline": "Semiconductor firm UMC spends $6.4 billion on new Singapore fab for a stake in AI boom",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/economy/semiconductor-firm-umc-spends-6-4m-on-new-singapore-fab-to-claim-a-stake-in-ai-boom",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T22:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "UMC commits $6.4 billion capex for new Singapore fab, a named major capacity-expansion announcement positioning the company for AI semiconductor demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "UMC commits $6.4 billion capex for new Singapore fab, a named major capacity-expansion announcement positioning the company for AI semiconductor demand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Microelectronics Corporation",
-          "ticker": "2303.TW",
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-103",
-      "headline": "OSL: OncoSil submits US Reimbursement Application (Updated)",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OSL?key=2924-03130709-2A1694499",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T01:33:15Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "OncoSil submits an updated US reimbursement application for its medical device, a material procedural milestone de-risking US market access and revenue generation, pending payer approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "OncoSil submits an updated US reimbursement application for its medical device, a material procedural milestone de-risking US market access and revenue generation, pending payer approval.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OncoSil",
-          "ticker": "OSL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-013",
-      "headline": "MS-N225@EC2609B MSNQ100@EC2609A MS-S&P @EC2609A MS-TTI @EC2609A MSPOMRT@EP2609A MSCTGDF@EC2609A MSZHIST@EC2609A MSFOPHA@EC2609A MS-KBLH@EC2609B MS-ZGHL@EC2609A MS#NQ100RC2609C MS#NQ100RC2609D MS#DJIA RC2609B MS#DJIA RC2609C MS#S&P RC2609B MS#S&P RC2609C MS#HKEX RC2609A (11083 11102 11117 24361 26952 26960 27150 27154 27495 28106 49549 49550 49553 49554 49556 49557 66293): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0902/2026090200075.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T00:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Trading suspension across multiple Morgan Stanley leverage, inverse, and index-tracking products (Nikkei 225, Nasdaq 100, S&P 500, Dow Jones, HKEX indices and their reverses) signals systemic operational or regulatory issue affecting market access and investor confidence in the p",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading suspension across multiple Morgan Stanley leverage, inverse, and index-tracking products (Nikkei 225, Nasdaq 100, S&P 500, Dow Jones, HKEX indices and their reverses) signals systemic operational or regulatory issue affecting market access and investor confidence in the p",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-327",
-      "headline": "Iran says it launched drone attacks on US base in Bahrain",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-says-it-launched-drone-attacks-us-base-bahrain",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:54:05Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Reported drone attacks on a US base in Bahrain represent a significant geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Reported drone attacks on a US base in Bahrain represent a significant geopolitical escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-056",
-      "headline": "KNT HOLDINGS (01025): EXCHANGE NOTICE - TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0902/2026090200105.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T01:18:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "KNT Holdings has announced a trading halt, which is a significant event requiring investigation into the underlying cause.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "KNT Holdings has announced a trading halt, which is a significant event requiring investigation into the underlying cause.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KNT HOLDINGS",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-173",
-      "headline": "Roche inks $1.53B deal for Simcere’s B-cell-targeting antibody",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/roche-inks-153-billion-biobucks-deal-simceres-b-cell-targeting-antibody",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T02:46:23Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Roche acquires Simcere's B-cell-targeting antibody program for $1.53B, a confirmed oncology/immunology asset addition to pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Roche acquires Simcere's B-cell-targeting antibody program for $1.53B, a confirmed oncology/immunology asset addition to pipeline.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 71,
-      "rank_factors": {
-        "materiality": 71,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roche",
-          "ticker": "RHHBY",
-          "listing_country": "US"
-        },
-        {
-          "name": "Simcere",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-350",
-      "headline": "Palo Alto Projects Double-Digit Growth as AI Drives Cybersecurity Spending",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/palo-alto-projects-double-digit-growth-as-ai-drives-cybersecurity-spending-5993c397?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:08:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Palo Alto Networks projects double-digit growth driven by AI cybersecurity demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Palo Alto Networks projects double-digit growth driven by AI cybersecurity demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Palo Alto Networks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-098",
-      "headline": "MNC: Placement Announcement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MNC?key=2924-03130718-6A1341839",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T01:52:10Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Confirmed share placement is a capital action that dilutes existing shareholders and alters capital structure; [price-sensitive] tag confirms ASX materiality assessment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Confirmed share placement is a capital action that dilutes existing shareholders and alters capital structure; [price-sensitive] tag confirms ASX materiality assessment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MNC",
-          "ticker": "MNC",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-189",
-      "headline": "SK Chairman Chey Weighs Kioxia Partnership for Japan Plant",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276021",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T06:03:54Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "SK Chairman is considering a partnership with Kioxia for a Japan plant, indicating potential strategic expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "SK Chairman is considering a partnership with Kioxia for a Japan plant, indicating potential strategic expansion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Kioxia",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-256",
-      "headline": "Eicher Motors Shifts Into A Higher Gear. Goldman Sachs Backs Royal Enfield As Capacity Races To 2 Million",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/eicher-motors-shifts-into-a-higher-gear-goldman-sachs-backs-royal-enfield-as-capacity-races-to-2-million-11990178#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T03:27:15Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Eicher Motors announces Royal Enfield capacity expansion to 2 million units annually with Goldman Sachs backing, signaling major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Eicher Motors announces Royal Enfield capacity expansion to 2 million units annually with Goldman Sachs backing, signaling major capex commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eicher Motors",
-          "ticker": "EICHERMOT",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-096",
-      "headline": "Australia clears Kimberly-Clark's acquisition of Kenvue but requires Carefree, Stayfree divestment",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/australia-clears-kimberly-clarks-acquisition-kenvue-requires-carefree-stayfree-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:40:55Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Australia cleared Kimberly-Clark's acquisition of Kenvue assets, subject to the divestment of Carefree and Stayfree brands.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Australia cleared Kimberly-Clark's acquisition of Kenvue assets, subject to the divestment of Carefree and Stayfree brands.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kimberly-Clark",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Kenvue",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92732,148 +92701,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-286d271adaa1",
-      "idea_version": "IDEAV-5fa0baf3d6a03ea4",
-      "idea_version_started_at": "2026-09-01T01:49:20Z",
-      "ticker": "E2E",
-      "company": "E2E Networks Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company signed a binding term sheet worth approximately Rs. 1000 Crore with a sovereign entity, providing a substantial boost to its revenue pipeline and market positioning in cloud/AI infrastructure.",
-      "why_now": "The agreement was announced on August 31, 2026, and is a material commercial development for the firm.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24d9ac71ddac"
-      ],
-      "primary_source_event_id": "EVT-24d9ac71ddac",
-      "source_headlines": [
-        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
-      ],
-      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T18:04:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T01:49:20Z",
-      "updated_at": "2026-09-01T01:49:20Z",
-      "decay_at": "2026-09-02T06:04:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-be7468a7e565",
-      "idea_version": "IDEAV-7db097efeb09fcc1",
-      "idea_version_started_at": "2026-08-31T23:55:29Z",
-      "ticker": "E2ENETWORKS",
-      "company": "E2E Networks Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Signed binding term sheet worth approximately Rs 1,000 crore with a sovereign entity, implying a large, multi-year revenue contract for its cloud/AI infrastructure services.",
-      "why_now": "Press release dated 2026-08-31 announces the binding term sheet; contract size is material relative to the company's current revenue base.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24d9ac71ddac"
-      ],
-      "primary_source_event_id": "EVT-24d9ac71ddac",
-      "source_headlines": [
-        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
-      ],
-      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T18:04:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T23:55:29Z",
-      "updated_at": "2026-08-31T23:55:29Z",
-      "decay_at": "2026-09-02T06:04:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5c23343bcf9d",
       "idea_version": "IDEAV-611b2e1d3c15cd37",
       "idea_version_started_at": "2026-09-01T01:49:20Z",
@@ -94764,6 +94591,148 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-286d271adaa1",
+      "idea_version": "IDEAV-5fa0baf3d6a03ea4",
+      "idea_version_started_at": "2026-09-01T01:49:20Z",
+      "ticker": "E2E",
+      "company": "E2E Networks Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company signed a binding term sheet worth approximately Rs. 1000 Crore with a sovereign entity, providing a substantial boost to its revenue pipeline and market positioning in cloud/AI infrastructure.",
+      "why_now": "The agreement was announced on August 31, 2026, and is a material commercial development for the firm.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-24d9ac71ddac"
+      ],
+      "primary_source_event_id": "EVT-24d9ac71ddac",
+      "source_headlines": [
+        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
+      ],
+      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T18:04:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-01T01:49:20Z",
+      "updated_at": "2026-09-01T01:49:20Z",
+      "decay_at": "2026-09-02T06:04:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-be7468a7e565",
+      "idea_version": "IDEAV-7db097efeb09fcc1",
+      "idea_version_started_at": "2026-08-31T23:55:29Z",
+      "ticker": "E2ENETWORKS",
+      "company": "E2E Networks Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Signed binding term sheet worth approximately Rs 1,000 crore with a sovereign entity, implying a large, multi-year revenue contract for its cloud/AI infrastructure services.",
+      "why_now": "Press release dated 2026-08-31 announces the binding term sheet; contract size is material relative to the company's current revenue base.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-24d9ac71ddac"
+      ],
+      "primary_source_event_id": "EVT-24d9ac71ddac",
+      "source_headlines": [
+        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
+      ],
+      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T18:04:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-31T23:55:29Z",
+      "updated_at": "2026-08-31T23:55:29Z",
+      "decay_at": "2026-09-02T06:04:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100817,13 +100786,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 366,
-    "shown_count": 366,
+    "total_count": 368,
+    "shown_count": 368,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 181,
-        "shown_count": 181,
+        "total_count": 183,
+        "shown_count": 183,
         "hidden_count": 0
       },
       "short": {
@@ -100848,6 +100817,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-286d271adaa1",
+        "idea_version": "IDEAV-5fa0baf3d6a03ea4",
+        "idea_version_started_at": "2026-09-01T01:49:20Z",
+        "ticker": "E2E",
+        "company": "E2E Networks Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company signed a binding term sheet worth approximately Rs. 1000 Crore with a sovereign entity, providing a substantial boost to its revenue pipeline and market positioning in cloud/AI infrastructure.",
+        "why_now": "The agreement was announced on August 31, 2026, and is a material commercial development for the firm.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-24d9ac71ddac"
+        ],
+        "primary_source_event_id": "EVT-24d9ac71ddac",
+        "source_headlines": [
+          "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
+        ],
+        "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T18:04:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-01T01:49:20Z",
+        "updated_at": "2026-09-01T01:49:20Z",
+        "decay_at": "2026-09-02T06:04:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T06:04:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-be7468a7e565",
+        "idea_version": "IDEAV-7db097efeb09fcc1",
+        "idea_version_started_at": "2026-08-31T23:55:29Z",
+        "ticker": "E2ENETWORKS",
+        "company": "E2E Networks Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Signed binding term sheet worth approximately Rs 1,000 crore with a sovereign entity, implying a large, multi-year revenue contract for its cloud/AI infrastructure services.",
+        "why_now": "Press release dated 2026-08-31 announces the binding term sheet; contract size is material relative to the company's current revenue base.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-24d9ac71ddac"
+        ],
+        "primary_source_event_id": "EVT-24d9ac71ddac",
+        "source_headlines": [
+          "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
+        ],
+        "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T18:04:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T23:55:29Z",
+        "updated_at": "2026-08-31T23:55:29Z",
+        "decay_at": "2026-09-02T06:04:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T06:04:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e54a13301bad",
         "idea_version": "IDEAV-9575aa4450c9346c",
@@ -128011,7 +128128,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 373,
-    "live_count": 5,
+    "live_count": 3,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -128030,9 +128147,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 496381,
-    "news_picked_today": 604,
-    "news_dropped_today": 7004
+    "news_seen_today": 587326,
+    "news_picked_today": 816,
+    "news_dropped_today": 8016
   },
   "book_momentum": {
     "live_count": 8,
