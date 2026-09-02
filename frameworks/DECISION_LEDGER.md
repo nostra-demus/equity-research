@@ -158,7 +158,9 @@ set instead of a raw `analyses/*/decision_record.json` glob. The cockpit's live 
 together). `scripts/eval.py` deliberately does NOT drop superseded runs — every committed folder is still
 evaluated and remains visible as a structural fixture. A valid superseded run is historical rather than
 standing, so its recorded failures are advisory and do not block release of its corrected replacement. A
-malformed, dangling, or circular supersession fails closed and remains release-gating. The evaluator also
+replacement is valid only when its terminal decision record, thesis, memo, audit dossier, and execution-
+provenance receipt all exist and agree on the exact run root; a decision record alone cannot retire a call.
+A malformed, incomplete, dangling, or circular supersession fails closed and remains release-gating. The evaluator also
 validates that a Selected/Short call is never left standing with a corrected-away twin.
 
 This layer only corrects **integrity defects** — a duplicate, a scale, a sign, a self-contradiction

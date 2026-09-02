@@ -88,6 +88,8 @@
     "source": "analyses/NU_2026-09-01/catalyst/99_catalyst-synthesis.md, §§1–4; analyses/NU_2026-09-01/valuation/99_valuation-synthesis.md, §§1–7"
   },
   "confidence_score": 53.0,
+  "post_review_confidence_score": 47,
+  "confidence_haircut": 6,
   "data_sufficiency_score": 68,
   "confidence_inputs": {
     "data_sufficiency": 68,
@@ -489,7 +491,7 @@
     "schema_version": "1.0",
     "source": "cockpit_runtime"
   },
-  "notes": "Avoid is a no-trade decision, not a short recommendation. The bank-specific balance-sheet-survival module intentionally failed fast, so no Distress, Stretched, or Fortress verdict is claimed. Execution provenance was recovered from the exact Codex task runtime that produced this corrected run.",
+  "notes": "Avoid is a no-trade decision, not a short recommendation. The bank-specific balance-sheet-survival module intentionally failed fast, so no Distress, Stretched, or Fortress verdict is claimed. Execution provenance was recovered from the exact Codex task runtime that produced this corrected run. The targeted rerun did not execute a new pre-mortem, so the prior call's effective post-review confidence of 47 is carried forward conservatively; the raw score moved from 52 to 53, but no displayed or calibrated confidence uplift is claimed.",
   "business_type": "Bank / lender",
   "primary_valuation_method": "Equity-direct residual income with growth-adjusted peer P/E cross-check",
   "calibration_feedback": {

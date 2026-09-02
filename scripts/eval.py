@@ -20,6 +20,7 @@ from overdue_checks import (
     eval_as_forecast_overdue as _overdue_as_forecast_overdue,
     eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
 )
+from execution_provenance import ProvenanceError, validate_attempt, validate_projection
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
 today = subprocess.check_output(["date","+%F"]).decode().strip()
 
@@ -1066,6 +1067,41 @@ def _an_valid_sidecar(run_dir):
     except Exception:
         return {}
 
+def _an_terminal_replacement_violations(run_root):
+    """Return why a supersession target is not a complete published correction.
+
+    A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
+    module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
+    provenance before it is allowed to retire the prior standing call.
+    """
+    required = ("decision_record.json", "final_thesis.md", "memo.md", "audit_dossier.md",
+                "execution_provenance.receipt.json")
+    missing = [name for name in required if not os.path.isfile(os.path.join(run_root, name))]
+    if missing:
+        return [f"supersession target {run_root!r} is missing terminal artifact(s): {', '.join(missing)}"]
+    for name in ("final_thesis.md", "memo.md", "audit_dossier.md"):
+        if os.path.getsize(os.path.join(run_root, name)) <= 1024:
+            return [f"supersession target {run_root!r} has incomplete terminal artifact {name!r}"]
+    try:
+        record = json.load(open(os.path.join(run_root, "decision_record.json")))
+        if not isinstance(record, dict):
+            raise ValueError("decision_record.json is not an object")
+        if os.path.normpath(str(record.get("run_root") or "")) != os.path.normpath(run_root):
+            raise ValueError("decision_record.run_root does not match the supersession target")
+        expected_thesis = os.path.normpath(os.path.join(run_root, "final_thesis.md"))
+        if os.path.normpath(str(record.get("final_thesis_path") or "")) != expected_thesis:
+            raise ValueError("decision_record.final_thesis_path does not name the target thesis")
+        validate_projection(record.get("execution_provenance"), "replacement execution_provenance")
+        receipt = json.load(open(os.path.join(run_root, "execution_provenance.receipt.json")))
+        attempts = receipt.get("attempts") if isinstance(receipt, dict) else None
+        if not isinstance(attempts, list) or not attempts:
+            raise ValueError("execution provenance receipt has no attempts")
+        for index, attempt in enumerate(attempts, 1):
+            validate_attempt(attempt, index)
+    except (OSError, json.JSONDecodeError, ValueError, ProvenanceError) as error:
+        return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"]
+    return []
+
 def eval_an_supersession_integrity(corrections):
     """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
     must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
@@ -1095,7 +1131,7 @@ def eval_an_supersession_integrity(corrections):
         nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
         nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
         if not (isinstance(nxt, str) and nxt.strip()):
-            return []  # cur is a live, non-superseded record — the chain terminates validly
+            return _an_terminal_replacement_violations(cur)
         nxt = nxt.strip()
         if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
             return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
@@ -3069,8 +3105,25 @@ if scope=="selftest":
     anbad=0
     with _tf.TemporaryDirectory() as _td:
         _good=os.path.join(_td,"EMAAR_2026-07-10"); os.makedirs(_good)
-        open(os.path.join(_good,"decision_record.json"),"w").write("{}")
+        _attempt={"schema_version":"1.0","event":"attempt_started","attempt_id":"00000000-0000-4000-8000-000000000001",
+                  "provider":"codex","model":"gpt-test","reasoning_level":"high","attribution":"recorded",
+                  "scope":["synthesizer"],"decision_artifacts":["decision_record.json"],
+                  "decision_artifacts_optional":False}
+        _projection={"schema_version":"1.0","source":"cockpit_runtime","provider_mode":"single_provider",
+                     "profile_key":"codex|gpt-test:high","coverage":"cockpit_top_level_processes",
+                     "decision_author":{"attempt_id":_attempt["attempt_id"],"provider":"codex","model":"gpt-test",
+                                        "reasoning_level":"high","attribution":"recorded"},
+                     "contributors":[{"provider":"codex","model":"gpt-test","reasoning_level":"high",
+                                      "attribution":"recorded","scopes":["synthesizer"]}],"cli_versions":{}}
+        open(os.path.join(_good,"decision_record.json"),"w").write(json.dumps(
+            {"run_root":_good,"final_thesis_path":os.path.join(_good,"final_thesis.md"),
+             "execution_provenance":_projection}))
+        for _terminal_name in ("final_thesis.md","memo.md","audit_dossier.md"):
+            open(os.path.join(_good,_terminal_name),"w").write("x"*1025)
+        open(os.path.join(_good,"execution_provenance.receipt.json"),"w").write(json.dumps({"attempts":[_attempt]}))
         _empty=os.path.join(_td,"EMPTY_2026-01-01"); os.makedirs(_empty)  # exists but no decision_record.json
+        _decision_only=os.path.join(_td,"PARTIAL_2026-01-01"); os.makedirs(_decision_only)
+        open(os.path.join(_decision_only,"decision_record.json"),"w").write("{}")
         # circular pair: CYCA superseded_by CYCB, CYCB superseded_by CYCA — both dropped, no live record
         _cyca=os.path.join(_td,"CYCA_2026-01-01"); os.makedirs(_cyca); open(os.path.join(_cyca,"decision_record.json"),"w").write("{}")
         _cycb=os.path.join(_td,"CYCB_2026-01-01"); os.makedirs(_cycb); open(os.path.join(_cycb,"decision_record.json"),"w").write("{}")
@@ -3082,6 +3135,7 @@ if scope=="selftest":
             ({"superseded_by":{"run_root":_good}}, []),                                     # valid live target → pass
             ({"superseded_by":{"run_root":os.path.join(_td,"NOPE_2026-01-01")}}, ["does not exist"]),
             ({"superseded_by":{"run_root":_empty}}, ["no decision_record.json"]),
+            ({"superseded_by":{"run_root":_decision_only}}, ["missing terminal artifact"]),
             ({"superseded_by":{"reason":"x"}}, ["no run_root"]),                            # missing run_root
             ({"superseded_by":{"run_root":_cyca}}, ["circular"]),                           # A→B→A chain → caught
         ]
@@ -5345,7 +5399,7 @@ print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     status = "WARN" if r.get("warn_only") else ("PASS" if r["pass"] else "FAIL")
-    superseded = not r.get("gate_eligible") and any(
+    superseded = any(
         c["check"] == "AN_supersession_integrity" and c["status"] == "PASS" and not c.get("na")
         for c in r["checks"]
     )
