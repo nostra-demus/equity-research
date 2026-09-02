@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T02:53:29Z",
+  "generated_at": "2026-09-02T03:29:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-005",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-218",
+      "headline": "HSBC puts $20b in deposits up for sale amid exit from retail banking",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/hsbc-kicks-off-final-leg-of-aus-exit-20b-retail-deposits-up-for-sale-20260826-p60rut?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T01:29:18Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "HSBC putting $20 billion in deposits up for sale and exiting retail banking is a significant strategic shift with broad implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HSBC putting $20 billion in deposits up for sale and exiting retail banking is a significant strategic shift with broad implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -394,55 +443,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260902-121",
-      "headline": "HSBC kicks off final leg of Aus exit, $20b retail deposits up for sale",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/hsbc-kicks-off-final-leg-of-aus-exit-20b-retail-deposits-up-for-sale-20260826-p60rut?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:29:18Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "HSBC is selling $20 billion in retail deposits as part of its exit from the Australian retail banking market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "HSBC is selling $20 billion in retail deposits as part of its exit from the Australian retail banking market.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260902-101",
       "headline": "KAR: Becoming a substantial holder from CBA",
       "headline_en": null,
@@ -644,6 +644,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-173",
+      "headline": "Roche inks $1.53B deal for Simcere’s B-cell-targeting antibody",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/roche-inks-153-billion-biobucks-deal-simceres-b-cell-targeting-antibody",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T02:46:23Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Roche acquires Simcere's B-cell-targeting antibody program for $1.53B, a confirmed oncology/immunology asset addition to pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Roche acquires Simcere's B-cell-targeting antibody program for $1.53B, a confirmed oncology/immunology asset addition to pipeline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 71,
+      "rank_factors": {
+        "materiality": 71,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roche",
+          "ticker": "RHHBY",
+          "listing_country": "US"
+        },
+        {
+          "name": "Simcere",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-098",
       "headline": "MNC: Placement Announcement [price-sensitive]",
       "headline_en": null,
@@ -688,6 +742,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-189",
+      "headline": "SK Chairman Chey Weighs Kioxia Partnership for Japan Plant",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276021",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T06:03:54Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "SK Chairman is considering a partnership with Kioxia for a Japan plant, indicating potential strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "SK Chairman is considering a partnership with Kioxia for a Japan plant, indicating potential strategic expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Kioxia",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -785,6 +893,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-178",
+      "headline": "GSK catches phase 3 fever after mRNA flu vaccine beats standard shots",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/gsk-catches-phase-3-fever-after-mrna-flu-vaccine-beats-standard-shots",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T02:46:23Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Pharma giant GSK reported Phase 3 superiority for mRNA influenza vaccine versus standard-dose control; patient enrollment and regulatory pathway not detailed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Pharma giant GSK reported Phase 3 superiority for mRNA influenza vaccine versus standard-dose control; patient enrollment and regulatory pathway not detailed.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GlaxoSmithKline",
+          "ticker": "GSK",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -986,6 +1144,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-199",
+      "headline": "SK바이오팜, 엔비디아 'B200' 128장 도입",
+      "headline_en": "SK Biopharmaceuticals introduces 128 units of Nvidia 'B200'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276005",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T01:07:32Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "SK Biopharmaceuticals is investing in high-end AI infrastructure by acquiring 128 Nvidia B200 GPUs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "SK Biopharmaceuticals is investing in high-end AI infrastructure by acquiring 128 Nvidia B200 GPUs.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Biopharmaceuticals",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-138",
       "headline": "Frasers Property to redevelop Yishun 10 into mixed-used complex by mid-2031",
       "headline_en": null,
@@ -1035,6 +1242,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-177",
+      "headline": "Boston Scientific halts sales of angiographic catheters amid 2 serious injuries",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/medtech/boston-scientific-halts-sales-angiographic-catheters-amid-two-serious-injuries",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T02:46:23Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Medtech giant Boston Scientific halted angiographic-catheter sales following 2 serious injuries; revenue exposure, patient scope, and regulatory detail not stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Medtech giant Boston Scientific halted angiographic-catheter sales following 2 serious injuries; revenue exposure, patient scope, and regulatory detail not stated.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": "BSX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-114",
       "headline": "BOJ chief vows to keep raising rates, debate price risks this month",
       "headline_en": null,
@@ -1073,6 +1331,109 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-182",
+      "headline": "Welspun Corp, Perma-Pipe to invest Rs 1500 crore in Jordan pipe manufacturing JV",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/welspun-corp-perma-pipe-to-invest-rs-1500-crore-in-jordan-pipe-manufacturing-jv/articleshow/133695216.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T02:01:08Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Welspun Corp and Perma-Pipe are investing Rs 1500 crore in a new manufacturing joint venture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Welspun Corp and Perma-Pipe are investing Rs 1500 crore in a new manufacturing joint venture.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Corp",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Perma-Pipe",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-198",
+      "headline": "Dropbox User Accounts Breached By Hackers Who Accessed Data",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/technology/dropbox-user-accounts-breached-by-hackers-who-accessed-data-11989928#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T01:59:17Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dropbox reported a security breach involving user account data, posing operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Dropbox reported a security breach involving user account data, posing operational and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dropbox",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1171,6 +1532,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-191",
+      "headline": "Micron Taiwan Union Members Vote Over 80% in Favor of Strike",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276019",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T05:41:19Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Micron Taiwan union members voted over 80% in favor of a strike, posing a risk to production operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Micron Taiwan union members voted over 80% in favor of a strike, posing a risk to production operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1518,21 +1928,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260902-050",
-      "headline": "UK long-term borrowing costs highest since 1998 ahead of October Budget",
+      "inbox_id": "INB-20260902-186",
+      "headline": "BOJ to debate rate rise, inflation much closer to 2% target: governor",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c8d39vq779no?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
+      "url": "https://mainichi.jp/english/articles/20260902/p2g/00m/0bu/023000c",
+      "source_name": "The Mainichi",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:23:00Z",
+      "found_at": "2026-09-02T02:15:06Z",
       "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "UK long-term borrowing costs have reached their highest level since 1998, signaling increased fiscal risk and potential pressure on equity valuations ahead of the budget.",
+      "prelim_note": "The Bank of Japan governor signaled a potential interest rate hike, indicating inflation is nearing the 2% target.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 82,
-      "triage_reason": "UK long-term borrowing costs have reached their highest level since 1998, signaling increased fiscal risk and potential pressure on equity valuations ahead of the budget.",
-      "region": "GB",
+      "triage_reason": "The Bank of Japan governor signaled a potential interest rate hike, indicating inflation is nearing the 2% target.",
+      "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1556,387 +1966,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-156",
-      "headline": "Coal India to sell 10% stake in unit Mahanadi Coalfields' IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/coal-india-unit-mahanadi-coalfields-files-ipo-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T00:50:05Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Coal India plans to sell a 10% stake in its unit Mahanadi Coalfields via an IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Coal India plans to sell a 10% stake in its unit Mahanadi Coalfields via an IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-142",
-      "headline": "Keppel DC Reit’s private placement upsized to S$625 million after ‘strong demand’",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/property/keppel-dc-reits-private-placement-upsized-s625-million-after-strong-demand",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T00:37:09Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Keppel DC Reit upsized its private placement to S$625 million, indicating strong capital market demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Keppel DC Reit upsized its private placement to S$625 million, indicating strong capital market demand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keppel DC Reit",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-128",
-      "headline": "China’s CXMT Starts Small-Scale HBM3E Production",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276015",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T05:14:17Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "China's CXMT has started small-scale production of HBM3E, increasing competitive pressure on existing HBM suppliers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "China's CXMT has started small-scale production of HBM3E, increasing competitive pressure on existing HBM suppliers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "CXMT",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-117",
-      "headline": "Bank unions call strikes from 11 September, indefinite strike from 26 October over 5-day banking, PLI scheme",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/bank-strike-september-11-bank-strike-ufbu-five-day-banking-pli-public-sector-banks-bank-unions-11788284451966.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:33:09Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Indian bank unions announce indefinite strikes from 26 October over 5-day banking and PLI scheme, a sector-wide operational disruption threatening revenue, customer service, and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Indian bank unions announce indefinite strikes from 26 October over 5-day banking and PLI scheme, a sector-wide operational disruption threatening revenue, customer service, and margins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 66,
-      "rank_factors": {
-        "materiality": 66,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 4,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-139",
-      "headline": "Enflame’s US$900m IPO tests appetite for China’s ‘little dragon’ AI chipmakers",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3366025/enflames-us900m-ipo-tests-appetite-chinas-little-dragon-ai-chipmakers?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T00:30:05Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Enflame is seeking a US$900 million IPO, a significant capital event for the AI chip sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Enflame is seeking a US$900 million IPO, a significant capital event for the AI chip sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enflame",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-080",
-      "headline": "Saudi Remedium secures $1.5 million to expand sustainability accounting",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/saudi-remedium-secures-1-5-million-expand-sustainability-accounting",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T01:26:41Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Remedium secured $1.5 million in funding for expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Remedium secured $1.5 million in funding for expansion.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Remedium",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-165",
-      "headline": "Senado aprova projeto do Redata, com incentivos para datacenters no Brasil",
-      "headline_en": "Senate approves Redata project, with incentives for data centers in Brazil",
-      "url": "https://www.reuters.com/pt/negocio/EPZ5ON4B4NLSTGNLJDF2QFGK34-2026-09-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T23:56:10Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "The Brazilian Senate approved a project providing incentives for data centers, which is a positive regulatory development for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "The Brazilian Senate approved a project providing incentives for data centers, which is a positive regulatory development for the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-020",
-      "headline": "SWIRE PACIFIC A SWIRE PACIFIC B (00019 00087): DISCLOSEABLE TRANSACTION - ACCELERATED EXCHANGE TRADE IN RELATION TO THE BONDS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0902/2026090200023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-01T23:26:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Swire Pacific announced a discloseable transaction involving an accelerated exchange trade of bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Swire Pacific announced a discloseable transaction involving an accelerated exchange trade of bonds.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swire Pacific",
-          "ticker": "00019",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -128022,9 +128051,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 299982,
-    "news_picked_today": 223,
-    "news_dropped_today": 4337
+    "news_seen_today": 338562,
+    "news_picked_today": 298,
+    "news_dropped_today": 4934
   },
   "book_momentum": {
     "live_count": 8,
