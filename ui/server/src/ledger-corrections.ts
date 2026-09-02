@@ -137,17 +137,14 @@ export function applyErrata(record: any, c: Corrections): any {
   return out
 }
 
-export function validSupersessionTarget(sourceRunAbs: string, targetRunAbs: string,
-  expectedTargetRoot: string): boolean {
+export function validSupersessionPublication(source: any, rawTarget: any, expectedTargetRoot: string,
+  targetCorrections: Corrections, terminalArtifactSizes: Record<string, number | null>): boolean {
   try {
-    if (path.dirname(path.resolve(sourceRunAbs)) !== path.dirname(path.resolve(targetRunAbs))) return false
-    for (const name of ['final_thesis.md', 'memo.md', 'audit_dossier.md']) {
-      const info = fs.statSync(path.join(targetRunAbs, name))
-      if (!info.isFile() || info.size <= 1024) return false
-    }
-    const source = JSON.parse(fs.readFileSync(path.join(sourceRunAbs, 'decision_record.json'), 'utf8'))
-    const rawTarget = JSON.parse(fs.readFileSync(path.join(targetRunAbs, 'decision_record.json'), 'utf8'))
-    const target = applyErrata(rawTarget, readCorrections(targetRunAbs))
+    if (!source || typeof source !== 'object' || Array.isArray(source)
+        || !rawTarget || typeof rawTarget !== 'object' || Array.isArray(rawTarget)) return false
+    if (['final_thesis.md', 'memo.md', 'audit_dossier.md']
+      .some((name) => (terminalArtifactSizes[name] ?? 0) <= 1024)) return false
+    const target = applyErrata(rawTarget, targetCorrections)
     const normalizedExpected = path.normalize(expectedTargetRoot)
     if (path.normalize(String(target?.run_root || '')) !== normalizedExpected
         || path.normalize(String(target?.final_thesis_path || ''))
@@ -159,6 +156,21 @@ export function validSupersessionTarget(sourceRunAbs: string, targetRunAbs: stri
         || (target.decision_date >= PROVIDER_ROLLOUT_DECISION_DATE
           && target?.execution_provenance?.source !== 'cockpit_runtime')) return false
     return true
+  } catch { return false }
+}
+
+export function validSupersessionTarget(sourceRunAbs: string, targetRunAbs: string,
+  expectedTargetRoot: string): boolean {
+  try {
+    if (path.dirname(path.resolve(sourceRunAbs)) !== path.dirname(path.resolve(targetRunAbs))) return false
+    const source = JSON.parse(fs.readFileSync(path.join(sourceRunAbs, 'decision_record.json'), 'utf8'))
+    const rawTarget = JSON.parse(fs.readFileSync(path.join(targetRunAbs, 'decision_record.json'), 'utf8'))
+    const sizes = Object.fromEntries(['final_thesis.md', 'memo.md', 'audit_dossier.md'].map((name) => {
+      const info = fs.statSync(path.join(targetRunAbs, name))
+      return [name, info.isFile() ? info.size : null]
+    }))
+    return validSupersessionPublication(source, rawTarget, expectedTargetRoot,
+      readCorrections(targetRunAbs), sizes)
   } catch { return false }
 }
 

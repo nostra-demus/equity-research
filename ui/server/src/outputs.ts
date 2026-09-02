@@ -6,6 +6,7 @@ import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
 import {
   applyErrata, CORRECTIONS_SCHEMA, resolveDisplayFields, supersededTarget,
+  validSupersessionPublication,
 } from './ledger-corrections'
 import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
@@ -1041,6 +1042,20 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
   })
   await authority.loadRequired(projectionPaths)
 
+  // Supersession is authority, not decoration. Load only the few terminal artifacts named by
+  // sidecars, through the same immutable Git snapshot; malformed/missing targets remain standing.
+  const correctionsByRoot = new Map(runRoots.map((runRoot) => [runRoot, publishedCorrections(runRoot, authority)]))
+  const supersessionArtifactPaths = new Set<string>()
+  for (const corrections of correctionsByRoot.values()) {
+    const target = supersededTarget(corrections)
+    if (!target || !runRootSet.has(target)) continue
+    for (const name of ['decision_record.json', 'final_thesis.md', 'memo.md', 'audit_dossier.md', 'corrections.json']) {
+      const repoPath = `${target}/${name}`
+      if (publishedPaths.has(repoPath)) supersessionArtifactPaths.add(repoPath)
+    }
+  }
+  await authority.loadRequired(supersessionArtifactPaths)
+
   const today = todayISO()
   const calls: any[] = []
   const historyCalls: any[] = []
@@ -1050,9 +1065,23 @@ async function projectAllCalls(authority: PublishedTreeAuthority) {
     // Skip a corrected-away duplicate (frameworks/DECISION_LEDGER.md §4a): a run superseded by an
     // append-only corrections.json is not a live call — this is what de-double-counts EMAAR here and
     // in the cockpit Calls view, matching scripts/ledger_records.py's standing set.
-    const corrections = publishedCorrections(runRoot, authority)
-    const supersededBy = supersededTarget(corrections)
-    const d = applyErrata(requiredPublishedJsonObject(authority, `${runRoot}/decision_record.json`), corrections)
+    const corrections = correctionsByRoot.get(runRoot) || {}
+    const requestedSupersession = supersededTarget(corrections)
+    const rawDecision = requiredPublishedJsonObject(authority, `${runRoot}/decision_record.json`)
+    let supersededBy: string | null = null
+    if (requestedSupersession && runRootSet.has(requestedSupersession)) {
+      const targetCorrections = correctionsByRoot.get(requestedSupersession) || {}
+      const terminalArtifactSizes = Object.fromEntries(
+        ['final_thesis.md', 'memo.md', 'audit_dossier.md'].map((name) => {
+          const repoPath = `${requestedSupersession}/${name}`
+          return [name, publishedPaths.has(repoPath) ? authority.readRequired(repoPath).length : null]
+        }),
+      )
+      const rawTarget = requiredPublishedJsonObject(authority, `${requestedSupersession}/decision_record.json`)
+      if (validSupersessionPublication(rawDecision, rawTarget, requestedSupersession,
+        targetCorrections, terminalArtifactSizes)) supersededBy = requestedSupersession
+    }
+    const d = applyErrata(rawDecision, corrections)
     const reviews = listReviewFiles(runRoot, authority)
     const timeline = buildTimeline(d?.review_schedule || {}, reviews, today)
     const latest = pickWinner(reviews) // latest review across ALL windows incl. ad-hoc
