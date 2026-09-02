@@ -14,6 +14,7 @@ chmod 700 "$TEST_STATE"
 git -C "$TEST_TMP" init -q "$TEST_REPO"
 
 TARGET="$(printf 'a%.0s' {1..40})"
+DATA_TIP="$(printf 'c%.0s' {1..40})"
 DEPLOYED="$(printf 'b%.0s' {1..40})"
 STATUS="$TEST_STATE/deployment-status.json"
 
@@ -47,8 +48,18 @@ assert value["pendingSince"] == int(sys.argv[2])
 assert value["reason"] == "ci_not_green"
 PY
 
-write_status "$TARGET" "$TARGET" deployed
-python3 -I - "$STATUS" "$TARGET" <<'PY'
+# Autonomous data may advance main while the deployed program is unchanged. The visible lag age must not
+# reset on every such tip; it resets only after production itself advances.
+write_status "$DATA_TIP" "$DEPLOYED" observed
+python3 -I - "$STATUS" "$first_since" "$DATA_TIP" <<'PY'
+import json, sys
+value = json.load(open(sys.argv[1], encoding="utf-8"))
+assert value["targetSha"] == sys.argv[3]
+assert value["pendingSince"] == int(sys.argv[2])
+PY
+
+write_status "$DATA_TIP" "$DATA_TIP" deployed
+python3 -I - "$STATUS" "$DATA_TIP" <<'PY'
 import json, sys
 value = json.load(open(sys.argv[1], encoding="utf-8"))
 assert value["status"] == "current"

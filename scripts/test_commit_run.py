@@ -31,6 +31,8 @@ import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+from validate_data_catalogue import uncovered_paths
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMMIT_RUN = os.path.join(REPO_ROOT, "scripts", "commit-run.sh")
 
@@ -263,6 +265,13 @@ def test_uncatalogued_data_is_rejected_before_commit():
               relative in result.stderr and "DATA-CATALOGUE: FAIL" in result.stderr
               and cached.returncode == 0,
               result.stderr)
+
+
+def test_catalogue_globs_do_not_cross_path_segments():
+    paths = ["watchlist/entries/archive/x.json", "analyses/TEST/module/nested/memo.md"]
+    patterns = ["watchlist/entries/*.json", "analyses/*/*/*.md"]
+    missing = uncovered_paths(paths, patterns)
+    check("catalogue '*' cannot hide a deeper undeclared artifact", missing == paths, str(missing))
 
 
 def test_git_add_failure_is_not_a_noop():
@@ -874,6 +883,7 @@ if __name__ == "__main__":
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
     test_no_op_when_no_matching_pathspec()
     test_uncatalogued_data_is_rejected_before_commit()
+    test_catalogue_globs_do_not_cross_path_segments()
     test_git_add_failure_is_not_a_noop()
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_remote_reconciliation_leaves_checkout_untouched()

@@ -10,9 +10,9 @@ the Git index/tree instead of the mutable worktree keeps this check race-safe fo
 from __future__ import annotations
 
 import argparse
-import fnmatch
 import json
 import pathlib
+import re
 import subprocess
 import sys
 from typing import Any
@@ -88,13 +88,34 @@ def listed_paths(repo: pathlib.Path, source: str, index: bool) -> list[str]:
 
 
 def uncovered_paths(paths: list[str], patterns: list[str]) -> list[str]:
+    compiled = [segment_glob(pattern) for pattern in patterns]
     uncovered: list[str] = []
     for relative in paths:
         if not relative.startswith(DATA_ROOTS) or pathlib.PurePosixPath(relative).name in IGNORED_NAMES:
             continue
-        if not any(fnmatch.fnmatchcase(relative, pattern) for pattern in patterns):
+        if not any(pattern.fullmatch(relative) for pattern in compiled):
             uncovered.append(relative)
     return uncovered
+
+
+def segment_glob(pattern: str) -> re.Pattern[str]:
+    """Compile repository globs: ``*`` stays in one segment; only ``**`` crosses ``/``."""
+    translated: list[str] = []
+    index = 0
+    while index < len(pattern):
+        if pattern.startswith("**", index):
+            translated.append(".*")
+            index += 2
+        elif pattern[index] == "*":
+            translated.append("[^/]*")
+            index += 1
+        elif pattern[index] == "?":
+            translated.append("[^/]")
+            index += 1
+        else:
+            translated.append(re.escape(pattern[index]))
+            index += 1
+    return re.compile("".join(translated))
 
 
 def parse_args() -> argparse.Namespace:

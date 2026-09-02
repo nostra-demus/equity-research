@@ -8,7 +8,6 @@ Run from any directory with:
 from __future__ import annotations
 
 import copy
-import fnmatch
 import inspect
 import json
 import sys
@@ -24,6 +23,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 import memory_baseline  # noqa: E402
 import memory_contract  # noqa: E402
 from memory_adapters import discover_legacy_sources  # noqa: E402
+from validate_data_catalogue import segment_glob  # noqa: E402
 
 
 PHASE0 = REPO_ROOT / "frameworks/memory/phase0"
@@ -254,7 +254,7 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
             if not path.is_file() or path.name in {".gitkeep"}:
                 continue
             relative = path.relative_to(REPO_ROOT).as_posix()
-            if not any(fnmatch.fnmatchcase(relative, pattern) for pattern in all_patterns):
+            if not any(segment_glob(pattern).fullmatch(relative) for pattern in all_patterns):
                 uncovered.append(relative)
     check(not uncovered, f"current artifacts absent from store catalogue: {uncovered[:10]}")
 

@@ -38,6 +38,7 @@ const {
   shouldRetrySwarmDiscovery,
   useStore,
 } = await import('./store')
+const { deploymentLagBanner } = await import('../components/EngineStatus')
 
 const research: SwarmMeta = { id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }
 const screener: SwarmMeta = { id: 'screener', label: 'Screener', color: '#20d7e5', unit: 'signal', order: 2, layout: 'flow' }
@@ -227,6 +228,9 @@ try {
     schemaVersion: 1, status: 'pending', targetSha: 'a'.repeat(40), deployedSha: 'b'.repeat(40),
     authorizedCodeSha: null, pendingSince: Date.now() - 600_000, checkedAt: Date.now(), reason: 'ci_not_green',
   }
+  const blockedCopy = deploymentLagBanner({ ...laggedDeployment, reason: 'dirty_nondata' }, laggedDeployment.pendingSince + 600_000)
+  assert.equal(blockedCopy.cta, 'refresh', 'a deployment blocker offers a truthful status refresh, not a fake retry')
+  assert.match(blockedCopy.body, /unexpected local files/, 'a dirty production checkout gives an actionable reason')
   globalThis.fetch = async () => new Response(JSON.stringify({
     ok: true, deploymentPending: false, deployment: laggedDeployment,
   }), { status: 200, headers: { 'content-type': 'application/json' } })

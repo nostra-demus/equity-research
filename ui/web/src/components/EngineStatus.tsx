@@ -1,5 +1,5 @@
 import { useStore } from '../lib/store'
-import type { HealthState } from '../lib/types'
+import type { DeploymentLag, HealthState } from '../lib/types'
 
 // Two presentational pieces, both reading the heartbeat `health` from the store (logic lives there):
 //  - EngineStatusPill: the always-visible top-bar pill (mounted in CommandBar)
@@ -33,7 +33,7 @@ export function EngineStatusPill() {
   )
 }
 
-type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' }
+type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' | 'refresh'; activity?: 'checking' | 'blocked' }
 const BANNER: Partial<Record<HealthState, BannerMeta>> = {
   updating: {
     title: 'Engine updating',
@@ -57,17 +57,29 @@ const BANNER: Partial<Record<HealthState, BannerMeta>> = {
   },
 }
 
+export function deploymentLagBanner(lag: DeploymentLag, now = Date.now()): BannerMeta {
+  const minutes = Math.max(1, Math.floor((now - lag.pendingSince) / 60_000))
+  const age = `${minutes} minute${minutes === 1 ? '' : 's'}`
+  switch (lag.reason) {
+    case 'dirty_nondata':
+      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has unexpected local files; move them outside the production folder, then refresh this status.`, cta: 'refresh', activity: 'blocked' }
+    case 'local_diverged':
+      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has a local commit that is not on main; publish or recover it safely, then refresh this status.`, cta: 'refresh', activity: 'blocked' }
+    case 'build_failed':
+      return { title: 'Production update failed', body: `Main has waited ${age}. The production build failed and needs a code fix before it can continue.`, cta: 'refresh', activity: 'blocked' }
+    case 'ci_not_green':
+      return { title: 'Production update waiting for checks', body: `Main has waited ${age}. One or more required checks have not passed; inspect the main checks, then refresh this status.`, cta: 'refresh', activity: 'checking' }
+    default:
+      return { title: 'Production update delayed', body: `Main has waited ${age} to reach production. The engine is still live; refresh to read the watcher's latest status.`, cta: 'refresh', activity: 'checking' }
+  }
+}
+
 export function OfflineBanner() {
   const health = useStore((s) => s.health)
   const deploymentLag = useStore((s) => s.deploymentLag)
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
-  const lagMinutes = deploymentLag ? Math.max(1, Math.floor((Date.now() - deploymentLag.pendingSince) / 60_000)) : 0
-  const lagInfo: BannerMeta | null = health === 'online' && deploymentLag ? {
-    title: 'Production update delayed',
-    body: `Main has been waiting to reach production for ${lagMinutes} minute${lagMinutes === 1 ? '' : 's'}. The engine is still live and the release watcher is retrying.`,
-    cta: 'retry',
-  } : null
+  const lagInfo = health === 'online' && deploymentLag ? deploymentLagBanner(deploymentLag) : null
   const info = staticMode ? null : BANNER[health] ?? lagInfo
   if (!info) return null // online/connecting/reconnecting -> no banner (React unmounts it instantly)
   return (
@@ -78,6 +90,11 @@ export function OfflineBanner() {
       <span className="offlinebar__spacer" />
       {info.cta === 'reload' ? (
         <button className="btn btn--ghost offlinebar__btn" onClick={() => location.reload()}>Reload</button>
+      ) : info.cta === 'refresh' ? (
+        <>
+          <span className="offlinebar__retry">{info.activity === 'blocked' ? 'blocked' : 'checking…'}</span>
+          <button className="btn btn--ghost offlinebar__btn" onClick={() => checkNow()}>Refresh status</button>
+        </>
       ) : (
         <>
           <span className="offlinebar__retry"><span className="pulsedot" />retrying…</span>

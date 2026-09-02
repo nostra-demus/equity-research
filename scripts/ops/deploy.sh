@@ -176,8 +176,9 @@ current = bool(deployed) and target == deployed
 pending_since = None
 if not current:
     if (isinstance(previous, dict) and previous.get("status") == "pending"
-            and previous.get("targetSha") == target
-            and isinstance(previous.get("pendingSince"), int)):
+            and (previous.get("targetSha") == target or previous.get("deployedSha") == (deployed or None))
+            and isinstance(previous.get("pendingSince"), int)
+            and not isinstance(previous.get("pendingSince"), bool)):
         pending_since = previous["pendingSince"]
     else:
         pending_since = now
