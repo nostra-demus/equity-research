@@ -178,6 +178,8 @@ def _apply_shape_fix(record, field):
 
 def _valid_metadata_recovery(record, corrections):
     """Validate an append-only recovery for fields omitted at publication."""
+    if not isinstance(record, dict):
+        return None
     value = corrections.get("metadata_recovery")
     if not isinstance(value, dict) or not all(
         isinstance(value.get(key), str) and value[key].strip() for key in ("reason", "evidence")
@@ -342,10 +344,10 @@ def supersession_target_violations(source_run_dir, target_run_dir):
     if source is None or raw_target is None:
         return ["source or target decision_record.json is unreadable"]
     target = apply_errata(raw_target, read_corrections(target_run_dir))
-    expected_thesis = os.path.normpath(os.path.join(target_run_dir, "final_thesis.md"))
-    if os.path.normpath(str(target.get("run_root") or "")) != os.path.normpath(target_run_dir):
+    expected_thesis = os.path.abspath(os.path.join(target_run_dir, "final_thesis.md"))
+    if os.path.abspath(str(target.get("run_root") or "")) != os.path.abspath(target_run_dir):
         return ["decision_record.run_root does not match the supersession target"]
-    if os.path.normpath(str(target.get("final_thesis_path") or "")) != expected_thesis:
+    if os.path.abspath(str(target.get("final_thesis_path") or "")) != expected_thesis:
         return ["decision_record.final_thesis_path does not name the target thesis"]
     if not (isinstance(source.get("ticker"), str) and source["ticker"]
             and source["ticker"] == target.get("ticker")):
@@ -486,6 +488,8 @@ def selftest():
     check(recovered["post_review_confidence_score"] == 47
           and recovered["execution_provenance"] == projection and "execution_provenance" not in frozen,
           "metadata recovery overlays a validated projection without mutating the frozen record")
+    check(_valid_metadata_recovery(None, {"metadata_recovery": recovery}) is None,
+          "metadata recovery rejects a non-object record without crashing")
     existing = apply_errata({**frozen, "post_review_confidence_score": 50},
                             {"schema": CORRECTIONS_SCHEMA, "metadata_recovery": recovery})
     check(existing["post_review_confidence_score"] == 50,
@@ -517,6 +521,11 @@ def selftest():
         check([row["record"]["decision_date"] for row in standing] == ["2026-09-01"],
               "complete same-ticker newer replacement retires the source")
         target_record = json.load(open(os.path.join(target_run, "decision_record.json")))
+        target_record["run_root"] = os.path.relpath(target_run)
+        target_record["final_thesis_path"] = os.path.relpath(os.path.join(target_run, "final_thesis.md"))
+        json.dump(target_record, open(os.path.join(target_run, "decision_record.json"), "w"))
+        check(not supersession_target_violations(source_run, target_run),
+              "equivalent relative and absolute target paths validate consistently")
         target_record["ticker"] = "OTHER"
         json.dump(target_record, open(os.path.join(target_run, "decision_record.json"), "w"))
         standing = load_standing_records(td)
