@@ -1101,6 +1101,15 @@ def eval_an_supersession_integrity(corrections):
             return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
         cur = nxt
 
+def eval_release_gate_eligible(has_run_metadata, supersession_result):
+    """Only a complete standing run gates releases; valid corrected-away runs remain advisory.
+
+    `supersession_result` is exactly eval_an_supersession_integrity's result: [] means a valid chain,
+    None means no supersession, and a non-empty list is malformed authority that must fail closed.
+    """
+    valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
+    return bool(has_run_metadata) and not valid_supersession
+
 # ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
 AM_DATE = "2026-07-17"
 def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
@@ -3083,6 +3092,18 @@ if scope=="selftest":
             else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
             if not ok: anbad+=1
             print(f"  [{'ok' if ok else 'XX'}] AN({corr_}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+        angatecases=[
+            (True,None,True),                         # complete standing run gates
+            (False,None,False),                       # incomplete standing run stays advisory
+            (True,[],False),                          # valid superseded run is historical, not standing
+            (True,["does not exist"],True),           # malformed supersession fails closed
+            (False,[],False),                         # missing metadata never gates
+        ]
+        for has_metadata,sup_result,expected in angatecases:
+            got=eval_release_gate_eligible(has_metadata,sup_result)
+            ok=got is expected
+            if not ok: anbad+=1
+            print(f"  [{'ok' if ok else 'XX'}] AN release_gate(metadata={has_metadata}, supersession={sup_result}) -> {got}"+("" if ok else f"  EXPECTED {expected}"))
     bad+=anbad
 
     # check AM — bear-case sanity (§8/§16). A Selected long whose bear price target is at/above entry has no loss branch.
@@ -3784,7 +3805,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4896,7 +4917,10 @@ for drp in runs:
     # do NOT block code PRs. The golden fixtures all carry RUN_METADATA.md, so a genuine framework / agent /
     # command regression still turns CI red. (Once the chained full-run path also writes RUN_METADATA + runs
     # the finish-gate, every real full run is gate-eligible again — see the engine finish-gate PR.)
-    gate_eligible = os.path.exists(rm)
+    # A valid supersession keeps the frozen folder in this evaluation report, but the corrected-away call is
+    # no longer standing authority and cannot block release of its replacement. Invalid/dangling/circular
+    # sidecars remain gate-eligible and fail closed through AN.
+    gate_eligible = eval_release_gate_eligible(os.path.exists(rm), _anresult)
     warn_only = (not run_pass) and (not gate_eligible)
     if not warn_only:
         suite_pass = suite_pass and run_pass
@@ -5321,7 +5345,12 @@ print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     status = "WARN" if r.get("warn_only") else ("PASS" if r["pass"] else "FAIL")
-    note = " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else ""
+    superseded = not r.get("gate_eligible") and any(
+        c["check"] == "AN_supersession_integrity" and c["status"] == "PASS" and not c.get("na")
+        for c in r["checks"]
+    )
+    note = (" — superseded by a valid corrected run; still evaluated, not gating CI" if r.get("warn_only") and superseded
+            else " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else "")
     print(f"  {nm}: {status} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "", note)
 print("  governance flag/cap correspondence (AZ: RF-NET trigger ↔ cap ↔ 99 ↔ agent):",
       "PASS" if not azfails else "FAIL " + "; ".join(azfails))
