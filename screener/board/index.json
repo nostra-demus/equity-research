@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T06:27:04Z",
+  "generated_at": "2026-09-02T06:44:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-400",
@@ -1189,6 +1189,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-521",
+      "headline": "Bharat Forge Ltd: Intimation regarding divestment of stake held in Joint Venture",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/f9d75ee5-1258-4b2f-b777-eb15abc71451.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T06:07:01Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Bharat Forge Ltd announced the divestment of its stake in a joint venture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Bharat Forge Ltd announced the divestment of its stake in a joint venture.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Forge Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-460",
       "headline": "Israeli air strikes reported in south Lebanon",
       "headline_en": null,
@@ -1858,49 +1907,6 @@
         "size": 0,
         "recency": 2,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-313",
-      "headline": "US launches fresh strikes on Iran in tit-for-tat exchange, threatening to reignite six-month conflict",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/us-launches-fresh-strikes-iran-tit-tat-exchange-threatening-reignite-six-month-conflict",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T22:20:50Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "US military strikes on Iran in tit-for-tat escalation explicitly threaten to reignite six-month conflict, intensifying geopolitical risk to oil, shipping, and global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "US military strikes on Iran in tit-for-tat escalation explicitly threaten to reignite six-month conflict, intensifying geopolitical risk to oil, shipping, and global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -128147,9 +128153,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 587326,
-    "news_picked_today": 816,
-    "news_dropped_today": 8016
+    "news_seen_today": 610533,
+    "news_picked_today": 847,
+    "news_dropped_today": 8537
   },
   "book_momentum": {
     "live_count": 8,
