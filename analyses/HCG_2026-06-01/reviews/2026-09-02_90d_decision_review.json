@@ -1,0 +1,241 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HCG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-09-02",
+  "review_window": "90d",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 646.15,
+  "tracking_price": null,
+  "review_price": 714.0,
+  "absolute_return_pct": 10.5,
+  "benchmark_return_pct": 2.88,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 7.62,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "HCG trades below INR 646.15 (the decision price) in 12 months.",
+      "status": "still open",
+      "evidence": "Window runs to 2027-06-01. Reversal since the 30d review: at 30d the stock was ~INR 602 (below entry, favoring this forecast); at 90d it is ~INR 714 (10.5% ABOVE entry), now running against the forecast direction. 9 months remain. [Aggregated NSE broker coverage of HCG, dated 2026-08-26 -- web-sourced, indicative/unverified]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "FY27 EPS-Normalized consensus is NOT raised net-positive over the next 6 months.",
+      "status": "still open",
+      "evidence": "Window runs to 2026-12-01. No consensus revision data was sourced for this review. The FQ1 FY27 print (adjusted EBITDA +20% YoY, adjusted PAT +190% YoY) is the kind of print that plausibly triggers upward revisions, but this is inference, not a sourced consensus reading -- genuinely still open.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar.",
+      "status": "confirmed",
+      "evidence": "HCG's board approved unaudited FQ1 FY27 results on 2026-08-06 (call 2026-08-07): revenue INR 6,951M, +13% YoY -- below the ~INR 7,340.9M bar this forecast named. [InvestyWise / ScanX coverage of the 2026-08-06 board-approved results, 2026-08-07 earnings call]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "Group statutory ROIC stays below the ~11-12% cost of capital in FY27.",
+      "status": "still open",
+      "evidence": "Window runs to the FY27 results (mid-2027). No FY27 ROIC figure available yet; FQ1 FY27 adjusted EBITDA margin improved to 19.4% from 18.2% and adjusted PAT rose 190% YoY, which is directionally the kind of improvement the forecast bets against, but one quarter cannot resolve a full-year ROIC forecast.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "Reported (audited) FY26 PAT does NOT reconcile up to the ~INR 557M adjusted figure cleanly.",
+      "status": "still open",
+      "evidence": "UNRESOLVED TENSION, not a resolution. Aggregator coverage (InvestyWise) describes a '25% increase in FY26 net profit to INR 557 Mn' -- but does not clearly state whether this is the AUDITED statutory figure (as opposed to a restatement of the same adjusted number the original thesis already used) or confirm this is the formal audited Annual Report rather than the 19-May-2026 provisional board-approved deck the original decision was built on. Per CLAUDE.md source-hierarchy discipline, this secondary/aggregator source is not sufficient to resolve a forecast this material; the primary Annual Report / NSE-BSE filing must be checked before this can be called confirmed or falsified. [InvestyWise coverage of HCG FY26 results -- web-sourced, indicative/unverified, NOT the primary filing]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "No further CFO/auditor exit before the next governance review.",
+      "status": "falsified",
+      "evidence": "A further CFO change has occurred: Srinivasa V. Raghavan ceased to be CFO effective 2026-08-20, with Ruby Ritolia named as the new CFO (announced 2026-08-18) -- reported via exchange-disclosure-sourced corporate news briefs. This is at least a fourth CFO change within roughly 2026 alone (following Sanjeev Kumar's 25-May-2026 appointment noted in the 30d review), and it fires kill criterion 7 ('DEEPENS AVOID: another CFO/auditor exit'). [Stockopedia corporate-news briefs, 2026-08-18 and 2026-08-20 -- web-sourced from exchange disclosure, indicative/unverified pending direct Reg-30 filing confirmation]",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ1 FY27 results (quarter ended 30-Jun-2026)",
+      "status": "materialized",
+      "evidence": "Board-approved 2026-08-06; earnings call 2026-08-07. Revenue INR 6,951M (+13% YoY); adjusted EBITDA INR 1,339M (+20% YoY, margin 19.4% vs 18.2%); adjusted PAT INR 138M (+190% YoY); non-institutional revenue mix rose to 69% from 67%; the newly commissioned North Bangalore centre contributed INR 67M with >550 new patient registrations. [InvestyWise / ScanX coverage of the 2026-08-06/07 results and call]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "Milann/BACC fertility-business divestiture close",
+      "status": "materialized",
+      "evidence": "The 99.999% stake in BACC Health Care Pvt Ltd was sold to Inviga Healthcare Fund I for total consideration of ~INR 37.64 crore (~INR 376.4M); an initial payment of ~INR 28.23 crore (~INR 282.3M) was received 2026-06-29, with the balance a non-contingent deferred payment within 18 months. Note this consideration is markedly smaller than the ~INR 632M EV figure cited in the 30d review -- an unreconciled discrepancy, possibly a difference between an earlier reported enterprise value and the final equity consideration; flagged, not resolved. No independent fairness opinion was found in the coverage checked, so RF-RPT-002 (promoter-linked RPT, fairness-opinion evidence absent) remains open. [InvestyWise / ScanX coverage of the BACC divestment, dated on/around the 2026-06-29 payment]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "FY26 audited statutory annual report",
+      "status": "pending confirmation",
+      "evidence": "Aggregator coverage describes FY26 results as carrying 'unmodified audit opinions,' but does not clearly establish whether this refers to the formal audited Annual Report (distinct from the 19-May-2026 provisional board deck the original thesis was built on) or a restatement of the same provisional figures. Not resolved from secondary sources -- see forecast[4] above.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "DPCO / government-scheme tariff reviews",
+      "status": "not materialized as killer trigger (tracking)",
+      "evidence": "No new procedure-tariff cut or scheme-rate cap was found beyond the June 2026 DPCO Amendment Order already noted at the 30d review (which addressed drug-pricing mechanisms, not hospital procedure tariffs). No update found this review.",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Governance -- further CFO/auditor departure",
+      "status": "materialized",
+      "evidence": "Reversal from the 2026-08-01 ad-hoc review's 'not materialized' read: Srinivasa V. Raghavan ceased to be CFO effective 2026-08-20, with Ruby Ritolia appointed. Kill criterion 7 has fired. [Stockopedia corporate-news briefs, 2026-08-18/2026-08-20]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "risk": "RF-RPT-002: Milann sale to promoter-linked buyer without a confirmed fairness opinion",
+      "status": "pending resolution",
+      "evidence": "The sale has closed (see catalyst_results above) but no independent fairness opinion was found in the coverage checked for this review.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "risk": "Valuation re-rating failure (killer risk): market pricing a FCF/margin trajectory the business has not produced",
+      "status": "not materialized; contrary evidence emerging",
+      "evidence": "The opposite of a de-rating is visible so far: the stock has risen 10.5% since the decision price (7.6 points ahead of NIFTY 50) and Q1 FY27 adjusted EBITDA margin and adjusted PAT both improved materially. This is exactly the kind of early evidence the pre-mortem's highest-severity kill_criteria_attack item ('West-cluster utilisation climbs toward South's ~68% / ramp converts') flagged as the false-negative risk to the Avoid -- one quarter of improvement, not a resolved re-rating.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "risk": "BSS-overdraft-call / minority-put crystallisation",
+      "status": "not assessable",
+      "evidence": "No new lender or covenant information found; the FY26 audited AR (debt notes) would be needed to update this.",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [
+    "timing error"
+  ],
+  "lessons": [
+    "This review resolves two forecasts, and they point in OPPOSITE directions relative to the Avoid -- adjudicated by name, not averaged away. (1) The FQ1 FY27 revenue miss (INR 6,951M vs the ~INR 7,340.9M bar) CONFIRMS the earnings-deceleration forecast and supports the Avoid. (2) A further CFO exit (Raghavan out effective 20-Aug-2026, Ritolia in) FALSIFIES the 'no further exit' forecast and fires kill criterion 7 -- also supporting the Avoid, since the forecast being wrong here means the governance risk deepened exactly as the thesis warned it might.",
+    "Against those two confirming facts, the price and margin trend cut the other way: HCG is up 10.5% since the decision price (7.6 points ahead of NIFTY 50) and Q1 FY27 adjusted EBITDA margin (19.4% vs 18.2%) and adjusted PAT (+190% YoY) both improved. This is early, partial evidence for exactly the false-negative scenario the pre-mortem's single highest-severity kill-criteria attack named: the ramping-centre cohort migrating toward the mature ~27%-ROCE bucket faster than modelled. thesis_status is 'at-risk' because of this genuine tension, not because either side has been disproven.",
+    "The audited-FY26-PAT forecast is NOT resolved this review despite tempting secondary-source language ('25% increase in FY26 net profit to INR 557 Mn'). Per CLAUDE.md source-hierarchy discipline, an aggregator's paraphrase is not sufficient to determine whether this is the audited statutory figure reconciling to the adjusted number, or the same adjusted figure being restated. This is deliberately left 'still open' rather than resolved on a weak source -- the correct next step is the primary Annual Report, not another web search.",
+    "A material discrepancy surfaced and is flagged rather than silently reconciled: this review's source describes the Milann/BACC divestment consideration as ~INR 376.4M total (~INR 282.3M received 29-Jun-2026), materially smaller than the ~INR 632M EV figure the 30d review carried. Both figures are web-sourced; neither has been checked against the primary sale agreement or exchange filing.",
+    "Rights issue: HCG completed a rights issue raising INR 4,250M (oversubscribed 1.3x) -- a fact not contemplated in the original 2026-06-01 thesis at all. This changes the share count the per-share (EPS, ROIC) forecasts were built on and needs to be folded into the next earnings/valuation work, not left as an unstated distortion in the comparison base.",
+    "Price fields: review_price (~INR 714, sourced 2026-08-26) is about a week stale relative to the review date; no more current figure was found. NIFTY 50 benchmark levels (23,382.60 on 2026-06-01; 24,055.80 on 2026-09-01) are a reasonable but not exact match to the entry_price_timestamp ('2026-05, late-May 2026 pool snapshot'). sector_return_pct is left null: no NIFTY Healthcare level near the decision date could be sourced with a matching date, only percentage-move commentary for unrelated days -- publishing an unmatched-basis sector return here would be exactly the kind of mismatched-basis defect CLAUDE.md §15 exists to prevent.",
+    "Single most important takeaway: two of the three concrete facts that resolved this quarter deepen the Avoid (the revenue miss, the further CFO exit); the third (the margin/price move) is the specific false-negative risk the pre-mortem itself named as the way this call could be wrong. Both must be watched into the FY26 audited annual report and the FQ2 FY27 print, not resolved by picking a side now."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "valuation (no margin of safety, negative expected return) and management-governance (Weak governance, 7 High flags) jointly drove the Avoid.",
+    "most_accurate_so_far": "management-governance -- the finance-leadership-discontinuity flag (RF-MGT-001) it raised has now been directly confirmed by a further CFO exit.",
+    "missed_the_key_variable": "Not clearly any one module yet. If the margin/PAT improvement continues, business-model's centre-maturity-cohort read (the basis for the pre-mortem's false-negative scenario) will be the one to revisit.",
+    "which_module_mattered_most_to_the_outcome": "management-governance this quarter, on the confirmed CFO exit; earnings on the confirmed revenue miss. Too early to say which matters most to the eventual 12-month outcome.",
+    "confidence_score_judgment": "Judged only on information available at 2026-06-01: the pre-mortem's own overconfidence flag -- that 70/100 overstated 12-month PRICE-PATH certainty on what is partly a re-rating-timing call -- looks more, not less, apt now that price has moved 10.5% against the call in one quarter. This was a knowable risk at decision time (the pre-mortem said so), not a hindsight judgment.",
+    "data_sufficiency_score_judgment": "The FY26 audited annual report was, and remains, the single highest-value missing item; this review's attempt to resolve it from secondary coverage failed to produce a reliable answer, reinforcing that the original 69/100 score was correctly capped by that gap rather than overstated.",
+    "evidence_partition_note": "Process judgments above (the pre-mortem's overconfidence flag, the data-sufficiency read) use only information available on or before 2026-06-01. The FQ1 FY27 results, the CFO change, the Milann close, the rights issue, and the September 2026 price/index levels are used ONLY for outcome fields."
+  },
+  "action_now": {
+    "label": "Stay away",
+    "reason": "The Avoid holds: two of the three concrete facts resolved this quarter (the confirmed revenue miss, a further CFO exit that fires kill criterion 7) deepen the governance and earnings concerns the thesis was built on, even though the price and Q1 margin trend have moved against the call."
+  },
+  "confidence_update": {
+    "before": 64,
+    "after": 58,
+    "change_reason": "Using the pre-mortem's own recommended decision-time conviction (70 less its 6-point haircut) as the frozen baseline: the confirmed CFO exit and revenue miss are genuine confirming evidence, but the 10.5% price move against the call and the Q1 margin/PAT improvement are early, partial support for the pre-mortem's own flagged false-negative scenario (the ramp converting faster than modelled) -- a real, not hypothetical, tension that modestly lowers confidence in the 12-month price call specifically, while the governance/earnings-quality case has, if anything, strengthened."
+  },
+  "next_check": {
+    "date": "2026-11-28",
+    "label": "180d review -- FY26 audited Annual Report confirmation and FQ2 FY27 results",
+    "trigger": "Confirm from the primary Annual Report (not aggregator coverage) whether reported FY26 PAT genuinely reconciles to ~INR 557M; check FQ2 FY27 revenue and margin trend for whether the Q1 improvement continues or reverses; re-base the EPS/ROIC forecasts for the post-rights-issue share count."
+  },
+  "learning": {
+    "why_right_or_wrong": "Too early to grade the 12-month price call. On the two concrete facts that resolved this quarter, the thesis's specific governance and earnings-deceleration concerns were both borne out (a further CFO exit, a confirmed revenue miss); the price and margin trend moved the other way, which is precisely the risk the pre-mortem itself flagged as the way this Avoid could turn out wrong.",
+    "error_source": "",
+    "rule_for_future": "When a red flag explicitly named in the original thesis recurs (here, CFO churn), treat the recurrence itself as the finding -- it directly confirms the flag's severity rather than needing fresh justification.",
+    "future_research_check": "Before the 180d review, obtain the primary FY26 Annual Report (not aggregator coverage) to settle whether reported and adjusted PAT have genuinely reconciled to ~INR 557M, and re-base the EPS/ROIC forecasts for the post-rights-issue share count."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/HCG_2026-06-01/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6,
+    "outcome_vs_verdict": "partial",
+    "notes": "Genuinely mixed, not a clean vindication or contradiction -- deviating from the mechanical table with this explanation, as its rules allow. Two of the three concrete facts that resolved this quarter deepen the Avoid case (the FQ1 revenue miss confirms the earnings-deceleration forecast; a further CFO exit fires kill criterion 7, exactly the governance risk the thesis flagged). But the pre-mortem's own single highest-severity kill_criteria_attack item -- 'West-cluster utilisation climbs toward South's ~68% / ramp converts' (severity: high) -- is showing early, partial support: adjusted EBITDA margin expanded to 19.4% from 18.2%, adjusted PAT rose 190% YoY, and the stock has re-rated 10.5% above the decision price (7.6 points ahead of NIFTY 50) in the same quarter. Calling this cleanly 'contradicted' would overstate how far the ramp thesis has actually progressed on one quarter of data; calling it 'vindicated' would ignore the confirmed CFO exit and revenue miss. thesis_status is 'at-risk' precisely because of this unresolved tension."
+  },
+  "memo_delta": {
+    "summary": "Real news this quarter, cutting both ways. HCG's FQ1 FY27 revenue (INR 6,951M, +13% YoY) missed the ~INR 7,340.9M consensus bar, confirming the earnings-deceleration forecast, and a further CFO exit (Raghavan out 20-Aug-2026, Ritolia in) fired kill criterion 7, deepening the governance concern. Against that, Q1 adjusted EBITDA margin and adjusted PAT both improved materially, the Milann/BACC divestment closed, a rights issue raised INR 4,250M, and the stock has risen 10.5% since the decision price (7.6 points ahead of NIFTY 50) -- early, partial evidence for the pre-mortem's own flagged false-negative scenario. The FY26 audited PAT question remains genuinely unresolved on the sources checked.",
+    "thesis_delta_verdict": "weakened",
+    "changed_sections": [
+      {
+        "section": "Governance -- Finance-leadership discontinuity (RF-MGT-001)",
+        "original_claim": "Three CFOs in ~33 months; kill criterion 7 states 'DEEPENS AVOID: another CFO/auditor exit, or Milann closes without an independent fairness opinion.'",
+        "new_evidence": "Sanjeev Kumar was appointed CFO effective 25-May-2026 (per the 30d review), and Srinivasa V. Raghavan then ceased to be CFO effective 20-Aug-2026, with Ruby Ritolia named as the new CFO (announced 18-Aug-2026) -- at least one, likely two, further CFO changes since the decision. Kill criterion 7 has fired.",
+        "evidence_source": "Stockopedia corporate-news briefs, 2026-08-18 and 2026-08-20 (sourced from exchange disclosure) -- web-sourced, indicative/unverified; the primary Reg-30 filing was not independently retrieved",
+        "materiality_score": 75,
+        "impact_direction": "negative",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": true,
+        "rerun_reason": "Kill criterion 7 has fired; the finance-leadership-discontinuity finding is stale and should be re-scored with the confirmed, updated count of CFO changes.",
+        "rerun_command": "/research:management-governance HCG"
+      },
+      {
+        "section": "Related-party transactions -- Milann/BACC divestiture (RF-RPT-002)",
+        "original_claim": "Milann sale to Inviga (a fund controlled by founder/Non-Executive Chairman Dr. B.S. Ajaikumar); fairness-opinion/competitive-process evidence not in pool.",
+        "new_evidence": "The sale of the 99.999% BACC stake to Inviga Healthcare Fund I closed: total consideration ~INR 376.4M (~INR 37.64 crore), with an initial payment of ~INR 282.3M received 29-Jun-2026 and the remainder a non-contingent deferred payment within 18 months. This consideration is markedly smaller than the ~INR 632M EV figure cited in the 30d review -- unreconciled. No independent fairness opinion was found in the coverage checked.",
+        "evidence_source": "InvestyWise / ScanX corporate news coverage, dated on/around the 2026-06-29 payment -- web-sourced, indicative/unverified",
+        "materiality_score": 55,
+        "impact_direction": "mixed",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "Fold into the management-governance rerun already recommended above rather than a standalone rerun.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Capital structure -- rights issue (not addressed in the original thesis)",
+        "original_claim": "Not contemplated as of 2026-06-01 -- no rights issue was part of the original capital-structure picture.",
+        "new_evidence": "HCG completed a rights issue raising INR 4,250M, oversubscribed 1.3x, to strengthen the balance sheet.",
+        "evidence_source": "InvestyWise coverage of HCG's FY26 results and strategic developments -- web-sourced, exact close date not found, indicative/unverified",
+        "materiality_score": 50,
+        "impact_direction": "mixed",
+        "impacted_modules": ["balance-sheet-survival", "earnings", "valuation"],
+        "rerun_recommended": true,
+        "rerun_reason": "The rights issue changes the share count the per-share ROIC/EPS forecasts and the valuation work were built on; those need re-basing to the new share count.",
+        "rerun_command": "/research:earnings HCG"
+      },
+      {
+        "section": "Earnings -- FQ1 FY27 revenue vs. the consensus bar",
+        "original_claim": "Forecast: FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar.",
+        "new_evidence": "FQ1 FY27 revenue reported at INR 6,951M, +13% YoY -- below the bar, confirming the forecast. But adjusted EBITDA grew 20% YoY to INR 1,339M (margin 19.4% vs 18.2%) and adjusted PAT rose 190% YoY to INR 138M, aided by an improving payer mix (non-institutional revenue 69% vs 67%) and an early contribution from the new North Bangalore centre.",
+        "evidence_source": "InvestyWise / ScanX coverage of the 2026-08-06 board-approved results and 2026-08-07 earnings call -- web-sourced, indicative/unverified",
+        "materiality_score": 60,
+        "impact_direction": "mixed",
+        "impacted_modules": ["earnings", "business-model"],
+        "rerun_recommended": true,
+        "rerun_reason": "The margin/PAT improvement bears directly on the pre-mortem's flagged 'ramp converts faster than modelled' scenario and should be tested against segment-level ROCE data before the 180d review.",
+        "rerun_command": "/research:earnings HCG"
+      },
+      {
+        "section": "Earnings quality -- FY26 audited PAT reconciliation",
+        "original_claim": "Forecast: reported (audited) FY26 PAT does NOT reconcile up to the ~INR 557M adjusted figure cleanly (reported FY26 PAT was INR 138M vs. an adjusted figure of ~INR 557M, a +304.7% gap).",
+        "new_evidence": "Aggregator coverage describes a '25% increase in FY26 net profit to INR 557 Mn' without clearly distinguishing audited/reported PAT from the adjusted figure, or confirming this is the formal Annual Report rather than a restatement of the 19-May-2026 provisional deck. Left unresolved rather than force-fit to a weak source.",
+        "evidence_source": "InvestyWise coverage of HCG FY26 results -- web-sourced, indicative/unverified, NOT the primary annual report",
+        "materiality_score": 65,
+        "impact_direction": "mixed",
+        "impacted_modules": ["earnings"],
+        "rerun_recommended": true,
+        "rerun_reason": "This is the single highest-value missing item the original decision flagged; a primary-source check (the actual audited Annual Report) is needed before the 180d review to determine whether reported and adjusted PAT have genuinely reconciled.",
+        "rerun_command": "/research:agent earnings earnings-quality HCG"
+      }
+    ],
+    "stage_one_comment": "Real news on HealthCare Global this quarter, and it cuts both ways. First quarter revenue for the year came in at 6.95 billion rupees, up 13 percent, below the roughly 7.34 billion rupee bar we were watching, which confirms our earnings-deceleration view. Separately, the company had another CFO change, with Srinivasa Raghavan leaving on 20 August and Ruby Ritolia named to replace him, which is a real deepening of the governance concern we already flagged as a top risk. Against that, adjusted EBITDA margin improved to 19.4 percent from 18.2, adjusted profit nearly tripled off a small base, the fertility business sale closed, a rights issue raised 4.25 billion rupees, and the stock is up about 10.5 percent since our note versus roughly 2.9 percent for the Nifty 50. That improvement is exactly the risk our own red-team flagged as the way this Avoid could be wrong: the newer hospitals ramping up faster than we modelled. We are not changing the rating. Two of three concrete facts this quarter support staying away; the third is a real, early warning sign worth taking seriously, not dismissing. The audited profit figure for the full year still needs checking against the actual annual report, not press coverage.",
+    "watch_items": [
+      "FY26 audited Annual Report -- confirm from the primary filing (not aggregator coverage) whether reported PAT reconciles to ~INR 557M",
+      "FQ2 FY27 results -- whether the Q1 margin/PAT improvement continues or reverses; whether revenue growth reaccelerates toward the ~15% the pre-mortem's bull case needed",
+      "West-cluster utilisation and centre-cohort ROCE disclosure -- the direct test of the pre-mortem's flagged false-negative (ramp-conversion) scenario",
+      "New CFO Ruby Ritolia's mandate, pay structure, and any further finance-leadership change",
+      "Post-rights-issue share count -- re-base EPS/ROIC comparisons",
+      "DPCO/government-scheme tariff notifications on the ~33% policy-exposed revenue"
+    ],
+    "management_questions": [
+      "On a like-for-like basis, what was FQ1 FY27 revenue growth after excluding the divested Milann/BACC business?",
+      "Why did the final BACC/Milann sale consideration (~INR 376M) differ from the ~INR 632M enterprise value previously reported, and was an independent fairness opinion obtained?",
+      "Does the audited FY26 Annual Report reconcile reported PAT to the ~INR 557M adjusted figure, and if so, what specifically bridges the two?",
+      "What is driving the fourth CFO change of the year, and what is Ruby Ritolia's mandate and compensation structure?",
+      "What is the post-rights-issue diluted share count, and how does it change the per-share ROIC/EPS picture?",
+      "What is West-cluster utilisation as of 30-Jun-2026, and how does its cohort ROCE compare with the mature South cluster's ~27%?"
+    ],
+    "memo_delta_file": "analyses/HCG_2026-06-01/reviews/2026-09-02_90d_memo_delta.md"
+  }
+}

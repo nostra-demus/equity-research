@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-09-02",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": null,
+  "tracking_price": {
+    "price": 123.35,
+    "source": "MarketBeat indicative last close, as already recorded in the decision record's own notes field (the same figure the original thesis's expected-return/downside math was built on)",
+    "as_of": "2026-05-29",
+    "currency": "USD",
+    "established_at_window": "90d"
+  },
+  "review_price": 119.45,
+  "absolute_return_pct": -3.16,
+  "benchmark_return_pct": 0.41,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": -3.58,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "FY2026 full-year adjusted EPS lands inside (not above) the $9.00-9.50 guide.",
+      "status": "still open",
+      "evidence": "Window runs to ~Feb 2027. No change since the 2026-08-01 ad-hoc review: management raised the guide to $9.25-$9.75 with the Q2 print (2026-07-29), so the $9.00-9.50 range this forecast names no longer exists as the company's own guide; it will resolve against the range in force when FY2026 results are filed. Q3 FY2026 results (expected ~late Oct 2026) have not yet been reported as of this review date. [Bunge Q2 2026 results, 2026-07-29 -- unchanged since the last review]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "Q2 FY2026 beats on the quarter but management does not raise the full-year guide.",
+      "status": "falsified",
+      "evidence": "Resolved and unchanged since the 2026-08-01 ad-hoc review: Q2 2026 beat (adjusted diluted EPS $2.00, GAAP diluted EPS $3.47, net income $678M on net sales of $24.04bn), but management DID raise the FY2026 adjusted EPS guide to $9.25-$9.75 from $9.00-$9.50 and lifted the Viterra cost-synergy target from $250M to $350M. The forecast's premise -- a beat without an extrapolated raise -- failed on the raise half. [Bunge Q2 2026 results, 2026-07-29]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "FY2026 free cash flow turns positive / CFO-to-EBITDA recovers toward 70%.",
+      "status": "still open",
+      "evidence": "Window runs to ~Feb 2027. No FY2026 cash-conversion data has been sourced since the last review; the Q2 headline release did not disclose CFO/FCF detail in the coverage checked. This is the one leg of the earnings case not yet tested by any print.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "At the indicative ~$123 price, BG's 12-month total return is negative (<=0%).",
+      "status": "still open",
+      "evidence": "Window runs to ~Jun 2027. This review establishes the tracking_price anchor above (the same $123.35 indicative figure the original thesis used). Against that anchor, BG is currently at $119.45, a -3.16% interim move -- directionally consistent with the forecast despite the Q2 beat-and-raise, though 9 months remain and the sign can still flip. [FinancialContent/StockStory, 'Why Bunge Global (BG) Stock Is Up Today', 2026-09-01 -- web-sourced, indicative/unverified]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "No Viterra goodwill impairment in FY2026.",
+      "status": "still open",
+      "evidence": "Window runs to ~Feb 2027 (FY2026 annual impairment test). No new evidence found since the last review; Viterra cost synergies were still being reported as running ahead of plan as of the Q2 print (target raised $250M->$350M), which continues to run in this forecast's favor. No Q3 update available yet.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "prediction": "No covenant breach and no downgrade out of investment grade in the next 12 months.",
+      "status": "still open",
+      "evidence": "Window runs to ~Jun 2027. No breach, waiver, or downgrade found in the evidence gathered for this review. No new information beyond the last review.",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 FY2026 results, late July 2026",
+      "status": "materialized",
+      "evidence": "Reported 2026-07-29 (unchanged from the 2026-08-01 ad-hoc review). Adjusted diluted EPS $2.00, GAAP diluted EPS $3.47, net income $678M, net sales $24.04bn; FY2026 adjusted EPS guide raised to $9.25-$9.75; Viterra cost-synergy target raised to $350M; a $2B share repurchase commitment completed. [Bunge Q2 2026 results, 2026-07-29]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "Q3 FY2026 results (~late Oct 2026) -- first clean view of organic (ex-Viterra) volume/spread",
+      "status": "pending",
+      "evidence": "Not yet reported as of this review date (2026-09-02). This is the next real test of whether the raised guide and the H2 crush/biofuel spread hold.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "Viterra goodwill re-measurement ($2,659M preliminary)",
+      "status": "pending",
+      "evidence": "No impairment reported as of this review date; synergy capture continues to be described as ahead of plan, which argues against near-term impairment, but the formal annual impairment test does not occur until the FY2026 results.",
+      "as_of": "2026-09-02"
+    },
+    {
+      "catalyst": "Brazil indirect-tax claims (~$760M unprovisioned as of Q1'26, +$115M/qtr)",
+      "status": "pending -- no fresh dated figure found",
+      "evidence": "Web coverage checked for this review referenced only that 'lingering tax assessments and penalties in Brazil' increase net debt, without a new dollar figure or a change in claim status (possible vs. probable). The Q2/Q3 10-Q, which would carry the updated number, was not read for this review (not in the local data pool and not independently retrieved). This is a genuine evidence gap, not a finding of no change.",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Viterra integration underdelivers on synergies",
+      "status": "not materialized",
+      "evidence": "Unchanged since the last review: the opposite is being reported -- cost-synergy capture running ahead of plan, target raised from $250M to $350M. [Bunge Q2 2026 results, 2026-07-29]",
+      "as_of": "2026-09-02"
+    },
+    {
+      "risk": "Brazil indirect-tax claims move from 'possible' to 'probable'",
+      "status": "not assessable",
+      "evidence": "No updated primary-source figure was found for this review (see the catalyst note above); the last known data point (~$760M assessed, Q1 FY2026) is now more than one quarter stale. This is recorded honestly as an evidence gap rather than assumed unchanged.",
+      "as_of": "2026-09-02"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [
+    "bad causal inference"
+  ],
+  "lessons": [
+    "No new material fact surfaced since the 2026-08-01 ad-hoc review: Q3 FY2026 results (the next real test) have not been reported. The operative facts remain the Q2 2026 beat-and-raise (guide to $9.25-$9.75, synergy target to $350M) already captured in that review.",
+    "This review's one substantive addition is the price anchor: entry_price has been null since 2026-06-01 and no tracking_price was ever established across the 30d or ad-hoc reviews, leaving the record unscoreable for three months. This review establishes tracking_price at the same $123.35 indicative figure the original thesis itself used (MarketBeat, 2026-05-29), so future reviews measure from one fixed point.",
+    "Against that anchor, BG has drifted modestly lower (-3.16%) while the S&P 500 rose slightly (+0.41%), a small relative underperformance (-3.58pp) that runs in the direction the original Watchlist caution expected -- even though the underlying earnings news (beat-and-raise, synergies ahead of plan, a completed $2B buyback) ran the other way. Adjudicating this by name: the price hasn't followed the good news yet, which is itself informative and worth watching into Q3, not an argument that the earnings surprise didn't matter.",
+    "Was the decision right for the right reason, the wrong reason, or wrong despite good process? Too early to say cleanly. The compound forecast (beat without a raise) was falsified on its discretionary half, which is a genuine miss on that one forecast -- but the Watchlist call itself (not a long, not a short, no proven edge, negative risk/reward at the indicative price) has not been falsified, since price has not rallied to validate the bull case the beat-and-raise might have supported.",
+    "Did the catalyst happen? Yes (Q2 results, on schedule). Did the risks materialize? The Viterra-integration risk did not (synergies ahead of plan); the Brazil-tax risk is not assessable this review for lack of fresh primary data -- flagged as a gap to close before the 180d review, not silently carried forward as 'no change'.",
+    "Web sources used and dated: FinancialContent/StockStory (BG price, 2026-09-01); S&P 500 level via aggregated search results dated to 2026-06-01 and 2026-09-01 close; general Bunge Q2 2026 coverage via BigGo Finance/TradingView/Seeking Alpha (2026-07-29, unchanged from the prior review). All web-sourced, indicative/unverified.",
+    "Single most important takeaway: the pre-mortem's blind spot identified at the ad-hoc review still holds three-plus weeks later -- none of its six kill-criteria attacks anticipated the company simply outperforming, and Q3 (the next real test of whether that outperformance is durable) is still pending."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "earnings and valuation jointly -- the policy-conditional earnings read plus the no-margin-of-safety valuation call.",
+    "most_accurate_so_far": "balance-sheet-survival -- no covenant stress or downgrade signal has appeared, consistent with the 'Adequate' verdict; still early.",
+    "missed_the_key_variable": "earnings -- the specific forecast written to test 'this recovery is not durable' (beat without a raise) failed on the half that mattered when management raised guidance and the synergy target in the same print.",
+    "which_module_mattered_most_to_the_outcome": "earnings, with business-model's Viterra-integration caution also under mild pressure from the synergies-ahead-of-plan evidence.",
+    "confidence_score_judgment": "Judged only on information available at 2026-06-01: the compound forecast (an easy half joined to a discretionary half) was a construction weakness that made the earnings module's caution look more falsifiable than the underlying reasoning (policy-conditional, no proven edge, value-trap flag) actually is. The 46/100 confidence score itself, which was already humble and explicitly conceded 'no proven variant perception,' remains defensible.",
+    "data_sufficiency_score_judgment": "Unchanged assessment: the missing pool-sourced price was, and remains, the single highest-value gap; the review-side tracking_price established here partially closes it for scoring purposes but does not substitute for an actual pool price in the live thesis.",
+    "evidence_partition_note": "Process judgments above use only information available on or before 2026-06-01. The Q2 2026 results (2026-07-29) and the September 2026 price/index levels are used ONLY for outcome fields."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The Watchlist call stands: no pool-confirmed price has appeared, Q3 FY2026 (the next real test of whether the beat-and-raise is durable) has not been reported, and the value-trap, leverage, and Brazil-tax concerns behind the original caution are unresolved -- not falsified, just untested this quarter."
+  },
+  "confidence_update": {
+    "before": 46,
+    "after": 42,
+    "change_reason": "The compound Q2 forecast (beat without a raise) failed on its discretionary half, which was the part expressing 'the recovery isn't durable' -- a modest, specific reason to trim confidence in that piece of the caution case, while the leverage/value-trap/Brazil-tax concerns remain fully intact and untested this quarter."
+  },
+  "next_check": {
+    "date": "2026-11-28",
+    "label": "Q3 FY2026 results (expected ~late Oct 2026, ahead of the scheduled 180d review) and the FY2026 cash-conversion print",
+    "trigger": "Test whether the raised $9.25-$9.75 guide holds through Q3, whether the crush/biofuel spread holds above mid-cycle as management's own 'low H2 visibility' comment cautioned it might not, and whether CFO/EBITDA begins recovering toward 70%."
+  },
+  "learning": {
+    "why_right_or_wrong": "Too early to grade the Watchlist call on price or thesis. On the one forecast that has fully resolved, the engine's specific reasoning (a beat that would not be extrapolated into a raised guide) was wrong -- management extrapolated it.",
+    "error_source": "bad causal inference",
+    "rule_for_future": "A compound forecast joining a near-certain event (a beat, given five consecutive prior beats) to a discretionary management decision (whether to raise guidance) should be split into two separate forecasts -- the discretionary half is what actually carries the thesis, and its failure gets diluted when the easy half succeeds alongside it.",
+    "future_research_check": "Before the Q3/180d checkpoint, re-run the earnings module against the new $9.25-$9.75 guide and confirm whether the FY2026 cash-conversion print (CFO/EBITDA, FCF) is turning -- the one leg of the original caution case no print has tested yet."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/BG_2026-06-01/pre_mortem.json",
+    "pre_mortem_verdict": "Survives",
+    "pre_mortem_confidence_haircut": 0,
+    "outcome_vs_verdict": "contradicted",
+    "notes": "Unchanged from the 2026-08-01 ad-hoc finding, now reaffirmed by three more weeks without a reversal: FALSE COMFORT. The pre-mortem returned 'Survives' with a zero haircut, but the thesis has been at-risk since the Q2 print. None of its six kill_criteria_attack items (Brazil tax, FCF staying negative, spread retrace, goodwill impairment, covenant breach, governance disqualifier) anticipated the actual surprise -- the company simply outperforming (beat, raise, synergies ahead of plan, completed buyback). A red-team that attacks only the ways a cautious call could be too optimistic did not catch the way this one was, if anything, too pessimistic about near-term execution."
+  },
+  "memo_delta": {
+    "summary": "No new material fact has emerged since the 2026-08-01 ad-hoc review -- Q3 FY2026 results (the next real test) have not been reported. This review's contribution is establishing a review-side tracking_price ($123.35, the same indicative figure the original thesis used) so the record is finally scoreable, and confirming that BG's price has drifted modestly lower (-3.16%) against a flat-to-up S&P 500 (+0.41%) even after the Q2 beat-and-raise -- a small data point in the direction of the original caution, though far from decisive with 9 months still to run.",
+    "thesis_delta_verdict": "weakened",
+    "changed_sections": [],
+    "stage_one_comment": "Nothing new to report on Bunge since our 1 August note. The third quarter results, which are the next real test of whether the raised guidance holds, have not been reported yet and are expected around late October. In the meantime we have finally put a price anchor on this record: it uses the same 123 dollar and 35 cent indicative price the original note was built on, dated 29 May. Against that anchor the stock is now around 119 dollars and 45 cents, down about three percent, while the S&P 500 is roughly flat to slightly up over the same period. That is a small move in the direction our caution expected, even though the actual earnings news, a beat and a raised guide, ran the other way. We are keeping this on the watchlist. The value trap, leverage, and Brazil tax concerns behind the original call are untested this quarter, not resolved either way.",
+    "watch_items": [
+      "Q3 FY2026 results (~late Oct 2026) -- whether the raised $9.25-$9.75 guide holds and the crush/biofuel spread stays above mid-cycle through H2",
+      "FY2026 cash conversion (CFO/EBITDA, FCF) -- the one leg of the original caution case not yet tested by any print",
+      "Viterra goodwill impairment test at FY2026 results",
+      "Brazil indirect-tax claims -- no fresh figure was found this review; the Q2/Q3 10-Q should be read directly before the 180d review to close this gap",
+      "Whether the price move (-3.16% vs S&P +0.41% since the tracking anchor) persists or reverses once Q3 is reported"
+    ],
+    "management_questions": [
+      "How much of the raised FY2026 guide is Soybean and Softseed crush margin versus Viterra synergy capture that is independent of the crush cycle?",
+      "What crush margin assumption underpins the low end of the $9.25-$9.75 range, and has management's 'low H2 visibility' comment changed?",
+      "What is the current status of the Brazil indirect-tax claims (possible vs. probable) and the quarterly trajectory since Q1 FY2026's ~$760M assessed figure?",
+      "Where does the Viterra goodwill balance and cushion stand ahead of the FY2026 annual impairment test?",
+      "Is FY2026 cash conversion (CFO/EBITDA) beginning to recover toward the historical ~70% level?"
+    ],
+    "memo_delta_file": "analyses/BG_2026-06-01/reviews/2026-09-02_90d_memo_delta.md"
+  }
+}
