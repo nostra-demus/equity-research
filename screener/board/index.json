@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T18:17:32Z",
+  "generated_at": "2026-09-02T18:30:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -682,6 +682,55 @@
           "name": "GLOBAL UIN",
           "ticker": "08496",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-798",
+      "headline": "Mumbai: NCLT Admits Central Bank’s Insolvency Plea Against Rama Agro Foods Over ₹27.29-Crore Default",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-nclt-admits-central-banks-insolvency-plea-against-rama-agro-foods-over-2729-crore-default",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T17:47:21Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "NCLT admitted an insolvency plea against Rama Agro Foods for a default of ₹27.29 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT admitted an insolvency plea against Rama Agro Foods for a default of ₹27.29 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rama Agro Foods",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-583",
-      "headline": "UK fines Citibank London $6 million over Russia sanctions breaches",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/uk/uk-fines-citibank-london-6-million-over-russia-sanctions-breaches-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T09:51:43Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Citibank was fined $6 million for breaching Russia sanctions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Citibank was fined $6 million for breaching Russia sanctions.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citigroup",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124916,9 +124916,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2105350,
-    "news_picked_today": 1650,
-    "news_dropped_today": 21462
+    "news_seen_today": 2115200,
+    "news_picked_today": 1666,
+    "news_dropped_today": 21590
   },
   "book_momentum": {
     "live_count": 8,
