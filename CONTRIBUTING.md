@@ -6,10 +6,10 @@ How we keep many people (and AI agents) shipping features into `main` without re
 
 1. Branch off `main`, make the change, open a PR.
 2. CI runs automatically (typecheck + tests), and the standing bot reviewers (CodeQL, Gemini, Codex, Copilot) review it. The engine also runs its own multi-lens adversarial pass. Get it green, and triage every review finding — fix the real ones, record a reasoned won't-fix for the rest.
-3. Stop with an open, green, reviewed PR and report: `PR ready; not merged or deployed`.
-4. Only after the user explicitly authorizes that specific PR's merge in the current conversation may it enter the **merge queue**. That human-authorized merge is the release decision: after the exact resulting `main` push passes all five required jobs, the production watcher may deploy it automatically under its one-shot local receipt. Direct/manual production operations remain separately authorized.
+3. Stop with an open, green, reviewed PR and report: `PR ready for the scheduled merge routine; not merged or manually deployed`.
+4. The owner's separately configured scheduled merge routine runs once or twice per day. It may merge only a current branch whose five required PR jobs are green, whose automated reviews have completed, and whose material findings and review threads are resolved. It uses the protected PR path and has no bypass. That merge is the release decision: after the exact resulting `main` push passes the same five jobs, the production watcher deploys it automatically under its one-shot local receipt. Direct/manual production operations remain separately authorized.
 
-PR CI and adversarial review prove that a PR is ready; they never authorize merge (CLAUDE.md/AGENTS.md §28). The user's explicit instruction for the specific PR is mandatory. After that authorized merge, a separate push workflow re-tests the exact merge result; only its five-job success may authorize automatic deployment. Retaining the multiple independent views makes the recommendation stronger, but never replaces either gate.
+PR CI and adversarial review prove that a PR is ready; only the narrow scheduled merge routine may act on that ready state (CLAUDE.md/AGENTS.md §28). Interactive coding and review sessions do not merge. After the protected merge, a separate push workflow re-tests the exact merge result; only its five-job success may authorize automatic deployment. Retaining the multiple independent views makes the recommendation stronger, but never replaces either gate.
 
 You never hand-rebase for the normal case, and you never need to know whether your change is "big" or "small" — every PR takes the identical path.
 
@@ -22,7 +22,7 @@ The engine's PR agent owns preparation and review of a code PR end to end. It is
 - **run the multi-view adversarial review** — the bot reviewers above plus its own multi-agent lenses — and **triage every finding**: fix the real ones, reply with a reasoned won't-fix for the rest;
 - **keep updating the same PR** until CI is green and the review is clean.
 
-It is not authorized to merge, deploy, or issue a manual deployment receipt. The PR remains open until the user explicitly names that PR and asks for its merge in the current conversation. "Continue", "go ahead", "fix it", "done?", an implementation request, and an earlier request to open a PR are not merge authority. Once an authorized human merges that PR, the exact all-green `main` push may deploy automatically without an agent taking a production action. Manual deployment/bootstrap, restart, configuration changes, and run launch/retry/resume/cancel still require explicit authorization for that exact action. Without it, production access is read-only.
+It is not authorized to merge, deploy, or issue a manual deployment receipt. The PR remains open for the owner's scheduled merge routine. "Continue", "go ahead", "fix it", "done?", an implementation request, and an earlier request to open a PR do not let an interactive agent merge. The scheduled routine may merge only through the protected five-check/review gate described above. Once it does, the exact all-green `main` push may deploy automatically without an agent taking a production action. Manual deployment/bootstrap, restart, configuration changes, and run launch/retry/resume/cancel still require explicit authorization for that exact action. Without it, production access is read-only.
 
 ## Permanent production-engineering standard (Claude, Codex, humans)
 
@@ -35,10 +35,11 @@ definition of done.
 - The default delivery target is an open pull request, not `main` and not production. A coding task includes
   local or staging implementation, tests, CI, reviewer triage, and updates to the same PR. It does not include
   merge or deployment.
-- Merge is the human release boundary: it needs explicit authorization in the current conversation for the
-  specific PR. The automatic watcher may cross the deployment boundary only after re-proving the exact merge
-  result through all five required `main` push jobs. Manual/bootstrap deployment and every other production
-  action remain separate exact authorizations. Never infer merge authority from urgency or generic continuation.
+- Merge is the protected release boundary: only the owner's separately configured scheduled routine may merge,
+  and only after the current PR passes the five required jobs and completed automated review without unresolved
+  material findings. The automatic watcher may cross the deployment boundary only after re-proving the exact
+  merge result through the same five required `main` push jobs. Manual/bootstrap deployment and every other
+  production action remain separate exact authorizations. Interactive agents never impersonate the merge routine.
 - Test in an isolated worktree and local or staging environments. Production may be inspected read-only for
   diagnosis. Do not deploy, restart services, change flags/configuration, or launch, retry, resume, cancel, or
   mutate a production run without exact authorization. Ongoing runs belong to their operators.
@@ -87,13 +88,13 @@ definition of done.
 
 ### "Done" is scoped to the authority granted
 
-A code task without explicit merge authority is complete when the open PR is green, reviewed, tested
-on local or staging, and reported as `PR ready; not merged or deployed`. Merge and deployment are later,
-protected stages; a human-authorized merge delegates only the exact all-green automatic release described
-below, not any manual production action. If the user explicitly authorizes a production-affecting change, that later task
+A code task is complete when the open PR is green, reviewed, tested on local or staging, and reported as
+`PR ready for the scheduled merge routine; not merged or manually deployed`. Merge and deployment are later,
+protected stages; the scheduled merge delegates only the exact all-green automatic release described below,
+not any manual production action. If the user explicitly authorizes a production-affecting change, that later task
 is complete only after all applicable evidence exists:
 
-1. the user explicitly authorized the specific PR merge (and separately authorized any manual production action);
+1. the scheduled routine merged the exact ready PR through the protected path (and the user separately authorized any manual production action);
 2. the protected PR/merge-queue path is green and every review thread is resolved;
 3. the merged commit is proven to be an ancestor of the production checkout (exact `HEAD` is not required
    when legitimate data-only commits have advanced it);
@@ -132,11 +133,9 @@ The manual receipt command is break-glass/bootstrap only and requires separate e
   --authorized-by "<OWNER_LOGIN>"
 ```
 
-The first release that introduces exact push-CI deployment is a deliberate bootstrap, not an automatic rollout:
-the already-installed watcher knows only the old manual-receipt rule. With separate explicit production
-authorization, grant the GitHub App read-only Actions access, issue one manual receipt for the exact merge,
-run and verify one deployment, and confirm the new watcher/helper and audit ledger are installed. Every later
-human-authorized green merge follows the automatic exact-push-CI path.
+The one-time bootstrap was completed on 2026-09-02: both live and standby watchers now carry the exact-push-CI
+authorization helper. Do not issue manual receipts for routine releases. Every protected scheduled-routine
+merge follows the automatic exact-push-CI path; the manual command above remains break-glass only.
 
 ### Make each material lesson durable
 
@@ -149,8 +148,8 @@ non-destructive, and recoverable through the same product path.
 
 ## Why this prevents the conflicts we kept hitting
 
-- **Merge queue = the cure for "someone merged before me" after authorization.** Once the user explicitly authorizes a specific PR, the queue serializes it with other authorized changes, rebases it on current `main`, re-tests it, and merges only if still green. ([GitHub merge queue docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue))
-- **CI re-runs in the queue (on the rebased state).** A PR can't merge if it breaks against *current* `main`, even if it was green when opened. `main` stays green.
+- **Current branches prevent "someone merged before me".** Strict required checks make a stale PR update and re-test against current `main` before the scheduled routine can merge it. A merge queue may serialize this later, but the routine must not claim one exists until the ruleset actually requires it.
+- **CI re-runs on the current branch state.** A PR cannot merge until its branch is updated and green against *current* `main`, even if it was green when opened. `main` stays green.
 - **No shared append-only single-line lists.** Those are "merge magnets" — any two people editing them collide. We auto-discover instead. (The `ui/server` test list used to be one hand-maintained line; it's now `test/run-all.mjs`, which globs `test/*.test.ts`. Adding a test is a new file — zero edits to `package.json`, so it can never conflict.)
 - **Zero-touch boundaries (CLAUDE.md/AGENTS.md §26).** Adding a module/sub-agent edits no shared engine file. Extend that everywhere: prefer auto-discovery and per-file fragments over central registries/manifests/index files.
 - **Don't commit generated/derived files** (build snapshots, lockfile churn from unrelated installs). They conflict for no reason; regenerate them in CI or `.gitignore` them.
@@ -165,29 +164,27 @@ Drop a `something.test.ts` file in `ui/server/test/`. That's it — `npm test` (
 
 These are the enforcement layer — they bind every contributor. Do them once in **Settings**:
 
-1. **Let CI run once** (merge this PR or push it) so the check named **`ui/server — typecheck + tests`** exists to be selected below.
+1. **Let CI run once** so all five exact check names below exist to be selected.
 2. **Settings → Branches → Add branch ruleset (or protect `main`)**:
-   - Require a pull request before merging, at least one approving review, and **Require review from Code Owners**. `.github/CODEOWNERS` names the designated owner; a bot or another collaborator cannot satisfy this gate. CI and bot review are readiness evidence; they do not replace the user's explicit authorization (§28).
-   - Enable dismissal of stale approvals and require approval of the most recent push, so an approval cannot survive changed bytes.
-   - The coding agent must use a separate non-owner GitHub App/account for branch pushes and PR updates. Never give that identity admin or ruleset-bypass authority. An agent using the owner's own credential is technically indistinguishable from the owner and defeats owner-only approval.
-   - **Require status checks to pass** → add **`ui/server — typecheck + tests`**.
-   - **Require branches to be up to date before merging** (the merge queue satisfies this automatically).
+   - Require a pull request before merging. Automated reviewers are evidence the scheduled routine must inspect; no human approval is required for the configured routine.
+   - **Require status checks to pass** → add all five exact jobs: **`ui/server — typecheck + tests`**, **`eval — decision-record contracts + framework anchors`**, **`tools — deterministic extractor + CIQ facts tests`**, **`ui/web — typecheck + tests + build`**, and **`edge — offline-gate uptime-monitor unit tests`**.
+   - **Require branches to be up to date before merging** so the routine cannot merge an old green result.
    - **Require linear history** (optional, keeps `main` clean).
    - Neither the coding identity nor the repository-owner role may bypass the code ruleset. If cockpit research **data** publication needs a bypass identity for `commit-run.sh`, use the separate engine GitHub App and never reuse it as code-merge authority (§28).
 
    > **The engine identity (no extra paid seat).** A **GitHub App** with `Contents: write` is the required choice — a GitHub App does not consume a member seat, and it gates every human (including the owner) for code. Do **not** instead grant code-ruleset bypass to the human account the engine already pushes as: that leaves that one human ungated for code, which the no-bypass rule directly above forbids — the App path is what keeps the owner gated. The engine still cannot push *code* either way — `commit-run.sh` stages only data paths (§28).
    >
    > **Step-by-step runbook:** [`scripts/ops/GH_APP_ENGINE_IDENTITY.md`](scripts/ops/GH_APP_ENGINE_IDENTITY.md) — create + install the App, wire the Mac with `scripts/ops/setup-gh-app.sh`, and flip the ruleset bypass (Admin role → App) in two zero-downtime steps. Tooling: `gh-app-token.sh` mints a short-lived installation token; `gh-app-credential.sh` is the git credential helper `commit-run.sh` uses for engine pushes only.
-3. **Settings → General → Pull Requests → Enable "Merge queue"** (or in the same ruleset: **Require merge queue**). Set the queue to use the `merge_group` CI (already wired in `ci.yml`).
+3. A merge queue is optional future hardening. If enabled, require it in the ruleset and use the `merge_group` CI already wired in `ci.yml`; until then, the scheduled routine uses the strict current-branch protected path.
 4. **Settings → Code security and analysis** — enable for production-level safety:
    - **Dependabot alerts** + **Dependabot security updates**.
    - **CodeQL** (default setup) — static security analysis on every PR.
    - **Secret scanning** + **Push protection**.
-5. Keep **`.github/CODEOWNERS`** mandatory and verify the ruleset requires Code Owner review. The file alone routes review; the ruleset is what makes it a merge gate.
+5. Keep **`.github/CODEOWNERS`** to route the right review. Do not claim human Code Owner approval is required unless the active ruleset actually enforces it.
 
 ## Conventions checklist (humans and agents)
 
-- Branch off latest `main`; open a PR; let CI + the queue do the rebasing.
+- Branch off latest `main`; open a PR; update a stale branch and let strict CI re-test it.
 - No hand-maintained shared lists — auto-discover (tests, modules, routes).
 - Don't commit generated artifacts or unrelated lockfile churn.
 - Keep a PR to one concern; don't bundle a research run or data into a code PR.
@@ -196,5 +193,4 @@ These are the enforcement layer — they bind every contributor. Do them once in
 ## Not yet set up (good follow-ups)
 
 - **Lint**: no ESLint config exists yet; CI does typecheck + tests. Add ESLint + a `lint` CI step when ready.
-- **`ui/web` in CI**: the web build needs the data snapshot; add a web typecheck/build job once that's CI-friendly.
 - **Make `npm audit` a required (blocking) check** once the tree is clean (it's informational today).

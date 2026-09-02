@@ -49,6 +49,7 @@ const health = await first.app.inject({ method: 'GET', url: '/api/health' })
 assert.equal(health.statusCode, 200)
 assert.equal(health.headers['cache-control'], 'no-store')
 assert.equal(health.json().ok, true)
+assert.equal(health.json().deployment, null, 'health exposes no guessed deployment state before the watcher reports one')
 
 const scanProgress = await first.app.inject({ method: 'GET', url: '/api/data-status/NU/progress' })
 assert.equal(scanProgress.statusCode, 200)

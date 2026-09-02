@@ -249,7 +249,7 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
         if not pattern.startswith("data/")
     ]
     uncovered: list[str] = []
-    for root_name in ("analyses", "commodity/runs", "screener", "watchlist"):
+    for root_name in ("analyses", "commodity", "screener", "watchlist"):
         for path in (REPO_ROOT / root_name).rglob("*"):
             if not path.is_file() or path.name in {".gitkeep"}:
                 continue

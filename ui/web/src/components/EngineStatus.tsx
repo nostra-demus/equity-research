@@ -18,10 +18,13 @@ const PILL: Record<HealthState, PillMeta> = {
 
 export function EngineStatusPill() {
   const health = useStore((s) => s.health)
+  const deploymentLag = useStore((s) => s.deploymentLag)
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
   if (staticMode) return null // read-only showcase has no live engine to be offline
-  const m = PILL[health]
+  const m = health === 'online' && deploymentLag
+    ? { label: 'Live · update delayed', color: 'var(--accent)', pulse: true }
+    : PILL[health]
   return (
     <button className="estatus" onClick={() => checkNow()} title="Engine connection — click to re-check">
       <span className={`estatus__dot${m.pulse ? ' estatus__dot--pulse' : ''}`} style={{ background: m.color }} />
@@ -56,9 +59,16 @@ const BANNER: Partial<Record<HealthState, BannerMeta>> = {
 
 export function OfflineBanner() {
   const health = useStore((s) => s.health)
+  const deploymentLag = useStore((s) => s.deploymentLag)
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
-  const info = staticMode ? null : BANNER[health] ?? null
+  const lagMinutes = deploymentLag ? Math.max(1, Math.floor((Date.now() - deploymentLag.pendingSince) / 60_000)) : 0
+  const lagInfo: BannerMeta | null = health === 'online' && deploymentLag ? {
+    title: 'Production update delayed',
+    body: `Main has been waiting to reach production for ${lagMinutes} minute${lagMinutes === 1 ? '' : 's'}. The engine is still live and the release watcher is retrying.`,
+    cta: 'retry',
+  } : null
+  const info = staticMode ? null : BANNER[health] ?? lagInfo
   if (!info) return null // online/connecting/reconnecting -> no banner (React unmounts it instantly)
   return (
     <div className="offlinebar" role="alert" aria-live="polite">

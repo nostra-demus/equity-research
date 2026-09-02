@@ -365,6 +365,8 @@ jobs:
           bash scripts/ops/test-watchdog-cooldown.sh || rc=1
           echo "== test-deploy-priority.sh =="
           bash scripts/ops/test-deploy-priority.sh || rc=1
+          echo "== test-deploy-status.sh =="
+          bash scripts/ops/test-deploy-status.sh || rc=1
           echo "== test-deploy-codex-import-guard.sh =="
           bash scripts/ops/test-deploy-codex-import-guard.sh || rc=1
           echo "== test-deploy-authorization.py =="

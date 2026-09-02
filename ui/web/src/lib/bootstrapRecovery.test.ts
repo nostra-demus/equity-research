@@ -223,6 +223,24 @@ try {
   await useStore.getState()._tickHealth()
   assert.equal(useStore.getState().health, 'online', 'the next healthy poll must re-open launch controls after deployment')
 
+  const laggedDeployment = {
+    schemaVersion: 1, status: 'pending', targetSha: 'a'.repeat(40), deployedSha: 'b'.repeat(40),
+    authorizedCodeSha: null, pendingSince: Date.now() - 600_000, checkedAt: Date.now(), reason: 'ci_not_green',
+  }
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    ok: true, deploymentPending: false, deployment: laggedDeployment,
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().health, 'online', 'release lag must not falsely close paid run admission')
+  assert.equal(useStore.getState().deploymentLag?.reason, 'ci_not_green', 'release lag stays visible in the cockpit')
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    ok: true, deploymentPending: false, deployment: {
+      ...laggedDeployment, status: 'current', deployedSha: laggedDeployment.targetSha, pendingSince: null, reason: 'deployed',
+    },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().deploymentLag, null, 'a current production receipt clears the lag banner')
+
   api.swarms = async () => { throw Object.assign(new Error('gateway before Access check'), { status: 503 }) }
   useStore.setState({ activeSwarm: 'screener', swarms: [], health: 'online' })
   await useStore.getState().init()

@@ -240,6 +240,25 @@
       ]
     },
     {
+      "id": "commodity-calibration-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": [
+        "commodity/performance/*_calibration_summary.json",
+        "commodity/performance/*_calibration_summary.md"
+      ],
+      "formats": ["json", "markdown"],
+      "observed_count": 16,
+      "producer_ids": ["commodity-tools"],
+      "reader_ids": ["commodity-agents", "evaluation-harness"],
+      "correction_model": "Regenerate a new dated projection from immutable commodity decisions and append-only reviews.",
+      "evidence": [
+        "commodity/performance/2026-09-01_calibration_summary.json",
+        ".claude/commands/commodity/calibrate.md",
+        "scripts/commodity_calibrate.py"
+      ]
+    },
+    {
       "id": "commodity-profiles-and-validated-signals",
       "kind": "source_store",
       "authority": "curated_configuration",
@@ -540,7 +559,7 @@
     {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "writes_store_ids": ["equity-evaluation-reports"]},
     {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "writes_store_ids": ["run-pool-extract-cache", "mounted-source-pools"]},
     {"id": "commodity-agents", "type": "agent_program", "evidence": [".claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md", ".claude/commands/commodity/full.md"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger"]},
-    {"id": "commodity-tools", "type": "scripts", "evidence": ["scripts/commodity_decision_archive.py", "scripts/commodity_evidence_links.py", "scripts/commodity_calibrate.py"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals", "screener-conviction-ledger"]},
+    {"id": "commodity-tools", "type": "scripts", "evidence": ["scripts/commodity_decision_archive.py", "scripts/commodity_evidence_links.py", "scripts/commodity_calibrate.py"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-calibration-projections", "commodity-profiles-and-validated-signals", "screener-conviction-ledger"]},
     {"id": "screener-agents", "type": "agent_program", "evidence": [".claude/commands/screener/signal.md", ".claude/agents/screener/signal-gate/99_signal-gate-synthesis.md"], "writes_store_ids": ["screener-run-artifacts", "screener-event-ledger", "screener-thesis-candidate-ledger"]},
     {"id": "news-ingestion", "type": "service", "evidence": ["ui/server/src/news/write-inbox.ts", "ui/server/src/news/ingest-once.ts"], "writes_store_ids": ["screener-inbox-archive", "screener-event-ledger"]},
     {"id": "theme-engine", "type": "service", "evidence": ["ui/server/src/news/themes/engine.ts", "ui/server/src/news/themes/store.ts"], "writes_store_ids": ["screener-theme-ledger", "screener-board-projections"]},
@@ -557,6 +576,7 @@
   ],
   "readers": [
     {"id": "research-agents", "type": "agent_program", "evidence": [".claude/agents/synthesizer.md", "frameworks/MODULE_PIPELINE.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-calibration-projections", "run-pool-extract-cache", "commodity-run-artifacts", "commodity-profiles-and-validated-signals", "mounted-source-pools", "external-ingestion-inbox"]},
+    {"id": "commodity-agents", "type": "agent_program", "evidence": [".claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md", ".claude/commands/commodity/full.md"], "reads_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-calibration-projections", "commodity-profiles-and-validated-signals"]},
     {"id": "standing-decision-resolver", "type": "script", "evidence": ["scripts/ledger_records.py"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars"]},
     {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews", "equity-run-provenance-and-audits", "equity-evaluation-reports"]},
     {"id": "research-review-calibration", "type": "command_and_script", "evidence": [".claude/commands/research/review-decisions.md", ".claude/commands/research/calibrate.md"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews"]},

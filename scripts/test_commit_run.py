@@ -79,8 +79,10 @@ def setup_stale_local_main_scenario(tmp):
 
     seed = os.path.join(tmp, "seed")
     run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
+    install_catalogue_fixture(seed)
     write_text(seed, "analyses/base/a.txt", "A\n")
-    run(["git", "add", "analyses/base/a.txt"], cwd=seed, env=env)
+    run(["git", "add", "analyses/base/a.txt", "scripts/validate_data_catalogue.py",
+         "frameworks/memory/phase0/catalogue.json"], cwd=seed, env=env)
     run(["git", "commit", "-q", "-m", "commit A"], cwd=seed, env=env)
     run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -141,6 +143,23 @@ def write_text(repo, relative_path, body):
     with open(absolute, "w") as handle:
         handle.write(body)
     return absolute
+
+
+def install_catalogue_fixture(repo, patterns=None):
+    """Install the real validator with a small committed catalogue for isolated Git fixtures."""
+    scripts = os.path.join(repo, "scripts")
+    os.makedirs(scripts, exist_ok=True)
+    shutil.copy2(
+        os.path.join(REPO_ROOT, "scripts", "validate_data_catalogue.py"),
+        os.path.join(scripts, "validate_data_catalogue.py"),
+    )
+    write_json(repo, "frameworks/memory/phase0/catalogue.json", {
+        "catalogue_version": "memory-current-state-catalogue/v1",
+        "stores": [{
+            "id": "fixture-engine-data",
+            "paths": patterns or ["analyses/**", "screener/**", "commodity/**", "watchlist/**"],
+        }],
+    })
 
 
 def no_push_env(env):
@@ -214,6 +233,38 @@ def test_no_op_when_no_matching_pathspec():
         check("NOOP path reports NOOP=1", "NOOP=1" in result.stdout, result.stdout)
 
 
+def test_uncatalogued_data_is_rejected_before_commit():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-catalogue-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_catalogue_fixture(agent, [
+            "analyses/*/*.txt",
+            "screener/**",
+            "commodity/**",
+            "watchlist/**",
+        ])
+        run(["git", "add", "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: restrict catalogue"], cwd=agent, env=env)
+        relative = "analyses/FRESH_2099-01-01/relationships.json"
+        write_json(agent, relative, {"fixture": True})
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+
+        result = run(
+            ["bash", COMMIT_RUN, "test: reject uncatalogued data", "--", relative],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        absent = run(["git", "cat-file", "-e", f"HEAD:{relative}"], cwd=agent, env=env, check_rc=False)
+        check("uncatalogued staged data exits 5 before commit",
+              result.returncode == 5 and before == after and absent.returncode != 0,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("catalogue rejection names the missing artifact and leaves the index clean",
+              relative in result.stderr and "DATA-CATALOGUE: FAIL" in result.stderr
+              and cached.returncode == 0,
+              result.stderr)
+
+
 def test_git_add_failure_is_not_a_noop():
     with tempfile.TemporaryDirectory(prefix="commit-run-test-add-fail-") as tmp:
         _, agent, env = setup_stale_local_main_scenario(tmp)
@@ -262,9 +313,11 @@ def test_conflicting_remote_reconciliation_leaves_checkout_untouched():
         run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
         seed = os.path.join(tmp, "seed")
         run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
+        install_catalogue_fixture(seed)
         shared_path = "analyses/shared/shared.ndjson"
         write_text(seed, shared_path, '{"side":"base"}\n')
-        run(["git", "add", shared_path], cwd=seed, env=env)
+        run(["git", "add", shared_path, "scripts/validate_data_catalogue.py",
+             "frameworks/memory/phase0/catalogue.json"], cwd=seed, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -383,12 +436,15 @@ def setup_dirty_data_reconcile_scenario(tmp):
     run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
     seed = os.path.join(tmp, "seed")
     run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
+    install_catalogue_fixture(seed)
     os.makedirs(os.path.join(seed, "screener", "board"), exist_ok=True)
     with open(os.path.join(seed, "screener", "board", "live.json"), "w") as f:
         f.write('{"generation":"base"}\n')
     with open(os.path.join(seed, "base.txt"), "w") as f:
         f.write("base\n")
-    run(["git", "add", "screener/board/live.json", "base.txt"], cwd=seed, env=env)
+    run(["git", "add", "screener/board/live.json", "base.txt",
+         "scripts/validate_data_catalogue.py", "frameworks/memory/phase0/catalogue.json"],
+        cwd=seed, env=env)
     run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
     run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
 
@@ -510,9 +566,11 @@ def test_retry_push_is_exact_main_only_and_serialized():
         run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
         agent = os.path.join(tmp, "agent")
         run(["git", "clone", "-q", origin, agent], cwd=tmp, env=env)
+        install_catalogue_fixture(agent)
         with open(os.path.join(agent, "base.txt"), "w") as f:
             f.write("base\n")
-        run(["git", "add", "base.txt"], cwd=agent, env=env)
+        run(["git", "add", "base.txt", "scripts/validate_data_catalogue.py",
+             "frameworks/memory/phase0/catalogue.json"], cwd=agent, env=env)
         run(["git", "commit", "-q", "-m", "base"], cwd=agent, env=env)
         run(["git", "push", "-q", "origin", "main"], cwd=agent, env=env)
         pending_path = "analyses/pending/pending.txt"
@@ -815,6 +873,7 @@ if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
     test_no_op_when_no_matching_pathspec()
+    test_uncatalogued_data_is_rejected_before_commit()
     test_git_add_failure_is_not_a_noop()
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_remote_reconciliation_leaves_checkout_untouched()
