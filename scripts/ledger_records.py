@@ -23,7 +23,13 @@ corrections.json (schema "corrections/v1"), any subset of keys, all optional:
       "reason": "recorded as decimal fractions; §6 requires the 0-100 scale",
       "evidence": "DECISION_LEDGER.md §6" },
     { "field": "downside_risk_pct", "kind": "sign_fix", "reason": "...", "evidence": "..." }
-  ]
+  ],
+  "metadata_recovery": {
+    "reason": "why publication metadata was missing", "evidence": "immutable runtime evidence",
+    "post_review_confidence_score": 47, "confidence_haircut": 6,
+    "execution_provenance": { "...": "canonical cockpit_runtime projection" },
+    "runtime_evidence": { "source": "codex_task_runtime", "attempts": ["..."] }
+  }
 }
 
 A `superseded_by` record is DROPPED from the standing set (it is not a live call). `errata` are
@@ -70,11 +76,14 @@ CLI:
 """
 
 import copy
+import datetime
 import glob
 import json
 import os
 import re
 import sys
+
+from execution_provenance import ProvenanceError, validate_attempt, validate_projection
 
 CORRECTIONS_SCHEMA = "corrections/v1"
 _RUN_DIR_RE = re.compile(r"_\d{4}-\d{2}-\d{2}$")
@@ -162,6 +171,36 @@ def _apply_shape_fix(record, field):
         }
 
 
+def _valid_metadata_recovery(record, corrections):
+    """Validate an append-only recovery for fields omitted at publication."""
+    value = corrections.get("metadata_recovery")
+    if not isinstance(value, dict) or not all(
+        isinstance(value.get(key), str) and value[key].strip() for key in ("reason", "evidence")
+    ):
+        return None
+    post, haircut, raw = (value.get("post_review_confidence_score"),
+                          value.get("confidence_haircut"), record.get("confidence_score"))
+    if not all(isinstance(item, (int, float)) and not isinstance(item, bool) for item in (post, haircut, raw)) \
+            or not (0 <= post <= 100 and haircut >= 0 and abs((raw - post) - haircut) <= 1e-6):
+        return None
+    try:
+        projection = validate_projection(value.get("execution_provenance"),
+                                         "metadata_recovery.execution_provenance")
+        runtime = value.get("runtime_evidence")
+        attempts = runtime.get("attempts") if isinstance(runtime, dict) \
+            and runtime.get("source") == "codex_task_runtime" else None
+        if not isinstance(attempts, list) or not attempts:
+            return None
+        clean_attempts = [validate_attempt(attempt, index) for index, attempt in enumerate(attempts, 1)]
+        author_id = projection["decision_author"]["attempt_id"]
+        if not any(row["attempt_id"] == author_id and row["attribution"] == "recorded"
+                   for row in clean_attempts):
+            return None
+    except (KeyError, ProvenanceError):
+        return None
+    return value
+
+
 _TRANSFORMS = {
     "scale_fix": _apply_scale_fix,
     "sign_fix": _apply_sign_fix,
@@ -177,6 +216,13 @@ def apply_errata(record, corrections):
     (recorded as 'unknown-kind') — a future kind must never silently corrupt an old reader."""
     out = copy.deepcopy(record)
     applied = []
+    recovery = _valid_metadata_recovery(record, corrections)
+    if recovery is not None and all(
+        key not in out for key in ("execution_provenance", "post_review_confidence_score", "confidence_haircut")
+    ):
+        for key in ("execution_provenance", "post_review_confidence_score", "confidence_haircut"):
+            out[key] = copy.deepcopy(recovery[key])
+        applied.append({"field": "publication_metadata", "kind": "metadata_recovery", "status": "applied"})
     for erratum in corrections.get("errata", []) or []:
         if not isinstance(erratum, dict):
             continue
@@ -274,6 +320,45 @@ def _load_record(run_dir):
         return None
 
 
+def supersession_target_violations(source_run_dir, target_run_dir):
+    """Fail-closed authority check shared by standing readers and the evaluator."""
+    source_abs, target_abs = os.path.abspath(source_run_dir), os.path.abspath(target_run_dir)
+    if os.path.dirname(source_abs) != os.path.dirname(target_abs):
+        return ["supersession target is not a sibling run folder"]
+    required = ("decision_record.json", "final_thesis.md", "memo.md", "audit_dossier.md")
+    missing = [name for name in required if not os.path.isfile(os.path.join(target_run_dir, name))]
+    if missing:
+        return [f"missing terminal artifact(s): {', '.join(missing)}"]
+    for name in ("final_thesis.md", "memo.md", "audit_dossier.md"):
+        if os.path.getsize(os.path.join(target_run_dir, name)) <= 1024:
+            return [f"incomplete terminal artifact {name!r}"]
+    source = _load_record(source_run_dir)
+    raw_target = _load_record(target_run_dir)
+    if source is None or raw_target is None:
+        return ["source or target decision_record.json is unreadable"]
+    target = apply_errata(raw_target, read_corrections(target_run_dir))
+    expected_thesis = os.path.normpath(os.path.join(target_run_dir, "final_thesis.md"))
+    if os.path.normpath(str(target.get("run_root") or "")) != os.path.normpath(target_run_dir):
+        return ["decision_record.run_root does not match the supersession target"]
+    if os.path.normpath(str(target.get("final_thesis_path") or "")) != expected_thesis:
+        return ["decision_record.final_thesis_path does not name the target thesis"]
+    if not (isinstance(source.get("ticker"), str) and source["ticker"]
+            and source["ticker"] == target.get("ticker")):
+        return ["supersession target ticker does not match the source ticker"]
+    try:
+        source_date = datetime.date.fromisoformat(source.get("decision_date"))
+        target_date = datetime.date.fromisoformat(target.get("decision_date"))
+    except (TypeError, ValueError):
+        return ["source or target decision_date is invalid"]
+    if target_date <= source_date:
+        return ["supersession target decision_date is not newer than the source"]
+    try:
+        validate_projection(target.get("execution_provenance"), "replacement execution_provenance")
+    except ProvenanceError as error:
+        return [f"replacement execution provenance is invalid: {error}"]
+    return []
+
+
 def load_standing_records(analyses_root="analyses"):
     """The STANDING, corrected decision-record set: one entry per committed run folder that carries
     a parseable decision record AND is NOT superseded, with errata applied. Returns a list of
@@ -289,8 +374,9 @@ def load_standing_records(analyses_root="analyses"):
         if record is None:
             continue
         corrections = read_corrections(run_dir)
-        if superseded_target(corrections):
-            continue  # superseded — not a standing call
+        target = superseded_target(corrections)
+        if target and not supersession_target_violations(run_dir, target):
+            continue  # superseded by a validated newer publication — not a standing call
         out.append({"run_root": run_dir.replace(os.sep, "/"), "record": apply_errata(record, corrections),
                      "integrity": resolve_integrity_status(run_dir)})
     return sorted(out, key=lambda e: e["run_root"])
@@ -371,12 +457,63 @@ def selftest():
     check(superseded_target({}) is None, "no supersession → None")
     check(read_corrections("/nonexistent/path/xyz") == {}, "missing sidecar → {}")
 
+    # append-only metadata recovery: validates evidence, never rewrites/overrides frozen fields
+    attempt = {"schema_version": "1.0", "event": "attempt_started",
+               "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10", "provider": "codex",
+               "model": "gpt-test", "reasoning_level": "max", "attribution": "recorded",
+               "scope": ["synthesizer"], "decision_artifacts": ["decision_record.json"],
+               "decision_artifacts_optional": False}
+    projection = {"schema_version": "1.0", "source": "cockpit_runtime",
+                  "coverage": "cockpit_top_level_processes", "provider_mode": "partially_observed",
+                  "profile_key": "codex|gpt-test:max", "decision_author": {
+                      "attempt_id": attempt["attempt_id"], "provider": "codex", "model": "gpt-test",
+                      "reasoning_level": "max", "attribution": "recorded"},
+                  "contributors": [{"provider": "codex", "model": "gpt-test", "reasoning_level": "max",
+                                    "attribution": "recorded", "scopes": ["synthesizer"]}],
+                  "cli_versions": {}}
+    recovery = {"reason": "omitted", "evidence": "runtime transcript", "post_review_confidence_score": 47,
+                "confidence_haircut": 6, "execution_provenance": projection,
+                "runtime_evidence": {"source": "codex_task_runtime", "attempts": [attempt]}}
+    frozen = {"confidence_score": 53}
+    recovered = apply_errata(frozen, {"schema": CORRECTIONS_SCHEMA, "metadata_recovery": recovery})
+    check(recovered["post_review_confidence_score"] == 47
+          and recovered["execution_provenance"] == projection and "execution_provenance" not in frozen,
+          "metadata recovery overlays a validated projection without mutating the frozen record")
+    existing = apply_errata({**frozen, "post_review_confidence_score": 50},
+                            {"schema": CORRECTIONS_SCHEMA, "metadata_recovery": recovery})
+    check(existing["post_review_confidence_score"] == 50,
+          "metadata recovery never overrides an existing published field")
+
     # wrong-schema sidecar ignored
     import tempfile
     with tempfile.TemporaryDirectory() as td:
         with open(os.path.join(td, "corrections.json"), "w") as f:
             json.dump({"schema": "other/v9", "superseded_by": {"run_root": "x"}}, f)
         check(read_corrections(td) == {}, "wrong-schema sidecar ignored")
+
+    # standing readers drop a source only for a complete same-ticker newer replacement
+    with tempfile.TemporaryDirectory() as td:
+        source_run = os.path.join(td, "TICK_2026-08-31")
+        target_run = os.path.join(td, "TICK_2026-09-01")
+        os.makedirs(source_run); os.makedirs(target_run)
+        json.dump({"ticker": "TICK", "decision_date": "2026-08-31", "confidence_score": 52},
+                  open(os.path.join(source_run, "decision_record.json"), "w"))
+        json.dump({"schema": CORRECTIONS_SCHEMA, "superseded_by": {"run_root": target_run}},
+                  open(os.path.join(source_run, "corrections.json"), "w"))
+        json.dump({"ticker": "TICK", "decision_date": "2026-09-01", "confidence_score": 53,
+                   "run_root": target_run, "final_thesis_path": os.path.join(target_run, "final_thesis.md"),
+                   "execution_provenance": projection},
+                  open(os.path.join(target_run, "decision_record.json"), "w"))
+        for name in ("final_thesis.md", "memo.md", "audit_dossier.md"):
+            open(os.path.join(target_run, name), "w").write("x" * 1025)
+        standing = load_standing_records(td)
+        check([row["record"]["decision_date"] for row in standing] == ["2026-09-01"],
+              "complete same-ticker newer replacement retires the source")
+        target_record = json.load(open(os.path.join(target_run, "decision_record.json")))
+        target_record["ticker"] = "OTHER"
+        json.dump(target_record, open(os.path.join(target_run, "decision_record.json"), "w"))
+        standing = load_standing_records(td)
+        check(len(standing) == 2, "wrong-ticker replacement fails closed and preserves the source")
 
     # resolve_integrity_status: no final_thesis.md, no verification_report → "unaudited", never a crash
     with tempfile.TemporaryDirectory() as td:

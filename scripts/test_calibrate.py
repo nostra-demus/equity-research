@@ -1098,6 +1098,11 @@ def test_execution_identity_is_conservative():
     check(C._execution_identity({"execution_provenance": invalid_uuid})["author_provider"] == "unknown",
           "a non-canonical decision-author UUID invalidates the projection")
 
+    uuid7 = _execution_provenance("codex")
+    uuid7["decision_author"]["attempt_id"] = "01a05e44-5728-7c00-9710-6f570eabfd10"
+    check(C._execution_identity({"execution_provenance": uuid7})["author_provider"] == "codex",
+          "a canonical UUIDv7 runtime attempt remains attributable")
+
     inconsistent = _execution_provenance("codex")
     inconsistent["contributors"] = sorted(inconsistent["contributors"] + [{
         "provider": "claude", "model": "claude-parent", "reasoning_level": "high",

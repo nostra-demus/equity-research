@@ -7,7 +7,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { CORRECTIONS_SCHEMA, applyErrata, supersededTarget, resolveIntegrityStatus, resolveDisplayFields } from '../src/ledger-corrections'
+import { CORRECTIONS_SCHEMA, applyErrata, supersededTarget, resolveIntegrityStatus, resolveDisplayFields,
+  validSupersessionTarget } from '../src/ledger-corrections'
 
 function withTmpDir(fn: (td: string) => void) {
   const td = fs.mkdtempSync(path.join(os.tmpdir(), 'ledger-integrity-'))
@@ -96,6 +97,51 @@ check('scale_fix on a BARE top-level probability field (mirrors the Python bare-
 check('supersededTarget: reads the target, else null', () => {
   assert.equal(supersededTarget({ superseded_by: { run_root: 'analyses/EMAAR_2026-07-10' } }), 'analyses/EMAAR_2026-07-10')
   assert.equal(supersededTarget({}), null)
+})
+
+check('metadata_recovery: overlays validated omitted metadata without mutating or overriding', () => {
+  const attemptId = '01a05e44-5728-7c00-9710-6f570eabfd10'
+  const projection = {
+    schema_version: '1.0', source: 'cockpit_runtime', coverage: 'cockpit_top_level_processes',
+    provider_mode: 'partially_observed', profile_key: 'codex|gpt-test:max',
+    decision_author: { attempt_id: attemptId, provider: 'codex', model: 'gpt-test', reasoning_level: 'max', attribution: 'recorded' },
+    contributors: [{ provider: 'codex', model: 'gpt-test', reasoning_level: 'max', attribution: 'recorded', scopes: ['synthesizer'] }],
+    cli_versions: {},
+  }
+  const metadata_recovery = {
+    reason: 'omitted', evidence: 'runtime transcript', post_review_confidence_score: 47, confidence_haircut: 6,
+    execution_provenance: projection,
+    runtime_evidence: { source: 'codex_task_runtime', attempts: [{ attempt_id: attemptId, attribution: 'recorded' }] },
+  }
+  const frozen = { confidence_score: 53 }
+  const got = applyErrata(frozen, { schema: CORRECTIONS_SCHEMA, metadata_recovery })
+  assert.equal(got.post_review_confidence_score, 47)
+  assert.deepEqual(got.execution_provenance, projection)
+  assert.equal((frozen as any).execution_provenance, undefined)
+  const existing = applyErrata({ ...frozen, post_review_confidence_score: 50 },
+    { schema: CORRECTIONS_SCHEMA, metadata_recovery })
+  assert.equal(existing.post_review_confidence_score, 50)
+})
+
+check('validSupersessionTarget: requires complete, same-ticker, newer publication', () => {
+  withTmpDir((td) => {
+    const source = path.join(td, 'TICK_2026-08-31')
+    const target = path.join(td, 'TICK_2026-09-01')
+    fs.mkdirSync(source); fs.mkdirSync(target)
+    fs.writeFileSync(path.join(source, 'decision_record.json'), JSON.stringify({ ticker: 'TICK', decision_date: '2026-08-31' }))
+    fs.writeFileSync(path.join(target, 'decision_record.json'), JSON.stringify({
+      ticker: 'TICK', decision_date: '2026-09-01', run_root: target,
+      final_thesis_path: path.join(target, 'final_thesis.md'), execution_provenance: { source: 'cockpit_runtime' },
+    }))
+    for (const name of ['final_thesis.md', 'memo.md', 'audit_dossier.md']) {
+      fs.writeFileSync(path.join(target, name), 'x'.repeat(1025))
+    }
+    assert.equal(validSupersessionTarget(source, target, target), true)
+    const record = JSON.parse(fs.readFileSync(path.join(target, 'decision_record.json'), 'utf8'))
+    record.ticker = 'OTHER'
+    fs.writeFileSync(path.join(target, 'decision_record.json'), JSON.stringify(record))
+    assert.equal(validSupersessionTarget(source, target, target), false)
+  })
 })
 
 // resolveIntegrityStatus — mirrors scripts/ledger_records.py's resolve_integrity_status() selftest

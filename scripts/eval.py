@@ -20,7 +20,6 @@ from overdue_checks import (
     eval_as_forecast_overdue as _overdue_as_forecast_overdue,
     eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
 )
-from execution_provenance import ProvenanceError, validate_attempt, validate_projection
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
 today = subprocess.check_output(["date","+%F"]).decode().strip()
 
@@ -272,7 +271,7 @@ if scope=="--data-needs-prewrite":
 # ledger_records.resolve_integrity_status (CLAUDE.md §2 — do not reimplement the same
 # PROVISIONAL-banner / verification_report-verdict resolution; it is the SAME signal
 # /research:calibrate and /research:track already read) and is used only in the main scan loop.
-from ledger_records import resolve_integrity_status
+from ledger_records import resolve_integrity_status, supersession_target_violations
 
 # ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
 # Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
@@ -1067,42 +1066,19 @@ def _an_valid_sidecar(run_dir):
     except Exception:
         return {}
 
-def _an_terminal_replacement_violations(run_root):
+def _an_terminal_replacement_violations(run_root, source_run_root=None):
     """Return why a supersession target is not a complete published correction.
 
     A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
     module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
     provenance before it is allowed to retire the prior standing call.
     """
-    required = ("decision_record.json", "final_thesis.md", "memo.md", "audit_dossier.md",
-                "execution_provenance.receipt.json")
-    missing = [name for name in required if not os.path.isfile(os.path.join(run_root, name))]
-    if missing:
-        return [f"supersession target {run_root!r} is missing terminal artifact(s): {', '.join(missing)}"]
-    for name in ("final_thesis.md", "memo.md", "audit_dossier.md"):
-        if os.path.getsize(os.path.join(run_root, name)) <= 1024:
-            return [f"supersession target {run_root!r} has incomplete terminal artifact {name!r}"]
-    try:
-        record = json.load(open(os.path.join(run_root, "decision_record.json")))
-        if not isinstance(record, dict):
-            raise ValueError("decision_record.json is not an object")
-        if os.path.normpath(str(record.get("run_root") or "")) != os.path.normpath(run_root):
-            raise ValueError("decision_record.run_root does not match the supersession target")
-        expected_thesis = os.path.normpath(os.path.join(run_root, "final_thesis.md"))
-        if os.path.normpath(str(record.get("final_thesis_path") or "")) != expected_thesis:
-            raise ValueError("decision_record.final_thesis_path does not name the target thesis")
-        validate_projection(record.get("execution_provenance"), "replacement execution_provenance")
-        receipt = json.load(open(os.path.join(run_root, "execution_provenance.receipt.json")))
-        attempts = receipt.get("attempts") if isinstance(receipt, dict) else None
-        if not isinstance(attempts, list) or not attempts:
-            raise ValueError("execution provenance receipt has no attempts")
-        for index, attempt in enumerate(attempts, 1):
-            validate_attempt(attempt, index)
-    except (OSError, json.JSONDecodeError, ValueError, ProvenanceError) as error:
-        return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"]
-    return []
+    if not source_run_root:
+        return ["supersession source run root is unavailable"]
+    return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"
+            for error in supersession_target_violations(source_run_root, run_root)]
 
-def eval_an_supersession_integrity(corrections):
+def eval_an_supersession_integrity(corrections, source_run_root=None):
     """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
     must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
     from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
@@ -1131,7 +1107,7 @@ def eval_an_supersession_integrity(corrections):
         nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
         nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
         if not (isinstance(nxt, str) and nxt.strip()):
-            return _an_terminal_replacement_violations(cur)
+            return _an_terminal_replacement_violations(cur, source_run_root)
         nxt = nxt.strip()
         if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
             return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
@@ -3117,10 +3093,24 @@ if scope=="selftest":
                                       "attribution":"recorded","scopes":["synthesizer"]}],"cli_versions":{}}
         open(os.path.join(_good,"decision_record.json"),"w").write(json.dumps(
             {"run_root":_good,"final_thesis_path":os.path.join(_good,"final_thesis.md"),
+             "ticker":"EMAAR","decision_date":"2026-07-10",
              "execution_provenance":_projection}))
         for _terminal_name in ("final_thesis.md","memo.md","audit_dossier.md"):
             open(os.path.join(_good,_terminal_name),"w").write("x"*1025)
-        open(os.path.join(_good,"execution_provenance.receipt.json"),"w").write(json.dumps({"attempts":[_attempt]}))
+        _source=os.path.join(_td,"EMAAR_2026-07-03"); os.makedirs(_source)
+        open(os.path.join(_source,"decision_record.json"),"w").write(json.dumps(
+            {"ticker":"EMAAR","decision_date":"2026-07-03"}))
+        import shutil as _shutil
+        _other=os.path.join(_td,"OTHER_2026-07-11"); _shutil.copytree(_good,_other)
+        _other_record=json.load(open(os.path.join(_other,"decision_record.json")))
+        _other_record.update({"run_root":_other,"final_thesis_path":os.path.join(_other,"final_thesis.md"),
+                              "ticker":"OTHER","decision_date":"2026-07-11"})
+        open(os.path.join(_other,"decision_record.json"),"w").write(json.dumps(_other_record))
+        _older=os.path.join(_td,"EMAAR_2026-07-01"); _shutil.copytree(_good,_older)
+        _older_record=json.load(open(os.path.join(_older,"decision_record.json")))
+        _older_record.update({"run_root":_older,"final_thesis_path":os.path.join(_older,"final_thesis.md"),
+                              "decision_date":"2026-07-01"})
+        open(os.path.join(_older,"decision_record.json"),"w").write(json.dumps(_older_record))
         _empty=os.path.join(_td,"EMPTY_2026-01-01"); os.makedirs(_empty)  # exists but no decision_record.json
         _decision_only=os.path.join(_td,"PARTIAL_2026-01-01"); os.makedirs(_decision_only)
         open(os.path.join(_decision_only,"decision_record.json"),"w").write("{}")
@@ -3136,11 +3126,13 @@ if scope=="selftest":
             ({"superseded_by":{"run_root":os.path.join(_td,"NOPE_2026-01-01")}}, ["does not exist"]),
             ({"superseded_by":{"run_root":_empty}}, ["no decision_record.json"]),
             ({"superseded_by":{"run_root":_decision_only}}, ["missing terminal artifact"]),
+            ({"superseded_by":{"run_root":_other}}, ["ticker does not match"]),
+            ({"superseded_by":{"run_root":_older}}, ["not newer"]),
             ({"superseded_by":{"reason":"x"}}, ["no run_root"]),                            # missing run_root
             ({"superseded_by":{"run_root":_cyca}}, ["circular"]),                           # A→B→A chain → caught
         ]
         for corr_,exp in ancases:
-            got=eval_an_supersession_integrity(corr_)
+            got=eval_an_supersession_integrity(corr_, _source)
             if exp is None: ok=(got is None)
             elif not exp: ok=(isinstance(got,list) and len(got)==0)
             else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
@@ -4819,7 +4811,7 @@ for drp in runs:
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
-    _anresult=eval_an_supersession_integrity(_corr)
+    _anresult=eval_an_supersession_integrity(_corr, run)
     if _anresult is None:
         add("AN_supersession_integrity",True,"no supersession sidecar — N/A",na=True)
     elif _anresult:
