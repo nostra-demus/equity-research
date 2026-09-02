@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T16:54:40Z",
+  "generated_at": "2026-09-02T17:25:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -685,6 +685,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-771",
+      "headline": "Uber’s $14.8 Billion Delivery Hero Takeover Gains Board Backing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-02/delivery-hero-board-recommends-holders-accept-uber-takeover-bid-mtkbg82t",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:34:13Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber to acquire Delivery Hero for $14.8 billion with board backing, a major strategic M&A affecting both companies' capital deployment and competitive position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber to acquire Delivery Hero for $14.8 billion with board backing, a major strategic M&A affecting both companies' capital deployment and competitive position.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 87,
+      "rank_factors": {
+        "materiality": 87,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Delivery Hero",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,60 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-528",
-      "headline": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/lottomatica-to-buy-blackstone-backed-cirsa-in-all-shares-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T06:03:07Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lottomatica",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cirsa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124990,9 +124990,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1969067,
-    "news_picked_today": 1540,
-    "news_dropped_today": 20348
+    "news_seen_today": 2018018,
+    "news_picked_today": 1575,
+    "news_dropped_today": 20817
   },
   "book_momentum": {
     "live_count": 8,
