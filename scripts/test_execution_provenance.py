@@ -21,6 +21,7 @@ from execution_provenance import (  # noqa: E402
     prior_projections,
     read_manifest,
     stamp_artifact,
+    validate_projection,
     verify_artifact,
 )
 
@@ -95,6 +96,7 @@ class ExecutionProvenanceTest(unittest.TestCase):
         projected = project([unknown_prior])
         self.assertEqual(projected["provider_mode"], "partially_observed")
         self.assertEqual({row["provider"] for row in projected["contributors"]}, {"codex"})
+        validate_projection(projected)
 
     def test_cross_provider_resume_remains_mixed_when_one_attempt_is_partial(self):
         value = project([

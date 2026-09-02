@@ -346,9 +346,13 @@ def validate_projection(value: Any, label: str = "execution_provenance") -> dict
         )
     if not author_present:
         raise ProvenanceError(f"{label} decision author is absent from contributors")
-    expected_mode = "mixed_provider" if len(providers) > 1 else \
-        "partially_observed" if incomplete else "single_provider"
-    if value.get("provider_mode") != expected_mode:
+    mode = value.get("provider_mode")
+    valid_modes = {"mixed_provider"} if len(providers) > 1 else \
+        {"partially_observed"} if incomplete else {"single_provider", "partially_observed"}
+    # `prior_unobserved` is manifest-only and intentionally is not copied into contributors, so a
+    # fully populated partial projection cannot be distinguished from a single-provider projection
+    # when the terminal artifact is audited later. Accept both conservative labels in that case.
+    if mode not in valid_modes:
         raise ProvenanceError(f"{label} provider_mode disagrees with contributors")
     versions = value.get("cli_versions")
     if not isinstance(versions, dict) or any(key not in PROVIDERS or not _non_empty(item)

@@ -439,7 +439,57 @@
     "365d": "2027-09-01"
   },
   "created_by": "synthesizer",
-  "notes": "Avoid is a no-trade decision, not a short recommendation. The bank-specific balance-sheet-survival module intentionally failed fast, so no Distress, Stretched, or Fortress verdict is claimed. The runtime supervisor owns execution provenance and will stamp it separately.",
+  "execution_provenance": {
+    "cli_versions": {
+      "codex": "codex-cli 0.151.0-alpha.7.2"
+    },
+    "contributors": [
+      {
+        "attribution": "configured",
+        "model": "gpt-5.6-sol",
+        "provider": "codex",
+        "reasoning_level": "max",
+        "scopes": [
+          "memo",
+          "memo-writer"
+        ]
+      },
+      {
+        "attribution": "recorded",
+        "model": "gpt-5.6-sol",
+        "provider": "codex",
+        "reasoning_level": "max",
+        "scopes": [
+          "master",
+          "rerun",
+          "research",
+          "synthesizer"
+        ]
+      },
+      {
+        "attribution": "configured",
+        "model": "gpt-5.6-terra",
+        "provider": "codex",
+        "reasoning_level": "xhigh",
+        "scopes": [
+          "specialists"
+        ]
+      }
+    ],
+    "coverage": "cockpit_top_level_processes",
+    "decision_author": {
+      "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10",
+      "attribution": "recorded",
+      "model": "gpt-5.6-sol",
+      "provider": "codex",
+      "reasoning_level": "max"
+    },
+    "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+    "provider_mode": "partially_observed",
+    "schema_version": "1.0",
+    "source": "cockpit_runtime"
+  },
+  "notes": "Avoid is a no-trade decision, not a short recommendation. The bank-specific balance-sheet-survival module intentionally failed fast, so no Distress, Stretched, or Fortress verdict is claimed. Execution provenance was recovered from the exact Codex task runtime that produced this corrected run.",
   "business_type": "Bank / lender",
   "primary_valuation_method": "Equity-direct residual income with growth-adjusted peer P/E cross-check",
   "calibration_feedback": {
