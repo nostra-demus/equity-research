@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T18:30:52Z",
+  "generated_at": "2026-09-02T19:26:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -690,6 +690,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-814",
+      "headline": "TScan axes 75% of workforce to make room for solid tumor programs",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/tscan-axes-75-workforce-make-room-solid-tumor-programs",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T18:23:01Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "TScan is cutting 75% of its workforce to focus on solid tumor programs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TScan is cutting 75% of its workforce to focus on solid tumor programs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TScan",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-816",
+      "headline": "Novartis inks $3.2B subcutaneous drug delivery deal with Alteogen",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/novartis-inks-32b-subcutaneous-drug-delivery-deal-alteogen",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T18:23:01Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Novartis signed a $3.2 billion deal with Alteogen for subcutaneous drug delivery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis signed a $3.2 billion deal with Alteogen for subcutaneous drug delivery.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Alteogen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-810",
+      "headline": "Chevron to Invest $7 Billion in Venezuela, Doubling Production",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/chevron-readies-plans-to-invest-7-billion-double-production-in-venezuela-3a66530e?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T18:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Chevron plans to invest $7 billion in Venezuela, which is expected to double its production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron plans to invest $7 billion in Venezuela, which is expected to double its production.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-798",
       "headline": "Mumbai: NCLT Admits Central Bank’s Insolvency Plea Against Rama Agro Foods Over ₹27.29-Crore Default",
       "headline_en": null,
@@ -734,6 +886,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-838",
+      "headline": "Nvidia Nears $14 Billion Hugging Face Deal | Bloomberg Tech 09/02/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/bloomberg-tech-09-02-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T17:44:19Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Nvidia acquiring Hugging Face for $14 billion, a named large-cap M&A deal to expand AI/machine-learning talent and platform capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia acquiring Hugging Face for $14 billion, a named large-cap M&A deal to expand AI/machine-learning talent and platform capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-847",
+      "headline": "Nvidia In Advanced Talks for Hugging Face",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/nvidia-in-advanced-talks-for-hugging-face-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T17:39:04Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Nvidia is in advanced talks to acquire Hugging Face, a major AI infrastructure player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is in advanced talks to acquire Hugging Face, a major AI infrastructure player.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -886,6 +1146,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-880",
+      "headline": "Uber to cut 10% of workforce in bid to move 'simpler and faster'",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/02/uber-to-cut-10percent-of-workforce-in-bid-to-move-simpler-and-faster.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:52:04Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1679,307 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-673",
-      "headline": "Vertiv To Acquire UtilityInnovation Group For $1.45 Bln Plus Earnouts",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vertiv-acquire-utilityinnovation-group-145-bln-plus-earnouts",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:06:44Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Vertiv to acquire UtilityInnovation Group for $1.45 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vertiv to acquire UtilityInnovation Group for $1.45 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vertiv",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-627",
-      "headline": "Medtronic raises FY27 outlook after reporting strong Q1 growth",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/medtronic-raises-fy27-outlook-reporting-110448846.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:04:48Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Medtronic raised its FY27 outlook following strong Q1 growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Medtronic raised its FY27 outlook following strong Q1 growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medtronic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-624",
-      "headline": "Nvidia forecasts 70% revenue jump fueled by exclusive SpaceX deal as Bank of England warns of AI bubble risk",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/ai/articles/nvidia-forecasts-70-revenue-jump-110000227.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Nvidia forecasted a 70% revenue jump linked to a new SpaceX deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia forecasted a 70% revenue jump linked to a new SpaceX deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-600",
-      "headline": "CITGO to invest $310m in Lake Charles Refinery upgrade",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/citgo-invest-310m-lake-charles-103939461.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:39:39Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "CITGO to invest $310m in a refinery upgrade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CITGO to invest $310m in a refinery upgrade.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CITGO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-601",
-      "headline": "Hochtief to acquire German power transmission firm Autmatec",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/hochtief-acquire-german-power-transmission-103000283.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Hochtief to acquire German power transmission firm Autmatec.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hochtief to acquire German power transmission firm Autmatec.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hochtief",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-579",
-      "headline": "Ryanair warns of airfare price rises as higher fuel costs dent annual traffic target",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16098411/Ryanair-warns-airfare-price-rises-higher-fuel-costs-dent-annual-traffic-target.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:01:41Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Ryanair warned of higher fuel costs and trimmed its annual traffic target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ryanair warned of higher fuel costs and trimmed its annual traffic target.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ryanair",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92841,77 +92849,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a4151217c05f",
-      "idea_version": "IDEAV-0e418e85be9413d7",
-      "idea_version_started_at": "2026-09-02T17:26:01Z",
-      "ticker": "MANINFRA",
-      "company": "Man Infraconstruction Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The board has approved a share buy-back program, which typically provides price support and improves earnings per share metrics.",
-      "why_now": "The board meeting outcome was filed on September 01, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54224b6069ee"
-      ],
-      "primary_source_event_id": "EVT-54224b6069ee",
-      "source_headlines": [
-        "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company."
-      ],
-      "source_headline": "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ff05461-3393-4bd6-9753-8ffb37fc5fde.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T07:07:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T17:26:01Z",
-      "updated_at": "2026-09-02T17:26:01Z",
-      "decay_at": "2026-09-02T19:07:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ad94ef2aeca1",
       "idea_version": "IDEAV-3990ad8eaf11b67c",
       "idea_version_started_at": "2026-09-02T17:26:01Z",
@@ -94167,6 +94104,77 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a4151217c05f",
+      "idea_version": "IDEAV-0e418e85be9413d7",
+      "idea_version_started_at": "2026-09-02T17:26:01Z",
+      "ticker": "MANINFRA",
+      "company": "Man Infraconstruction Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The board has approved a share buy-back program, which typically provides price support and improves earnings per share metrics.",
+      "why_now": "The board meeting outcome was filed on September 01, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-54224b6069ee"
+      ],
+      "primary_source_event_id": "EVT-54224b6069ee",
+      "source_headlines": [
+        "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company."
+      ],
+      "source_headline": "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ff05461-3393-4bd6-9753-8ffb37fc5fde.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T07:07:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T17:26:01Z",
+      "updated_at": "2026-09-02T17:26:01Z",
+      "decay_at": "2026-09-02T19:07:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97262,13 +97270,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 372,
-    "shown_count": 372,
+    "total_count": 373,
+    "shown_count": 373,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 187,
-        "shown_count": 187,
+        "total_count": 188,
+        "shown_count": 188,
         "hidden_count": 0
       },
       "short": {
@@ -97293,6 +97301,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a4151217c05f",
+        "idea_version": "IDEAV-0e418e85be9413d7",
+        "idea_version_started_at": "2026-09-02T17:26:01Z",
+        "ticker": "MANINFRA",
+        "company": "Man Infraconstruction Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The board has approved a share buy-back program, which typically provides price support and improves earnings per share metrics.",
+        "why_now": "The board meeting outcome was filed on September 01, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-54224b6069ee"
+        ],
+        "primary_source_event_id": "EVT-54224b6069ee",
+        "source_headlines": [
+          "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company."
+        ],
+        "source_headline": "Man Infraconstruction Ltd: Please find enclosed outcome of Board Meeting approving Buy-back of equity shares of the Company.",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2ff05461-3393-4bd6-9753-8ffb37fc5fde.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T07:07:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T17:26:01Z",
+        "updated_at": "2026-09-02T17:26:01Z",
+        "decay_at": "2026-09-02T19:07:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T19:07:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7f632fc10e45",
         "idea_version": "IDEAV-dd5c9321956be446",
@@ -124897,7 +124979,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 382,
-    "live_count": 8,
+    "live_count": 7,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -124916,9 +124998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2115200,
-    "news_picked_today": 1666,
-    "news_dropped_today": 21590
+    "news_seen_today": 2200004,
+    "news_picked_today": 1793,
+    "news_dropped_today": 22351
   },
   "book_momentum": {
     "live_count": 8,
