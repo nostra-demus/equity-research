@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T12:46:18Z",
+  "generated_at": "2026-09-02T13:01:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-675",
@@ -535,6 +535,104 @@
           "name": "GLOBAL UIN",
           "ticker": "08496",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-685",
+      "headline": "Vertiv to buy Utility Innovation Group for up to $2.6 billion in data center push",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/vertiv-strikes-145-billion-deal-microgrid-firm-utility-innovation-group-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T12:24:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Vertiv is acquiring Utility Innovation Group for up to $2.6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vertiv is acquiring Utility Innovation Group for up to $2.6 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vertiv",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-680",
+      "headline": "FuelCell Energy Keeps Focus on AI Data Centers. Stock Sinks After Earnings Miss Estimates.",
+      "headline_en": null,
+      "url": "https://www.barrons.com/articles/fuelcell-energy-earnings-stock-price-13c74405?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T12:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "FuelCell Energy missed earnings estimates, causing a significant stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FuelCell Energy missed earnings estimates, causing a significant stock decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FuelCell Energy",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1879,104 +1977,6 @@
       "companies": [
         {
           "name": "Dell Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-498",
-      "headline": "Stan Kroenke Buys Los Angeles Angels In $4 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/zacharyfolk/2026/09/01/stan-kroenke-buys-los-angeles-angels-in-4-billion-deal/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T20:40:15Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Stan Kroenke is acquiring the Los Angeles Angels in a $4 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stan Kroenke is acquiring the Los Angeles Angels in a $4 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Los Angeles Angels",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-509",
-      "headline": "Dell surges 10% after lifting fiscal 2027 forecast on AI server strength",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/01/dell-q2-earnings-report-2027.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T20:27:45Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Dell shares surge 10% after raising fiscal 2027 forecast due to AI server demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dell shares surge 10% after raising fiscal 2027 forecast due to AI server demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell",
           "ticker": null,
           "listing_country": "US"
         }
@@ -124772,9 +124772,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1281075,
-    "news_picked_today": 1220,
-    "news_dropped_today": 16492
+    "news_seen_today": 1311736,
+    "news_picked_today": 1250,
+    "news_dropped_today": 16654
   },
   "book_momentum": {
     "live_count": 8,
