@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T19:36:49Z",
+  "generated_at": "2026-09-02T21:07:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-751",
@@ -690,6 +690,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-887",
+      "headline": "Delivery Hero board backs Uber’s $15B takeover bid",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/02/delivery-hero-board-backs-ubers-15b-takeover-bid/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:25:35Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Delivery Hero board endorses Uber's $15B takeover bid, a large M&A deal with a named value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delivery Hero board endorses Uber's $15B takeover bid, a large M&A deal with a named value.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delivery Hero",
+          "ticker": "DHER",
+          "listing_country": "DE"
+        },
+        {
+          "name": "Uber",
+          "ticker": "UBER",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-881",
       "headline": "Fortrea boosts early-phase CRO platform with $45M acquisition of Worldwide division",
       "headline_en": null,
@@ -734,6 +788,364 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-899",
+      "headline": "Thoma Bravo explores $2 billion-plus sale of Foundation Software, sources say",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/thoma-bravo-explores-2-billion-plus-sale-of-foundation-software-sources-say-11788376664749.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:17:44Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Thoma Bravo is exploring a sale of Foundation Software valued at over $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thoma Bravo is exploring a sale of Foundation Software valued at over $2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foundation Software",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-888",
+      "headline": "MLB's Angels Sold For Record $4B",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/mlb-s-angels-sold-for-record-4b-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:13:07Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "The Los Angeles Angels were sold for a record $4 billion, a significant valuation event for the sports franchise sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Los Angeles Angels were sold for a record $4 billion, a significant valuation event for the sports franchise sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Los Angeles Angels",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-889",
+      "headline": "KKR Scores Windfall in $17B Sale of USI Insurance",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/kkr-scores-windfall-in-17b-sale-of-usi-insurance-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:09:29Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "KKR completed a $17 billion sale of USI Insurance, representing a major exit and capital realization event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR completed a $17 billion sale of USI Insurance, representing a major exit and capital realization event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI Insurance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-898",
+      "headline": "Chevron expands Venezuela presence with $7 billion plan to double oil output in five years",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/chevron-expands-venezuela-presence-with-7-billion-plan-to-double-oil-output-in-five-years/articleshow/133719199.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:08:59Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Chevron announced a $7 billion investment plan to double oil output in Venezuela over five years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron announced a $7 billion investment plan to double oil output in Venezuela over five years.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-883",
+      "headline": "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/thoma-bravo-owned-proofpoint-in-talks-to-buy-cybersecurity-firm-varonis-a44f83d9?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T19:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Proofpoint is in talks to acquire Varonis, a significant M&A event in the cybersecurity sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proofpoint is in talks to acquire Varonis, a significant M&A event in the cybersecurity sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Proofpoint",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Varonis",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-884",
+      "headline": "Lilly to Buy Merida for $2.88B in Autoimmune Push",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/lilly-to-buy-merida-for-2-88b-in-autoimmune-push-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T18:59:40Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring Morphic Therapeutic (referred to as Merida) for $2.88 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring Morphic Therapeutic (referred to as Merida) for $2.88 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Morphic Therapeutic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-914",
+      "headline": "Chevron Bets $7 Billion on Venezuela Oil Expansion",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Chevron-Bets-7-Billion-on-Venezuela-Oil-Expansion.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T18:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Chevron announced a $7 billion capital investment for oil expansion in Venezuela.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron announced a $7 billion capital investment for oil expansion in Venezuela.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1151,6 +1563,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-920",
+      "headline": "Uber demitirá 10% dos funcionários no maior corte desde a pandemia de Covid-19",
+      "headline_en": "Uber will lay off 10% of employees in largest cut since Covid-19 pandemic",
+      "url": "https://www.reuters.com/pt/tecnologia/NDFBFDNG4VL5RBLQ33765HIYME-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:57:14Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber will lay off 10% of employees in its largest cut since the pandemic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber will lay off 10% of employees in its largest cut since the pandemic.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-917",
+      "headline": "Uber says laying off 'about 10%' of workforce worldwide",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/uber-says-laying-off-about-10-of-workforce-worldwide-1.500661096",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:56:39Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is laying off 10% of its global workforce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is laying off 10% of its global workforce.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-776",
       "headline": "Uber lays off 3,300 employees in largest cuts since the pandemic",
       "headline_en": null,
@@ -1191,6 +1701,56 @@
         {
           "name": "Uber",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-926",
+      "headline": "Google escapes ad tech breakup in third Big Tech antitrust loss for US",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/google-defeats-us-bid-force-ad-tech-sale-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:54:57Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "US court ruling eliminates Google's forced ad-tech divestiture threat, removing major regulatory restructuring risk for Alphabet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US court ruling eliminates Google's forced ad-tech divestiture threat, removing major regulatory restructuring risk for Alphabet.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet Inc.",
+          "ticker": "GOOGL",
           "listing_country": "US"
         }
       ],
@@ -1298,20 +1858,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260902-767",
-      "headline": "Dell stock price news: Shares jump 14% on record Q2 results as AI server demand surges — data details",
+      "inbox_id": "INB-20260902-940",
+      "headline": "Dell Boosts Sales Outlook by $25 Billion",
       "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/dell-stock-price-news-shares-jump-14-on-record-q2-results-as-ai-server-demand-surges-data-details-11788356963938.html",
-      "source_name": "Mint",
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/dell-boosts-sales-outlook-by-25-billion-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T15:21:52Z",
+      "found_at": "2026-09-02T16:34:16Z",
       "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Dell reported a 14% share price jump following record Q2 results driven by AI server demand.",
+      "prelim_note": "Dell raised its sales outlook by $25 billion, a large quantified guidance increase.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Dell reported a 14% share price jump following record Q2 results driven by AI server demand.",
+      "triage_reason": "Dell raised its sales outlook by $25 billion, a large quantified guidance increase.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1319,19 +1879,118 @@
         "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 7,
         "size": 2,
-        "recency": 5,
+        "recency": 3,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "guidance_change",
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies",
+          "ticker": "DELL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-946",
+      "headline": "Wella Files for IPO, Reports $2.9 Billion in Sales for Fiscal 2026",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/wella-files-ipo-reports-2-162325629.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T16:23:25Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Wella filed for an IPO and disclosed $2.9 billion in annual sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wella filed for an IPO and disclosed $2.9 billion in annual sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wella",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-977",
+      "headline": "Dell Beats On Every Line And Guides Higher Than Anyone Modeled",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/dell-beats-every-line-guides-155607614.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T15:56:07Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Dell reported a beat on all lines and raised guidance, signaling strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell reported a beat on all lines and raised guidance, signaling strong demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1342,652 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-753",
-      "headline": "Pacific Gas & Electric Launches Strategic Review, Cuts 2027 Capital Plan by $2B",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/pacific-gas-electric-launches-strategic-150323220.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T15:03:23Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Pacific Gas & Electric announced a strategic review and a $2B reduction in its 2027 capital expenditure plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pacific Gas & Electric announced a strategic review and a $2B reduction in its 2027 capital expenditure plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pacific Gas & Electric",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-737",
-      "headline": "Apax Lines Up About €1 Billion Debt to Buy Gerresheimer Units",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/apax-lines-up-about-1-billion-debt-to-buy-gerresheimer-units",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T14:29:12Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Apax raises €1 billion debt to acquire Gerresheimer units; quantified M&A deal value represents material capital deployment and divestiture by a public company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apax raises €1 billion debt to acquire Gerresheimer units; quantified M&A deal value represents material capital deployment and divestiture by a public company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apax",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Gerresheimer",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-740",
-      "headline": "ED Raids 12 Locations Across 4 States In Parimatch Illegal Betting Money Laundering Probe",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/ed-raids-12-locations-across-4-states-in-parimatch-illegal-betting-money-laundering-probe",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T14:25:57Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "India's Enforcement Directorate raids 12 Parimatch locations across 4 states for illegal betting and money-laundering; confirmed multi-jurisdiction enforcement action poses critical regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "India's Enforcement Directorate raids 12 Parimatch locations across 4 states for illegal betting and money-laundering; confirmed multi-jurisdiction enforcement action poses critical regulatory and reputational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Parimatch",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-719",
-      "headline": "Uber to lay off 10% of staff in biggest cuts since COVID",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/uber-cut-3300-jobs-overhaul-bloomberg-news-reports-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:57:32Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Uber is laying off 10% of its staff, the largest reduction since COVID.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is laying off 10% of its staff, the largest reduction since COVID.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-726",
-      "headline": "Uber Plans Layoffs For 10% Of Workforce In Restructuring. Stock Rises.",
-      "headline_en": null,
-      "url": "https://www.investors.com/news/technology/uber-stock-layoffs-10-percent/?src=A00220&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:56:49Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-715",
-      "headline": "La Caisse Acquires 24 Per Cent Stake In Altius Telecom Infra For ₹12,100 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/la-caisse-acquires-24-per-cent-stake-in-altius-telecom-infra-for-12100-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:33:21Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "La Caisse acquired a 24% stake in Altius Telecom Infra for ₹12,100 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "La Caisse acquired a 24% stake in Altius Telecom Infra for ₹12,100 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Altius Telecom Infra",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-723",
-      "headline": "Citibank’s London unit fined £4.7m for breaching Russia sanctions",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/london-citibank-russia-b1295517.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:58:50Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Citibank's London unit was fined £4.7m for breaching Russia sanctions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Citibank's London unit was fined £4.7m for breaching Russia sanctions.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citibank",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-692",
-      "headline": "Citibank hit with £5m fine for violating UK sanctions on Russia",
-      "headline_en": null,
-      "url": "https://www.cityam.com/citibank-hit-with-5m-fine-for-violating-uk-sanctions-on-russia/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:47:29Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Citibank was fined £5 million for violating UK sanctions on Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Citibank was fined £5 million for violating UK sanctions on Russia.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citibank",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-688",
-      "headline": "TScan Therapeutics Cuts Workforce by 75% and Shifts Focus to Solid Tumor Program",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/tscan-therapeutics-cuts-workforce-75-123041433.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:30:41Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "TScan Therapeutics is cutting 75% of its workforce and pivoting its core business strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TScan Therapeutics is cutting 75% of its workforce and pivoting its core business strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TScan Therapeutics",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-685",
-      "headline": "Vertiv to buy Utility Innovation Group for up to $2.6 billion in data center push",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/vertiv-strikes-145-billion-deal-microgrid-firm-utility-innovation-group-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Vertiv is acquiring Utility Innovation Group for up to $2.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vertiv is acquiring Utility Innovation Group for up to $2.6 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vertiv",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-680",
-      "headline": "FuelCell Energy Keeps Focus on AI Data Centers. Stock Sinks After Earnings Miss Estimates.",
-      "headline_en": null,
-      "url": "https://www.barrons.com/articles/fuelcell-energy-earnings-stock-price-13c74405?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:16:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "FuelCell Energy missed earnings estimates, causing a significant stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FuelCell Energy missed earnings estimates, causing a significant stock decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FuelCell Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-661",
-      "headline": "Autohaus König: Größter deutscher Renault-Händler meldet Insolvenz an",
-      "headline_en": "Autohaus König: Largest German Renault dealer files for insolvency",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/autohaus-koenig-groesster-deutscher-renault-haendler-meldet-insolvenz-an/100251517.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:49:55Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Autohaus König, the largest German Renault dealer, has filed for insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Autohaus König, the largest German Renault dealer, has filed for insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Autohaus König",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-660",
-      "headline": "UK fines Citibank London US$6 million over Russia sanctions breaches",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/uk-fines-citibank-london-us6-million-over-russia-sanctions-breaches",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Citibank London was fined $6 million for Russia sanctions breaches.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Citibank London was fined $6 million for Russia sanctions breaches.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citigroup",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -92705,77 +92718,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-835c3f77b068",
-      "idea_version": "IDEAV-2cb93becbfc24cab",
-      "idea_version_started_at": "2026-09-02T19:27:30Z",
-      "ticker": "TEXMACO.BO",
-      "company": "Texmaco Rail & Engineering Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Texmaco Rail won a USD 135 million letter of award from Tsiko Africa Logistics and Barberry Holdings, a sizable export rail contract that should boost order book and future revenue.",
-      "why_now": "Letter of award received and filed on 2026-09-01; contract execution provides a dated catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c449bf54a1c3"
-      ],
-      "primary_source_event_id": "EVT-c449bf54a1c3",
-      "source_headlines": [
-        "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
-      ],
-      "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T07:49:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T19:27:30Z",
-      "updated_at": "2026-09-02T19:27:30Z",
-      "decay_at": "2026-09-02T19:49:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-53a097038e0f",
       "idea_version": "IDEAV-a739515895ef44f4",
       "idea_version_started_at": "2026-09-02T17:51:02Z",
@@ -92841,77 +92783,6 @@
       "surfaced_at": "2026-09-02T17:51:02Z",
       "updated_at": "2026-09-02T17:51:02Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6be8b97b3c25",
-      "idea_version": "IDEAV-9984ec78a8c21372",
-      "idea_version_started_at": "2026-09-02T17:51:02Z",
-      "ticker": "TEXRAIL",
-      "company": "Texmaco Rail & Engineering Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company won a USD 135 million contract from Tsiko Africa Logistics, representing a substantial expansion of its international order book and revenue visibility.",
-      "why_now": "The contract award was announced via exchange filing on September 1, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c449bf54a1c3"
-      ],
-      "primary_source_event_id": "EVT-c449bf54a1c3",
-      "source_headlines": [
-        "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
-      ],
-      "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T07:49:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T17:51:02Z",
-      "updated_at": "2026-09-02T17:51:02Z",
-      "decay_at": "2026-09-02T19:49:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94245,6 +94116,148 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-835c3f77b068",
+      "idea_version": "IDEAV-2cb93becbfc24cab",
+      "idea_version_started_at": "2026-09-02T19:27:30Z",
+      "ticker": "TEXMACO.BO",
+      "company": "Texmaco Rail & Engineering Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Texmaco Rail won a USD 135 million letter of award from Tsiko Africa Logistics and Barberry Holdings, a sizable export rail contract that should boost order book and future revenue.",
+      "why_now": "Letter of award received and filed on 2026-09-01; contract execution provides a dated catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c449bf54a1c3"
+      ],
+      "primary_source_event_id": "EVT-c449bf54a1c3",
+      "source_headlines": [
+        "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
+      ],
+      "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T07:49:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T19:27:30Z",
+      "updated_at": "2026-09-02T19:27:30Z",
+      "decay_at": "2026-09-02T19:49:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6be8b97b3c25",
+      "idea_version": "IDEAV-9984ec78a8c21372",
+      "idea_version_started_at": "2026-09-02T17:51:02Z",
+      "ticker": "TEXRAIL",
+      "company": "Texmaco Rail & Engineering Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company won a USD 135 million contract from Tsiko Africa Logistics, representing a substantial expansion of its international order book and revenue visibility.",
+      "why_now": "The contract award was announced via exchange filing on September 1, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c449bf54a1c3"
+      ],
+      "primary_source_event_id": "EVT-c449bf54a1c3",
+      "source_headlines": [
+        "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
+      ],
+      "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T07:49:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T17:51:02Z",
+      "updated_at": "2026-09-02T17:51:02Z",
+      "decay_at": "2026-09-02T19:49:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97411,13 +97424,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 373,
-    "shown_count": 373,
+    "total_count": 375,
+    "shown_count": 375,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 188,
-        "shown_count": 188,
+        "total_count": 190,
+        "shown_count": 190,
         "hidden_count": 0
       },
       "short": {
@@ -97442,6 +97455,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6be8b97b3c25",
+        "idea_version": "IDEAV-9984ec78a8c21372",
+        "idea_version_started_at": "2026-09-02T17:51:02Z",
+        "ticker": "TEXRAIL",
+        "company": "Texmaco Rail & Engineering Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company won a USD 135 million contract from Tsiko Africa Logistics, representing a substantial expansion of its international order book and revenue visibility.",
+        "why_now": "The contract award was announced via exchange filing on September 1, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c449bf54a1c3"
+        ],
+        "primary_source_event_id": "EVT-c449bf54a1c3",
+        "source_headlines": [
+          "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
+        ],
+        "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T07:49:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T17:51:02Z",
+        "updated_at": "2026-09-02T17:51:02Z",
+        "decay_at": "2026-09-02T19:49:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T19:49:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-835c3f77b068",
+        "idea_version": "IDEAV-2cb93becbfc24cab",
+        "idea_version_started_at": "2026-09-02T19:27:30Z",
+        "ticker": "TEXMACO.BO",
+        "company": "Texmaco Rail & Engineering Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Texmaco Rail won a USD 135 million letter of award from Tsiko Africa Logistics and Barberry Holdings, a sizable export rail contract that should boost order book and future revenue.",
+        "why_now": "Letter of award received and filed on 2026-09-01; contract execution provides a dated catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c449bf54a1c3"
+        ],
+        "primary_source_event_id": "EVT-c449bf54a1c3",
+        "source_headlines": [
+          "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd."
+        ],
+        "source_headline": "Texmaco Rail & Engineering Ltd: Intimation of receipt of Letter of Award worth USD 135 Million from Tsiko Africa Logistics (Pty) Ltd. together with Barberry Holdings (Pty) Ltd.",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b1eceba8-cfc9-410c-b78f-10190853f620.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T07:49:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T19:27:30Z",
+        "updated_at": "2026-09-02T19:27:30Z",
+        "decay_at": "2026-09-02T19:49:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T19:49:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a4151217c05f",
         "idea_version": "IDEAV-0e418e85be9413d7",
@@ -125120,7 +125281,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 385,
-    "live_count": 10,
+    "live_count": 8,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -125139,9 +125300,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2210167,
-    "news_picked_today": 1795,
-    "news_dropped_today": 22469
+    "news_seen_today": 2299792,
+    "news_picked_today": 2110,
+    "news_dropped_today": 24218
   },
   "book_momentum": {
     "live_count": 8,
