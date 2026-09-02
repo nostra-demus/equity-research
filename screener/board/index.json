@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-02T06:44:17Z",
+  "generated_at": "2026-09-02T07:49:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260902-541",
+      "headline": "Tilaknagar Industries Limited: Tilaknagar Industries Limited has informed the Exchange regarding a press release dated September 02, 2026, titled \"Press Release pursuant to Regulation 30 of the SEBI (LODR) Regulations 2015 Tilaknagar Industries enters the Tequila market through a ₹22 Crore Strategic Investment in Black Tiger Distilleries, Maker of Bodega Suprema No. 5",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/gthakur_02092026114853_TICowboypressrelese.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T06:19:22Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Tilaknagar Industries announces ₹22 crore strategic investment in Black Tiger Distilleries for entry into tequila market segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tilaknagar Industries announces ₹22 crore strategic investment in Black Tiger Distilleries for entry into tequila market segment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tilaknagar Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260902-400",
       "headline": "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL.",
@@ -242,6 +292,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-528",
+      "headline": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-02/lottomatica-to-buy-blackstone-backed-cirsa-in-all-shares-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T06:03:07Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lottomatica to Buy Blackstone-Backed Cirsa in All-Shares Deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lottomatica",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cirsa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1189,6 +1293,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260902-540",
+      "headline": "Nvidia Reportedly Nears $14 Bln Deal To Buy AI Startup Hugging Face",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidia-reportedly-nears-14-bln-deal-buy-ai-startup-hugging-face",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T05:31:12Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Nvidia is reportedly nearing a major $14 billion deal to acquire AI startup Hugging Face.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly nearing a major $14 billion deal to acquire AI startup Hugging Face.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": -8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NVIDIA Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260902-521",
       "headline": "Bharat Forge Ltd: Intimation regarding divestment of stake held in Joint Venture",
       "headline_en": null,
@@ -1778,147 +1932,6 @@
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-077",
-      "headline": "Doosan Fuel Cell Wins $365 Million U.S. AI Data Center Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276003",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T04:28:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Doosan Fuel Cell secured a $365 million contract for a U.S. AI data center project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Doosan Fuel Cell secured a $365 million contract for a U.S. AI data center project.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Doosan Fuel Cell",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-249",
-      "headline": "Karur Vysya Bank Ltd: Karur Vysya Bank Ltd has informed BSE regarding \"Order received from The Hon'ble Income Tax Appellate Tribunal\".",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/02B9C9F7-5A4F-4A40-A365-7A9A5533971F-085609.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-02T03:26:21Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Karur Vysya Bank Ltd received an order from the Income Tax Appellate Tribunal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Karur Vysya Bank Ltd received an order from the Income Tax Appellate Tribunal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Karur Vysya Bank Ltd",
-          "ticker": "590003",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-311",
-      "headline": "Iran launches strikes against Gulf neighbours",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-death-toll-in-nepal-passes-1000-20260902-p60tke?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T22:25:02Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Iran military strike on Gulf neighbours is geopolitical escalation threatening oil markets, shipping lanes, and regional stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Iran military strike on Gulf neighbours is geopolitical escalation threatening oil markets, shipping lanes, and regional stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -128153,9 +128166,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 610533,
-    "news_picked_today": 847,
-    "news_dropped_today": 8537
+    "news_seen_today": 763717,
+    "news_picked_today": 889,
+    "news_dropped_today": 10967
   },
   "book_momentum": {
     "live_count": 8,
