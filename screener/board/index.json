@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T22:02:16Z",
+  "generated_at": "2026-09-02T22:11:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-993",
@@ -783,6 +783,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-1016",
+      "headline": "HPE raises forecasts on AI demand, shares fall on supply concerns",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/hpe-raises-annual-forecasts-ai-networking-demand-lifts-quarterly-revenue-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T21:49:40Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "HPE raised its financial forecasts but shares fell due to supply chain concerns, indicating a mixed market reaction to guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HPE raised its financial forecasts but shares fell due to supply chain concerns, indicating a mixed market reaction to guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HPE",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,56 +1995,6 @@
         {
           "name": "Uber",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-926",
-      "headline": "Google escapes ad tech breakup in third Big Tech antitrust loss for US",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/google-defeats-us-bid-force-ad-tech-sale-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T16:54:57Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "US court ruling eliminates Google's forced ad-tech divestiture threat, removing major regulatory restructuring risk for Alphabet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "US court ruling eliminates Google's forced ad-tech divestiture threat, removing major regulatory restructuring risk for Alphabet.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc.",
-          "ticker": "GOOGL",
           "listing_country": "US"
         }
       ],
@@ -125155,9 +125154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2371975,
-    "news_picked_today": 2174,
-    "news_dropped_today": 25258
+    "news_seen_today": 2380868,
+    "news_picked_today": 2177,
+    "news_dropped_today": 25447
   },
   "book_momentum": {
     "live_count": 8,
