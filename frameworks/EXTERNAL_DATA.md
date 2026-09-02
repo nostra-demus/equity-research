@@ -319,6 +319,11 @@ no live engine API call).
   required provenance fields unfilled).
 - **Graceful absence:** until a feed lands, `market_prices` is `unavailable()` and calibrate falls back
   to the review-time benchmark-relative return each review already computed — and says so. Nothing breaks.
+- **Auto-populated (S&P 500 only):** the doer machine's `com.nostradamus.hk-market-feed` launchd timer
+  runs `scripts/fetch_market_feed.py` daily, so `data/_market/fred/` carries a current S&P 500 close
+  without operator action (`frameworks/MARKET_FEED.md` "What writes it"). Every other symbol — a sector
+  index, a non-US benchmark such as NIFTY 50, a stock's own history — is still a manual file drop; there
+  is no automated fetcher for them yet.
 
 ## 8. Hard rules (recap)
 

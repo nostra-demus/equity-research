@@ -19,6 +19,7 @@
 #   com.nostradamus.omniroute    — local model-router fallback on 127.0.0.1:20128            (RunAtLoad+KeepAlive)   [managed base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
+#   com.nostradamus.hk-market-feed — deterministic daily S&P 500 benchmark-feed refresh (StartCalendarInterval) [doer]
 #   com.nostradamus.hk-calibrate* — deterministic daily/monthly calibration fallbacks             [doer]
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy + housekeeping shell scripts from ~/.nostra-ops.
 #
@@ -325,7 +326,7 @@ install_runtime_script() {
   fi
 }
 if [ -z "$ONLY" ]; then
-  for s in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh connector-supervisor.py; do
+  for s in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh market-feed-local.sh connector-supervisor.py; do
     install_runtime_script "$s" || exit 1
   done
 fi
@@ -627,6 +628,7 @@ remove_one() {
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
            com.nostradamus.connectors \
+           com.nostradamus.hk-market-feed \
            com.nostradamus.hk-calibrate-daily com.nostradamus.hk-calibrate \
            com.nostradamus.memory-observability com.nostradamus.memory-rebuild \
            com.nostradamus.memory-recovery-drill)

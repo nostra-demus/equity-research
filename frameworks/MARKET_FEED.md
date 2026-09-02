@@ -115,6 +115,24 @@ median daily traded value, and the median absolute five-session price move only 
 The export returns `available: false` plus named `gaps` when any requirement is missing. A listing lookup
 does not prove liquidity, and the adapter never guesses an FX rate.
 
+## What writes it
+
+The **S&P 500 slice is auto-populated on the doer machine.** `scripts/fetch_market_feed.py` pulls the
+daily index close from FRED (`SP500`, public domain) through the connectors' own SSRF-bounded
+`fetch_bytes`, and writes `data/_market/fred/sp500_<as_of>.csv` plus its `.source.json` provenance
+sidecar — nothing else, and it never guesses a symbol it wasn't asked to fetch. `scripts/ops/install-services.sh`
+installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (daily, 07:10, ahead of
+`hk-calibrate-daily` at 07:25) via the `scripts/ops/market-feed-local.sh` wrapper — deterministic,
+no model/provider identity, so it needs no cockpit admission. Because `data/` is a gitignored symlink
+into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
+runs the timer, same as every other file under `data/_market/`.
+
+Every OTHER symbol this feed contract supports (a sector benchmark, a non-US index such as NIFTY 50 or
+NIFTY Healthcare, a stock's own history) still has **no automated fetcher** — drop it yourself, or add
+a fetcher of your own next to `fetch_market_feed.py` under the same provider-folder contract. Run
+`python3 scripts/fetch_market_feed.py --verify` to check the parser without making a network call, or
+`bash scripts/ops/market-feed-local.sh` to run the exact scheduled job by hand.
+
 ## What reads it
 
 `scripts/market_prices.py` (a pure, read-only reader):
