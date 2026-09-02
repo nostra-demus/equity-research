@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T14:28:54Z",
+  "generated_at": "2026-09-02T14:45:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-675",
@@ -584,6 +584,55 @@
           "name": "Uber",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-726",
+      "headline": "Uber Plans Layoffs For 10% Of Workforce In Restructuring. Stock Rises.",
+      "headline_en": null,
+      "url": "https://www.investors.com/news/technology/uber-stock-layoffs-10-percent/?src=A00220&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T13:56:49Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is cutting 10% of its workforce, a significant operational restructuring event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-334",
-      "headline": "MLB's Los Angeles Angels to be sold to Rams and Arsenal owner Stan Kroenke",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/sports/mlb%27s-los-angeles-angels-to-be-sold-to-rams-arsenal-owner-stan-kroenke",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:47:22Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "The Los Angeles Angels are reportedly being sold to Stan Kroenke.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Los Angeles Angels are reportedly being sold to Stan Kroenke.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Los Angeles Angels",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -124840,9 +124840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1645914,
-    "news_picked_today": 1352,
-    "news_dropped_today": 17968
+    "news_seen_today": 1666523,
+    "news_picked_today": 1388,
+    "news_dropped_today": 18316
   },
   "book_momentum": {
     "live_count": 8,
