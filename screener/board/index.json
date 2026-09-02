@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T08:37:46Z",
+  "generated_at": "2026-09-02T08:38:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-541",
@@ -92649,6 +92649,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-db48ea3f1818",
+      "idea_version": "IDEAV-b8c9791d07fec794",
+      "idea_version_started_at": "2026-09-02T08:37:58Z",
+      "ticker": "HFCL",
+      "company": "HFCL Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a long-term supply agreement for optical fiber cables valued at approximately USD 244 million, providing significant revenue visibility.",
+      "why_now": "The contract was officially disclosed to the exchange on September 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fb98353f6e64"
+      ],
+      "primary_source_event_id": "EVT-fb98353f6e64",
+      "source_headlines": [
+        "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)"
+      ],
+      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_01092026084937_STX_Announcement_2329_Crore_Order_01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T03:19:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T08:37:58Z",
+      "updated_at": "2026-09-02T08:37:58Z",
+      "decay_at": "2026-09-02T15:19:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-95df61b251da",
       "idea_version": "IDEAV-220278c21e7ec5ee",
       "idea_version_started_at": "2026-09-01T03:16:47Z",
@@ -93841,357 +93912,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-3bf20a51c926786c",
-      "idea_version_started_at": "2026-08-30T07:20:04Z",
-      "ticker": "AAPL",
-      "company": "Apple Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The departure of Tim Cook, who oversaw a 28x increase in shareholder value, creates significant leadership uncertainty and a potential valuation premium reset for the world's largest consumer electronics firm.",
-      "why_now": "The transition is effective immediately on September 1, 2026, following the announcement on August 30.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-51adf0fae9d1"
-      ],
-      "primary_source_event_id": "EVT-51adf0fae9d1",
-      "source_headlines": [
-        "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders"
-      ],
-      "source_headline": "Tim Cook Bows Out As Apple CEO On Sept 1 After Historic 28x Gains To Shareholders",
-      "source_url": "https://www.ndtvprofit.com/markets/tim-cook-bows-out-as-apple-ceo-on-sept-1-after-historic-25x-gains-to-shareholders-11977052#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T06:35:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:20:17Z",
-      "updated_at": "2026-08-30T07:20:04Z",
-      "decay_at": "2026-08-31T18:35:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f706760db176",
-      "idea_version": "IDEAV-9db919d9eab10fe3",
-      "idea_version_started_at": "2026-08-30T02:00:09Z",
-      "ticker": "GLNCY",
-      "company": "Glencore",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The US$480 million provision for Radiant World exposure indicates a significant impairment of assets and potential underlying credit risk in the company's trading portfolio.",
-      "why_now": "The news of the provision was reported on 2026-08-30, signaling an immediate hit to earnings and balance sheet quality.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b83aab6465d2"
-      ],
-      "primary_source_event_id": "EVT-b83aab6465d2",
-      "source_headlines": [
-        "Glencore books US$480 million provision covering entire Radiant World exposure: sources"
-      ],
-      "source_headline": "Glencore books US$480 million provision covering entire Radiant World exposure: sources",
-      "source_url": "https://www.businesstimes.com.sg/international/global/glencore-books-us480-million-provision-covering-entire-radiant-world-exposure-sources",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T00:57:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T16:24:18Z",
-      "updated_at": "2026-08-30T02:00:09Z",
-      "decay_at": "2026-08-31T12:57:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-ac20fff1a86eead0",
-      "idea_version_started_at": "2026-08-29T23:48:06Z",
-      "ticker": "META",
-      "company": "Meta Platforms, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
-      "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-63ce59bfa5c5",
-        "EVT-bef4b96e40e0"
-      ],
-      "primary_source_event_id": "EVT-63ce59bfa5c5",
-      "source_headlines": [
-        "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
-        "Meta settles social media addiction suit for up to $17.1 billion"
-      ],
-      "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
-      "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T14:49:07Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-28",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-08-29T16:03:33Z",
-      "updated_at": "2026-08-29T23:48:06Z",
-      "decay_at": "2026-08-31T02:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ab6392d211fe",
-      "idea_version": "IDEAV-9c3b865caa21cfaf",
-      "idea_version_started_at": "2026-08-29T23:08:40Z",
-      "ticker": "HDB",
-      "company": "HDFC Bank Limited",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Managing Director and CEO Sashidhar Jagdishan is stepping down, creating leadership uncertainty at India's largest private sector lender.",
-      "why_now": "The executive exit is scheduled for October 26, 2026, with the announcement on August 29, 2026, initiating a transition overhang.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bee2888c8f9"
-      ],
-      "primary_source_event_id": "EVT-2bee2888c8f9",
-      "source_headlines": [
-        "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26"
-      ],
-      "source_headline": "Sashidhar Jagdishan To Step Down As HDFC Bank MD & CEO On Oct 26",
-      "source_url": "https://www.ndtvprofit.com/business/sashidhar-jagdishan-to-step-down-as-hdfc-bank-md-ceo-on-oct-26-11975079#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:14:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-27T11:49:33Z",
-      "updated_at": "2026-08-29T23:08:40Z",
-      "decay_at": "2026-08-31T01:14:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d154be29c3e7",
-      "idea_version": "IDEAV-d1a013c87ab91ff2",
-      "idea_version_started_at": "2026-08-30T07:59:46Z",
-      "ticker": "ESLOY",
-      "company": "EssilorLuxottica",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An heir's exit from EssilorLuxottica due to a growing family rift suggests internal governance issues and potential instability at the top, which could impact strategic decisions and operational execution.",
-      "why_now": "The news of the heir's exit and the growing family rift is current as of August 30, 2026, indicating an ongoing and unresolved internal conflict.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b141709a3bea"
-      ],
-      "primary_source_event_id": "EVT-b141709a3bea",
-      "source_headlines": [
-        "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker"
-      ],
-      "source_headline": "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/essilorluxottica-clans-us47-billion-rift-grows-heirs-exit-ray-ban-maker",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-08-30T07:55:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T07:59:46Z",
-      "updated_at": "2026-08-30T07:59:46Z",
-      "decay_at": "2026-08-31T19:55:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-91e36b52baa1",
       "idea_version": "IDEAV-3ec2dc4e48f5ce85",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -94400,146 +94120,6 @@
       "surfaced_at": "2026-08-30T09:40:14Z",
       "updated_at": "2026-08-30T09:40:14Z",
       "decay_at": "2026-08-31T21:02:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2d93368aeb39",
-      "idea_version": "IDEAV-025a26a8ee8e33dd",
-      "idea_version_started_at": "2026-08-30T06:20:17Z",
-      "ticker": "WDS",
-      "company": "Woodside Energy Group Ltd",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allegations that a carbon offset project funded by Woodside was a sham used to fund personal expenses expose the company to severe ESG scrutiny, regulatory penalties, and potential write-downs of carbon credits.",
-      "why_now": "The publication of these specific fraud allegations on August 30, 2026, presents immediate reputational and regulatory risk.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-18ab2bc4f52b"
-      ],
-      "primary_source_event_id": "EVT-18ab2bc4f52b",
-      "source_headlines": [
-        "Woodside’s ‘sham’ carbon project paid for divorce, destination wedding"
-      ],
-      "source_headline": "Woodside’s ‘sham’ carbon project paid for divorce, destination wedding",
-      "source_url": "https://www.afr.com/companies/energy/woodside-s-sham-carbon-project-paid-for-divorce-destination-wedding-20260827-p60s2e?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 89,
-      "newest_source_at": "2026-08-30T05:59:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:20:17Z",
-      "updated_at": "2026-08-30T06:20:17Z",
-      "decay_at": "2026-08-31T17:59:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3830e5036df7",
-      "idea_version": "IDEAV-a37bc0d9e4eef57c",
-      "idea_version_started_at": "2026-08-30T07:40:39Z",
-      "ticker": "AZN",
-      "company": "AstraZeneca",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AstraZeneca's relaxin pill demonstrated positive results in a mid-stage heart failure trial, indicating potential future revenue from a new drug.",
-      "why_now": "The trial results were announced at the #ESC26 conference.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49df10f6e05d"
-      ],
-      "primary_source_event_id": "EVT-49df10f6e05d",
-      "source_headlines": [
-        "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial"
-      ],
-      "source_headline": "#ESC26: AstraZeneca's relaxin pill shows promise in mid-stage heart failure trial",
-      "source_url": "https://endpoints.news/esc26-astrazenecas-relaxin-pill-shows-promise-in-mid-stage-heart-failure-trial/",
-      "source_name": "Endpoints News",
-      "materiality_max": 83,
-      "newest_source_at": "2026-08-30T07:19:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T07:40:39Z",
-      "updated_at": "2026-08-30T07:40:39Z",
-      "decay_at": "2026-08-31T19:19:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97562,81 +97142,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7be01cccef52",
-      "idea_version": "IDEAV-fa9829324bd0b2bb",
-      "idea_version_started_at": "2026-08-30T09:40:14Z",
-      "ticker": "3766.HK",
-      "company": "Air China",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The airline reported a widening net loss in the first half of the year, indicating ongoing financial pressure.",
-      "why_now": "The company just reported its first-half results, showing a worsening loss.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0aebdf727083",
-        "EVT-36e1fe4e7f1a"
-      ],
-      "primary_source_event_id": "EVT-0aebdf727083",
-      "source_headlines": [
-        "China Eastern posts wider first-half net loss",
-        "Air China H1 net loss widens to about $341 million, filing shows"
-      ],
-      "source_headline": "China Eastern posts wider first-half net loss",
-      "source_url": "https://www.reuters.com/world/asia-pacific/china-eastern-posts-wider-first-half-net-loss-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T08:34:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T09:40:14Z",
-      "updated_at": "2026-08-30T09:40:14Z",
-      "decay_at": "2026-08-31T20:34:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-8516c55f6359",
       "idea_version": "IDEAV-6d41855b646c4420",
       "idea_version_started_at": "2026-08-30T09:40:14Z",
@@ -97704,1226 +97209,6 @@
       "surfaced_at": "2026-08-30T09:40:14Z",
       "updated_at": "2026-08-30T09:40:14Z",
       "decay_at": "2026-08-31T20:48:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-43cd8f5eafd2",
-      "idea_version": "IDEAV-30559f333b60e932",
-      "idea_version_started_at": "2026-08-30T08:40:12Z",
-      "ticker": "CEA",
-      "company": "China Eastern Airlines",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Both major Chinese carriers reported widening net losses in the first half, signaling persistent margin pressure and weak demand in the Chinese aviation sector.",
-      "why_now": "The H1 earnings filings released today confirm the negative trend in profitability.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0aebdf727083",
-        "EVT-36e1fe4e7f1a"
-      ],
-      "primary_source_event_id": "EVT-0aebdf727083",
-      "source_headlines": [
-        "China Eastern posts wider first-half net loss",
-        "Air China H1 net loss widens to about $341 million, filing shows"
-      ],
-      "source_headline": "China Eastern posts wider first-half net loss",
-      "source_url": "https://www.reuters.com/world/asia-pacific/china-eastern-posts-wider-first-half-net-loss-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T08:34:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T08:40:12Z",
-      "updated_at": "2026-08-30T08:40:12Z",
-      "decay_at": "2026-08-31T20:34:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2af6859ab57b",
-      "idea_version": "IDEAV-537d91d11f12f523",
-      "idea_version_started_at": "2026-08-30T06:00:05Z",
-      "ticker": "IAI",
-      "company": "Israel Aerospace Industries",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Israel Aerospace Industries is set to sign a significant defense deal with Greece, which is its largest ever, implying increased revenue and order backlog.",
-      "why_now": "The deal is expected to be signed imminently, representing a critical new commercial agreement.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-01a8e25fe87c"
-      ],
-      "primary_source_event_id": "EVT-01a8e25fe87c",
-      "source_headlines": [
-        "Israel to sign $3.6bn defence deal with Greece, its largest ever"
-      ],
-      "source_headline": "Israel to sign $3.6bn defence deal with Greece, its largest ever",
-      "source_url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-sign-36bn-defence-deal-greece-its-largest-ever",
-      "source_name": "Middle East Eye",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T05:10:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:00:05Z",
-      "updated_at": "2026-08-30T06:00:05Z",
-      "decay_at": "2026-08-31T17:10:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-10a47e8050ff",
-      "idea_version": "IDEAV-da5780a7fb55dc8d",
-      "idea_version_started_at": "2026-08-30T05:40:16Z",
-      "ticker": "JSL",
-      "company": "Jindal Stainless",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is increasing its coin blank manufacturing capacity by 20% to capture higher demand, which will directly expand its revenue base in a high-margin niche.",
-      "why_now": "The expansion announcement was made on 2026-08-30, signaling immediate capital deployment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-49076a1dbc34"
-      ],
-      "primary_source_event_id": "EVT-49076a1dbc34",
-      "source_headlines": [
-        "Jindal Stainless expanding coin blanks manufacturing capacity by 20% to meet demand"
-      ],
-      "source_headline": "Jindal Stainless expanding coin blanks manufacturing capacity by 20% to meet demand",
-      "source_url": "https://www.thehindubusinessline.com/companies/jindal-stainless-expanding-coin-blanks-manufacturing-capacity-by-20-to-meet-demand/article71407049.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T05:18:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T05:40:16Z",
-      "updated_at": "2026-08-30T05:40:16Z",
-      "decay_at": "2026-08-31T17:18:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fb9178fa2cb9",
-      "idea_version": "IDEAV-4f2e87418b3bfd12",
-      "idea_version_started_at": "2026-08-30T03:40:50Z",
-      "ticker": "AXISCADES",
-      "company": "AXISCADES Technologies Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AXISCADES Technologies is acquiring Cloud Wave Technologies, which is expected to accelerate its entry into aerospace manufacturing and expand its market opportunity.",
-      "why_now": "The company announced this acquisition via a press release on August 30, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-67a1e6f112df"
-      ],
-      "primary_source_event_id": "EVT-67a1e6f112df",
-      "source_headlines": [
-        "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"AXISCADES Technologies to Acquire Cloud Wave Technologies, Accelerating Entry into Aerospace Manufacturing\"."
-      ],
-      "source_headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated August 30, 2026, titled \"AXISCADES Technologies to Acquire Cloud Wave Technologies, Accelerating Entry into Aerospace Manufacturing\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AXISCADES_30082026085222_PressRelease30082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T03:30:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T03:40:50Z",
-      "updated_at": "2026-08-30T03:40:50Z",
-      "decay_at": "2026-08-31T15:30:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8e94c093bd37",
-      "idea_version": "IDEAV-6c20ae480d77a47d",
-      "idea_version_started_at": "2026-08-30T02:40:35Z",
-      "ticker": "9618",
-      "company": "JD.com",
-      "exchange": "HKG",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1.3 billion expansion into Hong Kong's physical retail space represents a significant capital commitment to capture market share from traditional brick-and-mortar incumbents.",
-      "why_now": "The scale of the expansion was detailed on August 30, 2024, signaling an immediate shift in the company's regional growth strategy and capital allocation.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4d54d4ee3c4"
-      ],
-      "primary_source_event_id": "EVT-b4d54d4ee3c4",
-      "source_headlines": [
-        "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model"
-      ],
-      "source_headline": "JD.com’s US$1.3b expansion could test Hong Kong’s footfall-driven retail property model",
-      "source_url": "https://www.scmp.com/business/article/3365657/jdcoms-us13b-expansion-could-test-hong-kongs-footfall-driven-retail-property-model?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-30T02:00:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:40:35Z",
-      "updated_at": "2026-08-30T02:40:35Z",
-      "decay_at": "2026-08-31T14:00:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a9381beff1e4",
-      "idea_version": "IDEAV-aad3a464199f5a97",
-      "idea_version_started_at": "2026-08-29T23:48:06Z",
-      "ticker": "ALV",
-      "company": "Allianz SE",
-      "exchange": "XTRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Allianz is reportedly weighing an $8.6 billion takeover of AA, which could expand its market share and diversify its insurance offerings.",
-      "why_now": "Media reports on August 29, 2026, indicate Allianz is actively studying the acquisition, making this a live M&A catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d53280276d9",
-        "EVT-9599abc30eee"
-      ],
-      "primary_source_event_id": "EVT-5d53280276d9",
-      "source_headlines": [
-        "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
-        "German insurer Allianz studies the acquisition of roadside assistance giant AA: media"
-      ],
-      "source_headline": "German insurer Allianz weighs $8.6 billion takeover of AA roadside rescue giant: Report",
-      "source_url": "https://www.straitstimes.com/business/german-insurer-allianz-weighs-8-6-billion-takeover-of-aa-roadside-rescue-giant-report",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:37:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T19:04:06Z",
-      "updated_at": "2026-08-29T23:48:06Z",
-      "decay_at": "2026-08-31T01:37:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-932317e51e1d",
-      "idea_version": "IDEAV-4bb1c2b215ae2fe9",
-      "idea_version_started_at": "2026-08-29T23:08:40Z",
-      "ticker": "GLEN",
-      "company": "Glencore plc",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Glencore has taken a substantial $480 million provision due to its exposure to Radiant World, directly impacting its net income and cash flow.",
-      "why_now": "The provision was disclosed on August 29, 2026, presenting a fresh negative catalyst for the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-48237898a4f4"
-      ],
-      "primary_source_event_id": "EVT-48237898a4f4",
-      "source_headlines": [
-        "Glencore Took $480 Million Provision on Radiant World Exposure"
-      ],
-      "source_headline": "Glencore Took $480 Million Provision on Radiant World Exposure",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-08-29/glencore-took-480-million-provision-on-radiant-world-exposure",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:54:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T16:42:52Z",
-      "updated_at": "2026-08-29T23:08:40Z",
-      "decay_at": "2026-08-31T03:54:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e89adaf01a10",
-      "idea_version": "IDEAV-40f2f177f4f041e8",
-      "idea_version_started_at": "2026-08-29T23:08:40Z",
-      "ticker": "ALV",
-      "company": "Allianz SE",
-      "exchange": "ETR",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Allianz is considering a major capital outlay of £5 billion to acquire roadside assistance giant AA, which could strain its balance sheet or dilute near-term returns.",
-      "why_now": "The acquisition talks were reported by Sky News on August 29, 2026, introducing immediate deal-related volatility.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cd3bfc6ed36"
-      ],
-      "primary_source_event_id": "EVT-0cd3bfc6ed36",
-      "source_headlines": [
-        "Allianz considers buying roadside assistance giant AA for £5bn - Sky News"
-      ],
-      "source_headline": "Allianz envisage de racheter le géant de l'assistance routière AA pour £5 mds -Sky News",
-      "source_url": "https://www.reuters.com/fr/affaires/allianz-envisage-de-racheter-le-gant-de-lassistance-routire-aa-pour-5-mds-sky-2026-08-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T10:31:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:33:23Z",
-      "updated_at": "2026-08-29T23:08:40Z",
-      "decay_at": "2026-08-30T22:31:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3c29910a96ce",
-      "idea_version": "IDEAV-190057ec25bf68a0",
-      "idea_version_started_at": "2026-08-29T21:53:05Z",
-      "ticker": "ISHANINFRA",
-      "company": "Ishaan Infrastructures and Shelters Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ishaan Infrastructures and Shelters Ltd has approved the acquisition of 100% of the share capital of two private companies, Blisstering Electronics Private Limited and Bliss Cab Electronics Private Limited.",
-      "why_now": "The board approval for the acquisition was announced on August 29, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-653e1e4a6c4d"
-      ],
-      "primary_source_event_id": "EVT-653e1e4a6c4d",
-      "source_headlines": [
-        "Ishaan Infrastructures and Shelters Ltd: The Acquisition of 100% of the Share Capital of Blisstering Electronics Private Limited ('BEPL') and Bliss Cab Electronics Private Limited ('BCEPL'). The Board has approved the execution ...."
-      ],
-      "source_headline": "Ishaan Infrastructures and Shelters Ltd: The Acquisition of 100% of the Share Capital of Blisstering Electronics Private Limited ('BEPL') and Bliss Cab Electronics Private Limited ('BCEPL'). The Board has approved the execution ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/982ddb90-7fb6-47d9-86fa-d0e596a342c8.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:46:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T21:53:05Z",
-      "updated_at": "2026-08-29T21:53:05Z",
-      "decay_at": "2026-08-31T01:46:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2bf283da46ec",
-      "idea_version": "IDEAV-798ac2349a3070f2",
-      "idea_version_started_at": "2026-08-29T21:34:21Z",
-      "ticker": "TVVISION",
-      "company": "TV Vision Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The formation of a Committee of Creditors (CoC) confirms the company has entered a formal insolvency resolution process, which typically leads to significant equity dilution or total loss for shareholders.",
-      "why_now": "The first meeting of the Committee of Creditors is scheduled for August 31, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab8b0ff15dff"
-      ],
-      "primary_source_event_id": "EVT-ab8b0ff15dff",
-      "source_headlines": [
-        "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026"
-      ],
-      "source_headline": "TV Vision Ltd: Intimation of Committee of Creditors has been formed on August 22, 2026 and first meeting of Committee of Creditors is scheduled to be held on Monday, 31st August, 2026",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8099579c-d9ff-44c2-b6f6-c922e5d85525.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:03:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:47:43Z",
-      "updated_at": "2026-08-29T21:34:21Z",
-      "decay_at": "2026-08-31T03:03:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1216c09ce08d",
-      "idea_version": "IDEAV-3f0a4e653cd837f4",
-      "idea_version_started_at": "2026-08-29T21:13:33Z",
-      "ticker": "TATACHEM",
-      "company": "Tata Chemicals Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Chemicals North America has acquired customer contracts expected to generate over USD 110 million in revenue through 2028, indicating a direct increase in future sales.",
-      "why_now": "The company announced this acquisition via a press release on August 29, 2026, making it a fresh catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a563a74816e"
-      ],
-      "primary_source_event_id": "EVT-0a563a74816e",
-      "source_headlines": [
-        "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\"."
-      ],
-      "source_headline": "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange regarding a press release dated August 29, 2026, titled \"Tata Chemicals North America acquires customer contracts expected to generate over USD 110 million in revenue through 2028\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TATACHEMYS_29082026193323_PressReleaseSigned.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T14:03:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:13:07Z",
-      "updated_at": "2026-08-29T21:13:33Z",
-      "decay_at": "2026-08-31T02:03:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-72dc515e1743",
-      "idea_version": "IDEAV-7828b6441e55c2d3",
-      "idea_version_started_at": "2026-08-29T19:04:06Z",
-      "ticker": "C6L",
-      "company": "Singapore Airlines",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Temasek's backing of Singapore Airlines' investment in Air India, amid a $1.5 billion funding request, strengthens its strategic position and growth prospects in the Indian market.",
-      "why_now": "The news of Temasek's backing and the funding request was reported on August 29, 2026, providing a fresh positive catalyst.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8c7d396b3df8"
-      ],
-      "primary_source_event_id": "EVT-8c7d396b3df8",
-      "source_headlines": [
-        "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request"
-      ],
-      "source_headline": "Temasek Backs Singapore Airlines’ Air India Investment Amid $1.5 Billion Funding Request",
-      "source_url": "https://www.freepressjournal.in/business/temasek-backs-singapore-airlines-air-india-investment-amid-15-billion-funding-request",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T12:19:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T19:04:06Z",
-      "updated_at": "2026-08-29T19:04:06Z",
-      "decay_at": "2026-08-31T00:19:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5ca7ca4ccdb1",
-      "idea_version": "IDEAV-46cad2b4d5f4ae4b",
-      "idea_version_started_at": "2026-08-29T18:43:39Z",
-      "ticker": "PRATAPSNK",
-      "company": "Prataap Snacks Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Prataap Snacks Ltd completed the acquisition of 100% of RLOP Food Processing Private Limited, which is expected to expand its business operations.",
-      "why_now": "The acquisition was completed as of August 29, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cdf8bda797d8"
-      ],
-      "primary_source_event_id": "EVT-cdf8bda797d8",
-      "source_headlines": [
-        "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")"
-      ],
-      "source_headline": "Prataap Snacks Ltd: Intimation under Regulation 30 of the SEBI(LODR) Regulations, 2015 regarding completion of acquisition of 100% of the equity share capital of RLOP Food Processing Private Limited (\"Target Company\")",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/2dba565f-07d4-457d-8dda-7d749c45156f.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T09:46:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T18:43:39Z",
-      "updated_at": "2026-08-29T18:43:39Z",
-      "decay_at": "2026-08-30T21:46:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b9d5031899a7",
-      "idea_version": "IDEAV-a676fff74c3d9db9",
-      "idea_version_started_at": "2026-08-29T18:43:39Z",
-      "ticker": "DICINDIA",
-      "company": "DIC India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of the MD & CEO of DIC India Limited, Mr. Manish Bhatia, suggests potential leadership instability and operational uncertainty.",
-      "why_now": "The executive exit is effective as of August 29, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cefa77d1bf41"
-      ],
-      "primary_source_event_id": "EVT-cefa77d1bf41",
-      "source_headlines": [
-        "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
-      ],
-      "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:09:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T18:43:39Z",
-      "updated_at": "2026-08-29T18:43:39Z",
-      "decay_at": "2026-08-31T01:09:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-eb536eed0e8f",
-      "idea_version": "IDEAV-06f83235e205d4b7",
-      "idea_version_started_at": "2026-08-29T16:42:52Z",
-      "ticker": "TRINITY",
-      "company": "Trinity Tradelink Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Trinity Tradelink Ltd disclosed an audit qualification, indicating potential issues with its financial reporting.",
-      "why_now": "The filing regarding the audit qualification was made on August 29, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bdcaa8febcb"
-      ],
-      "primary_source_event_id": "EVT-2bdcaa8febcb",
-      "source_headlines": [
-        "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION"
-      ],
-      "source_headline": "Trinity Tradelink Ltd: ENCLOSED HEREWITH IMPACT OF AUDIT QUALIFICATION",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a2e25f00-d7e2-482e-8f30-45ac4863b1b5.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T15:22:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T16:42:52Z",
-      "updated_at": "2026-08-29T16:42:52Z",
-      "decay_at": "2026-08-31T03:22:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0b5dc86cd04c",
-      "idea_version": "IDEAV-ae38bb0ccca7c1ba",
-      "idea_version_started_at": "2026-08-29T14:33:23Z",
-      "ticker": "ASTRON",
-      "company": "Astron Paper & Board Mill Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, which typically wipes out or severely dilutes existing equity holders.",
-      "why_now": "The insolvency process was formally communicated to the exchanges on August 29, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-524d8df6e2f3"
-      ],
-      "primary_source_event_id": "EVT-524d8df6e2f3",
-      "source_headlines": [
-        "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ASTRON_29082026171454_E_voting_result.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T11:45:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:33:23Z",
-      "updated_at": "2026-08-29T14:33:23Z",
-      "decay_at": "2026-08-30T23:45:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-eea7081fed7e",
-      "idea_version": "IDEAV-ac905aa5149a8b38",
-      "idea_version_started_at": "2026-08-29T14:33:23Z",
-      "ticker": "DICIND",
-      "company": "DIC India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation and exit of Managing Director and CEO Manish Bhatia deprives the company of its top leadership, creating operational and strategic uncertainty.",
-      "why_now": "The executive's resignation is effective as of the close of business hours on August 29, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cefa77d1bf41"
-      ],
-      "primary_source_event_id": "EVT-cefa77d1bf41",
-      "source_headlines": [
-        "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026."
-      ],
-      "source_headline": "DIC India Limited: DIC India Limited has filed the detailed resignation received from Mr. Manish Bhatia and he ceases to be the Director, MD & CEO of the Company w.e.f close of business hours of August 29, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DICIND_29082026183345_Disclosure_Para7c.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-29T13:09:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T14:33:23Z",
-      "updated_at": "2026-08-29T14:33:23Z",
-      "decay_at": "2026-08-31T01:09:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99068,293 +97353,6 @@
       "surfaced_at": "2026-08-31T02:21:42Z",
       "updated_at": "2026-08-31T02:21:42Z",
       "decay_at": "2026-09-01T12:29:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ad181ba1eeef",
-      "idea_version": "IDEAV-951e0f64ffbb637d",
-      "idea_version_started_at": "2026-08-30T06:40:16Z",
-      "ticker": "BALKRISIND",
-      "company": "Balkrishna Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is entering the passenger car tyre market to diversify its revenue base and has set a target to double total revenue to ₹23,000 crore by FY30.",
-      "why_now": "The specific product foray is scheduled for November 2026, providing a near-term catalyst for growth re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-717fc2418973"
-      ],
-      "primary_source_event_id": "EVT-717fc2418973",
-      "source_headlines": [
-        "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30"
-      ],
-      "source_headline": "BKT to foray into car tyres in November; aims to double revenue to ₹23,000 crore by FY30",
-      "source_url": "https://www.thehindubusinessline.com/companies/bkt-to-foray-into-car-tyres-in-november-aims-to-double-revenue-to-23000-crore-by-fy30/article71405934.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 98,
-      "newest_source_at": "2026-08-30T06:21:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:40:16Z",
-      "updated_at": "2026-08-30T06:40:16Z",
-      "decay_at": "2026-08-31T18:21:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a499ce26ab02",
-      "idea_version": "IDEAV-58bd58802bb42ba6",
-      "idea_version_started_at": "2026-08-30T07:20:04Z",
-      "ticker": "SBIN",
-      "company": "State Bank of India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "SBI and its subsidiary are set to monetize their holdings in the National Stock Exchange (NSE) through a massive Rs 30,000-crore IPO, providing a significant one-time capital gain and unlocking value from non-core assets.",
-      "why_now": "The dilution plan is tied to the imminent proposed public issue of the NSE.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d67a52b31198"
-      ],
-      "primary_source_event_id": "EVT-d67a52b31198",
-      "source_headlines": [
-        "NSE IPO: SBI, Subsidiary To Dilute 1% Stake In Proposed Rs 30,000-Crore Public Issue"
-      ],
-      "source_headline": "NSE IPO: SBI, Subsidiary To Dilute 1% Stake In Proposed Rs 30,000-Crore Public Issue",
-      "source_url": "https://www.ndtvprofit.com/markets/nse-ipo-sbi-subsidiary-to-dilute-1-stake-in-proposed-rs-30-000-crore-public-issue-11977232#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-30T06:50:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T07:00:23Z",
-      "updated_at": "2026-08-30T07:20:04Z",
-      "decay_at": "2026-08-31T18:50:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2b9840c4ba25",
-      "idea_version": "IDEAV-f3101285fab969e1",
-      "idea_version_started_at": "2026-08-30T02:20:00Z",
-      "ticker": "OIL",
-      "company": "Oil India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Oil India's newly formed subsidiary, OIL Green Energy Limited, has signed MoUs with the Government of Haryana to develop four integrated waste-to-clean-energy projects, expanding its green energy footprint.",
-      "why_now": "The official exchange filing on August 30, 2026, serves as the immediate catalyst for this green transition milestone.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-35c8c567786b"
-      ],
-      "primary_source_event_id": "EVT-35c8c567786b",
-      "source_headlines": [
-        "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects"
-      ],
-      "source_headline": "Oil India Ltd: OIL Green Energy Limited signs MoUs with Government of Haryana for Four Integrated Waste to Clean Energy Projects",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eb684b0a-4957-4363-9e15-d3ff7819ebc2.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-30T01:54:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:20:00Z",
-      "updated_at": "2026-08-30T02:20:00Z",
-      "decay_at": "2026-08-31T13:54:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0ecd9c1748cf",
-      "idea_version": "IDEAV-602a188bece7f17c",
-      "idea_version_started_at": "2026-08-30T02:00:09Z",
-      "ticker": "000720",
-      "company": "Hyundai Engineering & Construction",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 1.4 trillion KRW redevelopment project, which provides a clear, multi-year revenue stream and improves the order backlog.",
-      "why_now": "The contract win was announced on 2026-08-30, providing immediate visibility into future construction revenue.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21dff51e73d2"
-      ],
-      "primary_source_event_id": "EVT-21dff51e73d2",
-      "source_headlines": [
-        "Lotte and Hyundai E&C win 1.4 trillion KRW Anyang Chung-hun-bu public redevelopment project"
-      ],
-      "source_headline": "롯데·현대건설, 1조4000억 규모 안양 충훈부 공공재개발 수주",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275803",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-30T00:56:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:00:09Z",
-      "updated_at": "2026-08-30T02:00:09Z",
-      "decay_at": "2026-08-31T12:56:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99711,78 +97709,6 @@
       "surfaced_at": "2026-08-30T11:59:45Z",
       "updated_at": "2026-08-30T11:59:45Z",
       "decay_at": "2026-08-31T23:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-368d18053547",
-      "idea_version": "IDEAV-c0afeced07d80757",
-      "idea_version_started_at": "2026-08-30T08:20:10Z",
-      "ticker": "EL",
-      "company": "EssilorLuxottica",
-      "exchange": "PAR",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A deepening $47 billion family rift and the exit of a key heir from the Ray-Ban maker threaten corporate governance stability and strategic execution.",
-      "why_now": "The heir's exit has just been announced, escalating the public governance dispute.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b141709a3bea"
-      ],
-      "primary_source_event_id": "EVT-b141709a3bea",
-      "source_headlines": [
-        "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker"
-      ],
-      "source_headline": "EssilorLuxottica clan’s US$47 billion rift grows with heir’s exit from Ray-Ban maker",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/essilorluxottica-clans-us47-billion-rift-grows-heirs-exit-ray-ban-maker",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-08-30T07:55:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T08:20:10Z",
-      "updated_at": "2026-08-30T08:20:10Z",
-      "decay_at": "2026-08-31T19:55:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100218,295 +98144,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-49eb90efa23e",
-      "idea_version": "IDEAV-b322674cc65ae6a8",
-      "idea_version_started_at": "2026-08-30T05:40:16Z",
-      "ticker": "ONGC",
-      "company": "Oil and Natural Gas Corporation",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The pursuit of a deepwater drillship and a joint venture for offshore exploration indicates a strategic push to reverse production stagnation and increase long-term reserves.",
-      "why_now": "The exploration initiative was reported on 2026-08-30 as a live operational priority.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-010b6aac4138"
-      ],
-      "primary_source_event_id": "EVT-010b6aac4138",
-      "source_headlines": [
-        "ONGC explores eyes deepwater drillship, JV for offshore exploration"
-      ],
-      "source_headline": "ONGC explores eyes deepwater drillship, JV for offshore exploration",
-      "source_url": "https://www.thehindubusinessline.com/companies/ongc-explores-eyes-deepwater-drillship-jv-for-offshore-exploration/article71407061.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 89,
-      "newest_source_at": "2026-08-30T05:33:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T05:40:16Z",
-      "updated_at": "2026-08-30T05:40:16Z",
-      "decay_at": "2026-08-31T17:33:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2492bf37da4d",
-      "idea_version": "IDEAV-29174308e80078e9",
-      "idea_version_started_at": "2026-08-30T02:20:00Z",
-      "ticker": "010130",
-      "company": "Korea Zinc",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Korea Institute of Corporate Governance and Sustainability has recommended voting for Park Yu-kyung and against Baek In-gyu for the audit committee, boosting governance reform prospects amidst ongoing shareholder battles.",
-      "why_now": "The proxy advisory recommendation on August 30, 2026, directly influences institutional voting behavior ahead of the upcoming shareholder meeting.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-227cc040c111"
-      ],
-      "primary_source_event_id": "EVT-227cc040c111",
-      "source_headlines": [
-        "Korea Institute of Corporate Governance and Sustainability recommends voting for Park Yu-kyung and against Baek In-gyu as Korea Zinc audit committee candidates"
-      ],
-      "source_headline": "한국ESG기준원, 고려아연 감사위원 박유경 후보 찬성·백인규 후보 반대 권고",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275801",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-08-30T00:47:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:20:00Z",
-      "updated_at": "2026-08-30T02:20:00Z",
-      "decay_at": "2026-08-31T12:47:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ed07c7f4084a",
-      "idea_version": "IDEAV-f9880a2cc6b37df1",
-      "idea_version_started_at": "2026-08-30T06:00:05Z",
-      "ticker": "IRE",
-      "company": "Iren S.p.A.",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Iren's earnings were not groundbreaking, but the company provided a very promising outlook for 2027, suggesting future revenue and profit growth.",
-      "why_now": "The positive guidance for 2027 provides a forward-looking catalyst for the stock, despite current earnings performance.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e23bf5806e1e"
-      ],
-      "primary_source_event_id": "EVT-e23bf5806e1e",
-      "source_headlines": [
-        "Iren's Earnings Weren't Groundbreaking, but 2027 Looks Very Promising"
-      ],
-      "source_headline": "Iren's Earnings Weren't Groundbreaking, but 2027 Looks Very Promising",
-      "source_url": "https://www.nasdaq.com/articles/irens-earnings-werent-groundbreaking-2027-looks-very-promising",
-      "source_name": "Nasdaq",
-      "materiality_max": 73,
-      "newest_source_at": "2026-08-30T05:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:00:05Z",
-      "updated_at": "2026-08-30T06:00:05Z",
-      "decay_at": "2026-08-31T17:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-048f7108f462",
-      "idea_version": "IDEAV-4d4880319209d784",
-      "idea_version_started_at": "2026-08-30T03:00:19Z",
-      "ticker": "300677",
-      "company": "INTCO Medical",
-      "exchange": "SZSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported 40.6% revenue growth and expanded its disposable glove production capacity to 107 billion units, signaling strong market share gains and operational scale.",
-      "why_now": "The earnings report was released on 2026-08-30, providing immediate confirmation of growth momentum.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1226125ccb85"
-      ],
-      "primary_source_event_id": "EVT-1226125ccb85",
-      "source_headlines": [
-        "INTCO Medical reports 40.6% revenue growth in the first half of 2026, expands the world's largest disposable glove capacity to 107 billion units"
-      ],
-      "source_headline": "INTCO Medical rapporteert omzetgroei van 40,6% in de eerste helft van 2026, breidt de grootste wegwerphandschoenencapaciteit ter wereld uit tot 107 miljard stuks",
-      "source_url": "https://www.prnewswire.com/news-releases/intco-medical-rapporteert-omzetgroei-van-40-6-in-de-eerste-helft-van-2026--breidt-de-grootste-wegwerphandschoenencapaciteit-ter-wereld-uit-tot-107-miljard-stuks-302864348.html",
-      "source_name": "PR Newswire — Earnings",
-      "materiality_max": 68,
-      "newest_source_at": "2026-08-30T02:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T03:00:19Z",
-      "updated_at": "2026-08-30T03:00:19Z",
-      "decay_at": "2026-08-31T14:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -100575,231 +98212,13 @@
       "promoted_signal_id": "SIG-20260804-da21208a",
       "feedback": "up",
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-ce17c0a4842f",
-      "idea_version": "IDEAV-4f41e063b4bab9cf",
-      "idea_version_started_at": "2026-08-30T06:20:17Z",
-      "ticker": "PNN",
-      "company": "Pennon Group plc",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Pennon Group's subsidiary, South West Water, has been named as having the worst environmental record in England, escalating the risk of severe regulatory fines, capital expenditure mandates, and dividend cuts.",
-      "why_now": "The release of this comparative environmental performance analysis on August 30, 2026, increases immediate political and regulatory pressure.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-430dc08c8cb4"
-      ],
-      "primary_source_event_id": "EVT-430dc08c8cb4",
-      "source_headlines": [
-        "South West Water has worst environmental record in England, analysis shows"
-      ],
-      "source_headline": "South West Water has worst environmental record in England, analysis shows",
-      "source_url": "https://www.theguardian.com/environment/2026/aug/30/south-west-water-worst-environmental-record-england",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 86,
-      "newest_source_at": "2026-08-30T06:00:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T06:20:17Z",
-      "updated_at": "2026-08-30T06:20:17Z",
-      "decay_at": "2026-08-31T18:00:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-95ab488fa436",
-      "idea_version": "IDEAV-379f8af00a349b86",
-      "idea_version_started_at": "2026-08-30T04:21:03Z",
-      "ticker": "SGR",
-      "company": "Sheffield Green",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is pivoting from a pure manpower model to higher-margin wind power maintenance through an active acquisition strategy.",
-      "why_now": "Management's public confirmation of the acquisition hunt on August 30, 2026, signals imminent capital deployment and a shift in business mix.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f059d1b79e31"
-      ],
-      "primary_source_event_id": "EVT-f059d1b79e31",
-      "source_headlines": [
-        "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower"
-      ],
-      "source_headline": "Sheffield Green on the hunt for acquisitions in wind power maintenance as it diversifies beyond manpower",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/sheffield-green-hunt-acquisitions-wind-power-maintenance-it-diversifies-beyond-manpower",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 68,
-      "newest_source_at": "2026-08-30T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T04:21:03Z",
-      "updated_at": "2026-08-30T04:21:03Z",
-      "decay_at": "2026-08-31T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52c417019222",
-      "idea_version": "IDEAV-5f1026b2b2688024",
-      "idea_version_started_at": "2026-08-30T02:40:35Z",
-      "ticker": "INDUSINDBK",
-      "company": "IndusInd Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank is pivoting its management focus toward a roadmap to exceed a 1% Return on Assets (RoA), which would drive a re-rating of its valuation multiple if execution targets are met.",
-      "why_now": "New strategic clarity regarding the 1% RoA turnaround threshold is being communicated to the market as of August 30, 2024.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 40,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 9,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bde1dd24b4ed"
-      ],
-      "primary_source_event_id": "EVT-bde1dd24b4ed",
-      "source_headlines": [
-        "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround"
-      ],
-      "source_headline": "A roadmap beyond 1% RoA is key to IndusInd Bank’s turnaround",
-      "source_url": "https://www.livemint.com/market/mark-to-market/a-roadmap-beyond-1-roa-can-salvage-indusind-bank-11787891041860.html",
-      "source_name": "Mint",
-      "materiality_max": 52,
-      "newest_source_at": "2026-08-30T01:31:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-30T02:40:35Z",
-      "updated_at": "2026-08-30T02:40:35Z",
-      "decay_at": "2026-08-31T13:31:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 257,
+      "file_count": 294,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -106488,8 +103907,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T20:34:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106566,8 +103985,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T20:34:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106639,8 +104058,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T19:55:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106714,8 +104133,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T19:55:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106787,8 +104206,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T19:19:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106862,8 +104281,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T18:50:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -106935,8 +104354,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T18:35:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107010,8 +104429,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T18:21:35Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107085,8 +104504,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T18:00:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107158,8 +104577,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T17:59:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107233,8 +104652,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T17:33:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107309,8 +104728,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T17:20:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107384,8 +104803,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T17:18:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107459,8 +104878,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T17:10:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107535,8 +104954,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T16:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107609,8 +105028,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T15:30:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107684,8 +105103,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T14:40:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107759,8 +105178,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T14:00:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107833,8 +105252,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T13:54:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107909,8 +105328,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T13:31:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -107982,8 +105401,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T12:57:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108057,8 +105476,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T12:56:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108132,8 +105551,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T12:47:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108207,8 +105626,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T03:54:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108282,8 +105701,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T03:22:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108356,8 +105775,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T03:03:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108430,8 +105849,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T02:49:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108504,8 +105923,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T02:03:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108578,8 +105997,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T01:46:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108654,8 +106073,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T01:37:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108727,8 +106146,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T01:14:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108801,8 +106220,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T01:09:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108875,8 +106294,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T01:09:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -108950,8 +106369,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-31T00:19:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -109024,8 +106443,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-30T23:45:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -109099,8 +106518,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-30T22:31:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -109173,8 +106592,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-30T21:46:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-02T08:38:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -128146,8 +125565,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 373,
-    "live_count": 3,
+    "surfaced_total": 374,
+    "live_count": 4,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
