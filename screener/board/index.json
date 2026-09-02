@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-02T09:30:31Z",
+  "generated_at": "2026-09-02T11:27:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260902-541",
@@ -292,6 +292,251 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-600",
+      "headline": "CITGO to invest $310m in Lake Charles Refinery upgrade",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/citgo-invest-310m-lake-charles-103939461.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:39:39Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "CITGO to invest $310m in a refinery upgrade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CITGO to invest $310m in a refinery upgrade.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CITGO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-601",
+      "headline": "Hochtief to acquire German power transmission firm Autmatec",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/hochtief-acquire-german-power-transmission-103000283.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Hochtief to acquire German power transmission firm Autmatec.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hochtief to acquire German power transmission firm Autmatec.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hochtief",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-579",
+      "headline": "Ryanair warns of airfare price rises as higher fuel costs dent annual traffic target",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16098411/Ryanair-warns-airfare-price-rises-higher-fuel-costs-dent-annual-traffic-target.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:01:41Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Ryanair warned of higher fuel costs and trimmed its annual traffic target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ryanair warned of higher fuel costs and trimmed its annual traffic target.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryanair",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-583",
+      "headline": "UK fines Citibank London $6 million over Russia sanctions breaches",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/uk-fines-citibank-london-6-million-over-russia-sanctions-breaches-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T09:51:43Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Citibank was fined $6 million for breaching Russia sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Citibank was fined $6 million for breaching Russia sanctions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citigroup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260902-584",
+      "headline": "Ryanair trims traffic target, warns rivals face winter squeeze amid fuel costs",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/ryanair-slashes-winter-capacity-unhedged-jet-fuel-costs-bite-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T09:25:57Z",
+      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
+      "prelim_note": "Ryanair trimmed its traffic target and warned of a winter squeeze due to fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ryanair trimmed its traffic target and warned of a winter squeeze due to fuel costs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryanair",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1697,238 +1942,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-476",
-      "headline": "Oil prices extend gains as US and Iran trade fresh strikes",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/oil-up-nearly-1-us-iran-trade-fresh-strikes-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T03:53:45Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Oil prices are rising due to military strikes between the US and Iran, representing a supply-side risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Oil prices are rising due to military strikes between the US and Iran, representing a supply-side risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-245",
-      "headline": "New Zealand central bank raises rates by 25 bps, flags gradual tightening path",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-raises-rates-25-bps-flags-gradual-tightening-path",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T03:26:02Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "The Reserve Bank of New Zealand raised interest rates by 25 bps.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The Reserve Bank of New Zealand raised interest rates by 25 bps.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-145",
-      "headline": "Nvidia Nears $14 Billion Hugging Face Deal This Week",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/nvidia-nears-14-billion-hugging-face-deal-this-week",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T00:15:56Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Nvidia acquiring Hugging Face for ~$14 billion, a major M&A transaction by a mega-cap company affecting capital allocation and strategic positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Nvidia acquiring Hugging Face for ~$14 billion, a major M&A transaction by a mega-cap company affecting capital allocation and strategic positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-287",
-      "headline": "‎Sure profit falls 67% to SAR 4.7M in H1 2026",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/financial-reports/company-report/14587/2026/71?preview=true",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T23:39:00Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "Sure reported a 67% decline in H1 2026 profit to SAR 4.7M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Sure reported a 67% decline in H1 2026 profit to SAR 4.7M.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sure",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260902-328",
-      "headline": "US strikes Iran as state media reports four killed at wedding party",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cj06q4ynpmjo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-01T21:48:28Z",
-      "sweep_file": "screener/inbox/2026-09-02_sweep.json",
-      "prelim_note": "US military strikes in Iran indicate a major escalation in regional conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "US military strikes in Iran indicate a major escalation in regional conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -92720,77 +92733,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-95df61b251da",
-      "idea_version": "IDEAV-220278c21e7ec5ee",
-      "idea_version_started_at": "2026-09-01T03:16:47Z",
-      "ticker": "SYL",
-      "company": "Sylvia Energy Ltd",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sylvia Energy received a Notice to Proceed for the Gawara Baya Wind Farm, a price-sensitive capex milestone that de-risks construction and unlocks revenue from the project.",
-      "why_now": "Official ASX filing dated 2026-08-31 confirms the Notice to Proceed, making the catalyst live and verifiable.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cec4add32cf1"
-      ],
-      "primary_source_event_id": "EVT-cec4add32cf1",
-      "source_headlines": [
-        "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]"
-      ],
-      "source_headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T22:36:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T03:16:47Z",
-      "updated_at": "2026-09-01T03:16:47Z",
-      "decay_at": "2026-09-02T10:36:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5c23343bcf9d",
       "idea_version": "IDEAV-611b2e1d3c15cd37",
       "idea_version_started_at": "2026-09-01T01:49:20Z",
@@ -94190,6 +94132,77 @@
       "surfaced_at": "2026-08-30T22:29:01Z",
       "updated_at": "2026-08-30T22:29:01Z",
       "decay_at": "2026-09-01T10:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-95df61b251da",
+      "idea_version": "IDEAV-220278c21e7ec5ee",
+      "idea_version_started_at": "2026-09-01T03:16:47Z",
+      "ticker": "SYL",
+      "company": "Sylvia Energy Ltd",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sylvia Energy received a Notice to Proceed for the Gawara Baya Wind Farm, a price-sensitive capex milestone that de-risks construction and unlocks revenue from the project.",
+      "why_now": "Official ASX filing dated 2026-08-31 confirms the Notice to Proceed, making the catalyst live and verifiable.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cec4add32cf1"
+      ],
+      "primary_source_event_id": "EVT-cec4add32cf1",
+      "source_headlines": [
+        "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]"
+      ],
+      "source_headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-31T22:36:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-01T03:16:47Z",
+      "updated_at": "2026-09-01T03:16:47Z",
+      "decay_at": "2026-09-02T10:36:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98224,13 +98237,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 368,
-    "shown_count": 368,
+    "total_count": 369,
+    "shown_count": 369,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 183,
-        "shown_count": 183,
+        "total_count": 184,
+        "shown_count": 184,
         "hidden_count": 0
       },
       "short": {
@@ -98255,6 +98268,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-95df61b251da",
+        "idea_version": "IDEAV-220278c21e7ec5ee",
+        "idea_version_started_at": "2026-09-01T03:16:47Z",
+        "ticker": "SYL",
+        "company": "Sylvia Energy Ltd",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sylvia Energy received a Notice to Proceed for the Gawara Baya Wind Farm, a price-sensitive capex milestone that de-risks construction and unlocks revenue from the project.",
+        "why_now": "Official ASX filing dated 2026-08-31 confirms the Notice to Proceed, making the catalyst live and verifiable.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cec4add32cf1"
+        ],
+        "primary_source_event_id": "EVT-cec4add32cf1",
+        "source_headlines": [
+          "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]"
+        ],
+        "source_headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T22:36:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-01T03:16:47Z",
+        "updated_at": "2026-09-01T03:16:47Z",
+        "decay_at": "2026-09-02T10:36:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-02T10:36:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-286d271adaa1",
         "idea_version": "IDEAV-5fa0baf3d6a03ea4",
@@ -125566,7 +125653,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 374,
-    "live_count": 4,
+    "live_count": 3,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -125585,9 +125672,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 939475,
-    "news_picked_today": 992,
-    "news_dropped_today": 12376
+    "news_seen_today": 1168473,
+    "news_picked_today": 1075,
+    "news_dropped_today": 15269
   },
   "book_momentum": {
     "live_count": 8,
