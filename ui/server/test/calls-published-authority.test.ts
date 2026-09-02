@@ -39,14 +39,23 @@ write(`${olderRoot}/verification_report_v2.json`, '{"verdict":"Clean","integrity
 write(`${newerRoot}/decision_record.json`, JSON.stringify(newerDecision, null, 2) + '\n')
 write(`${newerRoot}/final_thesis.md`, '# ACME — newer published thesis\n')
 const supersededRoot = 'analyses/DUP_2026-08-05'
+const supersedingRoot = 'analyses/DUP_2026-08-11'
 write(`${supersededRoot}/decision_record.json`, JSON.stringify({
   ticker: 'DUP', decision_date: '2026-08-05', decision: 'Buy', basket: 'Selected',
   confidence_score: 82, entry_price: 100, currency: 'USD', review_schedule: {},
 }, null, 2) + '\n')
 write(`${supersededRoot}/final_thesis.md`, '# DUP — corrected-away call retained for audit\n')
 write(`${supersededRoot}/corrections.json`, JSON.stringify({
-  schema: 'corrections/v1', superseded_by: { run_root: newerRoot, reason: 'Test correction', date: '2026-08-11' }, errata: [],
+  schema: 'corrections/v1', superseded_by: { run_root: supersedingRoot, reason: 'Test correction', date: '2026-08-11' }, errata: [],
 }, null, 2) + '\n')
+write(`${supersedingRoot}/decision_record.json`, JSON.stringify({
+  ticker: 'DUP', decision_date: '2026-08-11', decision: 'Avoid', basket: 'Rejected',
+  confidence_score: 47, run_root: supersedingRoot,
+  final_thesis_path: `${supersedingRoot}/final_thesis.md`, review_schedule: {},
+}, null, 2) + '\n')
+write(`${supersedingRoot}/final_thesis.md`, '# DUP — corrected call\n' + 'x'.repeat(1100))
+write(`${supersedingRoot}/memo.md`, '# DUP — corrected memo\n' + 'x'.repeat(1100))
+write(`${supersedingRoot}/audit_dossier.md`, '# DUP — corrected audit\n' + 'x'.repeat(1100))
 
 const reviewName = '2026-08-13_30d_decision_review.json'
 const memoName = '2026-08-13_30d_memo_delta.md'
@@ -114,7 +123,7 @@ write('analyses/LOCAL_2026-08-14/decision_record.json', JSON.stringify({
 write('analyses/LOCAL_2026-08-14/final_thesis.md', '# private\n')
 
 const dirty = await listAllCalls()
-assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olderRoot],
+assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [supersedingRoot, newerRoot, olderRoot],
   'only complete calls in published Git are enumerated; unrelated unsafe names are skipped')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
   'the decision comes from published Git, not dirty disk')

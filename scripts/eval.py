@@ -271,7 +271,7 @@ if scope=="--data-needs-prewrite":
 # ledger_records.resolve_integrity_status (CLAUDE.md §2 — do not reimplement the same
 # PROVISIONAL-banner / verification_report-verdict resolution; it is the SAME signal
 # /research:calibrate and /research:track already read) and is used only in the main scan loop.
-from ledger_records import resolve_integrity_status
+from ledger_records import resolve_integrity_status, supersession_target_violations
 
 # ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
 # Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
@@ -1066,7 +1066,19 @@ def _an_valid_sidecar(run_dir):
     except Exception:
         return {}
 
-def eval_an_supersession_integrity(corrections):
+def _an_terminal_replacement_violations(run_root, source_run_root=None):
+    """Return why a supersession target is not a complete published correction.
+
+    A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
+    module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
+    provenance before it is allowed to retire the prior standing call.
+    """
+    if not source_run_root:
+        return ["supersession source run root is unavailable"]
+    return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"
+            for error in supersession_target_violations(source_run_root, run_root)]
+
+def eval_an_supersession_integrity(corrections, source_run_root=None):
     """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
     must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
     from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
@@ -1095,11 +1107,20 @@ def eval_an_supersession_integrity(corrections):
         nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
         nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
         if not (isinstance(nxt, str) and nxt.strip()):
-            return []  # cur is a live, non-superseded record — the chain terminates validly
+            return _an_terminal_replacement_violations(cur, source_run_root)
         nxt = nxt.strip()
         if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
             return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
         cur = nxt
+
+def eval_release_gate_eligible(has_run_metadata, supersession_result):
+    """Only a complete standing run gates releases; valid corrected-away runs remain advisory.
+
+    `supersession_result` is exactly eval_an_supersession_integrity's result: [] means a valid chain,
+    None means no supersession, and a non-empty list is malformed authority that must fail closed.
+    """
+    valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
+    return bool(has_run_metadata) and not valid_supersession
 
 # ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
 AM_DATE = "2026-07-17"
@@ -3060,8 +3081,39 @@ if scope=="selftest":
     anbad=0
     with _tf.TemporaryDirectory() as _td:
         _good=os.path.join(_td,"EMAAR_2026-07-10"); os.makedirs(_good)
-        open(os.path.join(_good,"decision_record.json"),"w").write("{}")
+        _attempt={"schema_version":"1.0","event":"attempt_started","attempt_id":"00000000-0000-4000-8000-000000000001",
+                  "provider":"codex","model":"gpt-test","reasoning_level":"high","attribution":"recorded",
+                  "scope":["synthesizer"],"decision_artifacts":["decision_record.json"],
+                  "decision_artifacts_optional":False}
+        _projection={"schema_version":"1.0","source":"cockpit_runtime","provider_mode":"single_provider",
+                     "profile_key":"codex|gpt-test:high","coverage":"cockpit_top_level_processes",
+                     "decision_author":{"attempt_id":_attempt["attempt_id"],"provider":"codex","model":"gpt-test",
+                                        "reasoning_level":"high","attribution":"recorded"},
+                     "contributors":[{"provider":"codex","model":"gpt-test","reasoning_level":"high",
+                                      "attribution":"recorded","scopes":["synthesizer"]}],"cli_versions":{}}
+        open(os.path.join(_good,"decision_record.json"),"w").write(json.dumps(
+            {"run_root":_good,"final_thesis_path":os.path.join(_good,"final_thesis.md"),
+             "ticker":"EMAAR","decision_date":"2026-07-10",
+             "execution_provenance":_projection}))
+        for _terminal_name in ("final_thesis.md","memo.md","audit_dossier.md"):
+            open(os.path.join(_good,_terminal_name),"w").write("x"*1025)
+        _source=os.path.join(_td,"EMAAR_2026-07-03"); os.makedirs(_source)
+        open(os.path.join(_source,"decision_record.json"),"w").write(json.dumps(
+            {"ticker":"EMAAR","decision_date":"2026-07-03"}))
+        import shutil as _shutil
+        _other=os.path.join(_td,"OTHER_2026-07-11"); _shutil.copytree(_good,_other)
+        _other_record=json.load(open(os.path.join(_other,"decision_record.json")))
+        _other_record.update({"run_root":_other,"final_thesis_path":os.path.join(_other,"final_thesis.md"),
+                              "ticker":"OTHER","decision_date":"2026-07-11"})
+        open(os.path.join(_other,"decision_record.json"),"w").write(json.dumps(_other_record))
+        _older=os.path.join(_td,"EMAAR_2026-07-01"); _shutil.copytree(_good,_older)
+        _older_record=json.load(open(os.path.join(_older,"decision_record.json")))
+        _older_record.update({"run_root":_older,"final_thesis_path":os.path.join(_older,"final_thesis.md"),
+                              "decision_date":"2026-07-01"})
+        open(os.path.join(_older,"decision_record.json"),"w").write(json.dumps(_older_record))
         _empty=os.path.join(_td,"EMPTY_2026-01-01"); os.makedirs(_empty)  # exists but no decision_record.json
+        _decision_only=os.path.join(_td,"PARTIAL_2026-01-01"); os.makedirs(_decision_only)
+        open(os.path.join(_decision_only,"decision_record.json"),"w").write("{}")
         # circular pair: CYCA superseded_by CYCB, CYCB superseded_by CYCA — both dropped, no live record
         _cyca=os.path.join(_td,"CYCA_2026-01-01"); os.makedirs(_cyca); open(os.path.join(_cyca,"decision_record.json"),"w").write("{}")
         _cycb=os.path.join(_td,"CYCB_2026-01-01"); os.makedirs(_cycb); open(os.path.join(_cycb,"decision_record.json"),"w").write("{}")
@@ -3073,16 +3125,31 @@ if scope=="selftest":
             ({"superseded_by":{"run_root":_good}}, []),                                     # valid live target → pass
             ({"superseded_by":{"run_root":os.path.join(_td,"NOPE_2026-01-01")}}, ["does not exist"]),
             ({"superseded_by":{"run_root":_empty}}, ["no decision_record.json"]),
+            ({"superseded_by":{"run_root":_decision_only}}, ["missing terminal artifact"]),
+            ({"superseded_by":{"run_root":_other}}, ["ticker does not match"]),
+            ({"superseded_by":{"run_root":_older}}, ["not newer"]),
             ({"superseded_by":{"reason":"x"}}, ["no run_root"]),                            # missing run_root
             ({"superseded_by":{"run_root":_cyca}}, ["circular"]),                           # A→B→A chain → caught
         ]
         for corr_,exp in ancases:
-            got=eval_an_supersession_integrity(corr_)
+            got=eval_an_supersession_integrity(corr_, _source)
             if exp is None: ok=(got is None)
             elif not exp: ok=(isinstance(got,list) and len(got)==0)
             else: ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
             if not ok: anbad+=1
             print(f"  [{'ok' if ok else 'XX'}] AN({corr_}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+        angatecases=[
+            (True,None,True),                         # complete standing run gates
+            (False,None,False),                       # incomplete standing run stays advisory
+            (True,[],False),                          # valid superseded run is historical, not standing
+            (True,["does not exist"],True),           # malformed supersession fails closed
+            (False,[],False),                         # missing metadata never gates
+        ]
+        for has_metadata,sup_result,expected in angatecases:
+            got=eval_release_gate_eligible(has_metadata,sup_result)
+            ok=got is expected
+            if not ok: anbad+=1
+            print(f"  [{'ok' if ok else 'XX'}] AN release_gate(metadata={has_metadata}, supersession={sup_result}) -> {got}"+("" if ok else f"  EXPECTED {expected}"))
     bad+=anbad
 
     # check AM — bear-case sanity (§8/§16). A Selected long whose bear price target is at/above entry has no loss branch.
@@ -3784,7 +3851,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4744,7 +4811,7 @@ for drp in runs:
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
-    _anresult=eval_an_supersession_integrity(_corr)
+    _anresult=eval_an_supersession_integrity(_corr, run)
     if _anresult is None:
         add("AN_supersession_integrity",True,"no supersession sidecar — N/A",na=True)
     elif _anresult:
@@ -4896,7 +4963,10 @@ for drp in runs:
     # do NOT block code PRs. The golden fixtures all carry RUN_METADATA.md, so a genuine framework / agent /
     # command regression still turns CI red. (Once the chained full-run path also writes RUN_METADATA + runs
     # the finish-gate, every real full run is gate-eligible again — see the engine finish-gate PR.)
-    gate_eligible = os.path.exists(rm)
+    # A valid supersession keeps the frozen folder in this evaluation report, but the corrected-away call is
+    # no longer standing authority and cannot block release of its replacement. Invalid/dangling/circular
+    # sidecars remain gate-eligible and fail closed through AN.
+    gate_eligible = eval_release_gate_eligible(os.path.exists(rm), _anresult)
     warn_only = (not run_pass) and (not gate_eligible)
     if not warn_only:
         suite_pass = suite_pass and run_pass
@@ -5321,7 +5391,12 @@ print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     status = "WARN" if r.get("warn_only") else ("PASS" if r["pass"] else "FAIL")
-    note = " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else ""
+    superseded = any(
+        c["check"] == "AN_supersession_integrity" and c["status"] == "PASS" and not c.get("na")
+        for c in r["checks"]
+    )
+    note = (" — superseded by a valid corrected run; still evaluated, not gating CI" if r.get("warn_only") and superseded
+            else " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else "")
     print(f"  {nm}: {status} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "", note)
 print("  governance flag/cap correspondence (AZ: RF-NET trigger ↔ cap ↔ 99 ↔ agent):",
       "PASS" if not azfails else "FAIL " + "; ".join(azfails))
