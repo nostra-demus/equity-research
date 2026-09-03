@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-09-03T13:47:56Z",
+  "generated_at": "2026-09-03T14:12:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-918",
+      "headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0903/2026090302393.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T13:26:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Simcere Pharma received NMPA marketing approval for Yingmule in China, a key milestone for product commercialization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Simcere Pharma received NMPA marketing approval for Yingmule in China, a key milestone for product commercialization.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Simcere Pharmaceutical Group",
+          "ticker": "02096",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-919",
+      "headline": "Kenrik Industries Ltd: VC Corporate Advisors Pvt Ltd (\"Manager to the Offer\") has submitted to BSE a copy of Detailed Public Statement in terms of Regulations 3(1) and 4 read with Regulations 15(2) of the Securities ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/25CE89C2-9671-461F-8522-B7A5F1E302DB-185319.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T13:23:25Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "The company has initiated a mandatory open offer process, which is a significant corporate event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has initiated a mandatory open offer process, which is a significant corporate event for shareholders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kenrik Industries Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-834",
       "headline": "RMH HOLDINGS (08437): INSIDE INFORMATION DELAY IN PUBLICATION OF THE INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
@@ -200,6 +299,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-906",
+      "headline": "Cerba Seeks Court-Supervised Restructuring of €5 Billion Debt",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-03/cerba-seeks-court-supervised-restructuring-of-5-billion-debt",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T13:28:28Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Cerba seeks court-supervised restructuring of €5 billion debt, a formal capital-structure distress event that materially impairs equity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cerba seeks court-supervised restructuring of €5 billion debt, a formal capital-structure distress event that materially impairs equity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cerba",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-898",
       "headline": "Tyson Cuts Profit Outlook Again as Beef Segment Worsens",
       "headline_en": null,
@@ -249,31 +397,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-866",
-      "headline": "Hugging Face approached Nvidia’s Huang weeks ahead of $12.9B acquisition, CEO tells CNBC",
+      "inbox_id": "INB-20260903-902",
+      "headline": "Nvidia to buy developer platform Hugging Face in $12.9bn deal",
       "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/03/nvidia-agrees-to-buy-hugging-face-for-almost-13-billion-ai-expansion.html",
-      "source_name": "CNBC",
+      "url": "https://www.theguardian.com/technology/2026/sep/03/nvidia-to-buy-hugging-face-in-129bn-deal",
+      "source_name": "The Guardian — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-09-03T12:58:37Z",
+      "found_at": "2026-09-03T13:15:26Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is reported to have been approached for a $12.9B acquisition of Hugging Face.",
+      "prelim_note": "Nvidia announced $12.9 billion acquisition of AI/ML developer platform Hugging Face, a confirmed major M&A transaction.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia is reported to have been approached for a $12.9B acquisition of Hugging Face.",
+      "triage_reason": "Nvidia announced $12.9 billion acquisition of AI/ML developer platform Hugging Face, a confirmed major M&A transaction.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 78,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 7,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -303,31 +451,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-892",
-      "headline": "Nvidia To Buy Hugging Face For $12.930 Bln",
+      "inbox_id": "INB-20260903-866",
+      "headline": "Hugging Face approached Nvidia’s Huang weeks ahead of $12.9B acquisition, CEO tells CNBC",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nvidia-buy-hugging-face-12930-bln",
-      "source_name": "Nasdaq",
+      "url": "https://www.cnbc.com/2026/09/03/nvidia-agrees-to-buy-hugging-face-for-almost-13-billion-ai-expansion.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-09-03T12:55:40Z",
+      "found_at": "2026-09-03T12:58:37Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia to acquire Hugging Face for $12.93 billion—a named deal value representing major strategic AI-infrastructure investment and capital-allocation decision.",
+      "prelim_note": "Nvidia is reported to have been approached for a $12.9B acquisition of Hugging Face.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia to acquire Hugging Face for $12.93 billion—a named deal value representing major strategic AI-infrastructure investment and capital-allocation decision.",
+      "triage_reason": "Nvidia is reported to have been approached for a $12.9B acquisition of Hugging Face.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1833,164 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-217",
-      "headline": "ASX edges up, Corporate Travel tumbles 80pc",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-wall-street-higher-as-bond-market-steadies-20260903-p60txs?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T00:22:13Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Corporate Travel Management shares tumbled 80% following a significant market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Corporate Travel Management shares tumbled 80% following a significant market event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corporate Travel Management",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-194",
-      "headline": "Samsung insurers plan to buy Canopius for $1.5 billion, Korea Economic Daily reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/samsung-insurance-firms-acquire-canopius-15-billion-korea-economic-daily-reports-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T00:11:14Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Samsung insurers plan to acquire Canopius for $1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung insurers plan to acquire Canopius for $1.5 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Canopius",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-230",
-      "headline": "Hanwha Ocean clinches 1.5 tln-won deal for 6 container ships from Taiwan's Yang Ming",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260903001200320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T23:40:56Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Hanwha Ocean secured a 1.5 trillion won shipbuilding contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hanwha Ocean secured a 1.5 trillion won shipbuilding contract.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanwha Ocean",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Yang Ming Marine Transport",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125950,9 +125940,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 999957,
-    "news_picked_today": 1934,
-    "news_dropped_today": 13642
+    "news_seen_today": 1041104,
+    "news_picked_today": 1973,
+    "news_dropped_today": 13963
   },
   "book_momentum": {
     "live_count": 8,
