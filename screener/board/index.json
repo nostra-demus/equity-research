@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T13:31:21Z",
+  "generated_at": "2026-09-03T13:47:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -195,6 +195,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-898",
+      "headline": "Tyson Cuts Profit Outlook Again as Beef Segment Worsens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-03/tyson-cuts-profit-outlook-again-as-beef-segment-worsens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T13:19:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Tyson Foods has cut its profit outlook again due to worsening conditions in its beef segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tyson Foods has cut its profit outlook again due to worsening conditions in its beef segment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tyson Foods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,56 +1988,6 @@
           "name": "Yang Ming Marine Transport",
           "ticker": null,
           "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-199",
-      "headline": "Snowflake shares jump 22% in extended trade after strong Q2 results, guidance raise",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/snowflake-q2-results-q3-full-year-product-revenue-guidance-coco-ai-coding-agent-share-price-19982843.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T23:35:46Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Snowflake shares jumped 22% following strong Q2 results and a guidance raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Snowflake shares jumped 22% following strong Q2 results and a guidance raise.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Snowflake",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -125951,9 +125950,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 957008,
-    "news_picked_today": 1909,
-    "news_dropped_today": 13355
+    "news_seen_today": 999957,
+    "news_picked_today": 1934,
+    "news_dropped_today": 13642
   },
   "book_momentum": {
     "live_count": 8,
