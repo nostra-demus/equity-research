@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-09-03T18:40:15Z",
+  "generated_at": "2026-09-03T18:59:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-1029",
+      "headline": "One Global Service Provider Ltd: Please find attached letter regarding execution of share purchase agreement for Acquisition of 51% equity stake",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4dd93d40-3e2d-4bc8-998c-296b656ea3a6.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T18:29:02Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Indian listed company One Global Service Provider executed share purchase agreement for 51% controlling equity acquisition (target unnamed in headline).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian listed company One Global Service Provider executed share purchase agreement for 51% controlling equity acquisition (target unnamed in headline).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "One Global Service Provider Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1030",
+      "headline": "One Global Service Provider Ltd: Please find attached letter regarding acquisition of 51% equity stake in Matrix Labs Diagnocare Private Limited and Matrix Labs Private Limited, respectively",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/aaa80e54-2d04-48d8-ab8c-1b0e369d95bb.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T18:19:08Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Indian listed company One Global Service Provider acquires 51% controlling stake in Matrix Labs Diagnocare Private Limited and Matrix Labs Private Limited via executed share purchase agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian listed company One Global Service Provider acquires 51% controlling stake in Matrix Labs Diagnocare Private Limited and Matrix Labs Private Limited via executed share purchase agreement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "One Global Service Provider Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Matrix Labs Diagnocare Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-1004",
       "headline": "Mawana Sugars Limited: Mawana Sugars Limited has informed the Exchange regarding 'Intimation under Regulation 30 of the SEBI (Listing Obligations and DisclosureRequirements) Regulations, 2015 - Approval of Scheme of Amalgamation by theHon'ble National Company Law Tribunal'.",
@@ -1923,105 +2026,6 @@
       "companies": [
         {
           "name": "Campbell Soup",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-874",
-      "headline": "Apple Hit With $2.7 Billion UK Lawsuit Over 'Unfair' App Tracking Rules",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/technology/apple-hit-with-2-7-billion-uk-lawsuit-over-unfair-app-tracking-rules-11996922#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T12:33:39Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Apple faces a $2.7 billion lawsuit in the UK regarding app tracking rules.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apple faces a $2.7 billion lawsuit in the UK regarding app tracking rules.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": "AAPL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-869",
-      "headline": "Campbell's Sees Weak Results In FY27 As Slips To Loss In Q4; Slashes Dividend 36%; Stock Down 6.8%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/campbells-sees-weak-results-fy27-slips-loss-q4-slashes-dividend-36-stock-down-68",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T12:19:41Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Campbell's reported a loss, slashed its dividend by 36%, and provided weak FY27 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Campbell's reported a loss, slashed its dividend by 36%, and provided weak FY27 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Campbell's",
           "ticker": null,
           "listing_country": "US"
         }
@@ -126568,9 +126572,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1560297,
-    "news_picked_today": 2238,
-    "news_dropped_today": 19218
+    "news_seen_today": 1572199,
+    "news_picked_today": 2251,
+    "news_dropped_today": 19589
   },
   "book_momentum": {
     "live_count": 8,
