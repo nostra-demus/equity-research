@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:52:49Z",
+  "generated_at": "2026-09-03T14:57:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-918",
@@ -294,6 +294,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-974",
+      "headline": "Campbell’s Cuts 13% of Workforce in Effort to Turn Around Struggling Operations",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/campbells-looks-to-reset-after-quarterly-loss-60335f2c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T14:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Campbell Soup is cutting 13% of its workforce to address struggling operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Campbell Soup is cutting 13% of its workforce to address struggling operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Campbell Soup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1964,55 +2013,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-724",
-      "headline": "UK homebuilder Crest Nicholson warns of annual loss",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uk-homebuilder-crest-nicholson-warns-annual-loss-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T06:25:28Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Crest Nicholson issued a profit warning, forecasting an annual loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crest Nicholson issued a profit warning, forecasting an annual loss.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crest Nicholson",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126264,9 +126264,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1127580,
-    "news_picked_today": 2045,
-    "news_dropped_today": 14203
+    "news_seen_today": 1136363,
+    "news_picked_today": 2053,
+    "news_dropped_today": 14219
   },
   "book_momentum": {
     "live_count": 8,
