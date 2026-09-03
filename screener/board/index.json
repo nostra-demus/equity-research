@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T18:39:46Z",
+  "generated_at": "2026-09-03T18:40:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1004",
@@ -94589,6 +94589,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ed0a5587b955",
+      "idea_version": "IDEAV-e0c84dc51abbb373",
+      "idea_version_started_at": "2026-09-03T18:40:02Z",
+      "ticker": "TSN",
+      "company": "Tyson Foods",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing persistent margin compression in its beef segment, leading to a repeated reduction in profit outlook.",
+      "why_now": "The guidance cut was announced on September 3, 2026, indicating ongoing operational headwinds.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-50162134818f"
+      ],
+      "primary_source_event_id": "EVT-50162134818f",
+      "source_headlines": [
+        "Tyson Cuts Profit Outlook Again as Beef Segment Worsens"
+      ],
+      "source_headline": "Tyson Cuts Profit Outlook Again as Beef Segment Worsens",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-03/tyson-cuts-profit-outlook-again-as-beef-segment-worsens",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T13:19:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T18:40:02Z",
+      "updated_at": "2026-09-03T18:40:02Z",
+      "decay_at": "2026-09-05T01:19:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-272cddf27801",
       "idea_version": "IDEAV-3b3e769f4ebbd692",
       "idea_version_started_at": "2026-09-03T18:13:00Z",
@@ -126478,8 +126548,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 409,
-    "live_count": 16,
+    "surfaced_total": 410,
+    "live_count": 17,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
