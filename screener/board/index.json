@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T06:30:14Z",
+  "generated_at": "2026-09-03T06:40:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-702",
@@ -93,6 +93,55 @@
           "name": "EGH",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-724",
+      "headline": "UK homebuilder Crest Nicholson warns of annual loss",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uk-homebuilder-crest-nicholson-warns-annual-loss-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T06:25:28Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Crest Nicholson issued a profit warning, forecasting an annual loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crest Nicholson issued a profit warning, forecasting an annual loss.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crest Nicholson",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "small",
@@ -1940,55 +1989,6 @@
         },
         {
           "name": "Cirsa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-572",
-      "headline": "Ryanair slashes winter capacity as unhedged jet fuel costs bite",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/ryanair-slashes-winter-capacity-unhedged-jet-fuel-costs-bite-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T06:25:44Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Ryanair slashes winter capacity due to unhedged jet fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ryanair slashes winter capacity due to unhedged jet fuel costs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ryanair",
           "ticker": null,
           "listing_country": null
         }
@@ -126448,9 +126448,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 311395,
-    "news_picked_today": 1383,
-    "news_dropped_today": 5241
+    "news_seen_today": 315946,
+    "news_picked_today": 1422,
+    "news_dropped_today": 5322
   },
   "book_momentum": {
     "live_count": 8,
