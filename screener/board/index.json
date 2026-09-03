@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T02:20:07Z",
+  "generated_at": "2026-09-03T03:15:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-187",
@@ -52,6 +52,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-442",
+      "headline": "The 81pc car crash captivating the ASX today",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/the-81pc-car-crash-captivating-the-asx-today-20260903-p60u3u?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T02:09:22Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "ASX-listed company stock crashed 81% intra-day; catalyst undisclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ASX-listed company stock crashed 81% intra-day; catalyst undisclosed in headline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-387",
       "headline": "Diversified Energy Buys Elliott-Backed Birch for $1.8 Billion",
       "headline_en": null,
@@ -98,6 +141,55 @@
           "name": "Birch",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-470",
+      "headline": "현대모비스, 슬로바키아에 유럽 첫 PE시스템 공장 가동",
+      "headline_en": "Hyundai Mobis starts operation of its first European PE system plant in Slovakia",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276084",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T00:35:47Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Hyundai Mobis has commenced operations at its first European PE system plant in Slovakia, representing a significant capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai Mobis has commenced operations at its first European PE system plant in Slovakia, representing a significant capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Mobis",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -1255,6 +1347,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-496",
+      "headline": "Nestlé cede divisione vitamine per 1 mld dlr",
+      "headline_en": "Nestlé sells vitamin division for 1 bln dlr",
+      "url": "https://www.reuters.com/it/azienda/nestl-cede-divisione-vitamine-per-1-mld-dlr-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T08:31:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nestlé is divesting its vitamin division for $1 billion, a significant portfolio optimization move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nestlé is divesting its vitamin division for $1 billion, a significant portfolio optimization move.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestlé",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-499",
+      "headline": "Ryanair erwartet weniger Gewinn und Passagiere - Kerosinkosten belasten",
+      "headline_en": "Ryanair expects lower profit and passengers - kerosene costs weigh",
+      "url": "https://www.reuters.com/de/firma/ryanair-erwartet-weniger-gewinn-und-passagiere-kerosinkosten-belasten-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T08:07:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Ryanair lowered profit and passenger expectations due to rising fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ryanair lowered profit and passenger expectations due to rising fuel costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryanair",
+          "ticker": null,
+          "listing_country": "IE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-393",
       "headline": "KEPCO Seeks $18.4 Billion From Samsung, SK hynix for Grid Investment",
       "headline_en": null,
@@ -1817,202 +2007,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-120",
-      "headline": "Chevron amplia aposta na Venezuela com plano de US$7 bi para dobrar a produção em cinco anos",
-      "headline_en": "Chevron expands bet on Venezuela with $7 billion plan to double production in five years",
-      "url": "https://www.reuters.com/pt/negocio/PGO6Q43MRZOF7LGHOCIZWWL5W4-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:39:32Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron announces a $7 billion plan to double Venezuela output in five years, a major capacity-expansion commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Chevron announces a $7 billion plan to double Venezuela output in five years, a major capacity-expansion commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": "CVX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-259",
-      "headline": "‎Bahri vessel involved in security incident in Strait of Hormuz",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1933536",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "A security incident involving a vessel in the Strait of Hormuz poses a significant risk to global shipping and energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A security incident involving a vessel in the Strait of Hormuz poses a significant risk to global shipping and energy supply chains.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bahri",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-329",
-      "headline": "KSA's National Shipping Company: 2 crew members dead after security incident in Strait of Hormuz",
-      "headline_en": null,
-      "url": "https://www.gulf-times.com/article/732416/region/ksas-national-shipping-company-2-crew-members-dead-after-security-incident-in-strait-of-hormuz",
-      "source_name": "Gulf Times — Region",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "A security incident in the Strait of Hormuz resulted in two deaths on a vessel operated by the National Shipping Company of Saudi Arabia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A security incident in the Strait of Hormuz resulted in two deaths on a vessel operated by the National Shipping Company of Saudi Arabia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Shipping Company of Saudi Arabia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-370",
-      "headline": "Bergheim: Mutmaßlicher Anschlag in Bergheim: Fünf RWE-Kraftwerksblöcke vom Netz",
-      "headline_en": "Bergheim: Suspected attack in Bergheim: Five RWE power plant units off the grid",
-      "url": "https://www.handelsblatt.com/politik/deutschland/bergheim-fuenf-rwe-kraftwerksbloecke-nach-mutmasslichem-anschlag-vom-netz/100251383.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:03:16Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "A suspected attack has forced five RWE power plant units offline, creating a significant supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A suspected attack has forced five RWE power plant units offline, creating a significant supply shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RWE",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94644,151 +94638,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c4367824b313",
-      "idea_version": "IDEAV-a7ba24ac4b1c26e6",
-      "idea_version_started_at": "2026-09-02T23:36:56Z",
-      "ticker": "DPSC",
-      "company": "DPSC Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity impairment.",
-      "why_now": "The insolvency process was formally announced on September 1, 2026.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed1bd353f181",
-        "EVT-fec3a38080b5"
-      ],
-      "primary_source_event_id": "EVT-ed1bd353f181",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T23:36:56Z",
-      "updated_at": "2026-09-02T23:36:56Z",
-      "decay_at": "2026-09-03T02:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3123eadb829a",
-      "idea_version": "IDEAV-5a30aa59d9e9b620",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "DPSCLTD",
-      "company": "DPSC Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
-      "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed1bd353f181"
-      ],
-      "primary_source_event_id": "EVT-ed1bd353f181",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T02:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b433e5704e83",
       "idea_version": "IDEAV-904d39569e8bf81c",
       "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -94854,77 +94703,6 @@
       "surfaced_at": "2026-09-02T22:52:14Z",
       "updated_at": "2026-09-02T22:52:14Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f56c657b46f1",
-      "idea_version": "IDEAV-eafb5c62f54f0312",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "SATANIBEAR",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Satani Bearings received a Rs 375.56 crore order, a large contract relative to its size that should boost near-term revenue and earnings visibility.",
-      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -95002,77 +94780,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5844d38bf6c0",
-      "idea_version": "IDEAV-3f4210804bb37453",
-      "idea_version_started_at": "2026-09-02T19:27:30Z",
-      "ticker": "SATANIBEAR.BO",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Satani Bearings received a Rs 375.56 crore order, a large commercial win relative to its small-cap scale that should lift near-term revenue and margins.",
-      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T19:27:30Z",
-      "updated_at": "2026-09-02T19:27:30Z",
-      "decay_at": "2026-09-03T02:20:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-53a097038e0f",
       "idea_version": "IDEAV-a739515895ef44f4",
       "idea_version_started_at": "2026-09-02T17:51:02Z",
@@ -95138,77 +94845,6 @@
       "surfaced_at": "2026-09-02T17:51:02Z",
       "updated_at": "2026-09-02T17:51:02Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e57bed8e5496",
-      "idea_version": "IDEAV-fc0f5575fa747fcf",
-      "idea_version_started_at": "2026-09-02T17:51:02Z",
-      "ticker": "SATANI",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant new order worth Rs.375.56 crores, which provides a clear, immediate boost to its revenue backlog and operational outlook.",
-      "why_now": "The order was officially disclosed in an exchange filing on September 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T17:51:02Z",
-      "updated_at": "2026-09-02T17:51:02Z",
-      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96126,6 +95762,80 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c4367824b313",
+      "idea_version": "IDEAV-a7ba24ac4b1c26e6",
+      "idea_version_started_at": "2026-09-02T23:36:56Z",
+      "ticker": "DPSC",
+      "company": "DPSC Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity impairment.",
+      "why_now": "The insolvency process was formally announced on September 1, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed1bd353f181",
+        "EVT-fec3a38080b5"
+      ],
+      "primary_source_event_id": "EVT-ed1bd353f181",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T14:54:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T23:36:56Z",
+      "updated_at": "2026-09-02T23:36:56Z",
+      "decay_at": "2026-09-03T02:54:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d05b127c1ec0",
       "idea_version": "IDEAV-3522195689f4a19a",
       "idea_version_started_at": "2026-09-02T23:36:56Z",
@@ -96197,6 +95907,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3123eadb829a",
+      "idea_version": "IDEAV-5a30aa59d9e9b620",
+      "idea_version_started_at": "2026-09-02T22:52:14Z",
+      "ticker": "DPSCLTD",
+      "company": "DPSC Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
+      "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed1bd353f181"
+      ],
+      "primary_source_event_id": "EVT-ed1bd353f181",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T14:54:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T22:52:14Z",
+      "updated_at": "2026-09-02T22:52:14Z",
+      "decay_at": "2026-09-03T02:54:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-df6c494797d2",
       "idea_version": "IDEAV-f8869f59f60c9641",
       "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -96262,6 +96043,148 @@
       "surfaced_at": "2026-09-02T22:52:14Z",
       "updated_at": "2026-09-02T22:52:14Z",
       "decay_at": "2026-09-03T01:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f56c657b46f1",
+      "idea_version": "IDEAV-eafb5c62f54f0312",
+      "idea_version_started_at": "2026-09-02T22:52:14Z",
+      "ticker": "SATANIBEAR",
+      "company": "Satani Bearings Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Satani Bearings received a Rs 375.56 crore order, a large contract relative to its size that should boost near-term revenue and earnings visibility.",
+      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a664e1b2d7eb"
+      ],
+      "primary_source_event_id": "EVT-a664e1b2d7eb",
+      "source_headlines": [
+        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+      ],
+      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T14:20:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T22:52:14Z",
+      "updated_at": "2026-09-02T22:52:14Z",
+      "decay_at": "2026-09-03T02:20:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5844d38bf6c0",
+      "idea_version": "IDEAV-3f4210804bb37453",
+      "idea_version_started_at": "2026-09-02T19:27:30Z",
+      "ticker": "SATANIBEAR.BO",
+      "company": "Satani Bearings Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Satani Bearings received a Rs 375.56 crore order, a large commercial win relative to its small-cap scale that should lift near-term revenue and margins.",
+      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a664e1b2d7eb"
+      ],
+      "primary_source_event_id": "EVT-a664e1b2d7eb",
+      "source_headlines": [
+        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+      ],
+      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T14:20:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T19:27:30Z",
+      "updated_at": "2026-09-02T19:27:30Z",
+      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96404,6 +96327,77 @@
       "surfaced_at": "2026-09-02T17:51:02Z",
       "updated_at": "2026-09-02T17:51:02Z",
       "decay_at": "2026-09-02T19:49:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e57bed8e5496",
+      "idea_version": "IDEAV-fc0f5575fa747fcf",
+      "idea_version_started_at": "2026-09-02T17:51:02Z",
+      "ticker": "SATANI",
+      "company": "Satani Bearings Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant new order worth Rs.375.56 crores, which provides a clear, immediate boost to its revenue backlog and operational outlook.",
+      "why_now": "The order was officially disclosed in an exchange filing on September 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a664e1b2d7eb"
+      ],
+      "primary_source_event_id": "EVT-a664e1b2d7eb",
+      "source_headlines": [
+        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+      ],
+      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T14:20:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T17:51:02Z",
+      "updated_at": "2026-09-02T17:51:02Z",
+      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98564,18 +98558,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 381,
-    "shown_count": 381,
+    "total_count": 386,
+    "shown_count": 386,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 193,
-        "shown_count": 193,
+        "total_count": 196,
+        "shown_count": 196,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 188,
-        "shown_count": 188,
+        "total_count": 190,
+        "shown_count": 190,
         "hidden_count": 0
       }
     },
@@ -98595,6 +98589,379 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3123eadb829a",
+        "idea_version": "IDEAV-5a30aa59d9e9b620",
+        "idea_version_started_at": "2026-09-02T22:52:14Z",
+        "ticker": "DPSCLTD",
+        "company": "DPSC Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
+        "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ed1bd353f181"
+        ],
+        "primary_source_event_id": "EVT-ed1bd353f181",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T14:54:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T22:52:14Z",
+        "updated_at": "2026-09-02T22:52:14Z",
+        "decay_at": "2026-09-03T02:54:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T02:54:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c4367824b313",
+        "idea_version": "IDEAV-a7ba24ac4b1c26e6",
+        "idea_version_started_at": "2026-09-02T23:36:56Z",
+        "ticker": "DPSC",
+        "company": "DPSC Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity impairment.",
+        "why_now": "The insolvency process was formally announced on September 1, 2026.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ed1bd353f181",
+          "EVT-fec3a38080b5"
+        ],
+        "primary_source_event_id": "EVT-ed1bd353f181",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T14:54:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T23:36:56Z",
+        "updated_at": "2026-09-02T23:36:56Z",
+        "decay_at": "2026-09-03T02:54:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T02:54:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5844d38bf6c0",
+        "idea_version": "IDEAV-3f4210804bb37453",
+        "idea_version_started_at": "2026-09-02T19:27:30Z",
+        "ticker": "SATANIBEAR.BO",
+        "company": "Satani Bearings Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Satani Bearings received a Rs 375.56 crore order, a large commercial win relative to its small-cap scale that should lift near-term revenue and margins.",
+        "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a664e1b2d7eb"
+        ],
+        "primary_source_event_id": "EVT-a664e1b2d7eb",
+        "source_headlines": [
+          "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+        ],
+        "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T14:20:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T19:27:30Z",
+        "updated_at": "2026-09-02T19:27:30Z",
+        "decay_at": "2026-09-03T02:20:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T02:20:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e57bed8e5496",
+        "idea_version": "IDEAV-fc0f5575fa747fcf",
+        "idea_version_started_at": "2026-09-02T17:51:02Z",
+        "ticker": "SATANI",
+        "company": "Satani Bearings Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a significant new order worth Rs.375.56 crores, which provides a clear, immediate boost to its revenue backlog and operational outlook.",
+        "why_now": "The order was officially disclosed in an exchange filing on September 1, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a664e1b2d7eb"
+        ],
+        "primary_source_event_id": "EVT-a664e1b2d7eb",
+        "source_headlines": [
+          "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+        ],
+        "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T14:20:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T17:51:02Z",
+        "updated_at": "2026-09-02T17:51:02Z",
+        "decay_at": "2026-09-03T02:20:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T02:20:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f56c657b46f1",
+        "idea_version": "IDEAV-eafb5c62f54f0312",
+        "idea_version_started_at": "2026-09-02T22:52:14Z",
+        "ticker": "SATANIBEAR",
+        "company": "Satani Bearings Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Satani Bearings received a Rs 375.56 crore order, a large contract relative to its size that should boost near-term revenue and earnings visibility.",
+        "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a664e1b2d7eb"
+        ],
+        "primary_source_event_id": "EVT-a664e1b2d7eb",
+        "source_headlines": [
+          "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
+        ],
+        "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T14:20:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T22:52:14Z",
+        "updated_at": "2026-09-02T22:52:14Z",
+        "decay_at": "2026-09-03T02:20:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T02:20:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-27677ede6ab0",
         "idea_version": "IDEAV-002a39d42239d0e1",
@@ -126866,7 +127233,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 393,
-    "live_count": 10,
+    "live_count": 5,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -126885,9 +127252,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 136562,
-    "news_picked_today": 537,
-    "news_dropped_today": 1695
+    "news_seen_today": 177289,
+    "news_picked_today": 731,
+    "news_dropped_today": 2293
   },
   "book_momentum": {
     "live_count": 8,
