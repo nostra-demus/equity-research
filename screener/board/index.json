@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:33:42Z",
+  "generated_at": "2026-09-03T14:37:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-918",
@@ -294,6 +294,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-964",
+      "headline": "Chobani to spend $1.2B to buy and invest in Pennsylvania plant",
+      "headline_en": null,
+      "url": "https://www.constructiondive.com/news/Chobani-plant-investment-keurig-dr-pepper-growth/829558/",
+      "source_name": "Construction Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T14:24:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chobani is investing $1.2 billion in a Pennsylvania plant expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chobani is investing $1.2 billion in a Pennsylvania plant expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chobani",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1174,6 +1223,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-969",
+      "headline": "Campbell’s Shares Slump on Sales Drop, Dividend Cut, Outlook",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-03/campbell-s-shares-slump-on-sales-slide-dividend-cut-outlook",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T12:34:53Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Campbell Soup reported a sales drop, cut its dividend, and provided a negative outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Campbell Soup reported a sales drop, cut its dividend, and provided a negative outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "dividend_cut",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Campbell Soup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-874",
       "headline": "Apple Hit With $2.7 Billion UK Lawsuit Over 'Unfair' App Tracking Rules",
       "headline_en": null,
@@ -1908,105 +2008,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-728",
-      "headline": "PVH Turns To Q2 Loss, Revenue Falls; Reaffirms Annual Outlook; To Buy Back $300 Mln Of Shrs In 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pvh-turns-q2-loss-revenue-falls-reaffirms-annual-outlook-buy-back-300-mln-shrs-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T06:20:14Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Company reported a Q2 loss and revenue decline, but announced a $300 million share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a Q2 loss and revenue decline, but announced a $300 million share buyback.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PVH",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-735",
-      "headline": "Diversified Energy To Buy Birch Permian For $1.8 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/diversified-energy-buy-birch-permian-18-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T05:58:07Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Acquisition of Birch Permian for $1.8 billion is a material M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of Birch Permian for $1.8 billion is a material M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diversified Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126181,9 +126182,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1084106,
-    "news_picked_today": 2028,
-    "news_dropped_today": 14100
+    "news_seen_today": 1092764,
+    "news_picked_today": 2034,
+    "news_dropped_today": 14118
   },
   "book_momentum": {
     "live_count": 8,
