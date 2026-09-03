@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-03T10:18:10Z",
+  "generated_at": "2026-09-03T10:27:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-810",
+      "headline": "Consolidated Finvest & Holdings Limited: Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 and receipt of the Initial Public Announcement dated September 03, 2026, under the SEBI (Delisting of Equity Shares) Regulations, 2021 ( SEBI Delisting Regulations 2021 ) in relation to the proposal to Voluntary Delist the Equity Shares of Consolidated Finvest & Holdings Limited ( Target Company ). ( Delisting Offer )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CONSOFINVT_03092026152726_Intimation_CFHL_IPA_-_03092026_Final_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T09:57:41Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Consolidated Finvest & Holdings Limited has announced a proposal for voluntary delisting of its equity shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Consolidated Finvest & Holdings Limited has announced a proposal for voluntary delisting of its equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Consolidated Finvest & Holdings Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-702",
       "headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated September 03, 2026, titled \"Press release titled Tata Power Strengthens NCR s Power Infrastructure with Commissioning of 400kV Jalpura-Khurja Transmission Corridor, comprising 162 CKM Transmission lines and 1,000 MVA Substation .\".",
@@ -101,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-824",
+      "headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T10:02:47Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Crest Nicholson warned of an annual loss due to a subdued property market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crest Nicholson warned of an annual loss due to a subdued property market.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crest Nicholson",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-734",
       "headline": "‎Dar Almarkabah signs MoU to acquire 100% of Zad International",
       "headline_en": null,
@@ -194,6 +292,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-832",
+      "headline": "Soitec Shares Jump After Guidance Upgrade on Strong AI Demand",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/soitec-shares-jump-after-guidance-upgrade-on-strong-ai-demand-e3a5ebb9?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T09:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Soitec shares rose following a guidance upgrade driven by strong AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Soitec shares rose following a guidance upgrade driven by strong AI demand.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Soitec",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1833,153 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-242",
-      "headline": "Ölindustrie: Chevron will mehr als sieben Milliarden Dollar in Venezuela investieren",
-      "headline_en": "Oil industry: Chevron wants to invest more than seven billion dollars in Venezuela",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/venezuela-chevron-will-mehr-als-sieben-milliarden-dollar-investieren/100251526.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:59:33Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron plans to invest more than $7 billion in Venezuela to expand its oil operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron plans to invest more than $7 billion in Venezuela to expand its oil operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": "CVX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-300",
-      "headline": "Chevron expands Venezuela position, to invest $7 billion in next five years",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/chevron-expands-venezuela-position-plans-7-billion-investment-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T11:16:34Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron to invest $7 billion in Venezuela, doubling production, confirming a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron to invest $7 billion in Venezuela, doubling production, confirming a major capex commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": "CVX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-337",
-      "headline": "Chevron to double Venezuela output in $7bn investment pledge",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/a76721db-36e1-4198-aad8-8c90137aace9?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:56:41Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron has pledged a $7 billion investment to double its oil output in Venezuela.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron has pledged a $7 billion investment to double its oil output in Venezuela.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126078,9 +126078,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 590702,
-    "news_picked_today": 1674,
-    "news_dropped_today": 9390
+    "news_seen_today": 605605,
+    "news_picked_today": 1704,
+    "news_dropped_today": 9552
   },
   "book_momentum": {
     "live_count": 8,
