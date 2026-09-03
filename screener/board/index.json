@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T12:42:49Z",
+  "generated_at": "2026-09-03T12:43:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -94540,6 +94540,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-205d9d4ce667",
+      "idea_version": "IDEAV-c3623bf906e10ee5",
+      "idea_version_started_at": "2026-09-03T12:43:04Z",
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 16% surge in stock price driven by a significant expansion in its AI-related order backlog, signaling strong demand for its infrastructure products.",
+      "why_now": "The earnings report and backlog disclosure were released on September 2, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ad6da9547238"
+      ],
+      "primary_source_event_id": "EVT-ad6da9547238",
+      "source_headlines": [
+        "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog"
+      ],
+      "source_headline": "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-2-dell-surges-16-soaring-ai-backlog",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T21:03:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T12:43:04Z",
+      "updated_at": "2026-09-03T12:43:04Z",
+      "decay_at": "2026-09-04T09:03:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5d2ea5f1e500",
       "idea_version": "IDEAV-f6959fda1cf2dcb8",
       "idea_version_started_at": "2026-09-03T10:28:00Z",
@@ -95169,6 +95239,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-81d3dc45be77",
+      "idea_version": "IDEAV-7029e49b024b004a",
+      "idea_version_started_at": "2026-09-03T12:43:04Z",
+      "ticker": "BF.B",
+      "company": "Brown-Forman",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed sales estimates due to a broader slowdown in consumer spending, indicating potential margin pressure in the premium spirits segment.",
+      "why_now": "The earnings miss was reported on September 2, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c0725a4050fe"
+      ],
+      "primary_source_event_id": "EVT-c0725a4050fe",
+      "source_headlines": [
+        "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending"
+      ],
+      "source_headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
+      "source_url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T12:34:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T12:43:04Z",
+      "updated_at": "2026-09-03T12:43:04Z",
+      "decay_at": "2026-09-04T00:34:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b433e5704e83",
       "idea_version": "IDEAV-904d39569e8bf81c",
       "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -95445,144 +95587,6 @@
       "surfaced_at": "2026-09-01T05:23:34Z",
       "updated_at": "2026-09-01T05:23:34Z",
       "decay_at": "2026-09-02T15:19:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5c23343bcf9d",
-      "idea_version": "IDEAV-611b2e1d3c15cd37",
-      "idea_version_started_at": "2026-09-01T01:49:20Z",
-      "ticker": "GD",
-      "company": "General Dynamics",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 7-year government contract to triple production of PAC-3 missile systems, directly increasing manufacturing throughput and long-term order backlogs.",
-      "why_now": "The contract was officially announced on August 31, 2026, and represents a major shift in production scale.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab1fa143d53c"
-      ],
-      "primary_source_event_id": "EVT-ab1fa143d53c",
-      "source_headlines": [
-        "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production"
-      ],
-      "source_headline": "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4586205/dow-secures-7-year-agreements-with-general-dynamics-and-lockheed-martin-to-trip/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T11:59:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T01:49:20Z",
-      "updated_at": "2026-09-01T01:49:20Z",
-      "decay_at": "2026-09-01T23:59:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-f7658afea27868f5",
-      "idea_version_started_at": "2026-09-01T01:49:20Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 7-year government contract to quadruple production of THAAD missile systems, providing significant long-term revenue visibility and capacity expansion.",
-      "why_now": "The contract was officially announced on August 31, 2026, and represents a major shift in production scale.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab1fa143d53c"
-      ],
-      "primary_source_event_id": "EVT-ab1fa143d53c",
-      "source_headlines": [
-        "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production"
-      ],
-      "source_headline": "DoW Secures 7-Year Agreements With General Dynamics and Lockheed Martin to Triple PAC-3 and Quadruple THAAD Production",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4586205/dow-secures-7-year-agreements-with-general-dynamics-and-lockheed-martin-to-trip/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T11:59:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T01:49:20Z",
-      "updated_at": "2026-09-01T01:49:20Z",
-      "decay_at": "2026-09-01T23:59:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97084,148 +97088,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-aba8253ef457",
-      "idea_version": "IDEAV-c78c669ed039692e",
-      "idea_version_started_at": "2026-08-31T18:46:31Z",
-      "ticker": "TIMETECHNO",
-      "company": "Time Technoplast Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a new order worth Rs. 87.53 Crores for Type IV Composite CNG Cylinders, which provides a direct, measurable boost to near-term revenue and confirms demand in the CGD network sector.",
-      "why_now": "The order was officially disclosed in an exchange filing on 2026-08-31.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ba3d7bbb34e6"
-      ],
-      "primary_source_event_id": "EVT-ba3d7bbb34e6",
-      "source_headlines": [
-        "Time Technoplast Limited: Time Technoplast Limited has informed the Exchange about securing order of Rs. 87.53 Crores for supply of Type IV Composite CNG Cylinders - Mobile Storage Cascades for CNG and CGD Network from Well-Established Public Sector Undertaking (PSU)"
-      ],
-      "source_headline": "Time Technoplast Limited: Time Technoplast Limited has informed the Exchange about securing order of Rs. 87.53 Crores for supply of Type IV Composite CNG Cylinders - Mobile Storage Cascades for CNG and CGD Network from Well-Established Public Sector Undertaking (PSU)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TIMETECHNO_31082026172958_Intimation31082026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T12:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T18:46:31Z",
-      "updated_at": "2026-08-31T18:46:31Z",
-      "decay_at": "2026-09-02T00:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-23f01420e111",
-      "idea_version": "IDEAV-29f834b53f425e93",
-      "idea_version_started_at": "2026-08-31T15:41:26Z",
-      "ticker": "DEBOCK",
-      "company": "Debock Industries Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company and its Managing Director have been barred by SEBI for 7 years, creating severe operational and governance risk.",
-      "why_now": "The exchange is currently seeking clarification on the SEBI enforcement action as of August 31, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3f92066aeb53"
-      ],
-      "primary_source_event_id": "EVT-3f92066aeb53",
-      "source_headlines": [
-        "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited."
-      ],
-      "source_headline": "Debock Industries Limited: The Exchange has sought clarification from Debock Industries Limited with respect to recent news item captioned SEBI bars Debock Industries, its MD Mukesh Singh for 7 years; slaps penalty. The response from the Company is awaited.",
-      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DIL&seq=106762450",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T11:05:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T15:41:26Z",
-      "updated_at": "2026-08-31T15:41:26Z",
-      "decay_at": "2026-09-01T23:05:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -97300,7 +97162,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 362,
+      "file_count": 366,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -99037,8 +98899,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T00:01:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T12:43:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99109,8 +98971,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T23:59:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T12:43:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99181,8 +99043,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T23:59:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T12:43:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99255,8 +99117,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T23:05:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T12:43:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126055,8 +125917,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 401,
-    "live_count": 12,
+    "surfaced_total": 403,
+    "live_count": 14,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
