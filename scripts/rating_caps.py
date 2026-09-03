@@ -584,3 +584,74 @@ def eval_bb_sector_cycle_compounding_cap(decision_date, mult_txt, peer_txt, synt
             f"(MODULE_RULES.md Scenario Construction & Method-Weighting Policy §3 compounding rule; "
             f"CLAUDE.md §16)"]
     return []  # empty list = pass — compounding trigger fired and the stated score respects the cap
+
+# ── Check BD (§16 Cost-of-Capital Reality Test escalation) ──────────────────────────────────────
+# CLAUDE.md §16 ("the discount rate is reality-tested, not merely assembled") requires that when the
+# model WACC comes in materially below outside reads (a scope-matched company-disclosed rate, or the
+# market-implied rate from the reverse-DCF), the model rate is presumed wrong and one of three named
+# escalation branches is taken — never published as the headline with the divergence noted only as a
+# caveat. `04_intrinsic-dcf.md` §3A and `MODULE_RULES.md`'s Cost-of-Capital Reality Test already
+# implement this in full prose/table form (the doctrine's own worked failure: a ~3.9-4.8% CAPM WACC
+# published as intrinsic value while the same company's own audited impairment note disclosed a
+# 10.67-15.55% discount rate). But unlike its sibling §16 rule — the Sector Cycle Reality Test, whose
+# RF-VAL-001/RF-VAL-002 tags check BB reads mechanically — the Cost-of-Capital escalation had no
+# standalone tag and no eval check: a future prompt edit to §3A's escalation instruction could silently
+# drop the requirement and nothing would catch it. This closes that gap the same way BB closed its
+# sibling one: `04_intrinsic-dcf.md` §3A now emits the standalone tag `RF-VAL-003` whenever the
+# escalation trigger fires, naming which branch (a)/(b)/(c) was taken; this check verifies the tag, when
+# present, actually names a valid branch — the mechanical consequence, not a re-derivation of whether
+# the trigger SHOULD have fired (that stays a judgment call the agent makes from the filings, exactly
+# like BB never re-derives whether the sector "materially" re-rated from raw index levels).
+#
+# Landing date: 2026-09-03 (forward-looking; the RF-VAL-003 tag did not exist in any agent file before
+# this check shipped, so no committed golden fixture could possibly emit it — every fixture predates it
+# → N/A → the suite stays green).
+BD_DATE = "2026-09-03"
+WACC_ESCALATION_TAG = "RF-VAL-003"  # Cost-of-Capital Reality Test: model WACC presumed wrong
+# Requires "branch" followed, within 25 non-newline/non-paren characters (tolerating "branch:",
+# "branch taken —", etc.), by a parenthesised a/b/c — the exact `(a|b|c)` convention the doctrine
+# itself already uses for the three escalation options in CLAUDE.md §16 / MODULE_RULES.md.
+_BD_BRANCH_RE = re.compile(r"branch\b[^\n(]{0,25}\(([abc])\)", re.IGNORECASE)
+
+def _bd_tag_rest(txt, tag):
+    """Return the cleaned remainder of the first FIRED standalone `tag` line in `txt` (the same fire
+    semantics as `_tag_fired_standalone`: leading token, not a table row, not a negation/cleared
+    status), or None if the tag never fires as a standalone line. Deliberately duplicates
+    `_tag_fired_standalone`'s matching logic rather than refactoring it to return text, so this new
+    check cannot change behaviour for the checks (AD/AE/AF/AQ) that already depend on that function."""
+    if not txt:
+        return None
+    for raw in txt.splitlines():
+        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")
+        if not line.startswith(tag):
+            continue
+        rest = line[len(tag):]
+        if rest.lstrip().startswith("|"):
+            continue  # first-cell status table row, not a fired standalone tag
+        status = rest.lstrip(_NEG_LEADING_STRIP).lower()
+        if any(status.startswith(neg) for neg in _CAP_TAG_NEGATIONS):
+            continue  # cleared/negation status line, not a fired tag
+        return rest
+    return None
+
+def eval_bd_cost_of_capital_reality_test(decision_date, dcf_txt):
+    """Check BD: §16 Cost-of-Capital Reality Test escalation. Returns None (N/A — pre-gate, or
+    04_intrinsic-dcf.md absent), or a list of violation strings (empty list = pass, or the escalation
+    trigger never fired). Side-effect-free + module-level so eval.py selftest can drive it.
+    dcf_txt: 04_intrinsic-dcf.md specialist text, or None."""
+    if not (isdate(decision_date) and decision_date >= BD_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if dcf_txt is None:
+        return None  # 04_intrinsic-dcf did not run — N/A
+    rest = _bd_tag_rest(dcf_txt, WACC_ESCALATION_TAG)
+    if rest is None:
+        return []  # escalation trigger did not fire (or was not flagged) — nothing to check
+    if not _BD_BRANCH_RE.search(rest):
+        return [
+            f"§16 Cost-of-Capital Reality Test escalation trigger fired ({WACC_ESCALATION_TAG} standalone "
+            f"tag present in 04_intrinsic-dcf.md) but its own tag line does not name a valid escalation "
+            f"branch — (a) rebuild the WACC, (b) re-run the DCF at the scope-matched rate, or (c) mark it a "
+            f"labelled cross-check (CLAUDE.md §16; MODULE_RULES.md Cost-of-Capital Reality Test Escalation) "
+            f"— an untagged/unnamed branch means the escalation cannot be verified as followed rather than "
+            f"published as a caveat (CLAUDE.md §11: caps must be applied, never silently unverifiable)"]
+    return []  # empty list = pass — escalation trigger fired and a valid branch is named
