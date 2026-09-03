@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-03T05:44:06Z",
+  "generated_at": "2026-09-03T06:30:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-702",
+      "headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated September 03, 2026, titled \"Press release titled Tata Power Strengthens NCR s Power Infrastructure with Commissioning of 400kV Jalpura-Khurja Transmission Corridor, comprising 162 CKM Transmission lines and 1,000 MVA Substation .\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VPTPCL_03092026104757_PR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T05:18:14Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Tata Power commissioned a new 1,000 MVA substation and 162 CKM transmission lines, expanding its infrastructure capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Power commissioned a new 1,000 MVA substation and 162 CKM transmission lines, expanding its infrastructure capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Power Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-187",
       "headline": "EGH: Transformational Acquisition & $80.2m Equity Raising [price-sensitive]",
@@ -1945,60 +1994,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-601",
-      "headline": "Nvidia May Be Close to $14 Billion Deal for Hugging Face",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-02/nvidia-may-be-close-to-agreeing-deal-for-hugging-face-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T05:42:21Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is reportedly nearing a $14 billion acquisition of Hugging Face.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly nearing a $14 billion acquisition of Hugging Face.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126453,9 +126448,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 287974,
-    "news_picked_today": 1284,
-    "news_dropped_today": 4140
+    "news_seen_today": 311395,
+    "news_picked_today": 1383,
+    "news_dropped_today": 5241
   },
   "book_momentum": {
     "live_count": 8,
