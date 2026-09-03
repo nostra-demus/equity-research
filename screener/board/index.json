@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T03:57:34Z",
+  "generated_at": "2026-09-03T04:55:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-187",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-580",
+      "headline": "Holgate’s Team Global Express scrambles for cash to avert collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/holgate-s-team-global-express-scrambles-for-cash-to-avert-collapse-20260903-p60u0n?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T03:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Team Global Express is scrambling for cash to avoid collapse, indicating a high risk of insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Team Global Express is scrambling for cash to avoid collapse, indicating a high risk of insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Team Global Express",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1705,58 +1754,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-393",
-      "headline": "KEPCO Seeks $18.4 Billion From Samsung, SK hynix for Grid Investment",
+      "inbox_id": "INB-20260903-601",
+      "headline": "Nvidia May Be Close to $14 Billion Deal for Hugging Face",
       "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276093",
-      "source_name": "Business Korea — All English Articles",
+      "url": "https://www.bloomberg.com/news/videos/2026-09-02/nvidia-may-be-close-to-agreeing-deal-for-hugging-face-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-03T04:38:32Z",
+      "found_at": "2026-09-02T05:42:21Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "KEPCO seeks $18.4B from Samsung and SK hynix for grid investment; large quantified capex demand on two majors.",
+      "prelim_note": "Nvidia is reportedly nearing a $14 billion acquisition of Hugging Face.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "KEPCO seeks $18.4B from Samsung and SK hynix for grid investment; large quantified capex demand on two majors.",
-      "region": "KR",
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly nearing a $14 billion acquisition of Hugging Face.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 5,
-        "event": 6,
+        "event": 9,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "capex",
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "capex",
-        "regulatory"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "KEPCO",
-          "ticker": "015760",
-          "listing_country": "KR"
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
         },
         {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK hynix",
-          "ticker": "000660",
-          "listing_country": "KR"
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1765,45 +1808,95 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-067",
-      "headline": "Uber to cut 3,300 jobs in company overhaul to reduce management layers",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/uber-to-cut-3300-jobs-in-company-overhaul-to-reduce-management-layers/article71419603.ece",
-      "source_name": "The Hindu BusinessLine",
+      "inbox_id": "INB-20260903-603",
+      "headline": "Nestle verkauft Vitamingeschäft für eine Milliarde Dollar an Finanzinvestor",
+      "headline_en": "Nestle sells vitamin business for one billion dollars to financial investor",
+      "url": "https://www.reuters.com/de/firma/nestle-verkauft-vitamingeschft-fr-eine-milliarde-dollar-an-finanzinvestor-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:11:16Z",
+      "found_at": "2026-09-02T05:35:43Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Uber is cutting 3,300 jobs as part of a major management overhaul.",
+      "prelim_note": "Nestle is selling its vitamin business for $1 billion to a financial investor.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Uber is cutting 3,300 jobs as part of a major management overhaul.",
+      "triage_score": 100,
+      "triage_reason": "Nestle is selling its vitamin business for $1 billion to a financial investor.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
+        "scope": 5,
+        "event": 9,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
+        "recency": 1,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Uber",
+          "name": "Nestle",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-609",
+      "headline": "KI-Boom beflügelt Dell - Umsatz- und Gewinnprognose angehoben",
+      "headline_en": "AI boom boosts Dell - revenue and profit forecast raised",
+      "url": "https://www.reuters.com/de/firma/ki-boom-beflgelt-dell-umsatz-und-gewinnprognose-angehoben-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T05:30:03Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Dell raised its revenue and profit guidance driven by AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dell raised its revenue and profit guidance driven by AI demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1814,47 +1907,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-116",
-      "headline": "Uber to cut 3,300 jobs, strip out management layers as it shifts resources to robotaxis",
+      "inbox_id": "INB-20260903-628",
+      "headline": "Nestle to offload mainstream vitamin brands for $1 billion",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/uber-cut-3300-jobs-reduces-management-layers-19982531.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.reuters.com/legal/transactional/nestle-divest-mainstream-supplements-business-1-billion-2026-09-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:37:16Z",
+      "found_at": "2026-09-01T19:49:13Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Uber to cut 3,300 jobs as part of a strategic shift.",
+      "prelim_note": "Nestle is divesting vitamin brands for $1 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Uber to cut 3,300 jobs as part of a strategic shift.",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "Nestle is divesting vitamin brands for $1 billion.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
+        "scope": 5,
+        "event": 9,
         "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
+        "recency": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
+        "event_id": "mna",
         "size_bucket": "mega"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Uber",
+          "name": "Nestle",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1863,148 +1956,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-124",
-      "headline": "Uber to cut 3,300 jobs in company overhaul to reduce management layers",
+      "inbox_id": "INB-20260903-646",
+      "headline": "Keurig Dr Pepper to sell back Chobani stake, manufacturing site for $925 million",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/uber-cut-3300-jobs-company-overhaul-reduce-management-layers",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.reuters.com/legal/transactional/keurig-dr-pepper-sell-back-chobani-stake-925-million-2026-09-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:33:17Z",
+      "found_at": "2026-09-01T18:55:04Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Uber announced 3,300 job cuts as part of a management restructuring.",
+      "prelim_note": "Keurig Dr Pepper is divesting its Chobani stake and a manufacturing site for $925 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Uber announced 3,300 job cuts as part of a management restructuring.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "Keurig Dr Pepper is divesting its Chobani stake and a manufacturing site for $925 million.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
+        "scope": 5,
+        "event": 9,
         "size": 2,
-        "recency": 2,
+        "recency": 0,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
+        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-505",
-      "headline": "Persistent Systems shares in focus after board approves $1.25 billion fundraise",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/persistent-systems-share-price-board-approves-fund-raise-equity-debt-fccb-other-methods-nagarro-acquisition-returns-19982865.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T02:22:09Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Persistent Systems board approved a significant $1.25 billion fundraise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Persistent Systems board approved a significant $1.25 billion fundraise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-134",
-      "headline": "Uber to cut 10% of its global workforce",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5eda86fe-1d2c-4a4e-9563-24a50aa734a4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:25:04Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Uber is cutting 10% of its global workforce, a significant operational restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Uber is cutting 10% of its global workforce, a significant operational restructuring.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
+          "name": "Keurig Dr Pepper",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94919,78 +94914,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-97073d3129664fd8",
-      "idea_version_started_at": "2026-09-02T12:20:12Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors' indirect subsidiary has launched a voluntary tender offer for all common shares of Iveco Group, creating a floor for the stock price near the offer level.",
-      "why_now": "The tender offer was formally announced by Tata Motors on September 1, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1330e79f2c34"
-      ],
-      "primary_source_event_id": "EVT-1330e79f2c34",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_01092026215742_NSEBSELETTERIVECOSIGNEDFINAL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T16:28:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-02T12:20:12Z",
-      "decay_at": "2026-09-03T04:28:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7f632fc10e45",
       "idea_version": "IDEAV-dd5c9321956be446",
       "idea_version_started_at": "2026-09-01T05:23:34Z",
@@ -96539,6 +96462,78 @@
       "surfaced_at": "2026-09-02T17:26:01Z",
       "updated_at": "2026-09-02T17:26:01Z",
       "decay_at": "2026-09-02T23:53:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-97073d3129664fd8",
+      "idea_version_started_at": "2026-09-02T12:20:12Z",
+      "ticker": "IVG",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors' indirect subsidiary has launched a voluntary tender offer for all common shares of Iveco Group, creating a floor for the stock price near the offer level.",
+      "why_now": "The tender offer was formally announced by Tata Motors on September 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1330e79f2c34"
+      ],
+      "primary_source_event_id": "EVT-1330e79f2c34",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_01092026215742_NSEBSELETTERIVECOSIGNEDFINAL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T16:28:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-02T12:20:12Z",
+      "decay_at": "2026-09-03T04:28:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98125,13 +98120,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 386,
-    "shown_count": 386,
+    "total_count": 387,
+    "shown_count": 387,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 196,
-        "shown_count": 196,
+        "total_count": 197,
+        "shown_count": 197,
         "hidden_count": 0
       },
       "short": {
@@ -98156,6 +98151,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-67edac5436ac",
+        "idea_version": "IDEAV-97073d3129664fd8",
+        "idea_version_started_at": "2026-09-02T12:20:12Z",
+        "ticker": "IVG",
+        "company": "Iveco Group N.V.",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors' indirect subsidiary has launched a voluntary tender offer for all common shares of Iveco Group, creating a floor for the stock price near the offer level.",
+        "why_now": "The tender offer was formally announced by Tata Motors on September 1, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1330e79f2c34"
+        ],
+        "primary_source_event_id": "EVT-1330e79f2c34",
+        "source_headlines": [
+          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+        ],
+        "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 01, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_01092026215742_NSEBSELETTERIVECOSIGNEDFINAL.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T16:28:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T12:20:12Z",
+        "updated_at": "2026-09-02T12:20:12Z",
+        "decay_at": "2026-09-03T04:28:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T04:28:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3123eadb829a",
         "idea_version": "IDEAV-5a30aa59d9e9b620",
@@ -126800,7 +126870,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 394,
-    "live_count": 6,
+    "live_count": 5,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -126819,9 +126889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 204402,
-    "news_picked_today": 902,
-    "news_dropped_today": 2818
+    "news_seen_today": 258934,
+    "news_picked_today": 1144,
+    "news_dropped_today": 3392
   },
   "book_momentum": {
     "live_count": 8,
