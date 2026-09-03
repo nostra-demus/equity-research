@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T18:13:17Z",
+  "generated_at": "2026-09-03T18:18:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1004",
@@ -392,6 +392,212 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1026",
+      "headline": "Tyson Foods cuts profit outlook again as pressure from cattle shortage worsens",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:47:57Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Tyson Foods cut its profit outlook due to cattle shortages.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tyson Foods cut its profit outlook due to cattle shortages.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tyson Foods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1023",
+      "headline": "AI Spending Ripples Across Tech Stack; Nvidia Acquires Hugging Face | Bloomberg Tech 9/03/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-03/bloomberg-tech-9-03-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:28:41Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia is acquiring Hugging Face, a major AI infrastructure player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is acquiring Hugging Face, a major AI infrastructure player.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1021",
+      "headline": "Campbell’s Slides 9% on 36% Dividend Cut, General Mills Falls 4%, Kraft Heinz Drops 3%",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/03/campbells-slides-9-on-36-dividend-cut-general-mills-falls-4-kraft-heinz-drops-3/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:25:57Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Campbell Soup announced a 36% dividend cut, triggering a 9% stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Campbell Soup announced a 36% dividend cut, triggering a 9% stock decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Campbell Soup",
+          "ticker": "CPB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1028",
+      "headline": "Equinix & CPP Investments Complete $4 Billion atNorth Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/equinix-cpp-investments-complete-4-billion-atnorth-acquisition",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T16:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Equinix and CPP Investments completed a $4 billion acquisition of atNorth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Equinix and CPP Investments completed a $4 billion acquisition of atNorth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equinix",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "atNorth",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1821,204 +2027,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-843",
-      "headline": "BRP reports $136.8-million second-quarter loss, raises full-year outlook",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-brp-second-quarter-results-full-year-outlook/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T11:35:58Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "BRP reported a $136.8 million Q2 loss while raising its full-year outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BRP reported a $136.8 million Q2 loss while raising its full-year outlook.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BRP",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-838",
-      "headline": "BRP Slips To Q2 Loss, Warns On Weak Q3 Normalized Earnings; Lifts FY27 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/brp-slips-q2-loss-warns-weak-q3-normalized-earnings-lifts-fy27-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T11:21:42Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "BRP reported a Q2 loss and warned on Q3 earnings, though it raised its FY27 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BRP reported a Q2 loss and warned on Q3 earnings, though it raised its FY27 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BRP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-844",
-      "headline": "Diversified to Acquire Elliott Assets in Permian for $1.8B",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/diversified_to_acquire_elliott_assets_in_permian_for_18b-03-sep-2026-184528-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T11:04:09Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Diversified Energy Company is acquiring assets in the Permian Basin for $1.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Diversified Energy Company is acquiring assets in the Permian Basin for $1.8 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diversified Energy Company",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-824",
-      "headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T10:02:47Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Crest Nicholson warned of an annual loss due to a subdued property market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crest Nicholson warned of an annual loss due to a subdued property market.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crest Nicholson",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126342,9 +126350,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1541663,
-    "news_picked_today": 2205,
-    "news_dropped_today": 18771
+    "news_seen_today": 1547905,
+    "news_picked_today": 2222,
+    "news_dropped_today": 18826
   },
   "book_momentum": {
     "live_count": 8,
