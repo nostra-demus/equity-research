@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T13:24:25Z",
+  "generated_at": "2026-09-03T13:31:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -254,6 +254,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-892",
+      "headline": "Nvidia To Buy Hugging Face For $12.930 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidia-buy-hugging-face-12930-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T12:55:40Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia to acquire Hugging Face for $12.93 billion—a named deal value representing major strategic AI-infrastructure investment and capital-allocation decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia to acquire Hugging Face for $12.93 billion—a named deal value representing major strategic AI-infrastructure investment and capital-allocation decision.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-882",
       "headline": "Nvidia to buy Hugging Face for $13 billion in big bet on open AI models",
       "headline_en": null,
@@ -449,60 +503,6 @@
           "name": "Apple",
           "ticker": "AAPL",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-852",
-      "headline": "Nvidia to buy developer platform Hugging Face for $13-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-nvidia-to-buy-developer-platform-hugging-face-for-13-billion/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T12:26:10Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $13 billion, a significant M&A event in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $13 billion, a significant M&A event in the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -125951,9 +125951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 948173,
-    "news_picked_today": 1893,
-    "news_dropped_today": 13203
+    "news_seen_today": 957008,
+    "news_picked_today": 1909,
+    "news_dropped_today": 13355
   },
   "book_momentum": {
     "live_count": 8,
