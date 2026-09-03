@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-03T11:02:43Z",
+  "generated_at": "2026-09-03T11:17:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-834",
+      "headline": "RMH HOLDINGS (08437): INSIDE INFORMATION DELAY IN PUBLICATION OF THE INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026 AND DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0903/2026090301959.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T10:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Company announced a delay in financial reporting and continued trading suspension, indicating potential financial distress or accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a delay in financial reporting and continued trading suspension, indicating potential financial distress or accounting issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RMH HOLDINGS",
+          "ticker": "08437",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-810",
       "headline": "Consolidated Finvest & Holdings Limited: Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 and receipt of the Initial Public Announcement dated September 03, 2026, under the SEBI (Delisting of Equity Shares) Regulations, 2021 ( SEBI Delisting Regulations 2021 ) in relation to the proposal to Voluntary Delist the Equity Shares of Consolidated Finvest & Holdings Limited ( Target Company ). ( Delisting Offer )",
@@ -1928,55 +1978,6 @@
           "name": "Cirsa",
           "ticker": null,
           "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-186",
-      "headline": "PG&E to Defer $2 Billion of Work as California Shelves Fire Bill",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/pg-e-to-defer-2-billion-of-work-as-california-shelves-fire-bill",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "PG&E is deferring $2 billion in capital expenditure due to legislative changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PG&E is deferring $2 billion in capital expenditure due to legislative changes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PG&E",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -126077,9 +126078,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 655335,
-    "news_picked_today": 1720,
-    "news_dropped_today": 10544
+    "news_seen_today": 669950,
+    "news_picked_today": 1752,
+    "news_dropped_today": 10752
   },
   "book_momentum": {
     "live_count": 8,
