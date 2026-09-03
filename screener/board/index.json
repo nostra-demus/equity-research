@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T03:15:42Z",
+  "generated_at": "2026-09-03T03:25:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-187",
@@ -1652,6 +1652,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-505",
+      "headline": "Persistent Systems shares in focus after board approves $1.25 billion fundraise",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/persistent-systems-share-price-board-approves-fund-raise-equity-debt-fccb-other-methods-nagarro-acquisition-returns-19982865.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T02:22:09Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Persistent Systems board approved a significant $1.25 billion fundraise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Persistent Systems board approved a significant $1.25 billion fundraise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-134",
       "headline": "Uber to cut 10% of its global workforce",
       "headline_en": null,
@@ -1948,65 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-066",
-      "headline": "FuelCell Sinks 13% as Wider Loss Overshadows First Data Center Reservation Deal, Bloom Energy Slips, Plug Power Barely Budges",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/fuelcell-sinks-13-wider-loss-131346462.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:13:46Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "FuelCell shares sank 13% following a wider-than-expected loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "FuelCell shares sank 13% following a wider-than-expected loss.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FuelCell",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Bloom Energy",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Plug Power",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126821,9 +126811,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 177289,
-    "news_picked_today": 731,
-    "news_dropped_today": 2293
+    "news_seen_today": 183002,
+    "news_picked_today": 758,
+    "news_dropped_today": 2362
   },
   "book_momentum": {
     "live_count": 8,
