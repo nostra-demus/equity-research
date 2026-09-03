@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T08:12:43Z",
+  "generated_at": "2026-09-03T08:42:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-702",
@@ -142,6 +142,104 @@
           "name": "Dar Almarkabah",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-780",
+      "headline": "Crest Nicholson shares tank after another profit warning",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/crest-nicholson-shares-tank-after-another-profit-warning/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T07:33:27Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Crest Nicholson issued a profit warning, negatively impacting its outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crest Nicholson issued a profit warning, negatively impacting its outlook.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crest Nicholson",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-779",
+      "headline": "Capillary Technologies raises FY27 revenue guidance to ₹1,065 crore after strong first quarter show",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/capillary-technologies-raises-fy27-revenue-guidance-to-rs-1065-crore-after-strong-first-quarter-show-earnings-mastercard-sessionm-19983128.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T07:28:56Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Capillary Technologies raised its FY27 revenue guidance to ₹1,065 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Capillary Technologies raised its FY27 revenue guidance to ₹1,065 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capillary Technologies",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1882,105 +1980,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-355",
-      "headline": "Chevron to Spend $7 Billion on Doubling Its Venezuelan Output",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-02/chevron-to-spend-7-billion-on-doubling-its-venezuelan-output",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T10:15:39Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron announces $7 billion capex commitment to double Venezuelan output; major named capacity-expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron announces $7 billion capex commitment to double Venezuelan output; major named capacity-expansion plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron Corporation",
-          "ticker": "CVX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-423",
-      "headline": "China’s No 2 foundry Hua Hong invests US$2b in new fab to meet surging AI-driven demand",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3366104/chinas-no-2-foundry-hua-hong-invests-us2b-new-fab-meet-surging-ai-driven-demand?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T09:30:11Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Hua Hong is investing $2 billion in a new semiconductor fab to meet AI-driven demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hua Hong is investing $2 billion in a new semiconductor fab to meet AI-driven demand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 3,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hua Hong Semiconductor",
-          "ticker": "1347",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126435,9 +126434,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 398142,
-    "news_picked_today": 1561,
-    "news_dropped_today": 6767
+    "news_seen_today": 428903,
+    "news_picked_today": 1595,
+    "news_dropped_today": 7333
   },
   "book_momentum": {
     "live_count": 8,
