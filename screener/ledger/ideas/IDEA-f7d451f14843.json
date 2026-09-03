@@ -1,0 +1,78 @@
+{
+  "idea_id": "IDEA-f7d451f14843",
+  "idea_version": "IDEAV-9e1b47084455fb72",
+  "idea_version_started_at": "2026-09-03T14:38:11Z",
+  "ticker": "CRST",
+  "company": "Crest Nicholson",
+  "exchange": "LSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued multiple warnings regarding annual losses and slashed housebuilding targets due to difficult market conditions.",
+  "why_now": "The warnings were issued between September 3, 2026, and the current session.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b8616f94c329",
+    "EVT-f4dbcc7b171d",
+    "EVT-460b85d50e77"
+  ],
+  "primary_source_event_id": "EVT-b8616f94c329",
+  "source_headlines": [
+    "UK homebuilder Crest Nicholson warns of annual loss",
+    "Crest Nicholson slashes housebuilding targets in ‘difficult’ summer",
+    "Crest Nicholson shares tank after another profit warning"
+  ],
+  "source_headline": "UK homebuilder Crest Nicholson warns of annual loss",
+  "source_url": "https://www.reuters.com/business/uk-homebuilder-crest-nicholson-warns-annual-loss-2026-09-03/",
+  "source_name": "Reuters — Latest (news sitemap)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-03T07:33:27Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-03T14:38:11Z",
+  "updated_at": "2026-09-03T14:38:11Z",
+  "decay_at": "2026-09-04T19:33:27Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
