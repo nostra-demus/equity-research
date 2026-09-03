@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:18:41Z",
+  "generated_at": "2026-09-03T14:22:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-918",
@@ -393,6 +393,66 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-937",
+      "headline": "Hewlett Packard Enterprise Falls 5% as Supply Constraints Overshadow Raised Guidance, Super Micro Slips, Dell Holds Steady",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hewlett-packard-enterprise-falls-5-135222527.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T13:52:22Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Hewlett Packard Enterprise shares fell 5% due to supply constraints despite raising guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hewlett Packard Enterprise shares fell 5% due to supply constraints despite raising guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hewlett Packard Enterprise",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Super Micro Computer",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Dell Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,55 +1997,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-541",
-      "headline": "Nestle to build infant formula plant in Brazil as part of $393 million investment",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/nestle-build-infant-formula-plant-brazil-part-393-million-investment-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T03:04:44Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nestle is investing $393 million to build a new infant formula plant in Brazil, representing a significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nestle is investing $393 million to build a new infant formula plant in Brazil, representing a significant capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126160,9 +126171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1049692,
-    "news_picked_today": 1995,
-    "news_dropped_today": 14013
+    "news_seen_today": 1058269,
+    "news_picked_today": 1998,
+    "news_dropped_today": 14034
   },
   "book_momentum": {
     "live_count": 8,
