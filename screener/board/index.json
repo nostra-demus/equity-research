@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T11:57:42Z",
+  "generated_at": "2026-09-03T12:12:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -195,6 +195,106 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-843",
+      "headline": "BRP reports $136.8-million second-quarter loss, raises full-year outlook",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-brp-second-quarter-results-full-year-outlook/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T11:35:58Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "BRP reported a $136.8 million Q2 loss while raising its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BRP reported a $136.8 million Q2 loss while raising its full-year outlook.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BRP",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-838",
+      "headline": "BRP Slips To Q2 Loss, Warns On Weak Q3 Normalized Earnings; Lifts FY27 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/brp-slips-q2-loss-warns-weak-q3-normalized-earnings-lifts-fy27-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T11:21:42Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "BRP reported a Q2 loss and warned on Q3 earnings, though it raised its FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BRP reported a Q2 loss and warned on Q3 earnings, though it raised its FY27 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BRP",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,109 +1975,6 @@
           "name": "PG&E",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-138",
-      "headline": "Chevron expands Venezuela bet with $7 billion plan to double output in five years",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/chevron-expands-venezuela-position-plans-7-billion-investment-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:25:04Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Chevron announced a $7 billion plan to double output in Venezuela over five years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chevron announced a $7 billion plan to double output in Venezuela over five years.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-182",
-      "headline": "Lottomatica, fusione con spagnola Cirsa, sarà quotata a Milano e Madrid",
-      "headline_en": "Lottomatica, merger with Spanish Cirsa, will be listed in Milan and Madrid",
-      "url": "https://www.reuters.com/it/azienda/lottomatica-fusione-con-spagnola-cirsa-sar-quotata-milano-e-madrid-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:04:14Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Lottomatica is planning a merger with Cirsa and a dual listing in Milan and Madrid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lottomatica is planning a merger with Cirsa and a dual listing in Milan and Madrid.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lottomatica",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Cirsa",
-          "ticker": null,
-          "listing_country": "ES"
         }
       ],
       "size_bucket": "large",
@@ -126078,9 +126075,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 729877,
-    "news_picked_today": 1788,
-    "news_dropped_today": 11892
+    "news_seen_today": 752309,
+    "news_picked_today": 1808,
+    "news_dropped_today": 12280
   },
   "book_momentum": {
     "live_count": 8,
