@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T09:41:36Z",
+  "generated_at": "2026-09-03T09:42:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-702",
@@ -94542,6 +94542,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-c9eee60c5cd7",
+      "idea_version": "IDEAV-05301fbc96acf169",
+      "idea_version_started_at": "2026-09-03T09:41:51Z",
+      "ticker": "WOOF",
+      "company": "Petco Health and Wellness Company, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a surge in Q2 profit and reaffirmed its full-year 2026 outlook, suggesting operational stability.",
+      "why_now": "The earnings and outlook reaffirmation were announced on 2026-09-02.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-411c53a68acc"
+      ],
+      "primary_source_event_id": "EVT-411c53a68acc",
+      "source_headlines": [
+        "Petco Q2 Profit Surges; Reaffirms FY26 Outlook"
+      ],
+      "source_headline": "Petco Q2 Profit Surges; Reaffirms FY26 Outlook",
+      "source_url": "https://www.nasdaq.com/articles/petco-q2-profit-surges-reaffirms-fy26-outlook",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T22:09:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T09:41:51Z",
+      "updated_at": "2026-09-03T09:41:51Z",
+      "decay_at": "2026-09-04T10:09:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3aa5e376f3ed",
       "idea_version": "IDEAV-f56f55ee229f06e6",
       "idea_version_started_at": "2026-09-03T05:43:47Z",
@@ -95445,75 +95515,6 @@
       "surfaced_at": "2026-09-01T01:49:20Z",
       "updated_at": "2026-09-01T01:49:20Z",
       "decay_at": "2026-09-01T23:59:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a9124f2e759d",
-      "idea_version": "IDEAV-fef92f0ddf7924fb",
-      "idea_version_started_at": "2026-08-31T11:51:47Z",
-      "ticker": "5202.T",
-      "company": "Nippon Sheet Glass",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing a formal delisting decision, which typically leads to severe liquidity constraints and equity value destruction.",
-      "why_now": "The exchange announced the decision today, August 31, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1a9869935308"
-      ],
-      "primary_source_event_id": "EVT-1a9869935308",
-      "source_headlines": [
-        "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited"
-      ],
-      "source_headline": "[TSE]Decision on Delisting, etc.: Nippon Sheet Glass Company,Limited",
-      "source_url": "https://www.jpx.co.jp/english/news/1023/20260831-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T06:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T11:51:47Z",
-      "updated_at": "2026-08-31T11:51:47Z",
-      "decay_at": "2026-09-01T18:40:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97228,363 +97229,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4d5dba24c3a6",
-      "idea_version": "IDEAV-3dbeceb77a40dd94",
-      "idea_version_started_at": "2026-08-31T14:38:32Z",
-      "ticker": "00333",
-      "company": "TOP FORM INTERNATIONAL",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling weaker-than-expected financial results.",
-      "why_now": "The filing was released on 2026-08-31, providing a fresh catalyst for a downward move.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c34f8902975"
-      ],
-      "primary_source_event_id": "EVT-6c34f8902975",
-      "source_headlines": [
-        "TOP FORM INT'L (00333): PROFIT WARNING"
-      ],
-      "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T09:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T14:38:32Z",
-      "updated_at": "2026-08-31T14:38:32Z",
-      "decay_at": "2026-09-01T21:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a8ae6a868c8d",
-      "idea_version": "IDEAV-bfc9a96470c4967a",
-      "idea_version_started_at": "2026-08-31T14:38:32Z",
-      "ticker": "01496",
-      "company": "AP RENTALS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a significant deterioration in earnings performance for the period.",
-      "why_now": "The filing was released on 2026-08-31, making this a live catalyst for immediate repricing.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0d916c56ce3"
-      ],
-      "primary_source_event_id": "EVT-c0d916c56ce3",
-      "source_headlines": [
-        "AP RENTALS (01496): PROFIT WARNING"
-      ],
-      "source_headline": "AP RENTALS (01496): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100716.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T08:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T14:38:32Z",
-      "updated_at": "2026-08-31T14:38:32Z",
-      "decay_at": "2026-09-01T20:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4c70c07c1cae",
-      "idea_version": "IDEAV-f2e518cdc0d47b18",
-      "idea_version_started_at": "2026-08-31T11:51:47Z",
-      "ticker": "01496.HK",
-      "company": "AP Rentals",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings and operational performance.",
-      "why_now": "The warning was filed today, August 31, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0d916c56ce3"
-      ],
-      "primary_source_event_id": "EVT-c0d916c56ce3",
-      "source_headlines": [
-        "AP RENTALS (01496): PROFIT WARNING"
-      ],
-      "source_headline": "AP RENTALS (01496): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100716.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T08:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T11:51:47Z",
-      "updated_at": "2026-08-31T11:51:47Z",
-      "decay_at": "2026-09-01T20:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4ce2da4ef608",
-      "idea_version": "IDEAV-8eaa49d9749138d2",
-      "idea_version_started_at": "2026-08-31T11:51:47Z",
-      "ticker": "00333.HK",
-      "company": "Top Form International",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling negative pressure on margins and bottom-line results.",
-      "why_now": "The warning was filed today, August 31, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c34f8902975"
-      ],
-      "primary_source_event_id": "EVT-6c34f8902975",
-      "source_headlines": [
-        "TOP FORM INT'L (00333): PROFIT WARNING"
-      ],
-      "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T09:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T11:51:47Z",
-      "updated_at": "2026-08-31T11:51:47Z",
-      "decay_at": "2026-09-01T21:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7b1aea361ec7",
-      "idea_version": "IDEAV-43058c0072631bcd",
-      "idea_version_started_at": "2026-08-31T09:15:34Z",
-      "ticker": "PPGN",
-      "company": "PolyPeptide Group",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Samsung Biologics has initiated a public tender offer for the company, which typically drives the target's share price toward the offer premium.",
-      "why_now": "The takeover bid is scheduled to launch in September 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-116ffdb1617c",
-        "EVT-5962d765f0b7"
-      ],
-      "primary_source_event_id": "EVT-116ffdb1617c",
-      "source_headlines": [
-        "Samsung Biologics begins public tender offer for Polypeptide Group",
-        "Samsung Biologics to launch takeover bid for PolyPeptide in September"
-      ],
-      "source_headline": "삼성바이오로직스, 폴리펩타이드그룹 공개매수 돌입",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275857",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T05:45:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T09:15:34Z",
-      "updated_at": "2026-08-31T09:15:34Z",
-      "decay_at": "2026-09-01T17:45:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -97659,7 +97303,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 355,
+      "file_count": 361,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -99762,8 +99406,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T21:16:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99836,8 +99480,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T21:16:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99910,8 +99554,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T20:45:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99984,8 +99628,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T20:45:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100056,8 +99700,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T18:40:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100132,8 +99776,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T17:45:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126414,8 +126058,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 399,
-    "live_count": 10,
+    "surfaced_total": 400,
+    "live_count": 11,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
