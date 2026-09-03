@@ -1,29 +1,29 @@
 {
-  "idea_id": "IDEA-f7d451f14843",
-  "idea_version": "IDEAV-3a714f02fd38b381",
+  "idea_id": "IDEA-c59cbad8d027",
+  "idea_version": "IDEAV-09158d8f1df10840",
   "idea_version_started_at": "2026-09-03T18:13:00Z",
-  "ticker": "CRST",
-  "company": "Crest Nicholson",
-  "exchange": "LSE",
+  "ticker": "CPB",
+  "company": "Campbell Soup Company",
+  "exchange": "NYSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company warned of an annual loss due to a subdued property market, indicating significant margin compression and demand headwinds in the UK housing sector.",
-  "why_now": "The warning was issued on September 3, 2026, and reflects immediate operational deterioration.",
-  "conviction": 75,
+  "reason": "A 36% dividend cut combined with a Q4 loss and weak FY27 guidance signals structural demand issues and a lack of free cash flow to support shareholder returns.",
+  "why_now": "The earnings release and dividend cut were announced on September 3, 2026.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 23,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,28 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-4c88d04d884b"
+    "EVT-4b0d5cdc0066",
+    "EVT-5b5cb319b09f"
   ],
-  "primary_source_event_id": "EVT-4c88d04d884b",
+  "primary_source_event_id": "EVT-4b0d5cdc0066",
   "source_headlines": [
-    "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market"
+    "Campbell’s Shares Slump on Sales Slide, Dividend Cut, Outlook",
+    "Campbell's Sees Weak Results In FY27 As Slips To Loss In Q4; Slashes Dividend 36%; Stock Down 6.8%"
   ],
-  "source_headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
-  "source_url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
-  "source_name": "The Guardian — Business",
+  "source_headline": "Campbell’s Shares Slump on Sales Slide, Dividend Cut, Outlook",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-03/campbell-s-shares-slump-on-sales-slide-dividend-cut-outlook",
+  "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-03T10:02:47Z",
+  "newest_source_at": "2026-09-03T12:34:53Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-03T14:38:11Z",
+  "surfaced_at": "2026-09-03T18:13:00Z",
   "updated_at": "2026-09-03T18:13:00Z",
-  "decay_at": "2026-09-04T22:02:47Z",
+  "decay_at": "2026-09-05T00:34:53Z",
   "status": "live",
   "promoted_signal_id": null
 }

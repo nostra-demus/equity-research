@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T18:12:09Z",
+  "generated_at": "2026-09-03T18:13:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1004",
@@ -94582,15 +94582,15 @@
   "ideas": [
     {
       "idea_id": "IDEA-272cddf27801",
-      "idea_version": "IDEAV-8e0d3261f828f838",
-      "idea_version_started_at": "2026-09-03T14:12:49Z",
+      "idea_version": "IDEAV-3b3e769f4ebbd692",
+      "idea_version_started_at": "2026-09-03T18:13:00Z",
       "ticker": "DEC",
-      "company": "Diversified Energy",
+      "company": "Diversified Energy Company",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Diversified Energy is acquiring Birch for $1.8 billion, which will expand its Permian footprint and potentially increase its production and reserves.",
-      "why_now": "The acquisition was announced on September 3, 2026, providing a clear, immediate catalyst for the company's growth strategy.",
+      "reason": "The $1.8 billion acquisition of Permian assets significantly expands the company's production footprint and reserves in a high-value basin.",
+      "why_now": "The acquisition was announced on September 3, 2026, providing an immediate catalyst for growth valuation.",
       "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
@@ -94601,13 +94601,14 @@
         "specificity": 15,
         "timing": 10,
         "expression": 6,
-        "corroboration": 6,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -94624,19 +94625,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-ccc950d7f809",
-        "EVT-7f561daa78a8"
+        "EVT-4677b3d86f3f"
       ],
-      "primary_source_event_id": "EVT-ccc950d7f809",
+      "primary_source_event_id": "EVT-4677b3d86f3f",
       "source_headlines": [
-        "Diversified Energy to buy Birch for $1.8 billion, boost Permian footprint",
-        "Diversified Energy Buys Elliott-Backed Birch for $1.8 Billion"
+        "Diversified to Acquire Elliott Assets in Permian for $1.8B"
       ],
-      "source_headline": "Diversified Energy to buy Birch for $1.8 billion, boost Permian footprint",
-      "source_url": "https://www.reuters.com/legal/transactional/diversified-energy-buy-birch-18-billion-boost-permian-footprint-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "source_headline": "Diversified to Acquire Elliott Assets in Permian for $1.8B",
+      "source_url": "https://www.rigzone.com/news/diversified_to_acquire_elliott_assets_in_permian_for_18b-03-sep-2026-184528-article/?rss=true",
+      "source_name": "Rigzone",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-03T01:11:59Z",
+      "newest_source_at": "2026-09-03T11:04:09Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -94644,8 +94643,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-03T14:12:49Z",
-      "updated_at": "2026-09-03T14:12:49Z",
-      "decay_at": "2026-09-04T13:11:59Z",
+      "updated_at": "2026-09-03T18:13:00Z",
+      "decay_at": "2026-09-04T23:04:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -95282,6 +95281,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c59cbad8d027",
+      "idea_version": "IDEAV-09158d8f1df10840",
+      "idea_version_started_at": "2026-09-03T18:13:00Z",
+      "ticker": "CPB",
+      "company": "Campbell Soup Company",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 36% dividend cut combined with a Q4 loss and weak FY27 guidance signals structural demand issues and a lack of free cash flow to support shareholder returns.",
+      "why_now": "The earnings release and dividend cut were announced on September 3, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4b0d5cdc0066",
+        "EVT-5b5cb319b09f"
+      ],
+      "primary_source_event_id": "EVT-4b0d5cdc0066",
+      "source_headlines": [
+        "Campbell’s Shares Slump on Sales Slide, Dividend Cut, Outlook",
+        "Campbell's Sees Weak Results In FY27 As Slips To Loss In Q4; Slashes Dividend 36%; Stock Down 6.8%"
+      ],
+      "source_headline": "Campbell’s Shares Slump on Sales Slide, Dividend Cut, Outlook",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-03/campbell-s-shares-slump-on-sales-slide-dividend-cut-outlook",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T12:34:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T18:13:00Z",
+      "updated_at": "2026-09-03T18:13:00Z",
+      "decay_at": "2026-09-05T00:34:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f7d451f14843",
+      "idea_version": "IDEAV-3a714f02fd38b381",
+      "idea_version_started_at": "2026-09-03T18:13:00Z",
+      "ticker": "CRST",
+      "company": "Crest Nicholson",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company warned of an annual loss due to a subdued property market, indicating significant margin compression and demand headwinds in the UK housing sector.",
+      "why_now": "The warning was issued on September 3, 2026, and reflects immediate operational deterioration.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c88d04d884b"
+      ],
+      "primary_source_event_id": "EVT-4c88d04d884b",
+      "source_headlines": [
+        "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market"
+      ],
+      "source_headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
+      "source_url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
+      "source_name": "The Guardian — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T10:02:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T14:38:11Z",
+      "updated_at": "2026-09-03T18:13:00Z",
+      "decay_at": "2026-09-04T22:02:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f7c96883097c",
       "idea_version": "IDEAV-f49ddb010bd4de12",
       "idea_version_started_at": "2026-09-03T14:38:11Z",
@@ -95348,82 +95492,6 @@
       "surfaced_at": "2026-09-03T14:38:11Z",
       "updated_at": "2026-09-03T14:38:11Z",
       "decay_at": "2026-09-04T18:30:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f7d451f14843",
-      "idea_version": "IDEAV-9e1b47084455fb72",
-      "idea_version_started_at": "2026-09-03T14:38:11Z",
-      "ticker": "CRST",
-      "company": "Crest Nicholson",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued multiple warnings regarding annual losses and slashed housebuilding targets due to difficult market conditions.",
-      "why_now": "The warnings were issued between September 3, 2026, and the current session.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8616f94c329",
-        "EVT-f4dbcc7b171d",
-        "EVT-460b85d50e77"
-      ],
-      "primary_source_event_id": "EVT-b8616f94c329",
-      "source_headlines": [
-        "UK homebuilder Crest Nicholson warns of annual loss",
-        "Crest Nicholson slashes housebuilding targets in ‘difficult’ summer",
-        "Crest Nicholson shares tank after another profit warning"
-      ],
-      "source_headline": "UK homebuilder Crest Nicholson warns of annual loss",
-      "source_url": "https://www.reuters.com/business/uk-homebuilder-crest-nicholson-warns-annual-loss-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T07:33:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T14:38:11Z",
-      "updated_at": "2026-09-03T14:38:11Z",
-      "decay_at": "2026-09-04T19:33:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97279,148 +97347,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-286d271adaa1",
-      "idea_version": "IDEAV-5fa0baf3d6a03ea4",
-      "idea_version_started_at": "2026-09-01T01:49:20Z",
-      "ticker": "E2E",
-      "company": "E2E Networks Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company signed a binding term sheet worth approximately Rs. 1000 Crore with a sovereign entity, providing a substantial boost to its revenue pipeline and market positioning in cloud/AI infrastructure.",
-      "why_now": "The agreement was announced on August 31, 2026, and is a material commercial development for the firm.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24d9ac71ddac"
-      ],
-      "primary_source_event_id": "EVT-24d9ac71ddac",
-      "source_headlines": [
-        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
-      ],
-      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T18:04:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T01:49:20Z",
-      "updated_at": "2026-09-01T01:49:20Z",
-      "decay_at": "2026-09-02T06:04:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-be7468a7e565",
-      "idea_version": "IDEAV-7db097efeb09fcc1",
-      "idea_version_started_at": "2026-08-31T23:55:29Z",
-      "ticker": "E2ENETWORKS",
-      "company": "E2E Networks Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Signed binding term sheet worth approximately Rs 1,000 crore with a sovereign entity, implying a large, multi-year revenue contract for its cloud/AI infrastructure services.",
-      "why_now": "Press release dated 2026-08-31 announces the binding term sheet; contract size is material relative to the company's current revenue base.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-24d9ac71ddac"
-      ],
-      "primary_source_event_id": "EVT-24d9ac71ddac",
-      "source_headlines": [
-        "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ...."
-      ],
-      "source_headline": "E2E Networks Ltd: E2E Networks Limited has informed the Exchange Regarding a Press Release dated August 31, 2026, titled \" E2E Networks Sign Binding Term Sheet worth approximately Rs. 1000 Crore with Sovereign ....",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a36cb3d5-110a-4291-8ab2-c4cf95219270.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T18:04:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T23:55:29Z",
-      "updated_at": "2026-08-31T23:55:29Z",
-      "decay_at": "2026-09-02T06:04:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -97495,7 +97421,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 367,
+      "file_count": 369,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -99156,8 +99082,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T06:04:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T18:13:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -99230,8 +99156,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T06:04:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T18:13:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126396,8 +126322,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 408,
-    "live_count": 17,
+    "surfaced_total": 409,
+    "live_count": 18,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
