@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T06:55:17Z",
+  "generated_at": "2026-09-03T07:05:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-702",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-728",
+      "headline": "PVH Turns To Q2 Loss, Revenue Falls; Reaffirms Annual Outlook; To Buy Back $300 Mln Of Shrs In 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pvh-turns-q2-loss-revenue-falls-reaffirms-annual-outlook-buy-back-300-mln-shrs-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T06:20:14Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Company reported a Q2 loss and revenue decline, but announced a $300 million share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a Q2 loss and revenue decline, but announced a $300 million share buyback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVH",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,60 +1990,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-571",
-      "headline": "Italy's Lottomatica to take over Spain's Cirsa to create global betting player",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/italys-lottomatica-take-over-spains-cirsa-create-combined-betting-company-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T06:26:33Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Lottomatica to acquire Cirsa to create a global betting player.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lottomatica to acquire Cirsa to create a global betting player.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lottomatica",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cirsa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126448,9 +126444,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 338202,
-    "news_picked_today": 1445,
-    "news_dropped_today": 5467
+    "news_seen_today": 342848,
+    "news_picked_today": 1455,
+    "news_dropped_today": 5529
   },
   "book_momentum": {
     "live_count": 8,
