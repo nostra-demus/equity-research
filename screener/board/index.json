@@ -1,6 +1,362 @@
 {
-  "generated_at": "2026-09-03T00:44:37Z",
+  "generated_at": "2026-09-03T01:50:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260903-187",
+      "headline": "EGH: Transformational Acquisition & $80.2m Equity Raising [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGH?key=2924-03131249-2A1694755",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T00:28:04Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "EGH announced a transformational acquisition and an $80.2m equity raising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EGH announced a transformational acquisition and an $80.2m equity raising.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EGH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-193",
+      "headline": "Diversified Energy to buy Birch for $1.8 billion, boost Permian footprint",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/diversified-energy-buy-birch-18-billion-boost-permian-footprint-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T00:29:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Diversified Energy to acquire Birch for $1.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Diversified Energy to acquire Birch for $1.8 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diversified Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-217",
+      "headline": "ASX edges up, Corporate Travel tumbles 80pc",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-wall-street-higher-as-bond-market-steadies-20260903-p60txs?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T00:22:13Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Corporate Travel Management shares tumbled 80% following a significant market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Corporate Travel Management shares tumbled 80% following a significant market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corporate Travel Management",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-194",
+      "headline": "Samsung insurers plan to buy Canopius for $1.5 billion, Korea Economic Daily reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/samsung-insurance-firms-acquire-canopius-15-billion-korea-economic-daily-reports-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T00:11:14Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Samsung insurers plan to acquire Canopius for $1.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung insurers plan to acquire Canopius for $1.5 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Canopius",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-230",
+      "headline": "Hanwha Ocean clinches 1.5 tln-won deal for 6 container ships from Taiwan's Yang Ming",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260903001200320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T23:40:56Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Hanwha Ocean secured a 1.5 trillion won shipbuilding contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hanwha Ocean secured a 1.5 trillion won shipbuilding contract.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanwha Ocean",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Yang Ming Marine Transport",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-199",
+      "headline": "Snowflake shares jump 22% in extended trade after strong Q2 results, guidance raise",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/snowflake-q2-results-q3-full-year-product-revenue-guidance-coco-ai-coding-agent-share-price-19982843.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T23:35:46Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Snowflake shares jumped 22% following strong Q2 results and a guidance raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Snowflake shares jumped 22% following strong Q2 results and a guidance raise.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Snowflake",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-198",
+      "headline": "Broadcom Earnings: AI Chip Sales Tripled. Here’s the $34.8 Billion Number Investors Need to Watch.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/broadcom-earnings-ai-chip-sales-tripled-heres-348-billion-number-investors-need-watch",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T23:21:01Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Broadcom reported AI chip sales tripled, reaching $34.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom reported AI chip sales tripled, reaching $34.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260903-063",
       "headline": "Scansource Buys MicroAge For $220.5 Mln In Cash",
@@ -501,6 +857,301 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-242",
+      "headline": "Ölindustrie: Chevron will mehr als sieben Milliarden Dollar in Venezuela investieren",
+      "headline_en": "Oil industry: Chevron wants to invest more than seven billion dollars in Venezuela",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/venezuela-chevron-will-mehr-als-sieben-milliarden-dollar-investieren/100251526.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T11:59:33Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chevron plans to invest more than $7 billion in Venezuela to expand its oil operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron plans to invest more than $7 billion in Venezuela to expand its oil operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": "CVX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-300",
+      "headline": "Chevron expands Venezuela position, to invest $7 billion in next five years",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/chevron-expands-venezuela-position-plans-7-billion-investment-2026-09-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T11:16:34Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chevron to invest $7 billion in Venezuela, doubling production, confirming a major capex commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron to invest $7 billion in Venezuela, doubling production, confirming a major capex commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": "CVX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-337",
+      "headline": "Chevron to double Venezuela output in $7bn investment pledge",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a76721db-36e1-4198-aad8-8c90137aace9?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:56:41Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chevron has pledged a $7 billion investment to double its oil output in Venezuela.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron has pledged a $7 billion investment to double its oil output in Venezuela.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-336",
+      "headline": "Vertiv strikes $1.45 billion deal for microgrid firm Utility Innovation Group",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/vertiv-strikes-145-billion-deal-microgrid-firm-utility-innovation-group-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:55:50Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Vertiv is acquiring Utility Innovation Group for $1.45 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vertiv is acquiring Utility Innovation Group for $1.45 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vertiv",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-357",
+      "headline": "(LEAD) Court approves corporate rehabilitation plan for Homeplus",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260902010251315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:16:22Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A court has approved a corporate rehabilitation plan for Homeplus, indicating a formal insolvency or restructuring process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A court has approved a corporate rehabilitation plan for Homeplus, indicating a formal insolvency or restructuring process.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Homeplus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-355",
+      "headline": "Chevron to Spend $7 Billion on Doubling Its Venezuelan Output",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-02/chevron-to-spend-7-billion-on-doubling-its-venezuelan-output",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:15:39Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chevron announces $7 billion capex commitment to double Venezuelan output; major named capacity-expansion plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron announces $7 billion capex commitment to double Venezuelan output; major named capacity-expansion plan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron Corporation",
+          "ticker": "CVX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-067",
       "headline": "Uber to cut 3,300 jobs in company overhaul to reduce management layers",
       "headline_en": null,
@@ -697,6 +1348,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-339",
+      "headline": "‎Gulf General recommends 58.7% capital reduction, followed by debt-to-equity conversion",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1933510",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:43:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Gulf General is undergoing a significant capital restructuring involving a 58.7% reduction and debt-to-equity conversion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Gulf General is undergoing a significant capital restructuring involving a 58.7% reduction and debt-to-equity conversion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gulf General",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-014",
       "headline": "Chevron will expand Venezuela operations, more than doubling production through $7 billion investment",
       "headline_en": null,
@@ -796,6 +1497,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-200",
+      "headline": "ING faces $50m capital penalty over liquidity breach",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/ing-faces-50m-capital-penalty-over-liquidity-breach-20260903-p60tzx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T23:35:10Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "ING faces a €50m capital penalty from regulators for a liquidity breach, a confirmed enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "ING faces a €50m capital penalty from regulators for a liquidity breach, a confirmed enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ING",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-066",
       "headline": "FuelCell Sinks 13% as Wider Loss Overshadows First Data Center Reservation Deal, Bloom Energy Slips, Plug Power Barely Budges",
       "headline_en": null,
@@ -879,6 +1629,251 @@
         "event": 6,
         "size": 2,
         "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": "CVX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-259",
+      "headline": "‎Bahri vessel involved in security incident in Strait of Hormuz",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1933536",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T11:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A security incident involving a vessel in the Strait of Hormuz poses a significant risk to global shipping and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A security incident involving a vessel in the Strait of Hormuz poses a significant risk to global shipping and energy supply chains.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bahri",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-329",
+      "headline": "KSA's National Shipping Company: 2 crew members dead after security incident in Strait of Hormuz",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/732416/region/ksas-national-shipping-company-2-crew-members-dead-after-security-incident-in-strait-of-hormuz",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A security incident in the Strait of Hormuz resulted in two deaths on a vessel operated by the National Shipping Company of Saudi Arabia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A security incident in the Strait of Hormuz resulted in two deaths on a vessel operated by the National Shipping Company of Saudi Arabia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Shipping Company of Saudi Arabia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-370",
+      "headline": "Bergheim: Mutmaßlicher Anschlag in Bergheim: Fünf RWE-Kraftwerksblöcke vom Netz",
+      "headline_en": "Bergheim: Suspected attack in Bergheim: Five RWE power plant units off the grid",
+      "url": "https://www.handelsblatt.com/politik/deutschland/bergheim-fuenf-rwe-kraftwerksbloecke-nach-mutmasslichem-anschlag-vom-netz/100251383.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T10:03:16Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A suspected attack has forced five RWE power plant units offline, creating a significant supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A suspected attack has forced five RWE power plant units offline, creating a significant supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RWE",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-189",
+      "headline": "TONTINE WINES (00389): OFFER DOCUMENT RELATING TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0903/2026090300019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-02T22:08:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A partial voluntary cash offer to acquire 56.32 million shares of China Tontine Wines Group was announced.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A partial voluntary cash offer to acquire 56.32 million shares of China Tontine Wines Group was announced.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Tontine Wines Group",
+          "ticker": "00389",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-299",
+      "headline": "Oil Shipments To India Face Delivery Hurdles On Mideast Snarls",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/oil-shipments-to-india-face-delivery-hurdles-on-mideast-snarls-11992131#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-02T11:16:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Chevron announced a $7 billion investment in Venezuela over the next five years, aiming to double production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Chevron announced a $7 billion investment in Venezuela over the next five years, aiming to double production.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -994,1022 +1989,6 @@
           "name": "Altius Telecom",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-119",
-      "headline": "PG&E launches review, defers $2 billion in spending after wildfire bill setback",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/pg-e-launches-review-defers-123841462.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:38:41Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "PG&E launches a strategic review and defers $2 billion of 2027 capex after a wildfire-related legislative setback, directly affecting cash flow and investment plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "PG&E launches a strategic review and defers $2 billion of 2027 capex after a wildfire-related legislative setback, directly affecting cash flow and investment plans.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PG&E",
-          "ticker": "PCG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-087",
-      "headline": "ICICI Bank buys additional stake worth ₹1,470 crore in ICICI Prudential Life",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/icici-bank-buys-additional-stake-worth-rs-1470-crore-in-icici-prudential-life-19982573.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:54:06Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "ICICI Bank invests ₹1,470 crore to raise its stake in ICICI Prudential Life, deepening control of a key subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "ICICI Bank invests ₹1,470 crore to raise its stake in ICICI Prudential Life, deepening control of a key subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Bank",
-          "ticker": "ICICIBANK",
-          "listing_country": "IN"
-        },
-        {
-          "name": "ICICI Prudential Life Insurance",
-          "ticker": "ICICIPRULI",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-163",
-      "headline": "Uber plans 10% workforce cut to trim management layers",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/uber-cut-3300-jobs-overhaul-bloomberg-news-reports-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:13:30Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Uber announces 10% workforce cut to trim management layers; directly reduces headcount costs and operating expenses, affecting operating margins and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Uber announces 10% workforce cut to trim management layers; directly reduces headcount costs and operating expenses, affecting operating margins and capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber Technologies",
-          "ticker": "UBER",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-178",
-      "headline": "Cerebras starts construction on 165MW data center in Mikkeli, Finland",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/cerebras-starts-construction-on-165mw-data-center-in-mikkeli-finland/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:07:41Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Cerebras is constructing a 165MW data center in Finland, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Cerebras is constructing a 165MW data center in Finland, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerebras",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-048",
-      "headline": "Aurora Cannabis Calls Curaleaf Offer Inadequate, Urges Rejection",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/aurora-cannabis-calls-curaleaf-offer-inadequate-urges-rejection-277a9be1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Aurora Cannabis calls Curaleaf offer inadequate and urges rejection, a significant M&A development for both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Aurora Cannabis calls Curaleaf offer inadequate and urges rejection, a significant M&A development for both companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aurora Cannabis",
-          "ticker": "ACB",
-          "listing_country": "CA"
-        },
-        {
-          "name": "Curaleaf",
-          "ticker": "CURLF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-108",
-      "headline": "Eneva faz acordo com Diamante e troca térmica a carvão de Itaqui por empresa em Pecém",
-      "headline_en": "Eneva makes agreement with Diamante and swaps Itaqui coal thermal plant for company in Pecem",
-      "url": "https://www.reuters.com/pt/negocio/YBVBBUHWLBMZDAINVVXGWW6KX4-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:41:45Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Eneva enters into an agreement with Diamante to swap coal-fired thermal assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Eneva enters into an agreement with Diamante to swap coal-fired thermal assets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eneva",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-139",
-      "headline": "Commerzbank-Chefin bestätigt Gespräche mit UniCredit - \"Nicht vermasseln\"",
-      "headline_en": "Commerzbank boss confirms talks with UniCredit - \"Don't mess it up\"",
-      "url": "https://www.reuters.com/de/firma/commerzbank-chefin-besttigt-gesprche-mit-unicredit-nicht-vermasseln-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:23:44Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Commerzbank CEO confirms talks with UniCredit regarding a potential deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Commerzbank CEO confirms talks with UniCredit regarding a potential deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commerzbank",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "UniCredit",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-174",
-      "headline": "Atlântica, da Bradsaúde, fecha acordo com Rede D'Or para incluir Hospital Biocor na parceria “Atlântica D’Or”",
-      "headline_en": "Atlântica, from Bradsaúde, closes agreement with Rede D'Or to include Hospital Biocor in the “Atlântica D’Or” partnership",
-      "url": "https://www.reuters.com/pt/negocio/Q5ZQAP63ARO3VAUNX2R4T66MEM-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:08:38Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Atlântica and Rede D'Or have formed a partnership to include Hospital Biocor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Atlântica and Rede D'Or have formed a partnership to include Hospital Biocor.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rede D'Or",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-010",
-      "headline": "AWS and Humain commit to bringing 50MW online at Saudi AI Zone by 2028",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/aws-and-humain-commit-to-bringing-50mw-online-at-saudi-ai-zone-by-2028/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:35:01Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "AWS and Humain announced a 50MW capacity expansion in Saudi Arabia by 2028.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "AWS and Humain announced a 50MW capacity expansion in Saudi Arabia by 2028.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon Web Services",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-053",
-      "headline": "IDAK Food Group sells “founding” business Kadi",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/small-business/articles/idak-food-group-sells-founding-131006104.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:10:06Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "IDAK Food Group is divesting its founding business, Kadi, representing a strategic portfolio change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "IDAK Food Group is divesting its founding business, Kadi, representing a strategic portfolio change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDAK Food Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-105",
-      "headline": "Osaka Court Orders TEPCO to Pay 90 M. Yen for Nuclear Evacuations",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026090200941/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:41:26Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "TEPCO ordered to pay 90 million yen in damages related to nuclear evacuations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "TEPCO ordered to pay 90 million yen in damages related to nuclear evacuations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TEPCO",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-145",
-      "headline": "Nvidia didn't like Wall Street's estimates. So it tried to reset them.",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/article/nvidia-didnt-like-wall-streets-estimates-so-it-tried-to-reset-them-122218541.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:22:18Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is attempting to manage market expectations regarding its future growth trajectory.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Nvidia is attempting to manage market expectations regarding its future growth trajectory.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-168",
-      "headline": "Bayer bringt neue Agrar-Hoffnungsträger auf den Markt - Spartenziele bestätigt",
-      "headline_en": "Harvest balance sheet: Bayer brings new agricultural hopefuls to the market - divisional targets confirmed",
-      "url": "https://www.reuters.com/de/welt/bayer-bringt-neue-agrar-hoffnungstrger-auf-den-markt-spartenziele-besttigt-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:11:46Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Bayer is launching new agricultural products and has confirmed its divisional targets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Bayer is launching new agricultural products and has confirmed its divisional targets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bayer",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-028",
-      "headline": "Capricorn Board Picks DNO Offer over Genel",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/capricorn_board_picks_dno_offer_over_genel-02-sep-2026-184516-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:27:56Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Capricorn's board picking DNO's offer over Genel's is a decisive M&A step that will shape the company's future.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Capricorn's board picking DNO's offer over Genel's is a decisive M&A step that will shape the company's future.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capricorn Energy",
-          "ticker": "CNE",
-          "listing_country": "GB"
-        },
-        {
-          "name": "DNO",
-          "ticker": "DNO",
-          "listing_country": "NO"
-        },
-        {
-          "name": "Genel Energy",
-          "ticker": "GENL",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-032",
-      "headline": "Brown-Forman Quarterly Sales Slip on Tequila Slowdown",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/brown-forman-quarterly-sales-slip-on-tequila-slowdown-423add0b?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Brown-Forman quarterly sales slip on tequila slowdown, a direct revenue miss for a major spirits company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Brown-Forman quarterly sales slip on tequila slowdown, a direct revenue miss for a major spirits company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brown-Forman",
-          "ticker": "BF.B",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-060",
-      "headline": "AI startup Wonderful valued at $5 billion in latest funding round",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/ai-startup-wonderful-valued-5-billion-latest-funding-round-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:16:33Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "AI startup Wonderful raised funding at a $5 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "AI startup Wonderful raised funding at a $5 billion valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wonderful",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-076",
-      "headline": "Page Industries faces nearly ₹294-crore claim in Dubai over UAE distribution dispute",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/page-industries-faces-nearly-rs294-crore-claim-in-dubai-over-uae-distribution-dispute-19982575.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:59:15Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Page Industries faces a quantified legal claim of 294 crore INR regarding a distribution dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Page Industries faces a quantified legal claim of 294 crore INR regarding a distribution dispute.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Page Industries",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-009",
-      "headline": "OVL’s Venezuela prospects brighten with US OFAC clearance, new hydrocarbon regulations",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ovls-venezuela-prospects-brighten-with-us-ofac-clearance-new-hydrocarbon-regulations/article71419852.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:36:01Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "ONGC Videsh (OVL) received US OFAC clearance and new regulations in Venezuela, improving its operational prospects in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "ONGC Videsh (OVL) received US OFAC clearance and new regulations in Venezuela, improving its operational prospects in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ONGC Videsh",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-068",
-      "headline": "Ceva Logistics sued over theft of employee records during data breach",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/articles/ceva-logistics-sued-over-theft-130730407.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:07:30Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Data breach with employee-records theft lawsuit raises litigation, regulatory, and reputational risk for Ceva Logistics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Data breach with employee-records theft lawsuit raises litigation, regulatory, and reputational risk for Ceva Logistics.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ceva Logistics",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-055",
-      "headline": "NCLAT seeks status report on delayed Supertech housing projects by NBCC",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/nclat-seeks-status-report-on-delayed-supertech-housing-projects-by-nbcc/articleshow/133711404.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T13:07:17Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "NCLAT is seeking a status report on delayed housing projects, increasing regulatory pressure on Supertech.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "NCLAT is seeking a status report on delayed housing projects, increasing regulatory pressure on Supertech.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Supertech",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "NBCC",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -94644,78 +94623,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-27677ede6ab0",
-      "idea_version": "IDEAV-002a39d42239d0e1",
-      "idea_version_started_at": "2026-09-02T23:36:56Z",
-      "ticker": "00853",
-      "company": "MicroPort Scientific Corporation",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The delay in interim results, postponement of board meetings, and subsequent suspension of trading are classic indicators of severe financial or accounting instability.",
-      "why_now": "The suspension and disclosure were announced on September 1, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f078091d70bb"
-      ],
-      "primary_source_event_id": "EVT-f078091d70bb",
-      "source_headlines": [
-        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
-      ],
-      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T23:36:56Z",
-      "updated_at": "2026-09-02T23:36:56Z",
-      "decay_at": "2026-09-03T01:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c4367824b313",
       "idea_version": "IDEAV-a7ba24ac4b1c26e6",
       "idea_version_started_at": "2026-09-02T23:36:56Z",
@@ -94784,77 +94691,6 @@
       "surfaced_at": "2026-09-02T23:36:56Z",
       "updated_at": "2026-09-02T23:36:56Z",
       "decay_at": "2026-09-03T02:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d05b127c1ec0",
-      "idea_version": "IDEAV-3522195689f4a19a",
-      "idea_version_started_at": "2026-09-02T23:36:56Z",
-      "ticker": "RKDAGRI",
-      "company": "RKD Agri & Retail Ltd",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of a statutory auditor is a major red flag for corporate governance and potential accounting irregularities, often preceding further negative disclosures.",
-      "why_now": "The resignation was filed with the exchange on September 1, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd52de7e9d49"
-      ],
-      "primary_source_event_id": "EVT-bd52de7e9d49",
-      "source_headlines": [
-        "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026"
-      ],
-      "source_headline": "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/68c52016-f5fc-4226-95d8-55bb72a1d216.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:41:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T23:36:56Z",
-      "updated_at": "2026-09-02T23:36:56Z",
-      "decay_at": "2026-09-03T01:41:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -94997,77 +94833,6 @@
       "surfaced_at": "2026-09-02T22:52:14Z",
       "updated_at": "2026-09-02T22:52:14Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-df6c494797d2",
-      "idea_version": "IDEAV-f8869f59f60c9641",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "MICROPORT",
-      "company": "MicroPort Scientific Corporation",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "MicroPort delayed its 2026 interim results, postponed the board meeting, and had its trading suspended, signaling potential accounting or governance issues that could pressure the stock when trading resumes.",
-      "why_now": "Inside information announcement and trading suspension effective 2026-09-01; catalyst is the eventual resumption and release of delayed financials.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f078091d70bb"
-      ],
-      "primary_source_event_id": "EVT-f078091d70bb",
-      "source_headlines": [
-        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
-      ],
-      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T01:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -95495,77 +95260,6 @@
       "surfaced_at": "2026-09-02T12:20:12Z",
       "updated_at": "2026-09-02T12:20:12Z",
       "decay_at": "2026-09-03T04:28:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b17c712cdca8",
-      "idea_version": "IDEAV-dae4bb7c21557393",
-      "idea_version_started_at": "2026-09-02T12:20:12Z",
-      "ticker": "01448",
-      "company": "Fu Shou Yuan International Group Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A pre-conditional voluntary cash partial offer to acquire up to 115 million shares provides a liquidity event and potential premium for existing shareholders.",
-      "why_now": "The offer was disclosed in an exchange filing on September 1, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-155e41b89526"
-      ],
-      "primary_source_event_id": "EVT-155e41b89526",
-      "source_headlines": [
-        "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)"
-      ],
-      "source_headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103609.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-02T12:20:12Z",
-      "decay_at": "2026-09-03T01:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -96479,6 +96173,220 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-27677ede6ab0",
+      "idea_version": "IDEAV-002a39d42239d0e1",
+      "idea_version_started_at": "2026-09-02T23:36:56Z",
+      "ticker": "00853",
+      "company": "MicroPort Scientific Corporation",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The delay in interim results, postponement of board meetings, and subsequent suspension of trading are classic indicators of severe financial or accounting instability.",
+      "why_now": "The suspension and disclosure were announced on September 1, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f078091d70bb"
+      ],
+      "primary_source_event_id": "EVT-f078091d70bb",
+      "source_headlines": [
+        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
+      ],
+      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T13:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T23:36:56Z",
+      "updated_at": "2026-09-02T23:36:56Z",
+      "decay_at": "2026-09-03T01:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d05b127c1ec0",
+      "idea_version": "IDEAV-3522195689f4a19a",
+      "idea_version_started_at": "2026-09-02T23:36:56Z",
+      "ticker": "RKDAGRI",
+      "company": "RKD Agri & Retail Ltd",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of a statutory auditor is a major red flag for corporate governance and potential accounting irregularities, often preceding further negative disclosures.",
+      "why_now": "The resignation was filed with the exchange on September 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd52de7e9d49"
+      ],
+      "primary_source_event_id": "EVT-bd52de7e9d49",
+      "source_headlines": [
+        "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026"
+      ],
+      "source_headline": "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/68c52016-f5fc-4226-95d8-55bb72a1d216.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T13:41:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T23:36:56Z",
+      "updated_at": "2026-09-02T23:36:56Z",
+      "decay_at": "2026-09-03T01:41:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-df6c494797d2",
+      "idea_version": "IDEAV-f8869f59f60c9641",
+      "idea_version_started_at": "2026-09-02T22:52:14Z",
+      "ticker": "MICROPORT",
+      "company": "MicroPort Scientific Corporation",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "MicroPort delayed its 2026 interim results, postponed the board meeting, and had its trading suspended, signaling potential accounting or governance issues that could pressure the stock when trading resumes.",
+      "why_now": "Inside information announcement and trading suspension effective 2026-09-01; catalyst is the eventual resumption and release of delayed financials.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f078091d70bb"
+      ],
+      "primary_source_event_id": "EVT-f078091d70bb",
+      "source_headlines": [
+        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
+      ],
+      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T13:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T22:52:14Z",
+      "updated_at": "2026-09-02T22:52:14Z",
+      "decay_at": "2026-09-03T01:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-835c3f77b068",
       "idea_version": "IDEAV-2cb93becbfc24cab",
       "idea_version_started_at": "2026-09-02T19:27:30Z",
@@ -96828,6 +96736,77 @@
       "surfaced_at": "2026-09-02T17:26:01Z",
       "updated_at": "2026-09-02T17:26:01Z",
       "decay_at": "2026-09-02T23:53:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b17c712cdca8",
+      "idea_version": "IDEAV-dae4bb7c21557393",
+      "idea_version_started_at": "2026-09-02T12:20:12Z",
+      "ticker": "01448",
+      "company": "Fu Shou Yuan International Group Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A pre-conditional voluntary cash partial offer to acquire up to 115 million shares provides a liquidity event and potential premium for existing shareholders.",
+      "why_now": "The offer was disclosed in an exchange filing on September 1, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-155e41b89526"
+      ],
+      "primary_source_event_id": "EVT-155e41b89526",
+      "source_headlines": [
+        "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)"
+      ],
+      "source_headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103609.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-01T13:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-02T12:20:12Z",
+      "decay_at": "2026-09-03T01:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99423,18 +99402,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 377,
-    "shown_count": 377,
+    "total_count": 381,
+    "shown_count": 381,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 192,
-        "shown_count": 192,
+        "total_count": 193,
+        "shown_count": 193,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 185,
-        "shown_count": 185,
+        "total_count": 188,
+        "shown_count": 188,
         "hidden_count": 0
       }
     },
@@ -99454,6 +99433,303 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-27677ede6ab0",
+        "idea_version": "IDEAV-002a39d42239d0e1",
+        "idea_version_started_at": "2026-09-02T23:36:56Z",
+        "ticker": "00853",
+        "company": "MicroPort Scientific Corporation",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The delay in interim results, postponement of board meetings, and subsequent suspension of trading are classic indicators of severe financial or accounting instability.",
+        "why_now": "The suspension and disclosure were announced on September 1, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f078091d70bb"
+        ],
+        "primary_source_event_id": "EVT-f078091d70bb",
+        "source_headlines": [
+          "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
+        ],
+        "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T13:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T23:36:56Z",
+        "updated_at": "2026-09-02T23:36:56Z",
+        "decay_at": "2026-09-03T01:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T01:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-df6c494797d2",
+        "idea_version": "IDEAV-f8869f59f60c9641",
+        "idea_version_started_at": "2026-09-02T22:52:14Z",
+        "ticker": "MICROPORT",
+        "company": "MicroPort Scientific Corporation",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "MicroPort delayed its 2026 interim results, postponed the board meeting, and had its trading suspended, signaling potential accounting or governance issues that could pressure the stock when trading resumes.",
+        "why_now": "Inside information announcement and trading suspension effective 2026-09-01; catalyst is the eventual resumption and release of delayed financials.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f078091d70bb"
+        ],
+        "primary_source_event_id": "EVT-f078091d70bb",
+        "source_headlines": [
+          "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
+        ],
+        "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T13:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T22:52:14Z",
+        "updated_at": "2026-09-02T22:52:14Z",
+        "decay_at": "2026-09-03T01:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T01:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d05b127c1ec0",
+        "idea_version": "IDEAV-3522195689f4a19a",
+        "idea_version_started_at": "2026-09-02T23:36:56Z",
+        "ticker": "RKDAGRI",
+        "company": "RKD Agri & Retail Ltd",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of a statutory auditor is a major red flag for corporate governance and potential accounting irregularities, often preceding further negative disclosures.",
+        "why_now": "The resignation was filed with the exchange on September 1, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bd52de7e9d49"
+        ],
+        "primary_source_event_id": "EVT-bd52de7e9d49",
+        "source_headlines": [
+          "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026"
+        ],
+        "source_headline": "RKD Agri & Retail Ltd: INTIMATION UNDER REG 30 FOR RESIGNATION OF STATUTORY AUDITOR OF THE COMPANY W.E.F. 01-09-2026",
+        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/68c52016-f5fc-4226-95d8-55bb72a1d216.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T13:41:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T23:36:56Z",
+        "updated_at": "2026-09-02T23:36:56Z",
+        "decay_at": "2026-09-03T01:41:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T01:41:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b17c712cdca8",
+        "idea_version": "IDEAV-dae4bb7c21557393",
+        "idea_version_started_at": "2026-09-02T12:20:12Z",
+        "ticker": "01448",
+        "company": "Fu Shou Yuan International Group Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A pre-conditional voluntary cash partial offer to acquire up to 115 million shares provides a liquidity event and potential premium for existing shareholders.",
+        "why_now": "The offer was disclosed in an exchange filing on September 1, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-155e41b89526"
+        ],
+        "primary_source_event_id": "EVT-155e41b89526",
+        "source_headlines": [
+          "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)"
+        ],
+        "source_headline": "FU SHOU YUAN (01448): PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY)",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026090103609.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-01T13:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T12:20:12Z",
+        "updated_at": "2026-09-02T12:20:12Z",
+        "decay_at": "2026-09-03T01:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T01:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6dc759f76812",
         "idea_version": "IDEAV-d43acf92d2634f28",
@@ -127428,7 +127704,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 393,
-    "live_count": 14,
+    "live_count": 10,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -127447,9 +127723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 57752,
-    "news_picked_today": 194,
-    "news_dropped_today": 454
+    "news_seen_today": 111468,
+    "news_picked_today": 443,
+    "news_dropped_today": 1357
   },
   "book_momentum": {
     "live_count": 8,
