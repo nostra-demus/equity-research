@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:38:26Z",
+  "generated_at": "2026-09-03T14:42:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-918",
@@ -299,6 +299,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-971",
+      "headline": "Nvidia to buy Hugging Face for US$13 billion in big bet on open AI models",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-buy-hugging-face-us13-billion-big-bet-open-ai-models",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T14:33:10Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia announced a $13 billion acquisition of Hugging Face to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia announced a $13 billion acquisition of Hugging Face to expand its AI capabilities.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-964",
       "headline": "Chobani to spend $1.2B to buy and invest in Pennsylvania plant",
       "headline_en": null,
@@ -343,6 +397,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-970",
+      "headline": "Tyson Foods cuts annual profit forecast again as beef pressure drains margins",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/tyson-foods-cuts-annual-profit-forecast-again-as-beef-pressure-drains-margins/articleshow/133738959.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T14:19:57Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Tyson Foods cut its annual profit forecast due to margin pressure in its beef segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tyson Foods cut its annual profit forecast due to margin pressure in its beef segment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tyson Foods",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -501,55 +604,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-959",
-      "headline": "Nvidia to buy Hugging Face for nearly $13 billion in major open AI push",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/future/technology/2026/09/03/nvidia-to-buy-hugging-face-for-nearly-13-billion-in-major-open-ai-push/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T13:56:54Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is reportedly acquiring Hugging Face for $13 billion, a significant expansion in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly acquiring Hugging Face for $13 billion, a significant expansion in the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260903-937",
       "headline": "Hewlett Packard Enterprise Falls 5% as Supply Constraints Overshadow Raised Guidance, Super Micro Slips, Dell Holds Steady",
       "headline_en": null,
@@ -645,55 +699,6 @@
       "event_types": [
         "guidance_change",
         "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tyson Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-962",
-      "headline": "Tyson Foods cuts annual profit forecast again as beef pressure drains margins",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T13:49:11Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Tyson Foods cut its annual profit forecast again due to margin pressure in the beef segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tyson Foods cut its annual profit forecast again due to margin pressure in the beef segment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -126259,9 +126264,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1092764,
-    "news_picked_today": 2034,
-    "news_dropped_today": 14118
+    "news_seen_today": 1101476,
+    "news_picked_today": 2041,
+    "news_dropped_today": 14135
   },
   "book_momentum": {
     "live_count": 8,
