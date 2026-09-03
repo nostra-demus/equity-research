@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T21:14:36Z",
+  "generated_at": "2026-09-03T21:34:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1050",
@@ -598,6 +598,98 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1102",
+      "headline": "Flex to acquire EPC Power in $4.4 billion deal to expand data center power offerings",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/flex-acquire-epc-power-44-billion-deal-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T20:53:19Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Flex announces $4.4 billion acquisition of EPC Power to expand data-center power management; deal size material to capital structure and strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flex announces $4.4 billion acquisition of EPC Power to expand data-center power management; deal size material to capital structure and strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flex",
+          "ticker": "FLEX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1098",
+      "headline": "30-year-old furniture brand files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/southern-motion-furniture-brand-files-for-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T20:50:38Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "A furniture brand has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A furniture brand has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,109 +2000,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-970",
-      "headline": "Tyson Foods cuts annual profit forecast again as beef pressure drains margins",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/tyson-foods-cuts-annual-profit-forecast-again-as-beef-pressure-drains-margins/articleshow/133738959.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:19:57Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Tyson Foods cut its annual profit forecast due to margin pressure in its beef segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tyson Foods cut its annual profit forecast due to margin pressure in its beef segment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tyson Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-946",
-      "headline": "Nvidia confirms $13 billion acquisition of open-weight AI platform Hugging Face",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/article/nvidia-confirms-13-billion-acquisition-of-open-weight-ai-platform-hugging-face-141058641.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:10:58Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia announced a $13 billion acquisition of Hugging Face.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia announced a $13 billion acquisition of Hugging Face.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126552,9 +126541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1667555,
-    "news_picked_today": 2395,
-    "news_dropped_today": 23165
+    "news_seen_today": 1678828,
+    "news_picked_today": 2419,
+    "news_dropped_today": 23573
   },
   "book_momentum": {
     "live_count": 8,
