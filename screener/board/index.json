@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T12:12:55Z",
+  "generated_at": "2026-09-03T12:42:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -292,6 +292,55 @@
           "name": "BRP",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-844",
+      "headline": "Diversified to Acquire Elliott Assets in Permian for $1.8B",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/diversified_to_acquire_elliott_assets_in_permian_for_18b-03-sep-2026-184528-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T11:04:09Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Diversified Energy Company is acquiring assets in the Permian Basin for $1.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Diversified Energy Company is acquiring assets in the Permian Basin for $1.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diversified Energy Company",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-133",
-      "headline": "PG&E to invest $11.4 billion in California in 2027 as part of strategic review",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/pge-invest-114-billion-california-2027-part-strategic-review-2026-09-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:27:12Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "PG&E announced a significant $11.4 billion capital investment plan for 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PG&E announced a significant $11.4 billion capital investment plan for 2027.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PG&E",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -126075,9 +126075,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 752309,
-    "news_picked_today": 1808,
-    "news_dropped_today": 12280
+    "news_seen_today": 838742,
+    "news_picked_today": 1821,
+    "news_dropped_today": 12819
   },
   "book_momentum": {
     "live_count": 8,
