@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T12:43:20Z",
+  "generated_at": "2026-09-03T13:08:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-834",
@@ -195,6 +195,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-852",
+      "headline": "Nvidia to buy developer platform Hugging Face for $13-billion",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-nvidia-to-buy-developer-platform-hugging-face-for-13-billion/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T12:26:10Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia is acquiring Hugging Face for $13 billion, a significant M&A event in the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is acquiring Hugging Face for $13 billion, a significant M&A event in the AI sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-855",
+      "headline": "Nvidia to buy Hugging Face for nearly $13 billion in big bet on open AI models",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/nvidia-buy-hugging-face-nearly-13-billion-big-bet-open-ai-models-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T12:18:27Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia is acquiring Hugging Face for nearly $13 billion, a major strategic expansion in AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is acquiring Hugging Face for nearly $13 billion, a major strategic expansion in AI.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,109 +1983,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-130",
-      "headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:34:18Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Brown-Forman missed sales estimates due to weak consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brown-Forman missed sales estimates due to weak consumer spending.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brown-Forman",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-143",
-      "headline": "7 Brew outbids Dutch Bros in $143M offer for 73 Salad and Go units",
-      "headline_en": null,
-      "url": "https://www.restaurantdive.com/news/7brew-bids-140-million-73-salad-go-units/829350/",
-      "source_name": "Restaurant Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-02T12:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "7 Brew made a quantified $143M acquisition offer for 73 units, representing a significant expansion move.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "7 Brew made a quantified $143M acquisition offer for 73 units, representing a significant expansion move.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "7 Brew",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Dutch Bros",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -125937,9 +125942,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 838742,
-    "news_picked_today": 1821,
-    "news_dropped_today": 12819
+    "news_seen_today": 905297,
+    "news_picked_today": 1857,
+    "news_dropped_today": 13095
   },
   "book_momentum": {
     "live_count": 8,
