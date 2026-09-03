@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T04:55:05Z",
+  "generated_at": "2026-09-03T04:55:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-187",
@@ -94562,6 +94562,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-b6c0f11fb03b",
+      "idea_version": "IDEAV-6e2048200cf3a78a",
+      "idea_version_started_at": "2026-09-03T04:55:38Z",
+      "ticker": "CVX",
+      "company": "Chevron Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Chevron is committing $7 billion to double oil output in Venezuela over five years, a large incremental capex program that adds production volumes and cash flow if sanctions relief holds.",
+      "why_now": "The plan was announced on 2026-09-02 with a five-year execution window, making the capital commitment and production ramp a live, dated catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-69317d35a7e6"
+      ],
+      "primary_source_event_id": "EVT-69317d35a7e6",
+      "source_headlines": [
+        "Chevron expands Venezuela presence with $7 billion plan to double oil output in five years"
+      ],
+      "source_headline": "Chevron expands Venezuela presence with $7 billion plan to double oil output in five years",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/chevron-expands-venezuela-presence-with-7-billion-plan-to-double-oil-output-in-five-years/articleshow/133719199.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T19:08:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T04:55:38Z",
+      "updated_at": "2026-09-03T04:55:38Z",
+      "decay_at": "2026-09-04T07:08:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e9771f3b5e9d",
       "idea_version": "IDEAV-738aef1efe70a8aa",
       "idea_version_started_at": "2026-09-03T03:15:28Z",
@@ -95190,76 +95260,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-23e00bbbd9ca",
-      "idea_version": "IDEAV-80e68decdc0c9b33",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "8001.T",
-      "company": "Itochu Corporation",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Itochu is acquiring Dentsu Soken for $1.3B to take it private, a strategic M&A move that could unlock value and signal confidence in digital marketing assets.",
-      "why_now": "Deal announced 2026-08-31; execution risk and regulatory approval timeline create a live catalyst window.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda666cde24d"
-      ],
-      "primary_source_event_id": "EVT-eda666cde24d",
-      "source_headlines": [
-        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-      ],
-      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T15:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-260979e3048f",
       "idea_version": "IDEAV-55ba713513c579ba",
       "idea_version_started_at": "2026-08-31T07:32:07Z",
@@ -95330,76 +95330,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-469f8bb37879",
-      "idea_version": "IDEAV-07c6013012025517",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "300274.SZ",
-      "company": "Sungrow Power Supply Co Ltd",
-      "exchange": "Shenzhen",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Net profit fell ~33% YoY in H1 2026, driven by inverter price erosion and channel inventory buildup, signaling structural margin pressure in solar.",
-      "why_now": "Earnings released 2026-08-31; guidance cut risk and inventory destocking cycle are live catalysts.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80c71a597bcd"
-      ],
-      "primary_source_event_id": "EVT-80c71a597bcd",
-      "source_headlines": [
-        "Sungrow Shares Slump After Profit Tumbles by Almost a Third"
-      ],
-      "source_headline": "Sungrow Shares Slump After Profit Tumbles by Almost a Third",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-08-31/sungrow-shares-slump-after-profit-tumbles-by-almost-a-third",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T04:29:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T16:29:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2eed0b77fa99",
       "idea_version": "IDEAV-1a7299fe7f874578",
       "idea_version_started_at": "2026-09-01T04:06:03Z",
@@ -95464,77 +95394,6 @@
       "surfaced_at": "2026-09-01T04:06:03Z",
       "updated_at": "2026-09-01T04:06:03Z",
       "decay_at": "2026-09-02T13:04:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-91e36b52baa1",
-      "idea_version": "IDEAV-3ec2dc4e48f5ce85",
-      "idea_version_started_at": "2026-08-31T07:32:07Z",
-      "ticker": "HDFCBANK.NS",
-      "company": "HDFC Bank Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "CEO Sashidhar Jagdishan's sudden resignation creates leadership vacuum at India's largest private bank during a critical integration and growth phase.",
-      "why_now": "Resignation announced 2026-08-31; succession uncertainty and RBI approval process create near-term overhang.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a52b961eabb"
-      ],
-      "primary_source_event_id": "EVT-5a52b961eabb",
-      "source_headlines": [
-        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
-      ],
-      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:59:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T07:32:07Z",
-      "updated_at": "2026-08-31T07:32:07Z",
-      "decay_at": "2026-09-01T15:59:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97679,367 +97538,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-991f6f17f91c",
-      "idea_version": "IDEAV-8519f3b8aeb6b307",
-      "idea_version_started_at": "2026-08-31T06:07:14Z",
-      "ticker": "4812",
-      "company": "Dentsu Soken Inc.",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Itochu is set to take Dentsu Soken private in a $1.3 billion acquisition deal, which typically provides a premium to the current trading price.",
-      "why_now": "The deal has just been announced on August 31, 2026, creating an immediate arbitrage or premium-capture opportunity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda666cde24d"
-      ],
-      "primary_source_event_id": "EVT-eda666cde24d",
-      "source_headlines": [
-        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-      ],
-      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T06:07:14Z",
-      "updated_at": "2026-08-31T06:07:14Z",
-      "decay_at": "2026-09-01T15:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f2156a973feb",
-      "idea_version": "IDEAV-7e13ee5618504518",
-      "idea_version_started_at": "2026-08-31T06:07:14Z",
-      "ticker": "300274",
-      "company": "Sungrow Power Supply Co., Ltd.",
-      "exchange": "SZSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Sungrow's profit has tumbled by almost a third, signaling severe margin compression in the solar inverter and energy storage sector.",
-      "why_now": "The shares are slumping on August 31, 2026, following the immediate release of these weak financial results.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80c71a597bcd"
-      ],
-      "primary_source_event_id": "EVT-80c71a597bcd",
-      "source_headlines": [
-        "Sungrow Shares Slump After Profit Tumbles by Almost a Third"
-      ],
-      "source_headline": "Sungrow Shares Slump After Profit Tumbles by Almost a Third",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-08-31/sungrow-shares-slump-after-profit-tumbles-by-almost-a-third",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T04:29:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T06:07:14Z",
-      "updated_at": "2026-08-31T06:07:14Z",
-      "decay_at": "2026-09-01T16:29:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-279942e1dba3",
-      "idea_version": "IDEAV-c5b6b612f37e1397",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "HDFCBANK",
-      "company": "HDFC Bank Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of CEO Sashidhar Jagdishan, despite a temporary share price rise, introduces leadership uncertainty that could negatively impact HDFC Bank's strategic direction and investor confidence over time.",
-      "why_now": "The CEO's resignation is a fresh event that creates leadership uncertainty, which often leads to a re-evaluation of the company's future prospects.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a52b961eabb"
-      ],
-      "primary_source_event_id": "EVT-5a52b961eabb",
-      "source_headlines": [
-        "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
-      ],
-      "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-      "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:59:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-29T15:13:07Z",
-      "updated_at": "2026-08-31T05:42:48Z",
-      "decay_at": "2026-09-01T15:59:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-81a62aef2e6f",
-      "idea_version": "IDEAV-13c7955f2f7261f4",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "OZON",
-      "company": "Ozon Holdings PLC",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A missile attack hitting Ozon facilities in Belgorod could disrupt operations, damage infrastructure, and lead to increased costs, negatively impacting the company's profitability and supply chain efficiency.",
-      "why_now": "The missile attack on Ozon's facilities is a current operational disruption that could immediately affect the company's performance.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2cc3490adc47"
-      ],
-      "primary_source_event_id": "EVT-2cc3490adc47",
-      "source_headlines": [
-        "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities"
-      ],
-      "source_headline": "Missile attack on Russia's Belgorod kills two, authorities say; hits Ozon facilities",
-      "source_url": "https://www.reuters.com/world/missile-attack-kills-two-injures-16-russias-belgorod-authorities-say-2026-08-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T04:19:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T05:42:48Z",
-      "updated_at": "2026-08-31T05:42:48Z",
-      "decay_at": "2026-09-01T16:19:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c9bc08338424",
-      "idea_version": "IDEAV-9cf3148ea4ae3000",
-      "idea_version_started_at": "2026-08-31T05:42:48Z",
-      "ticker": "8001",
-      "company": "Itochu Corp",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Itochu's move to take Dentsu Soken private in a $1.3 billion deal suggests a strategic acquisition that could enhance its market position or integrate valuable capabilities, potentially boosting future earnings.",
-      "why_now": "The announcement of the $1.3 billion deal to take Dentsu Soken private is a live M&A catalyst that could lead to a re-rating of Itochu.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eda666cde24d"
-      ],
-      "primary_source_event_id": "EVT-eda666cde24d",
-      "source_headlines": [
-        "Itochu set to take Dentsu Soken private in $1.3 billion deal"
-      ],
-      "source_headline": "Itochu set to take Dentsu Soken private in $1.3 billion deal",
-      "source_url": "https://www.japantimes.co.jp/business/2026/08/31/companies/itochu-dentsu-soken-private/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T03:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-31T03:36:56Z",
-      "updated_at": "2026-08-31T05:42:48Z",
-      "decay_at": "2026-09-01T15:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -98114,7 +97612,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 344,
+      "file_count": 352,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -100882,8 +100380,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T16:29:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -100957,8 +100455,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T16:29:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101032,8 +100530,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T16:19:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101106,8 +100604,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T15:59:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101182,8 +100680,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T15:59:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101255,8 +100753,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T15:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101330,8 +100828,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T15:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101405,8 +100903,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-01T15:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T04:55:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126869,8 +126367,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 394,
-    "live_count": 5,
+    "surfaced_total": 395,
+    "live_count": 6,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
