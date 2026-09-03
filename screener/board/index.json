@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T14:22:25Z",
+  "generated_at": "2026-09-03T14:28:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-918",
@@ -294,6 +294,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-946",
+      "headline": "Nvidia confirms $13 billion acquisition of open-weight AI platform Hugging Face",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/article/nvidia-confirms-13-billion-acquisition-of-open-weight-ai-platform-hugging-face-141058641.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T14:10:58Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia announced a $13 billion acquisition of Hugging Face.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia announced a $13 billion acquisition of Hugging Face.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,55 +1997,6 @@
       "companies": [
         {
           "name": "Corporate Travel",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-580",
-      "headline": "Holgate’s Team Global Express scrambles for cash to avert collapse",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/transport/holgate-s-team-global-express-scrambles-for-cash-to-avert-collapse-20260903-p60u0n?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T03:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Team Global Express is scrambling for cash to avoid collapse, indicating a high risk of insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Team Global Express is scrambling for cash to avoid collapse, indicating a high risk of insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Team Global Express",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -126171,9 +126176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1058269,
-    "news_picked_today": 1998,
-    "news_dropped_today": 14034
+    "news_seen_today": 1075443,
+    "news_picked_today": 2009,
+    "news_dropped_today": 14071
   },
   "book_momentum": {
     "live_count": 8,
