@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T22:14:43Z",
+  "generated_at": "2026-09-03T23:04:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1050",
@@ -603,6 +603,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-1143",
+      "headline": "OpenAI commits $1 billion to cyberdefense effort amid AI safety scrutiny",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/openai-commits-1-billion-cyberdefense-effort-amid-ai-safety-scrutiny-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:43:43Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "OpenAI commits $1 billion to cyberdefense, representing a significant capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI commits $1 billion to cyberdefense, representing a significant capital allocation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-1112",
       "headline": "Lululemon Cuts Outlook Again After Another Tough Quarter for Sales",
       "headline_en": null,
@@ -652,32 +701,284 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260903-1116",
-      "headline": "Nvidia to acquire Hugging Face for $13bn while keeping platform open source",
-      "headline_en": null,
-      "url": "https://www.qatar-tribune.com/article/252007/business/nvidia-to-acquire-hugging-face-for-13bn-while-keeping-platform-open-source",
-      "source_name": "Qatar Tribune — Business",
+      "inbox_id": "INB-20260903-1153",
+      "headline": "Conselho da Volkswagen aprova reestruturação e sinaliza cortes de 50 mil empregos",
+      "headline_en": "Volkswagen board approves restructuring and signals 50,000 job cuts",
+      "url": "https://www.reuters.com/pt/negocio/SWSPY4RE6JIU7JR7KQFBYEWHOM-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-03T21:28:00Z",
+      "found_at": "2026-09-03T21:42:09Z",
       "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia announced the acquisition of Hugging Face for $13 billion.",
+      "prelim_note": "Volkswagen's board approved a restructuring plan that includes 50,000 job cuts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Nvidia announced the acquisition of Hugging Face for $13 billion.",
-      "region": "GLOBAL",
+      "triage_reason": "Volkswagen's board approved a restructuring plan that includes 50,000 job cuts.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 90,
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1135",
+      "headline": "Nvidia to spend $18b on Hugging Face as it extends AI spree",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/north-america/nvidia-to-spend-us13b-on-hugging-face-20260903-p60uc0?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:36:31Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia plans to spend $18 billion on Hugging Face as part of its ongoing AI investment strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia plans to spend $18 billion on Hugging Face as part of its ongoing AI investment strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NVIDIA Corporation",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1139",
+      "headline": "Nvidia to spend $13 billion on Hugging Face, which will remain an open source platform",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/nvidia-buying-artificial-intelligence-platform-hugging-face-for-13-billion",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:36:12Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Nvidia to spend $13 billion on Hugging Face, a major acquisition in the AI infrastructure space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia to spend $13 billion on Hugging Face, a major acquisition in the AI infrastructure space.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1136",
+      "headline": "Volkswagen says it will cut 100,000 jobs by end of decade",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/volkswagen-says-cutting-100-000-jobs-by-end-of-decade",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:34:31Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Volkswagen plans to cut 100,000 jobs by 2030, a massive restructuring effort impacting its global operations and cost structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen plans to cut 100,000 jobs by 2030, a massive restructuring effort impacting its global operations and cost structure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1163",
+      "headline": "+++ Geschäftszahlen +++: Lululemon senkt Jahresprognose – Aktie bricht ein",
+      "headline_en": "+++ Business Figures +++: Lululemon lowers annual forecast – stock crashes",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-lululemon-senkt-jahresprognose-aktie-bricht-ein/24098412.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Lululemon lowered its annual guidance, causing a significant drop in share price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon lowered its annual guidance, causing a significant drop in share price.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1175",
+      "headline": "Pfizer offloads scrapped Seagen ADC to Medicus Pharma in up to $1B+ deal",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/pfizer-offloads-scrapped-seagen-adc-medicus-pharma-1b-deal",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:26:54Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Pfizer offloaded a scrapped asset to Medicus Pharma in a deal valued at over $1 billion, impacting capital allocation and asset portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pfizer offloaded a scrapped asset to Medicus Pharma in a deal valued at over $1 billion, impacting capital allocation and asset portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -690,17 +991,170 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nvidia",
-          "ticker": "NVDA",
+          "name": "Pfizer",
+          "ticker": null,
           "listing_country": "US"
         },
         {
-          "name": "Hugging Face",
+          "name": "Medicus Pharma",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1179",
+      "headline": "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/ultragenyx-fails-phase-3-angelman-test-plots-significant-expenses-reduction",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:26:54Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Ultragenyx failed a phase 3 trial and announced significant expense reductions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ultragenyx failed a phase 3 trial and announced significant expense reductions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ultragenyx",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1178",
+      "headline": "GSK pens $1.3B Hutchmed deal for early-stage KRAS-EGFR cancer asset",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/gsk-pens-13b-hutchmed-deal-early-stage-kras-egfr-cancer-asset",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:26:54Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "GSK is acquiring a cancer asset from Hutchmed for $1.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GSK is acquiring a cancer asset from Hutchmed for $1.3 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GSK",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Hutchmed",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1188",
+      "headline": "Kenya's president orders Tata Chemicals to end operations in the country",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/kenyas-president-orders-tata-chemicals-end-operations-country-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:20:37Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Kenya orders Tata Chemicals to cease operations in the country.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kenya orders Tata Chemicals to cease operations in the country.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -760,6 +1214,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260903-1198",
+      "headline": "VW Group Confirms Plans To Slash 50,000 Jobs And Axe Half Its Lineup",
+      "headline_en": null,
+      "url": "https://www.carscoops.com/2026/09/vw-group-confirms-steep-cuts/",
+      "source_name": "Carscoops",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Volkswagen Group confirmed a massive restructuring plan involving 50,000 job cuts and a significant reduction in its product lineup.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen Group confirmed a massive restructuring plan involving 50,000 job cuts and a significant reduction in its product lineup.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen Group",
+          "ticker": "VWAGY",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260903-1103",
       "headline": "Volkswagen Board Approves Doubling Job Cuts, Restructuring in Surprise Move",
       "headline_en": null,
@@ -801,6 +1304,55 @@
           "name": "Volkswagen",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1117",
+      "headline": "Stock Market Today, Sept. 3: HPE Jumps 5%, Raises Fiscal Outlook on Record AI Server Demand",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-sept-3-hpe-jumps-5-raises-fiscal-outlook-record-ai-server-demand",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T21:15:13Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "HPE raised its fiscal outlook due to record AI server demand and shares jumped 5%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HPE raised its fiscal outlook due to record AI server demand and shares jumped 5%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hewlett Packard Enterprise",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1004,6 +1556,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260903-1197",
+      "headline": "Zscaler Loss Narrows As Revenue Soars, Boosted by AI",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/zscaler-loss-narrows-as-revenue-soars-boosted-by-ai-8dceaf02?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T20:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
+      "prelim_note": "Zscaler reported narrowing losses and soaring revenue, indicating strong operational performance and AI-driven growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zscaler reported narrowing losses and soaring revenue, indicating strong operational performance and AI-driven growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zscaler",
+          "ticker": "ZS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1403,617 +2004,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1034",
-      "headline": "Nvidia acquires Hugging Face for $12.93 billion — company gains control of major AI model distribution platform",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-acquires-hugging-face-for-usd12-93-billion-company-gains-control-of-major-ai-model-distribution-platform",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T19:05:37Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia acquires Hugging Face for $12.93 billion, a mega-cap M&A deal giving Nvidia control of a major AI model distribution platform and materially shifting capital deployment and product strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia acquires Hugging Face for $12.93 billion, a mega-cap M&A deal giving Nvidia control of a major AI model distribution platform and materially shifting capital deployment and product strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1043",
-      "headline": "Iridium CEO Sells Over 9,500 Shares as Rocket Lab Is Poised to Acquire the Company",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/03/iridium-ceo-sells-over-9-500-shares-as-rocket-lab-is-poised-to-acquire-the-company/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:40:34Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Rocket Lab is poised to acquire Iridium, with the CEO selling shares ahead of the deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rocket Lab is poised to acquire Iridium, with the CEO selling shares ahead of the deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iridium",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Rocket Lab",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1039",
-      "headline": "VEEV Raises FY27 Outlook as Vault CRM and AI Momentum Accelerate Fast",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/veev-raises-fy27-outlook-vault-crm-and-ai-momentum-accelerate-fast",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Veeva Systems raised its FY27 outlook due to strong CRM and AI momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Veeva Systems raised its FY27 outlook due to strong CRM and AI momentum.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veeva Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1042",
-      "headline": "Constl Raises $90 Million Debt To Accelerate Greenfield Fibre Network Rollout",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/constl-raises-90-million-debt-to-accelerate-greenfield-fibre-network-rollout-11999408#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:01:52Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Constl raised $90 million in debt to fund a greenfield fibre network rollout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constl raised $90 million in debt to fund a greenfield fibre network rollout.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constl",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1026",
-      "headline": "Tyson Foods cuts profit outlook again as pressure from cattle shortage worsens",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T17:47:57Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Tyson Foods cut its profit outlook due to cattle shortages.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tyson Foods cut its profit outlook due to cattle shortages.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tyson Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1023",
-      "headline": "AI Spending Ripples Across Tech Stack; Nvidia Acquires Hugging Face | Bloomberg Tech 9/03/2026",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-03/bloomberg-tech-9-03-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T17:28:41Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face, a major AI infrastructure player.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face, a major AI infrastructure player.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1021",
-      "headline": "Campbell’s Slides 9% on 36% Dividend Cut, General Mills Falls 4%, Kraft Heinz Drops 3%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/03/campbells-slides-9-on-36-dividend-cut-general-mills-falls-4-kraft-heinz-drops-3/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T17:25:57Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Campbell Soup announced a 36% dividend cut, triggering a 9% stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Campbell Soup announced a 36% dividend cut, triggering a 9% stock decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Campbell Soup",
-          "ticker": "CPB",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1028",
-      "headline": "Equinix & CPP Investments Complete $4 Billion atNorth Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/equinix-cpp-investments-complete-4-billion-atnorth-acquisition",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Equinix and CPP Investments completed a $4 billion acquisition of atNorth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Equinix and CPP Investments completed a $4 billion acquisition of atNorth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Equinix",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "atNorth",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1010",
-      "headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:27:32Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Ciena stock fell 10% following earnings results where guidance failed to impress investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ciena stock fell 10% following earnings results where guidance failed to impress investors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ciena Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Arista",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1016",
-      "headline": "Tyson Foods cuts annual forecast again as cattle pressure worsens",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:22:48Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Tyson Foods cut its annual forecast again due to worsening cattle supply and margin pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tyson Foods cut its annual forecast again due to worsening cattle supply and margin pressures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tyson Foods, Inc.",
-          "ticker": "TSN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-1005",
-      "headline": "Nvidia strikes $12.9bn deal to buy AI platform Hugging Face",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cr4vnr5g1k7o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:01:39Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $12.9 billion, a major strategic M&A deal in the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $12.9 billion, a major strategic M&A deal in the AI sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260903-987",
-      "headline": "Luxury real estate developer files for Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/park-place-partners-developer-files-for-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T15:13:57Z",
-      "sweep_file": "screener/inbox/2026-09-03_sweep.json",
-      "prelim_note": "A luxury real estate developer has filed for Chapter 11 bankruptcy protection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A luxury real estate developer has filed for Chapter 11 bankruptcy protection.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -94576,6 +94566,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ed0a5587b955",
+      "idea_version": "IDEAV-47f724a6b8c054c8",
+      "idea_version_started_at": "2026-09-03T22:15:11Z",
+      "ticker": "TSN",
+      "company": "Tyson Foods, Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tyson cut its annual forecast again as cattle cost pressure worsens, directly compressing margins and earnings visibility for the core protein business.",
+      "why_now": "Reuters report 2026-09-03T16:22:48Z confirms the second forecast cut; guidance reset is the immediate catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cd07e8ff1b13"
+      ],
+      "primary_source_event_id": "EVT-cd07e8ff1b13",
+      "source_headlines": [
+        "Tyson Foods cuts annual forecast again as cattle pressure worsens"
+      ],
+      "source_headline": "Tyson Foods cuts annual forecast again as cattle pressure worsens",
+      "source_url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T16:22:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T18:40:02Z",
+      "updated_at": "2026-09-03T22:15:11Z",
+      "decay_at": "2026-09-05T04:22:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-aca7dee3c135",
       "idea_version": "IDEAV-27299066f1a0a328",
       "idea_version_started_at": "2026-09-03T21:54:54Z",
@@ -94640,76 +94700,6 @@
       "surfaced_at": "2026-09-03T21:54:54Z",
       "updated_at": "2026-09-03T21:54:54Z",
       "decay_at": "2026-09-05T02:53:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ed0a5587b955",
-      "idea_version": "IDEAV-e0c84dc51abbb373",
-      "idea_version_started_at": "2026-09-03T18:40:02Z",
-      "ticker": "TSN",
-      "company": "Tyson Foods",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing persistent margin compression in its beef segment, leading to a repeated reduction in profit outlook.",
-      "why_now": "The guidance cut was announced on September 3, 2026, indicating ongoing operational headwinds.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-50162134818f"
-      ],
-      "primary_source_event_id": "EVT-50162134818f",
-      "source_headlines": [
-        "Tyson Cuts Profit Outlook Again as Beef Segment Worsens"
-      ],
-      "source_headline": "Tyson Cuts Profit Outlook Again as Beef Segment Worsens",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-03/tyson-cuts-profit-outlook-again-as-beef-segment-worsens",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T13:19:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T18:40:02Z",
-      "updated_at": "2026-09-03T18:40:02Z",
-      "decay_at": "2026-09-05T01:19:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -95410,6 +95400,77 @@
       "surfaced_at": "2026-09-03T03:15:28Z",
       "updated_at": "2026-09-03T03:15:28Z",
       "decay_at": "2026-09-04T07:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9623b2f3d514",
+      "idea_version": "IDEAV-d0ee2d1952f3a07b",
+      "idea_version_started_at": "2026-09-03T22:15:11Z",
+      "ticker": "CIEN",
+      "company": "Ciena Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ciena shares fell 10% after in-line guidance overshadowed an earnings beat, signaling the market is pricing slower forward growth despite current results.",
+      "why_now": "Earnings and guidance released 2026-09-03 per TheStreet report; negative guidance reaction is the live catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b941397b310d"
+      ],
+      "primary_source_event_id": "EVT-b941397b310d",
+      "source_headlines": [
+        "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher"
+      ],
+      "source_headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
+      "source_url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T16:27:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T22:15:11Z",
+      "updated_at": "2026-09-03T22:15:11Z",
+      "decay_at": "2026-09-05T04:27:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -126817,8 +126878,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 414,
-    "live_count": 21,
+    "surfaced_total": 415,
+    "live_count": 22,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -126837,9 +126898,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1700937,
-    "news_picked_today": 2466,
-    "news_dropped_today": 24126
+    "news_seen_today": 1751379,
+    "news_picked_today": 2589,
+    "news_dropped_today": 24723
   },
   "book_momentum": {
     "live_count": 8,
