@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T23:04:49Z",
+  "generated_at": "2026-09-03T23:05:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260903-1050",
@@ -94566,6 +94566,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-49a2653dd307",
+      "idea_version": "IDEAV-6435d8537f11b33a",
+      "idea_version_started_at": "2026-09-03T23:05:06Z",
+      "ticker": "VWAGY",
+      "company": "Volkswagen",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is initiating a massive restructuring involving up to 50,000 job cuts, signaling deep operational distress and significant severance-related cash outflows.",
+      "why_now": "The board approved the turnaround plan on September 03, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-695366a15e11",
+        "EVT-a237463122dc"
+      ],
+      "primary_source_event_id": "EVT-695366a15e11",
+      "source_headlines": [
+        "Volkswagen board approves turnaround plan, flags 50,000 possible job cuts across group",
+        "Volkswagen to slash up to 50,000 jobs in ‘far-reaching’ restructuring"
+      ],
+      "source_headline": "Volkswagen board approves turnaround plan, flags 50,000 possible job cuts across group",
+      "source_url": "https://www.reuters.com/business/autos-transportation/volkswagen-supervisory-board-approves-transformation-plan-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T20:03:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-03T23:05:06Z",
+      "decay_at": "2026-09-05T08:03:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ed0a5587b955",
       "idea_version": "IDEAV-47f724a6b8c054c8",
       "idea_version_started_at": "2026-09-03T22:15:11Z",
@@ -95406,6 +95477,82 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0c6d82b4b0e4",
+      "idea_version": "IDEAV-ae9b78c3e1eb6d2b",
+      "idea_version_started_at": "2026-09-03T23:05:06Z",
+      "ticker": "LULU",
+      "company": "Lululemon Athletica",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has cut its annual revenue and profit guidance for the second time in months, indicating a fundamental deterioration in demand ahead of a CEO transition.",
+      "why_now": "The guidance cut was announced on September 03, 2026, just one week before the new CEO takes office.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-39a1e73a665e",
+        "EVT-4dbc9381bf5d",
+        "EVT-67bc3acc0576",
+        "EVT-7209c214a501"
+      ],
+      "primary_source_event_id": "EVT-39a1e73a665e",
+      "source_headlines": [
+        "Lululemon stock plunges 15% on disappointing earnings and outlook",
+        "Lululemon cuts annual revenue forecast for second time in months as outlook darkens",
+        "Lululemon cuts annual outlook a week before new CEO takes over",
+        "Lululemon cuts annual revenue, profit forecast as new CEO prepares to take charge"
+      ],
+      "source_headline": "Lululemon stock plunges 15% on disappointing earnings and outlook",
+      "source_url": "https://www.cnbc.com/2026/09/03/lululemon-lulu-q2-2026-earnings.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T20:37:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-03T23:05:06Z",
+      "decay_at": "2026-09-05T08:37:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9623b2f3d514",
       "idea_version": "IDEAV-d0ee2d1952f3a07b",
       "idea_version_started_at": "2026-09-03T22:15:11Z",
@@ -95471,6 +95618,77 @@
       "surfaced_at": "2026-09-03T22:15:11Z",
       "updated_at": "2026-09-03T22:15:11Z",
       "decay_at": "2026-09-05T04:27:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ddb51395a688",
+      "idea_version": "IDEAV-d7ecaed09629a1b6",
+      "idea_version_started_at": "2026-09-03T23:05:06Z",
+      "ticker": "IVC",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
+      "why_now": "The tender offer was announced via press release on September 04, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7d528561a57"
+      ],
+      "primary_source_event_id": "EVT-a7d528561a57",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T18:44:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-03T23:05:06Z",
+      "decay_at": "2026-09-05T06:44:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97684,77 +97902,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-95df61b251da",
-      "idea_version": "IDEAV-220278c21e7ec5ee",
-      "idea_version_started_at": "2026-09-01T03:16:47Z",
-      "ticker": "SYL",
-      "company": "Sylvia Energy Ltd",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sylvia Energy received a Notice to Proceed for the Gawara Baya Wind Farm, a price-sensitive capex milestone that de-risks construction and unlocks revenue from the project.",
-      "why_now": "Official ASX filing dated 2026-08-31 confirms the Notice to Proceed, making the catalyst live and verifiable.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cec4add32cf1"
-      ],
-      "primary_source_event_id": "EVT-cec4add32cf1",
-      "source_headlines": [
-        "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]"
-      ],
-      "source_headline": "SYL: Gawara Baya Wind Farm - Notice to Proceed [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SYL?key=2924-03129874-3A700642",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-31T22:36:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T03:16:47Z",
-      "updated_at": "2026-09-01T03:16:47Z",
-      "decay_at": "2026-09-02T10:36:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -97829,7 +97976,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 369,
+      "file_count": 370,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -99564,8 +99711,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T10:36:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-03T23:05:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -126878,8 +127025,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 415,
-    "live_count": 22,
+    "surfaced_total": 418,
+    "live_count": 25,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
