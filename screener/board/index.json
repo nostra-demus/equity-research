@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T16:26:20Z",
+  "generated_at": "2026-09-04T16:31:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-685",
@@ -1088,6 +1088,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-723",
+      "headline": "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/fionariley/2026/09/04/lululemons-stock-sinks-18-after-q2-earnings-and-outlook-cut/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:56:14Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Lululemon stock sank 18% following a Q2 earnings report and a cut to its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon stock sank 18% following a Q2 earnings report and a cut to its full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon Athletica",
+          "ticker": "LULU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-718",
       "headline": "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal",
       "headline_en": null,
@@ -1137,6 +1187,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-722",
+      "headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:39:43Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Boston Scientific faces a recall of spinal cord stimulator leads linked to over 1,000 injuries, creating significant legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific faces a recall of spinal cord stimulator leads linked to over 1,000 injuries, creating significant legal and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": "BSX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,104 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-604",
-      "headline": "Volkswagen board okays 50,000 additional job cuts, major restructuring",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:45:55Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen board approved 50,000 job cuts, indicating significant operational restructuring and cost-saving measures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen board approved 50,000 job cuts, indicating significant operational restructuring and cost-saving measures.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-600",
-      "headline": "Campbell’s Just Cut a Dividend It Had Not Touched Since 2001 and the Snack Aisle Is Why",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/04/campbells-just-cut-a-dividend-it-had-not-touched-since-2001-and-the-snack-aisle-is-why/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:07:08Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Campbell Soup Company cut its dividend for the first time since 2001.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Campbell Soup Company cut its dividend for the first time since 2001.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Campbell Soup Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130141,9 +130142,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1596677,
-    "news_picked_today": 1838,
-    "news_dropped_today": 12442
+    "news_seen_today": 1615616,
+    "news_picked_today": 1846,
+    "news_dropped_today": 12482
   },
   "book_momentum": {
     "live_count": 8,
