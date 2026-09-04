@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-04T09:24:36Z",
+  "generated_at": "2026-09-04T09:36:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-570",
+      "headline": "KANGDA ENV (06136): Voluntary Announcement - Completion of Issuance of US$50,000,000 8.0% Senior Notes Due 2029",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090401057.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Kangda Environmental completed the issuance of US$50,000,000 in 8.0% senior notes due 2029.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kangda Environmental completed the issuance of US$50,000,000 in 8.0% senior notes due 2029.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KANGDA ENV",
+          "ticker": "06136",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-558",
       "headline": "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
@@ -244,6 +293,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-569",
+      "headline": "Volkswagen's surprise turnaround deal averts showdown as job cuts loom",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/volkswagen-shares-jump-early-trade-following-turnaround-agreement-2026-09-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:13:04Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen reached a deal to avoid a showdown while still planning job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen reached a deal to avoid a showdown while still planning job cuts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-217",
-      "headline": "Adani expands footprint in non-BJP states, alongside Andhra Pradesh, Bihar, with Rs 5 lakh crore investment pipeline",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/companies/adani-expands-footprint-in-non-bjp-states-alongside-andhra-pradesh-bihar-with-rs-5-lakh-crore-investment-pipeline-4133705",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:38:25Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Adani Group announced a massive 5 lakh crore INR investment pipeline across multiple states.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Group announced a massive 5 lakh crore INR investment pipeline across multiple states.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-246",
-      "headline": "Autoindustrie: Polestar senkt Prognose – Aktie fällt um fast 30 Prozent",
-      "headline_en": "Auto industry: Polestar lowers forecast – stock falls by almost 30 percent",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/polestar-autobauer-senkt-prognose-aktie-faellt-um-mehr-als-30-prozent/100251854.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:18:20Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Polestar lowered its guidance, resulting in a nearly 30 percent drop in share price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Polestar lowered its guidance, resulting in a nearly 30 percent drop in share price.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Polestar",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130260,9 +130260,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 513176,
-    "news_picked_today": 1409,
-    "news_dropped_today": 7639
+    "news_seen_today": 533515,
+    "news_picked_today": 1423,
+    "news_dropped_today": 7961
   },
   "book_momentum": {
     "live_count": 8,
