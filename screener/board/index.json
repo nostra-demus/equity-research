@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T15:27:47Z",
+  "generated_at": "2026-09-04T15:36:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-685",
@@ -1088,6 +1088,155 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-695",
+      "headline": "Chobani to spend $1.2B to buy and invest in Pennsylvania plant",
+      "headline_en": null,
+      "url": "https://www.supplychaindive.com/news/Chobani-plant-investment-keurig-dr-pepper-growth/829356/",
+      "source_name": "Supply Chain Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:07:56Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Chobani is investing $1.2B in a Pennsylvania plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chobani is investing $1.2B in a Pennsylvania plant.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chobani",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-689",
+      "headline": "ONEOK (OKE) is Funding a $4.4B Acquisition With a $9B Minority Investment. Is the 7% Capped Return Attractive?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/oneok-oke-funding-4-4b-150349706.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:03:49Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "ONEOK is funding a $4.4B acquisition with a $9B minority investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ONEOK is funding a $4.4B acquisition with a $9B minority investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONEOK",
+          "ticker": "OKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-698",
+      "headline": "LULU Q2 Earnings Call Flags Traffic Pressure, Outlook Cut",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lulu-q2-earnings-call-flags-traffic-pressure-outlook-cut",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Lululemon reported traffic pressure and cut its financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon reported traffic pressure and cut its financial outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": "LULU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-675",
       "headline": "Global Business Travel Group (GBTG) to Be Acquired for $9.50: What Investors Should Know",
       "headline_en": null,
@@ -1834,153 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-545",
-      "headline": "Volkswagen ups job cuts to 100,000 by 2030 as part of sweeping cost-saving overhaul",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16104637/Volkswagen-approves-50-000-job-cuts-2030-sweeping-overhaul.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T08:04:31Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen is increasing planned job cuts to 100,000 by 2030 as part of a major cost-saving overhaul.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen is increasing planned job cuts to 100,000 by 2030 as part of a major cost-saving overhaul.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-539",
-      "headline": "Volkswagen Board Approves Doubling Job Cuts to 100,000 in Surprise Move",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/autos/volkswagen-board-approves-plan-to-cut-workforce-model-portfolio-ac933812?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T07:32:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen board approves doubling job cuts to 100,000.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen board approves doubling job cuts to 100,000.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-556",
-      "headline": "Caixabank's BPI leaves Angola market with BFA stake sale for €388.5 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/africa/caixabanks-bpi-leaves-angola-market-with-bfa-stake-sale-3885-million-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T07:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "CaixaBank's BPI unit exits Angola market via a €388.5 million stake sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CaixaBank's BPI unit exits Angola market via a €388.5 million stake sale.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CaixaBank",
-          "ticker": null,
-          "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130567,9 +130569,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1375803,
-    "news_picked_today": 1788,
-    "news_dropped_today": 12060
+    "news_seen_today": 1393786,
+    "news_picked_today": 1806,
+    "news_dropped_today": 12090
   },
   "book_momentum": {
     "live_count": 8,
