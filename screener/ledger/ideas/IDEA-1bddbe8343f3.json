@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-1bddbe8343f3",
+  "idea_version": "IDEAV-982f6eec84680e61",
+  "idea_version_started_at": "2026-09-04T11:46:15Z",
+  "ticker": "BANKINDIA",
+  "company": "Bank of India",
+  "exchange": "NSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A notice of strike indicates imminent operational disruption, which typically leads to temporary service outages and negative sentiment for retail banking operations.",
+  "why_now": "The exchange filing regarding the strike notice was published on September 4, 2026.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ceaad3da0897"
+  ],
+  "primary_source_event_id": "EVT-ceaad3da0897",
+  "source_headlines": [
+    "Bank of India: Bank Of India has informed the Exchange about Notice of Strike."
+  ],
+  "source_headline": "Bank of India: Bank Of India has informed the Exchange about Notice of Strike.",
+  "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8bdb6f6f-a0d3-4fc4-9123-6363ae868b0a.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-04T09:40:34Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-04T11:46:15Z",
+  "updated_at": "2026-09-04T11:46:15Z",
+  "decay_at": "2026-09-05T21:40:34Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
