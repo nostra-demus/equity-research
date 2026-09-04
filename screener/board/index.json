@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T13:01:08Z",
+  "generated_at": "2026-09-04T13:18:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-615",
@@ -636,6 +636,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-632",
+      "headline": "Volkswagen board clears 50,000 additional job cuts, major restructuring",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T12:42:30Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen announced 50,000 job cuts and a major restructuring plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen announced 50,000 job cuts and a major restructuring plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-267",
-      "headline": "Rüstung: Kursrutsch, Umsatzwarnung, Lieferprobleme – wie Armin Papperger bei Rheinmetall an Grenzen stößt",
-      "headline_en": "Defense: Stock slump, revenue warning, supply problems – how Armin Papperger is hitting limits at Rheinmetall",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/ruestung-wie-armin-papperger-bei-rheinmetall-an-seine-grenzen-stoesst/100251097.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Rheinmetall faces a revenue warning and supply chain constraints, impacting its growth outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rheinmetall faces a revenue warning and supply chain constraints, impacting its growth outlook.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rheinmetall",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130576,9 +130576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1004523,
-    "news_picked_today": 1651,
-    "news_dropped_today": 10877
+    "news_seen_today": 1050779,
+    "news_picked_today": 1660,
+    "news_dropped_today": 11036
   },
   "book_momentum": {
     "live_count": 8,
