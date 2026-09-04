@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T19:24:41Z",
+  "generated_at": "2026-09-04T19:34:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -1186,6 +1186,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-745",
+      "headline": "India-Linked ₹770 Cr Ammunition Deal Triggers Estonia Defence Minister’s Resignation",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/news/estonia-defence-minister-hanno-pevkur-resigns-over-india-linked-rs-770-cr-ammunition-deal-fallout",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T17:41:26Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The resignation of Estonia's Defence Minister following a controversy over a 770 crore rupee ammunition deal involving India represents a significant political and operational risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of Estonia's Defence Minister following a controversy over a 770 crore rupee ammunition deal involving India represents a significant political and operational risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Estonia Ministry of Defence",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-733",
       "headline": "US sanctions Turkish bank alleged to be conducting transactions for Iran’s IRGC",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-675",
-      "headline": "Global Business Travel Group (GBTG) to Be Acquired for $9.50: What Investors Should Know",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/global-business-travel-group-gbtg-133544100.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:35:44Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Global Business Travel Group is being acquired at a specific price point of $9.50 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Global Business Travel Group is being acquired at a specific price point of $9.50 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Global Business Travel Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130429,9 +130429,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2181240,
-    "news_picked_today": 1950,
-    "news_dropped_today": 14346
+    "news_seen_today": 2191993,
+    "news_picked_today": 1954,
+    "news_dropped_today": 14534
   },
   "book_momentum": {
     "live_count": 8,
