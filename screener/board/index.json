@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T11:30:49Z",
+  "generated_at": "2026-09-04T11:45:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-589",
@@ -43,6 +43,55 @@
           "name": "Mininglamp",
           "ticker": "02718",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-601",
+      "headline": "Brigade Enterprises Ltd: Brigade Group Expands Hyderabad Footprint with Launch of Brigade Barcelona in Neopolis with a Revenue Potential of over Rs. 2,700 Crores",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a39dccc1-bdc7-4d0e-89f5-c23b2c34c4c1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T11:11:07Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Brigade Enterprises announced a new project in Hyderabad with a revenue potential of Rs. 2,700 Crores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brigade Enterprises announced a new project in Hyderabad with a revenue potential of Rs. 2,700 Crores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Enterprises Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -538,6 +587,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-600",
+      "headline": "Campbell’s Just Cut a Dividend It Had Not Touched Since 2001 and the Snack Aisle Is Why",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/04/campbells-just-cut-a-dividend-it-had-not-touched-since-2001-and-the-snack-aisle-is-why/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:07:08Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Campbell Soup Company cut its dividend for the first time since 2001.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Campbell Soup Company cut its dividend for the first time since 2001.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Campbell Soup Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,105 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-123",
-      "headline": "Microsoft drops $101.9 billion surprise as AI reshapes company",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/microsoft-drops-101-9-billion-surprise-as-ai-reshapes-company",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T23:33:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Microsoft's $101.9 billion investment signals a significant strategic shift and potential for substantial AI-driven growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Microsoft's $101.9 billion investment signals a significant strategic shift and potential for substantial AI-driven growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-032",
-      "headline": "VW Approves Plan to Cut 50,000 More Jobs in Broad Overhaul",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-03/vw-board-gives-ceo-blume-unanimous-backing-to-overhaul-carmaker",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:50:31Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen approved a major restructuring plan involving 50,000 job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen approved a major restructuring plan involving 50,000 job cuts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130422,9 +130421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 781675,
-    "news_picked_today": 1527,
-    "news_dropped_today": 9681
+    "news_seen_today": 842020,
+    "news_picked_today": 1548,
+    "news_dropped_today": 9780
   },
   "book_momentum": {
     "live_count": 8,
