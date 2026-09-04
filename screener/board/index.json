@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T18:49:50Z",
+  "generated_at": "2026-09-04T19:04:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -1143,6 +1143,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-744",
+      "headline": "36-year-old casual dining chain files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/marmalade-casual-dining-chain-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T18:42:11Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "A 36-year-old casual dining chain has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A 36-year-old casual dining chain has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-733",
       "headline": "US sanctions Turkish bank alleged to be conducting transactions for Iran’s IRGC",
       "headline_en": null,
@@ -1945,55 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-647",
-      "headline": "Lilly looks beyond obesity with $2.88B autoimmune buyout",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/eli-lilly-lly-merida-biosciences-2-88-billion-acquisition",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Eli Lilly is acquiring a company for $2.88 billion to expand its autoimmune portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eli Lilly is acquiring a company for $2.88 billion to expand its autoimmune portfolio.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eli Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130435,9 +130429,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2094007,
-    "news_picked_today": 1941,
-    "news_dropped_today": 13683
+    "news_seen_today": 2149000,
+    "news_picked_today": 1946,
+    "news_dropped_today": 13990
   },
   "book_momentum": {
     "live_count": 8,
