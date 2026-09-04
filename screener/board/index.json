@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T14:24:57Z",
+  "generated_at": "2026-09-04T14:40:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-648",
@@ -883,6 +883,55 @@
           "name": "Sichuan Express",
           "ticker": "00107",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-675",
+      "headline": "Global Business Travel Group (GBTG) to Be Acquired for $9.50: What Investors Should Know",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/global-business-travel-group-gbtg-133544100.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T13:35:44Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Global Business Travel Group is being acquired at a specific price point of $9.50 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Global Business Travel Group is being acquired at a specific price point of $9.50 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Business Travel Group",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1937,57 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-528",
-      "headline": "Volkswagen Unveils Future Plan 2030; Targets 50,000 Job Cuts, 9% Margin, 3-figure Bln Investment",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/volkswagen-unveils-future-plan-2030-targets-50000-job-cuts-9-margin-3-figure-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T04:52:58Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen announced a major restructuring plan including 50,000 job cuts, a 9% margin target, and a 3-figure billion investment plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen announced a major restructuring plan including 50,000 job cuts, a 9% margin target, and a 3-figure billion investment plan.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "capex",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130499,9 +130497,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1227938,
-    "news_picked_today": 1724,
-    "news_dropped_today": 11452
+    "news_seen_today": 1253020,
+    "news_picked_today": 1738,
+    "news_dropped_today": 11654
   },
   "book_momentum": {
     "live_count": 8,
