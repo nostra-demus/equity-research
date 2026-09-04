@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-90b902d53889",
-  "idea_version": "IDEAV-52e55b94c01b3b9a",
-  "idea_version_started_at": "2026-09-04T17:02:16Z",
+  "idea_version": "IDEAV-fd95fc1090a87388",
+  "idea_version_started_at": "2026-09-04T21:55:24Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company issued a fiscal 2028 revenue growth forecast of 70%, significantly outperforming market expectations of 44%, supported by a massive 2 million GPU order from Amazon.",
-  "why_now": "The guidance was released today, September 4, 2026.",
-  "conviction": 80,
+  "reason": "Nvidia agreed to acquire Hugging Face for ~$9.6B, securing control of the leading open-source AI model hub and strengthening its full-stack AI platform moat.",
+  "why_now": "Deal announced Sept 3, 2026 — strategic M&A catalyst with clear platform integration upside.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 60,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,14 +23,14 @@
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
+    "price and market expectations",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,22 +42,24 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-92bb27e7a620"
+    "EVT-5af8b1b8757e",
+    "EVT-7d3e72ac6226"
   ],
-  "primary_source_event_id": "EVT-92bb27e7a620",
+  "primary_source_event_id": "EVT-5af8b1b8757e",
   "source_headlines": [
-    "Jensen Huang's Nvidia Guided for 70% Revenue Growth in Fiscal 2028, Far Above the 44% Wall Street Expected, as Amazon Agreed to Buy 2 Million Nvidia GPUs. Is the Growth Forecast Believable?"
+    "Chip giant Nvidia snaps up open-source AI software platform Hugging Face in £9.57bn deal",
+    "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face"
   ],
-  "source_headline": "Jensen Huang's Nvidia Guided for 70% Revenue Growth in Fiscal 2028, Far Above the 44% Wall Street Expected, as Amazon Agreed to Buy 2 Million Nvidia GPUs. Is the Growth Forecast Believable?",
-  "source_url": "https://finance.yahoo.com/markets/stocks/articles/jensen-huangs-nvidia-guided-70-153700228.html",
-  "source_name": "Yahoo Finance",
+  "source_headline": "Chip giant Nvidia snaps up open-source AI software platform Hugging Face in £9.57bn deal",
+  "source_url": "https://www.thisismoney.co.uk/money/markets/article-16103097/Chip-giant-Nvidia-snaps-open-source-AI-software-platform-Hugging-Face-9-57bn-deal.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+  "source_name": "This is Money (Daily Mail) — Markets",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-04T15:37:00Z",
+  "newest_source_at": "2026-09-04T16:49:17Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-04T05:44:07Z",
-  "updated_at": "2026-09-04T17:02:16Z",
-  "decay_at": "2026-09-06T03:37:00Z",
+  "updated_at": "2026-09-04T21:55:24Z",
+  "decay_at": "2026-09-06T04:49:17Z",
   "status": "live",
   "promoted_signal_id": null
 }
