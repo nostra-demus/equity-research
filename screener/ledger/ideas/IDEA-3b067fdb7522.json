@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-3b067fdb7522",
+  "idea_version": "IDEAV-409221f160d2720a",
+  "idea_version_started_at": "2026-09-03T05:43:47Z",
+  "ticker": "AVGO",
+  "company": "Broadcom Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Broadcom guided next-quarter revenue below consensus despite beating current estimates, signaling AI-driven demand may be decelerating.",
+  "why_now": "Guidance issued on 2026-09-02; stock already down ~5% on the print, but full re-rating of AI growth durability may be incomplete.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-3ffff179cbe4",
+    "EVT-bc4771ecc695"
+  ],
+  "primary_source_event_id": "EVT-3ffff179cbe4",
+  "source_headlines": [
+    "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+    "Broadcom forecasts quarterly revenue below estimates"
+  ],
+  "source_headline": "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+  "source_url": "https://www.cnbc.com/2026/09/02/broadcom-avgo-q3-earnings-report-2026.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-02T20:30:19Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-03T05:43:47Z",
+  "updated_at": "2026-09-03T05:43:47Z",
+  "decay_at": "2026-09-04T08:30:19Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

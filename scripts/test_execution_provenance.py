@@ -21,6 +21,7 @@ from execution_provenance import (  # noqa: E402
     prior_projections,
     read_manifest,
     stamp_artifact,
+    validate_projection,
     verify_artifact,
 )
 
@@ -95,6 +96,7 @@ class ExecutionProvenanceTest(unittest.TestCase):
         projected = project([unknown_prior])
         self.assertEqual(projected["provider_mode"], "partially_observed")
         self.assertEqual({row["provider"] for row in projected["contributors"]}, {"codex"})
+        validate_projection(projected)
 
     def test_cross_provider_resume_remains_mixed_when_one_attempt_is_partial(self):
         value = project([
@@ -296,6 +298,36 @@ decision_artifacts: [/escape.json]
             legacy.write_text(json.dumps({"decision_date": "2026-08-20", "changed": True}) + "\n")
             with self.assertRaisesRegex(ProvenanceError, "legacy terminal record changed"):
                 audit_repository(root)
+
+    def test_repository_audit_accepts_valid_append_only_metadata_recovery(self):
+        row = attempt("recovered", "codex", "gpt-5.6-sol", "max", role="terminal_adjudicator")
+        provenance = project([row])
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            inventory = root / "frameworks" / "execution_provenance_legacy_inventory.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(json.dumps({
+                "schema_version": "1.1", "rollout_cutoff": "2026-08-21T00:00:00Z",
+                "mutable_legacy_projections": {}, "records": {},
+            }) + "\n")
+            artifact = root / "analyses" / "RECOVERED_2026-09-01" / "decision_record.json"
+            artifact.parent.mkdir(parents=True)
+            frozen = json.dumps({"decision_date": "2026-09-01", "confidence_score": 53}) + "\n"
+            artifact.write_text(frozen)
+            (artifact.parent / "corrections.json").write_text(json.dumps({
+                "schema": "corrections/v1",
+                "metadata_recovery": {
+                    "reason": "omitted at publication", "evidence": "exact runtime transcript",
+                    "post_review_confidence_score": 47, "confidence_haircut": 6,
+                    "execution_provenance": provenance,
+                    "runtime_evidence": {"source": "codex_task_runtime", "attempts": [row]},
+                },
+                "errata": [],
+            }) + "\n")
+            self.assertEqual(audit_repository(root), {
+                "records": 1, "legacy": 0, "required": 1, "commodity_hashed": 0,
+            })
+            self.assertEqual(artifact.read_text(), frozen)
 
     def test_mutable_legacy_commodity_projection_preserves_then_replaces_its_archive(self):
         provenance = project([attempt(

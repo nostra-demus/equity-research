@@ -22,6 +22,7 @@
       "authority": "authoritative_run_output",
       "paths": [
         "analyses/*/*.md",
+        "analyses/*/relationships.json",
         "analyses/*/*/*.md",
         "analyses/*/*/*.json",
         "analyses/*/*/*.csv"
@@ -205,6 +206,23 @@
       ]
     },
     {
+      "id": "provider-parity-run-artifacts",
+      "kind": "artifact_store",
+      "authority": "authoritative_run_output",
+      "paths": ["analyses/provider-parity/**"],
+      "formats": ["json", "markdown"],
+      "observed_count": 0,
+      "producer_ids": ["provider-parity-tools"],
+      "reader_ids": ["provider-parity-tools"],
+      "schema_ids": ["provider-parity-adjudication", "provider-parity-execution-receipt", "provider-parity-freeze", "provider-parity-run-binding"],
+      "correction_model": "Create a new dated frozen run or attempt; never rewrite a completed provider comparison in place.",
+      "evidence": [
+        ".claude/commands/research/provider-parity.md",
+        "scripts/provider_parity_freeze.py",
+        "scripts/compare_provider_runs.py"
+      ]
+    },
+    {
       "id": "commodity-run-artifacts",
       "kind": "artifact_store",
       "authority": "authoritative_run_output",
@@ -236,6 +254,25 @@
         "frameworks/commodity/decision_record.schema.json",
         "scripts/commodity_decision_archive.py",
         "ui/server/src/news/commodity-pulse.ts"
+      ]
+    },
+    {
+      "id": "commodity-calibration-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": [
+        "commodity/performance/*_calibration_summary.json",
+        "commodity/performance/*_calibration_summary.md"
+      ],
+      "formats": ["json", "markdown"],
+      "observed_count": 0,
+      "producer_ids": ["commodity-tools"],
+      "reader_ids": ["commodity-agents", "evaluation-harness"],
+      "correction_model": "Regenerate a new dated projection from immutable commodity decisions and append-only reviews.",
+      "evidence": [
+        "commodity/performance/2026-09-01_calibration_summary.json",
+        ".claude/commands/commodity/calibrate.md",
+        "scripts/commodity_calibrate.py"
       ]
     },
     {
@@ -367,6 +404,21 @@
         "screener/ledger/ideas_feedback.ndjson",
         "screener/ledger/screener_feedback.ndjson",
         "ui/server/src/screener-feedback.ts"
+      ]
+    },
+    {
+      "id": "screener-feedback-tuning-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": ["screener/ledger/feedback/*_feedback_tuning.json"],
+      "formats": ["json"],
+      "observed_count": 0,
+      "producer_ids": ["screener-feedback-tuning"],
+      "reader_ids": ["screener-feedback-tuning"],
+      "correction_model": "Regenerate a dated recommendation from the append-only screener feedback ledger.",
+      "evidence": [
+        ".claude/commands/screener/tune.md",
+        "scripts/screener_feedback_tune.py"
       ]
     },
     {
@@ -538,8 +590,9 @@
     {"id": "portfolio-sizing-command", "type": "command_program", "evidence": [".claude/commands/research/size.md"], "writes_store_ids": ["equity-portfolio-projections"]},
     {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "writes_store_ids": ["equity-evaluation-reports"]},
     {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "writes_store_ids": ["run-pool-extract-cache", "mounted-source-pools"]},
+    {"id": "provider-parity-tools", "type": "commands_and_scripts", "evidence": [".claude/commands/research/provider-parity.md", "scripts/provider_parity_freeze.py", "scripts/compare_provider_runs.py"], "writes_store_ids": ["provider-parity-run-artifacts"]},
     {"id": "commodity-agents", "type": "agent_program", "evidence": [".claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md", ".claude/commands/commodity/full.md"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger"]},
-    {"id": "commodity-tools", "type": "scripts", "evidence": ["scripts/commodity_decision_archive.py", "scripts/commodity_evidence_links.py", "scripts/commodity_calibrate.py"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals", "screener-conviction-ledger"]},
+    {"id": "commodity-tools", "type": "scripts", "evidence": ["scripts/commodity_decision_archive.py", "scripts/commodity_evidence_links.py", "scripts/commodity_calibrate.py"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-calibration-projections", "commodity-profiles-and-validated-signals", "screener-conviction-ledger"]},
     {"id": "screener-agents", "type": "agent_program", "evidence": [".claude/commands/screener/signal.md", ".claude/agents/screener/signal-gate/99_signal-gate-synthesis.md"], "writes_store_ids": ["screener-run-artifacts", "screener-event-ledger", "screener-thesis-candidate-ledger"]},
     {"id": "news-ingestion", "type": "service", "evidence": ["ui/server/src/news/write-inbox.ts", "ui/server/src/news/ingest-once.ts"], "writes_store_ids": ["screener-inbox-archive", "screener-event-ledger"]},
     {"id": "theme-engine", "type": "service", "evidence": ["ui/server/src/news/themes/engine.ts", "ui/server/src/news/themes/store.ts"], "writes_store_ids": ["screener-theme-ledger", "screener-board-projections"]},
@@ -547,6 +600,7 @@
     {"id": "idea-admission-tools", "type": "scripts", "evidence": ["scripts/create_idea_projection_manifest.py", "scripts/freeze_idea_admission.py"], "writes_store_ids": ["equity-run-provenance-and-audits", "screener-idea-ledger"]},
     {"id": "conviction-service", "type": "service_and_scripts", "evidence": ["ui/server/src/conviction-dispatch.ts", "scripts/screener_emit_checkpoints.py"], "writes_store_ids": ["screener-conviction-ledger"]},
     {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "writes_store_ids": ["screener-feedback-ledgers"]},
+    {"id": "screener-feedback-tuning", "type": "command_and_script", "evidence": [".claude/commands/screener/tune.md", "scripts/screener_feedback_tune.py"], "writes_store_ids": ["screener-feedback-tuning-projections"]},
     {"id": "board-projector", "type": "script_and_service", "evidence": ["scripts/update_board_index.py", "ui/server/src/news/ideas/ideas-projection.ts"], "writes_store_ids": ["screener-board-projections"]},
     {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "writes_store_ids": ["watchlist-entries"]},
     {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "writes_store_ids": ["watchlist-tasks", "watchlist-entries"]},
@@ -556,6 +610,7 @@
   ],
   "readers": [
     {"id": "research-agents", "type": "agent_program", "evidence": [".claude/agents/synthesizer.md", "frameworks/MODULE_PIPELINE.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-calibration-projections", "run-pool-extract-cache", "commodity-run-artifacts", "commodity-profiles-and-validated-signals", "mounted-source-pools", "external-ingestion-inbox"]},
+    {"id": "commodity-agents", "type": "agent_program", "evidence": [".claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md", ".claude/commands/commodity/full.md"], "reads_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-calibration-projections", "commodity-profiles-and-validated-signals"]},
     {"id": "standing-decision-resolver", "type": "script", "evidence": ["scripts/ledger_records.py"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars"]},
     {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews", "equity-run-provenance-and-audits", "equity-evaluation-reports"]},
     {"id": "research-review-calibration", "type": "command_and_script", "evidence": [".claude/commands/research/review-decisions.md", ".claude/commands/research/calibrate.md"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews"]},
@@ -567,10 +622,12 @@
     {"id": "ideas-service", "type": "service", "evidence": ["ui/server/src/news/ideas/ideas-store.ts", "ui/server/src/news/ideas/idea-learning.ts"], "reads_store_ids": ["equity-decision-ledger", "equity-run-provenance-and-audits", "screener-idea-ledger", "screener-feedback-ledgers", "mounted-source-pools"]},
     {"id": "conviction-service", "type": "service", "evidence": ["ui/server/src/conviction-dispatch.ts", "ui/server/src/screener.ts"], "reads_store_ids": ["screener-thesis-candidate-ledger", "screener-conviction-ledger"]},
     {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "reads_store_ids": ["screener-feedback-ledgers", "screener-thesis-candidate-ledger"]},
+    {"id": "screener-feedback-tuning", "type": "command_and_script", "evidence": [".claude/commands/screener/tune.md", "scripts/screener_feedback_tune.py"], "reads_store_ids": ["screener-feedback-ledgers", "screener-feedback-tuning-projections"]},
     {"id": "commodity-pulse-reader", "type": "service", "evidence": ["ui/server/src/news/commodity-pulse.ts"], "reads_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals"]},
     {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "reads_store_ids": ["watchlist-entries", "equity-decision-ledger", "equity-portfolio-projections"]},
     {"id": "task-service", "type": "service", "evidence": ["ui/server/src/tasks.ts"], "reads_store_ids": ["watchlist-tasks", "watchlist-entries"]},
     {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "reads_store_ids": ["mounted-source-pools", "external-ingestion-inbox", "connector-operations"]},
+    {"id": "provider-parity-tools", "type": "commands_and_scripts", "evidence": [".claude/commands/research/provider-parity.md", "scripts/provider_parity_freeze.py", "scripts/compare_provider_runs.py"], "reads_store_ids": ["provider-parity-run-artifacts", "mounted-source-pools"]},
     {"id": "news-enrichment", "type": "service", "evidence": ["ui/server/src/news/enrich.ts", "ui/server/src/news/equity-quote.ts"], "reads_store_ids": ["equity-decision-ledger", "mounted-source-pools"]},
     {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts", "ui/server/src/bridge-batch.ts"], "reads_store_ids": ["screener-event-ledger", "equity-decision-ledger", "mounted-source-pools"]},
     {"id": "connector-health-reader", "type": "service", "evidence": ["ui/server/src/feed-health.ts", "ui/server/src/connector-health.ts"], "reads_store_ids": ["connector-operations"]}

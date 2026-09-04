@@ -143,6 +143,11 @@ append-only and machine-readable, with any subset of:
   a distinctly-marked `ERRATUM` banner survives untouched). A future re-synthesis that rewrites
   `final_thesis.md` drops the banner; the `corrections.json` erratum is the durable record, and the
   banner is re-applied by hand if still needed.
+- `metadata_recovery: { reason, evidence, post_review_confidence_score, confidence_haircut,
+  execution_provenance, runtime_evidence }` — an append-only recovery for publication metadata that
+  was provably omitted. It is accepted only when the frozen record has none of those fields, the
+  confidence arithmetic reconciles, the canonical runtime projection validates, and the recovered
+  recorded attempt is present in the named task-runtime evidence. It never overrides a published value.
 
 **Inviolable properties.** The frozen `decision_record.json` is **never touched** — the sidecar is
 the only thing written, and it only ever grows. A correction must be **explicit and declared**: a
@@ -155,9 +160,15 @@ read, and `/research:track`, `/research:calibrate`, and `/research:size` iterate
 set instead of a raw `analyses/*/decision_record.json` glob. The cockpit's live Calls view
 (`GET /api/calls`) resolves through the byte-for-byte mirror `ui/server/src/ledger-corrections.ts`
 (a shared fixture, `ui/server/test/ledger-corrections.test.ts`, locks the two implementations
-together). `scripts/eval.py` deliberately does NOT drop superseded runs — every committed folder
-stays a structural fixture — but it validates that a superseded run's sidecar points at a real,
-existing target and that a Selected/Short call is never left standing with a corrected-away twin.
+together). `scripts/eval.py` deliberately does NOT drop superseded runs — every committed folder is still
+evaluated and remains visible as a structural fixture. A valid superseded run is historical rather than
+standing, so its recorded failures are advisory and do not block release of its corrected replacement. A
+replacement is valid only when its terminal decision record, thesis, memo, and audit dossier exist and agree
+on the exact run root; post-provenance-rollout replacements also require validated runtime provenance.
+Source and target tickers must match and the target decision must be newer. A decision record alone cannot
+retire a call.
+A malformed, incomplete, dangling, or circular supersession fails closed and remains release-gating. The evaluator also
+validates that a Selected/Short call is never left standing with a corrected-away twin.
 
 This layer only corrects **integrity defects** — a duplicate, a scale, a sign, a self-contradiction
 the record already proves. It is **not** a channel for changing a decision with hindsight (that is

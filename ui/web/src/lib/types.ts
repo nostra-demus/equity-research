@@ -10,6 +10,13 @@ export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' 
 // engine reachability, driven by the /api/health heartbeat (lib/store). `your-network` = the visitor's
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
 export type HealthState = 'connecting' | 'online' | 'updating' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
+export interface DeploymentLag {
+  targetSha: string
+  deployedSha: string | null
+  pendingSince: number
+  checkedAt: number
+  reason: string
+}
 
 // ---- shared research memory (GET /api/memory) ----
 // One small, read-only projection for every cockpit. The canonical records and the full memory payloads

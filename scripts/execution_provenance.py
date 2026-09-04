@@ -346,9 +346,13 @@ def validate_projection(value: Any, label: str = "execution_provenance") -> dict
         )
     if not author_present:
         raise ProvenanceError(f"{label} decision author is absent from contributors")
-    expected_mode = "mixed_provider" if len(providers) > 1 else \
-        "partially_observed" if incomplete else "single_provider"
-    if value.get("provider_mode") != expected_mode:
+    mode = value.get("provider_mode")
+    valid_modes = {"mixed_provider"} if len(providers) > 1 else \
+        {"partially_observed"} if incomplete else {"single_provider", "partially_observed"}
+    # `prior_unobserved` is manifest-only and intentionally is not copied into contributors, so a
+    # fully populated partial projection cannot be distinguished from a single-provider projection
+    # when the terminal artifact is audited later. Accept both conservative labels in that case.
+    if mode not in valid_modes:
         raise ProvenanceError(f"{label} provider_mode disagrees with contributors")
     versions = value.get("cli_versions")
     if not isinstance(versions, dict) or any(key not in PROVIDERS or not _non_empty(item)
@@ -473,6 +477,34 @@ def _terminal_record_patterns(repo: Path) -> tuple[str, ...]:
     return tuple(sorted(patterns))
 
 
+def _append_only_recovered_projection(artifact: Path) -> dict[str, Any] | None:
+    """Read an explicitly recovered projection without rewriting a frozen terminal record."""
+    sidecar = artifact.parent / "corrections.json"
+    try:
+        corrections = json.loads(sidecar.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    recovery = corrections.get("metadata_recovery") if isinstance(corrections, dict) \
+        and corrections.get("schema") == "corrections/v1" else None
+    if not isinstance(recovery, dict) or not all(
+        _non_empty(recovery.get(key)) for key in ("reason", "evidence")
+    ):
+        return None
+    projection = validate_projection(recovery.get("execution_provenance"),
+                                     f"{sidecar}:metadata_recovery.execution_provenance")
+    runtime = recovery.get("runtime_evidence")
+    attempts = runtime.get("attempts") if isinstance(runtime, dict) \
+        and runtime.get("source") == "codex_task_runtime" else None
+    if not isinstance(attempts, list) or not attempts:
+        raise ProvenanceError(f"{sidecar}: metadata recovery has no runtime attempts")
+    clean_attempts = [validate_attempt(attempt, index) for index, attempt in enumerate(attempts, 1)]
+    author_id = projection["decision_author"]["attempt_id"]
+    if not any(row["attempt_id"] == author_id and row["attribution"] == "recorded"
+               for row in clean_attempts):
+        raise ProvenanceError(f"{sidecar}: metadata recovery does not contain the recorded decision attempt")
+    return projection
+
+
 def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> dict[str, int]:
     """Gate new terminal records and byte-freeze the explicit pre-rollout legacy inventory."""
     repo = repo_root.resolve()
@@ -562,6 +594,8 @@ def audit_repository(repo_root: Path, cutoff: str = PROVIDER_ROLLOUT_CUTOFF) -> 
         legacy_digest = legacy_records.get(relative_text)
         projection_digest = (legacy_projections.get(relative_text) or {}).get("sha256")
         persisted = record.get("execution_provenance")
+        if persisted is None:
+            persisted = _append_only_recovered_projection(artifact)
         if legacy_digest is not None:
             if actual_digest != legacy_digest:
                 raise ProvenanceError(f"inventoried legacy terminal record changed after rollout: {relative}")

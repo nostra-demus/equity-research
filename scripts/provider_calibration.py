@@ -40,7 +40,7 @@ def _canonical_uuid(value):
         parsed = uuid.UUID(value)
     except (AttributeError, ValueError):
         return None
-    if str(parsed) != value or parsed.version not in (1, 2, 3, 4, 5):
+    if str(parsed) != value or parsed.version not in (1, 2, 3, 4, 5, 6, 7, 8):
         return None
     return value
 

@@ -9,6 +9,7 @@ import path from 'node:path'
 import { ANALYSES_DIR } from './config'
 
 export const CORRECTIONS_SCHEMA = 'corrections/v1'
+const PROVIDER_ROLLOUT_DECISION_DATE = '2026-08-21'
 
 interface Erratum {
   field: string
@@ -20,6 +21,7 @@ interface Corrections {
   schema?: string
   superseded_by?: { run_root?: string; reason?: string; date?: string }
   errata?: Erratum[]
+  metadata_recovery?: Record<string, any>
 }
 
 // Parsed, schema-checked corrections sidecar for an ABSOLUTE run dir, or {} when absent/invalid.
@@ -89,10 +91,36 @@ const TRANSFORMS: Record<string, ((r: any, f: string) => void) | null> = Object.
   note_clear: null,
 })
 
+function validMetadataRecovery(record: any, c: Corrections): Record<string, any> | null {
+  const value = c.metadata_recovery
+  if (!value || typeof value !== 'object' || typeof value.reason !== 'string' || !value.reason.trim()
+      || typeof value.evidence !== 'string' || !value.evidence.trim()) return null
+  const raw = record?.confidence_score
+  const post = value.post_review_confidence_score
+  const haircut = value.confidence_haircut
+  if (![raw, post, haircut].every((item) => typeof item === 'number' && Number.isFinite(item))
+      || post < 0 || post > 100 || haircut < 0 || Math.abs((raw - post) - haircut) > 1e-6) return null
+  const projection = value.execution_provenance
+  const runtime = value.runtime_evidence
+  const author = projection?.decision_author
+  const attempts = runtime?.source === 'codex_task_runtime' && Array.isArray(runtime?.attempts)
+    ? runtime.attempts : []
+  if (projection?.schema_version !== '1.0' || projection?.source !== 'cockpit_runtime'
+      || typeof author?.attempt_id !== 'string' || !attempts.some((row: any) =>
+        row && row.attempt_id === author.attempt_id && row.attribution === 'recorded')) return null
+  return value
+}
+
 // Return a normalised COPY of `record` with the sidecar's errata applied. Original never mutated.
 export function applyErrata(record: any, c: Corrections): any {
   const out = JSON.parse(JSON.stringify(record ?? null))
   const applied: any[] = []
+  const recovery = validMetadataRecovery(record, c)
+  const recoveryKeys = ['execution_provenance', 'post_review_confidence_score', 'confidence_haircut']
+  if (recovery && recoveryKeys.every((key) => !Object.prototype.hasOwnProperty.call(out, key))) {
+    for (const key of recoveryKeys) out[key] = JSON.parse(JSON.stringify(recovery[key]))
+    applied.push({ field: 'publication_metadata', kind: 'metadata_recovery', status: 'applied' })
+  }
   for (const e of c.errata ?? []) {
     if (!e || typeof e !== 'object') continue
     // own-property check (not `e.kind in TRANSFORMS`) so a prototype-member kind is 'unknown-kind', never
@@ -109,11 +137,51 @@ export function applyErrata(record: any, c: Corrections): any {
   return out
 }
 
+export function validSupersessionPublication(source: any, rawTarget: any, expectedTargetRoot: string,
+  targetCorrections: Corrections, terminalArtifactSizes: Record<string, number | null>): boolean {
+  try {
+    if (!source || typeof source !== 'object' || Array.isArray(source)
+        || !rawTarget || typeof rawTarget !== 'object' || Array.isArray(rawTarget)) return false
+    if (['final_thesis.md', 'memo.md', 'audit_dossier.md']
+      .some((name) => (terminalArtifactSizes[name] ?? 0) <= 1024)) return false
+    const target = applyErrata(rawTarget, targetCorrections)
+    const normalizedExpected = path.normalize(expectedTargetRoot)
+    if (path.normalize(String(target?.run_root || '')) !== normalizedExpected
+        || path.normalize(String(target?.final_thesis_path || ''))
+          !== path.normalize(path.join(expectedTargetRoot, 'final_thesis.md'))
+        || typeof source?.ticker !== 'string' || !source.ticker || source.ticker !== target?.ticker
+        || !/^\d{4}-\d{2}-\d{2}$/.test(String(source?.decision_date || ''))
+        || !/^\d{4}-\d{2}-\d{2}$/.test(String(target?.decision_date || ''))
+        || target.decision_date <= source.decision_date
+        || (target.decision_date >= PROVIDER_ROLLOUT_DECISION_DATE
+          && target?.execution_provenance?.source !== 'cockpit_runtime')) return false
+    return true
+  } catch { return false }
+}
+
+export function validSupersessionTarget(sourceRunAbs: string, targetRunAbs: string,
+  expectedTargetRoot: string): boolean {
+  try {
+    if (path.dirname(path.resolve(sourceRunAbs)) !== path.dirname(path.resolve(targetRunAbs))) return false
+    const source = JSON.parse(fs.readFileSync(path.join(sourceRunAbs, 'decision_record.json'), 'utf8'))
+    const rawTarget = JSON.parse(fs.readFileSync(path.join(targetRunAbs, 'decision_record.json'), 'utf8'))
+    const sizes = Object.fromEntries(['final_thesis.md', 'memo.md', 'audit_dossier.md'].map((name) => {
+      const info = fs.statSync(path.join(targetRunAbs, name))
+      return [name, info.isFile() ? info.size : null]
+    }))
+    return validSupersessionPublication(source, rawTarget, expectedTargetRoot,
+      readCorrections(targetRunAbs), sizes)
+  } catch { return false }
+}
+
 // True iff this run (repo-relative run_root, e.g. "analyses/EMAAR_2026-07-03") is superseded and must
 // be dropped from the standing set (the tracker / calls view).
 export function isSupersededRun(runRoot: string): boolean {
   const abs = path.join(ANALYSES_DIR, path.basename(runRoot))
-  return supersededTarget(readCorrections(abs)) !== null
+  const target = supersededTarget(readCorrections(abs))
+  if (!target) return false
+  const targetAbs = path.join(ANALYSES_DIR, path.basename(target))
+  return validSupersessionTarget(abs, targetAbs, target)
 }
 
 // The errata-normalised record for a run given its already-parsed raw record + repo-relative run_root.

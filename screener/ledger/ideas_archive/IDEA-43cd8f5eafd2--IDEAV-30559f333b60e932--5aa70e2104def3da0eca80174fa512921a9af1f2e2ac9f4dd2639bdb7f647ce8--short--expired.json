@@ -1,0 +1,82 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-02T08:38:01Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-43cd8f5eafd2",
+    "idea_version": "IDEAV-30559f333b60e932",
+    "idea_version_started_at": "2026-08-30T08:40:12Z",
+    "ticker": "CEA",
+    "company": "China Eastern Airlines",
+    "exchange": "NYSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Both major Chinese carriers reported widening net losses in the first half, signaling persistent margin pressure and weak demand in the Chinese aviation sector.",
+    "why_now": "The H1 earnings filings released today confirm the negative trend in profitability.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "sector_cycle",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-0aebdf727083",
+      "EVT-36e1fe4e7f1a"
+    ],
+    "primary_source_event_id": "EVT-0aebdf727083",
+    "source_headlines": [
+      "China Eastern posts wider first-half net loss",
+      "Air China H1 net loss widens to about $341 million, filing shows"
+    ],
+    "source_headline": "China Eastern posts wider first-half net loss",
+    "source_url": "https://www.reuters.com/world/asia-pacific/china-eastern-posts-wider-first-half-net-loss-2026-08-30/",
+    "source_name": "Reuters — Latest (news sitemap)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-30T08:34:13Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-30T08:40:12Z",
+    "updated_at": "2026-08-30T08:40:12Z",
+    "decay_at": "2026-08-31T20:34:13Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

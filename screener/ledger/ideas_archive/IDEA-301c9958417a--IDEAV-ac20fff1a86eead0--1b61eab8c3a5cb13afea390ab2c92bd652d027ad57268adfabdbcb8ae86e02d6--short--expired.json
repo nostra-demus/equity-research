@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-02T08:38:01Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-301c9958417a",
+    "idea_version": "IDEAV-ac20fff1a86eead0",
+    "idea_version_started_at": "2026-08-29T23:48:06Z",
+    "ticker": "META",
+    "company": "Meta Platforms, Inc.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Meta Platforms is settling social media addiction lawsuits for up to $17.1 billion, which will negatively impact its cash flow and profitability.",
+    "why_now": "Reports on August 29, 2026, confirm Meta's settlement of child safety and addiction lawsuits, creating a near-term financial obligation.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 6,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-63ce59bfa5c5",
+      "EVT-bef4b96e40e0"
+    ],
+    "primary_source_event_id": "EVT-63ce59bfa5c5",
+    "source_headlines": [
+      "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+      "Meta settles social media addiction suit for up to $17.1 billion"
+    ],
+    "source_headline": "Meta’s $18 bn child safety settlement comes with a catch: Why TikTok, YouTube, Snapchat’s actions matter | Explained",
+    "source_url": "https://www.livemint.com/companies/news/metas-18-bn-child-safety-settlement-comes-with-a-catch-why-tiktok-youtube-snapchat-s-actions-matter-explained-11788003743009.html",
+    "source_name": "Mint",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-29T14:49:07Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/META_2026-08-28",
+      "latest_decision": null,
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-08-29T16:03:33Z",
+    "updated_at": "2026-08-29T23:48:06Z",
+    "decay_at": "2026-08-31T02:49:07Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -322,6 +322,16 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
+# A valid data path is not enough: every artifact in the exact proposed Git index must also belong to a
+# declared permanent-memory store. This is the same coverage invariant CI checks, moved before commit/push
+# so autonomous data cannot turn main red and freeze every reviewed release behind it. The validator reads
+# Git objects/index bytes, never mutable worktree files, so concurrent writers cannot race this decision.
+if ! python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --index; then
+  unstage_own_paths "$@"
+  echo "commit-run: data catalogue rejected the staged publication — nothing was committed or pushed" >&2
+  exit 5
+fi
+
 # Validate only newly staged terminal decision publications. The normal historical eval deliberately
 # replays frozen records without today's live-roster check; this creation-time boundary is the last place
 # where a new top-level research decision must prove its data-needs routes still exist. Commodity has a
@@ -418,6 +428,14 @@ if [ -z "$RETRY_SHA" ] && [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
   exit 0
 fi
 
+# Retry mode can predate the creation-time gate above. Re-check the exact committed tree before every
+# push-capable path so an old stranded commit cannot reintroduce uncatalogued artifacts.
+if ! python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --tree "$SHA"; then
+  echo "commit-run: committed data tree is not fully catalogued — nothing was pushed" >&2
+  echo "COMMIT_SHA=$SHA"
+  exit 4
+fi
+
 # Push CURRENT HEAD to remote main — never a bare "origin main", which resolves its source as
 # the LOCAL branch literally named main. A committing process is routinely checked out on some
 # other ref (a per-session worktree branch, a detached HEAD) whose local `main` — if it exists at
@@ -475,6 +493,10 @@ reconcile_without_checkout_update() {
     if ! merge_tree="$(git merge-tree --write-tree "$remote_sha" "$SHA" 2>/dev/null)" \
        || ! git cat-file -e "${merge_tree}^{tree}" 2>/dev/null; then
       echo "commit-run: data reconciliation conflicts with origin/main; commit $SHA remains local — retry later" >&2
+      return 1
+    fi
+    if ! python3 "$TOP/scripts/validate_data_catalogue.py" --repo "$TOP" --tree "$merge_tree"; then
+      echo "commit-run: reconciled remote tree contains uncatalogued data; commit $SHA remains local — retry after catalogue repair" >&2
       return 1
     fi
     merge_sha="$(printf '%s\n' "Reconcile engine data commit ${SHA:0:12} with origin/main" \

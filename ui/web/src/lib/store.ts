@@ -16,7 +16,7 @@ import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import { preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, DeploymentLag, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { isDataScanProgress } from './dataScan'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -702,6 +702,7 @@ const runSubjectKey = (swarm: string, subject: string): string => `${swarm}\0${s
 interface State {
   connected: boolean
   health: HealthState
+  deploymentLag: DeploymentLag | null
   healthFailCount: number
   lastHealthOkAt: number | null
   staticMode: boolean
@@ -1689,6 +1690,7 @@ async function verifyScopedRerunCapability(
 export const useStore = create<State>((set, get) => ({
   connected: true,
   health: 'connecting',
+  deploymentLag: null,
   healthFailCount: 0,
   lastHealthOkAt: null,
   staticMode: false,
@@ -4550,6 +4552,7 @@ export const useStore = create<State>((set, get) => ({
     const to = setTimeout(() => ac.abort(), HEALTH_TIMEOUT_MS)
     let outcome: 'ok' | 'engine' | 'session' = 'engine'
     let deploymentPending = false
+    let deploymentLag: DeploymentLag | null = null
     try {
       const r = await performanceFetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
@@ -4559,6 +4562,22 @@ export const useStore = create<State>((set, get) => ({
         const j = await r.json().catch(() => null)
         outcome = j && j.ok === true ? 'ok' : 'engine' // {ok:true}=live; {ok:false}=worker offline marker
         deploymentPending = outcome === 'ok' && j?.deploymentPending === true
+        const deployment = j?.deployment
+        if (outcome === 'ok' && deployment?.status === 'pending'
+          && typeof deployment.targetSha === 'string' && /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(deployment.targetSha)
+          && (deployment.deployedSha === null || (typeof deployment.deployedSha === 'string'
+            && /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(deployment.deployedSha)))
+          && Number.isSafeInteger(deployment.pendingSince) && deployment.pendingSince > 0
+          && Number.isSafeInteger(deployment.checkedAt) && deployment.checkedAt > 0
+          && typeof deployment.reason === 'string') {
+          deploymentLag = {
+            targetSha: deployment.targetSha,
+            deployedSha: deployment.deployedSha,
+            pendingSince: deployment.pendingSince,
+            checkedAt: deployment.checkedAt,
+            reason: deployment.reason,
+          }
+        }
       } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
@@ -4578,7 +4597,7 @@ export const useStore = create<State>((set, get) => ({
       // A pending reviewed deploy keeps reads live but closes every paid admission at the server's kernel
       // barrier. Reflect that distinct state in the cockpit instead of claiming "Live" and letting a run
       // button reach a guaranteed 503/profile-refresh race. The next healthy poll returns to online.
-      set({ health: deploymentPending ? 'updating' : 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      set({ health: deploymentPending ? 'updating' : 'online', deploymentLag, healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // Every proven-healthy poll repairs ONLY missing bootstrap pieces. This must not depend on a health
       // transition: /api/swarms can return an auth response while health was already online. The health
       // cadence bounds these attempts, and the underlying calls coalesce.

@@ -1,0 +1,737 @@
+{
+  "schema_version": "2.0",
+  "provider_calibration_schema_version": "1.0",
+  "generated_at": "2026-09-02",
+  "scope": "all",
+  "n_decisions": 15,
+  "n_reviews": 11,
+  "n_resolved_forecasts": 3,
+  "n_directional_calls_resolved": 1,
+  "floors": {
+    "min_resolved_forecasts_for_brier": 10,
+    "min_reviewed_per_basket": 5,
+    "min_directional_hits_for_hit_rate": 10
+  },
+  "inventory": [
+    {
+      "ticker": "AMZN",
+      "run": "2026-07-10",
+      "run_root": "analyses/AMZN_2026-07-10",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "unaudited",
+      "confidence_score": 57,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 82,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 5,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 2,
+      "latest_review_date": "2026-08-09",
+      "thesis_status": "broken",
+      "review_benchmark_relative_return_pct": 11.49,
+      "directional_hit": null
+    },
+    {
+      "ticker": "BG",
+      "run": "2026-06-01",
+      "run_root": "analyses/BG_2026-06-01",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "verified",
+      "confidence_score": 46,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 68,
+      "thesis_type": [
+        "Commodity-conditional",
+        "Policy-conditional"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 2,
+      "latest_review_date": "2026-08-01",
+      "thesis_status": "at-risk",
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "DHER",
+      "run": "2026-08-12",
+      "run_root": "analyses/DHER_2026-08-12",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "integrity_status": "provisional",
+      "confidence_score": 27.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 72,
+      "thesis_type": [
+        "Company-specific",
+        "Policy-conditional",
+        "Balance-sheet survival"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "EMAAR",
+      "run": "2026-07-10",
+      "run_root": "analyses/EMAAR_2026-07-10",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "unaudited",
+      "confidence_score": 52,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 80,
+      "thesis_type": [
+        "Sector-cycle",
+        "Company-specific"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 2,
+      "n_reviews": 1,
+      "latest_review_date": "2026-08-09",
+      "thesis_status": "confirmed",
+      "review_benchmark_relative_return_pct": -5.11,
+      "directional_hit": null
+    },
+    {
+      "ticker": "HAIER",
+      "run": "2026-08-13",
+      "run_root": "analyses/HAIER_2026-08-13",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "provisional",
+      "confidence_score": 35.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 76,
+      "thesis_type": [
+        "Company-specific",
+        "Commodity-conditional",
+        "Policy-conditional"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 5,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "HCG",
+      "run": "2026-06-01",
+      "run_root": "analyses/HCG_2026-06-01",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "integrity_status": "verified",
+      "confidence_score": 70,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 69,
+      "thesis_type": [
+        "Company-specific",
+        "Policy-conditional"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 2,
+      "latest_review_date": "2026-08-01",
+      "thesis_status": "on-track",
+      "review_benchmark_relative_return_pct": -10.1,
+      "directional_hit": 1
+    },
+    {
+      "ticker": "INDIAMART",
+      "run": "2026-08-14",
+      "run_root": "analyses/INDIAMART_2026-08-14",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "provisional",
+      "confidence_score": 58,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 80,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "NHY",
+      "run": "2026-07-19",
+      "run_root": "analyses/NHY_2026-07-19",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "verified",
+      "confidence_score": 25.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 78,
+      "thesis_type": [
+        "Commodity-conditional",
+        "FX / rates",
+        "Company-specific"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 1,
+      "n_reviews": 2,
+      "latest_review_date": "2026-08-21",
+      "thesis_status": "on-track",
+      "review_benchmark_relative_return_pct": -1.44,
+      "directional_hit": null
+    },
+    {
+      "ticker": "NU",
+      "run": "2026-08-31",
+      "run_root": "analyses/NU_2026-08-31",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "integrity_status": "verified",
+      "confidence_score": 47,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 68,
+      "thesis_type": [
+        "Company-specific",
+        "Macro-conditional",
+        "FX / rates"
+      ],
+      "execution_provenance_status": "partially_observed",
+      "decision_author_provider": "codex",
+      "execution_profile": "partially_observed|codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "n_forecasts": 2,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "ORCL",
+      "run": "2026-08-14",
+      "run_root": "analyses/ORCL_2026-08-14",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "provisional",
+      "confidence_score": 47.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 78,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle",
+        "Balance-sheet survival"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 5,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "SMPL",
+      "run": "2026-08-06",
+      "run_root": "analyses/SMPL_2026-08-06",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "verified",
+      "confidence_score": 30.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 80,
+      "thesis_type": [
+        "Company-specific",
+        "Governance turnaround"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 5,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "TMCV",
+      "run": "2026-06-07",
+      "run_root": "analyses/TMCV_2026-06-07",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "unaudited",
+      "confidence_score": 47,
+      "confidence_field_used": "confidence_score",
+      "data_sufficiency_score": 68,
+      "thesis_type": [
+        "sector-cycle",
+        "company-specific"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 6,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 1,
+      "latest_review_date": "2026-07-13",
+      "thesis_status": "at-risk",
+      "review_benchmark_relative_return_pct": 11.94,
+      "directional_hit": null
+    },
+    {
+      "ticker": "TSLA",
+      "run": "2026-07-25",
+      "run_root": "analyses/TSLA_2026-07-25",
+      "decision": "Short Candidate",
+      "basket": "Short",
+      "integrity_status": "provisional",
+      "confidence_score": 50.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 76,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 7,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 1,
+      "latest_review_date": "2026-08-24",
+      "thesis_status": "at-risk",
+      "review_benchmark_relative_return_pct": 9.91,
+      "directional_hit": 0
+    },
+    {
+      "ticker": "UBER",
+      "run": "2026-08-06",
+      "run_root": "analyses/UBER_2026-08-06",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "provisional",
+      "confidence_score": 42.0,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 70,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 5,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    },
+    {
+      "ticker": "UBER",
+      "run": "2026-08-09",
+      "run_root": "analyses/UBER_2026-08-09",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "integrity_status": "provisional",
+      "confidence_score": 47,
+      "confidence_field_used": "post_review_confidence_score",
+      "data_sufficiency_score": 80,
+      "thesis_type": [
+        "Company-specific",
+        "Sector-cycle"
+      ],
+      "execution_provenance_status": "unknown_legacy",
+      "decision_author_provider": "unknown_legacy",
+      "execution_profile": "unknown_legacy",
+      "n_forecasts": 7,
+      "n_resolved_forecasts": 0,
+      "n_reviews": 0,
+      "latest_review_date": null,
+      "thesis_status": null,
+      "review_benchmark_relative_return_pct": null,
+      "directional_hit": null
+    }
+  ],
+  "excluded_provisional": {
+    "n": 7,
+    "runs": [
+      {
+        "run_root": "analyses/DHER_2026-08-12",
+        "ticker": "DHER",
+        "verdict": "Material issues",
+        "banner": true
+      },
+      {
+        "run_root": "analyses/HAIER_2026-08-13",
+        "ticker": "HAIER",
+        "verdict": "Minor issues",
+        "banner": true
+      },
+      {
+        "run_root": "analyses/INDIAMART_2026-08-14",
+        "ticker": "INDIAMART",
+        "verdict": null,
+        "banner": true
+      },
+      {
+        "run_root": "analyses/ORCL_2026-08-14",
+        "ticker": "ORCL",
+        "verdict": "Material issues",
+        "banner": false
+      },
+      {
+        "run_root": "analyses/TSLA_2026-07-25",
+        "ticker": "TSLA",
+        "verdict": "Minor issues",
+        "banner": true
+      },
+      {
+        "run_root": "analyses/UBER_2026-08-06",
+        "ticker": "UBER",
+        "verdict": "Material issues",
+        "banner": true
+      },
+      {
+        "run_root": "analyses/UBER_2026-08-09",
+        "ticker": "UBER",
+        "verdict": "Material issues",
+        "banner": true
+      }
+    ],
+    "reason": "verify-evidence found the run's citations/math/anchors NOT Clean/Minor, or the /research:full finish-gate stamped final_thesis.md PROVISIONAL — excluded from every skill-scoring number below (Brier, hit rate, cohort returns, e-value, months-to-significance) so an unverified run's outcome cannot inflate or deflate the engine's own calibration read; still counted in `inventory` (CLAUDE.md §11)."
+  },
+  "basket_distribution": {
+    "Watchlist": 11,
+    "Rejected": 3,
+    "Short": 1
+  },
+  "cohort_returns": {
+    "Rejected": "insufficient (N=1; floor 5)",
+    "Watchlist": "insufficient (N=4; floor 5)"
+  },
+  "hit_rate": null,
+  "hit_rate_ci95": null,
+  "selected_minus_rejected_pct": null,
+  "selected_minus_rejected_window": null,
+  "calibration": "insufficient resolved forecasts (N=3; floor 10) — Brier/reliability withheld",
+  "calibration_by_module": {},
+  "calibration_by_forecast_type": {},
+  "calibration_by_thesis_type": {},
+  "calibration_by_provider": {
+    "unknown_legacy": {
+      "forecast_author_calibration": {
+        "status": "insufficient",
+        "n": 3,
+        "n_tickers": 2,
+        "floor": {
+          "n": 10,
+          "distinct_tickers": 5
+        },
+        "brier": null,
+        "murphy": null,
+        "reliability_bands": null
+      },
+      "pipeline_directional": {
+        "status": "insufficient",
+        "n": 1,
+        "n_tickers": 1,
+        "k_hits": 1,
+        "floor": {
+          "n": 10
+        },
+        "hit_rate": null,
+        "hit_rate_ci95": null
+      },
+      "pipeline_returns_by_horizon": {
+        "Rejected": {
+          "30d": {
+            "status": "insufficient",
+            "n": 1,
+            "n_tickers": 1,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "mean_benchmark_relative_pct": null
+          }
+        },
+        "Watchlist": {
+          "30d": {
+            "status": "insufficient",
+            "n": 4,
+            "n_tickers": 4,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "mean_benchmark_relative_pct": null
+          }
+        }
+      },
+      "error_taxonomy_distribution": {
+        "bad base rate": 2,
+        "bad causal inference": 2,
+        "catalyst delay": 1,
+        "false negative": 2,
+        "timing error": 1,
+        "valuation multiple error": 2
+      },
+      "attribution_policy": "Forecast/Brier rows follow decision_author; directional and basket rows follow the whole-pipeline execution cohort. Mixed/partial/legacy cohorts are never reassigned."
+    }
+  },
+  "calibration_by_execution_profile": {
+    "unknown_legacy": {
+      "forecast_author_calibration": {
+        "status": "insufficient",
+        "n": 3,
+        "n_tickers": 2,
+        "floor": {
+          "n": 10,
+          "distinct_tickers": 5
+        },
+        "brier": null,
+        "murphy": null,
+        "reliability_bands": null
+      },
+      "pipeline_directional": {
+        "status": "insufficient",
+        "n": 1,
+        "n_tickers": 1,
+        "k_hits": 1,
+        "floor": {
+          "n": 10
+        },
+        "hit_rate": null,
+        "hit_rate_ci95": null
+      },
+      "pipeline_returns_by_horizon": {
+        "Rejected": {
+          "30d": {
+            "status": "insufficient",
+            "n": 1,
+            "n_tickers": 1,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "mean_benchmark_relative_pct": null
+          }
+        },
+        "Watchlist": {
+          "30d": {
+            "status": "insufficient",
+            "n": 4,
+            "n_tickers": 4,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "mean_benchmark_relative_pct": null
+          }
+        }
+      },
+      "error_taxonomy_distribution": {
+        "bad base rate": 2,
+        "bad causal inference": 2,
+        "catalyst delay": 1,
+        "false negative": 2,
+        "timing error": 1,
+        "valuation multiple error": 2
+      },
+      "attribution_policy": "Forecast/Brier rows follow decision_author; directional and basket rows follow the whole-pipeline execution cohort. Mixed/partial/legacy cohorts are never reassigned."
+    }
+  },
+  "provider_comparison": {
+    "status": "withheld",
+    "policy": "No blended provider hit rate. Each recorded cohort is reported separately. A metric is comparable only when Claude and Codex independently clear that metric's existing floor at a matched horizon. No automated superiority ranking or confidence haircut is produced.",
+    "forecast_calibration": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "n_tickers": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "n_tickers": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "directional_hit_rate": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "n_tickers": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "n_tickers": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "matched_basket_horizons_ready": [],
+    "excluded_from_recorded_head_to_head": [
+      "unknown_legacy"
+    ],
+    "ranking": null,
+    "reason": "Claude and Codex have not both independently cleared any applicable metric floor; provider ranking and provider-specific confidence haircuts are refused."
+  },
+  "operational_aggregate_label": "Global production-system aggregate across all execution cohorts. It preserves historical continuity but cannot establish that Claude or Codex is calibrated or better.",
+  "reliability_bands": null,
+  "sequential_test": {
+    "metric": "benchmark-adjusted directional hit rate vs p0=0.5 (coin-flip on beating the benchmark)",
+    "k_hits": 1,
+    "n": 1,
+    "n_distinct_tickers": 1,
+    "e_value": 1.5,
+    "skill_threshold": 20.0,
+    "skill_declared": false,
+    "anytime_valid": true,
+    "note": "e-value below 1/α, and/or below the N floor, and/or fewer than 10 distinct names — no skill claim (correct at this sample)."
+  },
+  "effective_sample": {
+    "n_raw": 4,
+    "n_clusters": 3,
+    "effective_n": 3,
+    "mean_cluster_size": 1.333,
+    "note": "effective_n = distinct tickers (a ticker's forecasts across runs are one correlated cluster, not independent bets). ADVISORY: the hit-rate CI and e-value below use the raw N, so when a ticker recurs (n_raw > n_clusters) read their significance as slightly optimistic — the honest independent-bet count is effective_n."
+  },
+  "market_feed": {
+    "available": false,
+    "providers": [],
+    "as_of": null,
+    "returns_used": "review-time benchmark-relative (each review's own benchmark_relative_return_pct)",
+    "return_basis": "no market feed — hits use the review-time benchmark-relative return each review already computed; a beta-adjusted excess is not recomputed (EXTERNAL_DATA §7A)"
+  },
+  "months_to_significance": {
+    "projectable": false,
+    "n": 1,
+    "min_n_to_project": 5,
+    "reason": "only 1 resolved directional bet(s) — too few to estimate a reliable hit rate or arrival rate (a 100% or 0% rate on a handful of bets is noise, not a trend). Not projectable until N≥5."
+  },
+  "process_metrics": {
+    "n_decisions": 15,
+    "basket_distribution": {
+      "Watchlist": 11,
+      "Rejected": 3,
+      "Short": 1
+    },
+    "avg_confidence_score": 45.33,
+    "avg_data_sufficiency_score": 75
+  },
+  "error_taxonomy_distribution": {
+    "bad base rate": 2,
+    "valuation multiple error": 2,
+    "bad causal inference": 2,
+    "false negative": 2,
+    "timing error": 1,
+    "catalyst delay": 1
+  },
+  "pre_mortem_calibration": {
+    "outcome_distribution": {
+      "not_applicable": 3,
+      "too_early": 3,
+      "vindicated": 0,
+      "contradicted": 2,
+      "partial": 0
+    },
+    "contradicted_breakdown": {
+      "false_comfort": 2,
+      "excess_caution": 0
+    },
+    "false_comfort_cases": [
+      {
+        "ticker": "BG",
+        "run": "2026-06-01",
+        "window": "ad-hoc"
+      },
+      {
+        "ticker": "TSLA",
+        "run": "2026-07-25",
+        "window": "30d"
+      }
+    ]
+  },
+  "honesty_statement": "No skill verdict is possible yet: 1 directional and 3 forecast resolutions, both below floor. This is expected for a young ledger — the honest state is 'not yet knowable', and every skill metric (hit rate, Brier, basket spread) is withheld rather than estimated (CLAUDE.md §1/§11).",
+  "data_sufficiency_note": "N=15 decisions; 11 reviews filed; 3 forecasts resolved; 1 directional calls resolved. Floors: Brier ≥10 resolved, cohort ≥5/basket, hit rate ≥10 directional. Anything below its floor is withheld, not estimated (CLAUDE.md §11). 7 run(s) excluded from the above as truth-integrity 'provisional' (unverified or flagged) — see excluded_provisional; an 'unaudited' run (verify-evidence never ran) is NOT excluded.",
+  "verdict": "Pre-data — 15 decisions, 11 reviews, 3 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.",
+  "integrity_blind_cohort_returns": {
+    "Rejected": "insufficient (N=1; floor 5)",
+    "Short": "insufficient (N=1; floor 5)",
+    "Watchlist": "insufficient (N=4; floor 5)"
+  },
+  "integrity_blind_hit_rate": {
+    "n_directional_calls_resolved": 2,
+    "n_provisional_excluded_from_gated": 1,
+    "hit_rate": null,
+    "hit_rate_ci95": null,
+    "divergence_pp": null,
+    "note": "All-published-calls comparator (provisional runs INCLUDED). Guards against look-ahead survivorship in the gated hit rate above: a run flagged provisional by an audit run AFTER its outcome is observed is dropped from the gated number but kept here. If hit_rate below differs from the gated hit_rate, confirm every exclusion was established BEFORE the call's first scored outcome (CLAUDE.md §1)."
+  },
+  "integrity_blind_calibration": {
+    "n": 3,
+    "n_provisional_excluded_from_gated": 0,
+    "brier": null,
+    "divergence": null,
+    "calibration_by_module": {},
+    "calibration_by_forecast_type": {},
+    "calibration_by_thesis_type": {},
+    "note": "All-published-calls comparator (provisional runs INCLUDED). Guards against look-ahead survivorship in the gated Brier score / slices above: a run flagged provisional by an audit run AFTER its forecast outcomes are observed is dropped from the gated calibration but kept here. If brier below differs from `calibration.brier`, confirm every exclusion was established BEFORE the forecast's first scored outcome (CLAUDE.md §1)."
+  },
+  "legacy_provider_sensitivity": {
+    "legacy_inferred_claude": 0,
+    "unknown_legacy": 14,
+    "policy": "legacy_inferred_claude requires a separately verified pre_rollout_cockpit_history proof. Age or missing provenance alone remains unknown_legacy. Both cohorts are sensitivity-only and excluded from recorded Claude-versus-Codex comparisons."
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema": "corrections/v1",
+  "metadata_recovery": {
+    "reason": "Append-only recovery of the exact runtime identity and conservative effective confidence omitted when this targeted correction was published. The frozen decision_record.json is unchanged.",
+    "evidence": "Codex rollout transcript 01a023aa-2348-7120-9710-d999462b3e47, exact nested attempt 01a05e44-5728-7c00-9710-6f570eabfd10, started 2026-09-01T18:38:52.220Z.",
+    "post_review_confidence_score": 47,
+    "confidence_haircut": 6,
+    "execution_provenance": {
+      "cli_versions": {
+        "codex": "codex-cli 0.151.0-alpha.7.2"
+      },
+      "contributors": [
+        {
+          "attribution": "configured",
+          "model": "gpt-5.6-sol",
+          "provider": "codex",
+          "reasoning_level": "max",
+          "scopes": [
+            "memo",
+            "memo-writer"
+          ]
+        },
+        {
+          "attribution": "recorded",
+          "model": "gpt-5.6-sol",
+          "provider": "codex",
+          "reasoning_level": "max",
+          "scopes": [
+            "master",
+            "rerun",
+            "research",
+            "synthesizer"
+          ]
+        },
+        {
+          "attribution": "configured",
+          "model": "gpt-5.6-terra",
+          "provider": "codex",
+          "reasoning_level": "xhigh",
+          "scopes": [
+            "specialists"
+          ]
+        }
+      ],
+      "coverage": "cockpit_top_level_processes",
+      "decision_author": {
+        "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10",
+        "attribution": "recorded",
+        "model": "gpt-5.6-sol",
+        "provider": "codex",
+        "reasoning_level": "max"
+      },
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "provider_mode": "partially_observed",
+      "schema_version": "1.0",
+      "source": "cockpit_runtime"
+    },
+    "runtime_evidence": {
+      "schema_version": "1.0",
+      "source": "codex_task_runtime",
+      "epoch_id": "01a05e00-55a1-7531-85c3-778d7331dc20",
+      "attempts": [
+        {
+          "schema_version": "1.0",
+          "event": "attempt_started",
+          "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10",
+          "provider": "codex",
+          "model": "gpt-5.6-sol",
+          "reasoning_level": "max",
+          "attribution": "recorded",
+          "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+          "cli_version": "codex-cli 0.151.0-alpha.7.2",
+          "scope": [
+            "research",
+            "rerun",
+            "master",
+            "synthesizer"
+          ],
+          "role": "terminal_adjudicator",
+          "decision_author": true,
+          "decision_artifacts": [
+            "decision_record.json"
+          ],
+          "decision_artifacts_optional": false,
+          "started_at": "2026-09-01T18:38:52.220Z",
+          "prior_unobserved": true
+        },
+        {
+          "schema_version": "1.0",
+          "event": "attempt_started",
+          "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10",
+          "provider": "codex",
+          "model": "gpt-5.6-terra",
+          "reasoning_level": "xhigh",
+          "attribution": "configured",
+          "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+          "cli_version": "codex-cli 0.151.0-alpha.7.2",
+          "scope": [
+            "specialists"
+          ],
+          "role": "specialist",
+          "decision_author": false,
+          "decision_artifacts": [],
+          "decision_artifacts_optional": false,
+          "started_at": "2026-09-01T18:38:52.220Z",
+          "prior_unobserved": true
+        },
+        {
+          "schema_version": "1.0",
+          "event": "attempt_started",
+          "attempt_id": "01a05e44-5728-7c00-9710-6f570eabfd10",
+          "provider": "codex",
+          "model": "gpt-5.6-sol",
+          "reasoning_level": "max",
+          "attribution": "configured",
+          "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+          "cli_version": "codex-cli 0.151.0-alpha.7.2",
+          "scope": [
+            "memo",
+            "memo-writer"
+          ],
+          "role": "memo",
+          "decision_author": false,
+          "decision_artifacts": [],
+          "decision_artifacts_optional": false,
+          "started_at": "2026-09-01T18:38:52.220Z",
+          "prior_unobserved": true
+        }
+      ],
+      "written_at": "2026-09-01T19:43:52.000Z"
+    }
+  },
+  "errata": []
+}
