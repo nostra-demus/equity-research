@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-09-04T13:33:16Z",
+  "generated_at": "2026-09-04T13:46:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-640",
+      "headline": "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402335.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T13:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Viva Goods is acquiring shares of Li Ning Company Limited in a major transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viva Goods is acquiring shares of Li Ning Company Limited in a major transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viva Goods",
+          "ticker": "00933",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Li Ning Company Limited",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-639",
+      "headline": "SVP GLOBAL TEXTILES LIMITED: SVP GLOBAL TEXTILES LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SVPGLOB_04092026184424_Disclosure_Under_Regulation_30_svpg.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T13:15:42Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "SVP Global Textiles Limited has entered into a Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SVP Global Textiles Limited has entered into a Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SVP Global Textiles Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-615",
       "headline": "JIA YAO HLDGS (01626): TERMINATION OF DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 80% OF THE ISSUED SHARES OF THE TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER THE GENERAL MANDATE",
@@ -636,6 +739,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-647",
+      "headline": "Lilly looks beyond obesity with $2.88B autoimmune buyout",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/eli-lilly-lly-merida-biosciences-2-88-billion-acquisition",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T13:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring a company for $2.88 billion to expand its autoimmune portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring a company for $2.88 billion to expand its autoimmune portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1836,164 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-483",
-      "headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T03:46:27Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Tata Chemicals faces a potential operational shutdown in Kenya following reports of a presidential directive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Chemicals faces a potential operational shutdown in Kenya following reports of a presidential directive.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-284",
-      "headline": "Crusoe Signs Roughly $13 Billion AI Cloud Deal With Jane Street",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/crusoe-signs-roughly-13-billion-ai-cloud-deal-with-jane-street-12000179#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T02:34:25Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Crusoe Energy signed a $13 billion AI cloud deal, representing a major commercial contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crusoe Energy signed a $13 billion AI cloud deal, representing a major commercial contract.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crusoe Energy",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Jane Street",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-280",
-      "headline": "Why is Jensen Huang-led Nvidia acquiring AI platform Hugging Face for $12.9 billion? Here's what we know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/why-is-jensen-huang-led-nvidia-acquiring-ai-platform-hugging-face-for-12-9-billion-heres-what-we-know-11788488318681.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T02:27:06Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $12.9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $12.9 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130576,9 +130570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1090222,
-    "news_picked_today": 1674,
-    "news_dropped_today": 11142
+    "news_seen_today": 1114298,
+    "news_picked_today": 1686,
+    "news_dropped_today": 11178
   },
   "book_momentum": {
     "live_count": 8,
