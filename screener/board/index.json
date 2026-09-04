@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T12:49:01Z",
+  "generated_at": "2026-09-04T13:01:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-615",
@@ -636,6 +636,110 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-629",
+      "headline": "Lululemon stock plunges 20% on disappointing earnings and outlook",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/03/lululemon-lulu-q2-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T12:39:17Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Lululemon stock plunged 20% following disappointing earnings and outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon stock plunged 20% following disappointing earnings and outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-630",
+      "headline": "EQT to Buy Insurance Broker McGill in $2 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/investing/eqt-to-buy-insurance-broker-mcgill-in-2-billion-deal-439b3cb8?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T12:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "EQT to acquire insurance broker McGill in a $2 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT to acquire insurance broker McGill in a $2 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "McGill",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,104 +1991,6 @@
           "name": "Rheinmetall",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-263",
-      "headline": "Volkswagen plans another 50,000 job cuts in biggest restructuring in 90 years",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/volkswagen-plans-another-50000-job-cuts-in-biggest-restructuring-in-90-years/articleshow/133749317.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T01:47:22Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen plans 50,000 job cuts as part of a major restructuring effort, signaling significant operational challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen plans 50,000 job cuts as part of a major restructuring effort, signaling significant operational challenges.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-222",
-      "headline": "Volkswagen board approves 50,000 additional job cuts, on top of 50,000 already under way",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/volkswagen-says-board-approves-overhaul-that-calls-for-50-000-additional-job-cuts-11788483540994.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T01:08:01Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen's board approved 50,000 additional job cuts, on top of 50,000 already underway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen's board approved 50,000 additional job cuts, on top of 50,000 already underway.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -130570,9 +130576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 981215,
-    "news_picked_today": 1618,
-    "news_dropped_today": 10694
+    "news_seen_today": 1004523,
+    "news_picked_today": 1651,
+    "news_dropped_today": 10877
   },
   "book_momentum": {
     "live_count": 8,
