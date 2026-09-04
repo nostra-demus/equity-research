@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T06:57:34Z",
+  "generated_at": "2026-09-04T07:08:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-502",
@@ -199,6 +199,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-522",
+      "headline": "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/kenya-orders-tata-chemicals-to-stop-operations-after-president-ruto-accuses-company-of-failing-to-benefit-country",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T06:21:47Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The Kenyan government has ordered Tata Chemicals to cease operations, creating a significant operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Kenyan government has ordered Tata Chemicals to cease operations, creating a significant operational and regulatory risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-505",
       "headline": "Tata Motors gets Italy market regulator nod for Iveco takeover offer",
       "headline_en": null,
@@ -248,6 +298,57 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-528",
+      "headline": "Volkswagen Unveils Future Plan 2030; Targets 50,000 Job Cuts, 9% Margin, 3-figure Bln Investment",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/volkswagen-unveils-future-plan-2030-targets-50000-job-cuts-9-margin-3-figure-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T04:52:58Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen announced a major restructuring plan including 50,000 job cuts, a 9% margin target, and a 3-figure billion investment plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen announced a major restructuring plan including 50,000 job cuts, a 9% margin target, and a 3-figure billion investment plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "capex",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,109 +1969,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-423",
-      "headline": "Tyson Foods reduz novamente previsão de lucro anual com pressão de margens na carne bovina",
-      "headline_en": "Tyson Foods cuts annual profit forecast again with margin pressure in beef",
-      "url": "https://www.reuters.com/pt/agricultura/UX2F32Y4FJNJ7BW7SVLV3KX7QQ-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T13:56:10Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Tyson Foods has cut its annual profit guidance again due to margin pressure in its beef segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tyson Foods has cut its annual profit guidance again due to margin pressure in its beef segment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tyson Foods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-426",
-      "headline": "Nvidia Buying AI Platform Hugging Face For $12.9 Billion",
-      "headline_en": null,
-      "url": "https://www.investors.com/news/technology/nvidia-stock-hugging-face-acquisition/?src=A00220&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T13:47:16Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Nvidia is reportedly acquiring Hugging Face for $12.9 billion, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly acquiring Hugging Face for $12.9 billion, a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
           "ticker": null,
           "listing_country": "US"
         }
@@ -97747,76 +97745,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e9771f3b5e9d",
-      "idea_version": "IDEAV-738aef1efe70a8aa",
-      "idea_version_started_at": "2026-09-03T03:15:28Z",
-      "ticker": "VRNS",
-      "company": "Varonis Systems",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Varonis is in acquisition talks with Thoma Bravo-owned Proofpoint, which typically results in a significant takeover premium for the target.",
-      "why_now": "News of the talks broke on September 02, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9349a5435c46"
-      ],
-      "primary_source_event_id": "EVT-9349a5435c46",
-      "source_headlines": [
-        "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis"
-      ],
-      "source_headline": "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis",
-      "source_url": "https://www.wsj.com/business/thoma-bravo-owned-proofpoint-in-talks-to-buy-cybersecurity-firm-varonis-a44f83d9?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T19:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T03:15:28Z",
-      "updated_at": "2026-09-03T03:15:28Z",
-      "decay_at": "2026-09-04T07:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b8c5c42edd6e0fc4",
       "idea_version_started_at": "2026-09-04T05:44:07Z",
@@ -98891,6 +98819,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-e9771f3b5e9d",
+      "idea_version": "IDEAV-738aef1efe70a8aa",
+      "idea_version_started_at": "2026-09-03T03:15:28Z",
+      "ticker": "VRNS",
+      "company": "Varonis Systems",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Varonis is in acquisition talks with Thoma Bravo-owned Proofpoint, which typically results in a significant takeover premium for the target.",
+      "why_now": "News of the talks broke on September 02, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9349a5435c46"
+      ],
+      "primary_source_event_id": "EVT-9349a5435c46",
+      "source_headlines": [
+        "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis"
+      ],
+      "source_headline": "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis",
+      "source_url": "https://www.wsj.com/business/thoma-bravo-owned-proofpoint-in-talks-to-buy-cybersecurity-firm-varonis-a44f83d9?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T19:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T03:15:28Z",
+      "updated_at": "2026-09-03T03:15:28Z",
+      "decay_at": "2026-09-04T07:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-9e6f981a14d6",
@@ -100325,13 +100323,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 391,
-    "shown_count": 391,
+    "total_count": 392,
+    "shown_count": 392,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 200,
-        "shown_count": 200,
+        "total_count": 201,
+        "shown_count": 201,
         "hidden_count": 0
       },
       "short": {
@@ -100356,6 +100354,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e9771f3b5e9d",
+        "idea_version": "IDEAV-738aef1efe70a8aa",
+        "idea_version_started_at": "2026-09-03T03:15:28Z",
+        "ticker": "VRNS",
+        "company": "Varonis Systems",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Varonis is in acquisition talks with Thoma Bravo-owned Proofpoint, which typically results in a significant takeover premium for the target.",
+        "why_now": "News of the talks broke on September 02, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9349a5435c46"
+        ],
+        "primary_source_event_id": "EVT-9349a5435c46",
+        "source_headlines": [
+          "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis"
+        ],
+        "source_headline": "Thoma Bravo-Owned Proofpoint in Talks to Buy Cybersecurity Firm Varonis",
+        "source_url": "https://www.wsj.com/business/thoma-bravo-owned-proofpoint-in-talks-to-buy-cybersecurity-firm-varonis-a44f83d9?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T19:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T03:15:28Z",
+        "updated_at": "2026-09-03T03:15:28Z",
+        "decay_at": "2026-09-04T07:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T07:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-81d3dc45be77",
         "idea_version": "IDEAV-7029e49b024b004a",
@@ -129369,7 +129440,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 426,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -129388,9 +129459,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 235998,
-    "news_picked_today": 1196,
-    "news_dropped_today": 5356
+    "news_seen_today": 253977,
+    "news_picked_today": 1310,
+    "news_dropped_today": 6106
   },
   "book_momentum": {
     "live_count": 8,
