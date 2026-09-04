@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T18:44:41Z",
+  "generated_at": "2026-09-04T18:49:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -1193,6 +1193,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-739",
+      "headline": "US Sanctions Turkish Bank Over Iran Links, Warns More Banks Could Follow",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/us-sanctions-turkish-bank-over-iran-links-warns-more-banks-could-follow-12003676#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T17:07:26Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "US sanctions on a Turkish bank over Iran links represent a major regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US sanctions on a Turkish bank over Iran links represent a major regulatory enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turkish Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-732",
       "headline": "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face",
       "headline_en": null,
@@ -1944,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-656",
-      "headline": "Lululemon Sinks 20% After Second Guidance Cut: Michael Burry Calls It a Fat Pitch Below $100",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/04/lululemon-sinks-20-after-second-guidance-cut-michael-burry-calls-it-a-fat-pitch-below-100/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:13:14Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Second guidance cut is a major negative event for valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Second guidance cut is a major negative event for valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130434,9 +130435,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2073320,
-    "news_picked_today": 1933,
-    "news_dropped_today": 13643
+    "news_seen_today": 2094007,
+    "news_picked_today": 1941,
+    "news_dropped_today": 13683
   },
   "book_momentum": {
     "live_count": 8,
