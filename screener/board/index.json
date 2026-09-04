@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T08:28:40Z",
+  "generated_at": "2026-09-04T08:41:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-502",
@@ -150,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-545",
+      "headline": "Volkswagen ups job cuts to 100,000 by 2030 as part of sweeping cost-saving overhaul",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16104637/Volkswagen-approves-50-000-job-cuts-2030-sweeping-overhaul.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T08:04:31Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen is increasing planned job cuts to 100,000 by 2030 as part of a major cost-saving overhaul.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is increasing planned job cuts to 100,000 by 2030 as part of a major cost-saving overhaul.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-539",
       "headline": "Volkswagen Board Approves Doubling Job Cuts to 100,000 in Surprise Move",
       "headline_en": null,
@@ -175,6 +224,104 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-556",
+      "headline": "Caixabank's BPI leaves Angola market with BFA stake sale for €388.5 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/africa/caixabanks-bpi-leaves-angola-market-with-bfa-stake-sale-3885-million-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T07:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "CaixaBank's BPI unit exits Angola market via a €388.5 million stake sale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CaixaBank's BPI unit exits Angola market via a €388.5 million stake sale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CaixaBank",
+          "ticker": null,
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-554",
+      "headline": "VW CEO secures labour backing for plan to cut 50 000 more jobs",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/vw-approves-plan-to-cut-50-000-more-jobs-in-broad-overhaul/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T07:00:59Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen CEO plans to cut 50,000 jobs, a major restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen CEO plans to cut 50,000 jobs, a major restructuring event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1824,153 +1971,6 @@
           "name": "General Electric Company",
           "ticker": "GE",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-374",
-      "headline": "Nscale Backs Robot Firm Figure Alongside $3.5 Billion Cloud Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-03/nscale-backs-robot-firm-figure-alongside-3-5-billion-cloud-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:36:24Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Figure AI secured a $3.5 billion cloud deal, indicating significant capital investment and growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Figure AI secured a $3.5 billion cloud deal, indicating significant capital investment and growth.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Figure AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-390",
-      "headline": "Diversified strikes $1.8bn deal for Permian operator Birch",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/diversified-strikes-1-8bn-deal-143137617.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:31:37Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Diversified Energy announced a $1.8 billion acquisition of Permian operator Birch.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Diversified Energy announced a $1.8 billion acquisition of Permian operator Birch.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diversified Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-403",
-      "headline": "Aditya Birla Group enters wires & cables market with ₹1,800 crore Ultravolt bet",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/aditya-birla-group-enters-wires-cables-market-with-rs-1800-crore-ultravolt-bet-19983604.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:06:35Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Aditya Birla Group is entering a new market with a significant ₹1,800 crore capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aditya Birla Group is entering a new market with a significant ₹1,800 crore capital investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -97395,148 +97395,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3b067fdb7522",
-      "idea_version": "IDEAV-409221f160d2720a",
-      "idea_version_started_at": "2026-09-03T05:43:47Z",
-      "ticker": "AVGO",
-      "company": "Broadcom Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Broadcom guided next-quarter revenue below consensus despite beating current estimates, signaling AI-driven demand may be decelerating.",
-      "why_now": "Guidance issued on 2026-09-02; stock already down ~5% on the print, but full re-rating of AI growth durability may be incomplete.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ffff179cbe4",
-        "EVT-bc4771ecc695"
-      ],
-      "primary_source_event_id": "EVT-3ffff179cbe4",
-      "source_headlines": [
-        "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
-        "Broadcom forecasts quarterly revenue below estimates"
-      ],
-      "source_headline": "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
-      "source_url": "https://www.cnbc.com/2026/09/02/broadcom-avgo-q3-earnings-report-2026.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T20:30:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T05:43:47Z",
-      "updated_at": "2026-09-03T05:43:47Z",
-      "decay_at": "2026-09-04T08:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-db95bbb0a6ee",
-      "idea_version": "IDEAV-1ccb414f792d4338",
-      "idea_version_started_at": "2026-09-03T05:43:47Z",
-      "ticker": "SNOW",
-      "company": "Snowflake Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Snowflake raised its annual product revenue forecast, indicating accelerating consumption and net revenue retention in its data cloud platform.",
-      "why_now": "Guidance raise announced 2026-09-02; shares jumped ~22% on the news, but upward estimate revisions may sustain momentum.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1dce63f3c349",
-        "EVT-51acbab64dbc"
-      ],
-      "primary_source_event_id": "EVT-1dce63f3c349",
-      "source_headlines": [
-        "+++ Business Figures +++: Snowflake raises revenue forecast – stock jumps by 22 percent",
-        "Snowflake lifts annual product revenue forecast, shares soar"
-      ],
-      "source_headline": "+++ Geschäftszahlen +++: Snowflake hebt Umsatzprognose an – Aktie springt um 22 Prozent",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-snowflake-hebt-umsatzprognose-an-aktie-springt-um-22-prozent/24098412.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T20:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T05:43:47Z",
-      "updated_at": "2026-09-03T05:43:47Z",
-      "decay_at": "2026-09-04T08:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b8c5c42edd6e0fc4",
       "idea_version_started_at": "2026-09-04T05:44:07Z",
@@ -98682,6 +98540,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3b067fdb7522",
+      "idea_version": "IDEAV-409221f160d2720a",
+      "idea_version_started_at": "2026-09-03T05:43:47Z",
+      "ticker": "AVGO",
+      "company": "Broadcom Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Broadcom guided next-quarter revenue below consensus despite beating current estimates, signaling AI-driven demand may be decelerating.",
+      "why_now": "Guidance issued on 2026-09-02; stock already down ~5% on the print, but full re-rating of AI growth durability may be incomplete.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3ffff179cbe4",
+        "EVT-bc4771ecc695"
+      ],
+      "primary_source_event_id": "EVT-3ffff179cbe4",
+      "source_headlines": [
+        "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+        "Broadcom forecasts quarterly revenue below estimates"
+      ],
+      "source_headline": "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+      "source_url": "https://www.cnbc.com/2026/09/02/broadcom-avgo-q3-earnings-report-2026.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T20:30:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T05:43:47Z",
+      "updated_at": "2026-09-03T05:43:47Z",
+      "decay_at": "2026-09-04T08:30:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-79aa01dc2cf9",
       "idea_version": "IDEAV-f450867fa845702c",
       "idea_version_started_at": "2026-09-03T05:43:47Z",
@@ -98745,6 +98674,77 @@
       "surfaced_at": "2026-09-03T05:43:47Z",
       "updated_at": "2026-09-03T05:43:47Z",
       "decay_at": "2026-09-04T08:23:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-db95bbb0a6ee",
+      "idea_version": "IDEAV-1ccb414f792d4338",
+      "idea_version_started_at": "2026-09-03T05:43:47Z",
+      "ticker": "SNOW",
+      "company": "Snowflake Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Snowflake raised its annual product revenue forecast, indicating accelerating consumption and net revenue retention in its data cloud platform.",
+      "why_now": "Guidance raise announced 2026-09-02; shares jumped ~22% on the news, but upward estimate revisions may sustain momentum.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1dce63f3c349",
+        "EVT-51acbab64dbc"
+      ],
+      "primary_source_event_id": "EVT-1dce63f3c349",
+      "source_headlines": [
+        "+++ Business Figures +++: Snowflake raises revenue forecast – stock jumps by 22 percent",
+        "Snowflake lifts annual product revenue forecast, shares soar"
+      ],
+      "source_headline": "+++ Geschäftszahlen +++: Snowflake hebt Umsatzprognose an – Aktie springt um 22 Prozent",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-snowflake-hebt-umsatzprognose-an-aktie-springt-um-22-prozent/24098412.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T20:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T05:43:47Z",
+      "updated_at": "2026-09-03T05:43:47Z",
+      "decay_at": "2026-09-04T08:32:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100323,18 +100323,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 395,
-    "shown_count": 395,
+    "total_count": 397,
+    "shown_count": 397,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 202,
-        "shown_count": 202,
+        "total_count": 203,
+        "shown_count": 203,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 193,
-        "shown_count": 193,
+        "total_count": 194,
+        "shown_count": 194,
         "hidden_count": 0
       }
     },
@@ -100354,6 +100354,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-db95bbb0a6ee",
+        "idea_version": "IDEAV-1ccb414f792d4338",
+        "idea_version_started_at": "2026-09-03T05:43:47Z",
+        "ticker": "SNOW",
+        "company": "Snowflake Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Snowflake raised its annual product revenue forecast, indicating accelerating consumption and net revenue retention in its data cloud platform.",
+        "why_now": "Guidance raise announced 2026-09-02; shares jumped ~22% on the news, but upward estimate revisions may sustain momentum.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1dce63f3c349",
+          "EVT-51acbab64dbc"
+        ],
+        "primary_source_event_id": "EVT-1dce63f3c349",
+        "source_headlines": [
+          "+++ Business Figures +++: Snowflake raises revenue forecast – stock jumps by 22 percent",
+          "Snowflake lifts annual product revenue forecast, shares soar"
+        ],
+        "source_headline": "+++ Geschäftszahlen +++: Snowflake hebt Umsatzprognose an – Aktie springt um 22 Prozent",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-snowflake-hebt-umsatzprognose-an-aktie-springt-um-22-prozent/24098412.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T20:32:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T05:43:47Z",
+        "updated_at": "2026-09-03T05:43:47Z",
+        "decay_at": "2026-09-04T08:32:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T08:32:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3b067fdb7522",
+        "idea_version": "IDEAV-409221f160d2720a",
+        "idea_version_started_at": "2026-09-03T05:43:47Z",
+        "ticker": "AVGO",
+        "company": "Broadcom Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Broadcom guided next-quarter revenue below consensus despite beating current estimates, signaling AI-driven demand may be decelerating.",
+        "why_now": "Guidance issued on 2026-09-02; stock already down ~5% on the print, but full re-rating of AI growth durability may be incomplete.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3ffff179cbe4",
+          "EVT-bc4771ecc695"
+        ],
+        "primary_source_event_id": "EVT-3ffff179cbe4",
+        "source_headlines": [
+          "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+          "Broadcom forecasts quarterly revenue below estimates"
+        ],
+        "source_headline": "Broadcom's stock drops 5% as weak guidance overshadows earnings beat",
+        "source_url": "https://www.cnbc.com/2026/09/02/broadcom-avgo-q3-earnings-report-2026.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T20:30:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T05:43:47Z",
+        "updated_at": "2026-09-03T05:43:47Z",
+        "decay_at": "2026-09-04T08:30:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T08:30:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-79aa01dc2cf9",
         "idea_version": "IDEAV-f450867fa845702c",
@@ -129657,7 +129805,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 426,
-    "live_count": 29,
+    "live_count": 27,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -129676,9 +129824,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 413302,
-    "news_picked_today": 1344,
-    "news_dropped_today": 6744
+    "news_seen_today": 420228,
+    "news_picked_today": 1368,
+    "news_dropped_today": 6960
   },
   "book_momentum": {
     "live_count": 8,
