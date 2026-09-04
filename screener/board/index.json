@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T09:50:42Z",
+  "generated_at": "2026-09-04T09:57:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-570",
@@ -298,6 +298,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-574",
+      "headline": "Lululemon forecast cut hits shares, underscores challenge for next CEO",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/investing/article-lululemon-forecast-cut-hits-shares-underscores-challenge-for-next-ceo/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:32:46Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Company cut its financial forecast, impacting market sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company cut its financial forecast, impacting market sentiment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-569",
       "headline": "Volkswagen's surprise turnaround deal averts showdown as job cuts loom",
       "headline_en": null,
@@ -342,55 +391,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-564",
-      "headline": "Lululemon forecast cut hits shares, underscores challenge for next CEO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/lululemon-forecast-cut-hits-shares-underscores-challenge-next-ceo-2026-09-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T08:37:44Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Lululemon cut its forecast, signaling operational challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lululemon cut its forecast, signaling operational challenges.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130260,9 +130260,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 586703,
-    "news_picked_today": 1431,
-    "news_dropped_today": 8097
+    "news_seen_today": 593758,
+    "news_picked_today": 1437,
+    "news_dropped_today": 8139
   },
   "book_momentum": {
     "live_count": 8,
