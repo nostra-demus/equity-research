@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-09-04T08:51:07Z",
+  "generated_at": "2026-09-04T09:05:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-558",
+      "headline": "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400738.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Bilibili is raising US$700 million via convertible notes and conducting concurrent equity placement and share repurchases.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bilibili is raising US$700 million via convertible notes and conducting concurrent equity placement and share repurchases.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BILIBILI-W",
+          "ticker": "09626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-565",
+      "headline": "Ishaan Infrastructures and Shelters Ltd: Novus Capital Advisors Pvt Ltd (\"Manager to the Offer\") has submitted to BSE a copy of Detailed Public Statement in terms of Regulations 3(1) and 4 read with Regulations 13, 14 and 15(2) ....",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4234D861-DBB6-43D4-92A3-359BA9537D18-135623.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T08:26:41Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The company has issued a detailed public statement regarding an open offer, which is a significant corporate event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has issued a detailed public statement regarding an open offer, which is a significant corporate event for shareholders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ishaan Infrastructures and Shelters Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-502",
       "headline": "Tips Music Ltd: Inga Ventures Pvt Ltd (\"Manager to the Offer\") has submitted to BSE a copy of Public Announcement for the attention of Shareholders of the Equity Shares of the Tips Music Ltd (the Company) ....",
@@ -145,6 +244,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-564",
+      "headline": "Lululemon forecast cut hits shares, underscores challenge for next CEO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/lululemon-forecast-cut-hits-shares-underscores-challenge-next-ceo-2026-09-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T08:37:44Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Lululemon cut its forecast, signaling operational challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon cut its forecast, signaling operational challenges.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1825,155 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-257",
-      "headline": "Kumar Mangalam Birla's UltraTech enters wires, cables business with ₹1,800 crore Ultravolt bet",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/kumar-mangalam-birlas-ultratech-enters-wires-cables-business-with-rs-1-800-crore-ultravolt-bet-11788449157424.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:13:47Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "UltraTech Cement is entering the wires and cables business with a significant ₹1,800 crore investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UltraTech Cement is entering the wires and cables business with a significant ₹1,800 crore investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UltraTech Cement",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-306",
-      "headline": "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/165b-socar-deal-450m-jv-strengthen-crks-financials-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T15:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "CRK has strengthened its financials and growth with a $1.65 billion SOCAR deal and a $450 million joint venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CRK has strengthened its financials and growth with a $1.65 billion SOCAR deal and a $450 million joint venture.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CRK",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-341",
-      "headline": "GE Appliances investing $1B to shift production from Mexico to Kentucky",
-      "headline_en": null,
-      "url": "https://www.manufacturingdive.com/news/ge-appliances-invest-1b-shift-production-mexico-to-kentucky/829467/",
-      "source_name": "Manufacturing Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T15:25:14Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "GE Appliances is investing $1 billion to shift production from Mexico to Kentucky, representing a major capital expenditure and restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Appliances is investing $1 billion to shift production from Mexico to Kentucky, representing a major capital expenditure and restructuring.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "General Electric Company",
-          "ticker": "GE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97185,76 +97184,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-205d9d4ce667",
-      "idea_version": "IDEAV-c3623bf906e10ee5",
-      "idea_version_started_at": "2026-09-03T12:43:04Z",
-      "ticker": "DELL",
-      "company": "Dell Technologies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 16% surge in stock price driven by a significant expansion in its AI-related order backlog, signaling strong demand for its infrastructure products.",
-      "why_now": "The earnings report and backlog disclosure were released on September 2, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ad6da9547238"
-      ],
-      "primary_source_event_id": "EVT-ad6da9547238",
-      "source_headlines": [
-        "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog"
-      ],
-      "source_headline": "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-2-dell-surges-16-soaring-ai-backlog",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T21:03:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T12:43:04Z",
-      "updated_at": "2026-09-03T12:43:04Z",
-      "decay_at": "2026-09-04T09:03:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c9eee60c5cd7",
       "idea_version": "IDEAV-05301fbc96acf169",
       "idea_version_started_at": "2026-09-03T09:41:51Z",
@@ -98543,6 +98472,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-205d9d4ce667",
+      "idea_version": "IDEAV-c3623bf906e10ee5",
+      "idea_version_started_at": "2026-09-03T12:43:04Z",
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 16% surge in stock price driven by a significant expansion in its AI-related order backlog, signaling strong demand for its infrastructure products.",
+      "why_now": "The earnings report and backlog disclosure were released on September 2, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ad6da9547238"
+      ],
+      "primary_source_event_id": "EVT-ad6da9547238",
+      "source_headlines": [
+        "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog"
+      ],
+      "source_headline": "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog",
+      "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-2-dell-surges-16-soaring-ai-backlog",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T21:03:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T12:43:04Z",
+      "updated_at": "2026-09-03T12:43:04Z",
+      "decay_at": "2026-09-04T09:03:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-5d2ea5f1e500",
@@ -100254,13 +100253,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 398,
-    "shown_count": 398,
+    "total_count": 399,
+    "shown_count": 399,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 204,
-        "shown_count": 204,
+        "total_count": 205,
+        "shown_count": 205,
         "hidden_count": 0
       },
       "short": {
@@ -100285,6 +100284,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-205d9d4ce667",
+        "idea_version": "IDEAV-c3623bf906e10ee5",
+        "idea_version_started_at": "2026-09-03T12:43:04Z",
+        "ticker": "DELL",
+        "company": "Dell Technologies",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 16% surge in stock price driven by a significant expansion in its AI-related order backlog, signaling strong demand for its infrastructure products.",
+        "why_now": "The earnings report and backlog disclosure were released on September 2, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ad6da9547238"
+        ],
+        "primary_source_event_id": "EVT-ad6da9547238",
+        "source_headlines": [
+          "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog"
+        ],
+        "source_headline": "Stock Market Today, Sept. 2: Dell Surges 16% on Soaring AI Backlog",
+        "source_url": "https://www.nasdaq.com/articles/stock-market-today-sept-2-dell-surges-16-soaring-ai-backlog",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T21:03:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T12:43:04Z",
+        "updated_at": "2026-09-03T12:43:04Z",
+        "decay_at": "2026-09-04T09:03:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T09:03:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5d2ea5f1e500",
         "idea_version": "IDEAV-f6959fda1cf2dcb8",
@@ -129809,7 +129881,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 428,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -129828,9 +129900,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 427113,
-    "news_picked_today": 1379,
-    "news_dropped_today": 7285
+    "news_seen_today": 485992,
+    "news_picked_today": 1399,
+    "news_dropped_today": 7385
   },
   "book_momentum": {
     "live_count": 8,
