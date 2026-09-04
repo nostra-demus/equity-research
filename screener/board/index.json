@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T16:06:46Z",
+  "generated_at": "2026-09-04T16:11:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-685",
@@ -1088,6 +1088,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-718",
+      "headline": "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/flex-acquires-data-center-power-conversion-manufacturer-epc-power-in-44bn-deal/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:50:27Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Flex is acquiring EPC Power for $4.4 billion to expand its data center power capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Flex is acquiring EPC Power for $4.4 billion to expand its data center power capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flex Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "EPC Power",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-701",
       "headline": "US sanctions Turkish bank, two subsidiaries to pressure Iran",
       "headline_en": null,
@@ -1932,60 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-592",
-      "headline": "Nvidia to buy Hugging Face for $12.93 billion in major bet on open AI models",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/nvidia-to-buy-hugging-face-for-12-93-billion-in-major-bet-on-open-ai-models/?utm_source=rss&utm_medium=rss&utm_campaign=nvidia-to-buy-hugging-face-for-12-93-billion-in-major-bet-on-open-ai-models",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T10:42:31Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Nvidia is reportedly acquiring Hugging Face for $12.93 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is reportedly acquiring Hugging Face for $12.93 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hugging Face",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130141,9 +130141,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1512641,
-    "news_picked_today": 1820,
-    "news_dropped_today": 12292
+    "news_seen_today": 1522042,
+    "news_picked_today": 1837,
+    "news_dropped_today": 12323
   },
   "book_momentum": {
     "live_count": 8,
