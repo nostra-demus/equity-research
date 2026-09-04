@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T09:57:07Z",
+  "generated_at": "2026-09-04T10:00:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-570",
@@ -342,6 +342,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-576",
+      "headline": "Nvidia To Acquire Hugging Face For ₹1.24 Lakh Crore: What Does The AI Company Do?",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/nvidia-to-acquire-hugging-face-for-124-lakh-crore-what-does-the-ai-company-do",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:24:54Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Nvidia is reportedly acquiring Hugging Face for approximately 1.24 lakh crore INR (approx $14.8 billion), a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is reportedly acquiring Hugging Face for approximately 1.24 lakh crore INR (approx $14.8 billion), a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-213",
-      "headline": "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/govt-in-touch-with-spicejet-over-operational-financial-challenges-airline-seeks-funds-under-eclgs-scheme/articleshow/133741584.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:42:31Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "SpiceJet is facing severe operational and financial challenges, seeking emergency government funding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpiceJet is facing severe operational and financial challenges, seeking emergency government funding.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpiceJet",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130260,9 +130265,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 593758,
-    "news_picked_today": 1437,
-    "news_dropped_today": 8139
+    "news_seen_today": 600908,
+    "news_picked_today": 1445,
+    "news_dropped_today": 8155
   },
   "book_momentum": {
     "live_count": 8,
