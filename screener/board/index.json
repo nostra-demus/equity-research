@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-04T12:11:32Z",
+  "generated_at": "2026-09-04T12:26:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-615",
+      "headline": "JIA YAO HLDGS (01626): TERMINATION OF DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 80% OF THE ISSUED SHARES OF THE TARGET COMPANY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER THE GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402139.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Jia Yao Holdings terminated a previously announced acquisition of an 80% stake in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jia Yao Holdings terminated a previously announced acquisition of an 80% stake in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jia Yao Holdings",
+          "ticker": "01626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-589",
       "headline": "MININGLAMP-W (02718): FURTHER ANNOUNCEMENT IN RELATION TO THE ACQUISITION OF 11.33% EQUITY INTEREST IN WUHAN YEYING",
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-171",
-      "headline": "Volkswagen says board approves overhaul that calls for 50,000 additional job cuts",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/volkswagen-says-board-approves-overhaul-that-calls-for-50-000-additional-job-cuts-11788483540994.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T01:08:01Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen announced an additional 50,000 job cuts as part of a major board-approved overhaul.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen announced an additional 50,000 job cuts as part of a major board-approved overhaul.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130421,9 +130421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 889044,
-    "news_picked_today": 1577,
-    "news_dropped_today": 10159
+    "news_seen_today": 928010,
+    "news_picked_today": 1599,
+    "news_dropped_today": 10401
   },
   "book_momentum": {
     "live_count": 8,
