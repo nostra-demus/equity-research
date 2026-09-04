@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-a8ae6a868c8d",
-  "idea_version": "IDEAV-bfc9a96470c4967a",
-  "idea_version_started_at": "2026-08-31T14:38:32Z",
-  "ticker": "01496",
-  "company": "AP RENTALS",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-c59cbad8d027",
+  "idea_version": "IDEAV-0fef423b3424c576",
+  "idea_version_started_at": "2026-09-03T21:54:54Z",
+  "ticker": "CPB",
+  "company": "Campbell Soup Company",
+  "exchange": "NYSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, indicating a significant deterioration in earnings performance for the period.",
-  "why_now": "The filing was released on 2026-08-31, making this a live catalyst for immediate repricing.",
-  "conviction": 75,
+  "reason": "A 13% workforce reduction signals significant operational distress and a lack of organic growth, suggesting deeper underlying margin pressure than previously anticipated.",
+  "why_now": "The restructuring plan was announced on September 03, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 19,
     "specificity": 7,
     "timing": 10,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-c0d916c56ce3"
+    "EVT-014312d6783e"
   ],
-  "primary_source_event_id": "EVT-c0d916c56ce3",
+  "primary_source_event_id": "EVT-014312d6783e",
   "source_headlines": [
-    "AP RENTALS (01496): PROFIT WARNING"
+    "Campbell’s Cuts 13% of Workforce in Effort to Turn Around Struggling Operations"
   ],
-  "source_headline": "AP RENTALS (01496): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100716.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Campbell’s Cuts 13% of Workforce in Effort to Turn Around Struggling Operations",
+  "source_url": "https://www.wsj.com/business/earnings/campbells-looks-to-reset-after-quarterly-loss-60335f2c?siteid=yhoof2&yptr=yahoo",
+  "source_name": "Yahoo Finance",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-31T08:45:00Z",
+  "newest_source_at": "2026-09-03T14:40:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-31T14:38:32Z",
-  "updated_at": "2026-08-31T14:38:32Z",
-  "decay_at": "2026-09-01T20:45:00Z",
+  "surfaced_at": "2026-09-03T18:13:00Z",
+  "updated_at": "2026-09-03T21:54:54Z",
+  "decay_at": "2026-09-05T02:40:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

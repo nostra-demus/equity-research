@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-4ce2da4ef608",
-  "idea_version": "IDEAV-8eaa49d9749138d2",
-  "idea_version_started_at": "2026-08-31T11:51:47Z",
-  "ticker": "00333.HK",
-  "company": "Top Form International",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-f7d451f14843",
+  "idea_version": "IDEAV-3a714f02fd38b381",
+  "idea_version_started_at": "2026-09-03T18:13:00Z",
+  "ticker": "CRST",
+  "company": "Crest Nicholson",
+  "exchange": "LSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a profit warning, signaling negative pressure on margins and bottom-line results.",
-  "why_now": "The warning was filed today, August 31, 2026.",
-  "conviction": 70,
+  "reason": "The company warned of an annual loss due to a subdued property market, indicating significant margin compression and demand headwinds in the UK housing sector.",
+  "why_now": "The warning was issued on September 3, 2026, and reflects immediate operational deterioration.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 19,
     "specificity": 7,
     "timing": 10,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-6c34f8902975"
+    "EVT-4c88d04d884b"
   ],
-  "primary_source_event_id": "EVT-6c34f8902975",
+  "primary_source_event_id": "EVT-4c88d04d884b",
   "source_headlines": [
-    "TOP FORM INT'L (00333): PROFIT WARNING"
+    "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market"
   ],
-  "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
+  "source_url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
+  "source_name": "The Guardian — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-31T09:16:00Z",
+  "newest_source_at": "2026-09-03T10:02:47Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-31T11:51:47Z",
-  "updated_at": "2026-08-31T11:51:47Z",
-  "decay_at": "2026-09-01T21:16:00Z",
+  "surfaced_at": "2026-09-03T14:38:11Z",
+  "updated_at": "2026-09-03T18:13:00Z",
+  "decay_at": "2026-09-04T22:02:47Z",
   "status": "live",
   "promoted_signal_id": null
 }
