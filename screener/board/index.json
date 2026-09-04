@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T03:14:43Z",
+  "generated_at": "2026-09-04T03:44:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-065",
@@ -101,6 +101,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-284",
+      "headline": "Crusoe Signs Roughly $13 Billion AI Cloud Deal With Jane Street",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/crusoe-signs-roughly-13-billion-ai-cloud-deal-with-jane-street-12000179#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T02:34:25Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Crusoe Energy signed a $13 billion AI cloud deal, representing a major commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crusoe Energy signed a $13 billion AI cloud deal, representing a major commercial contract.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crusoe Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Jane Street",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-280",
       "headline": "Why is Jensen Huang-led Nvidia acquiring AI platform Hugging Face for $12.9 billion? Here's what we know",
       "headline_en": null,
@@ -147,6 +201,55 @@
           "name": "Hugging Face",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-300",
+      "headline": "Volkswagen Layoffs: German Car Giant To Cut 50,000 More Jobs — What We Know",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/volkswagen-layoffs-german-car-giant-to-cut-50-000-more-jobs-what-we-know-12000098#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T02:00:14Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen is reportedly planning to cut 50,000 jobs, a significant restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is reportedly planning to cut 50,000 jobs, a significant restructuring event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -1081,6 +1184,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-306",
+      "headline": "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/165b-socar-deal-450m-jv-strengthen-crks-financials-growth",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T15:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "CRK has strengthened its financials and growth with a $1.65 billion SOCAR deal and a $450 million joint venture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CRK has strengthened its financials and growth with a $1.65 billion SOCAR deal and a $450 million joint venture.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CRK",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-341",
+      "headline": "GE Appliances investing $1B to shift production from Mexico to Kentucky",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/ge-appliances-invest-1b-shift-production-mexico-to-kentucky/829467/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T15:25:14Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "GE Appliances is investing $1 billion to shift production from Mexico to Kentucky, representing a major capital expenditure and restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Appliances is investing $1 billion to shift production from Mexico to Kentucky, representing a major capital expenditure and restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Electric Company",
+          "ticker": "GE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-089",
       "headline": "GENSCRIPT BIO (01548): INSIDE INFORMATION: PROPOSED SPIN-OFF AND SEPARATE LISTING OF PROBIO TECHNOLOGY LIMITED",
       "headline_en": null,
@@ -1228,6 +1431,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-283",
+      "headline": "BUB: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BUB?key=2924-03131898-6A1342246",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T02:54:59Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Trading halt pending announcement is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Trading halt pending announcement is a material event for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bubs Australia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-091",
       "headline": "Goenka Group’s Purvah Green Power to acquire Welspun New Energy for ₹2,500 cr",
       "headline_en": null,
@@ -1322,6 +1574,56 @@
         {
           "name": "Sterlite Technologies",
           "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-356",
+      "headline": "‘Are we slaves to others?’: Kenyan President Ruto orders Tata Chemicals to halt operations",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/are-we-slaves-to-others-kenyan-president-ruto-orders-tata-chemicals-to-halt-operations/articleshow/133739920.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T15:13:04Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Kenyan President orders Tata Chemicals to halt operations at its Lake Magadi plant, a sovereign intervention halting a major facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Kenyan President orders Tata Chemicals to halt operations at its Lake Magadi plant, a sovereign intervention halting a major facility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals",
+          "ticker": "TATACHEM",
           "listing_country": "IN"
         }
       ],
@@ -1521,6 +1823,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-299",
+      "headline": "Building Commission flagged issues with Bathla before $3.4b collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/residential/building-commission-flagged-issues-with-bathla-before-3-4b-collapse-20260904-p60uer?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T02:59:52Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The collapse of Bathla Group, involving $3.4 billion in liabilities, represents a significant insolvency event in the Australian property sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The collapse of Bathla Group, involving $3.4 billion in liabilities, represents a significant insolvency event in the Australian property sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-176",
       "headline": "US probes Iran wedding strike that analysis shows was likely direct hit by US munition",
       "headline_en": null,
@@ -1564,178 +1915,30 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260904-184",
-      "headline": "BKB: Change in substantial holding",
+      "inbox_id": "INB-20260904-343",
+      "headline": "UltraTech Cement enters wires and cables business with ₹1,800 crore investment",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BKB?key=2924-03131818-6A1342217",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-04T01:05:13Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Substantial holding (≥5% threshold) change disclosed to ASX; governance and strategic implications depend on holder identity and intent, which are unknown from filing title alone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Substantial holding (≥5% threshold) change disclosed to ASX; governance and strategic implications depend on holder identity and intent, which are unknown from filing title alone.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BKB",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-282",
-      "headline": "Fortress firms over 5% amid jump in SA property valuations and higher guidance",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/fortress-firms-over-5-amid-jump-in-sa-property-valuations-and-higher-guidance/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "url": "https://www.thehindubusinessline.com/companies/ultratech-cement-enters-wires-and-cables-business-with-1800-crore-investment/article71424423.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T02:00:31Z",
+      "found_at": "2026-09-03T15:21:14Z",
       "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Fortress shares rose over 5% following an increase in property valuations and higher guidance.",
+      "prelim_note": "UltraTech Cement's entry into the wires and cables business with a significant investment of ₹1,800 crore represents a major strategic expansion and capital expenditure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Fortress shares rose over 5% following an increase in property valuations and higher guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortress",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-193",
-      "headline": "Volkswagen board approves plan to cut another 50,000 jobs",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cx2z0kvy4n4o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T01:04:24Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen board approves 50,000 additional job cuts—a confirmed major restructuring reducing headcount and cost base materially for a mega-cap automaker already in transformation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Volkswagen board approves 50,000 additional job cuts—a confirmed major restructuring reducing headcount and cost base materially for a mega-cap automaker already in transformation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-191",
-      "headline": "India's UltraTech Cement enters wires and cables business with $190.5 million investment",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-ultratech-cement-enters-wires-cables-business-with-1905-million-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T01:00:06Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "UltraTech Cement is diversifying into the wires and cables business with a $190.5 million investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "UltraTech Cement is diversifying into the wires and cables business with a $190.5 million investment.",
+      "triage_score": 96,
+      "triage_reason": "UltraTech Cement's entry into the wires and cables business with a significant investment of ₹1,800 crore represents a major strategic expansion and capital expenditure.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 2,
-        "recency": 5,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
@@ -1756,197 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-198",
-      "headline": "Lululemon shares fell 18% in extended trading on Thursday; Here's why",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/lululemon-athletica-share-price-fall-afterhours-q2-results-miss-q3-full-year-guidance-cut-2026-returns-19983792.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T00:50:11Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Lululemon fell 18% in extended trading, a magnitude only consistent with material news (guidance cut, profit warning, or strategic shift); specific reason not stated in headline excerpt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Lululemon fell 18% in extended trading, a magnitude only consistent with material news (guidance cut, profit warning, or strategic shift); specific reason not stated in headline excerpt.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon",
-          "ticker": "LULU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-203",
-      "headline": "US treasury secretary announces EU joining economic pressure campaign against Iran",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-treasury-secretary-announces-eu-joining-economic-pressure-campaign",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T00:41:17Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "The US and EU are escalating economic pressure/sanctions against Iran.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The US and EU are escalating economic pressure/sanctions against Iran.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-259",
-      "headline": "SB Energy files for IPO, targeting a raise of $5-7bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/sb-energy-files-for-ipo-targeting-a-raise-of-5-7bn/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T16:16:25Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "SB Energy has filed for an IPO targeting a raise of $5-7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SB Energy has filed for an IPO targeting a raise of $5-7 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SB Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-055",
-      "headline": "ADN: Andromeda successfully raises $3.04 million [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADN?key=2924-03131755-2A1695115",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-03T23:46:43Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "The company successfully raised $3.04 million in capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company successfully raised $3.04 million in capital.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Andromeda Metals",
-          "ticker": "ADN",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -128926,9 +128938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 114875,
-    "news_picked_today": 480,
-    "news_dropped_today": 1680
+    "news_seen_today": 127579,
+    "news_picked_today": 633,
+    "news_dropped_today": 2031
   },
   "book_momentum": {
     "live_count": 8,
