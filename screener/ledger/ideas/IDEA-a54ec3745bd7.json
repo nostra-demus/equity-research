@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-a54ec3745bd7",
-  "idea_version": "IDEAV-b8c5c42edd6e0fc4",
-  "idea_version_started_at": "2026-09-04T05:44:07Z",
+  "idea_version": "IDEAV-b4305fa7b1e56144",
+  "idea_version_started_at": "2026-09-04T23:10:23Z",
   "ticker": "D",
   "company": "Dominion Energy",
   "exchange": "NYSE",
@@ -11,17 +11,17 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Shareholders approved the merger with NextEra Energy, removing the last major regulatory hurdle and setting a clear path to deal close and expected EPS accretion.",
-  "why_now": "Shareholder vote passed 2026-09-03; closing timeline and synergy realization are now the near-term catalysts.",
-  "conviction": 55,
+  "reason": "Dominion Energy secured shareholder approval for its merger with NextEra Energy, clearing a key regulatory hurdle and de-risking the deal path.",
+  "why_now": "Reuters reported shareholder approvals on 2026-09-03 and 2026-09-03 (two wires); the merger vote is a live, dated event.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 55,
+  "trade_score": 61,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 20,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,18 +42,20 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
+    "EVT-99a1e952b501",
     "EVT-c07a9621b043"
   ],
-  "primary_source_event_id": "EVT-c07a9621b043",
+  "primary_source_event_id": "EVT-99a1e952b501",
   "source_headlines": [
+    "Dominion Energy secures shareholder approval for merger with NextEra",
     "Dominion Energy, NextEra secure shareholder approvals for merger deal"
   ],
-  "source_headline": "Dominion Energy, NextEra secure shareholder approvals for merger deal",
+  "source_headline": "Dominion Energy secures shareholder approval for merger with NextEra",
   "source_url": "https://www.reuters.com/legal/litigation/dominion-energy-secures-shareholder-approval-merger-with-nextera-2026-09-03/",
   "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
@@ -66,7 +67,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-04T05:44:07Z",
-  "updated_at": "2026-09-04T05:44:07Z",
+  "updated_at": "2026-09-04T23:10:23Z",
   "decay_at": "2026-09-05T10:19:29Z",
   "status": "live",
   "promoted_signal_id": null
