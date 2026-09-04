@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T16:51:30Z",
+  "generated_at": "2026-09-04T17:01:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-685",
@@ -1088,6 +1088,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-727",
+      "headline": "Lilly looks beyond obesity with $2.88B autoimmune buyout",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/lilly-looks-beyond-obesity-2-161700320.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Eli Lilly is acquiring an autoimmune company for $2.88 billion to diversify its portfolio beyond obesity drugs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly is acquiring an autoimmune company for $2.88 billion to diversify its portfolio beyond obesity drugs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-728",
+      "headline": "Approval of the Issuer’s position statement relating to the voluntary totalitarian tender offer promoted by TML CV Holdings B.V. for all issued common shares of Iveco Group N.V.",
+      "headline_en": null,
+      "url": "https://markets.businessinsider.com/news/stocks/approval-of-the-issuer-s-position-statement-relating-to-the-voluntary-totalitarian-tender-offer-promoted-by-tml-cv-holdings-b-v-for-all-issued-common-shares-of-iveco-group-n-v-1036523523",
+      "source_name": "Business Insider",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Iveco Group N.V. is subject to a voluntary tender offer by TML CV Holdings B.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Iveco Group N.V. is subject to a voluntary tender offer by TML CV Holdings B.V.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-723",
       "headline": "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
       "headline_en": null,
@@ -1390,6 +1488,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-730",
+      "headline": "How Could KKR's $5.7 Billion Buyout Reshape ITGR for Shareholders?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/how-could-kkrs-57-billion-buyout-reshape-itgr-shareholders",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "KKR announced a $5.7 billion buyout of ITGR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR announced a $5.7 billion buyout of ITGR.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITGR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1835,158 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-630",
-      "headline": "EQT to Buy Insurance Broker McGill in $2 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/investing/eqt-to-buy-insurance-broker-mcgill-in-2-billion-deal-439b3cb8?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:22:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "EQT to acquire insurance broker McGill in a $2 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT to acquire insurance broker McGill in a $2 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "McGill",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-612",
-      "headline": "Lululemon shares dive as forecast cut spotlights challenges facing new CEO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/lululemon-forecast-cut-hits-shares-underscores-challenge-next-ceo-2026-09-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:56:48Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Lululemon cut its financial forecast, signaling operational challenges for the new CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lululemon cut its financial forecast, signaling operational challenges for the new CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon Athletica Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-610",
-      "headline": "Volkswagen’s stock gets boost from plan to double job cuts to 100,000",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/volkswagens-stock-gets-boost-from-plan-to-double-job-cuts-to-100-000-9b01e664?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:53:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen plans to double job cuts to 100,000, indicating significant operational distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen plans to double job cuts to 100,000, indicating significant operational distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130142,9 +130137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1727735,
-    "news_picked_today": 1848,
-    "news_dropped_today": 12720
+    "news_seen_today": 1765581,
+    "news_picked_today": 1856,
+    "news_dropped_today": 12784
   },
   "book_momentum": {
     "live_count": 8,
