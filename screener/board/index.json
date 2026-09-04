@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T21:07:15Z",
+  "generated_at": "2026-09-04T21:34:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -1251,6 +1251,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-748",
+      "headline": "S&P Downgrades Senegal After Government Unveils Debt Rework",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-04/s-p-downgrades-senegal-after-government-unveils-debt-rework",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T20:51:01Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "S&P downgraded Senegal's credit rating following the government's announcement of a debt restructuring plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "S&P downgraded Senegal's credit rating following the government's announcement of a debt restructuring plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Senegal",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-744",
       "headline": "36-year-old casual dining chain files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1942,56 +1991,6 @@
         {
           "name": "ITGR",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-689",
-      "headline": "ONEOK (OKE) is Funding a $4.4B Acquisition With a $9B Minority Investment. Is the 7% Capped Return Attractive?",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/oneok-oke-funding-4-4b-150349706.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:03:49Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "ONEOK is funding a $4.4B acquisition with a $9B minority investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ONEOK is funding a $4.4B acquisition with a $9B minority investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ONEOK",
-          "ticker": "OKE",
           "listing_country": "US"
         }
       ],
@@ -130509,9 +130508,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2409464,
-    "news_picked_today": 1996,
-    "news_dropped_today": 16436
+    "news_seen_today": 2449531,
+    "news_picked_today": 2015,
+    "news_dropped_today": 17377
   },
   "book_momentum": {
     "live_count": 8,
