@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T15:46:47Z",
+  "generated_at": "2026-09-04T15:47:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-685",
@@ -97194,6 +97194,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-dac7dfe711fe",
+      "idea_version": "IDEAV-2a96706ae4fac03a",
+      "idea_version_started_at": "2026-09-04T15:47:15Z",
+      "ticker": "LPSN",
+      "company": "LivePerson Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The filing of a 25-NSE form indicates an involuntary delisting process from the Nasdaq, signaling severe liquidity or compliance distress that typically precedes further equity erosion.",
+      "why_now": "The delisting notification was filed on 2026-09-04.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9eabd06411c3"
+      ],
+      "primary_source_event_id": "EVT-9eabd06411c3",
+      "source_headlines": [
+        "25-NSE - LIVEPERSON INC (0001102993) (Subject)"
+      ],
+      "source_headline": "25-NSE - LIVEPERSON INC (0001102993) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1102993/000135445726000857/0001354457-26-000857-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T13:09:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T15:47:15Z",
+      "updated_at": "2026-09-04T15:47:15Z",
+      "decay_at": "2026-09-06T01:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-652931c412eed75f",
       "idea_version_started_at": "2026-09-04T13:46:23Z",
@@ -99831,223 +99901,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-27677ede6ab0",
-      "idea_version": "IDEAV-002a39d42239d0e1",
-      "idea_version_started_at": "2026-09-02T23:36:56Z",
-      "ticker": "00853",
-      "company": "MicroPort Scientific Corporation",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The delay in interim results, postponement of board meetings, and subsequent suspension of trading are classic indicators of severe financial or accounting instability.",
-      "why_now": "The suspension and disclosure were announced on September 1, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f078091d70bb"
-      ],
-      "primary_source_event_id": "EVT-f078091d70bb",
-      "source_headlines": [
-        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
-      ],
-      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T23:36:56Z",
-      "updated_at": "2026-09-02T23:36:56Z",
-      "decay_at": "2026-09-03T01:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c4367824b313",
-      "idea_version": "IDEAV-a7ba24ac4b1c26e6",
-      "idea_version_started_at": "2026-09-02T23:36:56Z",
-      "ticker": "DPSC",
-      "company": "DPSC Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity impairment.",
-      "why_now": "The insolvency process was formally announced on September 1, 2026.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed1bd353f181",
-        "EVT-fec3a38080b5"
-      ],
-      "primary_source_event_id": "EVT-ed1bd353f181",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T23:36:56Z",
-      "updated_at": "2026-09-02T23:36:56Z",
-      "decay_at": "2026-09-03T02:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3123eadb829a",
-      "idea_version": "IDEAV-5a30aa59d9e9b620",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "DPSCLTD",
-      "company": "DPSC Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
-      "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed1bd353f181"
-      ],
-      "primary_source_event_id": "EVT-ed1bd353f181",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:54:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T02:54:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b433e5704e83",
       "idea_version": "IDEAV-904d39569e8bf81c",
       "idea_version_started_at": "2026-09-02T22:52:14Z",
@@ -100113,148 +99966,6 @@
       "surfaced_at": "2026-09-02T22:52:14Z",
       "updated_at": "2026-09-02T22:52:14Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-df6c494797d2",
-      "idea_version": "IDEAV-f8869f59f60c9641",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "MICROPORT",
-      "company": "MicroPort Scientific Corporation",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "MicroPort delayed its 2026 interim results, postponed the board meeting, and had its trading suspended, signaling potential accounting or governance issues that could pressure the stock when trading resumes.",
-      "why_now": "Inside information announcement and trading suspension effective 2026-09-01; catalyst is the eventual resumption and release of delayed financials.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f078091d70bb"
-      ],
-      "primary_source_event_id": "EVT-f078091d70bb",
-      "source_headlines": [
-        "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
-      ],
-      "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T13:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T01:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f56c657b46f1",
-      "idea_version": "IDEAV-eafb5c62f54f0312",
-      "idea_version_started_at": "2026-09-02T22:52:14Z",
-      "ticker": "SATANIBEAR",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Satani Bearings received a Rs 375.56 crore order, a large contract relative to its size that should boost near-term revenue and earnings visibility.",
-      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T22:52:14Z",
-      "updated_at": "2026-09-02T22:52:14Z",
-      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100332,77 +100043,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5844d38bf6c0",
-      "idea_version": "IDEAV-3f4210804bb37453",
-      "idea_version_started_at": "2026-09-02T19:27:30Z",
-      "ticker": "SATANIBEAR.BO",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Satani Bearings received a Rs 375.56 crore order, a large commercial win relative to its small-cap scale that should lift near-term revenue and margins.",
-      "why_now": "Order announcement filed on 2026-09-01; execution and revenue recognition will begin in coming quarters.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T19:27:30Z",
-      "updated_at": "2026-09-02T19:27:30Z",
-      "decay_at": "2026-09-03T02:20:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-53a097038e0f",
       "idea_version": "IDEAV-a739515895ef44f4",
       "idea_version_started_at": "2026-09-02T17:51:02Z",
@@ -100468,77 +100108,6 @@
       "surfaced_at": "2026-09-02T17:51:02Z",
       "updated_at": "2026-09-02T17:51:02Z",
       "decay_at": "2026-09-03T18:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e57bed8e5496",
-      "idea_version": "IDEAV-fc0f5575fa747fcf",
-      "idea_version_started_at": "2026-09-02T17:51:02Z",
-      "ticker": "SATANI",
-      "company": "Satani Bearings Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant new order worth Rs.375.56 crores, which provides a clear, immediate boost to its revenue backlog and operational outlook.",
-      "why_now": "The order was officially disclosed in an exchange filing on September 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a664e1b2d7eb"
-      ],
-      "primary_source_event_id": "EVT-a664e1b2d7eb",
-      "source_headlines": [
-        "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores"
-      ],
-      "source_headline": "Satani Bearings Ltd: Company has received order worth Rs.375.56 crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/32fb0f4e-f53b-4c9c-92f3-70fddef2de58.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T14:20:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T17:51:02Z",
-      "updated_at": "2026-09-02T17:51:02Z",
-      "decay_at": "2026-09-03T02:20:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100619,7 +100188,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 380,
+      "file_count": 387,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -101976,8 +101545,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T02:54:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102053,8 +101622,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T02:54:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102127,8 +101696,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T02:20:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102201,8 +101770,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T02:20:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102275,8 +101844,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T02:20:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102350,8 +101919,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T01:48:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -102424,8 +101993,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-03T01:48:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T15:47:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -130549,8 +130118,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 437,
-    "live_count": 32,
+    "surfaced_total": 438,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
