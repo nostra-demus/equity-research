@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T23:10:41Z",
+  "generated_at": "2026-09-04T23:44:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -1251,6 +1251,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-752",
+      "headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T21:58:12Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Campbell's is cutting 13% of its salaried workforce and closing plants, indicating significant operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Campbell's is cutting 13% of its salaried workforce and closing plants, indicating significant operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Campbell Soup Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-754",
+      "headline": "Stock Market Today, Sept. 4: Lululemon Plummets 17% After Slashing Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-sept-4-lululemon-plummets-17-after-slashing-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T21:39:58Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Lululemon slashed guidance, resulting in a 17% stock price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon slashed guidance, resulting in a 17% stock price decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-748",
       "headline": "S&P Downgrades Senegal After Government Unveils Debt Rework",
       "headline_en": null,
@@ -1897,104 +1995,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-695",
-      "headline": "Chobani to spend $1.2B to buy and invest in Pennsylvania plant",
-      "headline_en": null,
-      "url": "https://www.supplychaindive.com/news/Chobani-plant-investment-keurig-dr-pepper-growth/829356/",
-      "source_name": "Supply Chain Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:07:56Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Chobani is investing $1.2B in a Pennsylvania plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chobani is investing $1.2B in a Pennsylvania plant.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chobani",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-730",
-      "headline": "How Could KKR's $5.7 Billion Buyout Reshape ITGR for Shareholders?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/how-could-kkrs-57-billion-buyout-reshape-itgr-shareholders",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "KKR announced a $5.7 billion buyout of ITGR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR announced a $5.7 billion buyout of ITGR.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITGR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -130584,9 +130584,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2530514,
-    "news_picked_today": 2044,
-    "news_dropped_today": 20852
+    "news_seen_today": 2555566,
+    "news_picked_today": 2100,
+    "news_dropped_today": 21468
   },
   "book_momentum": {
     "live_count": 8,
