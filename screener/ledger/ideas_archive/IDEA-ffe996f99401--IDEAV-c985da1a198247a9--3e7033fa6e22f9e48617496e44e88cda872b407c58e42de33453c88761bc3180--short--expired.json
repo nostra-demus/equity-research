@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-03T01:51:02Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-ffe996f99401",
+    "idea_version": "IDEAV-c985da1a198247a9",
+    "idea_version_started_at": "2026-08-31T02:05:21Z",
+    "ticker": "3037",
+    "company": "Unimicron Technology",
+    "exchange": "TSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Regulatory probes into alleged relabeling of China-made parts for Nvidia could lead to supply chain disruptions, contract penalties, or loss of key customer certifications.",
+    "why_now": "The investigation was reported by Nikkei Asia on August 31, 2026.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 15,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-acdee32f1838"
+    ],
+    "primary_source_event_id": "EVT-acdee32f1838",
+    "source_headlines": [
+      "Nvidia supplier Unimicron probed over allegedly relabeling China-made parts"
+    ],
+    "source_headline": "Nvidia supplier Unimicron probed over allegedly relabeling China-made parts",
+    "source_url": "https://asia.nikkei.com/spotlight/supply-chain/nvidia-supplier-unimicron-probed-over-allegedly-relabeling-china-made-parts",
+    "source_name": "Nikkei Asia",
+    "materiality_max": 89,
+    "newest_source_at": "2026-08-31T00:06:08Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-31T02:05:21Z",
+    "updated_at": "2026-08-31T02:05:21Z",
+    "decay_at": "2026-09-01T12:06:08Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

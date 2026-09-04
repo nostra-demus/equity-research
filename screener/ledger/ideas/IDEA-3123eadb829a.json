@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-3123eadb829a",
+  "idea_version": "IDEAV-5a30aa59d9e9b620",
+  "idea_version_started_at": "2026-09-02T22:52:14Z",
+  "ticker": "DPSCLTD",
+  "company": "DPSC Limited",
+  "exchange": "BSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
+  "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 6,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ed1bd353f181"
+  ],
+  "primary_source_event_id": "EVT-ed1bd353f181",
+  "source_headlines": [
+    "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+  ],
+  "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+  "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-01T14:54:08Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-02T22:52:14Z",
+  "updated_at": "2026-09-02T22:52:14Z",
+  "decay_at": "2026-09-03T02:54:08Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
