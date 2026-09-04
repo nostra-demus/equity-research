@@ -1,6 +1,154 @@
 {
-  "generated_at": "2026-09-04T00:19:25Z",
+  "generated_at": "2026-09-04T00:44:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-065",
+      "headline": "SICHUAN EXPRESS (00107): PROPOSED ISSUANCE OF QUASI REITS AND RELATED DISCLOSEABLE TRANSACTION AND MAJOR TRANSACTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400039.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T22:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Sichuan Express announced a proposed issuance of quasi-REITs and related major transactions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sichuan Express announced a proposed issuance of quasi-REITs and related major transactions.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sichuan Express",
+          "ticker": "00107",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-058",
+      "headline": "Lululemon cuts outlook again, highlighting to-do list for new CEO",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/lululemon-cuts-outlook-again-highlighting-do-list-new-ceo",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T00:03:46Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The company cut its financial outlook again.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company cut its financial outlook again.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-057",
+      "headline": "Volkswagen board approves 50,000 additional job cuts and major restructuring",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T23:58:10Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The company board approved 50,000 additional job cuts and major restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company board approved 50,000 additional job cuts and major restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-032",
       "headline": "VW Approves Plan to Cut 50,000 More Jobs in Broad Overhaul",
@@ -246,6 +394,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-084",
+      "headline": "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/03/uber-is-cutting-10-of-its-workforce-and-betting-10-billion-on-robotaxis-instead/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:47:42Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Uber is cutting 10% of its workforce and committing $10 billion to robotaxis, representing a major strategic shift and operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is cutting 10% of its workforce and committing $10 billion to robotaxis, representing a major strategic shift and operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-053",
+      "headline": "CNQ: FEED and Early Works Contract Awarded for Syerston Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CNQ?key=2924-03131762-3A701043",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T23:53:13Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "CNQ awarded signed FEED and early-works engineering contract for named Syerston Project, marking progression from study phase toward major capex execution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "CNQ awarded signed FEED and early-works engineering contract for named Syerston Project, marking progression from study phase toward major capex execution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNQ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-066",
+      "headline": "TME-SW (01698): INSIDE INFORMATION - PRICING OF US$1,000 MILLION NOTES OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T22:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "TME-SW priced a US$1,000 million notes offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "TME-SW priced a US$1,000 million notes offering.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TME-SW",
+          "ticker": "01698",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-026",
       "headline": "Vance: EUA investigam ataque aéreo que Irã diz ter atingido festa de casamento",
       "headline_en": "Vance: EU investigating airstrike that Iran says hit a wedding party",
@@ -284,6 +580,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-055",
+      "headline": "ADN: Andromeda successfully raises $3.04 million [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADN?key=2924-03131755-2A1695115",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T23:46:43Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "The company successfully raised $3.04 million in capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company successfully raised $3.04 million in capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Andromeda Metals",
+          "ticker": "ADN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -476,6 +821,202 @@
           "name": "Ciena",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-051",
+      "headline": "JAL: Institutional Entitlement Offer complete [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAL?key=2924-03131774-6A1342204",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T00:03:43Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Institutional entitlement offer completed, confirming capital action with immediate share-count and capital-structure impact; amount of proceeds and use unknown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Institutional entitlement offer completed, confirming capital action with immediate share-count and capital-structure impact; amount of proceeds and use unknown.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JAL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-062",
+      "headline": "ASX to gain; ACCC clears Peter Warren to buy Wakeling Automotive",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-after-fed-governor-waller-calms-us-rate-rise-worries-20260904-p60uc4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T23:24:12Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "ACCC clears Peter Warren to acquire Wakeling Automotive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "ACCC clears Peter Warren to acquire Wakeling Automotive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Peter Warren Automotive",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-074",
+      "headline": "Jensen Huang to Spend $13 Billion to Take On OpenAI and Anthropic. Should You Buy Nvidia Stock?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jensen-huang-spend-13-billion-take-openai-and-anthropic-should-you-buy-nvidia-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T18:02:01Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Nvidia CEO Jensen Huang announced a $13 billion capital commitment to build AI infrastructure and compete with OpenAI and Anthropic, a material strategic capex decision moving the company's capital allocation and competitive positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nvidia CEO Jensen Huang announced a $13 billion capital commitment to build AI infrastructure and compete with OpenAI and Anthropic, a material strategic capex decision moving the company's capital allocation and competitive positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-069",
+      "headline": "Tether sued over frozen ‘pig butcher’ coins, 6,600 students get crypto loans: Asia Express",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/magazine/tether-sued-over-frozen-pig-butcher-coins-6600-students-get-crypto-loans-asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T23:40:09Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Tether is facing a lawsuit regarding frozen assets, which poses legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tether is facing a lawsuit regarding frozen assets, which poses legal and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tether",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -685,6 +1226,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-088",
+      "headline": "‎ACDIMA to sell 10.5% stake in SPIMACO",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1933994",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "ACDIMA is selling a 10.5% stake in SPIMACO, which will likely increase share supply and impact market price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "ACDIMA is selling a 10.5% stake in SPIMACO, which will likely increase share supply and impact market price.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPIMACO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-003",
       "headline": "Revolut obtiene una licencia bancaria condicional en EEUU",
       "headline_en": "Revolut obtains a conditional banking license in the US",
@@ -729,6 +1319,98 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-067",
+      "headline": "OpenAI launches Astra, its powerful new AI model",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/world/openai-launches-astra-its-powerful-new-ai-model/5222",
+      "source_name": "Emirates 24|7 — Flash News (general)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T23:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "OpenAI launched a new AI model, Astra, which is a significant product development for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "OpenAI launched a new AI model, Astra, which is a significant product development for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-059",
+      "headline": "U.S. hits Cuba with new sanctions as island's crises multiply",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/us-hits-cuba-with-new-sanctions-as-island%27s-crises-multiply",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T00:00:01Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "New sanctions imposed on Cuba.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "New sanctions imposed on Cuba.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1053,6 +1735,147 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-081",
+      "headline": "‎Anmat signs SAR 98.9M contract with Defense Ministry",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1933976",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Anmat signs SAR 98.9 million (~USD 27 million) defense contract with Saudi Arabia's Defense Ministry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Anmat signs SAR 98.9 million (~USD 27 million) defense contract with Saudi Arabia's Defense Ministry.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anmat",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-086",
+      "headline": "‘Watch this space’: Jenrick refuses to rule out bank tax",
+      "headline_en": null,
+      "url": "https://www.cityam.com/watch-this-space-jenrick-refuses-to-rule-out-bank-tax/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T17:45:31Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Potential bank tax in the UK creates regulatory and earnings uncertainty for the banking sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Potential bank tax in the UK creates regulatory and earnings uncertainty for the banking sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-052",
+      "headline": "MRD: $2 Million Placement to Advance Selectro and Grass Patch [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRD?key=2924-03131768-6A1342191",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-03T23:58:38Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "MRD raises $2M via placement to advance two named projects, adding cash and diluting existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "MRD raises $2M via placement to advance two named projects, adding cash and diluting existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRD",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-008",
       "headline": "Merck's top dealmaker signals more M&A as Keytruda's patent cliff nears",
       "headline_en": null,
@@ -1097,824 +1920,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-004",
-      "headline": "Public Storage Readies Inaugural Canadian Dollar Bond Sale",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-03/public-storage-readies-inaugural-canadian-dollar-bond-sale",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T19:08:10Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Public Storage is preparing its inaugural Canadian dollar bond sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Public Storage is preparing its inaugural Canadian dollar bond sale.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Public Storage",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-014",
-      "headline": "London-listed Molten Ventures joins race to run Burnham-backed £1bn tech fund",
-      "headline_en": null,
-      "url": "https://news.sky.com/story/london-listed-molten-ventures-joins-race-to-run-burnham-backed-1bn-tech-fund-13581004",
-      "source_name": "Sky News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:48:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Molten Ventures is competing to manage a £1 billion tech fund, which could impact its assets under management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Molten Ventures is competing to manage a £1 billion tech fund, which could impact its assets under management.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Molten Ventures",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-013",
-      "headline": "Crude Oil Ticks Higher As Hormuz Crisis Drags While Trump Signals New Strikes On Iran Are Temporary",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/crude-oil-ticks-higher-hormuz-crisis-drags-while-trump-signals-new-strikes-iran-are",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:39:42Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Geopolitical escalation in the Strait of Hormuz and potential US strikes on Iran are impacting global oil supply expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Geopolitical escalation in the Strait of Hormuz and potential US strikes on Iran are impacting global oil supply expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-028",
-      "headline": "Nvidia sets October launch for RTX Spark AI PCs",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/china/nvidia-sets-october-launch-rtx-spark-ai-pcs-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:21:59Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Nvidia is launching new AI-focused hardware in October, which is a key product cycle event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Nvidia is launching new AI-focused hardware in October, which is a key product cycle event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-023",
-      "headline": "Adani Ports to start dedicated empty container yard operations at Mundra Port",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/adani-ports-and-special-economic-zone-share-price-to-start-dedicated-empty-container-yard-operations-at-mundra-19983777.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:21:51Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Adani Ports is expanding its operational capacity at Mundra Port, which is a key revenue-generating asset.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Adani Ports is expanding its operational capacity at Mundra Port, which is a key revenue-generating asset.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Ports",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-002",
-      "headline": "Amazon inaugura centro de distribuição no Paraná junto com ID Logistics",
-      "headline_en": "Amazon inaugurates distribution center in Parana together with ID Logistics",
-      "url": "https://www.reuters.com/pt/tecnologia/3WMWDA3Z2VJBZPGRCG5H5WMIQQ-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T19:05:50Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Amazon opens a new distribution center in Parana, Brazil, in partnership with ID Logistics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Amazon opens a new distribution center in Parana, Brazil, in partnership with ID Logistics.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ID Logistics",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-022",
-      "headline": "EEUU reporta undécima muerte de un conductor ligada a componente prohibido de un airbag chino",
-      "headline_en": "USA reports eleventh death of a driver linked to prohibited Chinese airbag component",
-      "url": "https://www.reuters.com/es/negocio/MJFUGMQACFME3JJMSVJG2ZGRSY-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:32:09Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Eleventh reported death linked to prohibited Chinese airbag component signals imminent recalls and regulatory scrutiny affecting auto suppliers and OEMs globally.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Eleventh reported death linked to prohibited Chinese airbag component signals imminent recalls and regulatory scrutiny affecting auto suppliers and OEMs globally.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-018",
-      "headline": "India-US trade deal hinges on preferential tariff advantage over rivals, says Goyal",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/india-us-trade-deal-hinges-on-preferential-tariff-advantage-over-rivals-says-goyal/articleshow/133744447.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:31:26Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "India-US trade deal negotiations regarding tariffs are ongoing and impact sector-specific trade policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "India-US trade deal negotiations regarding tariffs are ongoing and impact sector-specific trade policy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-038",
-      "headline": "France starts tests on Tesla's self-driving tech",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/auto/evs/france-starts-tests-on-teslasself-driving-tech-4134464",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:13:08Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Routine regulatory testing of autonomous driving technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Routine regulatory testing of autonomous driving technology.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-019",
-      "headline": "Viability issues: Think Gas seeks 30% reduction in LNG terminal charges",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/viability-issues-think-gas-seeks-30-reduction-in-lng-terminal-charges/articleshow/133744597.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:35:59Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Think Gas is seeking a 30% reduction in LNG terminal charges to improve viability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Think Gas is seeking a 30% reduction in LNG terminal charges to improve viability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Think Gas",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-006",
-      "headline": "Emirates unveils world’s first electric Premium Economy seat with full-height privacy screen",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/transport/emirates-electric-premium-economy-seat-privacy-screen",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:54:13Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Emirates unveils a new premium economy seat product.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Emirates unveils a new premium economy seat product.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-025",
-      "headline": "Polymarket Launches Perpetual Oil Futures in 24/7 Trading Push",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-03/polymarket-launches-perpetual-oil-futures-in-24-7-trading-push",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:18:20Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Polymarket is expanding its product offering into perpetual oil futures, increasing its market footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Polymarket is expanding its product offering into perpetual oil futures, increasing its market footprint.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Polymarket",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-035",
-      "headline": "Dunkin’ partners with Walmart for delivery",
-      "headline_en": null,
-      "url": "https://www.restaurantdive.com/news/walmart-shoppers-dunkin-delivery-coffee/829593/",
-      "source_name": "Restaurant Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:13:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Partnership for delivery services is a standard operational expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Partnership for delivery services is a standard operational expansion.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dunkin'",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Walmart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-020",
-      "headline": "ChatGPT, Claude and Grok Outages Leave Users Asking How to Work Without AI",
-      "headline_en": null,
-      "url": "https://decrypt.co/377337/chatgpt-claude-grok-outages-work-without-ai",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:31:26Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Unconfirmed reports of simultaneous service outages affecting ChatGPT, Claude, and Grok with no official disclosure of duration, scope, or disclosed financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Unconfirmed reports of simultaneous service outages affecting ChatGPT, Claude, and Grok with no official disclosure of duration, scope, or disclosed financial impact.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "X Corp",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-017",
-      "headline": "Dow Jones, S&P 500, Nasdaq: Wall Street liegt im Plus – Fed-Spitzen dämpfen Zinserwartungen",
-      "headline_en": "Dow Jones, S&P 500, Nasdaq: Wall Street is in the plus – Fed leaders dampen interest rate expectations",
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/marktberichte/dow-jones-sp-500-nasdaq-wall-street-liegt-im-plus-fed-spitzen-daempfen-zinserwartungen/100251832.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Wall Street markets are up as Fed comments dampen interest rate hike expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Wall Street markets are up as Fed comments dampen interest rate hike expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-027",
-      "headline": "BC e BCE estudam integração entre Pix e sistema de pagamento instantâneo europeu, dizem fontes",
-      "headline_en": "Central Bank and ECB study integration between Pix and European instant payment system, say sources",
-      "url": "https://www.reuters.com/pt/negocio/RRGJ7ID7S5NIVN7QAICN3MFRZY-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:29:47Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Central banks are exploring integration of payment systems, which could improve cross-border financial efficiency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Central banks are exploring integration of payment systems, which could improve cross-border financial efficiency.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-016",
-      "headline": "Russian attack on Kyiv injures 10, starts fire and damages high-rise building",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/russian-attack-kyiv-kills-one-triggers-fire-damages-high-rise-building-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T18:50:52Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Russian military attack on Kyiv is a significant escalation in the ongoing conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Russian military attack on Kyiv is a significant escalation in the ongoing conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98195,78 +98200,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-81d3dc45be77",
-      "idea_version": "IDEAV-7029e49b024b004a",
-      "idea_version_started_at": "2026-09-03T12:43:04Z",
-      "ticker": "BF.B",
-      "company": "Brown-Forman",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company missed sales estimates due to a broader slowdown in consumer spending, indicating potential margin pressure in the premium spirits segment.",
-      "why_now": "The earnings miss was reported on September 2, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c0725a4050fe"
-      ],
-      "primary_source_event_id": "EVT-c0725a4050fe",
-      "source_headlines": [
-        "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending"
-      ],
-      "source_headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
-      "source_url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T12:34:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T12:43:04Z",
-      "updated_at": "2026-09-03T12:43:04Z",
-      "decay_at": "2026-09-04T00:34:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9e6f981a14d6",
       "idea_version": "IDEAV-0994117008161962",
       "idea_version_started_at": "2026-09-02T19:27:30Z",
@@ -98469,6 +98402,78 @@
       "surfaced_at": "2026-09-01T04:06:03Z",
       "updated_at": "2026-09-01T04:06:03Z",
       "decay_at": "2026-09-02T13:04:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-81d3dc45be77",
+      "idea_version": "IDEAV-7029e49b024b004a",
+      "idea_version_started_at": "2026-09-03T12:43:04Z",
+      "ticker": "BF.B",
+      "company": "Brown-Forman",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company missed sales estimates due to a broader slowdown in consumer spending, indicating potential margin pressure in the premium spirits segment.",
+      "why_now": "The earnings miss was reported on September 2, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c0725a4050fe"
+      ],
+      "primary_source_event_id": "EVT-c0725a4050fe",
+      "source_headlines": [
+        "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending"
+      ],
+      "source_headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
+      "source_url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T12:34:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T12:43:04Z",
+      "updated_at": "2026-09-03T12:43:04Z",
+      "decay_at": "2026-09-04T00:34:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99909,8 +99914,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 391,
-    "shown_count": 391,
+    "total_count": 392,
+    "shown_count": 392,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -99919,8 +99924,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 190,
-        "shown_count": 190,
+        "total_count": 191,
+        "shown_count": 191,
         "hidden_count": 0
       }
     },
@@ -99940,6 +99945,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-81d3dc45be77",
+        "idea_version": "IDEAV-7029e49b024b004a",
+        "idea_version_started_at": "2026-09-03T12:43:04Z",
+        "ticker": "BF.B",
+        "company": "Brown-Forman",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company missed sales estimates due to a broader slowdown in consumer spending, indicating potential margin pressure in the premium spirits segment.",
+        "why_now": "The earnings miss was reported on September 2, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c0725a4050fe"
+        ],
+        "primary_source_event_id": "EVT-c0725a4050fe",
+        "source_headlines": [
+          "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending"
+        ],
+        "source_headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
+        "source_url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T12:34:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T12:43:04Z",
+        "updated_at": "2026-09-03T12:43:04Z",
+        "decay_at": "2026-09-04T00:34:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T00:34:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-53a097038e0f",
         "idea_version": "IDEAV-a739515895ef44f4",
@@ -128953,7 +129033,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 418,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -128972,9 +129052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8392,
-    "news_picked_today": 42,
-    "news_dropped_today": 126
+    "news_seen_today": 20921,
+    "news_picked_today": 98,
+    "news_dropped_today": 406
   },
   "book_momentum": {
     "live_count": 8,
