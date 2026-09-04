@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T21:34:50Z",
+  "generated_at": "2026-09-04T21:35:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -96573,6 +96573,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0c6d82b4b0e4",
+      "idea_version": "IDEAV-f01f52deb1676187",
+      "idea_version_started_at": "2026-09-04T21:35:36Z",
+      "ticker": "LULU",
+      "company": "Lululemon Athletica",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company significantly lowered its annual guidance, signaling a sharp deceleration in consumer demand and margin compression.",
+      "why_now": "The guidance cut was announced in the Q2 earnings report released on September 4, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-214fc3c707d8",
+        "EVT-36b2df649ad5"
+      ],
+      "primary_source_event_id": "EVT-214fc3c707d8",
+      "source_headlines": [
+        "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
+        "+++ Business Figures +++: Lululemon lowers annual forecast – stock crashes"
+      ],
+      "source_headline": "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
+      "source_url": "https://www.forbes.com/sites/fionariley/2026/09/04/lululemons-stock-sinks-18-after-q2-earnings-and-outlook-cut/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T15:56:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-04T21:35:36Z",
+      "decay_at": "2026-09-06T03:56:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-495f024fede1",
       "idea_version": "IDEAV-7f0666f966f2ae90",
       "idea_version_started_at": "2026-09-04T17:37:30Z",
@@ -96993,146 +97064,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aca7dee3c135",
-      "idea_version": "IDEAV-f3502ea7f0b3d2a3",
-      "idea_version_started_at": "2026-09-04T03:44:18Z",
-      "ticker": "RARE",
-      "company": "Ultragenyx",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure of a phase 3 clinical trial for its lead asset necessitates significant expense reductions and creates a major pipeline gap.",
-      "why_now": "The trial failure was reported on 2026-09-03.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4783e28f2a56"
-      ],
-      "primary_source_event_id": "EVT-4783e28f2a56",
-      "source_headlines": [
-        "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’"
-      ],
-      "source_headline": "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’",
-      "source_url": "https://www.fiercebiotech.com/biotech/ultragenyx-fails-phase-3-angelman-test-plots-significant-expenses-reduction",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T21:26:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T21:54:54Z",
-      "updated_at": "2026-09-04T03:44:18Z",
-      "decay_at": "2026-09-05T09:26:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0c6d82b4b0e4",
-      "idea_version": "IDEAV-32c6bf72e197bef4",
-      "idea_version_started_at": "2026-09-04T03:14:25Z",
-      "ticker": "LULU",
-      "company": "Lululemon Athletica",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Repeated downward revisions to sales guidance indicate structural demand weakness and margin compression in the core apparel business.",
-      "why_now": "The guidance cut was reported on September 3, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-553b57881d44"
-      ],
-      "primary_source_event_id": "EVT-553b57881d44",
-      "source_headlines": [
-        "Lululemon Cuts Outlook Again After Another Tough Quarter for Sales"
-      ],
-      "source_headline": "Lululemon Cuts Outlook Again After Another Tough Quarter for Sales",
-      "source_url": "https://www.wsj.com/business/retail/lululemon-cuts-outlook-again-after-another-tough-quarter-07ac0b2a?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T21:43:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T23:05:06Z",
-      "updated_at": "2026-09-04T03:14:25Z",
-      "decay_at": "2026-09-05T09:43:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-49a2653dd307",
       "idea_version": "IDEAV-3a3b2ac5e8dea2d3",
       "idea_version_started_at": "2026-09-04T03:14:25Z",
@@ -97337,6 +97268,76 @@
       "surfaced_at": "2026-09-03T14:12:49Z",
       "updated_at": "2026-09-03T18:13:00Z",
       "decay_at": "2026-09-04T23:04:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aca7dee3c135",
+      "idea_version": "IDEAV-26a66283ec5e01bf",
+      "idea_version_started_at": "2026-09-04T21:35:36Z",
+      "ticker": "RARE",
+      "company": "Ultragenyx Pharmaceutical",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of a key Phase 3 clinical trial for Angelman syndrome removes a major growth catalyst and forces the company into defensive cost-cutting.",
+      "why_now": "The trial failure was reported on September 3, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4783e28f2a56"
+      ],
+      "primary_source_event_id": "EVT-4783e28f2a56",
+      "source_headlines": [
+        "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’"
+      ],
+      "source_headline": "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’",
+      "source_url": "https://www.fiercebiotech.com/biotech/ultragenyx-fails-phase-3-angelman-test-plots-significant-expenses-reduction",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T21:26:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T21:54:54Z",
+      "updated_at": "2026-09-04T21:35:36Z",
+      "decay_at": "2026-09-05T09:26:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97620,6 +97621,79 @@
       "surfaced_at": "2026-09-03T22:15:11Z",
       "updated_at": "2026-09-03T22:15:11Z",
       "decay_at": "2026-09-05T04:27:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-083c9caae543",
+      "idea_version": "IDEAV-e844e881a72e18b8",
+      "idea_version_started_at": "2026-09-04T21:35:36Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen Group",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Massive restructuring involving 50,000 to 100,000 job cuts indicates severe operational distress and a failure to compete in the transition to electric vehicles.",
+      "why_now": "The restructuring plan was confirmed and announced on September 3, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-23e431d799e0",
+        "EVT-3e93896c47f3"
+      ],
+      "primary_source_event_id": "EVT-23e431d799e0",
+      "source_headlines": [
+        "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
+        "Volkswagen announces it will cut 100,000 jobs by 2030"
+      ],
+      "source_headline": "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
+      "source_url": "https://www.carscoops.com/2026/09/vw-group-confirms-steep-cuts/",
+      "source_name": "Carscoops",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T22:30:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T03:44:18Z",
+      "updated_at": "2026-09-04T21:35:36Z",
+      "decay_at": "2026-09-05T10:30:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98698,81 +98772,6 @@
       "surfaced_at": "2026-09-03T18:13:00Z",
       "updated_at": "2026-09-04T05:44:07Z",
       "decay_at": "2026-09-05T08:57:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-083c9caae543",
-      "idea_version": "IDEAV-a3b56a515f63a23f",
-      "idea_version_started_at": "2026-09-04T03:44:18Z",
-      "ticker": "VOW3",
-      "company": "Volkswagen",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Massive planned job cuts of up to 100,000 employees reflect severe structural headwinds and a lack of competitiveness in the EV transition.",
-      "why_now": "The restructuring plan was confirmed on 2026-09-03.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58de582c78d3",
-        "EVT-dd7f210a122a",
-        "EVT-3e93896c47f3"
-      ],
-      "primary_source_event_id": "EVT-58de582c78d3",
-      "source_headlines": [
-        "Volkswagen says it will cut 100,000 jobs by end of decade",
-        "Volkswagen board approves restructuring and signals 50,000 job cuts",
-        "Volkswagen announces it will cut 100,000 jobs by 2030"
-      ],
-      "source_headline": "Volkswagen says it will cut 100,000 jobs by end of decade",
-      "source_url": "https://japantoday.com/category/business/volkswagen-says-cutting-100-000-jobs-by-end-of-decade",
-      "source_name": "Japan Today",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T22:30:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T03:44:18Z",
-      "updated_at": "2026-09-04T03:44:18Z",
-      "decay_at": "2026-09-05T10:30:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
