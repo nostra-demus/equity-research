@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T11:51:57Z",
+  "generated_at": "2026-09-04T12:00:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-589",
@@ -592,6 +592,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-604",
+      "headline": "Volkswagen board okays 50,000 additional job cuts, major restructuring",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:45:55Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen board approved 50,000 job cuts, indicating significant operational restructuring and cost-saving measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen board approved 50,000 job cuts, indicating significant operational restructuring and cost-saving measures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-600",
       "headline": "Campbell’s Just Cut a Dividend It Had Not Touched Since 2001 and the Snack Aisle Is Why",
       "headline_en": null,
@@ -633,55 +682,6 @@
           "name": "Campbell Soup Company",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-596",
-      "headline": "Volkswagen board okays 50,000 more job cuts and major restructuring",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:05:59Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen board approved 50,000 job cuts and major restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen board approved 50,000 job cuts and major restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -130563,9 +130563,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 857661,
-    "news_picked_today": 1564,
-    "news_dropped_today": 9884
+    "news_seen_today": 873279,
+    "news_picked_today": 1569,
+    "news_dropped_today": 9999
   },
   "book_momentum": {
     "live_count": 8,
