@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T03:44:01Z",
+  "generated_at": "2026-09-04T03:44:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-065",
@@ -96537,6 +96537,146 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0bb6f3ec82be",
+      "idea_version": "IDEAV-7ee800d30e2e7ed3",
+      "idea_version_started_at": "2026-09-04T03:44:18Z",
+      "ticker": "HCM",
+      "company": "Hutchmed",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.3 billion licensing deal with GSK provides a significant cash infusion and validates the company's oncology pipeline.",
+      "why_now": "The deal was announced on 2026-09-03.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e85d4da4d1b8"
+      ],
+      "primary_source_event_id": "EVT-e85d4da4d1b8",
+      "source_headlines": [
+        "GSK pens $1.3B Hutchmed deal for early-stage KRAS-EGFR cancer asset"
+      ],
+      "source_headline": "GSK pens $1.3B Hutchmed deal for early-stage KRAS-EGFR cancer asset",
+      "source_url": "https://www.fiercebiotech.com/biotech/gsk-pens-13b-hutchmed-deal-early-stage-kras-egfr-cancer-asset",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T21:26:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T03:44:18Z",
+      "updated_at": "2026-09-04T03:44:18Z",
+      "decay_at": "2026-09-05T09:26:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aca7dee3c135",
+      "idea_version": "IDEAV-f3502ea7f0b3d2a3",
+      "idea_version_started_at": "2026-09-04T03:44:18Z",
+      "ticker": "RARE",
+      "company": "Ultragenyx",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of a phase 3 clinical trial for its lead asset necessitates significant expense reductions and creates a major pipeline gap.",
+      "why_now": "The trial failure was reported on 2026-09-03.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4783e28f2a56"
+      ],
+      "primary_source_event_id": "EVT-4783e28f2a56",
+      "source_headlines": [
+        "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’"
+      ],
+      "source_headline": "Ultragenyx fails phase 3 Angelman test, plots ‘significant expense reductions’",
+      "source_url": "https://www.fiercebiotech.com/biotech/ultragenyx-fails-phase-3-angelman-test-plots-significant-expenses-reduction",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T21:26:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T21:54:54Z",
+      "updated_at": "2026-09-04T03:44:18Z",
+      "decay_at": "2026-09-05T09:26:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0c6d82b4b0e4",
       "idea_version": "IDEAV-32c6bf72e197bef4",
       "idea_version_started_at": "2026-09-04T03:14:25Z",
@@ -96741,76 +96881,6 @@
       "surfaced_at": "2026-09-03T18:40:02Z",
       "updated_at": "2026-09-03T22:15:11Z",
       "decay_at": "2026-09-05T04:22:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-aca7dee3c135",
-      "idea_version": "IDEAV-27299066f1a0a328",
-      "idea_version_started_at": "2026-09-03T21:54:54Z",
-      "ticker": "RARE",
-      "company": "Ultragenyx Pharmaceutical Inc",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure of the key Angelman syndrome drug study removes a major catalyst for future revenue growth and forces the company into defensive cost-cutting measures.",
-      "why_now": "The clinical trial failure was reported on September 03, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0bb1467012b0"
-      ],
-      "primary_source_event_id": "EVT-0bb1467012b0",
-      "source_headlines": [
-        "Ultragenyx to weigh ‘significant’ cost cuts as Angelman drug fails key study"
-      ],
-      "source_headline": "Ultragenyx to weigh ‘significant’ cost cuts as Angelman drug fails key study",
-      "source_url": "https://www.biopharmadive.com/news/ultragenyx-angelman-syndrome-drug-results-cost-cuts/829528/",
-      "source_name": "BioPharma Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T14:53:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T21:54:54Z",
-      "updated_at": "2026-09-03T21:54:54Z",
-      "decay_at": "2026-09-05T02:53:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -97582,6 +97652,81 @@
       "surfaced_at": "2026-09-03T22:15:11Z",
       "updated_at": "2026-09-03T22:15:11Z",
       "decay_at": "2026-09-05T04:27:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-083c9caae543",
+      "idea_version": "IDEAV-a3b56a515f63a23f",
+      "idea_version_started_at": "2026-09-04T03:44:18Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Massive planned job cuts of up to 100,000 employees reflect severe structural headwinds and a lack of competitiveness in the EV transition.",
+      "why_now": "The restructuring plan was confirmed on 2026-09-03.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58de582c78d3",
+        "EVT-dd7f210a122a",
+        "EVT-3e93896c47f3"
+      ],
+      "primary_source_event_id": "EVT-58de582c78d3",
+      "source_headlines": [
+        "Volkswagen says it will cut 100,000 jobs by end of decade",
+        "Volkswagen board approves restructuring and signals 50,000 job cuts",
+        "Volkswagen announces it will cut 100,000 jobs by 2030"
+      ],
+      "source_headline": "Volkswagen says it will cut 100,000 jobs by end of decade",
+      "source_url": "https://japantoday.com/category/business/volkswagen-says-cutting-100-000-jobs-by-end-of-decade",
+      "source_name": "Japan Today",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T22:30:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T03:44:18Z",
+      "updated_at": "2026-09-04T03:44:18Z",
+      "decay_at": "2026-09-05T10:30:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98366,75 +98511,6 @@
       "surfaced_at": "2026-09-02T19:27:30Z",
       "updated_at": "2026-09-02T19:27:30Z",
       "decay_at": "2026-09-03T17:05:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7f632fc10e45",
-      "idea_version": "IDEAV-dd5c9321956be446",
-      "idea_version_started_at": "2026-09-01T05:23:34Z",
-      "ticker": "HFCL.NS",
-      "company": "HFCL Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HFCL secured a USD 244 million (approx. INR 2,329 crore) long-term supply agreement for Optical Fiber Cables, a material contract win that directly boosts revenue visibility and order book for a company with a market cap around INR 12,000 crore.",
-      "why_now": "Exchange filing dated 2026-09-01 announces the contract win; the stock can react immediately to the order inflow news.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fb98353f6e64"
-      ],
-      "primary_source_event_id": "EVT-fb98353f6e64",
-      "source_headlines": [
-        "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)"
-      ],
-      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_01092026084937_STX_Announcement_2329_Crore_Order_01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T03:19:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-01T05:23:34Z",
-      "updated_at": "2026-09-01T05:23:34Z",
-      "decay_at": "2026-09-02T15:19:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99724,77 +99800,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-db48ea3f1818",
-      "idea_version": "IDEAV-b8c9791d07fec794",
-      "idea_version_started_at": "2026-09-02T08:37:58Z",
-      "ticker": "HFCL",
-      "company": "HFCL Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a long-term supply agreement for optical fiber cables valued at approximately USD 244 million, providing significant revenue visibility.",
-      "why_now": "The contract was officially disclosed to the exchange on September 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fb98353f6e64"
-      ],
-      "primary_source_event_id": "EVT-fb98353f6e64",
-      "source_headlines": [
-        "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)"
-      ],
-      "source_headline": "HFCL Limited: HFCL Limited has informed the Exchange Intimation for entering into a long term supply agreement with a customer for supply of Optical Fiber Cables (OFC), worth USD 244 million approx. equivalent to Rs.2329 Crore approx. (approximately INR Two Thousand Three Hundred Twenty Nine Crore)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AHMED_01092026084937_STX_Announcement_2329_Crore_Order_01092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-01T03:19:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T08:37:58Z",
-      "updated_at": "2026-09-02T08:37:58Z",
-      "decay_at": "2026-09-02T15:19:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -99869,7 +99874,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 371,
+      "file_count": 373,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -101383,8 +101388,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T15:19:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T03:44:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -101457,8 +101462,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-02T15:19:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-04T03:44:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -128918,8 +128923,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 418,
-    "live_count": 25,
+    "surfaced_total": 420,
+    "live_count": 27,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
