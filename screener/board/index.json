@@ -1,6 +1,61 @@
 {
-  "generated_at": "2026-09-04T17:21:55Z",
+  "generated_at": "2026-09-04T17:32:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260904-734",
+      "headline": "ECA2026-648 - Information Regarding the Business Combination, Change of Control, and Reverse Split of Cyclerion Therapeutics, Inc. (CYCN) & Korsana Biosciences, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-648",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T21:00:30Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Cyclerion Therapeutics is undergoing a business combination, change of control, and reverse stock split.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cyclerion Therapeutics is undergoing a business combination, change of control, and reverse stock split.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cyclerion Therapeutics",
+          "ticker": "CYCN",
+          "listing_country": "US"
+        },
+        {
+          "name": "Korsana Biosciences",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260904-685",
       "headline": "SEBI Directions in the matter of Akar Laminators Limited and its Directors",
@@ -1088,6 +1143,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260904-733",
+      "headline": "US sanctions Turkish bank alleged to be conducting transactions for Iran’s IRGC",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/us/2026/09/04/us-sanctions-turkish-bank-alleged-to-be-conducting-transactions-for-irans-irgc/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T17:12:07Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "US sanctions on a Turkish bank for alleged transactions with Iran's IRGC represent a significant geopolitical and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US sanctions on a Turkish bank for alleged transactions with Iran's IRGC represent a significant geopolitical and regulatory risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turkish bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-732",
+      "headline": "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/antoniopequenoiv/2026/09/04/jensen-huangs-net-worth-nears-200-billion-after-nvidia-says-it-will-acquire-hugging-face/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:49:17Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Nvidia announced the acquisition of Hugging Face, a major strategic move in the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia announced the acquisition of Hugging Face, a major strategic move in the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260904-727",
       "headline": "Lilly looks beyond obesity with $2.88B autoimmune buyout",
       "headline_en": null,
@@ -1823,154 +1982,6 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-638",
-      "headline": "Volkswagen plans 50,000 job cuts as analysts see ‘halo effect’ for German auto industry",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/04/volkswagen-job-cuts-tariffs-china.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:04:49Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen plans 50,000 job cuts, signaling major operational restructuring and cost-cutting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen plans 50,000 job cuts, signaling major operational restructuring and cost-cutting.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-632",
-      "headline": "Volkswagen board clears 50,000 additional job cuts, major restructuring",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/volkswagen-board-approves-50000-additional-job-cuts-and-major-restructuring/article71425939.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:42:30Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Volkswagen announced 50,000 job cuts and a major restructuring plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volkswagen announced 50,000 job cuts and a major restructuring plan.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-629",
-      "headline": "Lululemon stock plunges 20% on disappointing earnings and outlook",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/03/lululemon-lulu-q2-2026-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:39:17Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Lululemon stock plunged 20% following disappointing earnings and outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lululemon stock plunged 20% following disappointing earnings and outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
         "guidance_change"
       ],
       "issuer_linkage": "primary",
@@ -130278,9 +130289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1813486,
-    "news_picked_today": 1872,
-    "news_dropped_today": 12912
+    "news_seen_today": 1861427,
+    "news_picked_today": 1876,
+    "news_dropped_today": 13004
   },
   "book_momentum": {
     "live_count": 8,
