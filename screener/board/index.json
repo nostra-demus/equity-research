@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T07:58:28Z",
+  "generated_at": "2026-09-04T08:28:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-502",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-539",
+      "headline": "Volkswagen Board Approves Doubling Job Cuts to 100,000 in Surprise Move",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/volkswagen-board-approves-plan-to-cut-workforce-model-portfolio-ac933812?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T07:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Volkswagen board approves doubling job cuts to 100,000.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen board approves doubling job cuts to 100,000.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-407",
-      "headline": "Nvidia pays $16.4b for Hugging Face – and an open AI future",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/nvidia-pays-16-4b-for-hugging-face-and-an-open-ai-future",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T14:02:54Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is acquiring Hugging Face for $16.4 billion, a major M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -97395,75 +97395,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3aa5e376f3ed",
-      "idea_version": "IDEAV-f56f55ee229f06e6",
-      "idea_version_started_at": "2026-09-03T05:43:47Z",
-      "ticker": "ARQQ",
-      "company": "Arqit Quantum Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SEC Form 25-NSE filing indicates a delisting notification, signaling likely exchange removal due to non-compliance or financial distress.",
-      "why_now": "Filing dated 2026-09-02; delisting is a near-term, binary catalyst with high certainty of execution.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e9dae00ed533"
-      ],
-      "primary_source_event_id": "EVT-e9dae00ed533",
-      "source_headlines": [
-        "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)"
-      ],
-      "source_headline": "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1859690/000135445726000843/0001354457-26-000843-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T20:14:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T05:43:47Z",
-      "updated_at": "2026-09-03T05:43:47Z",
-      "decay_at": "2026-09-04T08:14:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3b067fdb7522",
       "idea_version": "IDEAV-409221f160d2720a",
       "idea_version_started_at": "2026-09-03T05:43:47Z",
@@ -97529,75 +97460,6 @@
       "surfaced_at": "2026-09-03T05:43:47Z",
       "updated_at": "2026-09-03T05:43:47Z",
       "decay_at": "2026-09-04T08:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-79aa01dc2cf9",
-      "idea_version": "IDEAV-f450867fa845702c",
-      "idea_version_started_at": "2026-09-03T05:43:47Z",
-      "ticker": "RCKT",
-      "company": "Rocket Pharmaceuticals, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "SEC Form 25-NSE filing indicates a delisting notification, which typically precedes removal from the exchange due to non-compliance or distress.",
-      "why_now": "Filing dated 2026-09-02; delisting process is underway and often leads to sharp, permanent liquidity loss.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d257df9924b4"
-      ],
-      "primary_source_event_id": "EVT-d257df9924b4",
-      "source_headlines": [
-        "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)"
-      ],
-      "source_headline": "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1281895/000135445726000844/0001354457-26-000844-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T20:23:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T05:43:47Z",
-      "updated_at": "2026-09-03T05:43:47Z",
-      "decay_at": "2026-09-04T08:23:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -98749,6 +98611,144 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-3aa5e376f3ed",
+      "idea_version": "IDEAV-f56f55ee229f06e6",
+      "idea_version_started_at": "2026-09-03T05:43:47Z",
+      "ticker": "ARQQ",
+      "company": "Arqit Quantum Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SEC Form 25-NSE filing indicates a delisting notification, signaling likely exchange removal due to non-compliance or financial distress.",
+      "why_now": "Filing dated 2026-09-02; delisting is a near-term, binary catalyst with high certainty of execution.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e9dae00ed533"
+      ],
+      "primary_source_event_id": "EVT-e9dae00ed533",
+      "source_headlines": [
+        "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)"
+      ],
+      "source_headline": "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1859690/000135445726000843/0001354457-26-000843-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T20:14:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T05:43:47Z",
+      "updated_at": "2026-09-03T05:43:47Z",
+      "decay_at": "2026-09-04T08:14:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-79aa01dc2cf9",
+      "idea_version": "IDEAV-f450867fa845702c",
+      "idea_version_started_at": "2026-09-03T05:43:47Z",
+      "ticker": "RCKT",
+      "company": "Rocket Pharmaceuticals, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "SEC Form 25-NSE filing indicates a delisting notification, which typically precedes removal from the exchange due to non-compliance or distress.",
+      "why_now": "Filing dated 2026-09-02; delisting process is underway and often leads to sharp, permanent liquidity loss.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d257df9924b4"
+      ],
+      "primary_source_event_id": "EVT-d257df9924b4",
+      "source_headlines": [
+        "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)"
+      ],
+      "source_headline": "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1281895/000135445726000844/0001354457-26-000844-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-02T20:23:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T05:43:47Z",
+      "updated_at": "2026-09-03T05:43:47Z",
+      "decay_at": "2026-09-04T08:23:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-b6c0f11fb03b",
@@ -100323,8 +100323,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 393,
-    "shown_count": 393,
+    "total_count": 395,
+    "shown_count": 395,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -100333,8 +100333,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 191,
-        "shown_count": 191,
+        "total_count": 193,
+        "shown_count": 193,
         "hidden_count": 0
       }
     },
@@ -100354,6 +100354,150 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-79aa01dc2cf9",
+        "idea_version": "IDEAV-f450867fa845702c",
+        "idea_version_started_at": "2026-09-03T05:43:47Z",
+        "ticker": "RCKT",
+        "company": "Rocket Pharmaceuticals, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SEC Form 25-NSE filing indicates a delisting notification, which typically precedes removal from the exchange due to non-compliance or distress.",
+        "why_now": "Filing dated 2026-09-02; delisting process is underway and often leads to sharp, permanent liquidity loss.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d257df9924b4"
+        ],
+        "primary_source_event_id": "EVT-d257df9924b4",
+        "source_headlines": [
+          "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)"
+        ],
+        "source_headline": "25-NSE - ROCKET PHARMACEUTICALS, INC. (0001281895) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1281895/000135445726000844/0001354457-26-000844-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T20:23:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T05:43:47Z",
+        "updated_at": "2026-09-03T05:43:47Z",
+        "decay_at": "2026-09-04T08:23:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T08:23:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3aa5e376f3ed",
+        "idea_version": "IDEAV-f56f55ee229f06e6",
+        "idea_version_started_at": "2026-09-03T05:43:47Z",
+        "ticker": "ARQQ",
+        "company": "Arqit Quantum Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "SEC Form 25-NSE filing indicates a delisting notification, signaling likely exchange removal due to non-compliance or financial distress.",
+        "why_now": "Filing dated 2026-09-02; delisting is a near-term, binary catalyst with high certainty of execution.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e9dae00ed533"
+        ],
+        "primary_source_event_id": "EVT-e9dae00ed533",
+        "source_headlines": [
+          "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)"
+        ],
+        "source_headline": "25-NSE - Arqit Quantum Inc. (0001859690) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1859690/000135445726000843/0001354457-26-000843-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-02T20:14:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T05:43:47Z",
+        "updated_at": "2026-09-03T05:43:47Z",
+        "decay_at": "2026-09-04T08:14:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-04T08:14:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b6c0f11fb03b",
         "idea_version": "IDEAV-6e2048200cf3a78a",
@@ -129513,7 +129657,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 426,
-    "live_count": 31,
+    "live_count": 29,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -129532,9 +129676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 327839,
-    "news_picked_today": 1330,
-    "news_dropped_today": 6734
+    "news_seen_today": 413302,
+    "news_picked_today": 1344,
+    "news_dropped_today": 6744
   },
   "book_momentum": {
     "live_count": 8,
