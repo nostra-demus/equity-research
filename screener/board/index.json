@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T20:14:02Z",
+  "generated_at": "2026-09-04T20:34:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260904-734",
@@ -52,6 +52,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260904-747",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"Tata Motors launches recommended all-cash Voluntary totalitariantender offer for IVECO Group Common shares .",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_05092026013217_IVECOPR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-04T20:02:23Z",
+      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
+      "prelim_note": "Tata Motors announced a recommended all-cash tender offer for IVECO Group shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors announced a recommended all-cash tender offer for IVECO Group shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IVECO Group",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,56 +1993,6 @@
           "name": "ONEOK",
           "ticker": "OKE",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260904-703",
-      "headline": "US sanctions Turkish bank, two subsidiaries to pressure Iran",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/09/us-sanctions-turkish-bank-two-subsidiaries-pressure-iran",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T14:46:42Z",
-      "sweep_file": "screener/inbox/2026-09-04_sweep.json",
-      "prelim_note": "US sanctions on a Turkish bank and subsidiaries for alleged ties to Iran represent a significant regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "US sanctions on a Turkish bank and subsidiaries for alleged ties to Iran represent a significant regulatory and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commerce Bank",
-          "ticker": null,
-          "listing_country": "TR"
         }
       ],
       "size_bucket": "large",
@@ -130505,9 +130509,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2296293,
-    "news_picked_today": 1967,
-    "news_dropped_today": 15241
+    "news_seen_today": 2337439,
+    "news_picked_today": 1978,
+    "news_dropped_today": 15662
   },
   "book_momentum": {
     "live_count": 8,
