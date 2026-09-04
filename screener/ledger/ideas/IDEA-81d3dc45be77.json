@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-81d3dc45be77",
+  "idea_version": "IDEAV-7029e49b024b004a",
+  "idea_version_started_at": "2026-09-03T12:43:04Z",
+  "ticker": "BF.B",
+  "company": "Brown-Forman",
+  "exchange": "NYSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company missed sales estimates due to a broader slowdown in consumer spending, indicating potential margin pressure in the premium spirits segment.",
+  "why_now": "The earnings miss was reported on September 2, 2026.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 6,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-c0725a4050fe"
+  ],
+  "primary_source_event_id": "EVT-c0725a4050fe",
+  "source_headlines": [
+    "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending"
+  ],
+  "source_headline": "Jack Daniel's maker Brown-Forman misses sales estimates on weak consumer spending",
+  "source_url": "https://www.reuters.com/business/retail-consumer/jack-daniels-maker-brown-forman-misses-quarterly-sales-estimates-2026-09-02/",
+  "source_name": "Reuters — Latest, next page (news sitemap)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-02T12:34:18Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-03T12:43:04Z",
+  "updated_at": "2026-09-03T12:43:04Z",
+  "decay_at": "2026-09-04T00:34:18Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
