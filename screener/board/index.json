@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T04:26:39Z",
+  "generated_at": "2026-09-05T04:37:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-517",
@@ -772,6 +772,159 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-539",
+      "headline": "Crusoe signs $13bn deal with Jane Street - report",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/crusoe-signs-13bn-deal-with-jane-street-report/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T10:03:52Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Crusoe Energy has reportedly signed a massive $13 billion deal with Jane Street, likely involving data center infrastructure or financing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crusoe Energy has reportedly signed a massive $13 billion deal with Jane Street, likely involving data center infrastructure or financing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crusoe Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Jane Street",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-518",
+      "headline": "Tata Motors CV launches tender offer for Italy's Iveco Group shares; company value at €3.82 billion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tata-motors-cv-launches-tender-offer-for-italian-auto-company-iveco-group-shares-august-auto-sales-19984718.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T04:16:55Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Tata Motors announces €3.82 billion tender offer for Iveco Group, a material capital deployment affecting balance sheet and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Tata Motors announces €3.82 billion tender offer for Iveco Group, a material capital deployment affecting balance sheet and strategic positioning.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": "TATAMOTORS",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-534",
+      "headline": "'If anything goes bad, we hit them hard': Trump threatens to strike Iran’s underground nuclear site ‘very soon’",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/if-anything-goes-bad-we-hit-them-hard-trump-threatens-to-strike-irans-underground-nuclear-site-pickaxe-mountain-very-soon-4135859",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T03:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Trump's threat to strike Iran's nuclear site 'very soon' represents a significant geopolitical escalation with potential global economic impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Trump's threat to strike Iran's nuclear site 'very soon' represents a significant geopolitical escalation with potential global economic impact.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1845,144 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-232",
-      "headline": "Govt flags Abhayrab rabies vaccine batch as substandard, probes if spurious, document shows",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/india-flags-abhayrab-rabies-vaccine-batch-as-substandard-probes-if-spurious-document-shows/articleshow/133783108.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T00:55:23Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The Indian government has flagged a batch of the Abhayrab rabies vaccine as substandard and is investigating potential fraud.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Indian government has flagged a batch of the Abhayrab rabies vaccine as substandard and is investigating potential fraud.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abhayrab",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-502",
-      "headline": "Milei intensifica reivindicações de soberania das Malvinas com sanções sobre petróleo",
-      "headline_en": "Milei intensifies sovereignty claims over the Falklands with sanctions on oil",
-      "url": "https://www.reuters.com/pt/mundo/A2XMWKYZRNO7DBEI5XQHMSEBQE-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:37:46Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Argentina imposing sanctions on oil companies over Falklands sovereignty claims creates geopolitical and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Argentina imposing sanctions on oil companies over Falklands sovereignty claims creates geopolitical and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-513",
-      "headline": "Empresas chinas de tierras raras suspenden algunos envíos a EEUU por la inquietud geopolítica",
-      "headline_en": "Chinese rare-earth companies suspend some shipments to the US due to geopolitical unease",
-      "url": "https://www.reuters.com/es/negocio/JJP5JECM75JVLHMEY2LWLGXS6U-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:23:45Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Chinese rare-earth companies are suspending some shipments to the US due to geopolitical tension, a supply shock in a critical mineral chain.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Chinese rare-earth companies are suspending some shipments to the US due to geopolitical tension, a supply shock in a critical mineral chain.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -99474,77 +99489,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9623b2f3d514",
-      "idea_version": "IDEAV-d0ee2d1952f3a07b",
-      "idea_version_started_at": "2026-09-03T22:15:11Z",
-      "ticker": "CIEN",
-      "company": "Ciena Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ciena shares fell 10% after in-line guidance overshadowed an earnings beat, signaling the market is pricing slower forward growth despite current results.",
-      "why_now": "Earnings and guidance released 2026-09-03 per TheStreet report; negative guidance reaction is the live catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b941397b310d"
-      ],
-      "primary_source_event_id": "EVT-b941397b310d",
-      "source_headlines": [
-        "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher"
-      ],
-      "source_headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
-      "source_url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T16:27:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T22:15:11Z",
-      "updated_at": "2026-09-03T22:15:11Z",
-      "decay_at": "2026-09-05T04:27:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-ba5fba4b600d7282",
       "idea_version_started_at": "2026-09-04T21:55:24Z",
@@ -101464,6 +101408,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9623b2f3d514",
+      "idea_version": "IDEAV-d0ee2d1952f3a07b",
+      "idea_version_started_at": "2026-09-03T22:15:11Z",
+      "ticker": "CIEN",
+      "company": "Ciena Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ciena shares fell 10% after in-line guidance overshadowed an earnings beat, signaling the market is pricing slower forward growth despite current results.",
+      "why_now": "Earnings and guidance released 2026-09-03 per TheStreet report; negative guidance reaction is the live catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b941397b310d"
+      ],
+      "primary_source_event_id": "EVT-b941397b310d",
+      "source_headlines": [
+        "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher"
+      ],
+      "source_headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
+      "source_url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T16:27:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T22:15:11Z",
+      "updated_at": "2026-09-03T22:15:11Z",
+      "decay_at": "2026-09-05T04:27:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-060ace16dada",
       "idea_version": "IDEAV-de4f40ff80aae63a",
       "idea_version_started_at": "2026-09-04T06:57:21Z",
@@ -102402,8 +102417,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 409,
-    "shown_count": 409,
+    "total_count": 410,
+    "shown_count": 410,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -102412,8 +102427,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 196,
-        "shown_count": 196,
+        "total_count": 197,
+        "shown_count": 197,
         "hidden_count": 0
       }
     },
@@ -102433,6 +102448,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9623b2f3d514",
+        "idea_version": "IDEAV-d0ee2d1952f3a07b",
+        "idea_version_started_at": "2026-09-03T22:15:11Z",
+        "ticker": "CIEN",
+        "company": "Ciena Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Ciena shares fell 10% after in-line guidance overshadowed an earnings beat, signaling the market is pricing slower forward growth despite current results.",
+        "why_now": "Earnings and guidance released 2026-09-03 per TheStreet report; negative guidance reaction is the live catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b941397b310d"
+        ],
+        "primary_source_event_id": "EVT-b941397b310d",
+        "source_headlines": [
+          "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher"
+        ],
+        "source_headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
+        "source_url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T16:27:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T22:15:11Z",
+        "updated_at": "2026-09-03T22:15:11Z",
+        "decay_at": "2026-09-05T04:27:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T04:27:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ed0a5587b955",
         "idea_version": "IDEAV-47f724a6b8c054c8",
@@ -132773,7 +132862,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 441,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -132792,9 +132881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 175454,
-    "news_picked_today": 793,
-    "news_dropped_today": 2759
+    "news_seen_today": 180547,
+    "news_picked_today": 819,
+    "news_dropped_today": 2853
   },
   "book_momentum": {
     "live_count": 8,
