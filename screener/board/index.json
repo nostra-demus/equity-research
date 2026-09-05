@@ -1,6 +1,115 @@
 {
-  "generated_at": "2026-09-05T09:58:07Z",
+  "generated_at": "2026-09-05T10:07:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-691",
+      "headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
+      "headline_en": null,
+      "url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T10:00:45Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Novartis halted a CAR-T trial due to patient deaths, and Eli Lilly completed its 13th acquisition of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis halted a CAR-T trial due to patient deaths, and Eli Lilly completed its 13th acquisition of 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-692",
+      "headline": "Tata Motors Launches 3.82 Billion Euro Takeover Offer For Iveco Group",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/tata-motors-launches-3-82-billion-euro-takeover-offer-for-iveco-group-12005262#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T08:53:20Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Tata Motors announced a 3.82 billion Euro takeover offer for Iveco Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors announced a 3.82 billion Euro takeover offer for Iveco Group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-688",
       "headline": "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
@@ -1918,104 +2027,6 @@
           "name": "Volkswagen",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-558",
-      "headline": "Volkswagen to cut further 50,000 jobs as it ends row with union over revival plan",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/sep/03/volkswagen-confirms-100000-job-cuts-by-2030",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T09:43:58Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Volkswagen is cutting 50,000 jobs as part of a major restructuring effort.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Volkswagen is cutting 50,000 jobs as part of a major restructuring effort.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-563",
-      "headline": "Volkswagen to fire 12% of its India workforce amid major cost overhaul",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/volkswagen-india-layoff-to-fire-12-of-its-workforce-in-major-cost-overhaul/articleshow/133757908.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T09:21:10Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Volkswagen is cutting 12% of its India workforce as part of a major cost-reduction program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Volkswagen is cutting 12% of its India workforce as part of a major cost-reduction program.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": "VOW3",
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -134289,9 +134300,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209285,
-    "news_picked_today": 1507,
-    "news_dropped_today": 7268
+    "news_seen_today": 209429,
+    "news_picked_today": 1513,
+    "news_dropped_today": 7406
   },
   "book_momentum": {
     "live_count": 8,
