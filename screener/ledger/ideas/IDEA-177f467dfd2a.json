@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-177f467dfd2a",
+  "idea_version": "IDEAV-eed1b52b265141e7",
+  "idea_version_started_at": "2026-09-05T22:12:55Z",
+  "ticker": "AON",
+  "company": "Aon plc",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The $17 billion debt-funded acquisition of USI introduces significant balance sheet risk and execution uncertainty, with only $395 million in projected synergies failing to justify the leverage.",
+  "why_now": "The deal was announced on 2026-09-04, and the market is currently digesting the impact of the increased debt load.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 6,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-7d9b9ef2082a"
+  ],
+  "primary_source_event_id": "EVT-7d9b9ef2082a",
+  "source_headlines": [
+    "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?"
+  ],
+  "source_headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
+  "source_name": "Yahoo Finance",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-04T16:28:42Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-05T22:12:55Z",
+  "updated_at": "2026-09-05T22:12:55Z",
+  "decay_at": "2026-09-06T04:28:42Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

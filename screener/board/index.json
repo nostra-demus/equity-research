@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T22:12:10Z",
+  "generated_at": "2026-09-05T22:13:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -98591,6 +98591,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-177f467dfd2a",
+      "idea_version": "IDEAV-eed1b52b265141e7",
+      "idea_version_started_at": "2026-09-05T22:12:55Z",
+      "ticker": "AON",
+      "company": "Aon plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $17 billion debt-funded acquisition of USI introduces significant balance sheet risk and execution uncertainty, with only $395 million in projected synergies failing to justify the leverage.",
+      "why_now": "The deal was announced on 2026-09-04, and the market is currently digesting the impact of the increased debt load.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d9b9ef2082a"
+      ],
+      "primary_source_event_id": "EVT-7d9b9ef2082a",
+      "source_headlines": [
+        "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?"
+      ],
+      "source_headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T16:28:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T22:12:55Z",
+      "updated_at": "2026-09-05T22:12:55Z",
+      "decay_at": "2026-09-06T04:28:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0c6d82b4b0e4",
       "idea_version": "IDEAV-0162a70012b58b71",
       "idea_version_started_at": "2026-09-05T20:08:22Z",
@@ -101744,76 +101814,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c9eee60c5cd7",
-      "idea_version": "IDEAV-05301fbc96acf169",
-      "idea_version_started_at": "2026-09-03T09:41:51Z",
-      "ticker": "WOOF",
-      "company": "Petco Health and Wellness Company, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a surge in Q2 profit and reaffirmed its full-year 2026 outlook, suggesting operational stability.",
-      "why_now": "The earnings and outlook reaffirmation were announced on 2026-09-02.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-411c53a68acc"
-      ],
-      "primary_source_event_id": "EVT-411c53a68acc",
-      "source_headlines": [
-        "Petco Q2 Profit Surges; Reaffirms FY26 Outlook"
-      ],
-      "source_headline": "Petco Q2 Profit Surges; Reaffirms FY26 Outlook",
-      "source_url": "https://www.nasdaq.com/articles/petco-q2-profit-surges-reaffirms-fy26-outlook",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-02T22:09:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T09:41:51Z",
-      "updated_at": "2026-09-03T09:41:51Z",
-      "decay_at": "2026-09-04T10:09:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b4305fa7b1e56144",
       "idea_version_started_at": "2026-09-04T23:10:23Z",
@@ -103822,7 +103822,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 399,
+      "file_count": 400,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -106381,8 +106381,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-04T10:09:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-05T22:12:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -135908,8 +135908,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 472,
-    "live_count": 38,
+    "surfaced_total": 473,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
