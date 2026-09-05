@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T06:00:51Z",
+  "generated_at": "2026-09-05T06:25:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-517",
@@ -979,6 +979,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-638",
+      "headline": "Adani Expands Footprint Across Non-BJP States With ₹5 Lakh Cr Investment Pipeline",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/adani-expands-footprint-across-non-bjp-states-with-5-lakh-cr-investment-pipeline",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T09:02:41Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Adani Group announced a major capital expenditure pipeline of ₹5 lakh crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Group announced a major capital expenditure pipeline of ₹5 lakh crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-646",
+      "headline": "Aditya Birla Group gets Rs 24,000 crore bank commitments for Shell deal, 70% more than planned",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/aditya-birla-group-gets-rs-24000-crore-bank-commitments-for-shell-deal-billionaire-kumar-mangalam-hdfc-axis-bank/articleshow/133730162.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T08:29:39Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aditya Birla Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-518",
       "headline": "Tata Motors CV launches tender offer for Italy's Iveco Group shares; company value at €3.82 billion",
       "headline_en": null,
@@ -1361,6 +1460,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-644",
+      "headline": "Adani Group expands footprint in opposition-ruled states with projects worth Rs 5 lakh crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-group-expands-footprint-in-opposition-ruled-states-with-projects-worth-rs-5-lakh-crore/articleshow/133730846.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T08:59:09Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Adani Group announced a massive capital expenditure project worth Rs 5 lakh crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Adani Group announced a massive capital expenditure project worth Rs 5 lakh crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1800,203 +1948,56 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-541",
-      "headline": "Jefferies fund caught with $500mn exposure to second alleged invoice fraud",
+      "inbox_id": "INB-20260905-648",
+      "headline": "Deutsche Telekom shares rise as sources say Elliott builds stake, opposes T-Mobile deal",
       "headline_en": null,
-      "url": "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T04:00:42Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Jefferies fund is exposed to $500mn in alleged invoice fraud, indicating potential asset impairment and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Jefferies fund is exposed to $500mn in alleged invoice fraud, indicating potential asset impairment and operational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jefferies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-389",
-      "headline": "Iveco, offerta Tata Motors da 7 settembre a 26 ottobre",
-      "headline_en": "Iveco, Tata Motors offer from September 7 to October 26.",
-      "url": "https://www.reuters.com/it/azienda/iveco-offerta-tata-motors-da-7-settembre-26-ottobre-2026-09-04/",
+      "url": "https://www.reuters.com/business/deutsche-telekom-shares-jump-after-reports-say-elliott-builds-stake-opposes-t-2026-09-03/",
       "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:49:43Z",
+      "found_at": "2026-09-03T08:31:56Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Tata Motors acquisition offer for Iveco, confirmed bid window 7 September – 26 October 2026; named M&A deal directly affecting two large automakers.",
+      "prelim_note": "Elliott Investment Management has built a stake in Deutsche Telekom and is opposing the T-Mobile deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Tata Motors acquisition offer for Iveco, confirmed bid window 7 September – 26 October 2026; named M&A deal directly affecting two large automakers.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iveco",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-619",
-      "headline": "Lloyd’s of London faces £1.4bn losses in Gulf from US-Iran war",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/83bdebe3-8f65-44e2-81b7-ecf133ca2929?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T10:35:59Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Lloyd's of London faces quantified potential losses of £1.4bn due to geopolitical conflict risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Lloyd's of London faces quantified potential losses of £1.4bn due to geopolitical conflict risks.",
+      "triage_score": 96,
+      "triage_reason": "Elliott Investment Management has built a stake in Deutsche Telekom and is opposing the T-Mobile deal.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lloyd's of London",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-621",
-      "headline": "Supreme court dismisses SEBI’s plea against NSE after ₹1500-crore settlement",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/supreme-court-dismisses-sebis-plea-against-nse/article71423139.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T10:30:45Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The Supreme Court dismissed a plea against the NSE following a 1500-crore rupee settlement, resolving a significant legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The Supreme Court dismissed a plea against the NSE following a 1500-crore rupee settlement, resolving a significant legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 0,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "litigation_enforcement"
+        "ownership_activist",
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "National Stock Exchange of India",
+          "name": "Deutsche Telekom",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "DE"
+        },
+        {
+          "name": "T-Mobile",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -133315,9 +133316,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 200894,
-    "news_picked_today": 1199,
-    "news_dropped_today": 4321
+    "news_seen_today": 203486,
+    "news_picked_today": 1271,
+    "news_dropped_today": 4825
   },
   "book_momentum": {
     "live_count": 8,
