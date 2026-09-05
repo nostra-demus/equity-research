@@ -418,7 +418,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — and HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -817,6 +817,26 @@ if _isdate(_live_date) and _live_date >= _BA_SCEN_DATE:
                     "one falsification trigger; the live gate had no kill_criteria-presence check, so an omitted/empty "
                     "array printed GATE: PASS (mirrors eval.py schema check B + check P)")
 viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_criteria")) or [])
+# checks AM/AR — §8 bear-case / bull-case sanity (live pre-publish; mirrors eval.py checks AM/AR
+# via scripts/scenario_integrity_checks.py, the same shared module as AT/AU/AV/BC/BA above).
+# CLAUDE.md §8 requires every thesis to state "the strongest bear case" (and, by the same
+# disconfirmation standard applied to a short, the strongest bull case) — a "bear" scenario that
+# is itself a GAIN never actually tested that requirement. The named worked failure:
+# EMAAR_2026-07-03 published a "Starter Position Only" conviction long whose bear-labelled
+# scenario carried a price_target ABOVE entry_price (bear +63.9%, no capital loss) — a Selected
+# thesis that had never priced a genuine loss scenario, undetected until a later manual
+# `/research:eval` run, even though several OTHER checks (AF, AT/AU/AV) were built and wired into
+# this same live gate specifically in response to that same EMAAR run. AM/AR existed in eval.py
+# since 2026-07-17 / 2026-07-25 but, unlike AT/AU/AV/BC/BA, were never moved into this importable
+# module, so the live gate could never call them — a Selected long could ship with an all-upside
+# "bear" case (or a Short Candidate with an all-downside "bull" case), print `GATE: PASS`, and
+# commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual eval.py run.
+# Moving them here (see scenario_integrity_checks.py) closes that hole the same way it was
+# already closed for §10/HARD GATE 11/HARD GATE 13. Uses `_live_date` for the same reason
+# AT/AU/AV/BC/BA do — a rerun re-checks what SHIPS on this execution, not when the thesis was
+# first decided.
+viol.extend(sic.eval_am_bear_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
+viol.extend(sic.eval_ar_short_bull_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")

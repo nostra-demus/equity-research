@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """§10 scenario-integrity detectors: the span check and the conjunction-disclosure check
 (CLAUDE.md §10), plus the cross-module sign-check presence gate (synthesizer.md Step 3b /
-HARD GATE 7), the §10 HARD GATE 13 probability-basis presence/form check, and the HARD GATE 11
-kill-criteria trigger-test schema-presence check (check BA — moved here from `scripts/eval.py`,
-where it was defined but never imported into the live gate; see that check's own comment block
-below for why).
+HARD GATE 7), the §10 HARD GATE 13 probability-basis presence/form check, the HARD GATE 11
+kill-criteria trigger-test schema-presence check, and the §8 bear-case / bull-case sanity checks
+(checks BA, AM, AR — each moved here from `scripts/eval.py`, where it was defined but never
+imported into the live gate; see each check's own comment block below for why).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks
 AT/AU/AV) so the SAME detection functions can run in TWO places instead of one:
@@ -201,6 +201,80 @@ def eval_av_conjunction_disclosure(decision_date, scenarios):
                        f"field for scenarios with 2+ simultaneous conditions; a value here either misuses "
                        f"the field or hides an undisclosed second condition")
     return out
+
+
+# ---- check AM: a Selected/conviction long must carry a genuine bear case (§8/§16) -------------------
+# CLAUDE.md §8: "state ... the strongest bear case ... the disconfirming evidence already visible ...
+# what would force a downgrade or outright rejection." A "bear" scenario that is itself a GAIN is not a
+# bear case at all — it fails §8's disconfirmation test before any other evidence is even weighed.
+#
+# The named worked failure: EMAAR_2026-07-03 published a "Starter Position Only" conviction long whose
+# bear-labelled scenario carried a price_target ABOVE entry_price (bear +63.9%, no capital loss) — a
+# Selected thesis that had never been tested against a genuine loss scenario, undetected until a later
+# manual `eval.py` run.
+#
+# check AM existed only inside `scripts/eval.py` since 2026-07-17 — a post-hoc grading pass a human has
+# to remember to run — so it was never available to the LIVE finish-gate (`/research:full` Step 10B.1),
+# unlike its siblings AT/AU/AV/BA/BC in this module. A run could ship a Selected long with an all-upside
+# scenario set, print the live gate's `GATE: PASS`, and commit straight to `main` (CLAUDE.md §25/§28),
+# undetected until a later manual `/research:eval` run — the exact same class of hole already closed here
+# for AT/AU/AV/BA/BC, left open for the one remaining scenario-shape check that had it. Moving it here
+# (eval.py now imports it from this module) closes that hole without changing its logic or its
+# retrospective grading.
+AM_DATE = "2026-07-17"
+
+def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
+    """Check AM: a Selected/conviction long (Strong Buy / Buy / Starter Position Only) must carry a
+    genuine bear case — the bear-labelled scenario's price_target BELOW entry_price (a real downside
+    branch). A "bear" scenario that is itself a gain (the EMAAR_2026-07-03 defect: bear +63.9%, no
+    capital loss) fails §8's strongest-bear-case test and §16. Returns None (pre-gate / not a Selected
+    long / no usable bear price target) or a list of violations (empty = pass)."""
+    if not (_isdate(decision_date) and decision_date >= AM_DATE):
+        return None
+    if decision not in {"Strong Buy", "Buy", "Starter Position Only"}:
+        return None
+    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
+        return None
+    bear = next((s for s in scenarios if isinstance(s, dict) and "bear" in str(s.get("label", "")).lower()), None)
+    if not bear or not isinstance(bear.get("price_target"), (int, float)) or isinstance(bear.get("price_target"), bool):
+        return None  # no usable bear price target to test
+    if bear["price_target"] >= entry_price:
+        return [f"Selected/conviction long but the bear-case price target {bear['price_target']} is not below "
+                f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
+    return []
+
+
+# ---- check AR: a Short Candidate must carry a genuine bull case — the mirror of check AM ------------
+# The short-side mirror of check AM. A "Short Candidate" decision must carry a genuine bull case — the
+# bull-labelled scenario's price_target ABOVE entry_price (a real squeeze/upside branch that is a genuine
+# LOSS to the short position). A "bull" scenario that is itself at or below entry (no loss to the short)
+# fails §8's strongest-bull-case test applied to the short's own disconfirming direction — the exact
+# mirror of the EMAAR_2026-07-03 bear-case defect check AM guards against on the long side. Without this,
+# a Short Candidate could ship with an all-downside scenario set that never prices the risk of being
+# wrong, silently violating §8's symmetric-disconfirmation requirement for the one decision type check AM
+# does not cover.
+#
+# Same history as check AM above: defined only inside `scripts/eval.py` since 2026-07-25, never available
+# to the live finish-gate. Moved here for the same reason.
+AR_DATE = "2026-07-25"
+
+def eval_ar_short_bull_case_sanity(decision_date, decision, scenarios, entry_price):
+    """Check AR: the short-side mirror of check AM. Returns None (pre-gate / not a Short Candidate / no
+    usable bull price target) or a list of violations (empty = pass)."""
+    if not (_isdate(decision_date) and decision_date >= AR_DATE):
+        return None
+    if decision != "Short Candidate":
+        return None
+    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
+        return None
+    bull = next((s for s in scenarios if isinstance(s, dict) and "bull" in str(s.get("label", "")).lower()), None)
+    if not bull or not isinstance(bull.get("price_target"), (int, float)) or isinstance(bull.get("price_target"), bool):
+        return None  # no usable bull price target to test
+    if bull["price_target"] <= entry_price:
+        return [f"Short Candidate but the bull-case price target {bull['price_target']} is not above "
+                f"entry_price {entry_price} — no genuine upside/squeeze branch, i.e. no real loss to the "
+                f"short (§8 strongest-bull-case; mirror of check AM)"]
+    return []
 
 
 # ---- check BA: every kill_criteria row must carry the HARD GATE 11 trigger-test fields ------------
