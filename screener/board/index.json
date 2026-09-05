@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T22:30:23Z",
+  "generated_at": "2026-09-05T22:30:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -98873,76 +98873,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8ce0d29dfa32",
-      "idea_version": "IDEAV-e4a1c78ba485e0f2",
-      "idea_version_started_at": "2026-09-05T07:55:39Z",
-      "ticker": "PATH",
-      "company": "UiPath Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "UiPath guided to a significant growth slowdown that overshadowed a revenue beat, indicating the core automation platform is losing momentum.",
-      "why_now": "Yahoo Finance reported the guidance-driven ~14% drop on 2026-09-04; the guidance update is the fresh catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a567b7f34843"
-      ],
-      "primary_source_event_id": "EVT-a567b7f34843",
-      "source_headlines": [
-        "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
-      ],
-      "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T14:40:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T07:55:39Z",
-      "updated_at": "2026-09-05T07:55:39Z",
-      "decay_at": "2026-09-06T02:40:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f17885c63017",
       "idea_version": "IDEAV-f8d1bd0b5cba4f65",
       "idea_version_started_at": "2026-09-05T07:55:39Z",
@@ -99435,6 +99365,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8ce0d29dfa32",
+      "idea_version": "IDEAV-143237a7d06b32d0",
+      "idea_version_started_at": "2026-09-05T22:30:39Z",
+      "ticker": "PATH",
+      "company": "UiPath",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company's forward guidance indicates a material slowdown in growth that outweighs the immediate revenue beat, signaling potential margin compression and cooling demand for automation software.",
+      "why_now": "The guidance revision was released on 2026-09-04, causing a 14% drop that may continue as analysts adjust long-term models.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a567b7f34843"
+      ],
+      "primary_source_event_id": "EVT-a567b7f34843",
+      "source_headlines": [
+        "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
+      ],
+      "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:40:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:55:39Z",
+      "updated_at": "2026-09-05T22:30:39Z",
+      "decay_at": "2026-09-06T02:40:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-4b271f79c1fd5c0d",
       "idea_version_started_at": "2026-09-05T21:50:53Z",
@@ -99570,6 +99571,78 @@
       "surfaced_at": "2026-09-04T15:47:15Z",
       "updated_at": "2026-09-04T15:47:15Z",
       "decay_at": "2026-09-06T01:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-8c89f9876d9be9a9",
+      "idea_version_started_at": "2026-09-05T22:30:39Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $7.4 billion investment in an AI data center campus signals a major shift toward high-margin infrastructure-led service revenue and long-term capacity expansion.",
+      "why_now": "The capex announcement was made on 2026-09-05.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4a2a1b4daf1"
+      ],
+      "primary_source_event_id": "EVT-b4a2a1b4daf1",
+      "source_headlines": [
+        "India's TCS unit to invest up to $7.4 billion in AI data center campus"
+      ],
+      "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
+      "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T12:27:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T13:02:11Z",
+      "updated_at": "2026-09-05T22:30:39Z",
+      "decay_at": "2026-09-07T00:27:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -101243,79 +101316,6 @@
       "surfaced_at": "2026-09-05T17:14:18Z",
       "updated_at": "2026-09-05T17:14:18Z",
       "decay_at": "2026-09-07T04:49:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-955bf7bf96c8ddb2",
-      "idea_version_started_at": "2026-09-05T13:02:11Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A massive ₹70,000-crore investment in an AI data center campus signals a pivot toward heavy infrastructure-led AI services, moving beyond traditional labor-arbitrage consulting.",
-      "why_now": "The project announcement for the Hyderabad campus occurred on September 5, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c00f004c41de"
-      ],
-      "primary_source_event_id": "EVT-c00f004c41de",
-      "source_headlines": [
-        "TCS HyperVault to set up ₹70,000-crore AI data centre campus in Hyderabad"
-      ],
-      "source_headline": "TCS HyperVault to set up ₹70,000-crore AI data centre campus in Hyderabad",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/tcs-hypervault-to-set-up-70000-crore-ai-data-centre-campus-in-hyderabad/article71431695.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-05T10:52:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T13:02:11Z",
-      "updated_at": "2026-09-05T13:02:11Z",
-      "decay_at": "2026-09-06T22:52:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
