@@ -6332,9 +6332,9 @@ app.post('/api/chat', async (req, reply) => {
       }
       if (!closed && completionSafe) send({ type: 'chat-done', costUsd: out.costUsd + parserCostUsd, model })
     }
-  } catch (e: any) {
+  } catch {
     await rollbackCanceledQuestion()
-    if (!closed && !ac.signal.aborted) send({ type: 'chat-error', message: String(e?.message || e) })
+    if (!closed && !ac.signal.aborted) send({ type: 'chat-error', message: 'The answer could not be completed. Retry the same question.' })
   } finally {
     if (ping) clearInterval(ping)
     try { res.end() } catch { /* already closed */ }
