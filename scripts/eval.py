@@ -1122,54 +1122,12 @@ def eval_release_gate_eligible(has_run_metadata, supersession_result):
     valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
     return bool(has_run_metadata) and not valid_supersession
 
-# ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
-AM_DATE = "2026-07-17"
-def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
-    """Check AM: a Selected/conviction long (Strong Buy / Buy / Starter Position Only) must carry a
-    genuine bear case — the bear-labelled scenario's price_target BELOW entry_price (a real downside
-    branch). A "bear" scenario that is itself a gain (the EMAAR_2026-07-03 defect: bear +63.9%, no
-    capital loss) fails §8's strongest-bear-case test and §16. Returns None (pre-gate / not a Selected
-    long / no usable bear price target) or a list of violations (empty = pass)."""
-    if not (isdate(decision_date) and decision_date >= AM_DATE):
-        return None
-    if decision not in {"Strong Buy", "Buy", "Starter Position Only"}:
-        return None
-    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
-        return None
-    bear = next((s for s in scenarios if isinstance(s, dict) and "bear" in str(s.get("label", "")).lower()), None)
-    if not bear or not isinstance(bear.get("price_target"), (int, float)) or isinstance(bear.get("price_target"), bool):
-        return None  # no usable bear price target to test
-    if bear["price_target"] >= entry_price:
-        return [f"Selected/conviction long but the bear-case price target {bear['price_target']} is not below "
-                f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
-    return []
-
-# ── Check AR (§8 mirror of AM) — a Short Candidate must have a real loss branch for the short ──
-AR_DATE = "2026-07-25"
-def eval_ar_short_bull_case_sanity(decision_date, decision, scenarios, entry_price):
-    """Check AR: the short-side mirror of check AM. A "Short Candidate" decision must carry a genuine
-    bull case — the bull-labelled scenario's price_target ABOVE entry_price (a real squeeze/upside branch
-    that is a genuine LOSS to the short position). A "bull" scenario that is itself at or below entry (no
-    loss to the short) fails §8's strongest-bull-case test applied to the short's own disconfirming
-    direction — the exact mirror of the EMAAR_2026-07-03 bear-case defect check AM guards against on the
-    long side. Without this, a Short Candidate could ship with an all-downside scenario set that never
-    prices the risk of being wrong, silently violating §8's symmetric-disconfirmation requirement for the
-    one decision type check AM does not cover. Returns None (pre-gate / not a Short Candidate / no usable
-    bull price target) or a list of violations (empty = pass)."""
-    if not (isdate(decision_date) and decision_date >= AR_DATE):
-        return None
-    if decision != "Short Candidate":
-        return None
-    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
-        return None
-    bull = next((s for s in scenarios if isinstance(s, dict) and "bull" in str(s.get("label", "")).lower()), None)
-    if not bull or not isinstance(bull.get("price_target"), (int, float)) or isinstance(bull.get("price_target"), bool):
-        return None  # no usable bull price target to test
-    if bull["price_target"] <= entry_price:
-        return [f"Short Candidate but the bull-case price target {bull['price_target']} is not above "
-                f"entry_price {entry_price} — no genuine upside/squeeze branch, i.e. no real loss to the "
-                f"short (§8 strongest-bull-case; mirror of check AM)"]
-    return []
+# ── Checks AM/AR (§8 bear-case / bull-case sanity) — detection logic moved to
+# scripts/scenario_integrity_checks.py, imported further below alongside AT/AU/AV/BA/BC, so the
+# SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a Selected
+# long with an all-upside "bear" case (or a Short Candidate with an all-downside "bull" case)
+# ships, not only when someone remembers to run this eval harness afterward. See that module's
+# docstring and each check's own comment block for the EMAAR_2026-07-03 case that motivated them.
 
 # ── Check AO (§19 / DECISION_LEDGER §6 forecast RESOLVABILITY) — a forecast the calibration loop can score ──
 AO_DATE = "2026-07-18"
@@ -1389,11 +1347,13 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
 # never call it. See that module's check-BA comment block for the full doctrine rationale.
 
 
-# ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────
+# ── Checks AT/AU/AV/AM/AR (§10 scenario span + conjunction disclosure + sign-check presence;
+# §8 bear-case / bull-case sanity) ──────────────────────────────────────────────────────────────
 # Detection logic extracted to scripts/scenario_integrity_checks.py (importable, side-effect-free)
 # so the SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a
 # violation ships, not only when someone remembers to run this eval harness afterward. See that
-# module's docstring for the full doctrine rationale and the AMZN_2026-07-10 case that motivated it.
+# module's docstring for the full doctrine rationale, the AMZN_2026-07-10 case that motivated
+# AT/AU/AV, and the EMAAR_2026-07-03 case that motivated AM/AR.
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # scenario_integrity_checks.py is the single source of the detection logic, imported by both callers.
 from scenario_integrity_checks import (
@@ -1403,6 +1363,10 @@ from scenario_integrity_checks import (
     eval_bc_probability_basis_stated,
     eval_ba_kill_criteria_trigger_test,
     BA_DATE,
+    eval_am_bear_case_sanity,
+    eval_ar_short_bull_case_sanity,
+    AM_DATE,
+    AR_DATE,
 )
 
 
