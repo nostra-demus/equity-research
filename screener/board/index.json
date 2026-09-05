@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T04:47:51Z",
+  "generated_at": "2026-09-05T05:51:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-517",
@@ -832,6 +832,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-571",
+      "headline": "Malaysian prince ‘more than happy’ to pay US$1.6 billion levy linked to Singapore land deal",
+      "headline_en": null,
+      "url": "https://www.scmp.com/week-asia/people/article/3366383/malaysian-prince-more-happy-pay-us16-billion-levy-linked-singapore-land-deal?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:15:29Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Malaysian prince agrees to pay US$1.6B levy linked to Singapore land deal, unlocking a major cross-border property transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Malaysian prince agrees to pay US$1.6B levy linked to Singapore land deal, unlocking a major cross-border property transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-612",
+      "headline": "Sterlite Tech shares hit 5% upper circuit after ₹3,000 crore capex plan; CLSA sees 33% upside",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/sterlite-tech-shares-hit-upper-circuit-after-3000-crore-capex-plan-clsa-sees-upside-19984103.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T06:47:42Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Sterlite Tech announced a ₹3,000 crore capex plan, which is a significant capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sterlite Tech announced a ₹3,000 crore capex plan, which is a significant capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sterlite Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-615",
+      "headline": "Nvidia snaps up AI platform Hugging Face for $12.9bn",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/nvidia-snaps-up-ai-platform-hugging-face-for-12-9bn/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T06:46:47Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Nvidia announced a $12.9 billion acquisition of Hugging Face.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia announced a $12.9 billion acquisition of Hugging Face.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-518",
       "headline": "Tata Motors CV launches tender offer for Italy's Iveco Group shares; company value at €3.82 billion",
       "headline_en": null,
@@ -1121,6 +1268,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-587",
+      "headline": "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/joby-aviation-spending-450-million-cash-roughly-double-its-revenue",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T07:57:01Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Joby Aviation is committing $450 million in cash to scale operations and revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Joby Aviation is committing $450 million in cash to scale operations and revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Joby Aviation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-633",
+      "headline": "Apple enfrenta demanda de 2.700 millones de dólares en Reino Unido por el rastreo de aplicaciones",
+      "headline_en": "Apple faces lawsuit of $2.7 billion in the United Kingdom over app tracking",
+      "url": "https://www.reuters.com/es/negocio/WIOMRY4DFNO4XIHGHXAKZ7ALQ4-2026-09-03/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T09:48:09Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Apple faces a significant lawsuit of $2.7 billion in the UK related to app tracking, which could materially impact its financials and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Apple faces a significant lawsuit of $2.7 billion in the UK related to app tracking, which could materially impact its financials and operations.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-344",
       "headline": "Novartis Lp(a) drug fails to lower cardiovascular risk in closely watched ph. 3 trial",
       "headline_en": null,
@@ -1263,6 +1508,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-563",
+      "headline": "Volkswagen to fire 12% of its India workforce amid major cost overhaul",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/volkswagen-india-layoff-to-fire-12-of-its-workforce-in-major-cost-overhaul/articleshow/133757908.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:21:10Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Volkswagen is cutting 12% of its India workforce as part of a major cost-reduction program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Volkswagen is cutting 12% of its India workforce as part of a major cost-reduction program.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": "VOW3",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1457,6 +1751,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-625",
+      "headline": "FLY91 Places $1 Billion Order For 40 ATR 72-600 Aircraft",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/fly91-places-1-billion-order-for-40-atr-72-600-aircraft-11996959#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T10:18:13Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "FLY91 has placed a $1 billion order for 40 aircraft, representing a major capital expenditure and fleet expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "FLY91 has placed a $1 billion order for 40 aircraft, representing a major capital expenditure and fleet expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FLY91",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-541",
       "headline": "Jefferies fund caught with $500mn exposure to second alleged invoice fraud",
       "headline_en": null,
@@ -1561,443 +1904,99 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-248",
-      "headline": "MIMRYLO Approval Triggered $275M Payments for Protagonist (PTGX). Are Royalties the Better Commercial Model?",
+      "inbox_id": "INB-20260905-619",
+      "headline": "Lloyd’s of London faces £1.4bn losses in Gulf from US-Iran war",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/mimrylo-approval-triggered-275m-payments-161422910.html",
-      "source_name": "Yahoo Finance",
+      "url": "https://www.ft.com/content/83bdebe3-8f65-44e2-81b7-ecf133ca2929?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:14:22Z",
+      "found_at": "2026-09-03T10:35:59Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Protagonist Therapeutics received $275M in milestone payments following drug approval.",
+      "prelim_note": "Lloyd's of London faces quantified potential losses of £1.4bn due to geopolitical conflict risks.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Protagonist Therapeutics received $275M in milestone payments following drug approval.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Protagonist Therapeutics",
-          "ticker": "PTGX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-400",
-      "headline": "NSE IPO GMP today: Latest price shows ₹200 premium per share as SEBI okays much-awaited ₹30,000 cr public issue",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/nse-ipo-gmp-today-latest-price-shows-rs-200-premium-per-share-as-sebi-okays-much-awaited-rs-30-000-cr-public-issue-11788524858169.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:50:18Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "SEBI approved the NSE's ₹30,000 crore public issue, with shares trading at a ₹200 premium in the grey market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SEBI approved the NSE's ₹30,000 crore public issue, with shares trading at a ₹200 premium in the grey market.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-427",
-      "headline": "India's NSE targets listing in week of September 21 after IPO clearance, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/indias-nse-gets-regulatory-nod-proceed-with-ipo-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:26:27Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The National Stock Exchange of India is targeting a massive IPO listing in September following regulatory clearance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The National Stock Exchange of India is targeting a massive IPO listing in September following regulatory clearance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-454",
-      "headline": "NSE IPO Gets Key SEBI Approval, Listing Likely Later This Month",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/markets/nse-ipo-gets-sebi-nod-indias-biggest-listing-could-be-just-weeks-away",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:09:19Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "SEBI approval for the NSE IPO is a major milestone for the exchange's public listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SEBI approval for the NSE IPO is a major milestone for the exchange's public listing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-497",
-      "headline": "Mega NSE IPO coming as Sebi approves Rs 30,000 crore public offer",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/mega-nse-ipo-coming-as-sebi-approves-rs-30000-crore-public-offer/articleshow/133761306.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:39:13Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "NSE received regulatory approval for a Rs 30,000 crore IPO, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "NSE received regulatory approval for a Rs 30,000 crore IPO, a major capital market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-499",
-      "headline": "India’s NSE Secures Regulatory Approval for Long-Awaited IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-04/india-s-nse-secures-regulatory-approval-for-long-awaited-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:38:16Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "NSE secured regulatory approval for its long-awaited IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "NSE secured regulatory approval for its long-awaited IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-072",
-      "headline": "Saudi Arabia tech deals near $15bn as AWS, Microsoft and major AI investments revealed",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/saudi-arabia-tech-deals-near-15bn-as-aws-microsoft-and-major-ai-investments-revealed",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T23:43:47Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Saudi Arabia announced nearly $15 billion in technology deals with AWS, Microsoft and other major AI investments, signaling massive digital infrastructure spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Saudi Arabia announced nearly $15 billion in technology deals with AWS, Microsoft and other major AI investments, signaling massive digital infrastructure spending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Amazon Web Services",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        },
-        {
-          "name": "Microsoft",
-          "ticker": "MSFT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-288",
-      "headline": "China Rare Earth Firms Freeze U.S. Exports Weeks Before Xi-Trump Summit",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/China-Rare-Earth-Firms-Freeze-US-Exports-Weeks-Before-Xi-Trump-Summit.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "China freezes rare earth exports to the US, creating a significant supply shock for the tech and defense sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "China freezes rare earth exports to the US, creating a significant supply shock for the tech and defense sectors.",
+      "triage_score": 95,
+      "triage_reason": "Lloyd's of London faces quantified potential losses of £1.4bn due to geopolitical conflict risks.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory",
-        "macro_sector"
+        "operations"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lloyd's of London",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-325",
-      "headline": "Nigeria's Dangote seeks around $1.5 billion with refinery IPO, sources say",
+      "inbox_id": "INB-20260905-621",
+      "headline": "Supreme court dismisses SEBI’s plea against NSE after ₹1500-crore settlement",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/nigerias-dangote-refinery-ipo-raise-between-155-18-bln-sources-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "url": "https://www.thehindubusinessline.com/markets/supreme-court-dismisses-sebis-plea-against-nse/article71423139.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:15:46Z",
+      "found_at": "2026-09-03T10:30:45Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Nigeria's Dangote is seeking around $1.5 billion with a refinery IPO.",
+      "prelim_note": "The Supreme Court dismissed a plea against the NSE following a 1500-crore rupee settlement, resolving a significant legal risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Nigeria's Dangote is seeking around $1.5 billion with a refinery IPO.",
-      "region": "OTHER",
+      "triage_score": 95,
+      "triage_reason": "The Supreme Court dismissed a plea against the NSE following a 1500-crore rupee settlement, resolving a significant legal risk.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dangote",
+          "name": "National Stock Exchange of India",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -98995,76 +98994,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-373f07b62282",
-      "idea_version": "IDEAV-4416a5b0615d7f73",
-      "idea_version_started_at": "2026-09-04T06:14:00Z",
-      "ticker": "UBER",
-      "company": "Uber",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 10% workforce reduction combined with a massive $10 billion pivot into capital-intensive robotaxis signals significant operational distress and high execution risk.",
-      "why_now": "The announcement occurred on September 3, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f5a85ef62d3b"
-      ],
-      "primary_source_event_id": "EVT-f5a85ef62d3b",
-      "source_headlines": [
-        "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead"
-      ],
-      "source_headline": "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead",
-      "source_url": "https://247wallst.com/investing/2026/09/03/uber-is-cutting-10-of-its-workforce-and-betting-10-billion-on-robotaxis-instead/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T17:47:42Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/UBER_2026-08-09",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-04T06:14:00Z",
-      "updated_at": "2026-09-04T06:14:00Z",
-      "decay_at": "2026-09-05T05:47:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-36876b9a411b",
       "idea_version": "IDEAV-21f7a9e777e39349",
       "idea_version_started_at": "2026-09-04T05:44:07Z",
@@ -100852,6 +100781,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-373f07b62282",
+      "idea_version": "IDEAV-4416a5b0615d7f73",
+      "idea_version_started_at": "2026-09-04T06:14:00Z",
+      "ticker": "UBER",
+      "company": "Uber",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 10% workforce reduction combined with a massive $10 billion pivot into capital-intensive robotaxis signals significant operational distress and high execution risk.",
+      "why_now": "The announcement occurred on September 3, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f5a85ef62d3b"
+      ],
+      "primary_source_event_id": "EVT-f5a85ef62d3b",
+      "source_headlines": [
+        "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead"
+      ],
+      "source_headline": "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead",
+      "source_url": "https://247wallst.com/investing/2026/09/03/uber-is-cutting-10-of-its-workforce-and-betting-10-billion-on-robotaxis-instead/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T17:47:42Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/UBER_2026-08-09",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-04T06:14:00Z",
+      "updated_at": "2026-09-04T06:14:00Z",
+      "decay_at": "2026-09-05T05:47:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-ed0a5587b955",
@@ -102704,8 +102703,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 411,
-    "shown_count": 411,
+    "total_count": 412,
+    "shown_count": 412,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -102714,8 +102713,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 198,
-        "shown_count": 198,
+        "total_count": 199,
+        "shown_count": 199,
         "hidden_count": 0
       }
     },
@@ -102735,6 +102734,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-373f07b62282",
+        "idea_version": "IDEAV-4416a5b0615d7f73",
+        "idea_version_started_at": "2026-09-04T06:14:00Z",
+        "ticker": "UBER",
+        "company": "Uber",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 10% workforce reduction combined with a massive $10 billion pivot into capital-intensive robotaxis signals significant operational distress and high execution risk.",
+        "why_now": "The announcement occurred on September 3, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f5a85ef62d3b"
+        ],
+        "primary_source_event_id": "EVT-f5a85ef62d3b",
+        "source_headlines": [
+          "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead"
+        ],
+        "source_headline": "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead",
+        "source_url": "https://247wallst.com/investing/2026/09/03/uber-is-cutting-10-of-its-workforce-and-betting-10-billion-on-robotaxis-instead/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T17:47:42Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/UBER_2026-08-09",
+          "latest_decision": "Watchlist",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-04T06:14:00Z",
+        "updated_at": "2026-09-04T06:14:00Z",
+        "decay_at": "2026-09-05T05:47:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T05:47:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fae9365a14f8",
         "idea_version": "IDEAV-f19abbb8a51209f1",
@@ -133224,7 +133296,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 445,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -133243,9 +133315,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 182992,
-    "news_picked_today": 860,
-    "news_dropped_today": 2980
+    "news_seen_today": 198336,
+    "news_picked_today": 1182,
+    "news_dropped_today": 4122
   },
   "book_momentum": {
     "live_count": 8,
