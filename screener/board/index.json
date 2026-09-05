@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T19:39:42Z",
+  "generated_at": "2026-09-05T19:44:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -43,6 +43,56 @@
           "name": "Bank of Maharashtra",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-748",
+      "headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T19:20:51Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Magnolia Oil & Gas reported a doubling of profits and announced a significant growth-focused capital expenditure strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Magnolia Oil & Gas reported a doubling of profits and announced a significant growth-focused capital expenditure strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Magnolia Oil & Gas",
+          "ticker": "MGY",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1960,56 +2010,6 @@
       "companies": [
         {
           "name": "Adani",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-646",
-      "headline": "Aditya Birla Group gets Rs 24,000 crore bank commitments for Shell deal, 70% more than planned",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/aditya-birla-group-gets-rs-24000-crore-bank-commitments-for-shell-deal-billionaire-kumar-mangalam-hdfc-axis-bank/articleshow/133730162.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T08:29:39Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla Group",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -135761,9 +135761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214136,
-    "news_picked_today": 1899,
-    "news_dropped_today": 11515
+    "news_seen_today": 214151,
+    "news_picked_today": 1901,
+    "news_dropped_today": 11528
   },
   "book_momentum": {
     "live_count": 8,
