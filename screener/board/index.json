@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T17:13:00Z",
+  "generated_at": "2026-09-05T17:14:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -99570,6 +99570,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be2010792483",
+      "idea_version": "IDEAV-395853dcb44f1c45",
+      "idea_version_started_at": "2026-09-05T17:14:18Z",
+      "ticker": "SPI",
+      "company": "Spire Healthcare",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has agreed to a £1.03 billion takeover by Toscafund and other investors, representing a definitive exit event for shareholders.",
+      "why_now": "The deal was announced on September 5, 2026, creating an immediate arbitrage or liquidity event window.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c148e6ef6fe1"
+      ],
+      "primary_source_event_id": "EVT-c148e6ef6fe1",
+      "source_headlines": [
+        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
+      ],
+      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T16:47:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-05T17:14:18Z",
+      "decay_at": "2026-09-07T04:47:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-69be6242b6c3",
       "idea_version": "IDEAV-1dbf69985b06a3b9",
       "idea_version_started_at": "2026-09-05T16:54:01Z",
@@ -101091,6 +101164,78 @@
       "surfaced_at": "2026-09-04T09:24:12Z",
       "updated_at": "2026-09-04T09:24:12Z",
       "decay_at": "2026-09-05T18:21:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1e4418649180",
+      "idea_version": "IDEAV-3e2b3a3f68318b65",
+      "idea_version_started_at": "2026-09-05T17:14:18Z",
+      "ticker": "GLAND",
+      "company": "Gland Pharma",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Fosun Pharma has sold a 4.5% stake worth Rs 2,121 crore, creating significant immediate supply and potential overhang on the stock.",
+      "why_now": "The transaction was reported on September 5, 2026, and typically leads to short-term price pressure as the market absorbs the block.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5f4d951290a3"
+      ],
+      "primary_source_event_id": "EVT-5f4d951290a3",
+      "source_headlines": [
+        "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore"
+      ],
+      "source_headline": "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore",
+      "source_url": "https://www.thehindubusinessline.com/markets/stock-markets/fosun-pharma-sells-45-stake-in-gland-pharma-for-rs-2121-crore/article71433130.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-05T16:49:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-05T17:14:18Z",
+      "decay_at": "2026-09-07T04:49:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135362,8 +135507,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 465,
-    "live_count": 38,
+    "surfaced_total": 467,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
