@@ -183,6 +183,20 @@ Then reconcile: sum of components vs stated Total (Section 6's Total row) = **{N
 residual**. If the residual is large relative to the total, state that plainly — it caps how confidently
 Section 7 can name a single biggest driver.
 
+Close this section with a standalone machine-readable tag line, in ONE of two exact forms (this
+mechanizes the reconciliation above for `scripts/eval.py` check BE — the residual must never be
+silently omitted or rounded away, CLAUDE.md §15):
+
+```
+RF-EARN-001: revenue decomposition reconciled — explained {N}pp, residual {M}pp, total {T}pp
+```
+
+or, when Section 6's decomposition was not possible from disclosure:
+
+```
+RF-EARN-001: revenue decomposition not attempted — {reason}
+```
+
 ## 7. The Single Biggest Revenue Driver
 
 One paragraph: which driver, if it moved 10–20%, would have the largest impact on revenue? What is its current direction?
@@ -195,6 +209,7 @@ One paragraph: which driver, if it moved 10–20%, would have the largest impact
 - [ ] Every driver row has a current level, direction, magnitude, and evidence.
 - [ ] The growth decomposition uses actual numbers, not estimates. If estimates are used, they're labeled as inference.
 - [ ] Section 6a shows the arithmetic for any decomposition component derived from a quoted ratio, names that ratio's basis, and reconciles the components to the stated Total — the residual is quantified, not rounded away. No ratio is applied across a basis it was not measured on.
+- [ ] Section 6a ends with the standalone `RF-EARN-001` tag line, in exactly one of its two forms (reconciled explained/residual/total, or "not attempted — {reason}") — never omitted.
 - [ ] Section 7 names ONE biggest driver, not a list.
 - [ ] If no quarterly data exists, QoQ drivers are marked "Not available" per partial-data rules.
 - [ ] If no transcript exists, the limitation is flagged.
