@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T19:39:42Z",
+  "generated_at": "2026-09-05T19:46:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -43,6 +43,56 @@
           "name": "Bank of Maharashtra",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-748",
+      "headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T19:20:51Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Magnolia Oil & Gas reported a doubling of profits and announced a significant growth-focused capital expenditure strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Magnolia Oil & Gas reported a doubling of profits and announced a significant growth-focused capital expenditure strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Magnolia Oil & Gas",
+          "ticker": "MGY",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1960,56 +2010,6 @@
       "companies": [
         {
           "name": "Adani",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-646",
-      "headline": "Aditya Birla Group gets Rs 24,000 crore bank commitments for Shell deal, 70% more than planned",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/aditya-birla-group-gets-rs-24000-crore-bank-commitments-for-shell-deal-billionaire-kumar-mangalam-hdfc-axis-bank/articleshow/133730162.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T08:29:39Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aditya Birla Group secured Rs 24,000 crore in bank commitments for a deal, exceeding initial plans by 70%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla Group",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -99576,6 +99576,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-496d035aff6e",
+      "idea_version": "IDEAV-a96680c8baaef174",
+      "idea_version_started_at": "2026-09-05T19:45:43Z",
+      "ticker": "0933",
+      "company": "Viva Goods Company Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Viva Goods is executing a major transaction to acquire further shares of Li Ning Company Limited, consolidating its strategic consumer goods portfolio.",
+      "why_now": "The major transaction was officially announced in an exchange filing on September 4, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d6600298fcd8"
+      ],
+      "primary_source_event_id": "EVT-d6600298fcd8",
+      "source_headlines": [
+        "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED"
+      ],
+      "source_headline": "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402335.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T13:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T19:45:43Z",
+      "updated_at": "2026-09-05T19:45:43Z",
+      "decay_at": "2026-09-06T01:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a36ab9c99704",
+      "idea_version": "IDEAV-0a21d062981fc850",
+      "idea_version_started_at": "2026-09-05T19:45:43Z",
+      "ticker": "BRIGADE",
+      "company": "Brigade Enterprises Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Brigade Group is expanding its Hyderabad footprint with the launch of Brigade Barcelona in Neopolis, which has a projected revenue potential of over Rs. 2,700 Crores.",
+      "why_now": "The expansion and revenue potential details were officially disclosed in an exchange filing on September 4, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c35dd639c523"
+      ],
+      "primary_source_event_id": "EVT-c35dd639c523",
+      "source_headlines": [
+        "Brigade Enterprises Ltd: Brigade Group Expands Hyderabad Footprint with Launch of Brigade Barcelona in Neopolis with a Revenue Potential of over Rs. 2,700 Crores"
+      ],
+      "source_headline": "Brigade Enterprises Ltd: Brigade Group Expands Hyderabad Footprint with Launch of Brigade Barcelona in Neopolis with a Revenue Potential of over Rs. 2,700 Crores",
+      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a39dccc1-bdc7-4d0e-89f5-c23b2c34c4c1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T11:11:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T11:46:15Z",
+      "updated_at": "2026-09-05T19:45:43Z",
+      "decay_at": "2026-09-05T23:11:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2e56dda7a636",
       "idea_version": "IDEAV-ddeff03b8d65b3d7",
       "idea_version_started_at": "2026-09-05T19:30:09Z",
@@ -100881,77 +101023,6 @@
       "surfaced_at": "2026-09-04T11:46:15Z",
       "updated_at": "2026-09-04T20:44:18Z",
       "decay_at": "2026-09-05T21:40:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a36ab9c99704",
-      "idea_version": "IDEAV-d534386b874b2447",
-      "idea_version_started_at": "2026-09-04T20:44:18Z",
-      "ticker": "BRIGADE",
-      "company": "Brigade Enterprises Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is launching a new project in Hyderabad with a stated revenue potential of over Rs. 2,700 Crores, significantly expanding its development pipeline.",
-      "why_now": "The project launch was officially announced on September 04, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c35dd639c523"
-      ],
-      "primary_source_event_id": "EVT-c35dd639c523",
-      "source_headlines": [
-        "Brigade Enterprises Ltd: Brigade Group Expands Hyderabad Footprint with Launch of Brigade Barcelona in Neopolis with a Revenue Potential of over Rs. 2,700 Crores"
-      ],
-      "source_headline": "Brigade Enterprises Ltd: Brigade Group Expands Hyderabad Footprint with Launch of Brigade Barcelona in Neopolis with a Revenue Potential of over Rs. 2,700 Crores",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/a39dccc1-bdc7-4d0e-89f5-c23b2c34c4c1.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T11:11:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T11:46:15Z",
-      "updated_at": "2026-09-04T20:44:18Z",
-      "decay_at": "2026-09-05T23:11:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135741,8 +135812,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 468,
-    "live_count": 37,
+    "surfaced_total": 469,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -135761,9 +135832,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214136,
-    "news_picked_today": 1899,
-    "news_dropped_today": 11515
+    "news_seen_today": 214151,
+    "news_picked_today": 1901,
+    "news_dropped_today": 11528
   },
   "book_momentum": {
     "live_count": 8,
