@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T09:40:22Z",
+  "generated_at": "2026-09-05T09:58:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-688",
@@ -1235,6 +1235,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-690",
+      "headline": "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/lic-gets-rbi-approval-to-acquire-up-to-999-stake-in-icici-bank/article71431558.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T09:41:15Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "LIC received regulatory approval to acquire a significant 9.99% stake in ICICI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "LIC received regulatory approval to acquire a significant 9.99% stake in ICICI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Life Insurance Corporation of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-685",
       "headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
       "headline_en": null,
@@ -1965,49 +2019,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-095",
-      "headline": "Trump re-start of war on Iran, Greece-Israel deal, and West Bank",
-      "headline_en": null,
-      "url": "https://www.newarab.com/podcast/trump-re-start-war-iran-greece-israel-deal-and-west-bank",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:53:51Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Geopolitical escalation involving potential conflict with Iran and regional instability in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Geopolitical escalation involving potential conflict with Iran and regional instability in the Middle East.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100010,78 +100021,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-87ad6cfca6a2",
-      "idea_version": "IDEAV-0631e924e6b48001",
-      "idea_version_started_at": "2026-09-05T04:38:24Z",
-      "ticker": "VOW3",
-      "company": "Volkswagen AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Volkswagen's board approved a restructuring including ~50,000 job cuts, targeting significant cost reduction in a high-fixed-cost auto business.",
-      "why_now": "Board approval announced 2026-09-03; the plan size and timeline are now concrete catalysts for margin improvement.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dd7f210a122a"
-      ],
-      "primary_source_event_id": "EVT-dd7f210a122a",
-      "source_headlines": [
-        "Volkswagen board approves restructuring and signals 50,000 job cuts"
-      ],
-      "source_headline": "Conselho da Volkswagen aprova reestruturação e sinaliza cortes de 50 mil empregos",
-      "source_url": "https://www.reuters.com/pt/negocio/SWSPY4RE6JIU7JR7KQFBYEWHOM-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T21:42:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T04:38:24Z",
-      "updated_at": "2026-09-05T04:38:24Z",
-      "decay_at": "2026-09-05T09:42:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8dc0eabbd79f",
       "idea_version": "IDEAV-006cb0d894266c7c",
       "idea_version_started_at": "2026-09-05T04:38:24Z",
@@ -102137,6 +102076,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-87ad6cfca6a2",
+      "idea_version": "IDEAV-0631e924e6b48001",
+      "idea_version_started_at": "2026-09-05T04:38:24Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Volkswagen's board approved a restructuring including ~50,000 job cuts, targeting significant cost reduction in a high-fixed-cost auto business.",
+      "why_now": "Board approval announced 2026-09-03; the plan size and timeline are now concrete catalysts for margin improvement.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dd7f210a122a"
+      ],
+      "primary_source_event_id": "EVT-dd7f210a122a",
+      "source_headlines": [
+        "Volkswagen board approves restructuring and signals 50,000 job cuts"
+      ],
+      "source_headline": "Conselho da Volkswagen aprova reestruturação e sinaliza cortes de 50 mil empregos",
+      "source_url": "https://www.reuters.com/pt/negocio/SWSPY4RE6JIU7JR7KQFBYEWHOM-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T21:42:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T04:38:24Z",
+      "updated_at": "2026-09-05T04:38:24Z",
+      "decay_at": "2026-09-05T09:42:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-ba5fba4b600d7282",
       "idea_version_started_at": "2026-09-04T21:55:24Z",
@@ -103077,13 +103088,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 419,
-    "shown_count": 419,
+    "total_count": 420,
+    "shown_count": 420,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 217,
-        "shown_count": 217,
+        "total_count": 218,
+        "shown_count": 218,
         "hidden_count": 0
       },
       "short": {
@@ -103108,6 +103119,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-87ad6cfca6a2",
+        "idea_version": "IDEAV-0631e924e6b48001",
+        "idea_version_started_at": "2026-09-05T04:38:24Z",
+        "ticker": "VOW3",
+        "company": "Volkswagen AG",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Volkswagen's board approved a restructuring including ~50,000 job cuts, targeting significant cost reduction in a high-fixed-cost auto business.",
+        "why_now": "Board approval announced 2026-09-03; the plan size and timeline are now concrete catalysts for margin improvement.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dd7f210a122a"
+        ],
+        "primary_source_event_id": "EVT-dd7f210a122a",
+        "source_headlines": [
+          "Volkswagen board approves restructuring and signals 50,000 job cuts"
+        ],
+        "source_headline": "Conselho da Volkswagen aprova reestruturação e sinaliza cortes de 50 mil empregos",
+        "source_url": "https://www.reuters.com/pt/negocio/SWSPY4RE6JIU7JR7KQFBYEWHOM-2026-09-03/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T21:42:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T04:38:24Z",
+        "updated_at": "2026-09-05T04:38:24Z",
+        "decay_at": "2026-09-05T09:42:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T09:42:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0bb6f3ec82be",
         "idea_version": "IDEAV-7ee800d30e2e7ed3",
@@ -134184,7 +134270,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 454,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -134203,9 +134289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209113,
-    "news_picked_today": 1501,
-    "news_dropped_today": 7102
+    "news_seen_today": 209285,
+    "news_picked_today": 1507,
+    "news_dropped_today": 7268
   },
   "book_momentum": {
     "live_count": 8,
