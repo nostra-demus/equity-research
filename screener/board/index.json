@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T19:46:01Z",
+  "generated_at": "2026-09-05T19:59:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -43,6 +43,55 @@
           "name": "Bank of Maharashtra",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-750",
+      "headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T19:28:01Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Southwest Gas announced a 600 million dollar expansion to its pipeline infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Southwest Gas announced a 600 million dollar expansion to its pipeline infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southwest Gas",
+          "ticker": "SWX",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1966,55 +2015,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-638",
-      "headline": "Adani Expands Footprint Across Non-BJP States With ₹5 Lakh Cr Investment Pipeline",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/adani-expands-footprint-across-non-bjp-states-with-5-lakh-cr-investment-pipeline",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T09:02:41Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Adani Group announced a major capital expenditure pipeline of ₹5 lakh crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Group announced a major capital expenditure pipeline of ₹5 lakh crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -99436,76 +99436,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b4fb75fc2792",
-      "idea_version": "IDEAV-62c171cab3fd35ec",
-      "idea_version_started_at": "2026-09-05T10:44:15Z",
-      "ticker": "JOBY",
-      "company": "Joby Aviation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Joby Aviation is deploying $450 million in cash to roughly double its revenue capacity through manufacturing and commercialization scale-up.",
-      "why_now": "The capital expenditure plan was detailed on September 4, 2026, providing a concrete timeline for near-term capacity expansion.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71e87cf540ab"
-      ],
-      "primary_source_event_id": "EVT-71e87cf540ab",
-      "source_headlines": [
-        "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue"
-      ],
-      "source_headline": "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue",
-      "source_url": "https://www.nasdaq.com/articles/joby-aviation-spending-450-million-cash-roughly-double-its-revenue",
-      "source_name": "Nasdaq",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-04T07:57:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:44:15Z",
-      "updated_at": "2026-09-05T10:44:15Z",
-      "decay_at": "2026-09-05T19:57:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dac7dfe711fe",
       "idea_version": "IDEAV-2a96706ae4fac03a",
       "idea_version_started_at": "2026-09-04T15:47:15Z",
@@ -102371,6 +102301,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b4fb75fc2792",
+      "idea_version": "IDEAV-62c171cab3fd35ec",
+      "idea_version_started_at": "2026-09-05T10:44:15Z",
+      "ticker": "JOBY",
+      "company": "Joby Aviation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Joby Aviation is deploying $450 million in cash to roughly double its revenue capacity through manufacturing and commercialization scale-up.",
+      "why_now": "The capital expenditure plan was detailed on September 4, 2026, providing a concrete timeline for near-term capacity expansion.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71e87cf540ab"
+      ],
+      "primary_source_event_id": "EVT-71e87cf540ab",
+      "source_headlines": [
+        "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue"
+      ],
+      "source_headline": "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue",
+      "source_url": "https://www.nasdaq.com/articles/joby-aviation-spending-450-million-cash-roughly-double-its-revenue",
+      "source_name": "Nasdaq",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-04T07:57:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:44:15Z",
+      "updated_at": "2026-09-05T10:44:15Z",
+      "decay_at": "2026-09-05T19:57:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aca7dee3c135",
       "idea_version": "IDEAV-26a66283ec5e01bf",
       "idea_version_started_at": "2026-09-04T21:35:36Z",
@@ -103957,13 +103957,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 429,
-    "shown_count": 429,
+    "total_count": 430,
+    "shown_count": 430,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 223,
-        "shown_count": 223,
+        "total_count": 224,
+        "shown_count": 224,
         "hidden_count": 0
       },
       "short": {
@@ -103988,6 +103988,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b4fb75fc2792",
+        "idea_version": "IDEAV-62c171cab3fd35ec",
+        "idea_version_started_at": "2026-09-05T10:44:15Z",
+        "ticker": "JOBY",
+        "company": "Joby Aviation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Joby Aviation is deploying $450 million in cash to roughly double its revenue capacity through manufacturing and commercialization scale-up.",
+        "why_now": "The capital expenditure plan was detailed on September 4, 2026, providing a concrete timeline for near-term capacity expansion.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-71e87cf540ab"
+        ],
+        "primary_source_event_id": "EVT-71e87cf540ab",
+        "source_headlines": [
+          "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue"
+        ],
+        "source_headline": "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue",
+        "source_url": "https://www.nasdaq.com/articles/joby-aviation-spending-450-million-cash-roughly-double-its-revenue",
+        "source_name": "Nasdaq",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-04T07:57:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T10:44:15Z",
+        "updated_at": "2026-09-05T10:44:15Z",
+        "decay_at": "2026-09-05T19:57:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T19:57:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9a1422482f25",
         "idea_version": "IDEAV-c566f34d88458f14",
@@ -135813,7 +135886,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 469,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -135832,9 +135905,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214151,
-    "news_picked_today": 1901,
-    "news_dropped_today": 11528
+    "news_seen_today": 214183,
+    "news_picked_today": 1906,
+    "news_dropped_today": 11555
   },
   "book_momentum": {
     "live_count": 8,
