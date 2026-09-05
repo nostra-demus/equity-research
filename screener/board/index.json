@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T17:59:42Z",
+  "generated_at": "2026-09-05T18:04:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-746",
+      "headline": "GE Appliance Park Gets $1B Louisville Expansion Plan",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/ge-appliance-park-gets-1b-174310275.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T17:43:10Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "GE Appliances is investing $1 billion in a Louisville facility expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Appliances is investing $1 billion in a Louisville facility expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Appliances",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1960,55 +2009,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-735",
-      "headline": "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/stock-markets/fosun-pharma-sells-45-stake-in-gland-pharma-for-rs-2121-crore/article71433130.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T16:49:55Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Fosun Pharma sold a 4.5% stake in Gland Pharma for Rs 2,121 crore, representing a significant block trade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Fosun Pharma sold a 4.5% stake in Gland Pharma for Rs 2,121 crore, representing a significant block trade.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gland Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135527,9 +135527,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213890,
-    "news_picked_today": 1838,
-    "news_dropped_today": 11330
+    "news_seen_today": 213913,
+    "news_picked_today": 1847,
+    "news_dropped_today": 11344
   },
   "book_momentum": {
     "live_count": 8,
