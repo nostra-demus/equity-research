@@ -650,6 +650,7 @@ from rating_caps import (
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
     AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
     BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
+    BE_DATE, REV_DECOMP_TAG, MARGIN_BRIDGE_TAG, BE_RECONCILE_TOLERANCE, eval_be_driver_attribution_residual,
 )
 
 AG_DATE = "2026-07-06"
@@ -3455,6 +3456,44 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BB({_dd!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BE: §15 driver-attribution residual (earnings decomposition/bridge) -----------------
+    _be_rev_ok = ("## 6a. Decomposition Attribution and Residual\n"
+                  "Volume: 4% x 0.8 [Source] = 3.2pp of the 4.0pp observed growth -> basis matches\n"
+                  "RF-EARN-001: revenue decomposition reconciled — explained 3.2pp, residual 0.8pp, total 4.0pp\n")
+    _be_rev_not_attempted = "RF-EARN-001: revenue decomposition not attempted — segment-level pricing not disclosed\n"
+    _be_rev_not_attempted_empty = "RF-EARN-001: revenue decomposition not attempted — \n"
+    _be_rev_absent = "## 6a. Decomposition Attribution and Residual\nNo tag on this run.\n"
+    _be_rev_malformed = "RF-EARN-001: revenue decomposition reconciled — see the table above\n"
+    _be_rev_table_row = "| RF-EARN-001 | reconciled | 3.2pp | 0.8pp |\n"
+    _be_marg_ok = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 5.0bps, total 50.0bps\n"
+    _be_marg_endash = "RF-EARN-002: margin bridge reconciled – explained 45.0bps, residual 5.0bps, total 50.0bps\n"
+    _be_marg_neartol = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 5.4bps, total 50.0bps\n"
+    _be_marg_mismatch = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 6.5bps, total 50.0bps\n"
+    becases=[  # (decision_date, rev_txt(02), marg_txt(03), expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-09-04",_be_rev_ok,_be_marg_ok,[]),                                     # both reconciled, arithmetic OK → pass
+        ("2026-09-04",_be_rev_ok,_be_marg_endash,[]),                                 # en-dash separator → pass
+        ("2026-09-04",_be_rev_not_attempted,_be_marg_ok,[]),                          # legit not-attempted escape → pass
+        ("2026-09-04",_be_rev_not_attempted_empty,_be_marg_ok,["no reason given"]),   # bare dodge → FAIL
+        ("2026-09-04",_be_rev_absent,_be_marg_ok,["is absent from 02_revenue-drivers.md"]),  # tag missing → FAIL
+        ("2026-09-04",_be_rev_malformed,_be_marg_ok,["does not match either sanctioned form"]),  # malformed → FAIL
+        ("2026-09-04",_be_rev_table_row,_be_marg_ok,["is absent from 02_revenue-drivers.md"]),   # table-row guard → treated absent → FAIL
+        ("2026-09-04",_be_rev_ok,_be_marg_mismatch,["does not reconcile"]),           # margin arithmetic mismatch → FAIL
+        ("2026-09-04",_be_rev_ok,_be_marg_neartol,[]),                                # tolerance edge (0.4bps off) → pass
+        ("2026-09-04",_be_rev_ok,None,[]),                                            # only revenue-drivers ran → pass
+        ("2026-09-04",None,_be_marg_ok,[]),                                           # only margin-drivers ran → pass
+        ("2026-09-03",_be_rev_ok,_be_marg_ok,None),                                   # predates BE_DATE → N/A
+        ("2026-09-04",None,None,None),                                                # neither specialist ran → N/A
+        ("not-a-date",_be_rev_ok,_be_marg_ok,None),                                   # unparseable decision_date → N/A
+    ]
+    for _dd,_r2,_m3,_want in becases:
+        got=eval_be_driver_attribution_residual(_dd,_r2,_m3)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BE({_dd!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3851,7 +3890,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4444,6 +4483,25 @@ for drp in runs:
     else:
         add("BB_sector_cycle_compounding_cap", True,
             f"N/A (decision_date {ddte!r} predates BB_DATE {BB_DATE!r})", na=True)
+    # BE §15 driver-attribution residual — earnings decomposition/bridge (forward-looking; landing
+    # BE_DATE). See the BE_DATE / eval_be_driver_attribution_residual comment block in rating_caps.py
+    # for the full rationale. Reads 02_revenue-drivers.md and 03_margin-drivers.md for the standalone
+    # RF-EARN-001/RF-EARN-002 tags, via the _read_specialist_text closure hoisted above.
+    if isdate(ddte) and ddte>=BE_DATE:
+        _e02_txt = _read_specialist_text("earnings", "02_")
+        _e03_txt = _read_specialist_text("earnings", "03_")
+        _ber = eval_be_driver_attribution_residual(ddte, _e02_txt, _e03_txt)
+        if _ber is None:
+            add("BE_driver_attribution_residual", True,
+                "N/A (neither 02_revenue-drivers nor 03_margin-drivers ran)", na=True)
+        elif _ber:
+            add("BE_driver_attribution_residual", False, "; ".join(_ber))
+        else:
+            add("BE_driver_attribution_residual", True,
+                "every attempted specialist declares a reconciled residual or a stated non-attempt")
+    else:
+        add("BE_driver_attribution_residual", True,
+            f"N/A (decision_date {ddte!r} predates BE_DATE {BE_DATE!r})", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
