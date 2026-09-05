@@ -661,15 +661,17 @@ if [ "$ROLE" = doer ] && { [ -z "$ONLY" ] || [ "$ONLY" = connectors ]; }; then
   fi
 fi
 if [ "$ROLE" = doer ] && [ -z "$ONLY" ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
-  # Serving/tunnel failover is never connector-writer failover. Fence and
-  # remove any stale connector before this process can publish `doer`.
-  launchctl bootout "$DOMAIN/com.nostradamus.connectors" >/dev/null 2>&1 || true
-  for i in $(seq 1 40); do loaded com.nostradamus.connectors || break; sleep 0.25; done
-  if loaded com.nostradamus.connectors; then
-    echo "ERROR: stale connector writer did not stop; refusing doer promotion" >&2
-    exit 1
-  fi
-  rm -f "$AGENTS/com.nostradamus.connectors.plist" 2>/dev/null || exit 1
+  # Serving/tunnel failover never transfers the connector/feed pool-writer identity. Fence both jobs,
+  # including a market-feed timer left by an earlier install, before publishing `doer`.
+  for label in com.nostradamus.connectors com.nostradamus.hk-market-feed; do
+    launchctl bootout "$DOMAIN/$label" >/dev/null 2>&1 || true
+    for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done
+    if loaded "$label"; then
+      echo "ERROR: stale pool writer $label did not stop; refusing doer promotion" >&2
+      exit 1
+    fi
+    rm -f "$AGENTS/$label.plist" 2>/dev/null || exit 1
+  done
 fi
 if [ "$ONLY" = connectors ]; then
   LABELS=(com.nostradamus.connectors)
@@ -685,7 +687,10 @@ else
   if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
     filtered=()
     for label in "${LABELS[@]}"; do
-      [ "$label" = com.nostradamus.connectors ] || filtered+=("$label")
+      case "$label" in
+        com.nostradamus.connectors|com.nostradamus.hk-market-feed) ;;
+        *) filtered+=("$label") ;;
+      esac
     done
     LABELS=("${filtered[@]}")
   fi

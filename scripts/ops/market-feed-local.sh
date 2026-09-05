@@ -36,8 +36,17 @@ if ! mkdir "$LOCK" 2>/dev/null; then
 fi
 trap 'rmdir "$LOCK" 2>/dev/null || true' EXIT
 
+# UI/tunnel failover never transfers the permanent pool-writer identity. Recheck it and the live Drive
+# projection on each run, including old/stale installed timers; never create an absent local data tree.
+SUPERVISOR="$REPO/scripts/ops/connector-supervisor.py"
+if [ ! -f "$SUPERVISOR" ] || [ -L "$SUPERVISOR" ] \
+    || ! POOL_ROOT="$(python3 -I "$SUPERVISOR" --pool-writer-root 2>>"$LOG")"; then
+  log "MARKET-FEED SKIP — canonical pool writer or Drive projection is unavailable"
+  exit 0
+fi
+
 log "MARKET-FEED RUN (deterministic; no model quota)"
-OUTPUT="$(python3 scripts/fetch_market_feed.py 2>&1)"
+OUTPUT="$(python3 scripts/fetch_market_feed.py --data-root "$POOL_ROOT" 2>&1)"
 RC=$?
 printf '%s\n' "$OUTPUT" >> "$LOG"
 [ "$RC" -eq 0 ] || { log "MARKET-FEED FAIL — exit $RC"; exit "$RC"; }

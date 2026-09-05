@@ -117,7 +117,7 @@ does not prove liquidity, and the adapter never guesses an FX rate.
 
 ## What writes it
 
-The **S&P 500 slice is auto-populated on the doer machine.** `scripts/fetch_market_feed.py` pulls the
+The **S&P 500 slice is auto-populated only on the canonical pool-writer doer machine.** `scripts/fetch_market_feed.py` pulls the
 daily index close from FRED (`SP500` — proprietary to S&P Dow Jones Indices LLC, free to access and use
 via FRED as an internal benchmark reference but **not** redistributable; the sidecar records
 `redistribution: prohibited`) through the connectors' own SSRF-bounded
@@ -128,6 +128,12 @@ installs it as the doer-only `com.nostradamus.hk-market-feed` launchd timer (dai
 no model/provider identity, so it needs no cockpit admission. Because `data/` is a gitignored symlink
 into Google Drive, this file drop never goes through `commit-run.sh`; it is local to whichever machine
 runs the timer, same as every other file under `data/_market/`.
+
+Serving/tunnel failover does not transfer this writer: installs with `NOSTRA_INSTALL_CONNECTORS=0`
+exclude and unload the market-feed timer alongside connectors. Every scheduled run also checks the
+connector supervisor's permanent writer identity, installed doer role, and existing canonical pool
+projection. Missing, mismatched, or unsafe identities and an unavailable Drive projection cause a skip;
+the timer never adopts a different pool or creates a replacement local `data/` directory.
 
 Every OTHER symbol this feed contract supports (a sector benchmark, a non-US index such as NIFTY 50 or
 NIFTY Healthcare, a stock's own history) still has **no automated fetcher** — drop it yourself, or add
