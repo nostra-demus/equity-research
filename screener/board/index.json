@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T16:54:17Z",
+  "generated_at": "2026-09-05T16:57:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-732",
+      "headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T16:47:24Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Spire Healthcare agreed to a £1.03 billion takeover by Toscafund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spire Healthcare agreed to a £1.03 billion takeover by Toscafund.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spire Healthcare",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-730",
       "headline": "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down",
@@ -1824,6 +1873,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-735",
+      "headline": "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/fosun-pharma-sells-45-stake-in-gland-pharma-for-rs-2121-crore/article71433130.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T16:49:55Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Fosun Pharma sold a 4.5% stake in Gland Pharma for Rs 2,121 crore, representing a significant block trade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Fosun Pharma sold a 4.5% stake in Gland Pharma for Rs 2,121 crore, representing a significant block trade.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gland Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-729",
       "headline": "US military says it struck three Iranian tankers after American warships came under missile attack",
       "headline_en": null,
@@ -1905,109 +2003,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-701",
-      "headline": "TCS HyperVault to set up ₹70,000-crore AI data centre campus in Hyderabad",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tcs-hypervault-to-set-up-70000-crore-ai-data-centre-campus-in-hyderabad/article71431695.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T10:52:17Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "TCS HyperVault announces a ₹70,000-crore AI data centre campus in Hyderabad, a major capital-expenditure commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "TCS HyperVault announces a ₹70,000-crore AI data centre campus in Hyderabad, a major capital-expenditure commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": "TCS",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-690",
-      "headline": "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/lic-gets-rbi-approval-to-acquire-up-to-999-stake-in-icici-bank/article71431558.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T09:41:15Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "LIC received regulatory approval to acquire a significant 9.99% stake in ICICI Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "LIC received regulatory approval to acquire a significant 9.99% stake in ICICI Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Life Insurance Corporation of India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "ICICI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135381,9 +135376,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213536,
-    "news_picked_today": 1792,
-    "news_dropped_today": 11022
+    "news_seen_today": 213587,
+    "news_picked_today": 1797,
+    "news_dropped_today": 11068
   },
   "book_momentum": {
     "live_count": 8,
