@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T01:07:59Z",
+  "generated_at": "2026-09-05T01:28:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-186",
+      "headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
+      "headline_en": "CVC Corp renegotiates debt and extends maturities until 2029",
+      "url": "https://www.reuters.com/pt/negocio/DM4XNZRX7NKETDH37DCUJEMCDY-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T00:41:39Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "CVC Corp successfully renegotiated debt and extended maturities to 2029, reducing immediate default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CVC Corp successfully renegotiated debt and extended maturities to 2029, reducing immediate default risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVC Corp",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-052",
       "headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
@@ -201,6 +250,55 @@
           "name": "Eaton",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-225",
+      "headline": "Anthropic Finalizing $15 Billion Pre-IPO Credit Facility",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-04/anthropic-finalizing-15-billion-pre-ipo-credit-facility-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:32:47Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Anthropic is finalizing a $15 billion pre-IPO credit facility, a significant capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is finalizing a $15 billion pre-IPO credit facility, a significant capital structure event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -651,6 +749,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-188",
+      "headline": "Prediction: IonQ Puts a Multiyear Revenue Number on the Board Tuesday",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/prediction-ionq-puts-multiyear-revenue-number-board-tuesday",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T23:46:01Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "IonQ is expected to provide a multiyear revenue forecast, which will significantly impact analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "IonQ is expected to provide a multiyear revenue forecast, which will significantly impact analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IonQ",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-156",
       "headline": "Americold (COLD) Raised $1.1B by Contributing 12 Warehouses to a Joint Venture. Is Deleveraging Worth Ceding 70% of the Economics?",
       "headline_en": null,
@@ -793,6 +940,62 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-220",
+      "headline": "T5 spins out construction arm, sells operations biz to Salute",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/t5-spins-out-construction-arm-sells-operations-biz-to-salute/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:40:25Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Data-center operator T5 spins out construction and sells operations to Salute; capital-structure event but company size, listing, and deal value undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Data-center operator T5 spins out construction and sells operations to Salute; capital-structure event but company size, listing, and deal value undisclosed.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "T5",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Salute",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1197,6 +1400,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-204",
+      "headline": "Max Healthcare’s Saket hospital adds 400 bed tower, takes capacity to 1,200",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/max-healthcare-saket-hospital-adds-400-bed-tower-takes-capacity-to-1200-19983297.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:56:49Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Max Healthcare is expanding capacity by 400 beds, a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Max Healthcare is expanding capacity by 400 beds, a significant capital investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Max Healthcare",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-231",
+      "headline": "Salesforce (CRM) Grew Agentforce and Data 360 ARR More Than 200%. Is AI Finally Becoming Material to Growth?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/salesforce-crm-grew-agentforce-data-163207657.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:32:07Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Salesforce's Agentforce and Data 360 ARR grew over 200%, indicating AI products are becoming material to revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Salesforce's Agentforce and Data 360 ARR grew over 200%, indicating AI products are becoming material to revenue growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": "CRM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-003",
       "headline": "David Tepper Sold 41% of His Micron Shares and It Is Still His Second-Biggest Holding",
       "headline_en": null,
@@ -1442,6 +1744,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-207",
+      "headline": "Tesla Cybercab under federal scrutiny as NHTSA questions certification of 1,000 driverless vehicles",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/tesla-cybercab-under-federal-scrutiny-as-nhtsa-questions-certification-of-1-000-driverless-vehicles-11788536453082.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:54:35Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Tesla's Cybercab is under federal scrutiny regarding the certification of 1,000 driverless vehicles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Tesla's Cybercab is under federal scrutiny regarding the certification of 1,000 driverless vehicles.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-209",
+      "headline": "Trade Desk Falls 4% on 15% Workforce Cut; AppLovin Ascends 3%, Magnite Pulls Back",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/04/trade-desk-falls-4-on-15-workforce-cut-applovin-ascends-3-magnite-pulls-back/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:51:10Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "The Trade Desk announced a 15% workforce reduction, impacting its stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The Trade Desk announced a 15% workforce reduction, impacting its stock price.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Trade Desk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-224",
+      "headline": "Top stories: Markets fall for 4th week, forex reserves hit record high and NSE IPO gets SEBI nod",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/top-stories-markets-fall-for-4th-week-forex-reserves-hit-record-high-and-nse-ipo-gets-sebi-nod-19984629.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:34:23Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "NSE received SEBI approval for its IPO, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "NSE received SEBI approval for its IPO, a major capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-067",
       "headline": "A living room unlike any other—how to gather and connect like Gloria Steinem, says expert",
       "headline_en": null,
@@ -1535,459 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-154",
-      "headline": "REX’s Record 2Q EPS, CCS Project Advances – Quarterly Update Report",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/rex-record-2q-eps-ccs-173908985.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:39:08Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "REX reported record 2Q EPS and progress on its CCS project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "REX reported record 2Q EPS and progress on its CCS project.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "REX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-103",
-      "headline": "Air India AI-2379 Lost Hydraulic Power For Nine Seconds, Generated Five Warnings; Pilot Failed Psychoactive Test: AAIB Report",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/air-india-ai-2379-lost-hydraulic-power-for-nine-seconds-generated-five-warnings-pilot-failed-psychoactive-test-aaib-report",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:37:48Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Air India reported a technical failure and a pilot failing a psychoactive test, indicating operational and safety management risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Air India reported a technical failure and a pilot failing a psychoactive test, indicating operational and safety management risks.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-161",
-      "headline": "Volkswagen’s Peace Deal With Unions Sets Up Fresh Battles to Come",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/autos/volkswagens-peace-deal-with-unions-sets-up-fresh-battles-to-come-2b826e18?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:29:00Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Volkswagen reached a peace deal with unions, which may impact future operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Volkswagen reached a peace deal with unions, which may impact future operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-014",
-      "headline": "Novartis Drug Fails Key Test for New Heart Disease Approach",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-04/novartis-drug-fails-key-test-of-new-approach-to-heart-disease",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T21:01:49Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Novartis drug fails a key test for a new heart disease approach, a setback for its pipeline and potential revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Novartis drug fails a key test for a new heart disease approach, a setback for its pipeline and potential revenue.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": "NVS",
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-041",
-      "headline": "Nigeria's SEC approves about $1.6bn Dangote Refinery IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/nigerias-dangote-refinery-ipo-raise-between-155-18-bln-sources-2026-09-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T20:26:17Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "SEC approves a $1.6 billion IPO for Dangote Refinery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "SEC approves a $1.6 billion IPO for Dangote Refinery.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dangote Refinery",
-          "ticker": null,
-          "listing_country": "NG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-046",
-      "headline": "US directs Fannie Mae, Freddie Mac to approve VantageScore for all lenders",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/us-official-directs-fannie-mae-freddie-mac-approve-vantagescore-all-lenders-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T20:12:44Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "US directs Fannie Mae and Freddie Mac to approve VantageScore for all lenders, a regulatory shift that could expand credit-scoring competition and mortgage volumes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "US directs Fannie Mae and Freddie Mac to approve VantageScore for all lenders, a regulatory shift that could expand credit-scoring competition and mortgage volumes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Fannie Mae",
-          "ticker": "FNMA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Freddie Mac",
-          "ticker": "FMCC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-051",
-      "headline": "Tesla's stock drops 6% as Cybercab update 'underwhelms' Wall Street",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/04/teslas-stock-drops-as-cybercab-update-underwhelms-nhtsa-probe.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T20:06:13Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Tesla's Cybercab update underperformed expectations, triggering 6% stock decline and signaling delayed or smaller autonomous-taxi revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Tesla's Cybercab update underperformed expectations, triggering 6% stock decline and signaling delayed or smaller autonomous-taxi revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla, Inc.",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-170",
-      "headline": "Revolution Med (RVMD) Priced Rasonque at $39,800 per 30-Day Supply. Can Access Match the Clinical Breakthrough?",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/revolution-med-rvmd-priced-rasonque-172228096.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:22:28Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Revolution Medicines priced its new drug at $39,800 per 30-day supply, a critical factor for revenue expectations and market access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Revolution Medicines priced its new drug at $39,800 per 30-day supply, a critical factor for revenue expectations and market access.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolution Medicines",
-          "ticker": "RVMD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-172",
-      "headline": "Power Supply Disruption: PGCIL Test Triggers Electrical Fault, Halting NTPC Korba Operations",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/power-supply-disruption-pgcil-test-triggers-electrical-fault-halting-ntpc-korba-operations-12003698#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:20:55Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "An electrical fault caused by PGCIL has halted operations at NTPC's Korba plant, impacting production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "An electrical fault caused by PGCIL has halted operations at NTPC's Korba plant, impacting production capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NTPC",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "PGCIL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100842,77 +100839,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4063eaebd6fd",
-      "idea_version": "IDEAV-0413df0b0c2d16cd",
-      "idea_version_started_at": "2026-09-03T21:34:59Z",
-      "ticker": "02096",
-      "company": "Simcere Pharmaceutical Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The NMPA approval for marketing Yingmule in China provides a direct revenue catalyst for the company's product portfolio.",
-      "why_now": "The regulatory approval was announced via exchange filing on September 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d42aeb829346"
-      ],
-      "primary_source_event_id": "EVT-d42aeb829346",
-      "source_headlines": [
-        "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION"
-      ],
-      "source_headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0903/2026090302393.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T13:26:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T21:34:59Z",
-      "updated_at": "2026-09-03T21:34:59Z",
-      "decay_at": "2026-09-05T01:26:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-272cddf27801",
       "idea_version": "IDEAV-3b3e769f4ebbd692",
       "idea_version_started_at": "2026-09-03T18:13:00Z",
@@ -101683,6 +101609,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-4063eaebd6fd",
+      "idea_version": "IDEAV-0413df0b0c2d16cd",
+      "idea_version_started_at": "2026-09-03T21:34:59Z",
+      "ticker": "02096",
+      "company": "Simcere Pharmaceutical Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The NMPA approval for marketing Yingmule in China provides a direct revenue catalyst for the company's product portfolio.",
+      "why_now": "The regulatory approval was announced via exchange filing on September 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d42aeb829346"
+      ],
+      "primary_source_event_id": "EVT-d42aeb829346",
+      "source_headlines": [
+        "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION"
+      ],
+      "source_headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0903/2026090302393.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T13:26:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T21:34:59Z",
+      "updated_at": "2026-09-03T21:34:59Z",
+      "decay_at": "2026-09-05T01:26:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4f75bd78810c",
       "idea_version": "IDEAV-0987353fdc54f1d7",
       "idea_version_started_at": "2026-09-03T21:34:59Z",
@@ -102407,13 +102404,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 406,
-    "shown_count": 406,
+    "total_count": 407,
+    "shown_count": 407,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 211,
-        "shown_count": 211,
+        "total_count": 212,
+        "shown_count": 212,
         "hidden_count": 0
       },
       "short": {
@@ -102438,6 +102435,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4063eaebd6fd",
+        "idea_version": "IDEAV-0413df0b0c2d16cd",
+        "idea_version_started_at": "2026-09-03T21:34:59Z",
+        "ticker": "02096",
+        "company": "Simcere Pharmaceutical Group",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The NMPA approval for marketing Yingmule in China provides a direct revenue catalyst for the company's product portfolio.",
+        "why_now": "The regulatory approval was announced via exchange filing on September 3, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d42aeb829346"
+        ],
+        "primary_source_event_id": "EVT-d42aeb829346",
+        "source_headlines": [
+          "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION"
+        ],
+        "source_headline": "SIMCERE PHARMA (02096): VOLUNTARY ANNOUNCEMENT - APPROVAL FOR MARKETING OF YINGMULE IN CHINA BY THE NATIONAL MEDICAL PRODUCTS ADMINISTRATION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0903/2026090302393.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T13:26:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T21:34:59Z",
+        "updated_at": "2026-09-03T21:34:59Z",
+        "decay_at": "2026-09-05T01:26:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T01:26:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-272cddf27801",
         "idea_version": "IDEAV-3b3e769f4ebbd692",
@@ -132556,7 +132627,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 441,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -132575,9 +132646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 41030,
-    "news_picked_today": 189,
-    "news_dropped_today": 771
+    "news_seen_today": 54930,
+    "news_picked_today": 249,
+    "news_dropped_today": 975
   },
   "book_momentum": {
     "live_count": 8,
