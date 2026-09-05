@@ -276,7 +276,7 @@ def canonical_existing_directory(candidate: Path) -> Path | None:
         return None
 
 
-def pool_state(repo: Path, ops: Path) -> tuple[str, Path | None]:
+def pool_state(repo: Path, ops: Path, *, seed: bool = True) -> tuple[str, Path | None]:
     """Resolve stable pool identity without ever replacing ambiguous data."""
     identity_file = ops / "pool-root"
     data_path = repo / "data"
@@ -294,6 +294,8 @@ def pool_state(repo: Path, ops: Path) -> tuple[str, Path | None]:
             return "unsafe", None
         identity = Path(text[:-1])
     else:
+        if not seed:
+            return "unconfigured", None
         candidate: Path | None = None
         if explicit:
             if not explicit.startswith("/"):
@@ -1088,13 +1090,24 @@ def main() -> int:
                 home / ".nostra-ops" / "connector-config-root", explicit=candidate
             )
             return 0 if state == "ready" else 1
-        if sys.argv[1:] == ["--writer-eligible"]:
+        if sys.argv[1:] in (["--writer-eligible"], ["--pool-writer-root"]):
             try:
                 local = socket.gethostname().strip()
             except OSError:
                 return 1
             state, _ = writer_identity(home / ".nostra-ops", local)
-            return 0 if state == "ready" else 1
+            if state != "ready":
+                return 1
+            if sys.argv[1:] == ["--pool-writer-root"]:
+                # Scheduled sibling writers share the connector's stable identities. This is a
+                # read-only eligibility check, never an installer or a new-pool adoption path.
+                role = parse_role(home / ".nostra-ops" / "role",
+                                  home / "Library" / "LaunchAgents" / "com.nostradamus.tunnel.plist")
+                pool, root = pool_state(repo, home / ".nostra-ops", seed=False)
+                if role not in {"doer", "legacy_doer"} or pool != "ready" or root is None:
+                    return 1
+                print(root)
+            return 0
         if sys.argv[1:]:
             return 2
         value = supervise(repo, home, now)

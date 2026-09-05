@@ -19,6 +19,7 @@
 #   com.nostradamus.omniroute    — local model-router fallback on 127.0.0.1:20128            (RunAtLoad+KeepAlive)   [managed base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
+#   com.nostradamus.hk-market-feed — deterministic daily S&P 500 benchmark-feed refresh (StartCalendarInterval) [doer]
 #   com.nostradamus.hk-calibrate* — deterministic daily/monthly calibration fallbacks             [doer]
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy + housekeeping shell scripts from ~/.nostra-ops.
 #
@@ -325,7 +326,7 @@ install_runtime_script() {
   fi
 }
 if [ -z "$ONLY" ]; then
-  for s in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh connector-supervisor.py; do
+  for s in watchdog.sh deploy.sh deploy-authorization.py gh-app-token.sh housekeeping.sh calibrate-local.sh market-feed-local.sh connector-supervisor.py; do
     install_runtime_script "$s" || exit 1
   done
 fi
@@ -627,6 +628,7 @@ remove_one() {
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
            com.nostradamus.connectors \
+           com.nostradamus.hk-market-feed \
            com.nostradamus.hk-calibrate-daily com.nostradamus.hk-calibrate \
            com.nostradamus.memory-observability com.nostradamus.memory-rebuild \
            com.nostradamus.memory-recovery-drill)
@@ -659,15 +661,17 @@ if [ "$ROLE" = doer ] && { [ -z "$ONLY" ] || [ "$ONLY" = connectors ]; }; then
   fi
 fi
 if [ "$ROLE" = doer ] && [ -z "$ONLY" ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
-  # Serving/tunnel failover is never connector-writer failover. Fence and
-  # remove any stale connector before this process can publish `doer`.
-  launchctl bootout "$DOMAIN/com.nostradamus.connectors" >/dev/null 2>&1 || true
-  for i in $(seq 1 40); do loaded com.nostradamus.connectors || break; sleep 0.25; done
-  if loaded com.nostradamus.connectors; then
-    echo "ERROR: stale connector writer did not stop; refusing doer promotion" >&2
-    exit 1
-  fi
-  rm -f "$AGENTS/com.nostradamus.connectors.plist" 2>/dev/null || exit 1
+  # Serving/tunnel failover never transfers the connector/feed pool-writer identity. Fence both jobs,
+  # including a market-feed timer left by an earlier install, before publishing `doer`.
+  for label in com.nostradamus.connectors com.nostradamus.hk-market-feed; do
+    launchctl bootout "$DOMAIN/$label" >/dev/null 2>&1 || true
+    for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done
+    if loaded "$label"; then
+      echo "ERROR: stale pool writer $label did not stop; refusing doer promotion" >&2
+      exit 1
+    fi
+    rm -f "$AGENTS/$label.plist" 2>/dev/null || exit 1
+  done
 fi
 if [ "$ONLY" = connectors ]; then
   LABELS=(com.nostradamus.connectors)
@@ -683,7 +687,10 @@ else
   if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
     filtered=()
     for label in "${LABELS[@]}"; do
-      [ "$label" = com.nostradamus.connectors ] || filtered+=("$label")
+      case "$label" in
+        com.nostradamus.connectors|com.nostradamus.hk-market-feed) ;;
+        *) filtered+=("$label") ;;
+      esac
     done
     LABELS=("${filtered[@]}")
   fi

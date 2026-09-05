@@ -6,6 +6,10 @@ import csv
 import datetime as dt
 import json
 import os
+from pathlib import Path
+import shutil
+import socket
+import subprocess
 import sys
 import tempfile
 
@@ -59,7 +63,13 @@ def test_it_writes_the_shape_the_readers_expect() -> None:
         with open(path + ".source.json", encoding="utf-8") as fh:
             sidecar = json.load(fh)
         assert sidecar["as_of"] == "2026-08-24"
-        assert sidecar["license"] == "public_domain"
+        # SP500 is proprietary to S&P Dow Jones Indices LLC — FRED serves it free to access and use, but
+        # reproduction/redistribution is prohibited, so the sidecar must NOT claim public-domain /
+        # redistributable rights. Enum values follow frameworks/EXTERNAL_DATA.md §7
+        # (redistribution ∈ allowed | derived_only | prohibited | unknown).
+        assert sidecar["license"] == "proprietary", sidecar["license"]
+        assert sidecar["licensing"]["redistribution"] == "prohibited", sidecar["licensing"]
+        assert sidecar["licensing"]["use"] == "allowed", sidecar["licensing"]
         received = dt.datetime.fromisoformat(sidecar["received"].replace("Z", "+00:00"))
         assert sidecar["received"].endswith("Z") and received.tzinfo is not None
 
@@ -71,13 +81,127 @@ def test_the_host_is_pinned() -> None:
     assert M.SOURCE_URL.startswith("https://fred.stlouisfed.org/")
 
 
+def test_scheduled_writer_requires_canonical_pool() -> None:
+    # Drive only the real scheduled wrapper and supervisor. Replace the network fetch with a marker:
+    # a rejected topology must never reach it or manufacture a local data tree.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    for case in ("nonwriter", "ready", "admin", "missing", "real", "broken", "wrong",
+                 "no_identity", "unsafe_identity", "no_writer", "no_role", "unknown_lock_age"):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            home, repo, pool = root / "home", root / "repo", root / "pool"
+            ops = home / ".nostra-ops"
+            for directory in (ops, repo / "scripts" / "ops", pool):
+                directory.mkdir(parents=True)
+            ops.chmod(0o700)
+            for name, value in {
+                "connector-writer-host": "other-host" if case == "nonwriter" else socket.gethostname(),
+                "pool-root": str(pool), "role": "admin" if case == "admin" else "doer",
+            }.items():
+                (ops / name).write_text(value + "\n")
+                (ops / name).chmod(0o600)
+            if case == "no_identity":
+                (ops / "pool-root").unlink()
+            elif case == "unsafe_identity":
+                (ops / "pool-root").chmod(0o666)
+            elif case == "no_writer":
+                (ops / "connector-writer-host").unlink()
+            elif case == "no_role":
+                (ops / "role").unlink()
+            data = repo / "data"
+            if case == "real":
+                data.mkdir()
+            elif case == "broken":
+                data.symlink_to(root / "unmounted")
+            elif case == "wrong":
+                (root / "other").mkdir()
+                data.symlink_to(root / "other")
+            elif case != "missing":
+                data.symlink_to(pool)
+            shutil.copyfile(ops_source / "connector-supervisor.py", repo / "scripts" / "ops" / "connector-supervisor.py")
+            (repo / "scripts" / "fetch_market_feed.py").write_text(
+                "import json, pathlib, sys\n"
+                "pathlib.Path('fetch-ran').write_text(json.dumps(sys.argv[1:]))\n"
+            )
+            subprocess.run(["git", "init", "-q", str(repo)], check=True)
+            env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+            env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"))
+            if case == "unknown_lock_age":
+                (repo / ".git" / "nostra-market-feed.lock.d").mkdir()
+                (root / "bin").mkdir()
+                (root / "bin" / "stat").write_text("#!/bin/sh\nexit 1\n")
+                (root / "bin" / "stat").chmod(0o755)
+                env["PATH"] = str(root / "bin") + os.pathsep + env["PATH"]
+            result = subprocess.run(["/bin/bash", str(ops_source / "market-feed-local.sh")],
+                                    env=env, capture_output=True, text=True, timeout=15)
+            assert result.returncode == 0, (case, result.stderr, (root / "job.log").read_text())
+            assert (repo / "fetch-ran").exists() == (case == "ready"), case
+            if case == "ready":
+                assert json.loads((repo / "fetch-ran").read_text()) == ["--data-root", str(pool)]
+            if case == "missing":
+                assert not data.exists(), "missing Drive projection was created locally"
+            if case == "no_identity":
+                assert not (ops / "pool-root").exists(), "scheduled run silently seeded pool identity"
+
+
+def test_failover_fences_market_feed() -> None:
+    # Execute the installer's real role-routing tail with service operations simulated. This isolates
+    # selection/fencing from OS-specific plist rendering and never touches the host's launchd.
+    script = (Path(__file__).resolve().parent / "ops" / "install-services.sh").read_text()
+    routing = "BASE=(" + script.split("\nBASE=(", 1)[1]
+    prefix = r'''
+set -uo pipefail
+ROLE=doer ONLY='' INSTALL_CONNECTORS=0 OMNIROUTE_BIN=''
+AGENTS="$CASE_ROOT/agents" DOMAIN=gui/test HERE="$CASE_ROOT/source" PROD="$CASE_ROOT/prod"
+mkdir -p "$AGENTS" "$HERE"
+touch "$HERE/com.nostradamus.news-ingester.plist"
+printf '%s\n' __SET_YOUR_GROQ_API_KEY__ > "$HERE/com.nostradamus.news-ingester.plist"
+for label in com.nostradamus.connectors com.nostradamus.hk-market-feed; do
+  touch "$AGENTS/$label.plist" "$CASE_ROOT/$label.loaded"
+done
+loaded() { [ -e "$CASE_ROOT/$1.loaded" ]; }
+launchctl() {
+  if [ "$1" = bootout ]; then
+    if [ "$STUCK" != 1 ] || [ "${2##*/}" != com.nostradamus.hk-market-feed ]; then
+      rm -f "$CASE_ROOT/${2##*/}.loaded"
+    fi
+  fi
+  return 0
+}
+sleep() { :; }
+install_one() { printf '%s\n' "$1" >> "$CASE_ROOT/installed"; }
+remove_one() { :; }
+persist_role() { printf '%s\n' "$1" > "$CASE_ROOT/role"; }
+'''
+    for stuck in (False, True):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            result = subprocess.run(["/bin/bash"], input=prefix + routing, text=True, capture_output=True,
+                                    env={**os.environ, "CASE_ROOT": str(root), "STUCK": str(int(stuck))},
+                                    timeout=15)
+            if stuck:
+                assert result.returncode != 0 and not (root / "role").exists(), result.stdout
+                assert (root / "com.nostradamus.hk-market-feed.loaded").exists()
+                continue
+            assert result.returncode == 0, (result.stdout, result.stderr)
+            installed = (root / "installed").read_text().splitlines()
+            assert "com.nostradamus.tunnel" in installed
+            assert (root / "role").read_text() == "doer\n"
+            for label in ("com.nostradamus.connectors", "com.nostradamus.hk-market-feed"):
+                assert label not in installed, f"failover installs {label}"
+                assert not (root / "agents" / f"{label}.plist").exists(), f"stale {label} plist retained"
+                assert not (root / f"{label}.loaded").exists(), f"stale {label} still loaded"
+
+
 def main() -> int:
     check("a market holiday is dropped, never filled", test_holiday_is_dropped_not_filled)
     check("junk rows are skipped and the series is sorted", test_junk_is_skipped_and_order_forced)
     check("a wrong-shaped response is refused, not half-read", test_wrong_shape_is_refused_not_half_read)
     check("the feed is written in the shape the readers expect", test_it_writes_the_shape_the_readers_expect)
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
-    print(f"\n{5 - len(FAILURES)} passed, {len(FAILURES)} failed")
+    check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
+    check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
+    print(f"\n{7 - len(FAILURES)} passed, {len(FAILURES)} failed")
     return 1 if FAILURES else 0
 
 
