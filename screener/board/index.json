@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T22:50:28Z",
+  "generated_at": "2026-09-05T22:51:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -99013,76 +99013,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aae3ef159f69",
-      "idea_version": "IDEAV-921a27db30f43c47",
-      "idea_version_started_at": "2026-09-04T23:10:23Z",
-      "ticker": "BSX",
-      "company": "Boston Scientific",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A recall of Boston Scientific's spinal cord stimulator leads has been linked to over 1,000 injuries, creating litigation, remediation costs, and reputational risk.",
-      "why_now": "MedTech Dive reported the recall and injury count on 2026-09-04; regulatory and legal overhang is live.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c9b8a01f5ab3"
-      ],
-      "primary_source_event_id": "EVT-c9b8a01f5ab3",
-      "source_headlines": [
-        "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
-      ],
-      "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
-      "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
-      "source_name": "MedTech Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T15:39:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T17:02:16Z",
-      "updated_at": "2026-09-04T23:10:23Z",
-      "decay_at": "2026-09-06T03:39:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-d48874a256e338b5",
       "idea_version_started_at": "2026-09-04T21:55:24Z",
@@ -99154,24 +99084,24 @@
     },
     {
       "idea_id": "IDEA-495f024fede1",
-      "idea_version": "IDEAV-7f0666f966f2ae90",
-      "idea_version_started_at": "2026-09-04T17:37:30Z",
+      "idea_version": "IDEAV-d4a48f5cbb8ea34a",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
       "ticker": "FLEX",
-      "company": "Flex Ltd",
+      "company": "Flex Ltd.",
       "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "Flex is acquiring EPC Power for $4.4 billion to bolster its data center power conversion capabilities, a high-growth segment driven by AI infrastructure demand.",
-      "why_now": "The acquisition was announced on 2026-09-04.",
+      "reason": "Flex is acquiring data center power conversion manufacturer EPC Power for $4.4 billion, significantly expanding its high-margin exposure to AI and data center infrastructure demand.",
+      "why_now": "The acquisition was announced on September 4, 2026, presenting an immediate strategic shift in Flex's product mix.",
       "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
+      "trade_score": 61,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
         "impact": 20,
         "specificity": 15,
-        "timing": 10,
+        "timing": 6,
         "expression": 6,
         "corroboration": 0,
         "learning_adjustment": 0
@@ -99215,7 +99145,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-04T17:37:30Z",
-      "updated_at": "2026-09-04T17:37:30Z",
+      "updated_at": "2026-09-05T22:50:47Z",
       "decay_at": "2026-09-06T03:50:27Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -99359,6 +99289,76 @@
       "surfaced_at": "2026-09-05T15:28:18Z",
       "updated_at": "2026-09-05T15:28:18Z",
       "decay_at": "2026-09-07T00:27:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aae3ef159f69",
+      "idea_version": "IDEAV-6b3d1e38bfd09573",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "BSX",
+      "company": "Boston Scientific Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A major recall of Boston Scientific's spinal cord stimulator leads has been linked to more than 1,000 patient injuries, presenting significant litigation, regulatory, and market share risks.",
+      "why_now": "The critical severity recall details and injury counts were publicized on September 4, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c9b8a01f5ab3"
+      ],
+      "primary_source_event_id": "EVT-c9b8a01f5ab3",
+      "source_headlines": [
+        "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
+      ],
+      "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
+      "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
+      "source_name": "MedTech Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T15:39:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T17:02:16Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T03:39:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -99571,6 +99571,296 @@
       "surfaced_at": "2026-09-04T15:47:15Z",
       "updated_at": "2026-09-04T15:47:15Z",
       "decay_at": "2026-09-06T01:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-15541783b8ad",
+      "idea_version": "IDEAV-f395637bbbe1a956",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "LICHSGFIN",
+      "company": "LIC Housing Finance Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Central Bureau of Investigation (CBI) has filed a criminal case against Subhash Chandra for allegedly defrauding LIC Housing Finance of ₹1,322 crore, threatening asset recovery and provisioning metrics.",
+      "why_now": "The CBI filed the formal fraud case on September 5, 2026, introducing immediate credit and legal overhang.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d0edf79961c1"
+      ],
+      "primary_source_event_id": "EVT-d0edf79961c1",
+      "source_headlines": [
+        "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore"
+      ],
+      "source_headline": "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
+      "source_url": "https://www.cnbctv18.com/business/cbi-files-case-against-subhash-chandra-for-allegedly-defrauding-lic-housing-of-1322-crore-rupees-19984801.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T08:50:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:44:15Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T20:50:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-578938ddec286c59",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "IVG",
+      "company": "Iveco Group N.V.",
+      "exchange": "MIL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a formal takeover offer for Iveco Group at €14.1 per share, valuing the transaction at €3.82 billion.",
+      "why_now": "The takeover offer was launched on September 5, 2026, creating a hard floor and near-term catalyst for the stock to trade toward the offer price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd74a41471c6",
+        "EVT-e774de2326e3"
+      ],
+      "primary_source_event_id": "EVT-bd74a41471c6",
+      "source_headlines": [
+        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover"
+      ],
+      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T06:37:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T18:37:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-be2010792483",
+      "idea_version": "IDEAV-51378f6566825a4e",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "SPI",
+      "company": "Spire Healthcare Group plc",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Spire Healthcare has agreed to a £1.03 billion private equity takeover by Toscafund and partners, which should support the stock price up to the acquisition value.",
+      "why_now": "The definitive takeover agreement was announced on September 5, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c148e6ef6fe1"
+      ],
+      "primary_source_event_id": "EVT-c148e6ef6fe1",
+      "source_headlines": [
+        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
+      ],
+      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T16:47:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-07T04:47:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cd49f49da7a5",
+      "idea_version": "IDEAV-9946cdabc11a61e2",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "CVCB3",
+      "company": "CVC Brasil Operadora e Agência de Viagens S.A.",
+      "exchange": "B3",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "CVC Corp has successfully renegotiated its debt obligations and extended its maturities until 2029, significantly reducing near-term default risk and improving its balance sheet runway.",
+      "why_now": "The debt renegotiation and maturity extension were finalized and announced on September 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e30cc62a4d7d"
+      ],
+      "primary_source_event_id": "EVT-e30cc62a4d7d",
+      "source_headlines": [
+        "CVC Corp renegotiates debt and extends maturities until 2029"
+      ],
+      "source_headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
+      "source_url": "https://www.reuters.com/pt/negocio/DM4XNZRX7NKETDH37DCUJEMCDY-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T00:41:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T22:50:47Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T12:41:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -100226,79 +100516,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be2010792483",
-      "idea_version": "IDEAV-395853dcb44f1c45",
-      "idea_version_started_at": "2026-09-05T17:14:18Z",
-      "ticker": "SPI",
-      "company": "Spire Healthcare",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has agreed to a £1.03 billion takeover by Toscafund and other investors, representing a definitive exit event for shareholders.",
-      "why_now": "The deal was announced on September 5, 2026, creating an immediate arbitrage or liquidity event window.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c148e6ef6fe1"
-      ],
-      "primary_source_event_id": "EVT-c148e6ef6fe1",
-      "source_headlines": [
-        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
-      ],
-      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
-      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:47:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-05T17:14:18Z",
-      "decay_at": "2026-09-07T04:47:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-69be6242b6c3",
       "idea_version": "IDEAV-1dbf69985b06a3b9",
       "idea_version_started_at": "2026-09-05T16:54:01Z",
@@ -100662,153 +100879,6 @@
       "surfaced_at": "2026-09-05T13:02:11Z",
       "updated_at": "2026-09-05T13:02:11Z",
       "decay_at": "2026-09-06T22:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-15541783b8ad",
-      "idea_version": "IDEAV-60ab9ea426cb7bd8",
-      "idea_version_started_at": "2026-09-05T10:44:15Z",
-      "ticker": "LICHSGFIN",
-      "company": "LIC Housing Finance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CBI has filed a fraud case against Essel Group chairman Subhash Chandra for allegedly defrauding LIC Housing Finance of ₹1,322 crore, highlighting asset quality and recovery risks.",
-      "why_now": "The FIR was lodged and reported on September 5, 2026, which will pressure the stock as the market prices in potential provisioning or write-offs.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d0edf79961c1"
-      ],
-      "primary_source_event_id": "EVT-d0edf79961c1",
-      "source_headlines": [
-        "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore"
-      ],
-      "source_headline": "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
-      "source_url": "https://www.cnbctv18.com/business/cbi-files-case-against-subhash-chandra-for-allegedly-defrauding-lic-housing-of-1322-crore-rupees-19984801.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T08:50:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:44:15Z",
-      "updated_at": "2026-09-05T10:44:15Z",
-      "decay_at": "2026-09-06T20:50:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-f0c1eee3a5d14bd0",
-      "idea_version_started_at": "2026-09-05T07:36:33Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a voluntary all-cash tender offer to acquire the company for €3.82 billion, representing a significant liquidity event for shareholders.",
-      "why_now": "The formal tender offer was announced via exchange filings on September 5, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-64c9bc1f307e",
-        "EVT-94ade6585275",
-        "EVT-e774de2326e3"
-      ],
-      "primary_source_event_id": "EVT-64c9bc1f307e",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"Tata Motors launches recommended all-cash Voluntary totalitariantender offer for IVECO Group Common shares .",
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover"
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 05, 2026, titled \"Tata Motors launches recommended all-cash Voluntary totalitariantender offer for IVECO Group Common shares .",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_05092026013217_IVECOPR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T00:00:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-05T07:36:33Z",
-      "decay_at": "2026-09-06T12:00:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -135909,8 +135979,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 473,
-    "live_count": 39,
+    "surfaced_total": 474,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
