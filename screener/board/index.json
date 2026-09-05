@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T16:57:58Z",
+  "generated_at": "2026-09-05T17:02:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-732",
@@ -1873,6 +1873,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-738",
+      "headline": "US military strikes three Iranian tankers",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/05/us-military-strikes-three-iranian-tankers/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T16:50:03Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "A military strike on oil tankers represents a significant geopolitical escalation and a potential supply shock to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A military strike on oil tankers represents a significant geopolitical escalation and a potential supply shock to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-735",
       "headline": "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore",
       "headline_en": null,
@@ -1937,49 +1980,6 @@
       "triage_score": 99,
       "triage_reason": "A military strike on Iranian tankers by the US represents a significant geopolitical escalation in the Middle East.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-712",
-      "headline": "Explosions near Iran's Kharg Island raise fears of escalation in US war on Iran",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/mena/2026/09/05/explosions-near-irans-kharg-island-raise-fears-of-escalation-in-us-war-on-iran/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T12:16:08Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Explosions near a major oil export terminal in Iran signal a significant escalation in regional geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Explosions near a major oil export terminal in Iran signal a significant escalation in regional geopolitical risk.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -135376,9 +135376,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213587,
-    "news_picked_today": 1797,
-    "news_dropped_today": 11068
+    "news_seen_today": 213621,
+    "news_picked_today": 1801,
+    "news_dropped_today": 11098
   },
   "book_momentum": {
     "live_count": 8,
