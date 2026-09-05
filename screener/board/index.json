@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T08:46:35Z",
+  "generated_at": "2026-09-05T08:47:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-686",
@@ -99355,6 +99355,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-4d1a5d3514a6b082",
+      "idea_version_started_at": "2026-09-05T08:46:50Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of a phase 3 trial for its Lp(a) drug removes a key potential growth driver for its cardiovascular pipeline, negatively impacting long-term revenue projections.",
+      "why_now": "The trial failure was reported on 2026-09-05, creating immediate downside risk as the market adjusts for the loss of this asset.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c4ae519221c"
+      ],
+      "primary_source_event_id": "EVT-4c4ae519221c",
+      "source_headlines": [
+        "Novartis Lp(a) drug fails to lower cardiovascular risk in closely watched ph. 3 trial"
+      ],
+      "source_headline": "Novartis Lp(a) drug fails to lower cardiovascular risk in closely watched ph. 3 trial",
+      "source_url": "https://www.fiercebiotech.com/biotech/novartis-lpa-drug-fails-lower-cardiovascular-risk-closely-watched-ph-3-trial",
+      "source_name": "FierceBiotech",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-05T02:09:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T08:46:50Z",
+      "updated_at": "2026-09-05T08:46:50Z",
+      "decay_at": "2026-09-06T14:09:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b4305fa7b1e56144",
       "idea_version_started_at": "2026-09-04T23:10:23Z",
@@ -133673,8 +133743,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 453,
-    "live_count": 38,
+    "surfaced_total": 454,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
