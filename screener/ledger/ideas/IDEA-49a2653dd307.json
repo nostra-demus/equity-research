@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-49a2653dd307",
-  "idea_version": "IDEAV-ff39c15dacc50c02",
-  "idea_version_started_at": "2026-09-05T10:25:28Z",
+  "idea_version": "IDEAV-c258502d4adceab3",
+  "idea_version_started_at": "2026-09-05T20:32:18Z",
   "ticker": "VWAGY",
   "company": "Volkswagen",
   "exchange": "OTC Markets",
@@ -11,17 +11,17 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The announcement of 50,000 job cuts signals severe structural distress and operational challenges within the company's core automotive business.",
-  "why_now": "The restructuring plan was confirmed on 2026-09-04, indicating immediate pressure on margins and labor relations.",
-  "conviction": 70,
+  "reason": "Volkswagen plans to cut 50,000 jobs, signaling significant restructuring and cost-saving measures likely driven by market pressures or strategic shifts.",
+  "why_now": "The job cut announcement is a current event indicating immediate strategic action.",
+  "conviction": 50,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 60,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 21,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 6,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -42,24 +43,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "unknown",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-43da777036f0",
-    "EVT-256a4d81db02"
+    "EVT-43da777036f0"
   ],
   "primary_source_event_id": "EVT-43da777036f0",
   "source_headlines": [
-    "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026",
-    "VW Approves Plan for 50K More Layoffs, US Retail Diesel Hits Record | The Opening Trade 9/4/2026"
+    "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026"
   ],
   "source_headline": "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026",
   "source_url": "https://www.bloomberg.com/news/videos/2026-09-04/the-pulse-9-4-2026-video",
   "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-04T11:36:46Z",
+  "newest_source_at": "2026-09-04T11:16:11Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-03T23:05:06Z",
-  "updated_at": "2026-09-05T10:25:28Z",
-  "decay_at": "2026-09-05T23:36:46Z",
+  "updated_at": "2026-09-05T20:32:18Z",
+  "decay_at": "2026-09-05T23:16:11Z",
   "status": "live",
   "promoted_signal_id": null
 }

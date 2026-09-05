@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-05T20:32:29Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-db95bbb0a6ee",
+    "idea_version": "IDEAV-1ccb414f792d4338",
+    "idea_version_started_at": "2026-09-03T05:43:47Z",
+    "ticker": "SNOW",
+    "company": "Snowflake Inc.",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Snowflake raised its annual product revenue forecast, indicating accelerating consumption and net revenue retention in its data cloud platform.",
+    "why_now": "Guidance raise announced 2026-09-02; shares jumped ~22% on the news, but upward estimate revisions may sustain momentum.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 6,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1dce63f3c349",
+      "EVT-51acbab64dbc"
+    ],
+    "primary_source_event_id": "EVT-1dce63f3c349",
+    "source_headlines": [
+      "+++ Business Figures +++: Snowflake raises revenue forecast – stock jumps by 22 percent",
+      "Snowflake lifts annual product revenue forecast, shares soar"
+    ],
+    "source_headline": "+++ Geschäftszahlen +++: Snowflake hebt Umsatzprognose an – Aktie springt um 22 Prozent",
+    "source_url": "https://www.handelsblatt.com/unternehmen/industrie/quartalszahlen-snowflake-hebt-umsatzprognose-an-aktie-springt-um-22-prozent/24098412.html",
+    "source_name": "Handelsblatt",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-02T20:32:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-03T05:43:47Z",
+    "updated_at": "2026-09-03T05:43:47Z",
+    "decay_at": "2026-09-04T08:32:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
