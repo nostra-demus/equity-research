@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T04:09:45Z",
+  "generated_at": "2026-09-05T04:26:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-517",
+      "headline": "PUBG-fame Krafton to invest another $250 million in India as it expands beyond gaming",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/pubgfame-krafton-to-invest-another-250-million-in-india-as-it-expands-beyond-gaming-11788575428581.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T03:47:52Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Krafton plans to invest $250 million in India to expand its business operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Krafton plans to invest $250 million in India to expand its business operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Krafton",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-186",
       "headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
@@ -1934,55 +1983,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-354",
-      "headline": "Krafton doubles down on India with another $250M bet beyond gaming",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/09/04/krafton-doubles-down-on-india-with-another-250m-bet-beyond-gaming/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T14:47:20Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Krafton is committing $250 million in new capital investment into the Indian market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Krafton is committing $250 million in new capital investment into the Indian market.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Krafton",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -99190,76 +99190,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ed0a5587b955",
-      "idea_version": "IDEAV-47f724a6b8c054c8",
-      "idea_version_started_at": "2026-09-03T22:15:11Z",
-      "ticker": "TSN",
-      "company": "Tyson Foods, Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tyson cut its annual forecast again as cattle cost pressure worsens, directly compressing margins and earnings visibility for the core protein business.",
-      "why_now": "Reuters report 2026-09-03T16:22:48Z confirms the second forecast cut; guidance reset is the immediate catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cd07e8ff1b13"
-      ],
-      "primary_source_event_id": "EVT-cd07e8ff1b13",
-      "source_headlines": [
-        "Tyson Foods cuts annual forecast again as cattle pressure worsens"
-      ],
-      "source_headline": "Tyson Foods cuts annual forecast again as cattle pressure worsens",
-      "source_url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T16:22:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T18:40:02Z",
-      "updated_at": "2026-09-03T22:15:11Z",
-      "decay_at": "2026-09-05T04:22:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b4305fa7b1e56144",
       "idea_version_started_at": "2026-09-04T23:10:23Z",
@@ -100763,6 +100693,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-ed0a5587b955",
+      "idea_version": "IDEAV-47f724a6b8c054c8",
+      "idea_version_started_at": "2026-09-03T22:15:11Z",
+      "ticker": "TSN",
+      "company": "Tyson Foods, Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tyson cut its annual forecast again as cattle cost pressure worsens, directly compressing margins and earnings visibility for the core protein business.",
+      "why_now": "Reuters report 2026-09-03T16:22:48Z confirms the second forecast cut; guidance reset is the immediate catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cd07e8ff1b13"
+      ],
+      "primary_source_event_id": "EVT-cd07e8ff1b13",
+      "source_headlines": [
+        "Tyson Foods cuts annual forecast again as cattle pressure worsens"
+      ],
+      "source_headline": "Tyson Foods cuts annual forecast again as cattle pressure worsens",
+      "source_url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T16:22:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T18:40:02Z",
+      "updated_at": "2026-09-03T22:15:11Z",
+      "decay_at": "2026-09-05T04:22:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-272cddf27801",
@@ -102402,8 +102402,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 408,
-    "shown_count": 408,
+    "total_count": 409,
+    "shown_count": 409,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -102412,8 +102412,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 195,
-        "shown_count": 195,
+        "total_count": 196,
+        "shown_count": 196,
         "hidden_count": 0
       }
     },
@@ -102433,6 +102433,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ed0a5587b955",
+        "idea_version": "IDEAV-47f724a6b8c054c8",
+        "idea_version_started_at": "2026-09-03T22:15:11Z",
+        "ticker": "TSN",
+        "company": "Tyson Foods, Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Tyson cut its annual forecast again as cattle cost pressure worsens, directly compressing margins and earnings visibility for the core protein business.",
+        "why_now": "Reuters report 2026-09-03T16:22:48Z confirms the second forecast cut; guidance reset is the immediate catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cd07e8ff1b13"
+        ],
+        "primary_source_event_id": "EVT-cd07e8ff1b13",
+        "source_headlines": [
+          "Tyson Foods cuts annual forecast again as cattle pressure worsens"
+        ],
+        "source_headline": "Tyson Foods cuts annual forecast again as cattle pressure worsens",
+        "source_url": "https://www.reuters.com/business/retail-consumer/tyson-foods-cuts-annual-sales-profit-forecasts-beef-pressure-weighs-2026-09-03/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T16:22:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T18:40:02Z",
+        "updated_at": "2026-09-03T22:15:11Z",
+        "decay_at": "2026-09-05T04:22:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T04:22:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-060ace16dada",
         "idea_version": "IDEAV-de4f40ff80aae63a",
@@ -132700,7 +132773,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 441,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -132719,9 +132792,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 170052,
-    "news_picked_today": 746,
-    "news_dropped_today": 2542
+    "news_seen_today": 175454,
+    "news_picked_today": 793,
+    "news_dropped_today": 2759
   },
   "book_momentum": {
     "live_count": 8,
