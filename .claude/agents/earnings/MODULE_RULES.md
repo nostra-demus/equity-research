@@ -152,6 +152,20 @@ bulk of" was false by a factor of seven. A margin or revenue bridge that quotes 
 without doing the multiplication, or that lets "Other" absorb a large gap silently, is the same error in a
 different table.
 
+**Mechanical check (`scripts/eval.py` check BE).** The reconciliation above is enforced, not merely
+instructed: `02_revenue-drivers` §6a closes with a standalone `RF-EARN-001` tag line, and
+`03_margin-drivers` §7a closes with a standalone `RF-EARN-002` tag line, each in one of exactly two
+forms — `RF-EARN-00N: {label} reconciled — explained {N}{unit}, residual {M}{unit}, total {T}{unit}` or
+`RF-EARN-00N: {label} not attempted — {reason}`. Check BE (`scripts/rating_caps.py`,
+`eval_be_driver_attribution_residual`) verifies the tag is present whenever the specialist ran at all —
+unlike a conditional-trigger cap, Section 6/6a and 7/7a are standard parts of every run, so tag absence
+is itself a violation — and, for the reconciled form, arithmetically re-derives that explained + residual
+equals the stated total (a 1.0-unit rounding tolerance). It runs both retrospectively (`eval.py all`) and
+live, pre-publish, in `/research:full` Step 10B.1, mirroring how check BB already mechanizes the sibling
+§16 Sector Cycle Reality Test. This closes the exact hole the rule above existed to prevent: a residual
+silently omitted, or a "biggest driver" claim shipped over a bridge that never reconciled, with nothing in
+the pipeline to catch it before the thesis published.
+
 ---
 
 ## TTM Rule

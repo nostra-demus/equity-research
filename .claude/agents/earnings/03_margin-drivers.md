@@ -207,6 +207,20 @@ Then reconcile: sum of components vs stated Total (Section 7's Total row) = **{N
 residual**. If the residual is large relative to the total, state that plainly — it caps how confidently
 Section 8 can name a single biggest driver.
 
+Close this section with a standalone machine-readable tag line, in ONE of two exact forms (this
+mechanizes the reconciliation above for `scripts/eval.py` check BE — the residual must never be
+silently omitted or rounded away, CLAUDE.md §15):
+
+```
+RF-EARN-002: margin bridge reconciled — explained {N}bps, residual {M}bps, total {T}bps
+```
+
+or, when Section 7's bridge was not possible from disclosure:
+
+```
+RF-EARN-002: margin bridge not attempted — {reason}
+```
+
 ## 8. The Single Biggest Margin Driver
 
 One paragraph: which driver, if it moved adversely, would compress margins the most? What is its current direction?
@@ -230,6 +244,7 @@ State BOTH readings, each with evidence, then say which the evidence currently f
 - [ ] Every driver row has direction (Tailwind / Neutral / Headwind / Unknown), magnitude, and evidence.
 - [ ] The margin bridge uses actual numbers, not estimates. Inferences are labeled.
 - [ ] Section 7a shows the arithmetic for any bridge component derived from a quoted sensitivity, names that sensitivity's basis, and reconciles the components to the stated Total — the residual is quantified, not rounded away. No sensitivity is applied across a basis it was not measured on.
+- [ ] Section 7a ends with the standalone `RF-EARN-002` tag line, in exactly one of its two forms (reconciled explained/residual/total, or "not attempted — {reason}") — never omitted.
 - [ ] The "primary margin metric" choice in Section 4 is justified.
 - [ ] Section 8 names ONE biggest driver, not a list.
 - [ ] Where investment spend is well above its own history, Section 9 states BOTH signs — the cost reading AND the demand reading — with evidence on each, plus the observable that would flip the current read. A spend read only as a cost is an incomplete read (see the rule above).
