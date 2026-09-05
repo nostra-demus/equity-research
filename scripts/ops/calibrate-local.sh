@@ -24,8 +24,17 @@ LOCK="$GIT_DIR/nostra-calibrate.lock.d"
 # One writer across the post-review and scheduled paths. A clean invocation is seconds; a lock older than
 # one hour can only be an orphan from a killed process and is reclaimed with rmdir (never recursive delete).
 if ! mkdir "$LOCK" 2>/dev/null; then
-  lock_epoch="$(stat -c %Y "$LOCK" 2>/dev/null || stat -f %m "$LOCK" 2>/dev/null || echo 0)"
-  lock_age=$(( $(date +%s) - lock_epoch ))
+  # A failed stat probe may emit stdout. Keep platform attempts separate, and never feed unknown or
+  # malformed output into arithmetic: empty values become zero and shell expressions can be evaluated.
+  if ! lock_epoch="$(stat -c %Y "$LOCK" 2>/dev/null)"; then
+    lock_epoch="$(stat -f %m "$LOCK" 2>/dev/null)" || lock_epoch=""
+  fi
+  case "$lock_epoch" in
+    ''|*[!0-9]*) log "CALIBRATE SKIP $REASON — lock age unavailable"; exit 0 ;;
+  esac
+  # Bound the integer before subtraction to prevent overflow; base 10 accepts padded timestamps.
+  [ "${#lock_epoch}" -le 18 ] || { log "CALIBRATE SKIP $REASON — lock age unavailable"; exit 0; }
+  lock_age=$(( $(date +%s) - 10#$lock_epoch ))
   if [ "$lock_age" -gt 3600 ]; then
     rmdir "$LOCK" 2>/dev/null || { log "CALIBRATE SKIP $REASON — lock contended"; exit 0; }
     mkdir "$LOCK" 2>/dev/null || { log "CALIBRATE SKIP $REASON — lock contended after reclaim"; exit 0; }
