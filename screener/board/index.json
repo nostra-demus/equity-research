@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T22:56:59Z",
+  "generated_at": "2026-09-05T23:02:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -101,6 +101,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-753",
+      "headline": "Thousands of jobs to be cut at Jaguar Land Rover after slump in profits",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/05/thousands-jaguar-land-rover-offered-redundancies-after-falling-profits",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T21:42:11Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting thousands of jobs following a slump in profits, indicating significant operational and financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting thousands of jobs following a slump in profits, indicating significant operational and financial distress.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1967,55 +2017,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-612",
-      "headline": "Sterlite Tech shares hit 5% upper circuit after ₹3,000 crore capex plan; CLSA sees 33% upside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sterlite-tech-shares-hit-upper-circuit-after-3000-crore-capex-plan-clsa-sees-upside-19984103.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T06:47:42Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Sterlite Tech announced a ₹3,000 crore capex plan, which is a significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sterlite Tech announced a ₹3,000 crore capex plan, which is a significant capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sterlite Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135999,9 +136000,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214627,
-    "news_picked_today": 1966,
-    "news_dropped_today": 11939
+    "news_seen_today": 214639,
+    "news_picked_today": 1967,
+    "news_dropped_today": 11950
   },
   "book_momentum": {
     "live_count": 8,
