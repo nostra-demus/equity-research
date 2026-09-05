@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-b1c789441879",
+  "idea_version": "IDEAV-44564504cc74c3f4",
+  "idea_version_started_at": "2026-09-04T09:24:12Z",
+  "ticker": "TATACEM",
+  "company": "Tata Chemicals",
+  "exchange": "NSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The Kenyan President has reportedly asked Tata Chemicals to cease operations, citing concerns about the company not benefiting the country, which poses a significant regulatory and operational risk.",
+  "why_now": "There are direct reports from multiple news sources detailing the Kenyan President's order for the company to stop operations.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-906b6430ae0d",
+    "EVT-f16081a578a0"
+  ],
+  "primary_source_event_id": "EVT-906b6430ae0d",
+  "source_headlines": [
+    "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+    "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country"
+  ],
+  "source_headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+  "source_url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
+  "source_name": "CNBC-TV18",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-04T06:21:47Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-04T09:24:12Z",
+  "updated_at": "2026-09-04T09:24:12Z",
+  "decay_at": "2026-09-05T18:21:47Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
