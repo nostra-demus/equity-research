@@ -1,6 +1,109 @@
 {
-  "generated_at": "2026-09-05T08:47:05Z",
+  "generated_at": "2026-09-05T08:56:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-688",
+      "headline": "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/cbi-files-case-against-subhash-chandra-for-allegedly-defrauding-lic-housing-of-1322-crore-rupees-19984801.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T08:50:01Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "CBI filed a case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI filed a case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essel Group",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "LIC Housing Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-687",
+      "headline": "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/cbi-lodges-fir-against-subhash-chandra-three-others-in-rs-1322-crore-fraud-case-lic-housing-finance/articleshow/133794433.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T08:47:38Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "CBI filed an FIR against the Essel Group chairman regarding an alleged Rs 1,322 crore fraud case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI filed an FIR against the Essel Group chairman regarding an alleged Rs 1,322 crore fraud case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essel Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-686",
       "headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
@@ -1905,109 +2008,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-431",
-      "headline": "NSE Gets Sebi Nod For ₹30,000 Crore IPO, Set To Become India's Largest Public Issue",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nse-gets-sebi-nod-for-30000-crore-ipo-set-to-become-indias-largest-public-issue",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:24:21Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "SEBI approval for a ₹30,000 crore IPO makes it India's largest public issue, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SEBI approval for a ₹30,000 crore IPO makes it India's largest public issue, a major capital market event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 88,
-      "rank_factors": {
-        "materiality": 88,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-486",
-      "headline": "EQT to Pay $2 Billion for Majority Stake in McGill and Partners",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-04/eqt-to-pay-2-billion-for-majority-stake-in-mcgill-and-partners",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:50:58Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "EQT to pay $2 billion for majority stake in McGill and Partners, a significant acquisition in the insurance brokerage sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "EQT to pay $2 billion for majority stake in McGill and Partners, a significant acquisition in the insurance brokerage sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "SE"
-        },
-        {
-          "name": "McGill and Partners",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -133763,9 +133763,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 208594,
-    "news_picked_today": 1468,
-    "news_dropped_today": 6616
+    "news_seen_today": 208682,
+    "news_picked_today": 1474,
+    "news_dropped_today": 6698
   },
   "book_momentum": {
     "live_count": 8,
