@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T01:28:02Z",
+  "generated_at": "2026-09-05T02:18:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-186",
@@ -307,6 +307,209 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-234",
+      "headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:28:42Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Aon is acquiring USI for $17B, a major debt-funded M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aon is acquiring USI for $17B, a major debt-funded M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "USI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-244",
+      "headline": "Lululemon pulls back store plans as sales plummet",
+      "headline_en": null,
+      "url": "https://www.retaildive.com/news/lululemon-pulls-back-store-plans-sales-plummet-q2/829660/",
+      "source_name": "Retail Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Lululemon is pulling back store expansion plans due to plummeting sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lululemon is pulling back store expansion plans due to plummeting sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-263",
+      "headline": "ByteDance secures $29.6 billion loan in AI push, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/bytedance-secures-296-billion-loan-ai-push-sources-say-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:49:38Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "ByteDance has secured a $29.6 billion loan to fund its AI initiatives, a massive capital injection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ByteDance has secured a $29.6 billion loan to fund its AI initiatives, a massive capital injection.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ByteDance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-340",
+      "headline": "‎HUMAIN eyes $2.5B fund to build data centers with MIS",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934135",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T14:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "HUMAIN is planning a $2.5 billion fund to build data centers in partnership with MIS.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HUMAIN is planning a $2.5 billion fund to build data centers in partnership with MIS.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Moammar Information Systems",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-095",
       "headline": "Trump re-start of war on Iran, Greece-Israel deal, and West Bank",
       "headline_en": null,
@@ -393,6 +596,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-248",
+      "headline": "MIMRYLO Approval Triggered $275M Payments for Protagonist (PTGX). Are Royalties the Better Commercial Model?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/mimrylo-approval-triggered-275m-payments-161422910.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T16:14:22Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Protagonist Therapeutics received $275M in milestone payments following drug approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Protagonist Therapeutics received $275M in milestone payments following drug approval.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Protagonist Therapeutics",
+          "ticker": "PTGX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-072",
       "headline": "Saudi Arabia tech deals near $15bn as AWS, Microsoft and major AI investments revealed",
       "headline_en": null,
@@ -448,6 +700,149 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-288",
+      "headline": "China Rare Earth Firms Freeze U.S. Exports Weeks Before Xi-Trump Summit",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/China-Rare-Earth-Firms-Freeze-US-Exports-Weeks-Before-Xi-Trump-Summit.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "China freezes rare earth exports to the US, creating a significant supply shock for the tech and defense sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "China freezes rare earth exports to the US, creating a significant supply shock for the tech and defense sectors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-325",
+      "headline": "Nigeria's Dangote seeks around $1.5 billion with refinery IPO, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/nigerias-dangote-refinery-ipo-raise-between-155-18-bln-sources-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:15:46Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Nigeria's Dangote is seeking around $1.5 billion with a refinery IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Nigeria's Dangote is seeking around $1.5 billion with a refinery IPO.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dangote",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-232",
+      "headline": "Govt flags Abhayrab rabies vaccine batch as substandard, probes if spurious, document shows",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/india-flags-abhayrab-rabies-vaccine-batch-as-substandard-probes-if-spurious-document-shows/articleshow/133783108.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T00:55:23Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "The Indian government has flagged a batch of the Abhayrab rabies vaccine as substandard and is investigating potential fraud.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The Indian government has flagged a batch of the Abhayrab rabies vaccine as substandard and is investigating potential fraud.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abhayrab",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-083",
       "headline": "US blacklists Turkish bank and two subsidiaries over alleged Iran financial links",
       "headline_en": null,
@@ -493,6 +888,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-273",
+      "headline": "Germany warming to UniCredit on Commerzbank seen bolstering way for European bank deals",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/germany-warming-unicredit-commerzbank-seen-bolstering-way-european-bank-deals-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:40:20Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Germany signals openness to UniCredit pursuing Commerzbank; real M&A exploration and regulatory-environment shift enabling European banking consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Germany signals openness to UniCredit pursuing Commerzbank; real M&A exploration and regulatory-environment shift enabling European banking consolidation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UniCredit",
+          "ticker": "UCG",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Commerzbank",
+          "ticker": "CBK",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -601,6 +1051,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-277",
+      "headline": "Portugal asks Air France-KLM, Lufthansa for improved offers in TAP sale",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/portugal-asks-air-france-klm-lufthansa-improved-offers-tap-sale-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:39:12Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Portugal requests improved bids from Air France-KLM and Lufthansa for TAP Air Portugal in an active sale process, affecting bidders' capex, strategic positioning, and cost of capital for the acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Portugal requests improved bids from Air France-KLM and Lufthansa for TAP Air Portugal in an active sale process, affecting bidders' capex, strategic positioning, and cost of capital for the acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Air France-KLM",
+          "ticker": "AFKLM",
+          "listing_country": "NL"
+        },
+        {
+          "name": "Deutsche Lufthansa AG",
+          "ticker": "LHA",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-053",
       "headline": "Phuket-Delhi flight: Probe finds hydraulic failure; pilot sacked",
       "headline_en": null,
@@ -691,6 +1195,207 @@
         {
           "name": "Zscaler",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-285",
+      "headline": "Algonquin (AQN) is Selling its Chilean Water Stake for $126.5M. Will Simplification Improve Returns?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/algonquin-aqn-selling-chilean-water-153228987.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:32:28Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Algonquin is divesting a Chilean water asset for $126.5M to simplify operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Algonquin is divesting a Chilean water asset for $126.5M to simplify operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Algonquin Power & Utilities",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-297",
+      "headline": "Ballard Power (BLDP) Bought GeoPura at an Enterprise Value of About $400M. Can Recurring Revenue Justify the 14% Pro Forma Stake?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/ballard-power-bldp-bought-geopura-152646347.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:26:46Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Ballard Power acquired GeoPura for approximately $400M, a significant capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Ballard Power acquired GeoPura for approximately $400M, a significant capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ballard Power",
+          "ticker": "BLDP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-299",
+      "headline": "CTT, Cajamar Are Said to Break Off Talks Over Banco CTT Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-04/ctt-cajamar-are-said-to-break-off-talks-over-banco-ctt-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:26:37Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "The termination of merger talks between CTT and Cajamar regarding Banco CTT is a material strategic development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The termination of merger talks between CTT and Cajamar regarding Banco CTT is a material strategic development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTT",
+          "ticker": null,
+          "listing_country": "PT"
+        },
+        {
+          "name": "Cajamar",
+          "ticker": null,
+          "listing_country": "ES"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-314",
+      "headline": "PG&E (PCG) Sub Says California’s Wildfire Bill Leaves Financing Risk Unresolved. What Protection Is Still Missing?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/economy/policy/articles/pg-e-pcg-sub-says-151953167.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:19:53Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "PG&E subsidiary reports that California's wildfire bill leaves financing risks unresolved, impacting credit risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "PG&E subsidiary reports that California's wildfire bill leaves financing risks unresolved, impacting credit risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PG&E",
+          "ticker": "PCG",
           "listing_country": "US"
         }
       ],
@@ -1001,495 +1706,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-081",
-      "headline": "India drug regulator flags Abhayrab rabies vaccine batch as substandard, potentially spurious",
+      "inbox_id": "INB-20260905-275",
+      "headline": "Meta's $1.2bn data center in Kuna, Idaho, goes live",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/india-drug-regulator-flags-abhayrab-rabies-vaccine-batch-as-substandard-potentially-spurious/article71430886.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.datacenterdynamics.com/en/news/metas-12bn-data-center-in-kuna-idaho-goes-live/",
+      "source_name": "DataCenterDynamics",
       "input_nature": "news_headline",
-      "found_at": "2026-09-05T00:14:02Z",
+      "found_at": "2026-09-04T15:39:01Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The Indian drug regulator flagged a rabies vaccine batch as substandard, creating potential recall and liability risk.",
+      "prelim_note": "Meta's $1.2 billion Idaho data center going live increases AI inference and training capacity, supporting the company's large-language-model revenue roadmap and competitive position.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The Indian drug regulator flagged a rabies vaccine batch as substandard, creating potential recall and liability risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abhayrab",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-038",
-      "headline": "Lutnick to Review Pentagon Deals Involving Cerberus Companies",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-04/lutnick-to-review-pentagon-deals-involving-cerberus-companies",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T20:27:13Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Lutnick to review Pentagon contracts involving Cerberus, creating potential operational risk for the firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Lutnick to review Pentagon contracts involving Cerberus, creating potential operational risk for the firm.",
+      "triage_score": 86,
+      "triage_reason": "Meta's $1.2 billion Idaho data center going live increases AI inference and training capacity, supporting the company's large-language-model revenue roadmap and competitive position.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cerberus Capital Management",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-082",
-      "headline": "Oura's Revenue Just Jumped 74% — and Its IPO Filing Shows It's Not Just a Wearables Company Anymore",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ouras-revenue-just-jumped-74-and-its-ipo-filing-shows-its-not-just-wearables-company",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T19:35:01Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Oura reported a 74% revenue jump and is preparing for an IPO, which is a material event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Oura reported a 74% revenue jump and is preparing for an IPO, which is a material event for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oura",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-085",
-      "headline": "Regulamentação proposta pela UE restringe Airbnb e aluguéis de curta duração",
-      "headline_en": "Proposed EU regulations restrict Airbnb and short-term rentals",
-      "url": "https://www.reuters.com/pt/tecnologia/ABG4QBZ62FOCJHXEM7ZPZQJJXY-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T19:18:48Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Proposed EU regulations restricting short-term rentals pose a direct operational and revenue risk to Airbnb's business model in Europe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Proposed EU regulations restricting short-term rentals pose a direct operational and revenue risk to Airbnb's business model in Europe.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbnb",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-104",
-      "headline": "'Send Your Lawyers': Robinhood Isn't Backing Down From AMC Over Stock Tokens",
-      "headline_en": null,
-      "url": "https://decrypt.co/377461/send-your-lawyers-robinhood-not-backing-down-amc",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:36:41Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Robinhood is engaged in a legal dispute with AMC regarding stock tokens, creating potential legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Robinhood is engaged in a legal dispute with AMC regarding stock tokens, creating potential legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
         "event": 6,
         "size": 2,
         "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Robinhood",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMC Entertainment",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-128",
-      "headline": "Anthropic’s $15 Billion Credit Line Sets Stage for IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-04/anthropic-s-15-billion-credit-line-sets-stage-for-ipo-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:05:38Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Anthropic secured a $15 billion credit line, which is a significant capital infusion supporting future growth and potential IPO plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Anthropic secured a $15 billion credit line, which is a significant capital infusion supporting future growth and potential IPO plans.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-153",
-      "headline": "Dixon Technologies Eyes Aerospace, Defence, Automotive Segments For Next Growth Phase",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/dixon-technologies-eyes-aerospace-defence-automotive-segments-for-next-growth-phase",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:35:14Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Dixon Technologies is targeting expansion into aerospace, defense, and automotive sectors for future growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Dixon Technologies is targeting expansion into aerospace, defense, and automotive sectors for future growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dixon Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-180",
-      "headline": "NLC India subsidiary wins bid for 275 MW/550 MWh battery storage system in Gujarat",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/nlc-india-share-price-subsidiary-wins-bid-for-275-mw-550-mwh-battery-storage-system-in-gujarat-19984676.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:11:45Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "NLC India's subsidiary won a bid for a 275 MW/550 MWh battery storage project in Gujarat, a sizable capacity addition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "NLC India's subsidiary won a bid for a 275 MW/550 MWh battery storage project in Gujarat, a sizable capacity addition.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NLC India",
-          "ticker": "NLCINDIA",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-204",
-      "headline": "Max Healthcare’s Saket hospital adds 400 bed tower, takes capacity to 1,200",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/max-healthcare-saket-hospital-adds-400-bed-tower-takes-capacity-to-1200-19983297.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:56:49Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Max Healthcare is expanding capacity by 400 beds, a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Max Healthcare is expanding capacity by 400 beds, a significant capital investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Max Healthcare",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-231",
-      "headline": "Salesforce (CRM) Grew Agentforce and Data 360 ARR More Than 200%. Is AI Finally Becoming Material to Growth?",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/ai/articles/salesforce-crm-grew-agentforce-data-163207657.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:32:07Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Salesforce's Agentforce and Data 360 ARR grew over 200%, indicating AI products are becoming material to revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Salesforce's Agentforce and Data 360 ARR grew over 200%, indicating AI products are becoming material to revenue growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
         "size_bucket": "mega"
       },
       "event_types": [
-        "product",
-        "earnings_revenue_margin"
+        "capex",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Salesforce",
-          "ticker": "CRM",
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
           "listing_country": "US"
         }
       ],
@@ -1499,384 +1756,40 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-003",
-      "headline": "David Tepper Sold 41% of His Micron Shares and It Is Still His Second-Biggest Holding",
+      "inbox_id": "INB-20260905-279",
+      "headline": "NSE IPO: Explained | What is an 'observation letter' issued by Sebi as regulator okays ₹30,000 cr much-awaited issue",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/david-tepper-sold-41-his-micron-shares-and-it-still-his-second-biggest-holding",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T21:34:01Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "David Tepper's Appaloosa Management reduced its stake in Micron Technology by 41%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "David Tepper's Appaloosa Management reduced its stake in Micron Technology by 41%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-138",
-      "headline": "ROSEN, A NATIONAL AND LEADING INVESTOR RIGHTS FIRM, Encourages Flotek Industries, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - FTK",
-      "headline_en": null,
-      "url": "https://markets.businessinsider.com/news/stocks/rosen-a-national-and-leading-investor-rights-firm-encourages-flotek-industries-inc.-investors-to-secure-counsel-before-important-deadline-in-securities-class-action-ftk-1036523876",
-      "source_name": "Business Insider",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Law firm announces securities class-action lawsuit against Flotek Industries; underlying alleged misconduct not disclosed in headline; litigation red flag is material but unquantified and likely already disclosed in company filings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Law firm announces securities class-action lawsuit against Flotek Industries; underlying alleged misconduct not disclosed in headline; litigation red flag is material but unquantified and likely already disclosed in company filings.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flotek Industries",
-          "ticker": "FTK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-148",
-      "headline": "Normas propuestas por la UE limitarían Airbnb y alquileres a corto plazo: borrador",
-      "headline_en": "Proposed EU rules would limit Airbnb and short-term rentals: draft",
-      "url": "https://www.reuters.com/es/negocio/OYPQPDQDJ5PI3MELJP36IKQGZE-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:45:44Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Proposed EU regulations could limit Airbnb's business model and revenue potential in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Proposed EU regulations could limit Airbnb's business model and revenue potential in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbnb",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-150",
-      "headline": "Commvault’s (CVLT) AI Recovery Bet Meets A Margin Reality Check",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/ai/articles/commvault-cvlt-ai-recovery-bet-174535550.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:45:35Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Commvault's AI recovery strategy is facing margin pressure, which may impact analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Commvault's AI recovery strategy is facing margin pressure, which may impact analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commvault",
-          "ticker": "CVLT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-168",
-      "headline": "Zegna’s (ZGN) Direct Sales Surge Can’t Fully Offset A Messier Profit",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/zegna-zgn-direct-sales-surge-172258738.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:22:58Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Zegna reports that strong direct sales growth was insufficient to offset broader profit margin pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Zegna reports that strong direct sales growth was insufficient to offset broader profit margin pressures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ermenegildo Zegna",
-          "ticker": "ZGN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-207",
-      "headline": "Tesla Cybercab under federal scrutiny as NHTSA questions certification of 1,000 driverless vehicles",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/tesla-cybercab-under-federal-scrutiny-as-nhtsa-questions-certification-of-1-000-driverless-vehicles-11788536453082.html",
+      "url": "https://www.livemint.com/market/stock-market-news/nse-ipo-explained-what-is-an-observation-letter-issued-by-sebi-as-regulator-okays-rs-30-000-cr-much-awaited-issue-11788531742764.html",
       "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:54:35Z",
+      "found_at": "2026-09-04T15:36:31Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Tesla's Cybercab is under federal scrutiny regarding the certification of 1,000 driverless vehicles.",
+      "prelim_note": "SEBI regulatory approval of NSE's ₹30,000 crore IPO, a material capital event by a named systemically important exchange operator.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Tesla's Cybercab is under federal scrutiny regarding the certification of 1,000 driverless vehicles.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-209",
-      "headline": "Trade Desk Falls 4% on 15% Workforce Cut; AppLovin Ascends 3%, Magnite Pulls Back",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/04/trade-desk-falls-4-on-15-workforce-cut-applovin-ascends-3-magnite-pulls-back/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:51:10Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The Trade Desk announced a 15% workforce reduction, impacting its stock price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The Trade Desk announced a 15% workforce reduction, impacting its stock price.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Trade Desk",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-224",
-      "headline": "Top stories: Markets fall for 4th week, forex reserves hit record high and NSE IPO gets SEBI nod",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/top-stories-markets-fall-for-4th-week-forex-reserves-hit-record-high-and-nse-ipo-gets-sebi-nod-19984629.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T16:34:23Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "NSE received SEBI approval for its IPO, a major capital market event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "NSE received SEBI approval for its IPO, a major capital market event.",
+      "triage_score": 86,
+      "triage_reason": "SEBI regulatory approval of NSE's ₹30,000 crore IPO, a material capital event by a named systemically important exchange operator.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 76,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 76,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 0,
         "size": 2,
         "recency": 2,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
+        "event_id": null,
         "size_bucket": "large"
       },
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1892,45 +1805,94 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-067",
-      "headline": "A living room unlike any other—how to gather and connect like Gloria Steinem, says expert",
+      "inbox_id": "INB-20260905-296",
+      "headline": "Canary staff not paid amid fears for news website’s future",
       "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/04/how-to-gather-and-connect-like-gloria-steinem-says-expert.html",
-      "source_name": "CNBC",
+      "url": "https://www.theguardian.com/media/2026/sep/04/canary-staff-not-paid-amid-fears-for-news-websites-future",
+      "source_name": "The Guardian — World news",
       "input_nature": "news_headline",
-      "found_at": "2026-09-05T00:04:06Z",
+      "found_at": "2026-09-04T15:27:35Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Anthropic reportedly close to hiring Morgan Stanley and Goldman Sachs for a potential $2 trillion IPO, a massive capital-markets event.",
+      "prelim_note": "The Canary is facing financial distress with reports of unpaid staff and concerns regarding its future viability.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Anthropic reportedly close to hiring Morgan Stanley and Goldman Sachs for a potential $2 trillion IPO, a massive capital-markets event.",
-      "region": "US",
+      "triage_score": 86,
+      "triage_reason": "The Canary is facing financial distress with reports of unpaid staff and concerns regarding its future viability.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
+        "event_id": "default_distress",
+        "size_bucket": "small"
       },
       "event_types": [
-        "capital_actions"
+        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anthropic",
+          "name": "The Canary",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-305",
+      "headline": "Amazon Fires Back After FTC Claims Its Hidden Reserve Price Auctions Inflate Ad Costs",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/pamdanziger/2026/09/04/amazon-fires-back-after-ftc-claims-its-hidden-reserve-price-auctions-inflate-ad-costs/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:20:56Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Amazon is facing FTC allegations regarding ad pricing practices, which could lead to regulatory fines or operational changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Amazon is facing FTC allegations regarding ad pricing practices, which could lead to regulatory fines or operational changes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1941,50 +1903,101 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260905-120",
-      "headline": "Anthropic Builds Its War Chest Ahead of IPO | Bloomberg Tech 9/04/2026",
+      "inbox_id": "INB-20260905-315",
+      "headline": "NCLAT sets aside Zaveri Group's bid for Gujarat Hydrocarbons and Power SEZ",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-04/bloomberg-tech-9-04-2026-video",
-      "source_name": "Bloomberg",
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/petrochem/nclat-sets-aside-zaveri-groups-bid-for-gujarat-hydrocarbons-and-power-sez/articleshow/133767663.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-04T18:11:31Z",
+      "found_at": "2026-09-04T15:19:47Z",
       "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Anthropic is preparing for a potential IPO, a significant strategic milestone for the private AI firm.",
+      "prelim_note": "NCLAT has set aside a bid for Gujarat Hydrocarbons and Power SEZ, impacting the acquisition process.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Anthropic is preparing for a potential IPO, a significant strategic milestone for the private AI firm.",
-      "region": "US",
+      "triage_score": 86,
+      "triage_reason": "NCLAT has set aside a bid for Gujarat Hydrocarbons and Power SEZ, impacting the acquisition process.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
+        "scope": 5,
+        "event": 9,
         "size": 0,
         "recency": 2,
         "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "strategic_review",
+        "event_id": "mna",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "strategic_review"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anthropic",
+          "name": "Gujarat Hydrocarbons and Power SEZ",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-332",
+      "headline": "Southern Co (SO) Cleared PSC Review for 3.2GW of OpenAI Demand. Can Data Centers Lower Customer Bills Without Raising Grid Risk?",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/southern-co-cleared-psc-review-150751098.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T15:07:51Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Southern Company (SO) gains PSC approval for 3.2GW power capacity serving OpenAI AI data-center demand; major capex commitment and new revenue stream but headline questions grid resilience and bill-impact risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Southern Company (SO) gains PSC approval for 3.2GW power capacity serving OpenAI AI data-center demand; major capex commitment and new revenue stream but headline questions grid resilience and bill-impact risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southern Company",
+          "ticker": "SO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -132646,9 +132659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 54930,
-    "news_picked_today": 249,
-    "news_dropped_today": 975
+    "news_seen_today": 102961,
+    "news_picked_today": 392,
+    "news_dropped_today": 1360
   },
   "book_momentum": {
     "live_count": 8,
