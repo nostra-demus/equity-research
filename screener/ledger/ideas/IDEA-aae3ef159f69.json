@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-aae3ef159f69",
+  "idea_version": "IDEAV-921a27db30f43c47",
+  "idea_version_started_at": "2026-09-04T23:10:23Z",
+  "ticker": "BSX",
+  "company": "Boston Scientific",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A recall of Boston Scientific's spinal cord stimulator leads has been linked to over 1,000 injuries, creating litigation, remediation costs, and reputational risk.",
+  "why_now": "MedTech Dive reported the recall and injury count on 2026-09-04; regulatory and legal overhang is live.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 18,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-c9b8a01f5ab3"
+  ],
+  "primary_source_event_id": "EVT-c9b8a01f5ab3",
+  "source_headlines": [
+    "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
+  ],
+  "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
+  "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
+  "source_name": "MedTech Dive",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-04T15:39:43Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-04T17:02:16Z",
+  "updated_at": "2026-09-04T23:10:23Z",
+  "decay_at": "2026-09-06T03:39:43Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
