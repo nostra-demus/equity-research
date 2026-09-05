@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T00:22:57Z",
+  "generated_at": "2026-09-05T00:23:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-005",
@@ -98483,6 +98483,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-49a2653dd307",
+      "idea_version": "IDEAV-5bc6b4ff3706e92d",
+      "idea_version_started_at": "2026-09-05T00:23:45Z",
+      "ticker": "VWAGY",
+      "company": "Volkswagen",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The board's decision to double job cuts and initiate aggressive restructuring signals deep-seated operational inefficiencies and structural headwinds in the European automotive market.",
+      "why_now": "The announcement occurred on 2026-09-03, indicating a sudden escalation in the company's internal crisis.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b10db0d388df"
+      ],
+      "primary_source_event_id": "EVT-b10db0d388df",
+      "source_headlines": [
+        "Volkswagen Board Approves Doubling Job Cuts, Restructuring in Surprise Move"
+      ],
+      "source_headline": "Volkswagen Board Approves Doubling Job Cuts, Restructuring in Surprise Move",
+      "source_url": "https://www.wsj.com/business/autos/volkswagen-board-approves-plan-to-cut-workforce-model-portfolio-ac933812?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T21:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-05T00:23:45Z",
+      "decay_at": "2026-09-05T09:16:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-aae3ef159f69",
       "idea_version": "IDEAV-921a27db30f43c47",
       "idea_version_started_at": "2026-09-04T23:10:23Z",
@@ -99038,76 +99108,6 @@
       "surfaced_at": "2026-09-04T03:44:18Z",
       "updated_at": "2026-09-04T03:44:18Z",
       "decay_at": "2026-09-05T09:26:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-49a2653dd307",
-      "idea_version": "IDEAV-3a3b2ac5e8dea2d3",
-      "idea_version_started_at": "2026-09-04T03:14:25Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen AG",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The board's decision to double job cuts and initiate deep restructuring signals severe operational distress and high costs associated with transitioning its legacy manufacturing base.",
-      "why_now": "The restructuring plan was approved on September 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b10db0d388df"
-      ],
-      "primary_source_event_id": "EVT-b10db0d388df",
-      "source_headlines": [
-        "Volkswagen Board Approves Doubling Job Cuts, Restructuring in Surprise Move"
-      ],
-      "source_headline": "Volkswagen Board Approves Doubling Job Cuts, Restructuring in Surprise Move",
-      "source_url": "https://www.wsj.com/business/autos/volkswagen-board-approves-plan-to-cut-workforce-model-portfolio-ac933812?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T21:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T23:05:06Z",
-      "updated_at": "2026-09-04T03:14:25Z",
-      "decay_at": "2026-09-05T09:16:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
