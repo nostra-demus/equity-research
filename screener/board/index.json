@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T07:55:00Z",
+  "generated_at": "2026-09-05T07:55:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-686",
@@ -98584,6 +98584,146 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-8ce0d29dfa32",
+      "idea_version": "IDEAV-e4a1c78ba485e0f2",
+      "idea_version_started_at": "2026-09-05T07:55:39Z",
+      "ticker": "PATH",
+      "company": "UiPath Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "UiPath guided to a significant growth slowdown that overshadowed a revenue beat, indicating the core automation platform is losing momentum.",
+      "why_now": "Yahoo Finance reported the guidance-driven ~14% drop on 2026-09-04; the guidance update is the fresh catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a567b7f34843"
+      ],
+      "primary_source_event_id": "EVT-a567b7f34843",
+      "source_headlines": [
+        "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
+      ],
+      "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:40:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:55:39Z",
+      "updated_at": "2026-09-05T07:55:39Z",
+      "decay_at": "2026-09-06T02:40:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f17885c63017",
+      "idea_version": "IDEAV-f8d1bd0b5cba4f65",
+      "idea_version_started_at": "2026-09-05T07:55:39Z",
+      "ticker": "LHA.DE",
+      "company": "Deutsche Lufthansa AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Portugal will negotiate with Lufthansa (and Air France-KLM) on the privatization of TAP Air Portugal, giving Lufthansa a credible path to acquire a strategic European airline asset.",
+      "why_now": "Bloomberg reported on 2026-09-04 that the Portuguese government is opening formal negotiations with Lufthansa and Air France-KLM.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86d49a479b54"
+      ],
+      "primary_source_event_id": "EVT-86d49a479b54",
+      "source_headlines": [
+        "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale"
+      ],
+      "source_headline": "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-04/portugal-to-negotiate-with-lufthansa-air-france-klm-on-tap-sale",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:43:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:55:39Z",
+      "updated_at": "2026-09-05T07:55:39Z",
+      "decay_at": "2026-09-06T02:43:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2c53a2590812",
       "idea_version": "IDEAV-462280871546be7e",
       "idea_version_started_at": "2026-09-05T07:36:33Z",
@@ -133533,8 +133673,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 451,
-    "live_count": 36,
+    "surfaced_total": 453,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,

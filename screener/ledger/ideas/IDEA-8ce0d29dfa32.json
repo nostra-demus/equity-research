@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-8ce0d29dfa32",
+  "idea_version": "IDEAV-e4a1c78ba485e0f2",
+  "idea_version_started_at": "2026-09-05T07:55:39Z",
+  "ticker": "PATH",
+  "company": "UiPath Inc.",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "UiPath guided to a significant growth slowdown that overshadowed a revenue beat, indicating the core automation platform is losing momentum.",
+  "why_now": "Yahoo Finance reported the guidance-driven ~14% drop on 2026-09-04; the guidance update is the fresh catalyst.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-a567b7f34843"
+  ],
+  "primary_source_event_id": "EVT-a567b7f34843",
+  "source_headlines": [
+    "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
+  ],
+  "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
+  "source_name": "Yahoo Finance",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-04T14:40:02Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-05T07:55:39Z",
+  "updated_at": "2026-09-05T07:55:39Z",
+  "decay_at": "2026-09-06T02:40:02Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
