@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-09-05T14:05:36Z",
+  "generated_at": "2026-09-05T14:13:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-723",
+      "headline": "US military strikes three Iranian crude oil carriers, Central Command says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/us-military-strikes-three-iranian-crude-oil-carriers-central-command-says-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T13:55:56Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "US military strikes on Iranian crude oil carriers constitute a major supply shock and geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US military strikes on Iranian crude oil carriers constitute a major supply shock and geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-719",
       "headline": "CBI books Essel Group chairman Subhash Chandra in LIC Housing Finance ₹1,322-cr fraud case",
@@ -1974,55 +2017,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-359",
-      "headline": "‘Much better than feared outcome’: Volkswagen shares jump 6% after revealing plan to reduce workforce by 50,000—and phasing out four factories",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/09/04/volkswagen-jumps-6-workforce-reduction-50000/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T14:49:54Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Volkswagen announced a major restructuring plan involving 50,000 job cuts and the closure of four factories.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volkswagen announced a major restructuring plan involving 50,000 job cuts and the closure of four factories.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -134882,9 +134876,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212056,
-    "news_picked_today": 1665,
-    "news_dropped_today": 9819
+    "news_seen_today": 212239,
+    "news_picked_today": 1674,
+    "news_dropped_today": 9977
   },
   "book_momentum": {
     "live_count": 8,
