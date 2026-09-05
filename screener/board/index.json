@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T17:02:53Z",
+  "generated_at": "2026-09-05T17:13:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-741",
+      "headline": "Bank of Maharashtra: Bank of Maharashtra has informed the Exchange about Establishment of Euro Medium term Note Programme of USD 500 million",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MAHABANK_05092026223312_Letter_to_SE_Intimation_of_MTN_Programme.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-05T17:03:25Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Bank of Maharashtra established a USD 500 million Euro Medium Term Note programme to facilitate international debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of Maharashtra established a USD 500 million Euro Medium Term Note programme to facilitate international debt issuance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Maharashtra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-732",
       "headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
@@ -1960,49 +2009,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-729",
-      "headline": "US military says it struck three Iranian tankers after American warships came under missile attack",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/world/2026/sep/05/us-military-iran-tankers",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T15:41:22Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "A military strike on Iranian tankers by the US represents a significant geopolitical escalation in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A military strike on Iranian tankers by the US represents a significant geopolitical escalation in the Middle East.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135376,9 +135382,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213621,
-    "news_picked_today": 1801,
-    "news_dropped_today": 11098
+    "news_seen_today": 213672,
+    "news_picked_today": 1808,
+    "news_dropped_today": 11142
   },
   "book_momentum": {
     "live_count": 8,
