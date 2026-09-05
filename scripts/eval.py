@@ -650,6 +650,7 @@ from rating_caps import (
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
     AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
     BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
+    BD_DATE, WACC_ESCALATION_TAG, eval_bd_cost_of_capital_reality_test,
     BE_DATE, REV_DECOMP_TAG, MARGIN_BRIDGE_TAG, BE_RECONCILE_TOLERANCE, eval_be_driver_attribution_residual,
 )
 
@@ -3456,6 +3457,41 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BB({_dd!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BD: §16 Cost-of-Capital Reality Test escalation -------------------------------------
+    _bd_fired_a  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (a) — rebuilt with the floors above\n"
+    _bd_fired_b  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (b) — re-ran DCF at the scope-matched group rate\n"
+    _bd_fired_c  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (c) — marked a labelled cross-check, capped in 07\n"
+    _bd_fired_colon = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch: (a) — rebuilt it\n"
+    _bd_fired_noparen = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch a — rebuilt it\n"
+    _bd_fired_nobranch = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — no branch stated here\n"
+    _bd_fired_badletter = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (d) — invalid letter\n"
+    _bd_cleared = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003 not triggered — model WACC reconciles within tolerance\n"
+    _bd_notrigger = "## 3A. Cost-of-Capital Reality Test\nModel WACC reconciles against the scope-matched group rate within ~3pp; no escalation needed.\n"
+    _bd_tablerow = "## 3A. Cost-of-Capital Reality Test\n| RF-VAL-003 | fired | escalation branch (b) |\n"
+    bdcases=[  # (decision_date, dcf_txt, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-09-03",_bd_fired_a,[]),                       # valid branch (a) → pass
+        ("2026-09-03",_bd_fired_b,[]),                       # valid branch (b) → pass
+        ("2026-09-03",_bd_fired_c,[]),                       # valid branch (c) → pass
+        ("2026-09-03",_bd_fired_colon,[]),                   # "branch: (a)" — colon before paren → pass
+        ("2026-09-03",_bd_fired_noparen,["does not name a valid escalation branch"]),  # no parens → FAIL
+        ("2026-09-03",_bd_fired_nobranch,["does not name a valid escalation branch"]), # tag fired, no branch at all → FAIL
+        ("2026-09-03",_bd_fired_badletter,["does not name a valid escalation branch"]),# (d) is not a/b/c → FAIL
+        ("2026-09-03",_bd_cleared,[]),                       # explicit negation → not fired → pass
+        ("2026-09-03",_bd_notrigger,[]),                     # trigger never fired at all (no tag) → pass
+        ("2026-09-03",_bd_tablerow,[]),                      # first-cell TABLE ROW, not a fired standalone tag → pass
+        ("2026-09-03",None,None),                            # 04_intrinsic-dcf did not run → N/A
+        ("2026-09-02",_bd_fired_a,None),                     # predates BD_DATE → N/A
+        ("not-a-date",_bd_fired_a,None),                     # unparseable decision_date → N/A
+    ]
+    for _dd,_dcf,_want in bdcases:
+        got=eval_bd_cost_of_capital_reality_test(_dd,_dcf)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BD({_dd!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     # ---- check BE: §15 driver-attribution residual (earnings decomposition/bridge) -----------------
     _be_rev_ok = ("## 6a. Decomposition Attribution and Residual\n"
                   "Volume: 4% x 0.8 [Source] = 3.2pp of the 4.0pp observed growth -> basis matches\n"
@@ -3890,7 +3926,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(bdcases)} check-BD + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4483,6 +4519,24 @@ for drp in runs:
     else:
         add("BB_sector_cycle_compounding_cap", True,
             f"N/A (decision_date {ddte!r} predates BB_DATE {BB_DATE!r})", na=True)
+    # BD §16 Cost-of-Capital Reality Test escalation (forward-looking; landing BD_DATE). See the
+    # BD_DATE / eval_bd_cost_of_capital_reality_test comment block in rating_caps.py for the full
+    # rationale. Reads 04_intrinsic-dcf.md for the standalone RF-VAL-003 tag via the
+    # _read_specialist_text closure hoisted above.
+    if isdate(ddte) and ddte>=BD_DATE:
+        _v04_txt = _read_specialist_text("valuation", "04_")
+        _bdr = eval_bd_cost_of_capital_reality_test(ddte, _v04_txt)
+        if _bdr is None:
+            add("BD_cost_of_capital_reality_test", True,
+                "N/A (04_intrinsic-dcf specialist did not run)", na=True)
+        elif _bdr:
+            add("BD_cost_of_capital_reality_test", False, "; ".join(_bdr))
+        else:
+            add("BD_cost_of_capital_reality_test", True,
+                "escalation trigger did not fire, or a valid escalation branch is named")
+    else:
+        add("BD_cost_of_capital_reality_test", True,
+            f"N/A (decision_date {ddte!r} predates BD_DATE {BD_DATE!r})", na=True)
     # BE §15 driver-attribution residual — earnings decomposition/bridge (forward-looking; landing
     # BE_DATE). See the BE_DATE / eval_be_driver_attribution_residual comment block in rating_caps.py
     # for the full rationale. Reads 02_revenue-drivers.md and 03_margin-drivers.md for the standalone

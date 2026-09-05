@@ -639,6 +639,18 @@ _v99_txt = _read_orb("valuation", "99_*-synthesis.md")
 # decision_date. Defined here (first live-gate use) and reused by the AT/AU/AV block below.
 _live_date = datetime.date.today().isoformat()
 viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_txt, _v99_txt) or [])
+# check BD — §16 Cost-of-Capital Reality Test escalation (live pre-publish; mirrors eval.py check BD
+# via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
+# valuation/MODULE_RULES.md's Cost-of-Capital Reality Test escalation rule (CLAUDE.md §16): when
+# 04_intrinsic-dcf's model WACC is presumed wrong (>~3pp below a scope-matched disclosed rate, or
+# below ~two-thirds of the market-implied rate), the agent must name which of the three allowed
+# escalation branches — (a) rebuild, (b) re-run at the scope-matched rate, (c) mark a labelled
+# cross-check — it took, via the standalone `RF-VAL-003` tag (§3A). An untagged/unnamed escalation is
+# a structural defect the same class as BB's untagged sector-cycle flag: uses `_live_date`, the same
+# rerun-safe reasoning as BB just above (rerun.md Step 8A runs this file verbatim; decision_date stays
+# pinned on a rerun so gating on it would make this check permanently N/A on the ordinary rerun path).
+_v04_txt = _read_orb("valuation", "04_*.md")
+viol.extend(rc.eval_bd_cost_of_capital_reality_test(_live_date, _v04_txt) or [])
 # check BE — §15 driver-attribution residual, earnings decomposition/bridge (live pre-publish; mirrors
 # eval.py check BE via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
 # earnings/MODULE_RULES.md's Driver Attribution rule (CLAUDE.md §15): 02_revenue-drivers.md §6a and
