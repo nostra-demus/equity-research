@@ -193,6 +193,61 @@ persist_role() { printf '%s\n' "$1" > "$CASE_ROOT/role"; }
                 assert not (root / f"{label}.loaded").exists(), f"stale {label} still loaded"
 
 
+def test_deterministic_wrappers_reject_unknown_lock_ages() -> None:
+    # A failing stat may print to stdout. Neither those bytes nor an empty/malformed successful
+    # response may enter shell arithmetic and reclaim a held lock. Cores are sentinels that fail
+    # before any publication; an accepted stale lock must reach them and propagate that exact exit.
+    ops_source = Path(__file__).resolve().parent / "ops"
+    cases = {
+        "noisy_gnu_fresh_bsd": ("printf 'diagnostic\\n'; exit 1", 'printf "%s\\n" "$FRESH_EPOCH"', False),
+        "both_noisy_failures": ("printf 'diagnostic\\n'; exit 1", "printf '0\\n'; exit 1", False),
+        "both_silent_failures": ("exit 1", "exit 1", False),
+        "empty_success": ("exit 0", "exit 1", False),
+        "expression_success": ("printf '1+1\\n'", "exit 1", False),
+        "malformed_success": ("printf 'not_an_epoch\\n'", "exit 1", False),
+        "oversized_success": ("printf '999999999999999999999999999999\\n'", "exit 1", False),
+        "fresh_gnu": ('printf "%s\\n" "$FRESH_EPOCH"', "exit 1", False),
+        "stale_gnu": ('printf "%s\\n" "$STALE_EPOCH"', "exit 1", True),
+        "noisy_gnu_stale_bsd": ("printf 'diagnostic\\n'; exit 1", 'printf "%s\\n" "$STALE_EPOCH"', True),
+        "zero_padded_fresh": ('printf "000%s\\n" "$FRESH_EPOCH"', "exit 1", False),
+        "zero_padded_stale": ('printf "000%s\\n" "$STALE_EPOCH"', "exit 1", True),
+    }
+    errors = []
+    for wrapper, core, lock_name, args in (
+        ("market-feed-local.sh", "fetch_market_feed.py", "nostra-market-feed.lock.d", []),
+        ("calibrate-local.sh", "calibrate.py", "nostra-calibrate.lock.d", ["post-review"]),
+    ):
+        for name, (gnu, bsd, should_run) in cases.items():
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve()
+                repo, home, shim = root / "repo", root / "home", root / "bin"
+                for directory in (repo / "scripts" / "ops", home, shim):
+                    directory.mkdir(parents=True)
+                subprocess.run(["git", "init", "-q", str(repo)], check=True)
+                lock = repo / ".git" / lock_name
+                lock.mkdir()
+                # Only the unrelated eligibility check is simulated. The actual wrapper owns the
+                # stat probes, validation, lock removal, re-acquisition and exit propagation.
+                (repo / "scripts" / "ops" / "connector-supervisor.py").write_text("print('/unused-test-pool')\n")
+                (repo / "scripts" / core).write_text(
+                    "from pathlib import Path\nPath('core-ran').touch()\nraise SystemExit(23)\n"
+                )
+                (shim / "stat").write_text(f'#!/bin/sh\ncase "$1" in\n-c) {gnu};;\n-f) {bsd};;\nesac\n')
+                (shim / "stat").chmod(0o755)
+                now = int(dt.datetime.now(dt.timezone.utc).timestamp())
+                env = {k: v for k, v in os.environ.items() if not k.startswith("NOSTRA_")}
+                env.update(HOME=str(home), ENGINE_REPO_ROOT=str(repo), HOUSEKEEPING_LOG=str(root / "job.log"),
+                           PATH=str(shim) + os.pathsep + env["PATH"], FRESH_EPOCH=str(now), STALE_EPOCH=str(now - 7200))
+                result = subprocess.run(["/bin/bash", str(ops_source / wrapper), *args],
+                                        env=env, capture_output=True, text=True, timeout=15)
+                ran = (repo / "core-ran").exists()
+                if (result.stderr or result.returncode != (23 if should_run else 0) or ran != should_run
+                        or lock.exists() != (not should_run)):
+                    errors.append(f"{wrapper}/{name}: rc={result.returncode}, core_ran={ran}, "
+                                  f"lock_exists={lock.exists()}, stderr={result.stderr.strip()!r}")
+    assert not errors, "\n".join(errors)
+
+
 def main() -> int:
     check("a market holiday is dropped, never filled", test_holiday_is_dropped_not_filled)
     check("junk rows are skipped and the series is sorted", test_junk_is_skipped_and_order_forced)
@@ -201,7 +256,8 @@ def main() -> int:
     check("the source host is pinned to the SSRF allowlist", test_the_host_is_pinned)
     check("scheduled writes require the canonical writer and pool", test_scheduled_writer_requires_canonical_pool)
     check("serving failover fences connectors and the market feed", test_failover_fences_market_feed)
-    print(f"\n{7 - len(FAILURES)} passed, {len(FAILURES)} failed")
+    check("deterministic wrappers fail closed on unknown lock ages", test_deterministic_wrappers_reject_unknown_lock_ages)
+    print(f"\n{8 - len(FAILURES)} passed, {len(FAILURES)} failed")
     return 1 if FAILURES else 0
 
 
