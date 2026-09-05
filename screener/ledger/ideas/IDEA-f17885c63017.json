@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-9e6f981a14d6",
-  "idea_version": "IDEAV-0994117008161962",
-  "idea_version_started_at": "2026-09-02T19:27:30Z",
-  "ticker": "COALINDIA.BO",
-  "company": "Coal India Ltd",
-  "exchange": "Bombay",
+  "idea_id": "IDEA-f17885c63017",
+  "idea_version": "IDEAV-f8d1bd0b5cba4f65",
+  "idea_version_started_at": "2026-09-05T07:55:39Z",
+  "ticker": "LHA.DE",
+  "company": "Deutsche Lufthansa AG",
+  "exchange": "XETRA",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Coal India filed the DRHP for its wholly owned subsidiary MCL, signaling a potential listing that could unlock value and provide a capital-raising catalyst for the parent.",
-  "why_now": "DRHP filing dated 2026-09-02; IPO timeline and market reception will be the near-term catalysts.",
+  "reason": "Portugal will negotiate with Lufthansa (and Air France-KLM) on the privatization of TAP Air Portugal, giving Lufthansa a credible path to acquire a strategic European airline asset.",
+  "why_now": "Bloomberg reported on 2026-09-04 that the Portuguese government is opening formal negotiations with Lufthansa and Air France-KLM.",
   "conviction": 55,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 19,
     "specificity": 15,
     "timing": 10,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,26 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-c7ffcd767e89"
+    "EVT-86d49a479b54"
   ],
-  "primary_source_event_id": "EVT-c7ffcd767e89",
+  "primary_source_event_id": "EVT-86d49a479b54",
   "source_headlines": [
-    "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL."
+    "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale"
   ],
-  "source_headline": "Coal India Ltd: Filing of DRHP of MCL, a wholly owned subsidiary of CIL.",
-  "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/17a3003c-9c1e-4c96-8e76-b77ffa9ee48a.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
+  "source_headline": "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-04/portugal-to-negotiate-with-lufthansa-air-france-klm-on-tap-sale",
+  "source_name": "Bloomberg",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-02T05:05:12Z",
+  "newest_source_at": "2026-09-04T14:43:26Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-02T19:27:30Z",
-  "updated_at": "2026-09-02T19:27:30Z",
-  "decay_at": "2026-09-03T17:05:12Z",
+  "surfaced_at": "2026-09-05T07:55:39Z",
+  "updated_at": "2026-09-05T07:55:39Z",
+  "decay_at": "2026-09-06T02:43:26Z",
   "status": "live",
   "promoted_signal_id": null
 }
