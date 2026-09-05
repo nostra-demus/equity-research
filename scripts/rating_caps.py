@@ -655,3 +655,131 @@ def eval_bd_cost_of_capital_reality_test(decision_date, dcf_txt):
             f"— an untagged/unnamed branch means the escalation cannot be verified as followed rather than "
             f"published as a caveat (CLAUDE.md §11: caps must be applied, never silently unverifiable)"]
     return []  # empty list = pass — escalation trigger fired and a valid branch is named
+
+# ── Check BE (§15 driver-attribution residual — earnings decomposition/bridge) ─────────────────────
+# CLAUDE.md §15 requires any driver-attribution claim — a move explained by a driver and a quoted
+# sensitivity/ratio — to print its own arithmetic, carry that sensitivity's own basis, and state the
+# unexplained residual: "A large residual is the finding, not a caveat ... it belongs in the table ...
+# never rounded away." earnings/MODULE_RULES.md's "Driver Attribution — Show the Arithmetic, Name the
+# Residual" section already implements this in full prose form, and 02_revenue-drivers.md §6a /
+# 03_margin-drivers.md §7a already prescribe the exact reconciliation line ("{N}pp/bps reconciled,
+# {M}pp/bps residual"). But unlike its sibling §16 rules — the Sector Cycle Reality Test (RF-VAL-001/
+# 002 → check BB above) — this §15 rule had no standalone tag and no eval check: a future prompt edit
+# to §6a/§7a could silently drop the residual requirement and nothing would catch it, and a live run
+# could silently omit or fabricate the residual (the exact failure the GOLD real-yield/nominal-yield
+# miss names in CLAUDE.md §15 itself) with the finish-gate never noticing.
+#
+# Detection: 02_revenue-drivers.md §6a emits RF-EARN-001, and 03_margin-drivers.md §7a emits
+# RF-EARN-002, each as a standalone tag line in ONE of two sanctioned forms:
+#   "RF-EARN-00N: {label} reconciled — explained {N}{unit}, residual {M}{unit}, total {T}{unit}"
+#   "RF-EARN-00N: {label} not attempted — {reason}"
+# Unlike BB (which gates on a conditional TRIGGER firing), Section 6/6a and 7/7a are standard,
+# always-attempted parts of every earnings run's REPORT STRUCTURE — so here, unlike BB, tag ABSENCE
+# itself is a violation whenever the specialist ran at all (mirrors check T's always-required
+# forecast-ledger fields, not BB's conditional-trigger pattern). The "not attempted" form is the
+# doctrine's own sanctioned escape ("If this decomposition/bridge is not possible from disclosure,
+# state what's missing") — it satisfies the tag requirement as long as it names a real reason, and is
+# never re-derived (this check does not judge whether a decomposition genuinely was impossible, only
+# that the specialist declared it and said why — the same restraint the Cost-of-Capital Reality Test's
+# own escalation check applies to whether ITS trigger should have fired at all).
+#
+# The reconciled form's three numbers are self-contained on ONE tag line, so — unlike a tag-presence-only
+# check — this check can also verify the arithmetic itself: explained + residual must equal the stated
+# total within a rounding tolerance (independently-rounded components can each be off by a few tenths).
+# This directly targets the failure mode CLAUDE.md §15 names: a residual quietly rounded away rather
+# than stated.
+#
+# Landing date: 2026-09-04 (forward-looking; RF-EARN-001/002 did not exist in any agent file before
+# this check shipped, so no committed golden fixture could possibly emit them → every fixture is N/A →
+# the suite stays green).
+BE_DATE = "2026-09-04"
+REV_DECOMP_TAG = "RF-EARN-001"     # revenue-drivers §6a: decomposition reconciled / not attempted
+MARGIN_BRIDGE_TAG = "RF-EARN-002"  # margin-drivers §7a: bridge reconciled / not attempted
+BE_RECONCILE_TOLERANCE = 1.0       # units (pp or bps) — independently-rounded components' slack
+
+_BE_RECON_RE = re.compile(
+    r"\breconciled\s*[—–\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
+    r"residual\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
+    r"total\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)",
+    re.IGNORECASE,
+)
+_BE_NOT_ATTEMPTED_RE = re.compile(r"not attempted\b(.*)$", re.IGNORECASE | re.DOTALL)
+
+
+def _be_tag_line_rest(txt, tag):
+    """Return the cleaned remainder of the FIRST line in `txt` whose leading token (after shedding
+    markdown heading/bullet/table/quote/backtick cruft) is `tag`, skipping a first-cell status TABLE
+    ROW the same way `_tag_fired_standalone` does. Unlike `_tag_fired_standalone`, does NOT apply the
+    `_CAP_TAG_NEGATIONS` filter — check BE's own two sanctioned forms ("reconciled — ..." /
+    "not attempted — ...") are distinguished by this function's caller, not by that generic
+    cap-cleared vocabulary (a negation word like "none" can legitimately appear inside a real
+    "not attempted — no segment-level pricing is disclosed, none of the components are separable"
+    reason). Deliberately duplicates the line-cleaning logic in `_tag_fired_standalone`/`_bd_tag_rest`
+    rather than refactoring either, so this new check cannot change their behaviour."""
+    if not txt:
+        return None
+    for raw in txt.splitlines():
+        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")
+        if not line.startswith(tag):
+            continue
+        rest = line[len(tag):]
+        if rest.lstrip().startswith("|"):
+            continue  # first-cell status table row, not a fired standalone tag
+        return rest
+    return None
+
+
+def _be_check_one(txt, filename, tag, unit, label):
+    """Check one specialist file's RF-EARN-00N tag. Returns a list of violation strings (empty =
+    pass)."""
+    rest = _be_tag_line_rest(txt, tag)
+    if rest is None:
+        return [
+            f"{tag} is absent from {filename} — every {label} the specialist attempts must declare "
+            f"either the reconciled residual or that no decomposition was possible (CLAUDE.md §15: "
+            f"'a large residual is the finding, not a caveat ... never rounded away'; MODULE_RULES.md "
+            f"Driver Attribution)"]
+    not_attempted = _BE_NOT_ATTEMPTED_RE.search(rest)
+    if not_attempted:
+        reason = not_attempted.group(1).lstrip(_NEG_LEADING_STRIP)
+        if not reason.strip():
+            return [
+                f"{tag} in {filename} declares 'not attempted' with no reason given — CLAUDE.md §15 "
+                f"requires stating what's missing, not a bare dodge"]
+        return []
+    match = _BE_RECON_RE.search(rest)
+    if not match:
+        return [
+            f"{tag} in {filename} does not match either sanctioned form — "
+            f"'{tag}: {label} reconciled — explained {{N}}{unit}, residual {{M}}{unit}, total {{T}}{unit}' "
+            f"or '{tag}: {label} not attempted — {{reason}}' — the residual cannot be verified as stated "
+            f"(CLAUDE.md §15; §11: caps must be applied, never silently unverifiable)"]
+    explained, residual, total = (float(g) for g in match.groups())
+    if abs((explained + residual) - total) > BE_RECONCILE_TOLERANCE:
+        return [
+            f"{tag} in {filename} states explained {explained}{unit} + residual {residual}{unit} = "
+            f"{explained + residual}{unit}, which does not reconcile to the stated total {total}{unit} "
+            f"within {BE_RECONCILE_TOLERANCE}{unit} (CLAUDE.md §15 driver-attribution arithmetic — "
+            f"'a driver-attribution claim shows its own arithmetic and names its residual')"]
+    return []
+
+
+def eval_be_driver_attribution_residual(decision_date, rev_txt, marg_txt):
+    """Check BE: §15 driver-attribution residual (earnings revenue decomposition + margin bridge).
+    Returns None (N/A — pre-gate, or BOTH 02_revenue-drivers.md and 03_margin-drivers.md absent), or a
+    list of violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest
+    can drive it.
+    rev_txt: 02_revenue-drivers.md specialist text, or None.
+    marg_txt: 03_margin-drivers.md specialist text, or None."""
+    if not (isdate(decision_date) and decision_date >= BE_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if rev_txt is None and marg_txt is None:
+        return None  # neither specialist ran — N/A
+    violations = []
+    if rev_txt is not None:
+        violations += _be_check_one(rev_txt, "02_revenue-drivers.md", REV_DECOMP_TAG, "pp",
+                                     "revenue decomposition")
+    if marg_txt is not None:
+        violations += _be_check_one(marg_txt, "03_margin-drivers.md", MARGIN_BRIDGE_TAG, "bps",
+                                     "margin bridge")
+    return violations

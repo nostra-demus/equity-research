@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-2b72b57fa630",
+  "idea_version": "IDEAV-b213b35b717884f8",
+  "idea_version_started_at": "2026-09-05T15:28:18Z",
+  "ticker": "SOFI",
+  "company": "SoFi Technologies",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The stock fell 10% despite the company raising its revenue guidance, indicating a potential disconnect between company performance and market perception.",
+  "why_now": "The stock price reaction occurred on September 5, 2026, following the guidance update.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-eaad760addfd"
+  ],
+  "primary_source_event_id": "EVT-eaad760addfd",
+  "source_headlines": [
+    "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed."
+  ],
+  "source_headline": "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed.",
+  "source_url": "https://finance.yahoo.com/markets/stocks/articles/sofi-raised-revenue-guidance-stock-122701154.html",
+  "source_name": "Yahoo Finance",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-05T12:27:01Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-05T15:28:18Z",
+  "updated_at": "2026-09-05T15:28:18Z",
+  "decay_at": "2026-09-07T00:27:01Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

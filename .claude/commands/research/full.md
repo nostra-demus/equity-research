@@ -651,6 +651,18 @@ viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_t
 # pinned on a rerun so gating on it would make this check permanently N/A on the ordinary rerun path).
 _v04_txt = _read_orb("valuation", "04_*.md")
 viol.extend(rc.eval_bd_cost_of_capital_reality_test(_live_date, _v04_txt) or [])
+# check BE — §15 driver-attribution residual, earnings decomposition/bridge (live pre-publish; mirrors
+# eval.py check BE via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
+# earnings/MODULE_RULES.md's Driver Attribution rule (CLAUDE.md §15): 02_revenue-drivers.md §6a and
+# 03_margin-drivers.md §7a must each declare, as a standalone RF-EARN-001/RF-EARN-002 tag, either the
+# reconciled explained/residual/total figures (arithmetically verified here) or a stated reason the
+# decomposition/bridge was not possible — never silently omitted. Unlike BB, this is a structural
+# completeness check, not a conditional-trigger cap: tag absence itself is a violation whenever the
+# specialist ran. Uses the same `_live_date` as BB above, for the identical rerun reason (a
+# /research:rerun's decision_date stays pinned to the run's original pre-BE_DATE suffix).
+_e02_txt = _read_orb("earnings", "02_*.md")
+_e03_txt = _read_orb("earnings", "03_*.md")
+viol.extend(rc.eval_be_driver_attribution_residual(_live_date, _e02_txt, _e03_txt) or [])
 # check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
 # AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into
