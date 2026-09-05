@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T03:30:26Z",
+  "generated_at": "2026-09-05T04:09:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-186",
@@ -619,6 +619,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-471",
+      "headline": "Nvidia's $13 Billion Hugging Face Deal Expands Open-Source AI",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nvidias-13-billion-hugging-face-deal-expands-open-source-ai",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Nvidia is acquiring Hugging Face for $13 billion to expand its open-source AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is acquiring Hugging Face for $13 billion to expand its open-source AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hugging Face",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-514",
+      "headline": "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-04/the-pulse-9-4-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:16:11Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Volkswagen plans 50,000 job cuts and Anthropic is negotiating a $15B credit facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen plans 50,000 job cuts and Anthropic is negotiating a $15B credit facility.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-455",
+      "headline": "Trump warns Iran as US weighs fresh strike on nuclear site",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/trump-warns-iran-as-us-weighs-fresh-strike-on-nuclear-site-1.500663853",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T02:48:56Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Geopolitical escalation involving potential US military action against Iranian nuclear infrastructure poses significant risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Geopolitical escalation involving potential US military action against Iranian nuclear infrastructure poses significant risk to global energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-359",
       "headline": "‘Much better than feared outcome’: Volkswagen shares jump 6% after revealing plan to reduce workforce by 50,000—and phasing out four factories",
       "headline_en": null,
@@ -816,6 +968,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-501",
+      "headline": "VW Approves Plan for 50K More Layoffs, US Retail Diesel Hits Record | The Opening Trade 9/4/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-04/the-opening-trade-9-4-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:36:46Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "VW approving 50,000 layoffs is a major restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "VW approving 50,000 layoffs is a major restructuring event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-095",
       "headline": "Trump re-start of war on Iran, Greece-Israel deal, and West Bank",
       "headline_en": null,
@@ -900,6 +1101,60 @@
           "name": "National Stock Exchange of India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-486",
+      "headline": "EQT to Pay $2 Billion for Majority Stake in McGill and Partners",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-04/eqt-to-pay-2-billion-for-majority-stake-in-mcgill-and-partners",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:50:58Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "EQT to pay $2 billion for majority stake in McGill and Partners, a significant acquisition in the insurance brokerage sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "EQT to pay $2 billion for majority stake in McGill and Partners, a significant acquisition in the insurance brokerage sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "McGill and Partners",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1201,6 +1456,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-497",
+      "headline": "Mega NSE IPO coming as Sebi approves Rs 30,000 crore public offer",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/mega-nse-ipo-coming-as-sebi-approves-rs-30000-crore-public-offer/articleshow/133761306.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:39:13Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "NSE received regulatory approval for a Rs 30,000 crore IPO, a major capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "NSE received regulatory approval for a Rs 30,000 crore IPO, a major capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-499",
+      "headline": "India’s NSE Secures Regulatory Approval for Long-Awaited IPO",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-04/india-s-nse-secures-regulatory-approval-for-long-awaited-ipo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:38:16Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "NSE secured regulatory approval for its long-awaited IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "NSE secured regulatory approval for its long-awaited IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-072",
       "headline": "Saudi Arabia tech deals near $15bn as AWS, Microsoft and major AI investments revealed",
       "headline_en": null,
@@ -1399,6 +1752,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-495",
+      "headline": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs, China competition",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/04/volkswagen-job-cuts-tariffs-china.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:46:27Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs and China competition, indicating major restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs and China competition, indicating major restructuring.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": "VOW.DE",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-232",
       "headline": "Govt flags Abhayrab rabies vaccine batch as substandard, probes if spurious, document shows",
       "headline_en": null,
@@ -1449,6 +1851,94 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-502",
+      "headline": "Milei intensifica reivindicações de soberania das Malvinas com sanções sobre petróleo",
+      "headline_en": "Milei intensifies sovereignty claims over the Falklands with sanctions on oil",
+      "url": "https://www.reuters.com/pt/mundo/A2XMWKYZRNO7DBEI5XQHMSEBQE-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:37:46Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Argentina imposing sanctions on oil companies over Falklands sovereignty claims creates geopolitical and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Argentina imposing sanctions on oil companies over Falklands sovereignty claims creates geopolitical and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-513",
+      "headline": "Empresas chinas de tierras raras suspenden algunos envíos a EEUU por la inquietud geopolítica",
+      "headline_en": "Chinese rare-earth companies suspend some shipments to the US due to geopolitical unease",
+      "url": "https://www.reuters.com/es/negocio/JJP5JECM75JVLHMEY2LWLGXS6U-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T11:23:45Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Chinese rare-earth companies are suspending some shipments to the US due to geopolitical tension, a supply shock in a critical mineral chain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Chinese rare-earth companies are suspending some shipments to the US due to geopolitical tension, a supply shock in a critical mineral chain.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-354",
       "headline": "Krafton doubles down on India with another $250M bet beyond gaming",
       "headline_en": null,
@@ -1493,518 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-348",
-      "headline": "Japanese motor-maker Nidec says it found hundreds of cases of quality control misconduct",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260904/p2g/00m/0bu/036000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T01:30:05Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Nidec reported hundreds of cases of quality control misconduct, posing significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nidec reported hundreds of cases of quality control misconduct, posing significant operational and reputational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-083",
-      "headline": "US blacklists Turkish bank and two subsidiaries over alleged Iran financial links",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-blacklists-turkish-bank-and-two-subsidiaries-over-alleged-iran-financial-links-11788546924844.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T19:17:57Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The US government has blacklisted a Turkish bank and its subsidiaries, creating significant operational and legal risk for the entities involved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The US government has blacklisted a Turkish bank and its subsidiaries, creating significant operational and legal risk for the entities involved.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turkish Bank",
-          "ticker": null,
-          "listing_country": "TR"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-273",
-      "headline": "Germany warming to UniCredit on Commerzbank seen bolstering way for European bank deals",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/germany-warming-unicredit-commerzbank-seen-bolstering-way-european-bank-deals-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T15:40:20Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Germany signals openness to UniCredit pursuing Commerzbank; real M&A exploration and regulatory-environment shift enabling European banking consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Germany signals openness to UniCredit pursuing Commerzbank; real M&A exploration and regulatory-environment shift enabling European banking consolidation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UniCredit",
-          "ticker": "UCG",
-          "listing_country": "IT"
-        },
-        {
-          "name": "Commerzbank",
-          "ticker": "CBK",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-355",
-      "headline": "Broadcom slams AI silicon-fueled Q3, promises double-double on the way",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/broadcom-slams-ai-silicon-fueled-q3-promises-double-double-on-the-way/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T14:52:12Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Broadcom reported strong Q3 results driven by AI silicon demand and provided positive forward guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Broadcom reported strong Q3 results driven by AI silicon demand and provided positive forward guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-416",
-      "headline": "Li Auto to invest $390 million in Sunwoda EVB, becoming second-largest shareholder",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/09/04/li-auto-to-invest-sunwoda-evb/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:38:26Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Li Auto is investing $390 million to become the second-largest shareholder in Sunwoda EVB.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Li Auto is investing $390 million to become the second-largest shareholder in Sunwoda EVB.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Li Auto",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Sunwoda EVB",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-414",
-      "headline": "Honasa Consumer Targets ₹5,550 Crore Revenue By FY31, Plans 15% EBITDA Margin As Mamaearth Owner Eyes FMCG Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/honasa-consumer-targets-5550-crore-revenue-by-fy31-plans-15-ebitda-margin-as-mamaearth-owner-eyes-fmcg-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T12:34:24Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Honasa Consumer set a long-term revenue target of ₹5,550 crore by FY31 with a 15% EBITDA margin goal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Honasa Consumer set a long-term revenue target of ₹5,550 crore by FY31 with a 15% EBITDA margin goal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honasa Consumer",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-060",
-      "headline": "Stellantis in talks with Huawei and JAC Group for Maserati's future, sources say",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/stellantis-in-talks-with-huawei-and-jac-group-for-maseratis-future-sources-say/articleshow/133777396.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T20:02:16Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Stellantis is reportedly in talks with Huawei and JAC Group regarding the future of the Maserati brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Stellantis is reportedly in talks with Huawei and JAC Group regarding the future of the Maserati brand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stellantis",
-          "ticker": null,
-          "listing_country": "NL"
-        },
-        {
-          "name": "Huawei",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "JAC Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-392",
-      "headline": "Firmus to invest $300m in SubCo's upcoming Australia-US subsea cable",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/firmus-to-invest-300m-in-subcos-upcoming-australia-us-subsea-cable/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T13:00:34Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Firmus is committing $300 million to a subsea cable infrastructure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Firmus is committing $300 million to a subsea cable infrastructure project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-345",
-      "headline": "Seattle Times sues Microsoft and OpenAI, alleging they trained their AI on its journalism",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/seattle-times-sues-microsoft-and-openai-alleging-they-trained-their-ai-on-its-journalism/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T01:50:17Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "The Seattle Times filed a lawsuit against Microsoft and OpenAI regarding AI training data, creating potential legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The Seattle Times filed a lawsuit against Microsoft and OpenAI regarding AI training data, creating potential legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-068",
-      "headline": "U.S. approves potential sale of Joint Direct Attack Munitions-Extend Range to Saudi Arabia for $5 billion",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/09/us-approves-potential-sale-joint-direct-attack-munitions-extend-range-saudi",
-      "source_name": "Al-Monitor",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T19:46:34Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "U.S. State Department approves a potential $5 billion sale of JDAM-ER kits to Saudi Arabia, a large confirmed defense deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "U.S. State Department approves a potential $5 billion sale of JDAM-ER kits to Saudi Arabia, a large confirmed defense deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100572,78 +100550,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-060ace16dada",
-      "idea_version": "IDEAV-de4f40ff80aae63a",
-      "idea_version_started_at": "2026-09-04T06:57:21Z",
-      "ticker": "CRK",
-      "company": "Comstock Resources",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1.65 billion SOCAR deal and $450 million joint venture improve the company's balance sheet and growth trajectory through asset expansion.",
-      "why_now": "The deal was announced on 2026-09-03, providing an immediate catalyst for financial re-rating.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-01031254572a"
-      ],
-      "primary_source_event_id": "EVT-01031254572a",
-      "source_headlines": [
-        "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth"
-      ],
-      "source_headline": "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth",
-      "source_url": "https://www.nasdaq.com/articles/165b-socar-deal-450m-jv-strengthen-crks-financials-growth",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T15:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T06:57:21Z",
-      "updated_at": "2026-09-04T06:57:21Z",
-      "decay_at": "2026-09-05T03:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fae9365a14f8",
       "idea_version": "IDEAV-f19abbb8a51209f1",
       "idea_version_started_at": "2026-09-04T06:14:00Z",
@@ -101558,6 +101464,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-060ace16dada",
+      "idea_version": "IDEAV-de4f40ff80aae63a",
+      "idea_version_started_at": "2026-09-04T06:57:21Z",
+      "ticker": "CRK",
+      "company": "Comstock Resources",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.65 billion SOCAR deal and $450 million joint venture improve the company's balance sheet and growth trajectory through asset expansion.",
+      "why_now": "The deal was announced on 2026-09-03, providing an immediate catalyst for financial re-rating.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-01031254572a"
+      ],
+      "primary_source_event_id": "EVT-01031254572a",
+      "source_headlines": [
+        "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth"
+      ],
+      "source_headline": "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth",
+      "source_url": "https://www.nasdaq.com/articles/165b-socar-deal-450m-jv-strengthen-crks-financials-growth",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T15:37:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T06:57:21Z",
+      "updated_at": "2026-09-04T06:57:21Z",
+      "decay_at": "2026-09-05T03:37:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-58c976f2825a",
       "idea_version": "IDEAV-bc9f3fb2c7cba434",
       "idea_version_started_at": "2026-09-03T21:54:54Z",
@@ -102424,13 +102402,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 407,
-    "shown_count": 407,
+    "total_count": 408,
+    "shown_count": 408,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 212,
-        "shown_count": 212,
+        "total_count": 213,
+        "shown_count": 213,
         "hidden_count": 0
       },
       "short": {
@@ -102455,6 +102433,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-060ace16dada",
+        "idea_version": "IDEAV-de4f40ff80aae63a",
+        "idea_version_started_at": "2026-09-04T06:57:21Z",
+        "ticker": "CRK",
+        "company": "Comstock Resources",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $1.65 billion SOCAR deal and $450 million joint venture improve the company's balance sheet and growth trajectory through asset expansion.",
+        "why_now": "The deal was announced on 2026-09-03, providing an immediate catalyst for financial re-rating.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-01031254572a"
+        ],
+        "primary_source_event_id": "EVT-01031254572a",
+        "source_headlines": [
+          "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth"
+        ],
+        "source_headline": "$1.65B SOCAR Deal & $450M JV Strengthen CRK's Financials & Growth",
+        "source_url": "https://www.nasdaq.com/articles/165b-socar-deal-450m-jv-strengthen-crks-financials-growth",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T15:37:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T06:57:21Z",
+        "updated_at": "2026-09-04T06:57:21Z",
+        "decay_at": "2026-09-05T03:37:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T03:37:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4063eaebd6fd",
         "idea_version": "IDEAV-0413df0b0c2d16cd",
@@ -132647,7 +132700,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 441,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -132666,9 +132719,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 146943,
-    "news_picked_today": 633,
-    "news_dropped_today": 2175
+    "news_seen_today": 170052,
+    "news_picked_today": 746,
+    "news_dropped_today": 2542
   },
   "book_momentum": {
     "live_count": 8,
