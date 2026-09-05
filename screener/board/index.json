@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-05T15:56:34Z",
+  "generated_at": "2026-09-05T16:06:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-727",
+      "headline": "U.S. sanctions Turkish bank, accusing it of helping Iran transfer oil revenue from China to Turkey by converting it to cash and gold",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/05/us-sanctions-turkish-bank-iran-oil-revenue-china-cash-gold/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T15:29:08Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "The U.S. government has imposed sanctions on a Turkish bank for facilitating illicit oil revenue transfers, creating significant regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The U.S. government has imposed sanctions on a Turkish bank for facilitating illicit oil revenue transfers, creating significant regulatory and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turkish Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-726",
       "headline": "U.S. military strikes Iranian tankers and warns it will destroy Tehran’s oil fleet if necessary after Navy aircraft carrier and destroyer are targeted",
@@ -1724,6 +1774,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-729",
+      "headline": "US military says it struck three Iranian tankers after American warships came under missile attack",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/sep/05/us-military-iran-tankers",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T15:41:22Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "A military strike on Iranian tankers by the US represents a significant geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A military strike on Iranian tankers by the US represents a significant geopolitical escalation in the Middle East.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-712",
       "headline": "Explosions near Iran's Kharg Island raise fears of escalation in US war on Iran",
       "headline_en": null,
@@ -1919,104 +2012,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-518",
-      "headline": "Tata Motors CV launches tender offer for Italy's Iveco Group shares; company value at €3.82 billion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-motors-cv-launches-tender-offer-for-italian-auto-company-iveco-group-shares-august-auto-sales-19984718.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T04:16:55Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Tata Motors announces €3.82 billion tender offer for Iveco Group, a material capital deployment affecting balance sheet and strategic positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Tata Motors announces €3.82 billion tender offer for Iveco Group, a material capital deployment affecting balance sheet and strategic positioning.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": "TATAMOTORS",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco Group",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-534",
-      "headline": "'If anything goes bad, we hit them hard': Trump threatens to strike Iran’s underground nuclear site ‘very soon’",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/if-anything-goes-bad-we-hit-them-hard-trump-threatens-to-strike-irans-underground-nuclear-site-pickaxe-mountain-very-soon-4135859",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T03:55:00Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Trump's threat to strike Iran's nuclear site 'very soon' represents a significant geopolitical escalation with potential global economic impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Trump's threat to strike Iran's nuclear site 'very soon' represents a significant geopolitical escalation with potential global economic impact.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -135169,9 +135164,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213197,
-    "news_picked_today": 1751,
-    "news_dropped_today": 10724
+    "news_seen_today": 213272,
+    "news_picked_today": 1758,
+    "news_dropped_today": 10792
   },
   "book_momentum": {
     "live_count": 8,
