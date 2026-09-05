@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T12:18:07Z",
+  "generated_at": "2026-09-05T12:26:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-706",
@@ -1491,6 +1491,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-712",
+      "headline": "Explosions near Iran's Kharg Island raise fears of escalation in US war on Iran",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/mena/2026/09/05/explosions-near-irans-kharg-island-raise-fears-of-escalation-in-us-war-on-iran/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T12:16:08Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Explosions near a major oil export terminal in Iran signal a significant escalation in regional geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Explosions near a major oil export terminal in Iran signal a significant escalation in regional geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-701",
       "headline": "TCS HyperVault to set up ₹70,000-crore AI data centre campus in Hyderabad",
       "headline_en": null,
@@ -1981,55 +2024,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-633",
-      "headline": "Apple enfrenta demanda de 2.700 millones de dólares en Reino Unido por el rastreo de aplicaciones",
-      "headline_en": "Apple faces lawsuit of $2.7 billion in the United Kingdom over app tracking",
-      "url": "https://www.reuters.com/es/negocio/WIOMRY4DFNO4XIHGHXAKZ7ALQ4-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T09:48:09Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Apple faces a significant lawsuit of $2.7 billion in the UK related to app tracking, which could materially impact its financials and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Apple faces a significant lawsuit of $2.7 billion in the UK related to app tracking, which could materially impact its financials and operations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -134738,9 +134732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 210919,
-    "news_picked_today": 1586,
-    "news_dropped_today": 8801
+    "news_seen_today": 211036,
+    "news_picked_today": 1593,
+    "news_dropped_today": 8911
   },
   "book_momentum": {
     "live_count": 8,
