@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-c59cbad8d027",
-  "idea_version": "IDEAV-e0b809f7190615ae",
-  "idea_version_started_at": "2026-09-05T07:11:02Z",
-  "ticker": "CPB",
-  "company": "Campbell Soup Company",
-  "exchange": "NYSE",
+  "idea_id": "IDEA-1bddbe8343f3",
+  "idea_version": "IDEAV-6a30c09e4203eb0e",
+  "idea_version_started_at": "2026-09-04T20:44:18Z",
+  "ticker": "BANKINDIA",
+  "company": "Bank of India",
+  "exchange": "NSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Campbell's is cutting its salaried workforce and closing plants as part of a turnaround effort, indicating operational challenges and potential future earnings pressure.",
-  "why_now": "The company announced these measures on September 4, 2026.",
+  "reason": "A planned strike by employees will disrupt banking operations, likely impacting short-term transaction volumes and service efficiency.",
+  "why_now": "The notice of strike was filed on September 04, 2026.",
   "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 14,
+    "evidence": 25,
     "impact": 19,
     "specificity": 7,
     "timing": 10,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-21f6eddbc19c"
+    "EVT-ceaad3da0897"
   ],
-  "primary_source_event_id": "EVT-21f6eddbc19c",
+  "primary_source_event_id": "EVT-ceaad3da0897",
   "source_headlines": [
-    "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
+    "Bank of India: Bank Of India has informed the Exchange about Notice of Strike."
   ],
-  "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-  "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-  "source_name": "Fox Business — Markets",
+  "source_headline": "Bank of India: Bank Of India has informed the Exchange about Notice of Strike.",
+  "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8bdb6f6f-a0d3-4fc4-9123-6363ae868b0a.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-04T21:58:12Z",
+  "newest_source_at": "2026-09-04T09:40:34Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-03T18:13:00Z",
-  "updated_at": "2026-09-05T07:11:02Z",
-  "decay_at": "2026-09-06T09:58:12Z",
+  "surfaced_at": "2026-09-04T11:46:15Z",
+  "updated_at": "2026-09-04T20:44:18Z",
+  "decay_at": "2026-09-05T21:40:34Z",
   "status": "live",
   "promoted_signal_id": null
 }

@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-083c9caae543",
+  "idea_version": "IDEAV-e844e881a72e18b8",
+  "idea_version_started_at": "2026-09-04T21:35:36Z",
+  "ticker": "VOW3",
+  "company": "Volkswagen Group",
+  "exchange": "XETRA",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Massive restructuring involving 50,000 to 100,000 job cuts indicates severe operational distress and a failure to compete in the transition to electric vehicles.",
+  "why_now": "The restructuring plan was confirmed and announced on September 3, 2026.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-23e431d799e0",
+    "EVT-3e93896c47f3"
+  ],
+  "primary_source_event_id": "EVT-23e431d799e0",
+  "source_headlines": [
+    "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
+    "Volkswagen announces it will cut 100,000 jobs by 2030"
+  ],
+  "source_headline": "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
+  "source_url": "https://www.carscoops.com/2026/09/vw-group-confirms-steep-cuts/",
+  "source_name": "Carscoops",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-03T22:30:32Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-04T03:44:18Z",
+  "updated_at": "2026-09-04T21:35:36Z",
+  "decay_at": "2026-09-05T10:30:32Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
