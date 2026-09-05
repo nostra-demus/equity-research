@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T18:21:19Z",
+  "generated_at": "2026-09-05T18:22:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-741",
@@ -98591,6 +98591,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-52d5d226425f",
+      "idea_version": "IDEAV-9d03fbf6e74ac8fe",
+      "idea_version_started_at": "2026-09-05T18:21:47Z",
+      "ticker": "ATI",
+      "company": "ATI Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Extended strategic agreements are directly supporting management's decision to raise its full-year 2026 financial guidance.",
+      "why_now": "The guidance raise was announced on September 5, 2026, providing an immediate positive catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8005218c37b"
+      ],
+      "primary_source_event_id": "EVT-f8005218c37b",
+      "source_headlines": [
+        "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+      ],
+      "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T17:54:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T18:21:47Z",
+      "updated_at": "2026-09-05T18:21:47Z",
+      "decay_at": "2026-09-07T05:54:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-3149cad62ad32709",
       "idea_version_started_at": "2026-09-05T11:40:42Z",
@@ -101031,79 +101101,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b1c789441879",
-      "idea_version": "IDEAV-44564504cc74c3f4",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "TATACEM",
-      "company": "Tata Chemicals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Kenyan President has reportedly asked Tata Chemicals to cease operations, citing concerns about the company not benefiting the country, which poses a significant regulatory and operational risk.",
-      "why_now": "There are direct reports from multiple news sources detailing the Kenyan President's order for the company to stop operations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-906b6430ae0d",
-        "EVT-f16081a578a0"
-      ],
-      "primary_source_event_id": "EVT-906b6430ae0d",
-      "source_headlines": [
-        "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
-        "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country"
-      ],
-      "source_headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
-      "source_url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T06:21:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T18:21:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1e4418649180",
       "idea_version": "IDEAV-3e2b3a3f68318b65",
       "idea_version_started_at": "2026-09-05T17:14:18Z",
@@ -103089,6 +103086,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b1c789441879",
+      "idea_version": "IDEAV-44564504cc74c3f4",
+      "idea_version_started_at": "2026-09-04T09:24:12Z",
+      "ticker": "TATACEM",
+      "company": "Tata Chemicals",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Kenyan President has reportedly asked Tata Chemicals to cease operations, citing concerns about the company not benefiting the country, which poses a significant regulatory and operational risk.",
+      "why_now": "There are direct reports from multiple news sources detailing the Kenyan President's order for the company to stop operations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-906b6430ae0d",
+        "EVT-f16081a578a0"
+      ],
+      "primary_source_event_id": "EVT-906b6430ae0d",
+      "source_headlines": [
+        "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+        "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country"
+      ],
+      "source_headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+      "source_url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T06:21:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T09:24:12Z",
+      "updated_at": "2026-09-04T09:24:12Z",
+      "decay_at": "2026-09-05T18:21:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1820b9b947cf",
       "idea_version": "IDEAV-60d03264227a21a6",
       "idea_version_started_at": "2026-09-04T08:41:33Z",
@@ -103957,8 +104027,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 426,
-    "shown_count": 426,
+    "total_count": 427,
+    "shown_count": 427,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -103967,8 +104037,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 204,
-        "shown_count": 204,
+        "total_count": 205,
+        "shown_count": 205,
         "hidden_count": 0
       }
     },
@@ -103988,6 +104058,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b1c789441879",
+        "idea_version": "IDEAV-44564504cc74c3f4",
+        "idea_version_started_at": "2026-09-04T09:24:12Z",
+        "ticker": "TATACEM",
+        "company": "Tata Chemicals",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Kenyan President has reportedly asked Tata Chemicals to cease operations, citing concerns about the company not benefiting the country, which poses a significant regulatory and operational risk.",
+        "why_now": "There are direct reports from multiple news sources detailing the Kenyan President's order for the company to stop operations.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-906b6430ae0d",
+          "EVT-f16081a578a0"
+        ],
+        "primary_source_event_id": "EVT-906b6430ae0d",
+        "source_headlines": [
+          "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+          "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country"
+        ],
+        "source_headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
+        "source_url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T06:21:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T09:24:12Z",
+        "updated_at": "2026-09-04T09:24:12Z",
+        "decay_at": "2026-09-05T18:21:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T18:21:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c7191296ccd",
         "idea_version": "IDEAV-88caf68c80d25cef",
@@ -135588,7 +135734,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 467,
+    "surfaced_total": 468,
     "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
