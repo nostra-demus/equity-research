@@ -28,7 +28,9 @@ function friendlyClaudeResultError(o: any): string {
     return 'Claude usage limit reached — try again after the plan resets.'
   }
   if (o?.subtype === 'error_max_turns') return 'The answer was cut off (turn limit). Try a shorter or narrower question.'
-  return text ? text.slice(0, 300) : 'The model returned an error.'
+  // Result text and process diagnostics can contain credentials, paths, or the supplied prompt.
+  // Both Ask routes publish this outcome directly, so unknown failures use only fixed public text.
+  return 'Claude could not answer. Retry the same question.'
 }
 
 function friendlyCodexError(value: unknown): string {
@@ -42,7 +44,7 @@ function friendlyCodexError(value: unknown): string {
   if (/model.+(?:not found|unsupported|unavailable)|(?:not found|unsupported|unavailable).+model/i.test(text)) {
     return 'That Codex GPT model is not available on this server yet. Choose another Ask model and retry.'
   }
-  return text ? `Codex could not answer: ${text.slice(0, 260)}` : 'Codex returned no answer.'
+  return 'Codex could not answer. Retry the same question.'
 }
 
 export interface ChatTurnOutcome {
@@ -157,8 +159,11 @@ export function codexChatFeatureDisables(output: string): string[] {
     .sort()
 }
 
-// Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The short TTL also
-// makes an in-place CLI upgrade self-heal without a server restart; rejected probes are never cached.
+// Deduplicate concurrent turns and avoid a CLI feature subprocess on every question. The cache is bound to
+// the executable's hashed inode identity, so it invalidates immediately when the CLI changes in place. The
+// bounded lifetime also lets an unusually long-lived server self-heal if an external launch setting changes.
+// Rejected probes are never cached.
+const CODEX_CHAT_FEATURE_CACHE_TTL_MS = 15 * 60_000
 let codexChatFeatureCache: { commandIdentity: string; expiresAt: number; pending: Promise<string[]> } | null = null
 
 async function inspectCodexChatFeatures(command: string, commandIdentity: string): Promise<string[]> {
@@ -194,7 +199,7 @@ async function inspectCodexChatFeatures(command: string, commandIdentity: string
     }
     return codexChatFeatureDisables(`${result?.stdout || ''}\n${result?.stderr || ''}`)
   })()
-  const entry = { commandIdentity, expiresAt: now + 60_000, pending }
+  const entry = { commandIdentity, expiresAt: now + CODEX_CHAT_FEATURE_CACHE_TTL_MS, pending }
   codexChatFeatureCache = entry
   try {
     return await pending
@@ -202,6 +207,16 @@ async function inspectCodexChatFeatures(command: string, commandIdentity: string
     if (codexChatFeatureCache === entry) codexChatFeatureCache = null
     throw error
   }
+}
+
+/**
+ * Warm only Codex's local closed-book launch contract. This does not start a model turn, spend usage,
+ * select a model, or retain credentials; it merely fills the executable-identity-bound feature cache.
+ */
+export async function warmCodexChatRuntime(): Promise<void> {
+  const env = codexChildEnv()
+  const pinned = pinCodexExecutable(resolveCodexBin(), env)
+  await inspectCodexChatFeatures(pinned.command, pinned.identity)
 }
 
 /** Pure launch contract kept exported so tests pin every closed-book Codex boundary. */
@@ -272,7 +287,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
       timeout: opts.timeoutMs ?? CHAT.timeoutMs,
     })
   } catch (error: any) {
-    return { costUsd: 0, error: `Could not start Claude chat: ${error?.message || error}` }
+    return { costUsd: 0, error: friendlyClaudeResultError({ result: String(error?.message || error) }) }
   }
   child.stdin?.on('error', () => {})
   try { child.stdin?.write(opts.user); child.stdin?.end() } catch { /* child may have exited */ }
@@ -324,8 +339,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
   if (resultError) return { costUsd: cost, error: resultError }
   if (result?.timedOut) return { costUsd: cost, error: 'The answer took too long and was stopped. Try a narrower scope or a shorter question.' }
   if (!streamedText) {
-    const tail = stderr.trim().slice(-300)
-    return { costUsd: cost, error: tail ? `Claude returned no answer: ${tail}` : 'Claude returned no answer.' }
+    return { costUsd: cost, error: friendlyClaudeResultError({ result: stderr }) }
   }
   return { costUsd: cost }
 }
@@ -345,7 +359,7 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
       throw error
     }
   } catch (error: any) {
-    return { costUsd: 0, error: `Could not prepare Codex chat: ${error?.message || error}` }
+    return { costUsd: 0, error: friendlyCodexError(error?.message || error) }
   }
   try {
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
@@ -458,6 +472,11 @@ export async function runChatTurn(opts: ChatTurnOptions): Promise<ChatTurnOutcom
     return choice.provider === 'codex'
       ? await runCodexChatTurn(opts, choice)
       : await runClaudeChatTurn(opts, choice)
+  } catch (error: any) {
+    if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
+    return { costUsd: 0, error: choice.provider === 'codex'
+      ? friendlyCodexError(error?.message || error)
+      : friendlyClaudeResultError({ result: String(error?.message || error) }) }
   } finally {
     activeChatTurns--
   }

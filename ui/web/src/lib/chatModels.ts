@@ -5,6 +5,7 @@ export interface ChatModelChoice {
   provider: ChatModelProvider
   label: string
   sub: string
+  disabled?: boolean
 }
 
 export const CHAT_MODEL_STORAGE_KEY = 'nsw.chatModel'

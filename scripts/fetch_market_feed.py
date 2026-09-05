@@ -98,14 +98,20 @@ def write_feed(data_root: str, observations: list[tuple[str, float]]) -> str:
         "as_of": as_of,
         "received": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "source_url": SOURCE_URL,
-        "license": "public_domain",
-        "licensing": {"access": "public", "use": "allowed", "redistribution": "allowed",
+        # The S&P 500 is NOT public-domain FRED data: the observations are proprietary to S&P Dow Jones
+        # Indices LLC. FRED serves them free to access and use, but reproduction/redistribution is
+        # prohibited without S&P DJI permission, so the machine-enforced rights must say so. Enum values
+        # follow the licensing schema documented in frameworks/EXTERNAL_DATA.md §7 (access/use/redistribution).
+        "license": "proprietary",
+        "licensing": {"access": "public", "use": "allowed", "redistribution": "prohibited",
                       "terms_url": "https://fred.stlouisfed.org/legal/"},
-        "series": "S&P 500 index — daily close (FRED, sourced from S&P Dow Jones Indices)",
+        "series": "S&P 500 index — daily close (FRED series SP500; © S&P Dow Jones Indices LLC)",
         "series_id": SYMBOL,
         "units": "index level (S&P 500 points)",
         "note": f"{len(observations)} daily closes, {observations[0][0]} to {as_of}. "
-                "Index level, not an ETF. Market holidays are omitted.",
+                "Index level, not an ETF. Market holidays are omitted. S&P 500 is proprietary to "
+                "S&P Dow Jones Indices LLC — free to access and use via FRED as an internal benchmark "
+                "reference, but reproduction/redistribution is prohibited without S&P DJI permission.",
     }
     tmp_side = path + ".source.json.tmp"
     with open(tmp_side, "w", encoding="utf-8") as fh:

@@ -19,10 +19,12 @@ const pidsFile = path.join(root, 'pids.txt')
 fs.writeFileSync(script, [
   'import os, subprocess, sys, time',
   'child = subprocess.Popen(["sleep", "60"])',
-  'with open(sys.argv[1], "w", encoding="utf-8") as handle:',
+  // Existence is the readiness signal, so publish only after both PIDs are readable.
+  'with open(sys.argv[1] + ".tmp", "w", encoding="utf-8") as handle:',
   '    handle.write(f"{os.getpid()} {child.pid}")',
   '    handle.flush()',
   '    os.fsync(handle.fileno())',
+  'os.replace(sys.argv[1] + ".tmp", sys.argv[1])',
   'while True:',
   '    time.sleep(1)',
   '',
@@ -32,13 +34,19 @@ const alive = (pid: number) => {
   try { process.kill(pid, 0); return true } catch { return false }
 }
 
+const controller = new AbortController()
+let processResult: Promise<unknown> | undefined
+let assessmentResult: Promise<unknown> | undefined
+let chainId: string | undefined
+
 try {
-  const controller = new AbortController()
   const running = runReadinessProcess('python3', [script, pidsFile], {
     signal: controller.signal,
     timeoutMs: 15_000,
     env: { ...process.env },
   })
+  // Observe early failure while waiting for readiness, and retain cleanup if an assertion fails.
+  processResult = running.catch((error: unknown) => error)
   const fileDeadline = Date.now() + 5_000
   while (!fs.existsSync(pidsFile) && Date.now() < fileDeadline) {
     await new Promise<void>((resolve) => setTimeout(resolve, 20))
@@ -55,7 +63,7 @@ try {
   console.log('PASS: readiness cancellation drains the whole detached process group before returning')
 
   const shutdownPidsFile = path.join(root, 'shutdown-pids.txt')
-  const chainId = `shutdown-readiness-${process.pid}`
+  chainId = `shutdown-readiness-${process.pid}`
   const shutdownTicker = `ZZSHUTDOWN${process.pid}`
   const runRoot = `analyses/${shutdownTicker}_2099-01-01`
   const run = createRun({
@@ -81,7 +89,7 @@ try {
     },
   )
   // Attach the rejection observer before shutdown races the process.
-  const assessmentResult = assessment.then(() => null, (error: unknown) => error)
+  assessmentResult = assessment.then(() => null, (error: unknown) => error)
   const shutdownDeadline = Date.now() + 5_000
   while (!fs.existsSync(shutdownPidsFile) && Date.now() < shutdownDeadline) {
     await new Promise<void>((resolve) => setTimeout(resolve, 20))
@@ -100,8 +108,14 @@ try {
   assert.equal(alive(shutdownDescendant), false, 'shutdown drains readiness descendants before releasing the run')
   assert.ok(run.endedAt !== undefined && run.status === 'error',
     'only after the readiness group exits does shutdown finalize the childless run')
-  clearChainedReadiness(chainId)
   console.log('PASS: shutdown drains chain readiness before finalizing or releasing admission')
 } finally {
+  controller.abort()
+  await processResult
+  if (chainId) {
+    await drainProviderRunsForShutdown()
+    await assessmentResult
+    clearChainedReadiness(chainId)
+  }
   fs.rmSync(root, { recursive: true, force: true })
 }

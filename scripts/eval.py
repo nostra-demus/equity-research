@@ -650,6 +650,7 @@ from rating_caps import (
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
     AQ_DATE, FORENSIC_TAGS, ABOVE_STARTER_AQ, eval_aq_forensic_mosaic_cap,
     BB_DATE, CYCLE_ELEV_TAG, CYCLE_DEPR_TAG, BB_COMPOUND_CAP, eval_bb_sector_cycle_compounding_cap,
+    BD_DATE, WACC_ESCALATION_TAG, eval_bd_cost_of_capital_reality_test,
     BE_DATE, REV_DECOMP_TAG, MARGIN_BRIDGE_TAG, BE_RECONCILE_TOLERANCE, eval_be_driver_attribution_residual,
 )
 
@@ -1123,54 +1124,12 @@ def eval_release_gate_eligible(has_run_metadata, supersession_result):
     valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
     return bool(has_run_metadata) and not valid_supersession
 
-# ── Check AM (§8/§16 bear-case sanity) — a Selected/conviction long must have a real loss branch ──
-AM_DATE = "2026-07-17"
-def eval_am_bear_case_sanity(decision_date, decision, scenarios, entry_price):
-    """Check AM: a Selected/conviction long (Strong Buy / Buy / Starter Position Only) must carry a
-    genuine bear case — the bear-labelled scenario's price_target BELOW entry_price (a real downside
-    branch). A "bear" scenario that is itself a gain (the EMAAR_2026-07-03 defect: bear +63.9%, no
-    capital loss) fails §8's strongest-bear-case test and §16. Returns None (pre-gate / not a Selected
-    long / no usable bear price target) or a list of violations (empty = pass)."""
-    if not (isdate(decision_date) and decision_date >= AM_DATE):
-        return None
-    if decision not in {"Strong Buy", "Buy", "Starter Position Only"}:
-        return None
-    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
-        return None
-    bear = next((s for s in scenarios if isinstance(s, dict) and "bear" in str(s.get("label", "")).lower()), None)
-    if not bear or not isinstance(bear.get("price_target"), (int, float)) or isinstance(bear.get("price_target"), bool):
-        return None  # no usable bear price target to test
-    if bear["price_target"] >= entry_price:
-        return [f"Selected/conviction long but the bear-case price target {bear['price_target']} is not below "
-                f"entry_price {entry_price} — no genuine downside branch (§8 strongest-bear-case; §16)"]
-    return []
-
-# ── Check AR (§8 mirror of AM) — a Short Candidate must have a real loss branch for the short ──
-AR_DATE = "2026-07-25"
-def eval_ar_short_bull_case_sanity(decision_date, decision, scenarios, entry_price):
-    """Check AR: the short-side mirror of check AM. A "Short Candidate" decision must carry a genuine
-    bull case — the bull-labelled scenario's price_target ABOVE entry_price (a real squeeze/upside branch
-    that is a genuine LOSS to the short position). A "bull" scenario that is itself at or below entry (no
-    loss to the short) fails §8's strongest-bull-case test applied to the short's own disconfirming
-    direction — the exact mirror of the EMAAR_2026-07-03 bear-case defect check AM guards against on the
-    long side. Without this, a Short Candidate could ship with an all-downside scenario set that never
-    prices the risk of being wrong, silently violating §8's symmetric-disconfirmation requirement for the
-    one decision type check AM does not cover. Returns None (pre-gate / not a Short Candidate / no usable
-    bull price target) or a list of violations (empty = pass)."""
-    if not (isdate(decision_date) and decision_date >= AR_DATE):
-        return None
-    if decision != "Short Candidate":
-        return None
-    if not (isinstance(scenarios, list) and isinstance(entry_price, (int, float)) and not isinstance(entry_price, bool) and entry_price > 0):
-        return None
-    bull = next((s for s in scenarios if isinstance(s, dict) and "bull" in str(s.get("label", "")).lower()), None)
-    if not bull or not isinstance(bull.get("price_target"), (int, float)) or isinstance(bull.get("price_target"), bool):
-        return None  # no usable bull price target to test
-    if bull["price_target"] <= entry_price:
-        return [f"Short Candidate but the bull-case price target {bull['price_target']} is not above "
-                f"entry_price {entry_price} — no genuine upside/squeeze branch, i.e. no real loss to the "
-                f"short (§8 strongest-bull-case; mirror of check AM)"]
-    return []
+# ── Checks AM/AR (§8 bear-case / bull-case sanity) — detection logic moved to
+# scripts/scenario_integrity_checks.py, imported further below alongside AT/AU/AV/BA/BC, so the
+# SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a Selected
+# long with an all-upside "bear" case (or a Short Candidate with an all-downside "bull" case)
+# ships, not only when someone remembers to run this eval harness afterward. See that module's
+# docstring and each check's own comment block for the EMAAR_2026-07-03 case that motivated them.
 
 # ── Check AO (§19 / DECISION_LEDGER §6 forecast RESOLVABILITY) — a forecast the calibration loop can score ──
 AO_DATE = "2026-07-18"
@@ -1390,11 +1349,13 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
 # never call it. See that module's check-BA comment block for the full doctrine rationale.
 
 
-# ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────
+# ── Checks AT/AU/AV/AM/AR (§10 scenario span + conjunction disclosure + sign-check presence;
+# §8 bear-case / bull-case sanity) ──────────────────────────────────────────────────────────────
 # Detection logic extracted to scripts/scenario_integrity_checks.py (importable, side-effect-free)
 # so the SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a
 # violation ships, not only when someone remembers to run this eval harness afterward. See that
-# module's docstring for the full doctrine rationale and the AMZN_2026-07-10 case that motivated it.
+# module's docstring for the full doctrine rationale, the AMZN_2026-07-10 case that motivated
+# AT/AU/AV, and the EMAAR_2026-07-03 case that motivated AM/AR.
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # scenario_integrity_checks.py is the single source of the detection logic, imported by both callers.
 from scenario_integrity_checks import (
@@ -1404,6 +1365,10 @@ from scenario_integrity_checks import (
     eval_bc_probability_basis_stated,
     eval_ba_kill_criteria_trigger_test,
     BA_DATE,
+    eval_am_bear_case_sanity,
+    eval_ar_short_bull_case_sanity,
+    AM_DATE,
+    AR_DATE,
 )
 
 
@@ -3456,6 +3421,41 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"BB({_dd!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BD: §16 Cost-of-Capital Reality Test escalation -------------------------------------
+    _bd_fired_a  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (a) — rebuilt with the floors above\n"
+    _bd_fired_b  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (b) — re-ran DCF at the scope-matched group rate\n"
+    _bd_fired_c  = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (c) — marked a labelled cross-check, capped in 07\n"
+    _bd_fired_colon = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch: (a) — rebuilt it\n"
+    _bd_fired_noparen = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch a — rebuilt it\n"
+    _bd_fired_nobranch = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — no branch stated here\n"
+    _bd_fired_badletter = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003: model WACC presumed wrong — escalation branch (d) — invalid letter\n"
+    _bd_cleared = "## 3A. Cost-of-Capital Reality Test\nRF-VAL-003 not triggered — model WACC reconciles within tolerance\n"
+    _bd_notrigger = "## 3A. Cost-of-Capital Reality Test\nModel WACC reconciles against the scope-matched group rate within ~3pp; no escalation needed.\n"
+    _bd_tablerow = "## 3A. Cost-of-Capital Reality Test\n| RF-VAL-003 | fired | escalation branch (b) |\n"
+    bdcases=[  # (decision_date, dcf_txt, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-09-03",_bd_fired_a,[]),                       # valid branch (a) → pass
+        ("2026-09-03",_bd_fired_b,[]),                       # valid branch (b) → pass
+        ("2026-09-03",_bd_fired_c,[]),                       # valid branch (c) → pass
+        ("2026-09-03",_bd_fired_colon,[]),                   # "branch: (a)" — colon before paren → pass
+        ("2026-09-03",_bd_fired_noparen,["does not name a valid escalation branch"]),  # no parens → FAIL
+        ("2026-09-03",_bd_fired_nobranch,["does not name a valid escalation branch"]), # tag fired, no branch at all → FAIL
+        ("2026-09-03",_bd_fired_badletter,["does not name a valid escalation branch"]),# (d) is not a/b/c → FAIL
+        ("2026-09-03",_bd_cleared,[]),                       # explicit negation → not fired → pass
+        ("2026-09-03",_bd_notrigger,[]),                     # trigger never fired at all (no tag) → pass
+        ("2026-09-03",_bd_tablerow,[]),                      # first-cell TABLE ROW, not a fired standalone tag → pass
+        ("2026-09-03",None,None),                            # 04_intrinsic-dcf did not run → N/A
+        ("2026-09-02",_bd_fired_a,None),                     # predates BD_DATE → N/A
+        ("not-a-date",_bd_fired_a,None),                     # unparseable decision_date → N/A
+    ]
+    for _dd,_dcf,_want in bdcases:
+        got=eval_bd_cost_of_capital_reality_test(_dd,_dcf)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BD({_dd!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     # ---- check BE: §15 driver-attribution residual (earnings decomposition/bridge) -----------------
     _be_rev_ok = ("## 6a. Decomposition Attribution and Residual\n"
                   "Volume: 4% x 0.8 [Source] = 3.2pp of the 4.0pp observed growth -> basis matches\n"
@@ -3890,7 +3890,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(bdcases)} check-BD + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4483,6 +4483,24 @@ for drp in runs:
     else:
         add("BB_sector_cycle_compounding_cap", True,
             f"N/A (decision_date {ddte!r} predates BB_DATE {BB_DATE!r})", na=True)
+    # BD §16 Cost-of-Capital Reality Test escalation (forward-looking; landing BD_DATE). See the
+    # BD_DATE / eval_bd_cost_of_capital_reality_test comment block in rating_caps.py for the full
+    # rationale. Reads 04_intrinsic-dcf.md for the standalone RF-VAL-003 tag via the
+    # _read_specialist_text closure hoisted above.
+    if isdate(ddte) and ddte>=BD_DATE:
+        _v04_txt = _read_specialist_text("valuation", "04_")
+        _bdr = eval_bd_cost_of_capital_reality_test(ddte, _v04_txt)
+        if _bdr is None:
+            add("BD_cost_of_capital_reality_test", True,
+                "N/A (04_intrinsic-dcf specialist did not run)", na=True)
+        elif _bdr:
+            add("BD_cost_of_capital_reality_test", False, "; ".join(_bdr))
+        else:
+            add("BD_cost_of_capital_reality_test", True,
+                "escalation trigger did not fire, or a valid escalation branch is named")
+    else:
+        add("BD_cost_of_capital_reality_test", True,
+            f"N/A (decision_date {ddte!r} predates BD_DATE {BD_DATE!r})", na=True)
     # BE §15 driver-attribution residual — earnings decomposition/bridge (forward-looking; landing
     # BE_DATE). See the BE_DATE / eval_be_driver_attribution_residual comment block in rating_caps.py
     # for the full rationale. Reads 02_revenue-drivers.md and 03_margin-drivers.md for the standalone

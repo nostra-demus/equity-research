@@ -53,7 +53,7 @@ export type TurnEvent =
   | { type: 'hydrate'; messages: ChatMessage[]; conversationId?: string; source?: string }
 
 // the only stages the server actually streams; anything else is a future engine talking to an old shell
-const KNOWN_STAGES = new Set(['modeling', 'starting', 'connected', 'thinking', 'writing'])
+const KNOWN_STAGES = new Set(['sources', 'modeling', 'starting', 'connected', 'thinking', 'writing'])
 
 const advance = (s: TurnState, stage: ChatWork['stage'], now: number, model?: string): ChatWork => ({
   stage,

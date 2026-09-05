@@ -48,6 +48,8 @@ check('an unknown stage is ignored; known stages advance and keep the model id',
   const before = s.work
   s = turnReduce(s, { type: 'status', stage: 'quantum-superposition', now: 1200 })
   assert.equal(s.work, before)
+  s = turnReduce(s, { type: 'status', stage: 'sources', now: 1250 })
+  assert.equal(s.work?.stage, 'sources')
   s = turnReduce(s, { type: 'status', stage: 'thinking', model: 'opus', now: 1300 })
   assert.equal(s.work?.stage, 'thinking')
   assert.equal(s.work?.model, 'opus')
