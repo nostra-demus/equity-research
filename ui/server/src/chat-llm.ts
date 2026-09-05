@@ -28,7 +28,9 @@ function friendlyClaudeResultError(o: any): string {
     return 'Claude usage limit reached — try again after the plan resets.'
   }
   if (o?.subtype === 'error_max_turns') return 'The answer was cut off (turn limit). Try a shorter or narrower question.'
-  return text ? text.slice(0, 300) : 'The model returned an error.'
+  // Result text and process diagnostics can contain credentials, paths, or the supplied prompt.
+  // Both Ask routes publish this outcome directly, so unknown failures use only fixed public text.
+  return 'Claude could not answer. Retry the same question.'
 }
 
 function friendlyCodexError(value: unknown): string {
@@ -42,7 +44,7 @@ function friendlyCodexError(value: unknown): string {
   if (/model.+(?:not found|unsupported|unavailable)|(?:not found|unsupported|unavailable).+model/i.test(text)) {
     return 'That Codex GPT model is not available on this server yet. Choose another Ask model and retry.'
   }
-  return text ? `Codex could not answer: ${text.slice(0, 260)}` : 'Codex returned no answer.'
+  return 'Codex could not answer. Retry the same question.'
 }
 
 export interface ChatTurnOutcome {
@@ -285,7 +287,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
       timeout: opts.timeoutMs ?? CHAT.timeoutMs,
     })
   } catch (error: any) {
-    return { costUsd: 0, error: `Could not start Claude chat: ${error?.message || error}` }
+    return { costUsd: 0, error: friendlyClaudeResultError({ result: String(error?.message || error) }) }
   }
   child.stdin?.on('error', () => {})
   try { child.stdin?.write(opts.user); child.stdin?.end() } catch { /* child may have exited */ }
@@ -337,8 +339,7 @@ async function runClaudeChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): 
   if (resultError) return { costUsd: cost, error: resultError }
   if (result?.timedOut) return { costUsd: cost, error: 'The answer took too long and was stopped. Try a narrower scope or a shorter question.' }
   if (!streamedText) {
-    const tail = stderr.trim().slice(-300)
-    return { costUsd: cost, error: tail ? `Claude returned no answer: ${tail}` : 'Claude returned no answer.' }
+    return { costUsd: cost, error: friendlyClaudeResultError({ result: stderr }) }
   }
   return { costUsd: cost }
 }
@@ -358,7 +359,7 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
       throw error
     }
   } catch (error: any) {
-    return { costUsd: 0, error: `Could not prepare Codex chat: ${error?.message || error}` }
+    return { costUsd: 0, error: friendlyCodexError(error?.message || error) }
   }
   try {
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
@@ -471,6 +472,11 @@ export async function runChatTurn(opts: ChatTurnOptions): Promise<ChatTurnOutcom
     return choice.provider === 'codex'
       ? await runCodexChatTurn(opts, choice)
       : await runClaudeChatTurn(opts, choice)
+  } catch (error: any) {
+    if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
+    return { costUsd: 0, error: choice.provider === 'codex'
+      ? friendlyCodexError(error?.message || error)
+      : friendlyClaudeResultError({ result: String(error?.message || error) }) }
   } finally {
     activeChatTurns--
   }
