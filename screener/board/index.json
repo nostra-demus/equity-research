@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T04:38:44Z",
+  "generated_at": "2026-09-05T04:47:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260905-517",
@@ -1219,6 +1219,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-558",
+      "headline": "Volkswagen to cut further 50,000 jobs as it ends row with union over revival plan",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/sep/03/volkswagen-confirms-100000-job-cuts-by-2030",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-04T09:43:58Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Volkswagen is cutting 50,000 jobs as part of a major restructuring effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Volkswagen is cutting 50,000 jobs as part of a major restructuring effort.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-095",
       "headline": "Trump re-start of war on Iran, Greece-Israel deal, and West Bank",
       "headline_en": null,
@@ -1403,6 +1452,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260905-541",
+      "headline": "Jefferies fund caught with $500mn exposure to second alleged invoice fraud",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T04:00:42Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Jefferies fund is exposed to $500mn in alleged invoice fraud, indicating potential asset impairment and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Jefferies fund is exposed to $500mn in alleged invoice fraud, indicating potential asset impairment and operational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jefferies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,105 +1998,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-381",
-      "headline": "Eni Finalizes Venezuelan Deal for 35Bbbl Field",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/eni_finalizes_venezuelan_deal_for_35bbbl_field-04-sep-2026-184543-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T14:24:27Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Eni finalizes acquisition of 35-billion-barrel Venezuelan field; materially expands reserve base and commits major capex, altering strategic direction and capital deployment for a large-cap energy company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Eni finalizes acquisition of 35-billion-barrel Venezuelan field; materially expands reserve base and commits major capex, altering strategic direction and capital deployment for a large-cap energy company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eni",
-          "ticker": "ENI",
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-495",
-      "headline": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs, China competition",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/04/volkswagen-job-cuts-tariffs-china.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:46:27Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs and China competition, indicating major restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Volkswagen jumps 8% on plans to cut 50,000 jobs amid tariffs and China competition, indicating major restructuring.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": "VOW.DE",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100711,78 +100711,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fae9365a14f8",
-      "idea_version": "IDEAV-f19abbb8a51209f1",
-      "idea_version_started_at": "2026-09-04T06:14:00Z",
-      "ticker": "SPICEJET",
-      "company": "SpiceJet",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The airline is facing acute financial distress and is actively seeking government emergency funding, indicating a high risk of insolvency.",
-      "why_now": "The government confirmed ongoing discussions regarding financial challenges on September 3, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7443d8d74033"
-      ],
-      "primary_source_event_id": "EVT-7443d8d74033",
-      "source_headlines": [
-        "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme"
-      ],
-      "source_headline": "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme",
-      "source_url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/govt-in-touch-with-spicejet-over-operational-financial-challenges-airline-seeks-funds-under-eclgs-scheme/articleshow/133741584.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T16:42:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T06:14:00Z",
-      "updated_at": "2026-09-04T06:14:00Z",
-      "decay_at": "2026-09-05T04:42:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c59cbad8d027",
       "idea_version": "IDEAV-f574f2bf59c255a6",
       "idea_version_started_at": "2026-09-04T05:44:07Z",
@@ -101838,6 +101766,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fae9365a14f8",
+      "idea_version": "IDEAV-f19abbb8a51209f1",
+      "idea_version_started_at": "2026-09-04T06:14:00Z",
+      "ticker": "SPICEJET",
+      "company": "SpiceJet",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The airline is facing acute financial distress and is actively seeking government emergency funding, indicating a high risk of insolvency.",
+      "why_now": "The government confirmed ongoing discussions regarding financial challenges on September 3, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7443d8d74033"
+      ],
+      "primary_source_event_id": "EVT-7443d8d74033",
+      "source_headlines": [
+        "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme"
+      ],
+      "source_headline": "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme",
+      "source_url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/govt-in-touch-with-spicejet-over-operational-financial-challenges-airline-seeks-funds-under-eclgs-scheme/articleshow/133741584.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T16:42:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T06:14:00Z",
+      "updated_at": "2026-09-04T06:14:00Z",
+      "decay_at": "2026-09-05T04:42:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-58c976f2825a",
       "idea_version": "IDEAV-bc9f3fb2c7cba434",
       "idea_version_started_at": "2026-09-03T21:54:54Z",
@@ -102704,8 +102704,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 410,
-    "shown_count": 410,
+    "total_count": 411,
+    "shown_count": 411,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -102714,8 +102714,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 197,
-        "shown_count": 197,
+        "total_count": 198,
+        "shown_count": 198,
         "hidden_count": 0
       }
     },
@@ -102735,6 +102735,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fae9365a14f8",
+        "idea_version": "IDEAV-f19abbb8a51209f1",
+        "idea_version_started_at": "2026-09-04T06:14:00Z",
+        "ticker": "SPICEJET",
+        "company": "SpiceJet",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The airline is facing acute financial distress and is actively seeking government emergency funding, indicating a high risk of insolvency.",
+        "why_now": "The government confirmed ongoing discussions regarding financial challenges on September 3, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7443d8d74033"
+        ],
+        "primary_source_event_id": "EVT-7443d8d74033",
+        "source_headlines": [
+          "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme"
+        ],
+        "source_headline": "Govt in touch with SpiceJet over operational, financial challenges; Airline seeks funds under ECLGS scheme",
+        "source_url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/govt-in-touch-with-spicejet-over-operational-financial-challenges-airline-seeks-funds-under-eclgs-scheme/articleshow/133741584.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T16:42:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T06:14:00Z",
+        "updated_at": "2026-09-04T06:14:00Z",
+        "decay_at": "2026-09-05T04:42:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T04:42:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9623b2f3d514",
         "idea_version": "IDEAV-d0ee2d1952f3a07b",
@@ -133149,7 +133224,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 445,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -133168,9 +133243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 180547,
-    "news_picked_today": 819,
-    "news_dropped_today": 2853
+    "news_seen_today": 182992,
+    "news_picked_today": 860,
+    "news_dropped_today": 2980
   },
   "book_momentum": {
     "live_count": 8,
