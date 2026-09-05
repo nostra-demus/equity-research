@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-05T06:40:10Z",
+  "generated_at": "2026-09-05T07:10:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-686",
+      "headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T06:37:04Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Tata Motors has launched a formal takeover offer for Iveco at 14.1 EUR per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors has launched a formal takeover offer for Iveco at 14.1 EUR per share.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-517",
       "headline": "PUBG-fame Krafton to invest another $250 million in India as it expands beyond gaming",
@@ -1078,6 +1132,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-685",
+      "headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rbi-approves-lic-to-acquire-up-to-9-99-stake-in-icici-bank/articleshow/133791372.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T06:47:15Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "RBI approval for LIC to acquire a 9.99% stake in ICICI Bank is a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "RBI approval for LIC to acquire a 9.99% stake in ICICI Bank is a significant strategic investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Life Insurance Corporation of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-518",
       "headline": "Tata Motors CV launches tender offer for Italy's Iveco Group shares; company value at €3.82 billion",
       "headline_en": null,
@@ -1514,6 +1622,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260905-683",
+      "headline": "Vertiv Just Made an Up to $2.6 Billion Bet to Solve AI Data Centers' Biggest Bottleneck",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vertiv-just-made-26-billion-bet-solve-ai-data-centers-biggest-bottleneck",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-03T06:50:01Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Vertiv announced a $2.6 billion investment to address AI data center infrastructure bottlenecks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Vertiv announced a $2.6 billion investment to address AI data center infrastructure bottlenecks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vertiv",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260905-344",
       "headline": "Novartis Lp(a) drug fails to lower cardiovascular risk in closely watched ph. 3 trial",
       "headline_en": null,
@@ -1851,153 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-157",
-      "headline": "Israeli drone strike kills two in southern Lebanon",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/two-reportedly-killed-israeli-drone-strike-southern-lebanon",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T17:31:55Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "An Israeli drone strike killed two people in southern Lebanon, indicating an escalation of military conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "An Israeli drone strike killed two people in southern Lebanon, indicating an escalation of military conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-625",
-      "headline": "FLY91 Places $1 Billion Order For 40 ATR 72-600 Aircraft",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/fly91-places-1-billion-order-for-40-atr-72-600-aircraft-11996959#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T10:18:13Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "FLY91 has placed a $1 billion order for 40 aircraft, representing a major capital expenditure and fleet expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "FLY91 has placed a $1 billion order for 40 aircraft, representing a major capital expenditure and fleet expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FLY91",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-648",
-      "headline": "Deutsche Telekom shares rise as sources say Elliott builds stake, opposes T-Mobile deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/deutsche-telekom-shares-jump-after-reports-say-elliott-builds-stake-opposes-t-2026-09-03/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-03T08:31:56Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Elliott Investment Management has built a stake in Deutsche Telekom and is opposing the T-Mobile deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Elliott Investment Management has built a stake in Deutsche Telekom and is opposing the T-Mobile deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deutsche Telekom",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "T-Mobile",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -99995,77 +100005,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-4528892f898b9a76",
-      "idea_version_started_at": "2026-09-04T20:44:18Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for the stock.",
-      "why_now": "The tender offer was announced via press release on September 04, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7d528561a57"
-      ],
-      "primary_source_event_id": "EVT-a7d528561a57",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T18:44:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-04T20:44:18Z",
-      "decay_at": "2026-09-05T06:44:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a36ab9c99704",
       "idea_version": "IDEAV-d534386b874b2447",
       "idea_version_started_at": "2026-09-04T20:44:18Z",
@@ -100780,77 +100719,6 @@
       "surfaced_at": "2026-09-03T18:13:00Z",
       "updated_at": "2026-09-04T05:44:07Z",
       "decay_at": "2026-09-05T08:57:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ddb51395a688",
-      "idea_version": "IDEAV-d7ecaed09629a1b6",
-      "idea_version_started_at": "2026-09-03T23:05:06Z",
-      "ticker": "IVC",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
-      "why_now": "The tender offer was announced via press release on September 04, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7d528561a57"
-      ],
-      "primary_source_event_id": "EVT-a7d528561a57",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T18:44:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T23:05:06Z",
-      "updated_at": "2026-09-03T23:05:06Z",
-      "decay_at": "2026-09-05T06:44:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -101698,6 +101566,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-4528892f898b9a76",
+      "idea_version_started_at": "2026-09-04T20:44:18Z",
+      "ticker": "IVG",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for the stock.",
+      "why_now": "The tender offer was announced via press release on September 04, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7d528561a57"
+      ],
+      "primary_source_event_id": "EVT-a7d528561a57",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T18:44:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-04T20:44:18Z",
+      "decay_at": "2026-09-05T06:44:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-060ace16dada",
       "idea_version": "IDEAV-de4f40ff80aae63a",
       "idea_version_started_at": "2026-09-04T06:57:21Z",
@@ -101836,6 +101775,77 @@
       "surfaced_at": "2026-09-04T06:14:00Z",
       "updated_at": "2026-09-04T06:14:00Z",
       "decay_at": "2026-09-05T04:42:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ddb51395a688",
+      "idea_version": "IDEAV-d7ecaed09629a1b6",
+      "idea_version_started_at": "2026-09-03T23:05:06Z",
+      "ticker": "IVC",
+      "company": "Iveco Group N.V.",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
+      "why_now": "The tender offer was announced via press release on September 04, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7d528561a57"
+      ],
+      "primary_source_event_id": "EVT-a7d528561a57",
+      "source_headlines": [
+        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+      ],
+      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-03T18:44:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-03T23:05:06Z",
+      "updated_at": "2026-09-03T23:05:06Z",
+      "decay_at": "2026-09-05T06:44:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -102495,13 +102505,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 412,
-    "shown_count": 412,
+    "total_count": 414,
+    "shown_count": 414,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 213,
-        "shown_count": 213,
+        "total_count": 215,
+        "shown_count": 215,
         "hidden_count": 0
       },
       "short": {
@@ -102526,6 +102536,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-67edac5436ac",
+        "idea_version": "IDEAV-4528892f898b9a76",
+        "idea_version_started_at": "2026-09-04T20:44:18Z",
+        "ticker": "IVG",
+        "company": "Iveco Group N.V.",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for the stock.",
+        "why_now": "The tender offer was announced via press release on September 04, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a7d528561a57"
+        ],
+        "primary_source_event_id": "EVT-a7d528561a57",
+        "source_headlines": [
+          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+        ],
+        "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T18:44:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T12:20:12Z",
+        "updated_at": "2026-09-04T20:44:18Z",
+        "decay_at": "2026-09-05T06:44:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T06:44:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ddb51395a688",
+        "idea_version": "IDEAV-d7ecaed09629a1b6",
+        "idea_version_started_at": "2026-09-03T23:05:06Z",
+        "ticker": "IVC",
+        "company": "Iveco Group N.V.",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
+        "why_now": "The tender offer was announced via press release on September 04, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a7d528561a57"
+        ],
+        "primary_source_event_id": "EVT-a7d528561a57",
+        "source_headlines": [
+          "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
+        ],
+        "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-03T18:44:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-03T23:05:06Z",
+        "updated_at": "2026-09-03T23:05:06Z",
+        "decay_at": "2026-09-05T06:44:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-05T06:44:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-373f07b62282",
         "idea_version": "IDEAV-4416a5b0615d7f73",
@@ -133088,7 +133246,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 446,
-    "live_count": 32,
+    "live_count": 30,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -133107,9 +133265,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 205614,
-    "news_picked_today": 1299,
-    "news_dropped_today": 4941
+    "news_seen_today": 207594,
+    "news_picked_today": 1430,
+    "news_dropped_today": 5736
   },
   "book_momentum": {
     "live_count": 8,
