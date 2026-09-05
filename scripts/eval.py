@@ -3466,10 +3466,12 @@ if scope=="selftest":
     _be_rev_malformed = "RF-EARN-001: revenue decomposition reconciled — see the table above\n"
     _be_rev_table_row = "| RF-EARN-001 | reconciled | 3.2pp | 0.8pp |\n"
     _be_marg_ok = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 5.0bps, total 50.0bps\n"
+    _be_marg_endash = "RF-EARN-002: margin bridge reconciled – explained 45.0bps, residual 5.0bps, total 50.0bps\n"
     _be_marg_neartol = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 5.4bps, total 50.0bps\n"
     _be_marg_mismatch = "RF-EARN-002: margin bridge reconciled — explained 45.0bps, residual 6.5bps, total 50.0bps\n"
     becases=[  # (decision_date, rev_txt(02), marg_txt(03), expect: None=N/A, []=pass, [substr]=fail-with)
         ("2026-09-04",_be_rev_ok,_be_marg_ok,[]),                                     # both reconciled, arithmetic OK → pass
+        ("2026-09-04",_be_rev_ok,_be_marg_endash,[]),                                 # en-dash separator → pass
         ("2026-09-04",_be_rev_not_attempted,_be_marg_ok,[]),                          # legit not-attempted escape → pass
         ("2026-09-04",_be_rev_not_attempted_empty,_be_marg_ok,["no reason given"]),   # bare dodge → FAIL
         ("2026-09-04",_be_rev_absent,_be_marg_ok,["is absent from 02_revenue-drivers.md"]),  # tag missing → FAIL

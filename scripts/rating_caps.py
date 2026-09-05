@@ -627,7 +627,7 @@ MARGIN_BRIDGE_TAG = "RF-EARN-002"  # margin-drivers §7a: bridge reconciled / no
 BE_RECONCILE_TOLERANCE = 1.0       # units (pp or bps) — independently-rounded components' slack
 
 _BE_RECON_RE = re.compile(
-    r"reconciled\s*[—\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
+    r"\breconciled\s*[—–\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
     r"residual\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
     r"total\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)",
     re.IGNORECASE,
