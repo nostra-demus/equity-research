@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T10:44:38Z",
+  "generated_at": "2026-09-05T10:57:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-694",
+      "headline": "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/cbi-registers-case-against-subhash-chandra-over-alleged-1322-crore-lic-housing-finance-loan-fraud",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T10:37:23Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "The CBI registered a case against Subhash Chandra regarding an alleged ₹1,322 crore loan fraud involving LIC Housing Finance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CBI registered a case against Subhash Chandra regarding an alleged ₹1,322 crore loan fraud involving LIC Housing Finance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subhash Chandra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-691",
       "headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
@@ -1978,55 +2027,6 @@
           "name": "Novartis",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-501",
-      "headline": "VW Approves Plan for 50K More Layoffs, US Retail Diesel Hits Record | The Opening Trade 9/4/2026",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-04/the-opening-trade-9-4-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T11:36:46Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "VW approving 50,000 layoffs is a major restructuring event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "VW approving 50,000 layoffs is a major restructuring event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -134738,9 +134738,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209835,
-    "news_picked_today": 1531,
-    "news_dropped_today": 7772
+    "news_seen_today": 209970,
+    "news_picked_today": 1539,
+    "news_dropped_today": 7899
   },
   "book_momentum": {
     "live_count": 8,
