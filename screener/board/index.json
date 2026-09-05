@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-05T12:26:20Z",
+  "generated_at": "2026-09-05T12:38:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260905-715",
+      "headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T12:27:44Z",
+      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
+      "prelim_note": "Tata Consultancy Services is committing a significant $7.4 billion investment into an AI data center campus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Consultancy Services is committing a significant $7.4 billion investment into an AI data center campus.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260905-706",
       "headline": "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion",
@@ -1975,55 +2024,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260905-587",
-      "headline": "Joby Aviation Is Spending $450 Million in Cash to Roughly Double Its Revenue",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/joby-aviation-spending-450-million-cash-roughly-double-its-revenue",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-04T07:57:01Z",
-      "sweep_file": "screener/inbox/2026-09-05_sweep.json",
-      "prelim_note": "Joby Aviation is committing $450 million in cash to scale operations and revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Joby Aviation is committing $450 million in cash to scale operations and revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Joby Aviation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -134732,9 +134732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 211036,
-    "news_picked_today": 1593,
-    "news_dropped_today": 8911
+    "news_seen_today": 211137,
+    "news_picked_today": 1596,
+    "news_dropped_today": 8985
   },
   "book_momentum": {
     "live_count": 8,
