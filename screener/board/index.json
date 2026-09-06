@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T16:55:19Z",
+  "generated_at": "2026-09-06T16:59:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1060,6 +1060,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-265",
+      "headline": "No bailout for Jaguar Land Rover, says minister",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/economy/policy/articles/no-bailout-jaguar-land-rover-153126678.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T15:31:26Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A government minister confirms there will be no bailout for Jaguar Land Rover, increasing financial risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "A government minister confirms there will be no bailout for Jaguar Land Rover, increasing financial risk for the company.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-237",
       "headline": "Canada Hits Back With New US Tariffs",
       "headline_en": null,
@@ -1868,55 +1917,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-174",
-      "headline": "‎ACDIMA completes sale of 10.5% stake in SPIMACO",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1934360",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T10:09:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "ACDIMA has completed the sale of a 10.5% stake in SPIMACO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "ACDIMA has completed the sale of a 10.5% stake in SPIMACO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPIMACO",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141583,9 +141583,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2954,
-    "news_picked_today": 581,
-    "news_dropped_today": 2373
+    "news_seen_today": 2970,
+    "news_picked_today": 585,
+    "news_dropped_today": 2385
   },
   "book_momentum": {
     "live_count": 8,
