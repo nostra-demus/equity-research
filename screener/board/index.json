@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T09:00:08Z",
+  "generated_at": "2026-09-06T09:05:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-194",
@@ -428,6 +428,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-196",
+      "headline": "AgBank, ICBC Plan Private Placements of Up to $38.7 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-06/agbank-icbc-plan-private-placements-totaling-up-to-260b-yuan-mtpk2qgx",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T08:34:31Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Agricultural Bank of China and ICBC plan to raise up to $38.7 billion through private placements to bolster capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Agricultural Bank of China and ICBC plan to raise up to $38.7 billion through private placements to bolster capital.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Agricultural Bank of China",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Industrial and Commercial Bank of China",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1945,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-059",
-      "headline": "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/sia-affected-ash-mount-anak-krakatau-eruption-leads-jakarta-airport-flight-suspensions",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:54:06Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Flight suspensions due to volcanic ash are disrupting operations for Singapore Airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Flight suspensions due to volcanic ash are disrupting operations for Singapore Airlines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140803,9 +140808,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1292,
-    "news_picked_today": 273,
-    "news_dropped_today": 1019
+    "news_seen_today": 1306,
+    "news_picked_today": 277,
+    "news_dropped_today": 1029
   },
   "book_momentum": {
     "live_count": 8,
