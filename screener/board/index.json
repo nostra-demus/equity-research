@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T11:22:02Z",
+  "generated_at": "2026-09-06T11:26:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-220",
+      "headline": "ZHIHU-W (02390): MAJOR TRANSACTION SUBSCRIPTION OF THE FUND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600067.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T11:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Zhihu is undertaking a major transaction involving the subscription of a fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhihu is undertaking a major transaction involving the subscription of a fund.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhihu",
+          "ticker": "02390",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-206",
       "headline": "BILIBILI-W (09626): PROPOSED OFF-MARKET SHARE BUY-BACK PRICING OF OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
@@ -435,6 +484,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-219",
+      "headline": "FOSUN INTL (00656): DISCLOSEABLE TRANSACTION - IN RELATION TO THE DISPOSAL OF CERTAIN SHARES IN A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T11:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Fosun International is disposing of shares in a subsidiary, which is a discloseable transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Fosun International is disposing of shares in a subsidiary, which is a discloseable transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fosun International",
+          "ticker": "00656",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1834,104 +1932,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-047",
-      "headline": "₹393 Crore Mismatch Rings Alarm At Madhya Pradesh Textbook Corporation, Audit Seeks Special Probe",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/393-crore-mismatch-rings-alarm-at-madhya-pradesh-textbook-corporation-audit-seeks-special-probe",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A 393 crore rupee mismatch in the Madhya Pradesh Textbook Corporation audit indicates potential financial mismanagement or accounting irregularities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A 393 crore rupee mismatch in the Madhya Pradesh Textbook Corporation audit indicates potential financial mismanagement or accounting irregularities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Madhya Pradesh Textbook Corporation",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-217",
-      "headline": "‎SIMAH Launches Its Second Tier 4 Data Center at LEAP and Announces its Readiness for the Next Era of Intelligence and Innovation",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1934416",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T13:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "SIMAH has launched a new Tier 4 data center, representing a significant infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "SIMAH has launched a new Tier 4 data center, representing a significant infrastructure investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SIMAH",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141163,9 +141163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1801,
-    "news_picked_today": 365,
-    "news_dropped_today": 1436
+    "news_seen_today": 1820,
+    "news_picked_today": 370,
+    "news_dropped_today": 1450
   },
   "book_momentum": {
     "live_count": 8,
