@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T06:41:48Z",
+  "generated_at": "2026-09-06T06:51:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -332,6 +332,56 @@
           "name": "Continental AG",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-154",
+      "headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T06:27:50Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "State Bank of India announced a significant expansion plan involving 12,000 new hires and 250 branches, alongside a planned 1% stake dilution in the NSE IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "State Bank of India announced a significant expansion plan involving 12,000 new hires and 250 branches, alongside a planned 1% stake dilution in the NSE IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1876,55 +1926,6 @@
           "name": "Banan Real Estate",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-123",
-      "headline": "‎Molan proposes reverse stock split",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1934317",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T08:32:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Molan has proposed a reverse stock split, which is a significant capital structure change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Molan has proposed a reverse stock split, which is a significant capital structure change.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Molan",
-          "ticker": null,
-          "listing_country": "SA"
         }
       ],
       "size_bucket": "unknown",
@@ -140273,9 +140274,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 836,
-    "news_picked_today": 189,
-    "news_dropped_today": 647
+    "news_seen_today": 889,
+    "news_picked_today": 192,
+    "news_dropped_today": 697
   },
   "book_momentum": {
     "live_count": 8,
