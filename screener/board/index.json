@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:41:43Z",
+  "generated_at": "2026-09-06T11:55:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -963,6 +963,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-223",
+      "headline": "ANTON OILFIELD (03337): VOLUNTARY ANNOUNCEMENT - Obtaining Crude Oil Sales Qualification in Iraq and Entering into a Long-term Crude Oil Sales Agreement",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600077.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T11:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Anton Oilfield secured a long-term crude oil sales agreement in Iraq, representing a significant new revenue stream.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Anton Oilfield secured a long-term crude oil sales agreement in Iraq, representing a significant new revenue stream.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anton Oilfield",
+          "ticker": "03337",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-199",
       "headline": "Chalet Hotels targets 5,500 keys by FY30, bets on hybrid model",
       "headline_en": null,
@@ -1880,55 +1929,6 @@
           "name": "Sunshine Oil",
           "ticker": "02012",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-121",
-      "headline": "Secret suitor Roc slams Pacific Current Group’s silence on hidden bid",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/secret-suitor-roc-slams-pacific-current-group-s-silence-on-hidden-bid-20260906-p60uuc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T05:29:27Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Roc Partners is publicly pressuring Pacific Current Group regarding a hidden acquisition bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Roc Partners is publicly pressuring Pacific Current Group regarding a hidden acquisition bid.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pacific Current Group",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -141237,9 +141237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1888,
-    "news_picked_today": 379,
-    "news_dropped_today": 1509
+    "news_seen_today": 1952,
+    "news_picked_today": 390,
+    "news_dropped_today": 1562
   },
   "book_momentum": {
     "live_count": 8,
