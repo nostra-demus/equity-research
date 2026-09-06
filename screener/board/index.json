@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:19:31Z",
+  "generated_at": "2026-09-06T01:24:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -417,6 +417,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-027",
+      "headline": "Greg Abel Says Berkshire Will Serve the Hyperscalers Only If Its Other Customers Don't Pay for It",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/05/greg-abel-says-berkshire-will-serve-the-hyperscalers-only-if-its-other-customers-don-t-pay-for-it/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:47:01Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Commentary on utility capacity allocation strategy for data centers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Commentary on utility capacity allocation strategy for data centers.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-015",
       "headline": "Resideo SVP Mehta Buys 10,928 Shares in $226,000 Direct Purchase",
       "headline_en": null,
@@ -510,6 +559,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-025",
+      "headline": "US-Iran war LIVE: Iran fires several ballistic missiles at US aircraft carrier, destroyer harassing Iranian ships",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-war-news-latest-live-updates-donald-trump-bahrain-kuwait-jd-vance-abbas-araghchi-pezeshkian-strait-of-hormuz-attack-11788655201814.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:15:10Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A direct military conflict between the US and Iran involving attacks on naval assets represents a major geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "A direct military conflict between the US and Iran involving attacks on naval assets represents a major geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -699,6 +791,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-026",
+      "headline": "US, Iran trade attacks on vessels in waters near Iran as conflict deepens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/us-iran-trade-attacks-vessels-waters-near-iran-conflict-deepens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:15:55Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Escalating military conflict in the Strait of Hormuz threatens global energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Escalating military conflict in the Strait of Hormuz threatens global energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-021",
       "headline": "U.S. grip on Venezuelan oil threatens billions owed to China",
       "headline_en": null,
@@ -828,21 +963,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-024",
-      "headline": "US and Iranian forces trade tit-for-tat fire at vessels in waters near Iran as conflict deepens",
+      "inbox_id": "INB-20260906-028",
+      "headline": "US-Iran ship attacks open dangerous new phase in battle for Strait of Hormuz",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/us-and-iranian-forces-trade-tit-tat-fire-vessels-waters-near-iran-conflict-deepens",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://gulfnews.com/world/mena/us-iran-war-tanker-strikes-open-dangerous-new-phase-in-hormuz-as-tehran-threatens-us-warships-1.500664548",
+      "source_name": "Gulf News",
       "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:15:55Z",
+      "found_at": "2026-09-06T01:01:00Z",
       "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
+      "prelim_note": "Geopolitical instability in a critical maritime chokepoint for global oil transit.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
-      "region": "GLOBAL",
+      "triage_reason": "Geopolitical instability in a critical maritime chokepoint for global oil transit.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -939,6 +1074,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-024",
+      "headline": "US and Iranian forces trade tit-for-tat fire at vessels in waters near Iran as conflict deepens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/us-and-iranian-forces-trade-tit-tat-fire-vessels-waters-near-iran-conflict-deepens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:15:55Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -137686,7 +137864,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2070,
+    "inbox_unconsumed": 2074,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -137695,9 +137873,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 138,
-    "news_picked_today": 24,
-    "news_dropped_today": 114
+    "news_seen_today": 150,
+    "news_picked_today": 28,
+    "news_dropped_today": 122
   },
   "book_momentum": {
     "live_count": 8,
