@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:36:50Z",
+  "generated_at": "2026-09-06T11:41:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1593,6 +1593,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-222",
+      "headline": "Equinor Starts Up 100 MW Energy Storage Project in Texas",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/equinor_starts_up_100_mw_energy_storage_project_in_texas-06-sep-2026-184546-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Equinor has commissioned a 100 MW energy storage project, expanding its operational capacity in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Equinor has commissioned a 100 MW energy storage project, expanding its operational capacity in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equinor",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-147",
       "headline": "‎SABIC subsidiary gets feedstock approval for methanol plant",
       "headline_en": null,
@@ -1883,55 +1932,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-090",
-      "headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:00:20Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "LVMH experiencing a decline in luxury demand signals a broader sector-wide slowdown in consumer spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "LVMH experiencing a decline in luxury demand signals a broader sector-wide slowdown in consumer spending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LVMH",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141237,9 +141237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1867,
-    "news_picked_today": 375,
-    "news_dropped_today": 1492
+    "news_seen_today": 1888,
+    "news_picked_today": 379,
+    "news_dropped_today": 1509
   },
   "book_momentum": {
     "live_count": 8,
