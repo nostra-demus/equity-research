@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T00:24:30Z",
+  "generated_at": "2026-09-06T00:30:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -188,6 +188,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-011",
+      "headline": "Iran war live: IRGC claims new attacks on US warships over naval blockade",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/6/iran-war-live-irgc-claims-new-attacks-on-us-warships-over-naval-blockade?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-06T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Reports of military conflict escalation between Iran and the US represent a major geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Reports of military conflict escalation between Iran and the US represent a major geopolitical risk event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -136744,7 +136787,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2057,
+    "inbox_unconsumed": 2058,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -136753,9 +136796,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 52,
-    "news_picked_today": 10,
-    "news_dropped_today": 42
+    "news_seen_today": 62,
+    "news_picked_today": 11,
+    "news_dropped_today": 51
   },
   "book_momentum": {
     "live_count": 8,
