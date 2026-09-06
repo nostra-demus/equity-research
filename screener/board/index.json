@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T04:20:29Z",
+  "generated_at": "2026-09-06T04:34:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -335,6 +335,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-090",
+      "headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:00:20Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "LVMH experiencing a decline in luxury demand signals a broader sector-wide slowdown in consumer spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "LVMH experiencing a decline in luxury demand signals a broader sector-wide slowdown in consumer spending.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LVMH",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-047",
       "headline": "₹393 Crore Mismatch Rings Alarm At Madhya Pradesh Textbook Corporation, Audit Seeks Special Probe",
       "headline_en": null,
@@ -576,6 +625,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-087",
+      "headline": "Russian gold floods through Hong Kong in wake of western sanctions",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/39b0c966-b153-4706-9325-2f6176ba3752?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:00:12Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Russian gold bypassing sanctions via Hong Kong indicates a significant loophole in international trade enforcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Russian gold bypassing sanctions via Hong Kong indicates a significant loophole in international trade enforcement.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1327,6 +1419,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-094",
+      "headline": "Middle East crude oil exports in August down 39 percent, TankerTrackers says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/middle-east-crude-oil-exports-august-down-39-percent-tankertrackers-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:30:13Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A 39 percent drop in Middle East crude oil exports indicates a major supply shock with significant implications for global energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "A 39 percent drop in Middle East crude oil exports indicates a major supply shock with significant implications for global energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-083",
       "headline": "US hits Iranian oil tankers, and other key Mideast developments",
       "headline_en": null,
@@ -1722,147 +1857,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-032",
-      "headline": "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/roborock-reports-27-6-revenue-growth-in-h1-2026--reinforcing-global-market-leadership-302868216.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-06T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roborock",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-039",
-      "headline": "Indonesia Halts Jakarta, Lampung Flights on Volcanic Eruptions",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-06/indonesia-halts-jakarta-lampung-flights-on-volcanic-eruptions",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:44:33Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Volcanic eruptions have forced the suspension of flights in Jakarta and Lampung, creating a material operational disruption for regional aviation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Volcanic eruptions have forced the suspension of flights in Jakarta and Lampung, creating a material operational disruption for regional aviation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-055",
-      "headline": "Hilton signs deal for first Zimbabwe hotel",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/investing/property/hilton-signs-deal-for-first-zimbabwe-hotel/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:00:17Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Hilton is expanding its footprint into a new market in Zimbabwe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Hilton is expanding its footprint into a new market in Zimbabwe.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hilton",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100884,76 +100878,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-177f467dfd2a",
-      "idea_version": "IDEAV-eed1b52b265141e7",
-      "idea_version_started_at": "2026-09-05T22:12:55Z",
-      "ticker": "AON",
-      "company": "Aon plc",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $17 billion debt-funded acquisition of USI introduces significant balance sheet risk and execution uncertainty, with only $395 million in projected synergies failing to justify the leverage.",
-      "why_now": "The deal was announced on 2026-09-04, and the market is currently digesting the impact of the increased debt load.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d9b9ef2082a"
-      ],
-      "primary_source_event_id": "EVT-7d9b9ef2082a",
-      "source_headlines": [
-        "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?"
-      ],
-      "source_headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T16:28:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T22:12:55Z",
-      "updated_at": "2026-09-05T22:12:55Z",
-      "decay_at": "2026-09-06T04:28:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c53a2590812",
       "idea_version": "IDEAV-462280871546be7e",
       "idea_version_started_at": "2026-09-05T07:36:33Z",
@@ -103343,6 +103267,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-177f467dfd2a",
+      "idea_version": "IDEAV-eed1b52b265141e7",
+      "idea_version_started_at": "2026-09-05T22:12:55Z",
+      "ticker": "AON",
+      "company": "Aon plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $17 billion debt-funded acquisition of USI introduces significant balance sheet risk and execution uncertainty, with only $395 million in projected synergies failing to justify the leverage.",
+      "why_now": "The deal was announced on 2026-09-04, and the market is currently digesting the impact of the increased debt load.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d9b9ef2082a"
+      ],
+      "primary_source_event_id": "EVT-7d9b9ef2082a",
+      "source_headlines": [
+        "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?"
+      ],
+      "source_headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T16:28:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T22:12:55Z",
+      "updated_at": "2026-09-05T22:12:55Z",
+      "decay_at": "2026-09-06T04:28:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-0c6d82b4b0e4",
@@ -106415,8 +106409,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 444,
-    "shown_count": 444,
+    "total_count": 445,
+    "shown_count": 445,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -106425,8 +106419,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 213,
-        "shown_count": 213,
+        "total_count": 214,
+        "shown_count": 214,
         "hidden_count": 0
       }
     },
@@ -106446,6 +106440,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-177f467dfd2a",
+        "idea_version": "IDEAV-eed1b52b265141e7",
+        "idea_version_started_at": "2026-09-05T22:12:55Z",
+        "ticker": "AON",
+        "company": "Aon plc",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The $17 billion debt-funded acquisition of USI introduces significant balance sheet risk and execution uncertainty, with only $395 million in projected synergies failing to justify the leverage.",
+        "why_now": "The deal was announced on 2026-09-04, and the market is currently digesting the impact of the increased debt load.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7d9b9ef2082a"
+        ],
+        "primary_source_event_id": "EVT-7d9b9ef2082a",
+        "source_headlines": [
+          "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?"
+        ],
+        "source_headline": "Aon (AON) is Paying $17B for USI. Can $395M of Synergies Justify Another Debt-Funded Megadeal?",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/aon-aon-paying-17b-usi-162842766.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T16:28:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T22:12:55Z",
+        "updated_at": "2026-09-05T22:12:55Z",
+        "decay_at": "2026-09-06T04:28:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T04:28:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-99a574f2e453",
         "idea_version": "IDEAV-d48874a256e338b5",
@@ -139383,7 +139450,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 486,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -139402,9 +139469,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 444,
-    "news_picked_today": 98,
-    "news_dropped_today": 346
+    "news_seen_today": 482,
+    "news_picked_today": 106,
+    "news_dropped_today": 376
   },
   "book_momentum": {
     "live_count": 8,
