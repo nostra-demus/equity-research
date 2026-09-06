@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T23:25:13Z",
+  "generated_at": "2026-09-06T23:29:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-315",
@@ -191,6 +191,60 @@
           "name": "Bilibili",
           "ticker": "09626",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-350",
+      "headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:05:10Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Termination of a $14.5 billion merger agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Termination of a $14.5 billion merger agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solstice",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Element Solutions",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1904,50 +1958,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-304",
-      "headline": "Iran warns of ‘more painful’ retaliation as US sanctions cripple its economy",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/iran-warns-more-painful-retaliation-us-sanctions-cripple-its-economy",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T21:56:44Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Geopolitical escalation involving sanctions and threats of retaliation impacts global energy and trade risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Geopolitical escalation involving sanctions and threats of retaliation impacts global energy and trade risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -141787,9 +141797,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4190,
-    "news_picked_today": 876,
-    "news_dropped_today": 3314
+    "news_seen_today": 4222,
+    "news_picked_today": 885,
+    "news_dropped_today": 3337
   },
   "book_momentum": {
     "live_count": 8,
