@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:12:24Z",
+  "generated_at": "2026-09-06T11:22:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -1692,6 +1692,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-218",
+      "headline": "SUNSHINE OIL (02012): ISSUE OF SHARES UNDER GENERAL MANDATE FOR SETTLEMENT OF DEBTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600065.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T11:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Sunshine Oil is issuing shares to settle debts, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Sunshine Oil is issuing shares to settle debts, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sunshine Oil",
+          "ticker": "02012",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-121",
       "headline": "Secret suitor Roc slams Pacific Current Group’s silence on hidden bid",
       "headline_en": null,
@@ -1883,55 +1932,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-187",
-      "headline": "NoBroker targets profitability in 8-10 months, FY26 revenue tops ₹1,000 cr",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/nobroker-targets-profitability-in-8-10-months-fy26-revenue-tops-1000-cr/article71434840.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T08:39:34Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "NoBroker reported FY26 revenue exceeding 1,000 crore INR and targets profitability within 8-10 months.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "NoBroker reported FY26 revenue exceeding 1,000 crore INR and targets profitability within 8-10 months.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NoBroker",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141163,9 +141163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1765,
-    "news_picked_today": 357,
-    "news_dropped_today": 1408
+    "news_seen_today": 1801,
+    "news_picked_today": 365,
+    "news_dropped_today": 1436
   },
   "book_momentum": {
     "live_count": 8,
