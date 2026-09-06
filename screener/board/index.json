@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:26:47Z",
+  "generated_at": "2026-09-06T10:36:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -871,6 +871,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-210",
+      "headline": "Minister to meet Jaguar Land Rover boss as thousands of job cuts expected",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/crer948xq00o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:29:03Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Jaguar Land Rover is expected to announce thousands of job cuts, signaling significant operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Jaguar Land Rover is expected to announce thousands of job cuts, signaling significant operational restructuring.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-212",
+      "headline": "Iran's response to US attacks will be 'more painful', parliament speaker says",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/middle-east/irans-response-to-us-attacks-will-be-more-painful-parliament-speaker-says-4136956",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:18:20Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Escalating geopolitical tensions between Iran and the US threaten regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Escalating geopolitical tensions between Iran and the US threaten regional stability and global energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-207",
       "headline": "JLR plans up to 4,000 job cuts as Chinese rivals pile on pressure",
       "headline_en": null,
@@ -1704,55 +1796,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-209",
-      "headline": "UK business minister to meet Jaguar Land Rover CEO over job cuts",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/uk/uk-business-minister-meet-jaguar-land-rover-ceo-over-job-cuts-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T10:21:44Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The UK business minister is meeting with the CEO of Jaguar Land Rover to discuss planned job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The UK business minister is meeting with the CEO of Jaguar Land Rover to discuss planned job cuts.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260906-187",
       "headline": "NoBroker targets profitability in 8-10 months, FY26 revenue tops ₹1,000 cr",
       "headline_en": null,
@@ -1896,56 +1939,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-076",
-      "headline": "VW’s surprise job-slashing deal is a big win for its bosses",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T03:30:19Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Volkswagen reached a deal to implement job cuts, which is viewed as a positive development for management's operational efficiency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Volkswagen reached a deal to implement job cuts, which is viewed as a positive development for management's operational efficiency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -102485,6 +102478,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9908603014ee",
+      "idea_version": "IDEAV-fb3e9ebbd19dfd8d",
+      "idea_version_started_at": "2026-09-06T10:27:02Z",
+      "ticker": "542665",
+      "company": "Neogen Chemicals",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company received a show cause cum demand notice from the CGST and Central Excise Commissionerate, creating immediate regulatory and financial uncertainty regarding potential tax liabilities.",
+      "why_now": "The exchange filing was published today, September 6, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4ece6b82ccfc"
+      ],
+      "primary_source_event_id": "EVT-4ece6b82ccfc",
+      "source_headlines": [
+        "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur."
+      ],
+      "source_headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/NEOGEN_06092026141404_GSTnotice.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-06T08:44:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T10:27:02Z",
+      "updated_at": "2026-09-06T10:27:02Z",
+      "decay_at": "2026-09-07T20:44:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-65740e8f0ef8",
       "idea_version": "IDEAV-ca3ef71f286e9f4c",
       "idea_version_started_at": "2026-09-06T08:57:19Z",
@@ -141156,8 +141220,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 500,
-    "live_count": 42,
+    "surfaced_total": 501,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -141176,9 +141240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1590,
-    "news_picked_today": 328,
-    "news_dropped_today": 1262
+    "news_seen_today": 1614,
+    "news_picked_today": 333,
+    "news_dropped_today": 1281
   },
   "book_momentum": {
     "live_count": 8,
