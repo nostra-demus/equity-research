@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:50:09Z",
+  "generated_at": "2026-09-06T10:55:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -1839,6 +1839,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-217",
+      "headline": "‎SIMAH Launches Its Second Tier 4 Data Center at LEAP and Announces its Readiness for the Next Era of Intelligence and Innovation",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934416",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T13:49:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "SIMAH has launched a new Tier 4 data center, representing a significant infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SIMAH has launched a new Tier 4 data center, representing a significant infrastructure investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SIMAH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-187",
       "headline": "NoBroker targets profitability in 8-10 months, FY26 revenue tops ₹1,000 cr",
       "headline_en": null,
@@ -1883,56 +1932,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-073",
-      "headline": "‘Misbranded’ Abhayrab rabies vaccine seized in Delhi, ‘no part exported to any other country’: What DCGI said",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/misbranded-abhayrab-rabies-vaccine-seized-in-delhi-no-part-exported-to-any-other-country-what-dcgi-said-11788664744347.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T03:41:23Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Regulatory seizure of misbranded vaccines indicates potential quality control failures and legal risk for the manufacturer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Regulatory seizure of misbranded vaccines indicates potential quality control failures and legal risk for the manufacturer.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abhayrab",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141234,9 +141233,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1687,
-    "news_picked_today": 348,
-    "news_dropped_today": 1339
+    "news_seen_today": 1698,
+    "news_picked_today": 350,
+    "news_dropped_today": 1348
   },
   "book_momentum": {
     "live_count": 8,
