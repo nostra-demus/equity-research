@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T18:59:16Z",
+  "generated_at": "2026-09-06T18:59:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -100512,6 +100512,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-9fc5a70d33aecf8e",
+      "idea_version_started_at": "2026-09-06T18:59:32Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
+      "why_now": "The halt was reported on 2026-09-05.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d6c00aac88c4"
+      ],
+      "primary_source_event_id": "EVT-d6c00aac88c4",
+      "source_headlines": [
+        "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
+      ],
+      "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
+      "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
+      "source_name": "Endpoints News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T10:00:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T08:46:50Z",
+      "updated_at": "2026-09-06T18:59:32Z",
+      "decay_at": "2026-09-06T22:00:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0beb62fe006b",
       "idea_version": "IDEAV-8151dcab328d0292",
       "idea_version_started_at": "2026-09-06T18:32:33Z",
@@ -100859,76 +100929,6 @@
       "surfaced_at": "2026-09-05T18:21:47Z",
       "updated_at": "2026-09-05T23:52:55Z",
       "decay_at": "2026-09-07T05:54:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-37155ebd390a98cf",
-      "idea_version_started_at": "2026-09-05T23:08:05Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Patient deaths in a CAR-T program have forced a clinical halt, jeopardizing a high-value pipeline asset and raising safety concerns for the broader platform.",
-      "why_now": "The halt was reported on September 5, 2026, following the specific event of patient fatalities.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6c00aac88c4"
-      ],
-      "primary_source_event_id": "EVT-d6c00aac88c4",
-      "source_headlines": [
-        "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
-      ],
-      "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
-      "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:00:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T08:46:50Z",
-      "updated_at": "2026-09-05T23:08:05Z",
-      "decay_at": "2026-09-06T22:00:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -101422,6 +101422,78 @@
       "surfaced_at": "2026-09-06T00:30:20Z",
       "updated_at": "2026-09-06T00:30:20Z",
       "decay_at": "2026-09-06T23:17:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-ce1685e0acce36dc",
+      "idea_version_started_at": "2026-09-06T18:59:32Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing $7.4 billion to AI data center infrastructure, positioning it to capture significant demand in the high-growth artificial intelligence services market.",
+      "why_now": "The capital expenditure plan was announced on 2026-09-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4a2a1b4daf1"
+      ],
+      "primary_source_event_id": "EVT-b4a2a1b4daf1",
+      "source_headlines": [
+        "India's TCS unit to invest up to $7.4 billion in AI data center campus"
+      ],
+      "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
+      "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T12:27:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T13:02:11Z",
+      "updated_at": "2026-09-06T18:59:32Z",
+      "decay_at": "2026-09-07T00:27:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -101998,78 +102070,6 @@
       "surfaced_at": "2026-09-05T23:52:55Z",
       "updated_at": "2026-09-05T23:52:55Z",
       "decay_at": "2026-09-06T23:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-8c89f9876d9be9a9",
-      "idea_version_started_at": "2026-09-05T22:30:39Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $7.4 billion investment in an AI data center campus signals a major shift toward high-margin infrastructure-led service revenue and long-term capacity expansion.",
-      "why_now": "The capex announcement was made on 2026-09-05.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4a2a1b4daf1"
-      ],
-      "primary_source_event_id": "EVT-b4a2a1b4daf1",
-      "source_headlines": [
-        "India's TCS unit to invest up to $7.4 billion in AI data center campus"
-      ],
-      "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
-      "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T12:27:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T13:02:11Z",
-      "updated_at": "2026-09-05T22:30:39Z",
-      "decay_at": "2026-09-07T00:27:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -107397,77 +107397,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ddb51395a688",
-      "idea_version": "IDEAV-d7ecaed09629a1b6",
-      "idea_version_started_at": "2026-09-03T23:05:06Z",
-      "ticker": "IVC",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group, providing a clear floor and premium catalyst for shareholders.",
-      "why_now": "The tender offer was announced via press release on September 04, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7d528561a57"
-      ],
-      "primary_source_event_id": "EVT-a7d528561a57",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\"."
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated September 04, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_04092026001422_NSEBSEFINALPR3.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T18:44:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T23:05:06Z",
-      "updated_at": "2026-09-03T23:05:06Z",
-      "decay_at": "2026-09-05T06:44:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -107542,7 +107471,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 413,
+      "file_count": 414,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -110999,8 +110928,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T06:44:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T18:59:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
