@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T03:39:28Z",
+  "generated_at": "2026-09-06T03:44:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -325,6 +325,105 @@
       "companies": [
         {
           "name": "Madhya Pradesh Textbook Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-073",
+      "headline": "‘Misbranded’ Abhayrab rabies vaccine seized in Delhi, ‘no part exported to any other country’: What DCGI said",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/misbranded-abhayrab-rabies-vaccine-seized-in-delhi-no-part-exported-to-any-other-country-what-dcgi-said-11788664744347.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T03:41:23Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Regulatory seizure of misbranded vaccines indicates potential quality control failures and legal risk for the manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Regulatory seizure of misbranded vaccines indicates potential quality control failures and legal risk for the manufacturer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abhayrab",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-075",
+      "headline": "CS Energy asks for switch of judge in $1b-plus Callide court case",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/energy/cs-energy-asks-for-switch-of-judge-in-1b-plus-callide-court-case-20260904-p60ulr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T03:39:13Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Ongoing litigation involving a claim of over $1 billion poses a significant financial risk to the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Ongoing litigation involving a claim of over $1 billion poses a significant financial risk to the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CS Energy",
           "ticker": null,
           "listing_country": null
         }
@@ -1760,104 +1859,6 @@
           "name": "MTR Corporation",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-015",
-      "headline": "Resideo SVP Mehta Buys 10,928 Shares in $226,000 Direct Purchase",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/resideo-svp-mehta-buys-10928-shares-226000-direct-purchase",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:50:01Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Resideo SVP Mehta purchased 10,928 shares for approximately $226,000.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Resideo SVP Mehta purchased 10,928 shares for approximately $226,000.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Resideo Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-002",
-      "headline": "LG유플러스, 'PMDC 얼라이언스' 출범",
-      "headline_en": "LG Uplus launches 'PMDC Alliance'",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276262",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T23:48:27Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "LG Uplus launched a new industry alliance, which is a routine operational development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "LG Uplus launched a new industry alliance, which is a routine operational development.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Uplus",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -101374,76 +101375,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aae3ef159f69",
-      "idea_version": "IDEAV-6b3d1e38bfd09573",
-      "idea_version_started_at": "2026-09-05T22:50:47Z",
-      "ticker": "BSX",
-      "company": "Boston Scientific Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A major recall of Boston Scientific's spinal cord stimulator leads has been linked to more than 1,000 patient injuries, presenting significant litigation, regulatory, and market share risks.",
-      "why_now": "The critical severity recall details and injury counts were publicized on September 4, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c9b8a01f5ab3"
-      ],
-      "primary_source_event_id": "EVT-c9b8a01f5ab3",
-      "source_headlines": [
-        "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
-      ],
-      "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
-      "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
-      "source_name": "MedTech Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T15:39:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T17:02:16Z",
-      "updated_at": "2026-09-05T22:50:47Z",
-      "decay_at": "2026-09-06T03:39:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-221f5766989f",
       "idea_version": "IDEAV-ccc0495923ad5e20",
       "idea_version_started_at": "2026-09-06T00:30:20Z",
@@ -104179,6 +104110,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-aae3ef159f69",
+      "idea_version": "IDEAV-6b3d1e38bfd09573",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "BSX",
+      "company": "Boston Scientific Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A major recall of Boston Scientific's spinal cord stimulator leads has been linked to more than 1,000 patient injuries, presenting significant litigation, regulatory, and market share risks.",
+      "why_now": "The critical severity recall details and injury counts were publicized on September 4, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c9b8a01f5ab3"
+      ],
+      "primary_source_event_id": "EVT-c9b8a01f5ab3",
+      "source_headlines": [
+        "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
+      ],
+      "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
+      "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
+      "source_name": "MedTech Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T15:39:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T17:02:16Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T03:39:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aca7dee3c135",
       "idea_version": "IDEAV-26a66283ec5e01bf",
       "idea_version_started_at": "2026-09-04T21:35:36Z",
@@ -106121,8 +106122,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 439,
-    "shown_count": 439,
+    "total_count": 440,
+    "shown_count": 440,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -106131,8 +106132,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 211,
-        "shown_count": 211,
+        "total_count": 212,
+        "shown_count": 212,
         "hidden_count": 0
       }
     },
@@ -106152,6 +106153,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aae3ef159f69",
+        "idea_version": "IDEAV-6b3d1e38bfd09573",
+        "idea_version_started_at": "2026-09-05T22:50:47Z",
+        "ticker": "BSX",
+        "company": "Boston Scientific Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A major recall of Boston Scientific's spinal cord stimulator leads has been linked to more than 1,000 patient injuries, presenting significant litigation, regulatory, and market share risks.",
+        "why_now": "The critical severity recall details and injury counts were publicized on September 4, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c9b8a01f5ab3"
+        ],
+        "primary_source_event_id": "EVT-c9b8a01f5ab3",
+        "source_headlines": [
+          "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
+        ],
+        "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
+        "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
+        "source_name": "MedTech Dive",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T15:39:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T17:02:16Z",
+        "updated_at": "2026-09-05T22:50:47Z",
+        "decay_at": "2026-09-06T03:39:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T03:39:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5d7419f0c968",
         "idea_version": "IDEAV-5f4373d70d5503f4",
@@ -138719,7 +138793,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 482,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -138738,9 +138812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 379,
-    "news_picked_today": 73,
-    "news_dropped_today": 306
+    "news_seen_today": 390,
+    "news_picked_today": 79,
+    "news_dropped_today": 311
   },
   "book_momentum": {
     "live_count": 8,
