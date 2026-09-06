@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T22:34:53Z",
+  "generated_at": "2026-09-06T22:39:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-315",
+      "headline": "SOP: Synertec secures $45.5m Contract with Government Agency [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SOP?key=2924-03132275-3A701144",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T22:34:10Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Synertec secured a $45.5 million contract with a government agency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Synertec secured a $45.5 million contract with a government agency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Synertec",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-313",
       "headline": "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]",
@@ -1846,100 +1895,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-289",
-      "headline": "Three Of Credit's Biggest Names Are In Talks On Waymo's $3 Billion Debt Raise",
+      "inbox_id": "INB-20260906-317",
+      "headline": "LU7: Brownsville Lithium Refinery PFS [price-sensitive]",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/three-credits-biggest-names-talks-193034091.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T19:30:34Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LU7?key=2924-03132271-6A1342426",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T22:32:50Z",
       "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Waymo is in talks to raise $3 billion in debt.",
+      "prelim_note": "Lunnon Metals released a Pre-Feasibility Study for its Brownsville Lithium Refinery.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Waymo is in talks to raise $3 billion in debt.",
-      "region": "US",
+      "triage_reason": "Lunnon Metals released a Pre-Feasibility Study for its Brownsville Lithium Refinery.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Waymo",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-154",
-      "headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T06:27:50Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "State Bank of India announced a significant expansion plan involving 12,000 new hires and 250 branches, alongside a planned 1% stake dilution in the NSE IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "State Bank of India announced a significant expansion plan involving 12,000 new hires and 250 branches, alongside a planned 1% stake dilution in the NSE IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
+        "materiality": 60,
+        "source_tier": 8,
         "scope": 6,
         "event": 6,
-        "size": 2,
+        "size": -1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": "capex",
-        "size_bucket": "large"
+        "size_bucket": "small"
       },
       "event_types": [
-        "capex",
-        "capital_actions"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "State Bank of India",
+          "name": "Lunnon Metals",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -102027,78 +102026,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-15541783b8ad",
-      "idea_version": "IDEAV-bdd6e9b9f1e5b408",
-      "idea_version_started_at": "2026-09-06T18:05:43Z",
-      "ticker": "LICHSGFIN",
-      "company": "LIC Housing Finance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The CBI has registered a fraud case involving a ₹1,322 crore loan, creating significant credit loss risk and potential governance scrutiny for the lender.",
-      "why_now": "The registration of the case by the CBI was reported on September 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7640e2af3dc4"
-      ],
-      "primary_source_event_id": "EVT-7640e2af3dc4",
-      "source_headlines": [
-        "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
-      ],
-      "source_headline": "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud",
-      "source_url": "https://www.freepressjournal.in/business/cbi-registers-case-against-subhash-chandra-over-alleged-1322-crore-lic-housing-finance-loan-fraud",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:37:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:44:15Z",
-      "updated_at": "2026-09-06T18:05:43Z",
-      "decay_at": "2026-09-06T22:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-671ed28cb051",
       "idea_version": "IDEAV-d856f2497aec3371",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -102891,81 +102818,6 @@
       "surfaced_at": "2026-09-05T15:04:26Z",
       "updated_at": "2026-09-05T15:04:26Z",
       "decay_at": "2026-09-07T01:55:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-cb9b882c0756",
-      "idea_version": "IDEAV-97797391891ec002",
-      "idea_version_started_at": "2026-09-05T13:02:11Z",
-      "ticker": "ZEEL",
-      "company": "Zee Entertainment Enterprises",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A fresh CBI FIR against founder Subhash Chandra for a ₹1,322 crore fraud case involving LIC Housing Finance renews governance risks and potential asset freezes for Essel Group entities.",
-      "why_now": "The CBI lodged the FIR on September 5, 2026, creating immediate headline risk and potential forced selling by institutional holders.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b7a6222eefcf",
-        "EVT-d0edf79961c1",
-        "EVT-7640e2af3dc4"
-      ],
-      "primary_source_event_id": "EVT-b7a6222eefcf",
-      "source_headlines": [
-        "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
-        "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
-        "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
-      ],
-      "source_headline": "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
-      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/cbi-lodges-fir-against-subhash-chandra-three-others-in-rs-1322-crore-fraud-case-lic-housing-finance/articleshow/133794433.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:37:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T13:02:11Z",
-      "updated_at": "2026-09-05T13:02:11Z",
-      "decay_at": "2026-09-06T22:37:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -105552,6 +105404,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-15541783b8ad",
+      "idea_version": "IDEAV-bdd6e9b9f1e5b408",
+      "idea_version_started_at": "2026-09-06T18:05:43Z",
+      "ticker": "LICHSGFIN",
+      "company": "LIC Housing Finance",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CBI has registered a fraud case involving a ₹1,322 crore loan, creating significant credit loss risk and potential governance scrutiny for the lender.",
+      "why_now": "The registration of the case by the CBI was reported on September 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7640e2af3dc4"
+      ],
+      "primary_source_event_id": "EVT-7640e2af3dc4",
+      "source_headlines": [
+        "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
+      ],
+      "source_headline": "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud",
+      "source_url": "https://www.freepressjournal.in/business/cbi-registers-case-against-subhash-chandra-over-alleged-1322-crore-lic-housing-finance-loan-fraud",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T10:37:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:44:15Z",
+      "updated_at": "2026-09-06T18:05:43Z",
+      "decay_at": "2026-09-06T22:37:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d7419f0c968",
       "idea_version": "IDEAV-5f4373d70d5503f4",
       "idea_version_started_at": "2026-09-05T23:08:05Z",
@@ -106196,6 +106120,81 @@
       "surfaced_at": "2026-09-04T11:22:21Z",
       "updated_at": "2026-09-05T19:30:09Z",
       "decay_at": "2026-09-05T21:48:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cb9b882c0756",
+      "idea_version": "IDEAV-97797391891ec002",
+      "idea_version_started_at": "2026-09-05T13:02:11Z",
+      "ticker": "ZEEL",
+      "company": "Zee Entertainment Enterprises",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A fresh CBI FIR against founder Subhash Chandra for a ₹1,322 crore fraud case involving LIC Housing Finance renews governance risks and potential asset freezes for Essel Group entities.",
+      "why_now": "The CBI lodged the FIR on September 5, 2026, creating immediate headline risk and potential forced selling by institutional holders.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b7a6222eefcf",
+        "EVT-d0edf79961c1",
+        "EVT-7640e2af3dc4"
+      ],
+      "primary_source_event_id": "EVT-b7a6222eefcf",
+      "source_headlines": [
+        "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
+        "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
+        "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
+      ],
+      "source_headline": "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
+      "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/cbi-lodges-fir-against-subhash-chandra-three-others-in-rs-1322-crore-fraud-case-lic-housing-finance/articleshow/133794433.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T10:37:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T13:02:11Z",
+      "updated_at": "2026-09-05T13:02:11Z",
+      "decay_at": "2026-09-06T22:37:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -107220,8 +107219,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 457,
-    "shown_count": 457,
+    "total_count": 459,
+    "shown_count": 459,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -107230,8 +107229,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 217,
-        "shown_count": 217,
+        "total_count": 219,
+        "shown_count": 219,
         "hidden_count": 0
       }
     },
@@ -107251,6 +107250,159 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-15541783b8ad",
+        "idea_version": "IDEAV-bdd6e9b9f1e5b408",
+        "idea_version_started_at": "2026-09-06T18:05:43Z",
+        "ticker": "LICHSGFIN",
+        "company": "LIC Housing Finance",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The CBI has registered a fraud case involving a ₹1,322 crore loan, creating significant credit loss risk and potential governance scrutiny for the lender.",
+        "why_now": "The registration of the case by the CBI was reported on September 5, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7640e2af3dc4"
+        ],
+        "primary_source_event_id": "EVT-7640e2af3dc4",
+        "source_headlines": [
+          "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
+        ],
+        "source_headline": "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud",
+        "source_url": "https://www.freepressjournal.in/business/cbi-registers-case-against-subhash-chandra-over-alleged-1322-crore-lic-housing-finance-loan-fraud",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T10:37:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T10:44:15Z",
+        "updated_at": "2026-09-06T18:05:43Z",
+        "decay_at": "2026-09-06T22:37:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T22:37:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cb9b882c0756",
+        "idea_version": "IDEAV-97797391891ec002",
+        "idea_version_started_at": "2026-09-05T13:02:11Z",
+        "ticker": "ZEEL",
+        "company": "Zee Entertainment Enterprises",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A fresh CBI FIR against founder Subhash Chandra for a ₹1,322 crore fraud case involving LIC Housing Finance renews governance risks and potential asset freezes for Essel Group entities.",
+        "why_now": "The CBI lodged the FIR on September 5, 2026, creating immediate headline risk and potential forced selling by institutional holders.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b7a6222eefcf",
+          "EVT-d0edf79961c1",
+          "EVT-7640e2af3dc4"
+        ],
+        "primary_source_event_id": "EVT-b7a6222eefcf",
+        "source_headlines": [
+          "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
+          "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
+          "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
+        ],
+        "source_headline": "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
+        "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/cbi-lodges-fir-against-subhash-chandra-three-others-in-rs-1322-crore-fraud-case-lic-housing-finance/articleshow/133794433.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T10:37:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T13:02:11Z",
+        "updated_at": "2026-09-05T13:02:11Z",
+        "decay_at": "2026-09-06T22:37:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T22:37:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-9fc5a70d33aecf8e",
@@ -141162,7 +141314,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 516,
-    "live_count": 57,
+    "live_count": 55,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -141181,9 +141333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3978,
-    "news_picked_today": 802,
-    "news_dropped_today": 3176
+    "news_seen_today": 4014,
+    "news_picked_today": 815,
+    "news_dropped_today": 3199
   },
   "book_momentum": {
     "live_count": 8,
