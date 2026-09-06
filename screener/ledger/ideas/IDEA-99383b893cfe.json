@@ -1,0 +1,77 @@
+{
+  "idea_id": "IDEA-99383b893cfe",
+  "idea_version": "IDEAV-51e5699e56ff490e",
+  "idea_version_started_at": "2026-09-06T03:55:04Z",
+  "ticker": "USO",
+  "company": "United States Oil Fund LP",
+  "exchange": "NYSE Arca",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Direct military engagement involving the US Navy striking Iranian oil tankers in the Strait of Hormuz creates an immediate supply-side risk premium and disruption to global crude transit.",
+  "why_now": "The escalation reached a kinetic phase on September 6, 2026, with confirmed US strikes on tankers following threats from the Defense Secretary.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 23,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "commodity_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-46e22818ca95",
+    "EVT-a632221c2c6a",
+    "EVT-176bb6e5e1b3"
+  ],
+  "primary_source_event_id": "EVT-46e22818ca95",
+  "source_headlines": [
+    "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+    "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
+    "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk"
+  ],
+  "source_headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+  "source_url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
+  "source_name": "Gulf News",
+  "materiality_max": 73,
+  "newest_source_at": "2026-09-06T03:24:05Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-06T03:55:04Z",
+  "updated_at": "2026-09-06T03:55:04Z",
+  "decay_at": "2026-09-07T15:24:05Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
