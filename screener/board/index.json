@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T23:49:14Z",
+  "generated_at": "2026-09-06T23:49:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-355",
@@ -100559,6 +100559,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-e6f71ab27180",
+      "idea_version": "IDEAV-f2cc9003c6d9acbb",
+      "idea_version_started_at": "2026-09-06T23:49:29Z",
+      "ticker": "ESI",
+      "company": "Element Solutions",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the $14.5 billion merger agreement with Solstice removes the strategic combination premium and growth runway expected from the deal.",
+      "why_now": "The termination of the transaction was reported on September 6, 2026, creating an immediate negative catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ba76ec5a60"
+      ],
+      "primary_source_event_id": "EVT-28ba76ec5a60",
+      "source_headlines": [
+        "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
+      ],
+      "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T23:05:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T23:49:29Z",
+      "updated_at": "2026-09-06T23:49:29Z",
+      "decay_at": "2026-09-08T11:05:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-521e020bb493",
       "idea_version": "IDEAV-011016c6c4f9b10f",
       "idea_version_started_at": "2026-09-06T21:54:21Z",
@@ -141776,8 +141846,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 518,
-    "live_count": 53,
+    "surfaced_total": 519,
+    "live_count": 54,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
