@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T00:30:07Z",
+  "generated_at": "2026-09-06T00:30:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -99096,6 +99096,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-f31085db06b9",
+      "idea_version": "IDEAV-0288b04e6409505a",
+      "idea_version_started_at": "2026-09-06T00:30:20Z",
+      "ticker": "MGY",
+      "company": "Magnolia Oil & Gas",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a doubling of profits alongside an aggressive capital expenditure plan for growth, indicating strong operational leverage in the current commodity environment.",
+      "why_now": "The earnings and growth strategy update was released on 2026-09-05.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b46747e7cef3"
+      ],
+      "primary_source_event_id": "EVT-b46747e7cef3",
+      "source_headlines": [
+        "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
+      ],
+      "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+      "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T19:20:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:30:20Z",
+      "updated_at": "2026-09-06T00:30:20Z",
+      "decay_at": "2026-09-07T07:20:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52d5d226425f",
       "idea_version": "IDEAV-b31fdc17756bc707",
       "idea_version_started_at": "2026-09-05T23:52:55Z",
@@ -99792,6 +99862,78 @@
       "surfaced_at": "2026-09-04T17:02:16Z",
       "updated_at": "2026-09-05T22:50:47Z",
       "decay_at": "2026-09-06T03:39:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-221f5766989f",
+      "idea_version": "IDEAV-ccc0495923ad5e20",
+      "idea_version_started_at": "2026-09-06T00:30:20Z",
+      "ticker": "IVG.MI",
+      "company": "Iveco Group",
+      "exchange": "Milan",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a formal tender offer to acquire Iveco Group at a valuation of €3.82 billion, providing a clear floor for the stock price.",
+      "why_now": "The tender offer was officially launched and reported on 2026-09-05.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e774de2326e3",
+        "EVT-f97392f53379"
+      ],
+      "primary_source_event_id": "EVT-e774de2326e3",
+      "source_headlines": [
+        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
+        "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
+      "source_url": "https://www.thehindubusinessline.com/companies/tata-motors-turns-to-iveco-shareholders-to-seal-382-billion-takeover/article71429995.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T11:17:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:30:20Z",
+      "updated_at": "2026-09-06T00:30:20Z",
+      "decay_at": "2026-09-06T23:17:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -104109,77 +104251,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-4f75bd78810c",
-      "idea_version": "IDEAV-0987353fdc54f1d7",
-      "idea_version_started_at": "2026-09-03T21:34:59Z",
-      "ticker": "EGH",
-      "company": "EGH",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is executing a transformational acquisition funded by an $80.2 million equity raise, which typically signals a shift in growth trajectory and capital structure.",
-      "why_now": "The announcement was filed on September 3, 2026, making the market reaction to the dilution and acquisition strategy immediate.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d21022cb6d7b"
-      ],
-      "primary_source_event_id": "EVT-d21022cb6d7b",
-      "source_headlines": [
-        "EGH: Transformational Acquisition & $80.2m Equity Raising [price-sensitive]"
-      ],
-      "source_headline": "EGH: Transformational Acquisition & $80.2m Equity Raising [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGH?key=2924-03131249-2A1694755",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T00:28:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T21:34:59Z",
-      "updated_at": "2026-09-03T21:34:59Z",
-      "decay_at": "2026-09-04T12:28:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f7d451f14843",
       "idea_version": "IDEAV-3a714f02fd38b381",
       "idea_version_started_at": "2026-09-03T18:13:00Z",
@@ -104542,7 +104613,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 400,
+      "file_count": 401,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -107176,8 +107247,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-04T12:28:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T00:30:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -136776,8 +136847,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 476,
-    "live_count": 40,
+    "surfaced_total": 478,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
