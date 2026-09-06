@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T06:17:01Z",
+  "generated_at": "2026-09-06T06:36:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -580,6 +580,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-147",
+      "headline": "‎SABIC subsidiary gets feedstock approval for methanol plant",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934339",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T09:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A SABIC subsidiary received approval for feedstock for a methanol plant, a key step in capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A SABIC subsidiary received approval for feedstock for a methanol plant, a key step in capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SABIC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-143",
+      "headline": "SBI To Hire 12,000 Personnel, Add 250 Branches During FY27: Chairman Setty",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/sbi-to-hire-12000-personnel-add-250-branches-during-fy27-chairman-setty",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T06:01:55Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "State Bank of India announced a significant expansion plan to hire 12,000 personnel and add 250 branches by FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "State Bank of India announced a significant expansion plan to hire 12,000 personnel and add 250 branches by FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-130",
       "headline": "Bathla founder at risk of personal bankruptcy after securing loans",
       "headline_en": null,
@@ -643,56 +741,6 @@
       "launched_signal_id": null,
       "triage_score": 89,
       "triage_reason": "SBI plans a major hiring drive of 12,000 jobs in FY27, signaling operational growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-125",
-      "headline": "SBI to hire 12,000 personnel, add 250 branches during FY27: Chairman Setty",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/sbi-to-hire-12000-personnel-add-250-branches-during-fy27-chairman-setty/articleshow/133826798.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T05:28:09Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "SBI announced a significant expansion plan to hire 12,000 personnel and add 250 branches in FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SBI announced a significant expansion plan to hire 12,000 personnel and add 250 branches in FY27.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1872,49 +1920,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-099",
-      "headline": "Queensland dumps electric bus plan to order 630 diesel vehicles",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/transport/queensland-dumps-electric-bus-plan-to-order-630-diesel-vehicles-20260903-p60u4v?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:50:12Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Queensland government cancelled an electric bus plan in favor of 630 diesel vehicles.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Queensland government cancelled an electric bus plan in favor of 630 diesel vehicles.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -102598,78 +102603,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-45c96bcc987e",
-      "idea_version": "IDEAV-03b8edfe407870bf",
-      "idea_version_started_at": "2026-09-05T07:11:02Z",
-      "ticker": "MEN",
-      "company": "Menarini Group",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Menarini signed a $771 million deal to commercialize Gan & Lee's GLP-1 drug in Europe, indicating significant revenue potential from this partnership.",
-      "why_now": "The deal was announced on September 4, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8314da9992f8"
-      ],
-      "primary_source_event_id": "EVT-8314da9992f8",
-      "source_headlines": [
-        "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market"
-      ],
-      "source_headline": "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market",
-      "source_url": "https://www.fiercebiotech.com/biotech/menarini-group-signs-771m-deal-take-gan-lee-glp-1-european-market",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T18:27:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T07:11:02Z",
-      "updated_at": "2026-09-05T07:11:02Z",
-      "decay_at": "2026-09-06T06:27:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e633cd092e64",
       "idea_version": "IDEAV-248bb710ef1bc45f",
       "idea_version_started_at": "2026-09-05T07:11:02Z",
@@ -105601,6 +105534,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-45c96bcc987e",
+      "idea_version": "IDEAV-03b8edfe407870bf",
+      "idea_version_started_at": "2026-09-05T07:11:02Z",
+      "ticker": "MEN",
+      "company": "Menarini Group",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Menarini signed a $771 million deal to commercialize Gan & Lee's GLP-1 drug in Europe, indicating significant revenue potential from this partnership.",
+      "why_now": "The deal was announced on September 4, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8314da9992f8"
+      ],
+      "primary_source_event_id": "EVT-8314da9992f8",
+      "source_headlines": [
+        "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market"
+      ],
+      "source_headline": "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market",
+      "source_url": "https://www.fiercebiotech.com/biotech/menarini-group-signs-771m-deal-take-gan-lee-glp-1-european-market",
+      "source_name": "FierceBiotech",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T18:27:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:11:02Z",
+      "updated_at": "2026-09-05T07:11:02Z",
+      "decay_at": "2026-09-06T06:27:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bcf37e2c371a",
       "idea_version": "IDEAV-29d002066114b322",
       "idea_version_started_at": "2026-09-05T07:11:02Z",
@@ -106975,13 +106980,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 448,
-    "shown_count": 448,
+    "total_count": 449,
+    "shown_count": 449,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 234,
-        "shown_count": 234,
+        "total_count": 235,
+        "shown_count": 235,
         "hidden_count": 0
       },
       "short": {
@@ -107006,6 +107011,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-45c96bcc987e",
+        "idea_version": "IDEAV-03b8edfe407870bf",
+        "idea_version_started_at": "2026-09-05T07:11:02Z",
+        "ticker": "MEN",
+        "company": "Menarini Group",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Menarini signed a $771 million deal to commercialize Gan & Lee's GLP-1 drug in Europe, indicating significant revenue potential from this partnership.",
+        "why_now": "The deal was announced on September 4, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8314da9992f8"
+        ],
+        "primary_source_event_id": "EVT-8314da9992f8",
+        "source_headlines": [
+          "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market"
+        ],
+        "source_headline": "Menarini signs $771M deal to take Gan & Lee GLP-1 to European market",
+        "source_url": "https://www.fiercebiotech.com/biotech/menarini-group-signs-771m-deal-take-gan-lee-glp-1-european-market",
+        "source_name": "FierceBiotech",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T18:27:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T07:11:02Z",
+        "updated_at": "2026-09-05T07:11:02Z",
+        "decay_at": "2026-09-06T06:27:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T06:27:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bcf37e2c371a",
         "idea_version": "IDEAV-29d002066114b322",
@@ -140240,7 +140320,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 494,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -140259,9 +140339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 742,
-    "news_picked_today": 163,
-    "news_dropped_today": 579
+    "news_seen_today": 798,
+    "news_picked_today": 181,
+    "news_dropped_today": 617
   },
   "book_momentum": {
     "live_count": 8,
