@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T03:45:07Z",
+  "generated_at": "2026-09-06T03:54:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -429,6 +429,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-076",
+      "headline": "VW’s surprise job-slashing deal is a big win for its bosses",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T03:30:19Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Volkswagen reached a deal to implement job cuts, which is viewed as a positive development for management's operational efficiency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Volkswagen reached a deal to implement job cuts, which is viewed as a positive development for management's operational efficiency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1810,55 +1860,6 @@
           "name": "Agree Realty",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-050",
-      "headline": "Signalling fault disrupts Hong Kong high-speed rail service, delaying 15 trains",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/hong-kong/transport/article/3366514/signalling-fault-disrupts-hong-kong-high-speed-rail-service-delaying-15-trains?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:35:28Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A signalling fault caused delays to 15 trains on the Hong Kong high-speed rail network.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "A signalling fault caused delays to 15 trains on the Hong Kong high-speed rail network.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MTR Corporation",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -101164,76 +101165,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-495f024fede1",
-      "idea_version": "IDEAV-d4a48f5cbb8ea34a",
-      "idea_version_started_at": "2026-09-05T22:50:47Z",
-      "ticker": "FLEX",
-      "company": "Flex Ltd.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Flex is acquiring data center power conversion manufacturer EPC Power for $4.4 billion, significantly expanding its high-margin exposure to AI and data center infrastructure demand.",
-      "why_now": "The acquisition was announced on September 4, 2026, presenting an immediate strategic shift in Flex's product mix.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b88c7e1f0f64"
-      ],
-      "primary_source_event_id": "EVT-b88c7e1f0f64",
-      "source_headlines": [
-        "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal"
-      ],
-      "source_headline": "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal",
-      "source_url": "https://www.datacenterdynamics.com/en/news/flex-acquires-data-center-power-conversion-manufacturer-epc-power-in-44bn-deal/",
-      "source_name": "DataCenterDynamics",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T15:50:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T17:37:30Z",
-      "updated_at": "2026-09-05T22:50:47Z",
-      "decay_at": "2026-09-06T03:50:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2b72b57fa630",
       "idea_version": "IDEAV-b213b35b717884f8",
       "idea_version_started_at": "2026-09-05T15:28:18Z",
@@ -102020,80 +101951,6 @@
       "surfaced_at": "2026-09-05T20:32:18Z",
       "updated_at": "2026-09-05T20:32:18Z",
       "decay_at": "2026-09-06T09:58:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-dc9bf3957802",
-      "idea_version": "IDEAV-a560718c9d88d21b",
-      "idea_version_started_at": "2026-09-05T20:32:18Z",
-      "ticker": "ANTH",
-      "company": "Anthropic",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Anthropic is nearing a $15 billion credit deal, signaling significant capital infusion to support its AI push.",
-      "why_now": "The credit deal is reported as nearing completion, making it a current event.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-278d8bb8a434",
-        "EVT-43da777036f0"
-      ],
-      "primary_source_event_id": "EVT-278d8bb8a434",
-      "source_headlines": [
-        "ByteDance secures $29.6 billion loan in AI push, sources say",
-        "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026"
-      ],
-      "source_headline": "ByteDance secures $29.6 billion loan in AI push, sources say",
-      "source_url": "https://www.reuters.com/legal/transactional/bytedance-secures-296-billion-loan-ai-push-sources-say-2026-09-04/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T15:49:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T20:32:18Z",
-      "updated_at": "2026-09-05T20:32:18Z",
-      "decay_at": "2026-09-06T03:49:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -103827,6 +103684,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-495f024fede1",
+      "idea_version": "IDEAV-d4a48f5cbb8ea34a",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "FLEX",
+      "company": "Flex Ltd.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Flex is acquiring data center power conversion manufacturer EPC Power for $4.4 billion, significantly expanding its high-margin exposure to AI and data center infrastructure demand.",
+      "why_now": "The acquisition was announced on September 4, 2026, presenting an immediate strategic shift in Flex's product mix.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b88c7e1f0f64"
+      ],
+      "primary_source_event_id": "EVT-b88c7e1f0f64",
+      "source_headlines": [
+        "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal"
+      ],
+      "source_headline": "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal",
+      "source_url": "https://www.datacenterdynamics.com/en/news/flex-acquires-data-center-power-conversion-manufacturer-epc-power-in-44bn-deal/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T15:50:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T17:37:30Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T03:50:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a54ec3745bd7",
       "idea_version": "IDEAV-b4305fa7b1e56144",
       "idea_version_started_at": "2026-09-04T23:10:23Z",
@@ -104528,6 +104455,80 @@
       "surfaced_at": "2026-09-05T23:08:05Z",
       "updated_at": "2026-09-05T23:08:05Z",
       "decay_at": "2026-09-06T02:58:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-dc9bf3957802",
+      "idea_version": "IDEAV-a560718c9d88d21b",
+      "idea_version_started_at": "2026-09-05T20:32:18Z",
+      "ticker": "ANTH",
+      "company": "Anthropic",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Anthropic is nearing a $15 billion credit deal, signaling significant capital infusion to support its AI push.",
+      "why_now": "The credit deal is reported as nearing completion, making it a current event.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-278d8bb8a434",
+        "EVT-43da777036f0"
+      ],
+      "primary_source_event_id": "EVT-278d8bb8a434",
+      "source_headlines": [
+        "ByteDance secures $29.6 billion loan in AI push, sources say",
+        "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026"
+      ],
+      "source_headline": "ByteDance secures $29.6 billion loan in AI push, sources say",
+      "source_url": "https://www.reuters.com/legal/transactional/bytedance-secures-296-billion-loan-ai-push-sources-say-2026-09-04/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T15:49:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T20:32:18Z",
+      "updated_at": "2026-09-05T20:32:18Z",
+      "decay_at": "2026-09-06T03:49:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -106122,13 +106123,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 440,
-    "shown_count": 440,
+    "total_count": 442,
+    "shown_count": 442,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 228,
-        "shown_count": 228,
+        "total_count": 230,
+        "shown_count": 230,
         "hidden_count": 0
       },
       "short": {
@@ -106153,6 +106154,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-495f024fede1",
+        "idea_version": "IDEAV-d4a48f5cbb8ea34a",
+        "idea_version_started_at": "2026-09-05T22:50:47Z",
+        "ticker": "FLEX",
+        "company": "Flex Ltd.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Flex is acquiring data center power conversion manufacturer EPC Power for $4.4 billion, significantly expanding its high-margin exposure to AI and data center infrastructure demand.",
+        "why_now": "The acquisition was announced on September 4, 2026, presenting an immediate strategic shift in Flex's product mix.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b88c7e1f0f64"
+        ],
+        "primary_source_event_id": "EVT-b88c7e1f0f64",
+        "source_headlines": [
+          "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal"
+        ],
+        "source_headline": "Flex acquires data center power conversion manufacturer EPC Power in $4.4bn deal",
+        "source_url": "https://www.datacenterdynamics.com/en/news/flex-acquires-data-center-power-conversion-manufacturer-epc-power-in-44bn-deal/",
+        "source_name": "DataCenterDynamics",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T15:50:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T17:37:30Z",
+        "updated_at": "2026-09-05T22:50:47Z",
+        "decay_at": "2026-09-06T03:50:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T03:50:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-dc9bf3957802",
+        "idea_version": "IDEAV-a560718c9d88d21b",
+        "idea_version_started_at": "2026-09-05T20:32:18Z",
+        "ticker": "ANTH",
+        "company": "Anthropic",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Anthropic is nearing a $15 billion credit deal, signaling significant capital infusion to support its AI push.",
+        "why_now": "The credit deal is reported as nearing completion, making it a current event.",
+        "conviction": 40,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-278d8bb8a434",
+          "EVT-43da777036f0"
+        ],
+        "primary_source_event_id": "EVT-278d8bb8a434",
+        "source_headlines": [
+          "ByteDance secures $29.6 billion loan in AI push, sources say",
+          "Volkswagen Plans 50,000 Job Cuts; Anthropic Nears $15B Credit Deal | The Pulse 9/4/2026"
+        ],
+        "source_headline": "ByteDance secures $29.6 billion loan in AI push, sources say",
+        "source_url": "https://www.reuters.com/legal/transactional/bytedance-secures-296-billion-loan-ai-push-sources-say-2026-09-04/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T15:49:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T20:32:18Z",
+        "updated_at": "2026-09-05T20:32:18Z",
+        "decay_at": "2026-09-06T03:49:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T03:49:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-aae3ef159f69",
         "idea_version": "IDEAV-6b3d1e38bfd09573",
@@ -138793,7 +138944,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 482,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -138812,9 +138963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 390,
-    "news_picked_today": 79,
-    "news_dropped_today": 311
+    "news_seen_today": 396,
+    "news_picked_today": 81,
+    "news_dropped_today": 315
   },
   "book_momentum": {
     "live_count": 8,
