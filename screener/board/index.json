@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:54:26Z",
+  "generated_at": "2026-09-06T02:04:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -1288,6 +1288,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-041",
+      "headline": "See's Candies Data Breach: Edelson Lechtzin LLP Launches Investigation Into Exposure of Personal Information",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/sees-candies-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-personal-information-302870759.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-06T01:51:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "See's Candies is facing a data breach investigation, which poses potential legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "See's Candies is facing a data breach investigation, which poses potential legal and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "See's Candies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-013",
       "headline": "Indonesia's Jakarta airport suspends flights due to ash from Mount Anak Krakatau",
       "headline_en": null,
@@ -1368,6 +1418,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-042",
+      "headline": "DAHON TECH anuncia sus resultados provisionales de 2026",
+      "headline_en": "DAHON TECH announces its provisional 2026 results",
+      "url": "https://www.prnewswire.com/news-releases/dahon-tech-anuncia-sus-resultados-provisionales-de-2026-302870758.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-06T01:51:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Dahon Tech has announced its provisional 2026 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Dahon Tech has announced its provisional 2026 results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DAHON TECH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -138367,7 +138466,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2085,
+    "inbox_unconsumed": 2087,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -138376,9 +138475,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 195,
-    "news_picked_today": 40,
-    "news_dropped_today": 155
+    "news_seen_today": 214,
+    "news_picked_today": 42,
+    "news_dropped_today": 172
   },
   "book_momentum": {
     "live_count": 8,
