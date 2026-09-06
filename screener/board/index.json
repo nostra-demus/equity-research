@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T08:47:08Z",
+  "generated_at": "2026-09-06T08:56:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-178",
@@ -378,6 +378,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-193",
+      "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_06092026141404_GSTnotice.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T08:44:25Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Neogen Chemicals received a show cause cum demand notice from the CGST and Central Excise Commissionerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Neogen Chemicals received a show cause cum demand notice from the CGST and Central Excise Commissionerate.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neogen Chemicals Limited",
+          "ticker": "542665",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,55 +1939,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-053",
-      "headline": "How Binance keeps doing business in Europe without a licence",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/moneyweb-crypto/how-binance-keeps-doing-business-in-europe-without-a-license/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:00:43Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Binance faces ongoing regulatory risk regarding its operating license in Europe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Binance faces ongoing regulatory risk regarding its operating license in Europe.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Binance",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140730,9 +140731,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1233,
-    "news_picked_today": 263,
-    "news_dropped_today": 970
+    "news_seen_today": 1269,
+    "news_picked_today": 269,
+    "news_dropped_today": 1000
   },
   "book_momentum": {
     "live_count": 8,
