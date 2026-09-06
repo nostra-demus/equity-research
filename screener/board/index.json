@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:04:32Z",
+  "generated_at": "2026-09-06T01:09:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -187,6 +187,50 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-022",
+      "headline": "US troops can still be tracked by purchased location data, and Congress wants to know why",
+      "headline_en": null,
+      "url": "https://www.theregister.com/public-sector/2026/09/06/us-troops-can-still-be-tracked-by-purchased-location-data-and-congress-wants-to-know-why/5294652",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Congressional scrutiny into the sale of location data to government agencies poses a significant regulatory and operational risk to the data brokerage and ad-tech sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Congressional scrutiny into the sale of location data to government agencies poses a significant regulatory and operational risk to the data brokerage and ad-tech sectors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -137403,7 +137447,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2067,
+    "inbox_unconsumed": 2068,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -137412,9 +137456,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 119,
-    "news_picked_today": 21,
-    "news_dropped_today": 98
+    "news_seen_today": 124,
+    "news_picked_today": 22,
+    "news_dropped_today": 102
   },
   "book_momentum": {
     "live_count": 8,
