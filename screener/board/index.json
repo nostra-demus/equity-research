@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T04:34:36Z",
+  "generated_at": "2026-09-06T04:54:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -281,6 +281,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-095",
+      "headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:17:09Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Fosun Pharma sold a 4.55% stake in Gland Pharma for Rs 2,121 crore, reducing its holding below 50%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Fosun Pharma sold a 4.55% stake in Gland Pharma for Rs 2,121 crore, reducing its holding below 50%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gland Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -674,6 +723,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-097",
+      "headline": "Putin says first oil flows through Rosneft's Vostok Oil pipeline",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/putin-says-first-oil-flows-through-rosnefts-vostok-oil-pipeline/article71434490.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:44:08Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Rosneft has commenced oil flows through its Vostok Oil pipeline, a major infrastructure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Rosneft has commenced oil flows through its Vostok Oil pipeline, a major infrastructure project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rosneft",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-059",
       "headline": "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions",
       "headline_en": null,
@@ -919,6 +1017,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-103",
+      "headline": "Jio At 10: 533.3 Million Users Later, Akash Ambani Sets Sights On Global Markets",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/jio-at-10-5333-million-users-later-akash-ambani-sets-sights-on-global-markets",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:29:29Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Reliance Jio reports 533.3 million users and announces strategic expansion into global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Reliance Jio reports 533.3 million users and announces strategic expansion into global markets.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-044",
       "headline": "Japan gov't eyes tougher monitoring of overseas operations at big banks",
       "headline_en": null,
@@ -1041,6 +1188,92 @@
       "event_types": [
         "regulatory",
         "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-107",
+      "headline": "UAE sets out how crypto payments must be converted to dirhams for VAT",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/uae-sets-out-how-crypto-payments-must-be-converted-to-dirhams-for-vat",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:50:23Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "New regulatory guidance on crypto-to-fiat conversion for VAT purposes impacts the digital asset sector in the UAE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "New regulatory guidance on crypto-to-fiat conversion for VAT purposes impacts the digital asset sector in the UAE.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-099",
+      "headline": "Queensland dumps electric bus plan to order 630 diesel vehicles",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/queensland-dumps-electric-bus-plan-to-order-630-diesel-vehicles-20260903-p60u4v?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T04:50:12Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Queensland government cancelled an electric bus plan in favor of 630 diesel vehicles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Queensland government cancelled an electric bus plan in favor of 630 diesel vehicles.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -1628,234 +1861,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-006",
-      "headline": "US strikes three Iranian oil tankers; Coalition didn’t model smoking rates after excise cut",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/middle-east/us-strikes-iran-live-updates-us-strikes-oil-tankers-20260906-p60urr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:05:15Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Military strike on oil tankers represents a significant geopolitical escalation and potential supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Military strike on oil tankers represents a significant geopolitical escalation and potential supply shock.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-066",
-      "headline": "Lula says to defend Brazil's Pix payment system amid US tariff dispute",
-      "headline_en": null,
-      "url": "https://news.cgtn.com/news/2026-09-06/Lula-says-to-defend-Brazil-s-Pix-payment-system-amid-US-tariff-dispute-1Qd3PhmgtnW/p.html?UTM_Source=cgtn&UTM_Medium=rss&UTM_Campaign=Business",
-      "source_name": "CGTN Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:32:05Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The Brazilian president's defense of the Pix payment system in the context of a US tariff dispute signals potential regulatory friction and trade tensions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "The Brazilian president's defense of the Pix payment system in the context of a US tariff dispute signals potential regulatory friction and trade tensions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-038",
-      "headline": "Indonésie-L'aéroport de Djakarta suspend les vols en raison de l'éruption de l'Anak Krakatau",
-      "headline_en": "Indonesia-Jakarta airport suspends flights due to the eruption of Anak Krakatau",
-      "url": "https://www.reuters.com/fr/affaires/indonsie-laroport-de-djakarta-suspend-les-vols-en-raison-de-lruption-de-lanak-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:39:57Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A volcanic eruption has caused the suspension of flights at Jakarta airport, representing a significant operational disruption to regional air travel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "A volcanic eruption has caused the suspension of flights at Jakarta airport, representing a significant operational disruption to regional air travel.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-040",
-      "headline": "DAHON TECH gibt Zwischenergebnisse für 2026 bekannt; Umsatz und Gewinn verzeichnen starkes Wachstum",
-      "headline_en": "DAHON TECH announces interim results for 2026; revenue and profit record strong growth",
-      "url": "https://www.prnewswire.com/news-releases/dahon-tech-gibt-zwischenergebnisse-fur-2026-bekannt-umsatz-und-gewinn-verzeichnen-starkes-wachstum-302870757.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-06T01:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "DAHON TECH reported strong growth in revenue and profit for 2026 interim results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "DAHON TECH reported strong growth in revenue and profit for 2026 interim results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DAHON TECH",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-031",
-      "headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
-      "headline_en": "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
-      "url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-06T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roborock",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -101231,77 +101236,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-4b271f79c1fd5c0d",
-      "idea_version_started_at": "2026-09-05T21:50:53Z",
-      "ticker": "NVDA",
-      "company": "Nvidia Corporation",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Hugging Face significantly strengthens the company's software and developer ecosystem, deepening its competitive moat in the AI infrastructure stack.",
-      "why_now": "The acquisition was announced on 2026-09-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d3e72ac6226"
-      ],
-      "primary_source_event_id": "EVT-7d3e72ac6226",
-      "source_headlines": [
-        "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face"
-      ],
-      "source_headline": "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face",
-      "source_url": "https://www.forbes.com/sites/antoniopequenoiv/2026/09/04/jensen-huangs-net-worth-nears-200-billion-after-nvidia-says-it-will-acquire-hugging-face/",
-      "source_name": "Forbes",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T16:49:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T05:44:07Z",
-      "updated_at": "2026-09-05T21:50:53Z",
-      "decay_at": "2026-09-06T04:49:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1093d003f5d3",
       "idea_version": "IDEAV-9e9d718010d3e3b4",
       "idea_version_started_at": "2026-09-05T23:52:55Z",
@@ -104534,6 +104468,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-4b271f79c1fd5c0d",
+      "idea_version_started_at": "2026-09-05T21:50:53Z",
+      "ticker": "NVDA",
+      "company": "Nvidia Corporation",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Hugging Face significantly strengthens the company's software and developer ecosystem, deepening its competitive moat in the AI infrastructure stack.",
+      "why_now": "The acquisition was announced on 2026-09-04.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d3e72ac6226"
+      ],
+      "primary_source_event_id": "EVT-7d3e72ac6226",
+      "source_headlines": [
+        "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face"
+      ],
+      "source_headline": "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face",
+      "source_url": "https://www.forbes.com/sites/antoniopequenoiv/2026/09/04/jensen-huangs-net-worth-nears-200-billion-after-nvidia-says-it-will-acquire-hugging-face/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T16:49:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T05:44:07Z",
+      "updated_at": "2026-09-05T21:50:53Z",
+      "decay_at": "2026-09-06T04:49:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dac7dfe711fe",
       "idea_version": "IDEAV-2a96706ae4fac03a",
       "idea_version_started_at": "2026-09-04T15:47:15Z",
@@ -106409,13 +106414,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 445,
-    "shown_count": 445,
+    "total_count": 446,
+    "shown_count": 446,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 231,
-        "shown_count": 231,
+        "total_count": 232,
+        "shown_count": 232,
         "hidden_count": 0
       },
       "short": {
@@ -106440,6 +106445,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-90b902d53889",
+        "idea_version": "IDEAV-4b271f79c1fd5c0d",
+        "idea_version_started_at": "2026-09-05T21:50:53Z",
+        "ticker": "NVDA",
+        "company": "Nvidia Corporation",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Hugging Face significantly strengthens the company's software and developer ecosystem, deepening its competitive moat in the AI infrastructure stack.",
+        "why_now": "The acquisition was announced on 2026-09-04.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7d3e72ac6226"
+        ],
+        "primary_source_event_id": "EVT-7d3e72ac6226",
+        "source_headlines": [
+          "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face"
+        ],
+        "source_headline": "Jensen Huang’s Net Worth Nears $200 Billion After Nvidia Says It Will Acquire Hugging Face",
+        "source_url": "https://www.forbes.com/sites/antoniopequenoiv/2026/09/04/jensen-huangs-net-worth-nears-200-billion-after-nvidia-says-it-will-acquire-hugging-face/",
+        "source_name": "Forbes",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T16:49:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T05:44:07Z",
+        "updated_at": "2026-09-05T21:50:53Z",
+        "decay_at": "2026-09-06T04:49:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T04:49:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-177f467dfd2a",
         "idea_version": "IDEAV-eed1b52b265141e7",
@@ -139450,7 +139529,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 486,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -139469,9 +139548,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 482,
-    "news_picked_today": 106,
-    "news_dropped_today": 376
+    "news_seen_today": 525,
+    "news_picked_today": 120,
+    "news_dropped_today": 405
   },
   "book_momentum": {
     "live_count": 8,
