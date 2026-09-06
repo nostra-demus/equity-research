@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T03:02:56Z",
+  "generated_at": "2026-09-06T03:08:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -1025,6 +1025,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-066",
+      "headline": "Lula says to defend Brazil's Pix payment system amid US tariff dispute",
+      "headline_en": null,
+      "url": "https://news.cgtn.com/news/2026-09-06/Lula-says-to-defend-Brazil-s-Pix-payment-system-amid-US-tariff-dispute-1Qd3PhmgtnW/p.html?UTM_Source=cgtn&UTM_Medium=rss&UTM_Campaign=Business",
+      "source_name": "CGTN Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:32:05Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The Brazilian president's defense of the Pix payment system in the context of a US tariff dispute signals potential regulatory friction and trade tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The Brazilian president's defense of the Pix payment system in the context of a US tariff dispute signals potential regulatory friction and trade tensions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-038",
       "headline": "Indonésie-L'aéroport de Djakarta suspend les vols en raison de l'éruption de l'Anak Krakatau",
       "headline_en": "Indonesia-Jakarta airport suspends flights due to the eruption of Anak Krakatau",
@@ -1805,55 +1849,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-003",
-      "headline": "하나금융-소진공-소공연 맞손, 민생경제 지원",
-      "headline_en": "Hana Financial-SEMAS-KFS join hands to support the public economy",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276251",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Hana Financial Group is participating in a public-private partnership to support the local economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Hana Financial Group is participating in a public-private partnership to support the local economy.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hana Financial Group",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138733,9 +138728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 335,
-    "news_picked_today": 65,
-    "news_dropped_today": 270
+    "news_seen_today": 340,
+    "news_picked_today": 67,
+    "news_dropped_today": 273
   },
   "book_momentum": {
     "live_count": 8,
