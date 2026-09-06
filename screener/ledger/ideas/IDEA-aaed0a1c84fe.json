@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-aaed0a1c84fe",
+  "idea_version": "IDEAV-9e5a19a904e69bf3",
+  "idea_version_started_at": "2026-09-06T05:34:45Z",
+  "ticker": "QAN",
+  "company": "Qantas Airways",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
+  "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 15,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-406bd580d8cb"
+  ],
+  "primary_source_event_id": "EVT-406bd580d8cb",
+  "source_headlines": [
+    "Flames burst from Qantas plane engine after New Zealand takeoff"
+  ],
+  "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
+  "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
+  "source_name": "Al Jazeera — All news",
+  "materiality_max": 85,
+  "newest_source_at": "2026-09-06T05:02:23Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-06T05:34:45Z",
+  "updated_at": "2026-09-06T05:34:45Z",
+  "decay_at": "2026-09-07T17:02:23Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
