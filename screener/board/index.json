@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T22:34:13Z",
+  "generated_at": "2026-09-06T22:34:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-313",
@@ -101738,6 +101738,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7aec883d8fe6",
+      "idea_version": "IDEAV-f0cb70b0ff20bd16",
+      "idea_version_started_at": "2026-09-06T22:34:34Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ingenia has formally rejected a non-binding indicative takeover offer, removing the near-term acquisition premium that was supporting the stock price.",
+      "why_now": "The rejection was officially disclosed in an ASX filing on September 6, 2026, which will trigger immediate downward pressure when the market opens.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2bcc51ec2f9"
+      ],
+      "primary_source_event_id": "EVT-c2bcc51ec2f9",
+      "source_headlines": [
+        "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]"
+      ],
+      "source_headline": "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03132246-2A1695539",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T22:27:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T22:34:34Z",
+      "updated_at": "2026-09-06T22:34:34Z",
+      "decay_at": "2026-09-08T10:27:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-e93faa804a883ec3",
       "idea_version_started_at": "2026-09-06T19:20:01Z",
@@ -104986,76 +105057,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-36876b9a411b",
-      "idea_version": "IDEAV-21f7a9e777e39349",
-      "idea_version_started_at": "2026-09-04T05:44:07Z",
-      "ticker": "ADBE",
-      "company": "Adobe",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Announced CEO succession with Shantanu Narayen stepping down; market is pricing in transition risk to AI-era monetization and potential strategy shift.",
-      "why_now": "CEO change announced 2026-09-03; transition period and new strategy outlook create near-term uncertainty.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf62087a86de"
-      ],
-      "primary_source_event_id": "EVT-cf62087a86de",
-      "source_headlines": [
-        "Adobe just announced its next CEO. Here’s why its stock is dropping."
-      ],
-      "source_headline": "Adobe just announced its next CEO. Here’s why its stock is dropping.",
-      "source_url": "https://www.marketwatch.com/bulletins/redirect/go?g=462b28b6-cf0f-4dbd-bd73-1217da5622d4&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T22:25:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T05:44:07Z",
-      "updated_at": "2026-09-04T05:44:07Z",
-      "decay_at": "2026-09-05T10:25:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-495f024fede1",
       "idea_version": "IDEAV-d4a48f5cbb8ea34a",
       "idea_version_started_at": "2026-09-05T22:50:47Z",
@@ -105120,78 +105121,6 @@
       "surfaced_at": "2026-09-04T17:37:30Z",
       "updated_at": "2026-09-05T22:50:47Z",
       "decay_at": "2026-09-06T03:50:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a54ec3745bd7",
-      "idea_version": "IDEAV-b4305fa7b1e56144",
-      "idea_version_started_at": "2026-09-04T23:10:23Z",
-      "ticker": "D",
-      "company": "Dominion Energy",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dominion Energy secured shareholder approval for its merger with NextEra Energy, clearing a key regulatory hurdle and de-risking the deal path.",
-      "why_now": "Reuters reported shareholder approvals on 2026-09-03 and 2026-09-03 (two wires); the merger vote is a live, dated event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-99a1e952b501",
-        "EVT-c07a9621b043"
-      ],
-      "primary_source_event_id": "EVT-99a1e952b501",
-      "source_headlines": [
-        "Dominion Energy secures shareholder approval for merger with NextEra",
-        "Dominion Energy, NextEra secure shareholder approvals for merger deal"
-      ],
-      "source_headline": "Dominion Energy secures shareholder approval for merger with NextEra",
-      "source_url": "https://www.reuters.com/legal/litigation/dominion-energy-secures-shareholder-approval-merger-with-nextera-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T22:19:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T05:44:07Z",
-      "updated_at": "2026-09-04T23:10:23Z",
-      "decay_at": "2026-09-05T10:19:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -106635,79 +106564,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-083c9caae543",
-      "idea_version": "IDEAV-e844e881a72e18b8",
-      "idea_version_started_at": "2026-09-04T21:35:36Z",
-      "ticker": "VOW3",
-      "company": "Volkswagen Group",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Massive restructuring involving 50,000 to 100,000 job cuts indicates severe operational distress and a failure to compete in the transition to electric vehicles.",
-      "why_now": "The restructuring plan was confirmed and announced on September 3, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-23e431d799e0",
-        "EVT-3e93896c47f3"
-      ],
-      "primary_source_event_id": "EVT-23e431d799e0",
-      "source_headlines": [
-        "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
-        "Volkswagen announces it will cut 100,000 jobs by 2030"
-      ],
-      "source_headline": "VW Group Confirms Plans To Kill Half Its Lineup And Slash 50,000 Jobs",
-      "source_url": "https://www.carscoops.com/2026/09/vw-group-confirms-steep-cuts/",
-      "source_name": "Carscoops",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T22:30:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T03:44:18Z",
-      "updated_at": "2026-09-04T21:35:36Z",
-      "decay_at": "2026-09-05T10:30:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1bddbe8343f3",
       "idea_version": "IDEAV-6a30c09e4203eb0e",
       "idea_version_started_at": "2026-09-04T20:44:18Z",
@@ -107358,7 +107214,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 420,
+      "file_count": 423,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -110076,8 +109932,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T10:30:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T22:34:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -110149,8 +110005,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T10:25:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T22:34:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -110224,8 +110080,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T10:19:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T22:34:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -141305,8 +141161,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 515,
-    "live_count": 56,
+    "surfaced_total": 516,
+    "live_count": 57,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
