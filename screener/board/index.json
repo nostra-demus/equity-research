@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:10:37Z",
+  "generated_at": "2026-09-06T10:11:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -101320,6 +101320,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ffa54d096f0d",
+      "idea_version": "IDEAV-4862dfe60015716c",
+      "idea_version_started_at": "2026-09-06T10:10:50Z",
+      "ticker": "09626",
+      "company": "Bilibili",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a concurrent equity placement and convertible note offering, which will result in significant shareholder dilution.",
+      "why_now": "The official exchange filing regarding the $700 million capital action was released on 2026-09-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d63e6888b9d8"
+      ],
+      "primary_source_event_id": "EVT-d63e6888b9d8",
+      "source_headlines": [
+        "BILIBILI-W (09626): PROPOSED OFF-MARKET SHARE BUY-BACK PRICING OF OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES"
+      ],
+      "source_headline": "BILIBILI-W (09626): PROPOSED OFF-MARKET SHARE BUY-BACK PRICING OF OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T19:35:13Z",
+      "updated_at": "2026-09-06T10:10:50Z",
+      "decay_at": "2026-09-07T22:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ddeb10a10dec",
       "idea_version": "IDEAV-83f238dd91bbe850",
       "idea_version_started_at": "2026-09-06T08:07:24Z",
@@ -106422,78 +106493,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ffa54d096f0d",
-      "idea_version": "IDEAV-9c0129638a1ca5e9",
-      "idea_version_started_at": "2026-09-04T19:35:13Z",
-      "ticker": "09626",
-      "company": "Bilibili Inc.",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a concurrent equity placement and convertible note offering, which will result in significant shareholder dilution.",
-      "why_now": "The announcement was filed on September 4, 2026, and the market typically reacts negatively to the immediate dilution impact of combined equity and convertible offerings.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0cedd6159489"
-      ],
-      "primary_source_event_id": "EVT-0cedd6159489",
-      "source_headlines": [
-        "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES"
-      ],
-      "source_headline": "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400738.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T08:37:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T19:35:13Z",
-      "updated_at": "2026-09-04T19:35:13Z",
-      "decay_at": "2026-09-05T20:37:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-02091865ea7a",
       "idea_version": "IDEAV-081fe3565951befd",
       "idea_version_started_at": "2026-09-04T09:24:12Z",
@@ -107212,78 +107211,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f7d451f14843",
-      "idea_version": "IDEAV-3a714f02fd38b381",
-      "idea_version_started_at": "2026-09-03T18:13:00Z",
-      "ticker": "CRST",
-      "company": "Crest Nicholson",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company warned of an annual loss due to a subdued property market, indicating significant margin compression and demand headwinds in the UK housing sector.",
-      "why_now": "The warning was issued on September 3, 2026, and reflects immediate operational deterioration.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c88d04d884b"
-      ],
-      "primary_source_event_id": "EVT-4c88d04d884b",
-      "source_headlines": [
-        "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market"
-      ],
-      "source_headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
-      "source_url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
-      "source_name": "The Guardian — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T10:02:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T14:38:11Z",
-      "updated_at": "2026-09-03T18:13:00Z",
-      "decay_at": "2026-09-04T22:02:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -107358,14 +107285,14 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 405,
+      "file_count": 406,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 457,
-    "shown_count": 457,
+    "total_count": 456,
+    "shown_count": 456,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -107374,8 +107301,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 218,
-        "shown_count": 218,
+        "total_count": 217,
+        "shown_count": 217,
         "hidden_count": 0
       }
     },
@@ -109406,81 +109333,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ffa54d096f0d",
-        "idea_version": "IDEAV-9c0129638a1ca5e9",
-        "idea_version_started_at": "2026-09-04T19:35:13Z",
-        "ticker": "09626",
-        "company": "Bilibili Inc.",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is executing a concurrent equity placement and convertible note offering, which will result in significant shareholder dilution.",
-        "why_now": "The announcement was filed on September 4, 2026, and the market typically reacts negatively to the immediate dilution impact of combined equity and convertible offerings.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0cedd6159489"
-        ],
-        "primary_source_event_id": "EVT-0cedd6159489",
-        "source_headlines": [
-          "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES"
-        ],
-        "source_headline": "BILIBILI-W (09626): INSIDE INFORMATION AND PROPOSED OFF-MARKET SHARE BUY-BACK PROPOSED OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090400738.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T08:37:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T19:35:13Z",
-        "updated_at": "2026-09-04T19:35:13Z",
-        "decay_at": "2026-09-05T20:37:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-05T20:37:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b4fb75fc2792",
         "idea_version": "IDEAV-62c171cab3fd35ec",
         "idea_version_started_at": "2026-09-05T10:44:15Z",
@@ -111331,8 +111183,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-04T22:02:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T10:10:53Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -141305,7 +141157,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 500,
-    "live_count": 41,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
