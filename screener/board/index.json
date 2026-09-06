@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T07:07:21Z",
+  "generated_at": "2026-09-06T07:16:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -1656,6 +1656,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-168",
+      "headline": "UAE flights status: Emirates, Etihad, Air Arabia, flydubai delays and cancellations; Indonesia travel disrupted",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/uae-flights-status-emirates-etihad-air-arabia-flydubai-delays-and-cancellations-indonesia-travel-disrupted-1.500664722",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T06:44:01Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Widespread flight disruptions and cancellations for major UAE carriers impact operational efficiency and revenue for the aviation sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Widespread flight disruptions and cancellations for major UAE carriers impact operational efficiency and revenue for the aviation sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Emirates",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-086",
       "headline": "Anak Krakatau ash halts flights at Indonesia’s Jakarta and Lampung airports; SIA services cancelled",
       "headline_en": null,
@@ -1890,50 +1944,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-022",
-      "headline": "US troops can still be tracked by purchased location data, and Congress wants to know why",
-      "headline_en": null,
-      "url": "https://www.theregister.com/public-sector/2026/09/06/us-troops-can-still-be-tracked-by-purchased-location-data-and-congress-wants-to-know-why/5294652",
-      "source_name": "The Register",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:06:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Congressional scrutiny into the sale of location data to government agencies poses a significant regulatory and operational risk to the data brokerage and ad-tech sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Congressional scrutiny into the sale of location data to government agencies poses a significant regulatory and operational risk to the data brokerage and ad-tech sectors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140424,9 +140434,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 921,
-    "news_picked_today": 201,
-    "news_dropped_today": 720
+    "news_seen_today": 960,
+    "news_picked_today": 208,
+    "news_dropped_today": 752
   },
   "book_momentum": {
     "live_count": 8,
