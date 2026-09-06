@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "ef9c0132-04d3-4133-bb67-7d082dbb015f",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "7c408bcf-2fc2-4417-b38d-faef8d39c602",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "business-model"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-06T14:47:46.249Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "7c408bcf-2fc2-4417-b38d-faef8d39c602",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-06T14:47:46.249Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "56603e04-ae64-4c37-97f7-f5b629ed1894",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "earnings"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-06T15:37:04.363Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "56603e04-ae64-4c37-97f7-f5b629ed1894",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-06T15:37:04.363Z"
+    }
+  ],
+  "written_at": "2026-09-06T17:02:33.019Z"
+}
