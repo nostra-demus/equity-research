@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T23:29:10Z",
+  "generated_at": "2026-09-06T23:39:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-351",
+      "headline": "AKA: Victorian Mine and Mill Acquisition - Placement and SPP [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AKA?key=2924-03132384-3A701138",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T23:29:40Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "AKA announced the acquisition of a Victorian mine and mill, accompanied by a capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AKA announced the acquisition of a Victorian mine and mill, accompanied by a capital raise.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AKA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-315",
       "headline": "SOP: Synertec secures $45.5m Contract with Government Agency [price-sensitive]",
@@ -1816,6 +1865,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-354",
+      "headline": "CY5: Scheme Update - CAML Shareholder Resolution Passed",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CY5?key=2924-03132390-6A1342470",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T23:32:25Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "CAML shareholders passed the resolution for the scheme of arrangement with CY5.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "CAML shareholders passed the resolution for the scheme of arrangement with CY5.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CY5",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-326",
       "headline": "LRV: Excellent drill results continue from Clarks Gully [price-sensitive]",
       "headline_en": null,
@@ -1855,105 +1953,6 @@
       "companies": [
         {
           "name": "LRV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-193",
-      "headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NEOGEN_06092026141404_GSTnotice.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T08:44:25Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Neogen Chemicals received a show cause cum demand notice from the CGST and Central Excise Commissionerate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Neogen Chemicals received a show cause cum demand notice from the CGST and Central Excise Commissionerate.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neogen Chemicals Limited",
-          "ticker": "542665",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-333",
-      "headline": "Quek Leng Chan, TPG-backed Asia OneHealthcare targets RM7 billion Malaysia IPO in Q1 2027",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/quek-leng-chan-tpg-backed-asia-onehealthcare-targets-rm7-billion-malaysia-ipo-q1-2027",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Asia OneHealthcare is targeting a RM7 billion Malaysia IPO in Q1 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Asia OneHealthcare is targeting a RM7 billion Malaysia IPO in Q1 2027.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Asia OneHealthcare",
           "ticker": null,
           "listing_country": null
         }
@@ -141797,9 +141796,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4222,
-    "news_picked_today": 885,
-    "news_dropped_today": 3337
+    "news_seen_today": 4269,
+    "news_picked_today": 899,
+    "news_dropped_today": 3370
   },
   "book_momentum": {
     "live_count": 8,
