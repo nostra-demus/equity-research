@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:16:27Z",
+  "generated_at": "2026-09-06T12:20:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1734,6 +1734,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-228",
+      "headline": "Warren Buffett's Berkshire raises stake in media giant",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/nyt-warren-buffett-berkshire-raises-stake-new-york-times-stock",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Berkshire Hathaway increasing its stake in a media company signals a significant capital allocation decision by a major institutional investor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Berkshire Hathaway increasing its stake in a media company signals a significant capital allocation decision by a major institutional investor.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-222",
       "headline": "Equinor Starts Up 100 MW Energy Storage Project in Texas",
       "headline_en": null,
@@ -1876,55 +1925,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-130",
-      "headline": "Bathla founder at risk of personal bankruptcy after securing loans",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/residential/bathla-founder-at-risk-of-personal-bankruptcy-after-securing-loans-20260904-p60ul1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Founder at risk of personal bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Founder at risk of personal bankruptcy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141516,9 +141516,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2015,
-    "news_picked_today": 405,
-    "news_dropped_today": 1610
+    "news_seen_today": 2025,
+    "news_picked_today": 409,
+    "news_dropped_today": 1616
   },
   "book_momentum": {
     "live_count": 8,
