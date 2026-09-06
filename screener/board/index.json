@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T06:37:25Z",
+  "generated_at": "2026-09-06T06:41:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -1557,6 +1557,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-151",
+      "headline": "NMDC to start commercial coal production next quarter; eyes 1 MT dry fuel sale in FY27: Chairman",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining/nmdc-to-start-commercial-coal-production-next-quarter-eyes-1-mt-dry-fuel-sale-in-fy27-chairman/articleshow/133827434.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T06:25:20Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "NMDC is entering a new business segment with commercial coal production, targeting 1 million tonnes by FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "NMDC is entering a new business segment with commercial coal production, targeting 1 million tonnes by FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMDC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-116",
       "headline": "NSE IPO: ₹30,000 crore mega issue could break records of these two mammoth public offers",
       "headline_en": null,
@@ -1878,49 +1927,6 @@
           "listing_country": "SA"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-107",
-      "headline": "UAE sets out how crypto payments must be converted to dirhams for VAT",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/uae-sets-out-how-crypto-payments-must-be-converted-to-dirhams-for-vat",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:50:23Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "New regulatory guidance on crypto-to-fiat conversion for VAT purposes impacts the digital asset sector in the UAE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New regulatory guidance on crypto-to-fiat conversion for VAT purposes impacts the digital asset sector in the UAE.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -140267,9 +140273,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 798,
-    "news_picked_today": 181,
-    "news_dropped_today": 617
+    "news_seen_today": 836,
+    "news_picked_today": 189,
+    "news_dropped_today": 647
   },
   "book_momentum": {
     "live_count": 8,
