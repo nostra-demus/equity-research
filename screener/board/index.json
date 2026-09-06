@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T13:30:23Z",
+  "generated_at": "2026-09-06T13:40:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1479,6 +1479,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-241",
+      "headline": "Global dining leader closing 261 restaurants, steakhouse chain",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/global-dining-leader-whitbread-closing-261-restaurants-steakhouse-chain",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T13:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A global dining chain is closing 261 restaurants, indicating a significant operational contraction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "A global dining chain is closing 261 restaurants, indicating a significant operational contraction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global dining leader",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-174",
       "headline": "‎ACDIMA completes sale of 10.5% stake in SPIMACO",
       "headline_en": null,
@@ -1871,55 +1920,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-228",
-      "headline": "Warren Buffett's Berkshire raises stake in media giant",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/nyt-warren-buffett-berkshire-raises-stake-new-york-times-stock",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T12:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Berkshire Hathaway increasing its stake in a media company signals a significant capital allocation decision by a major institutional investor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Berkshire Hathaway increasing its stake in a media company signals a significant capital allocation decision by a major institutional investor.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141659,9 +141659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2264,
-    "news_picked_today": 454,
-    "news_dropped_today": 1810
+    "news_seen_today": 2303,
+    "news_picked_today": 458,
+    "news_dropped_today": 1845
   },
   "book_momentum": {
     "live_count": 8,
