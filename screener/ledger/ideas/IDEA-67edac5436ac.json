@@ -1,19 +1,19 @@
 {
   "idea_id": "IDEA-67edac5436ac",
-  "idea_version": "IDEAV-578938ddec286c59",
-  "idea_version_started_at": "2026-09-05T22:50:47Z",
+  "idea_version": "IDEAV-27711a58c7a5bfbc",
+  "idea_version_started_at": "2026-09-06T18:32:33Z",
   "ticker": "IVG",
-  "company": "Iveco Group N.V.",
-  "exchange": "MIL",
+  "company": "Iveco Group",
+  "exchange": "BIT",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "Tata Motors has launched a formal takeover offer for Iveco Group at €14.1 per share, valuing the transaction at €3.82 billion.",
-  "why_now": "The takeover offer was launched on September 5, 2026, creating a hard floor and near-term catalyst for the stock to trade toward the offer price.",
-  "conviction": 80,
+  "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
+  "why_now": "The takeover offer was officially announced on 2026-09-05.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
@@ -21,9 +21,9 @@
     "evidence": 14,
     "impact": 21,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
-    "corroboration": 6,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,6 +32,8 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,18 +45,16 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-bd74a41471c6",
-    "EVT-e774de2326e3"
+    "EVT-bd74a41471c6"
   ],
   "primary_source_event_id": "EVT-bd74a41471c6",
   "source_headlines": [
-    "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-    "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover"
+    "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
   ],
   "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
   "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
@@ -68,7 +68,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-02T12:20:12Z",
-  "updated_at": "2026-09-05T22:50:47Z",
+  "updated_at": "2026-09-06T18:32:33Z",
   "decay_at": "2026-09-06T18:37:04Z",
   "status": "live",
   "promoted_signal_id": null

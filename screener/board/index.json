@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T18:32:18Z",
+  "generated_at": "2026-09-06T18:32:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -100518,6 +100518,146 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-0beb62fe006b",
+      "idea_version": "IDEAV-8151dcab328d0292",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "SWX",
+      "company": "Southwest Gas",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is increasing its capital expenditure by $600 million for pipeline expansion, which is expected to drive long-term rate base growth.",
+      "why_now": "The capex increase was reported on 2026-09-05.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7cd4124e1133"
+      ],
+      "primary_source_event_id": "EVT-7cd4124e1133",
+      "source_headlines": [
+        "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger"
+      ],
+      "source_headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
+      "source_url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T19:28:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:49:26Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-07T07:28:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f31085db06b9",
+      "idea_version": "IDEAV-52d4fd07b12b030b",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "MGY",
+      "company": "Magnolia Oil & Gas",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a doubling of profits alongside an aggressive growth strategy, signaling strong operational efficiency and cash flow generation.",
+      "why_now": "The earnings and growth announcement occurred on 2026-09-05.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b46747e7cef3"
+      ],
+      "primary_source_event_id": "EVT-b46747e7cef3",
+      "source_headlines": [
+        "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
+      ],
+      "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+      "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T19:20:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:30:20Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-07T07:20:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-4d13e431ef8d7fcf",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -100655,146 +100795,6 @@
       "surfaced_at": "2026-09-06T00:49:26Z",
       "updated_at": "2026-09-06T18:05:43Z",
       "decay_at": "2026-09-08T03:53:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0beb62fe006b",
-      "idea_version": "IDEAV-811a4c055659cf47",
-      "idea_version_started_at": "2026-09-06T00:49:26Z",
-      "ticker": "SWX",
-      "company": "Southwest Gas",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is increasing its capital expenditure by $600 million for pipeline infrastructure, which signals long-term asset base growth and potential future rate base expansion.",
-      "why_now": "The announcement of the $600 million capital commitment was made on 2026-09-05.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7cd4124e1133"
-      ],
-      "primary_source_event_id": "EVT-7cd4124e1133",
-      "source_headlines": [
-        "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger"
-      ],
-      "source_headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
-      "source_url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T19:28:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:49:26Z",
-      "updated_at": "2026-09-06T00:49:26Z",
-      "decay_at": "2026-09-07T07:28:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f31085db06b9",
-      "idea_version": "IDEAV-0288b04e6409505a",
-      "idea_version_started_at": "2026-09-06T00:30:20Z",
-      "ticker": "MGY",
-      "company": "Magnolia Oil & Gas",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a doubling of profits alongside an aggressive capital expenditure plan for growth, indicating strong operational leverage in the current commodity environment.",
-      "why_now": "The earnings and growth strategy update was released on 2026-09-05.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b46747e7cef3"
-      ],
-      "primary_source_event_id": "EVT-b46747e7cef3",
-      "source_headlines": [
-        "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
-      ],
-      "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
-      "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T19:20:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:30:20Z",
-      "updated_at": "2026-09-06T00:30:20Z",
-      "decay_at": "2026-09-07T07:20:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -101434,6 +101434,152 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-27711a58c7a5bfbc",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "IVG",
+      "company": "Iveco Group",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
+      "why_now": "The takeover offer was officially announced on 2026-09-05.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd74a41471c6"
+      ],
+      "primary_source_event_id": "EVT-bd74a41471c6",
+      "source_headlines": [
+        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
+      ],
+      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T06:37:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-06T18:37:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-be2010792483",
+      "idea_version": "IDEAV-de0b1021b593e033",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "SPI",
+      "company": "Spire Healthcare",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has agreed to a £1.03 billion acquisition by Toscafund and other investors, which typically aligns the market price with the offer terms.",
+      "why_now": "The acquisition agreement was announced on 2026-09-05.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c148e6ef6fe1"
+      ],
+      "primary_source_event_id": "EVT-c148e6ef6fe1",
+      "source_headlines": [
+        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
+      ],
+      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T16:47:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-07T04:47:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-15541783b8ad",
       "idea_version": "IDEAV-bdd6e9b9f1e5b408",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -101931,152 +102077,6 @@
       "surfaced_at": "2026-09-05T23:52:55Z",
       "updated_at": "2026-09-05T23:52:55Z",
       "decay_at": "2026-09-06T23:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-578938ddec286c59",
-      "idea_version_started_at": "2026-09-05T22:50:47Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "MIL",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a formal takeover offer for Iveco Group at €14.1 per share, valuing the transaction at €3.82 billion.",
-      "why_now": "The takeover offer was launched on September 5, 2026, creating a hard floor and near-term catalyst for the stock to trade toward the offer price.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd74a41471c6",
-        "EVT-e774de2326e3"
-      ],
-      "primary_source_event_id": "EVT-bd74a41471c6",
-      "source_headlines": [
-        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover"
-      ],
-      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T06:37:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-05T22:50:47Z",
-      "decay_at": "2026-09-06T18:37:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-be2010792483",
-      "idea_version": "IDEAV-51378f6566825a4e",
-      "idea_version_started_at": "2026-09-05T22:50:47Z",
-      "ticker": "SPI",
-      "company": "Spire Healthcare Group plc",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Spire Healthcare has agreed to a £1.03 billion private equity takeover by Toscafund and partners, which should support the stock price up to the acquisition value.",
-      "why_now": "The definitive takeover agreement was announced on September 5, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c148e6ef6fe1"
-      ],
-      "primary_source_event_id": "EVT-c148e6ef6fe1",
-      "source_headlines": [
-        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
-      ],
-      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
-      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:47:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-05T22:50:47Z",
-      "decay_at": "2026-09-07T04:47:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
