@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T04:54:36Z",
+  "generated_at": "2026-09-06T04:55:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -101094,6 +101094,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-04738164be6f",
+      "idea_version": "IDEAV-66987093c8e398fb",
+      "idea_version_started_at": "2026-09-06T04:54:50Z",
+      "ticker": "MC.PA",
+      "company": "LVMH",
+      "exchange": "Paris",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The luxury sector is experiencing a sharp decline in demand as the 'feelgood factor' fades, directly impacting LVMH's revenue growth and margin expansion.",
+      "why_now": "The report on 2026-09-06 highlights a structural shift in consumer behavior that is currently being repriced by the market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc6dc4ad0c77"
+      ],
+      "primary_source_event_id": "EVT-fc6dc4ad0c77",
+      "source_headlines": [
+        "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades"
+      ],
+      "source_headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
+      "source_url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-06T04:00:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T04:54:50Z",
+      "updated_at": "2026-09-06T04:54:50Z",
+      "decay_at": "2026-09-07T16:00:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-205ed939316f",
       "idea_version": "IDEAV-23b289b6cd7b7c5b",
       "idea_version_started_at": "2026-09-06T03:18:09Z",
@@ -102836,78 +102906,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1e4418649180",
-      "idea_version": "IDEAV-3e2b3a3f68318b65",
-      "idea_version_started_at": "2026-09-05T17:14:18Z",
-      "ticker": "GLAND",
-      "company": "Gland Pharma",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Fosun Pharma has sold a 4.5% stake worth Rs 2,121 crore, creating significant immediate supply and potential overhang on the stock.",
-      "why_now": "The transaction was reported on September 5, 2026, and typically leads to short-term price pressure as the market absorbs the block.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5f4d951290a3"
-      ],
-      "primary_source_event_id": "EVT-5f4d951290a3",
-      "source_headlines": [
-        "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore"
-      ],
-      "source_headline": "Fosun Pharma sells 4.5% stake in Gland Pharma for Rs 2,121 crore",
-      "source_url": "https://www.thehindubusinessline.com/markets/stock-markets/fosun-pharma-sells-45-stake-in-gland-pharma-for-rs-2121-crore/article71433130.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-05T16:49:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-05T17:14:18Z",
-      "decay_at": "2026-09-07T04:49:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5a71f05995f2",
       "idea_version": "IDEAV-b01c5300632bc25d",
       "idea_version_started_at": "2026-09-05T10:44:15Z",
@@ -103047,6 +103045,78 @@
       "surfaced_at": "2026-09-06T03:55:04Z",
       "updated_at": "2026-09-06T03:55:04Z",
       "decay_at": "2026-09-07T15:19:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1e4418649180",
+      "idea_version": "IDEAV-dec86f5bf9ababfe",
+      "idea_version_started_at": "2026-09-06T04:54:50Z",
+      "ticker": "GLAND",
+      "company": "Gland Pharma",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
+      "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6958bd3121b"
+      ],
+      "primary_source_event_id": "EVT-c6958bd3121b",
+      "source_headlines": [
+        "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
+      ],
+      "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
+      "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
+      "source_name": "Free Press Journal",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-06T04:17:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-06T04:54:50Z",
+      "decay_at": "2026-09-07T16:17:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -139528,8 +139598,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 486,
-    "live_count": 38,
+    "surfaced_total": 487,
+    "live_count": 39,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
