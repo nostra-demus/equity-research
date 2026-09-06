@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T15:55:21Z",
+  "generated_at": "2026-09-06T16:04:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-259",
+      "headline": "Justiça Federal suspende licenças da mina da Sigma Lithium em Minas Gerais",
+      "headline_en": "Federal Court suspends Sigma Lithium mine licenses in Minas Gerais",
+      "url": "https://www.reuters.com/pt/negocio/AZ7CDYO6KZLENGWUW7ZJWLJS4U-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T15:53:44Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A federal court suspended the mining licenses of Sigma Lithium in Minas Gerais, halting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A federal court suspended the mining licenses of Sigma Lithium in Minas Gerais, halting operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sigma Lithium",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,55 +1917,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-184",
-      "headline": "Bosses eye bid to take control of Poundland",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16107723/Bosses-eye-bid-control-Poundland-current-owner-sale.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T08:11:37Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Potential acquisition interest in Poundland indicates a possible change in ownership or control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Potential acquisition interest in Poundland indicates a possible change in ownership or control.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141868,9 +141868,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2740,
-    "news_picked_today": 541,
-    "news_dropped_today": 2199
+    "news_seen_today": 2779,
+    "news_picked_today": 550,
+    "news_dropped_today": 2229
   },
   "book_momentum": {
     "live_count": 8,
