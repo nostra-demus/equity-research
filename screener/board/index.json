@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T13:06:16Z",
+  "generated_at": "2026-09-06T13:06:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -103030,6 +103030,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-82f2f46d0183",
+      "idea_version": "IDEAV-e05b8942d3a2084f",
+      "idea_version_started_at": "2026-09-06T13:06:32Z",
+      "ticker": "ANDHRAPAP",
+      "company": "Andhra Paper",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The imposition of a 21 crore INR penalty by the APPCB represents a direct, unhedged hit to the company's bottom line and cash reserves.",
+      "why_now": "The penalty was reported on 2026-09-06.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7eeec39c7496"
+      ],
+      "primary_source_event_id": "EVT-7eeec39c7496",
+      "source_headlines": [
+        "APPCB snaps ₹21 crore penalty on Andhra Paper"
+      ],
+      "source_headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
+      "source_url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-06T12:28:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T13:06:32Z",
+      "updated_at": "2026-09-06T13:06:32Z",
+      "decay_at": "2026-09-08T00:28:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-05d90ddf6fa2",
       "idea_version": "IDEAV-a93c78f4b847651b",
       "idea_version_started_at": "2026-09-06T12:16:05Z",
@@ -141637,8 +141710,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 507,
-    "live_count": 48,
+    "surfaced_total": 508,
+    "live_count": 49,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
