@@ -1,6 +1,99 @@
 {
-  "generated_at": "2026-09-06T00:04:37Z",
+  "generated_at": "2026-09-06T00:09:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-007",
+      "headline": "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-05/brazilian-court-suspends-permits-halts-sigma-lithium-s-mine",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T23:26:30Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Court-ordered suspension of mining permits halts operations for Sigma Lithium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court-ordered suspension of mining permits halts operations for Sigma Lithium.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sigma Lithium",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-006",
+      "headline": "US strikes three Iranian oil tankers; Coalition didn’t model smoking rates after excise cut",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/middle-east/us-strikes-iran-live-updates-us-strikes-oil-tankers-20260906-p60urr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:05:15Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Military strike on oil tankers represents a significant geopolitical escalation and potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Military strike on oil tankers represents a significant geopolitical escalation and potential supply shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-002",
       "headline": "LG유플러스, 'PMDC 얼라이언스' 출범",
@@ -46,6 +139,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-008",
+      "headline": "Iran War Forces a Rewrite of Global Oil Trade Routes",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/iran-war-forces-rewrite-global-230000749.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Geopolitical conflict is forcing a structural shift in global oil supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Geopolitical conflict is forcing a structural shift in global oil supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179,6 +315,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-005",
+      "headline": "Warning needed for even single excess ingredient: Plea in SC seeks changes to FSSAI rules",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/warning-needed-for-even-single-excess-ingredient-plea-in-sc-seeks-changes-to-fssai-rules/articleshow/133811567.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A legal plea regarding food safety regulations is not yet a material change to industry operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "A legal plea regarding food safety regulations is not yet a material change to industry operations.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -136473,7 +136652,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2051,
+    "inbox_unconsumed": 2055,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -136482,9 +136661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 20,
-    "news_picked_today": 4,
-    "news_dropped_today": 16
+    "news_seen_today": 34,
+    "news_picked_today": 8,
+    "news_dropped_today": 26
   },
   "book_momentum": {
     "live_count": 8,
