@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:40:31Z",
+  "generated_at": "2026-09-06T12:41:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -102893,6 +102893,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-017c2840c012",
+      "idea_version": "IDEAV-9780b42326bd4e7a",
+      "idea_version_started_at": "2026-09-06T12:40:49Z",
+      "ticker": "03337",
+      "company": "Anton Oilfield",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a long-term crude oil sales agreement and qualification in Iraq, directly expanding its revenue stream in a key operational region.",
+      "why_now": "The filing was released on 2026-09-06, providing immediate confirmation of new commercial capacity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a47f4cae708e"
+      ],
+      "primary_source_event_id": "EVT-a47f4cae708e",
+      "source_headlines": [
+        "ANTON OILFIELD (03337): VOLUNTARY ANNOUNCEMENT - Obtaining Crude Oil Sales Qualification in Iraq and Entering into a Long-term Crude Oil Sales Agreement"
+      ],
+      "source_headline": "ANTON OILFIELD (03337): VOLUNTARY ANNOUNCEMENT - Obtaining Crude Oil Sales Qualification in Iraq and Entering into a Long-term Crude Oil Sales Agreement",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600077.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-06T11:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T12:40:49Z",
+      "updated_at": "2026-09-06T12:40:49Z",
+      "decay_at": "2026-09-07T23:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0e68403b9665",
       "idea_version": "IDEAV-e2b14691fb6dbc28",
       "idea_version_started_at": "2026-09-06T12:16:05Z",
@@ -141496,8 +141567,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 506,
-    "live_count": 48,
+    "surfaced_total": 507,
+    "live_count": 49,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
