@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T18:32:58Z",
+  "generated_at": "2026-09-06T18:47:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -724,6 +724,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-274",
+      "headline": "57-year-old discount fashion retail chain closes 350 stores",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/90s-fashion-retailer-closed-350-stores-and-it-isnt-enough",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T17:35:09Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A retail chain closing 350 stores indicates significant financial distress or a major operational downsizing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A retail chain closing 350 stores indicates significant financial distress or a major operational downsizing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,55 +1911,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-241",
-      "headline": "Global dining leader closing 261 restaurants, steakhouse chain",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/global-dining-leader-whitbread-closing-261-restaurants-steakhouse-chain",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T13:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A global dining chain is closing 261 restaurants, indicating a significant operational contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A global dining chain is closing 261 restaurants, indicating a significant operational contraction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Global dining leader",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -101434,79 +101428,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-27711a58c7a5bfbc",
-      "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "IVG",
-      "company": "Iveco Group",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
-      "why_now": "The takeover offer was officially announced on 2026-09-05.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd74a41471c6"
-      ],
-      "primary_source_event_id": "EVT-bd74a41471c6",
-      "source_headlines": [
-        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
-      ],
-      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T06:37:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-06T18:37:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-be2010792483",
       "idea_version": "IDEAV-de0b1021b593e033",
       "idea_version_started_at": "2026-09-06T18:32:33Z",
@@ -105527,6 +105448,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-27711a58c7a5bfbc",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "IVG",
+      "company": "Iveco Group",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
+      "why_now": "The takeover offer was officially announced on 2026-09-05.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd74a41471c6"
+      ],
+      "primary_source_event_id": "EVT-bd74a41471c6",
+      "source_headlines": [
+        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
+      ],
+      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T06:37:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-06T18:37:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d7419f0c968",
       "idea_version": "IDEAV-5f4373d70d5503f4",
       "idea_version_started_at": "2026-09-05T23:08:05Z",
@@ -107554,13 +107548,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 457,
-    "shown_count": 457,
+    "total_count": 458,
+    "shown_count": 458,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 240,
-        "shown_count": 240,
+        "total_count": 241,
+        "shown_count": 241,
         "hidden_count": 0
       },
       "short": {
@@ -107585,6 +107579,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-67edac5436ac",
+        "idea_version": "IDEAV-27711a58c7a5bfbc",
+        "idea_version_started_at": "2026-09-06T18:32:33Z",
+        "ticker": "IVG",
+        "company": "Iveco Group",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
+        "why_now": "The takeover offer was officially announced on 2026-09-05.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bd74a41471c6"
+        ],
+        "primary_source_event_id": "EVT-bd74a41471c6",
+        "source_headlines": [
+          "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
+        ],
+        "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
+        "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T06:37:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T12:20:12Z",
+        "updated_at": "2026-09-06T18:32:33Z",
+        "decay_at": "2026-09-06T18:37:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T18:37:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-cd49f49da7a5",
         "idea_version": "IDEAV-9946cdabc11a61e2",
@@ -141495,7 +141565,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 511,
-    "live_count": 52,
+    "live_count": 51,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -141514,9 +141584,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3205,
-    "news_picked_today": 632,
-    "news_dropped_today": 2573
+    "news_seen_today": 3260,
+    "news_picked_today": 643,
+    "news_dropped_today": 2617
   },
   "book_momentum": {
     "live_count": 8,
