@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T03:24:26Z",
+  "generated_at": "2026-09-06T03:39:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -1031,6 +1031,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-071",
+      "headline": "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/pete-hegseth-warns-iran-us-will-destroy-and-sink-oil-tankers-if-navy-ships-attacked-19984390.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T03:24:05Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Military escalation involving Iranian oil tankers poses a significant risk to global energy supply chains and regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Military escalation involving Iranian oil tankers poses a significant risk to global energy supply chains and regional stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-067",
       "headline": "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
       "headline_en": null,
@@ -1818,49 +1861,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-025",
-      "headline": "US-Iran war LIVE: Iran fires several ballistic missiles at US aircraft carrier, destroyer harassing Iranian ships",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-news-latest-live-updates-donald-trump-bahrain-kuwait-jd-vance-abbas-araghchi-pezeshkian-strait-of-hormuz-attack-11788655201814.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:15:10Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A direct military conflict between the US and Iran involving attacks on naval assets represents a major geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "A direct military conflict between the US and Iran involving attacks on naval assets represents a major geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 95,
-      "rank_factors": {
-        "materiality": 95,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138738,9 +138738,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 363,
-    "news_picked_today": 72,
-    "news_dropped_today": 291
+    "news_seen_today": 379,
+    "news_picked_today": 73,
+    "news_dropped_today": 306
   },
   "book_momentum": {
     "live_count": 8,
