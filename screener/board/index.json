@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T02:05:49Z",
+  "generated_at": "2026-09-06T02:09:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -242,6 +242,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-044",
+      "headline": "Japan gov't eyes tougher monitoring of overseas operations at big banks",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20260906/p2g/00m/0bu/014000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:05:37Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The Japanese government is planning stricter oversight of overseas operations for major banks, increasing compliance costs and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The Japanese government is planning stricter oversight of overseas operations for major banks, increasing compliance costs and operational risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-022",
       "headline": "US troops can still be tracked by purchased location data, and Congress wants to know why",
       "headline_en": null,
@@ -460,6 +503,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-045",
+      "headline": "Elon Musk Says His New Foundry Can Get Gas Turbines Online 18 Months Faster. Here's What This \"Profound Game Changer\" Would Mean for SpaceX and Tesla.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/05/elon-musk-says-his-new-foundry-can-get-gas-turbi/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Elon Musk claims a new foundry process could significantly accelerate gas turbine deployment, potentially impacting SpaceX and Tesla operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Elon Musk claims a new foundry process could significantly accelerate gas turbine deployment, potentially impacting SpaceX and Tesla operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-006",
       "headline": "US strikes three Iranian oil tankers; Coalition didn’t model smoking rates after excise cut",
       "headline_en": null,
@@ -546,6 +644,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-032",
+      "headline": "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/roborock-reports-27-6-revenue-growth-in-h1-2026--reinforcing-global-market-leadership-302868216.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-06T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Roborock reported a 27.6% revenue increase for H1 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Roborock reported a 27.6% revenue increase for H1 2026.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Roborock",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-040",
       "headline": "DAHON TECH gibt Zwischenergebnisse für 2026 bekannt; Umsatz und Gewinn verzeichnen starkes Wachstum",
       "headline_en": "DAHON TECH announces interim results for 2026; revenue and profit record strong growth",
@@ -599,55 +746,6 @@
       "headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
       "headline_en": "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
       "url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-06T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Roborock reported a 27.6% revenue increase for H1 2026.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Roborock",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-032",
-      "headline": "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/roborock-reports-27-6-revenue-growth-in-h1-2026--reinforcing-global-market-leadership-302868216.html",
       "source_name": "PR Newswire — All News Releases",
       "input_nature": "company_press_release",
       "found_at": "2026-09-06T01:30:00Z",
@@ -1645,49 +1743,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-024",
-      "headline": "US and Iranian forces trade tit-for-tat fire at vessels in waters near Iran as conflict deepens",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/us-and-iranian-forces-trade-tit-tat-fire-vessels-waters-near-iran-conflict-deepens",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:15:55Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260906-014",
       "headline": "U.S. and Iranian forces fire at vessels in waters near Iran",
       "headline_en": null,
@@ -1769,55 +1824,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-035",
-      "headline": "Why Innodata Stock Tumbled by 10% Last Month",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/05/why-innodata-stock-tumbled-by-10-last-month/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:03:53Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Historical recap of stock performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Historical recap of stock performance.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Innodata",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138475,9 +138481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 214,
-    "news_picked_today": 42,
-    "news_dropped_today": 172
+    "news_seen_today": 225,
+    "news_picked_today": 45,
+    "news_dropped_today": 180
   },
   "book_momentum": {
     "live_count": 8,
