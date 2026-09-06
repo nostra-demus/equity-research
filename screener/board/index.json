@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:21:45Z",
+  "generated_at": "2026-09-06T10:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -1704,6 +1704,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-209",
+      "headline": "UK business minister to meet Jaguar Land Rover CEO over job cuts",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/uk-business-minister-meet-jaguar-land-rover-ceo-over-job-cuts-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:21:44Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The UK business minister is meeting with the CEO of Jaguar Land Rover to discuss planned job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The UK business minister is meeting with the CEO of Jaguar Land Rover to discuss planned job cuts.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-187",
       "headline": "NoBroker targets profitability in 8-10 months, FY26 revenue tops ₹1,000 cr",
       "headline_en": null,
@@ -1897,55 +1946,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-023",
-      "headline": "NCLT stays disposal of Byju's K3-linked assets: ‘Articles worth ₹150 crore auctioned for about ₹16 crore’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/nclt-stays-disposal-of-byjus-k3-linked-assets-articles-worth-rs-150-crore-auctioned-for-about-rs-16-crore-11788656524119.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:11:46Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The NCLT has stayed the disposal of assets linked to Byju's, citing a significant valuation discrepancy where assets worth ₹150 crore were auctioned for only ₹16 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The NCLT has stayed the disposal of assets linked to Byju's, citing a significant valuation discrepancy where assets worth ₹150 crore were auctioned for only ₹16 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Byju's",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141176,9 +141176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1565,
-    "news_picked_today": 322,
-    "news_dropped_today": 1243
+    "news_seen_today": 1590,
+    "news_picked_today": 328,
+    "news_dropped_today": 1262
   },
   "book_momentum": {
     "live_count": 8,
