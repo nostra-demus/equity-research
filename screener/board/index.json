@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T06:12:32Z",
+  "generated_at": "2026-09-06T06:17:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -1738,6 +1738,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-134",
+      "headline": "‎Banan’s unit signs SAR 110.4M sports club deal with Armah",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934336",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Banan Real Estate unit signed a contract worth SAR 110.4M, which is a material revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Banan Real Estate unit signed a contract worth SAR 110.4M, which is a material revenue-generating event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banan Real Estate",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-123",
       "headline": "‎Molan proposes reverse stock split",
       "headline_en": null,
@@ -1864,50 +1913,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-017",
-      "headline": "After Evergrande, China’s new rules spark unease amid developers’ debt resolution progress",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/article/3366070/after-evergrande-chinas-new-rules-spark-unease-amid-developers-debt-resolution-progress?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:00:08Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "New Chinese regulations are creating uncertainty for property developers amid ongoing debt resolution efforts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New Chinese regulations are creating uncertainty for property developers amid ongoing debt resolution efforts.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -140254,9 +140259,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 728,
-    "news_picked_today": 160,
-    "news_dropped_today": 568
+    "news_seen_today": 742,
+    "news_picked_today": 163,
+    "news_dropped_today": 579
   },
   "book_momentum": {
     "live_count": 8,
