@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T02:39:35Z",
+  "generated_at": "2026-09-06T02:40:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -101504,77 +101504,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8ce0d29dfa32",
-      "idea_version": "IDEAV-143237a7d06b32d0",
-      "idea_version_started_at": "2026-09-05T22:30:39Z",
-      "ticker": "PATH",
-      "company": "UiPath",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company's forward guidance indicates a material slowdown in growth that outweighs the immediate revenue beat, signaling potential margin compression and cooling demand for automation software.",
-      "why_now": "The guidance revision was released on 2026-09-04, causing a 14% drop that may continue as analysts adjust long-term models.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a567b7f34843"
-      ],
-      "primary_source_event_id": "EVT-a567b7f34843",
-      "source_headlines": [
-        "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
-      ],
-      "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T14:40:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T07:55:39Z",
-      "updated_at": "2026-09-05T22:30:39Z",
-      "decay_at": "2026-09-06T02:40:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-4b271f79c1fd5c0d",
       "idea_version_started_at": "2026-09-05T21:50:53Z",
@@ -104310,6 +104239,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8ce0d29dfa32",
+      "idea_version": "IDEAV-143237a7d06b32d0",
+      "idea_version_started_at": "2026-09-05T22:30:39Z",
+      "ticker": "PATH",
+      "company": "UiPath",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company's forward guidance indicates a material slowdown in growth that outweighs the immediate revenue beat, signaling potential margin compression and cooling demand for automation software.",
+      "why_now": "The guidance revision was released on 2026-09-04, causing a 14% drop that may continue as analysts adjust long-term models.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a567b7f34843"
+      ],
+      "primary_source_event_id": "EVT-a567b7f34843",
+      "source_headlines": [
+        "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
+      ],
+      "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:40:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:55:39Z",
+      "updated_at": "2026-09-05T22:30:39Z",
+      "decay_at": "2026-09-06T02:40:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dac7dfe711fe",
       "idea_version": "IDEAV-2a96706ae4fac03a",
       "idea_version_started_at": "2026-09-04T15:47:15Z",
@@ -106111,8 +106111,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 436,
-    "shown_count": 436,
+    "total_count": 437,
+    "shown_count": 437,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -106121,8 +106121,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 210,
-        "shown_count": 210,
+        "total_count": 211,
+        "shown_count": 211,
         "hidden_count": 0
       }
     },
@@ -106142,6 +106142,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8ce0d29dfa32",
+        "idea_version": "IDEAV-143237a7d06b32d0",
+        "idea_version_started_at": "2026-09-05T22:30:39Z",
+        "ticker": "PATH",
+        "company": "UiPath",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company's forward guidance indicates a material slowdown in growth that outweighs the immediate revenue beat, signaling potential margin compression and cooling demand for automation software.",
+        "why_now": "The guidance revision was released on 2026-09-04, causing a 14% drop that may continue as analysts adjust long-term models.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a567b7f34843"
+        ],
+        "primary_source_event_id": "EVT-a567b7f34843",
+        "source_headlines": [
+          "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat"
+        ],
+        "source_headline": "UiPath Tumbles 14% as Guided Slowdown Overshadows Revenue Beat",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/uipath-tumbles-14-guided-slowdown-144002432.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T14:40:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T07:55:39Z",
+        "updated_at": "2026-09-05T22:30:39Z",
+        "decay_at": "2026-09-06T02:40:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T02:40:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-496d035aff6e",
         "idea_version": "IDEAV-a96680c8baaef174",
@@ -138487,7 +138561,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 481,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
