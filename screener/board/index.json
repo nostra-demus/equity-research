@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:09:52Z",
+  "generated_at": "2026-09-06T01:19:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -138,6 +138,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-023",
+      "headline": "NCLT stays disposal of Byju's K3-linked assets: ‘Articles worth ₹150 crore auctioned for about ₹16 crore’",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/nclt-stays-disposal-of-byjus-k3-linked-assets-articles-worth-rs-150-crore-auctioned-for-about-rs-16-crore-11788656524119.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:11:46Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The NCLT has stayed the disposal of assets linked to Byju's, citing a significant valuation discrepancy where assets worth ₹150 crore were auctioned for only ₹16 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The NCLT has stayed the disposal of assets linked to Byju's, citing a significant valuation discrepancy where assets worth ₹150 crore were auctioned for only ₹16 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Byju's",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -770,6 +819,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-024",
+      "headline": "US and Iranian forces trade tit-for-tat fire at vessels in waters near Iran as conflict deepens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/us-and-iranian-forces-trade-tit-tat-fire-vessels-waters-near-iran-conflict-deepens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:15:55Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of military conflict between US and Iranian forces in the Middle East poses a significant risk to global shipping and energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -101614,77 +101706,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-496d035aff6e",
-      "idea_version": "IDEAV-a96680c8baaef174",
-      "idea_version_started_at": "2026-09-05T19:45:43Z",
-      "ticker": "0933",
-      "company": "Viva Goods Company Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Viva Goods is executing a major transaction to acquire further shares of Li Ning Company Limited, consolidating its strategic consumer goods portfolio.",
-      "why_now": "The major transaction was officially announced in an exchange filing on September 4, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6600298fcd8"
-      ],
-      "primary_source_event_id": "EVT-d6600298fcd8",
-      "source_headlines": [
-        "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED"
-      ],
-      "source_headline": "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402335.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T13:18:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T19:45:43Z",
-      "updated_at": "2026-09-05T19:45:43Z",
-      "decay_at": "2026-09-06T01:18:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-249580ab267f1482",
       "idea_version_started_at": "2026-09-05T19:30:09Z",
@@ -103619,6 +103640,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-496d035aff6e",
+      "idea_version": "IDEAV-a96680c8baaef174",
+      "idea_version_started_at": "2026-09-05T19:45:43Z",
+      "ticker": "0933",
+      "company": "Viva Goods Company Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Viva Goods is executing a major transaction to acquire further shares of Li Ning Company Limited, consolidating its strategic consumer goods portfolio.",
+      "why_now": "The major transaction was officially announced in an exchange filing on September 4, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d6600298fcd8"
+      ],
+      "primary_source_event_id": "EVT-d6600298fcd8",
+      "source_headlines": [
+        "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED"
+      ],
+      "source_headline": "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402335.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T13:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T19:45:43Z",
+      "updated_at": "2026-09-05T19:45:43Z",
+      "decay_at": "2026-09-06T01:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a36ab9c99704",
       "idea_version": "IDEAV-0a21d062981fc850",
       "idea_version_started_at": "2026-09-05T19:45:43Z",
@@ -105208,13 +105300,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 435,
-    "shown_count": 435,
+    "total_count": 436,
+    "shown_count": 436,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 225,
-        "shown_count": 225,
+        "total_count": 226,
+        "shown_count": 226,
         "hidden_count": 0
       },
       "short": {
@@ -105239,6 +105331,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-496d035aff6e",
+        "idea_version": "IDEAV-a96680c8baaef174",
+        "idea_version_started_at": "2026-09-05T19:45:43Z",
+        "ticker": "0933",
+        "company": "Viva Goods Company Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Viva Goods is executing a major transaction to acquire further shares of Li Ning Company Limited, consolidating its strategic consumer goods portfolio.",
+        "why_now": "The major transaction was officially announced in an exchange filing on September 4, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d6600298fcd8"
+        ],
+        "primary_source_event_id": "EVT-d6600298fcd8",
+        "source_headlines": [
+          "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED"
+        ],
+        "source_headline": "VIVA GOODS (00933): MAJOR TRANSACTION IN RESPECT OF FURTHER ACQUISITIONS OF SHARES OF LI NING COMPANY LIMITED",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0904/2026090402335.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T13:18:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T19:45:43Z",
+        "updated_at": "2026-09-05T19:45:43Z",
+        "decay_at": "2026-09-06T01:18:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T01:18:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dac7dfe711fe",
         "idea_version": "IDEAV-2a96706ae4fac03a",
@@ -137510,7 +137676,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 481,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -137520,7 +137686,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2068,
+    "inbox_unconsumed": 2070,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -137529,9 +137695,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 124,
-    "news_picked_today": 22,
-    "news_dropped_today": 102
+    "news_seen_today": 138,
+    "news_picked_today": 24,
+    "news_dropped_today": 114
   },
   "book_momentum": {
     "live_count": 8,
