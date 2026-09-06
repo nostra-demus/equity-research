@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T22:39:12Z",
+  "generated_at": "2026-09-06T22:49:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-315",
@@ -1846,21 +1846,70 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-294",
-      "headline": "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough",
+      "inbox_id": "INB-20260906-325",
+      "headline": "MDX: FURTHER A$3,250,000 CONVERTIBLE NOTE FUNDING SECURED [price-sensitive]",
       "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/h-b-fuller-ful-tells-204640998.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T20:46:40Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MDX?key=2924-03132276-6A1342433",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T22:34:40Z",
       "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "H.B. Fuller rejected a $1.2 billion acquisition offer, signaling potential for a higher bid or strategic shift.",
+      "prelim_note": "MDX secured A$3,250,000 in convertible note funding to support operations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "H.B. Fuller rejected a $1.2 billion acquisition offer, signaling potential for a higher bid or strategic shift.",
-      "region": "US",
+      "triage_reason": "MDX secured A$3,250,000 in convertible note funding to support operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MDX",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-318",
+      "headline": "ASX set for a jittery start; Ingenia rejects Warburg Pincus buyout bid",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T22:40:35Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Ingenia rejected a buyout bid from Warburg Pincus, signaling a failed M&A attempt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Ingenia rejected a buyout bid from Warburg Pincus, signaling a failed M&A attempt.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1884,61 +1933,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "H.B. Fuller",
-          "ticker": "FUL",
-          "listing_country": "US"
+          "name": "Ingenia Communities Group",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-317",
-      "headline": "LU7: Brownsville Lithium Refinery PFS [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LU7?key=2924-03132271-6A1342426",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T22:32:50Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Lunnon Metals released a Pre-Feasibility Study for its Brownsville Lithium Refinery.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Lunnon Metals released a Pre-Feasibility Study for its Brownsville Lithium Refinery.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lunnon Metals",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141333,9 +141333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4014,
-    "news_picked_today": 815,
-    "news_dropped_today": 3199
+    "news_seen_today": 4052,
+    "news_picked_today": 827,
+    "news_dropped_today": 3225
   },
   "book_momentum": {
     "live_count": 8,
