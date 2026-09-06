@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T14:03:46Z",
+  "generated_at": "2026-09-06T14:08:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1197,6 +1197,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-245",
+      "headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T14:01:09Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "HEG Advanced Materials announced a demerger expected to unlock ₹4,000 crore in market value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "HEG Advanced Materials announced a demerger expected to unlock ₹4,000 crore in market value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HEG Ltd",
+          "ticker": "HEG",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-229",
       "headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
       "headline_en": null,
@@ -1872,55 +1921,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-095",
-      "headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:17:09Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Fosun Pharma sold a 4.55% stake in Gland Pharma for Rs 2,121 crore, reducing its holding below 50%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Fosun Pharma sold a 4.55% stake in Gland Pharma for Rs 2,121 crore, reducing its holding below 50%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gland Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141660,9 +141660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2377,
-    "news_picked_today": 467,
-    "news_dropped_today": 1910
+    "news_seen_today": 2390,
+    "news_picked_today": 470,
+    "news_dropped_today": 1920
   },
   "book_momentum": {
     "live_count": 8,
