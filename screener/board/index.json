@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:20:27Z",
+  "generated_at": "2026-09-06T12:40:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1153,6 +1153,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-229",
+      "headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T12:28:37Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Andhra Paper was fined 21 crore rupees by the APPCB.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Andhra Paper was fined 21 crore rupees by the APPCB.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Andhra Paper",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-210",
       "headline": "Minister to meet Jaguar Land Rover boss as thousands of job cuts expected",
       "headline_en": null,
@@ -1783,6 +1832,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-235",
+      "headline": "Was Huawei’s rise built on crime? A Brooklyn jury will decide",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/9422805f-519c-4b22-839c-cbd7a6464f07?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T12:00:02Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Legal proceedings regarding intellectual property theft allegations pose significant operational and reputational risk to Huawei.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Legal proceedings regarding intellectual property theft allegations pose significant operational and reputational risk to Huawei.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-222",
       "headline": "Equinor Starts Up 100 MW Energy Storage Project in Texas",
       "headline_en": null,
@@ -1827,104 +1925,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-147",
-      "headline": "‎SABIC subsidiary gets feedstock approval for methanol plant",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1934339",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T09:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "A SABIC subsidiary received approval for feedstock for a methanol plant, a key step in capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A SABIC subsidiary received approval for feedstock for a methanol plant, a key step in capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SABIC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-143",
-      "headline": "SBI To Hire 12,000 Personnel, Add 250 Branches During FY27: Chairman Setty",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/sbi-to-hire-12000-personnel-add-250-branches-during-fy27-chairman-setty",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T06:01:55Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "State Bank of India announced a significant expansion plan to hire 12,000 personnel and add 250 branches by FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "State Bank of India announced a significant expansion plan to hire 12,000 personnel and add 250 branches by FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141516,9 +141516,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2025,
-    "news_picked_today": 409,
-    "news_dropped_today": 1616
+    "news_seen_today": 2074,
+    "news_picked_today": 420,
+    "news_dropped_today": 1654
   },
   "book_momentum": {
     "live_count": 8,
