@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:15:07Z",
+  "generated_at": "2026-09-06T10:21:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -866,6 +866,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-207",
+      "headline": "JLR plans up to 4,000 job cuts as Chinese rivals pile on pressure",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/4a751ca7-83ac-4c62-8d3f-3643e74ad92b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:11:35Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "JLR plans to cut up to 4,000 jobs due to competitive pressure from Chinese manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "JLR plans to cut up to 4,000 jobs due to competitive pressure from Chinese manufacturers.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,55 +1946,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-205",
-      "headline": "DP Abhushan eyes 51 stores, ₹15,000 cr revenue by FY30",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/dp-abhushan-eyes-51-stores-15000-cr-revenue-by-fy30/article71434940.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T10:00:45Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "DP Abhushan announced a growth plan targeting 51 stores and 150 billion INR in revenue by FY30.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "DP Abhushan announced a growth plan targeting 51 stores and 150 billion INR in revenue by FY30.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DP Abhushan",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141176,9 +141176,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1553,
-    "news_picked_today": 321,
-    "news_dropped_today": 1232
+    "news_seen_today": 1565,
+    "news_picked_today": 322,
+    "news_dropped_today": 1243
   },
   "book_momentum": {
     "live_count": 8,
