@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T20:54:37Z",
+  "generated_at": "2026-09-06T21:09:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -101,6 +101,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-300",
+      "headline": "Nvidia makes staggering $12.9 billion bet to protect AI empire",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/nvidia-hugging-face-acquisition-deal-to-protect-ai-empire",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T21:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Nvidia is committing $12.9 billion to capital expenditure to bolster its AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is committing $12.9 billion to capital expenditure to bolster its AI infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-286",
       "headline": "U.S. defense contractor files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -145,6 +194,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-295",
+      "headline": "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/mckesson-bets-2-25-billion-204339450.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T20:43:39Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "McKesson is acquiring a precision medicine business for $2.25 billion to expand its oncology footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson is acquiring a precision medicine business for $2.25 billion to expand its oncology footprint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": "MCK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1502,6 +1600,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-294",
+      "headline": "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/h-b-fuller-ful-tells-204640998.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T20:46:40Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "H.B. Fuller rejected a $1.2 billion acquisition offer, signaling potential for a higher bid or strategic shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "H.B. Fuller rejected a $1.2 billion acquisition offer, signaling potential for a higher bid or strategic shift.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "H.B. Fuller",
+          "ticker": "FUL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-289",
       "headline": "Three Of Credit's Biggest Names Are In Talks On Waymo's $3 Billion Debt Raise",
       "headline_en": null,
@@ -1787,153 +1934,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-280",
-      "headline": "Modon Developments invests EGP 5bn in Green River Tower at New Capital",
-      "headline_en": null,
-      "url": "https://www.dailynewsegypt.com/2026/09/06/modon-developments-invests-egp-5bn-in-green-river-tower-at-new-capital/?utm_source=rss&utm_medium=rss&utm_campaign=modon-developments-invests-egp-5bn-in-green-river-tower-at-new-capital",
-      "source_name": "Daily News Egypt — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T18:11:09Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Modon Developments announced a 5 billion EGP investment in the Green River Tower project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Modon Developments announced a 5 billion EGP investment in the Green River Tower project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Modon Developments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-245",
-      "headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T14:01:09Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "HEG Advanced Materials announced a demerger expected to unlock ₹4,000 crore in market value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "HEG Advanced Materials announced a demerger expected to unlock ₹4,000 crore in market value.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HEG Ltd",
-          "ticker": "HEG",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-229",
-      "headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T12:28:37Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Andhra Paper was fined 21 crore rupees by the APPCB.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Andhra Paper was fined 21 crore rupees by the APPCB.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Andhra Paper",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141384,9 +141384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3611,
-    "news_picked_today": 717,
-    "news_dropped_today": 2894
+    "news_seen_today": 3685,
+    "news_picked_today": 733,
+    "news_dropped_today": 2952
   },
   "book_momentum": {
     "live_count": 8,
