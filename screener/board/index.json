@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:45:43Z",
+  "generated_at": "2026-09-06T10:50:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-206",
@@ -435,6 +435,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-216",
+      "headline": "US-Iran war LIVE: At least four dead in Lebanon after Israel launches strikes in response to Hezbollah drone attack",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-war-news-latest-live-updates-donald-trump-bahrain-kuwait-jd-vance-abbas-araghchi-pezeshkian-strait-of-hormuz-attack-11788655201814.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:49:04Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Escalation of military conflict in the Middle East with reported casualties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of military conflict in the Middle East with reported casualties.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,55 +1928,6 @@
       "companies": [
         {
           "name": "Abhayrab",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-075",
-      "headline": "CS Energy asks for switch of judge in $1b-plus Callide court case",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/energy/cs-energy-asks-for-switch-of-judge-in-1b-plus-callide-court-case-20260904-p60ulr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T03:39:13Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Ongoing litigation involving a claim of over $1 billion poses a significant financial risk to the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Ongoing litigation involving a claim of over $1 billion poses a significant financial risk to the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CS Energy",
           "ticker": null,
           "listing_country": null
         }
@@ -141240,9 +141234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1657,
-    "news_picked_today": 340,
-    "news_dropped_today": 1317
+    "news_seen_today": 1687,
+    "news_picked_today": 348,
+    "news_dropped_today": 1339
   },
   "book_momentum": {
     "live_count": 8,
