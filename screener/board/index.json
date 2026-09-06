@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T21:54:39Z",
+  "generated_at": "2026-09-06T22:14:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-306",
+      "headline": "At least five dead after Amazon cargo plane crashes at Miami airport",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/sep/06/amazon-cargo-plane-crashes-miami-airport",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T21:49:27Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Fatal cargo plane crash involving Amazon logistics operations creates significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fatal cargo plane crash involving Amazon logistics operations creates significant operational and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1513,6 +1562,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-304",
+      "headline": "Iran warns of ‘more painful’ retaliation as US sanctions cripple its economy",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/iran-warns-more-painful-retaliation-us-sanctions-cripple-its-economy",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T21:56:44Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Geopolitical escalation involving sanctions and threats of retaliation impacts global energy and trade risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Geopolitical escalation involving sanctions and threats of retaliation impacts global energy and trade risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-265",
       "headline": "No bailout for Jaguar Land Rover, says minister",
       "headline_en": null,
@@ -1842,104 +1935,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-223",
-      "headline": "ANTON OILFIELD (03337): VOLUNTARY ANNOUNCEMENT - Obtaining Crude Oil Sales Qualification in Iraq and Entering into a Long-term Crude Oil Sales Agreement",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600077.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T11:44:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Anton Oilfield secured a long-term crude oil sales agreement in Iraq, representing a significant new revenue stream.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Anton Oilfield secured a long-term crude oil sales agreement in Iraq, representing a significant new revenue stream.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anton Oilfield",
-          "ticker": "03337",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-246",
-      "headline": "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/murphy-usa-musa-delivers-robust-133715978.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T13:37:15Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Murphy USA reported strong Q2 earnings driven by fuel margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Murphy USA reported strong Q2 earnings driven by fuel margins.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Murphy USA",
-          "ticker": "MUSA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100751,76 +100746,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-9fc5a70d33aecf8e",
-      "idea_version_started_at": "2026-09-06T18:59:32Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
-      "why_now": "The halt was reported on 2026-09-05.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6c00aac88c4"
-      ],
-      "primary_source_event_id": "EVT-d6c00aac88c4",
-      "source_headlines": [
-        "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
-      ],
-      "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
-      "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:00:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T08:46:50Z",
-      "updated_at": "2026-09-06T18:59:32Z",
-      "decay_at": "2026-09-06T22:00:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0beb62fe006b",
       "idea_version": "IDEAV-8151dcab328d0292",
       "idea_version_started_at": "2026-09-06T18:32:33Z",
@@ -104635,6 +104560,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-9fc5a70d33aecf8e",
+      "idea_version_started_at": "2026-09-06T18:59:32Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
+      "why_now": "The halt was reported on 2026-09-05.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d6c00aac88c4"
+      ],
+      "primary_source_event_id": "EVT-d6c00aac88c4",
+      "source_headlines": [
+        "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
+      ],
+      "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
+      "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
+      "source_name": "Endpoints News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T10:00:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T08:46:50Z",
+      "updated_at": "2026-09-06T18:59:32Z",
+      "decay_at": "2026-09-06T22:00:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-177f467dfd2a",
       "idea_version": "IDEAV-eed1b52b265141e7",
       "idea_version_started_at": "2026-09-05T22:12:55Z",
@@ -107364,8 +107359,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 456,
-    "shown_count": 456,
+    "total_count": 457,
+    "shown_count": 457,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -107374,8 +107369,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 216,
-        "shown_count": 216,
+        "total_count": 217,
+        "shown_count": 217,
         "hidden_count": 0
       }
     },
@@ -107395,6 +107390,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-85129948d8af",
+        "idea_version": "IDEAV-9fc5a70d33aecf8e",
+        "idea_version_started_at": "2026-09-06T18:59:32Z",
+        "ticker": "NVS",
+        "company": "Novartis",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
+        "why_now": "The halt was reported on 2026-09-05.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d6c00aac88c4"
+        ],
+        "primary_source_event_id": "EVT-d6c00aac88c4",
+        "source_headlines": [
+          "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
+        ],
+        "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
+        "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
+        "source_name": "Endpoints News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T10:00:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T08:46:50Z",
+        "updated_at": "2026-09-06T18:59:32Z",
+        "decay_at": "2026-09-06T22:00:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T22:00:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5a71f05995f2",
         "idea_version": "IDEAV-b01c5300632bc25d",
@@ -141233,7 +141301,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 515,
-    "live_count": 57,
+    "live_count": 56,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -141252,9 +141320,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3818,
-    "news_picked_today": 762,
-    "news_dropped_today": 3056
+    "news_seen_today": 3894,
+    "news_picked_today": 779,
+    "news_dropped_today": 3115
   },
   "book_momentum": {
     "live_count": 8,
