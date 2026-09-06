@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-e616b8c1138f",
-  "idea_version": "IDEAV-ff8c0fcd90704726",
-  "idea_version_started_at": "2026-09-06T00:49:26Z",
+  "idea_version": "IDEAV-fe0ec4c2ea8d94b1",
+  "idea_version_started_at": "2026-09-06T18:05:43Z",
   "ticker": "SGML",
-  "company": "Sigma Lithium",
+  "company": "Sigma Lithium Corporation",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,9 +11,9 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "A Brazilian court has suspended mining permits and halted operations, creating an immediate production stoppage and significant regulatory risk for the company's primary revenue source.",
-  "why_now": "The court order halting operations was issued on 2026-09-05.",
-  "conviction": 80,
+  "reason": "A Brazilian federal court has suspended the environmental licenses and halted operations at the company's primary Grota do Cirilo mine in Minas Gerais.",
+  "why_now": "The court ruling was reported on September 5-6, 2026, creating an immediate cessation of production and revenue generation.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 62,
   "trade_score_basis": "evidence_gate_v2",
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 6,
-    "corroboration": 0,
+    "corroboration": 6,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-47f03e5251d3"
+    "EVT-3ede77fd9e61",
+    "EVT-47f03e5251d3",
+    "EVT-736beed6ff83"
   ],
-  "primary_source_event_id": "EVT-47f03e5251d3",
+  "primary_source_event_id": "EVT-3ede77fd9e61",
   "source_headlines": [
-    "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine"
+    "Brazilian court suspends licenses for Sigma Lithium mine",
+    "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
+    "Federal Court suspends Sigma Lithium mine licenses in Minas Gerais"
   ],
-  "source_headline": "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-09-05/brazilian-court-suspends-permits-halts-sigma-lithium-s-mine",
-  "source_name": "Bloomberg",
+  "source_headline": "Brazilian court suspends licenses for Sigma Lithium mine",
+  "source_url": "https://www.reuters.com/world/americas/brazilian-court-suspends-licenses-sigma-lithium-mine-2026-09-06/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-05T23:26:30Z",
+  "newest_source_at": "2026-09-06T15:53:44Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-06T00:49:26Z",
-  "updated_at": "2026-09-06T00:49:26Z",
-  "decay_at": "2026-09-07T11:26:30Z",
+  "updated_at": "2026-09-06T18:05:43Z",
+  "decay_at": "2026-09-08T03:53:44Z",
   "status": "live",
   "promoted_signal_id": null
 }
