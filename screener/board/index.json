@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T00:30:39Z",
+  "generated_at": "2026-09-06T00:44:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -96,6 +96,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-012",
+      "headline": "Israeli attacks kill 4,358 in Lebanon since March invasion, health ministry says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-attacks-kill-4358-lebanon-march-invasion-health-ministry-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:26:23Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Ongoing military conflict in Lebanon with 4,358 reported casualties represents a major geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ongoing military conflict in Lebanon with 4,358 reported casualties represents a major geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -328,6 +371,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-013",
+      "headline": "Indonesia's Jakarta airport suspends flights due to ash from Mount Anak Krakatau",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/environment/indonesias-jakarta-airport-suspends-flights-due-ash-mount-anak-krakatau-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:27:27Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Volcanic ash from Mount Anak Krakatau has forced the suspension of flights at Jakarta airport, disrupting regional travel operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Volcanic ash from Mount Anak Krakatau has forced the suspension of flights at Jakarta airport, disrupting regional travel operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-001",
       "headline": "Viral Jennie clip tests limits of South Korea’s AI deepfake laws",
       "headline_en": null,
@@ -439,6 +525,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-014",
+      "headline": "U.S. and Iranian forces fire at vessels in waters near Iran",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/09/06/world/us-iran-fire-at-vessels/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T23:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Direct military engagement between U.S. and Iranian forces near Iran is a significant geopolitical escalation that threatens regional stability and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Direct military engagement between U.S. and Iranian forces near Iran is a significant geopolitical escalation that threatens regional stability and energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -136858,7 +136987,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2058,
+    "inbox_unconsumed": 2061,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -136867,9 +136996,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 62,
-    "news_picked_today": 11,
-    "news_dropped_today": 51
+    "news_seen_today": 79,
+    "news_picked_today": 14,
+    "news_dropped_today": 65
   },
   "book_momentum": {
     "live_count": 8,
