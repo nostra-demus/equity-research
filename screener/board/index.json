@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:50:23Z",
+  "generated_at": "2026-09-06T01:54:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -540,6 +540,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-040",
+      "headline": "DAHON TECH gibt Zwischenergebnisse für 2026 bekannt; Umsatz und Gewinn verzeichnen starkes Wachstum",
+      "headline_en": "DAHON TECH announces interim results for 2026; revenue and profit record strong growth",
+      "url": "https://www.prnewswire.com/news-releases/dahon-tech-gibt-zwischenergebnisse-fur-2026-bekannt-umsatz-und-gewinn-verzeichnen-starkes-wachstum-302870757.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-06T01:49:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "DAHON TECH reported strong growth in revenue and profit for 2026 interim results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "DAHON TECH reported strong growth in revenue and profit for 2026 interim results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DAHON TECH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -138318,7 +138367,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2084,
+    "inbox_unconsumed": 2085,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -138327,9 +138376,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 191,
-    "news_picked_today": 39,
-    "news_dropped_today": 152
+    "news_seen_today": 195,
+    "news_picked_today": 40,
+    "news_dropped_today": 155
   },
   "book_momentum": {
     "live_count": 8,
