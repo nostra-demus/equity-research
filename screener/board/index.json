@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:05:28Z",
+  "generated_at": "2026-09-06T12:15:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -96,6 +96,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-227",
+      "headline": "Automotive giant’s stock surges amid plan to cut 50,000 jobs",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/volkswagen-stock-surges-amid-plan-to-cut-50000-jobs",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T12:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Major automotive company announces 50,000 job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major automotive company announces 50,000 job cuts.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,56 +1925,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-126",
-      "headline": "SBI plans major hiring drive with around 12,000 jobs in FY27",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/finance/sbi-plans-major-hiring-drive-with-around-12000-jobs-in-fy27-report-19984917.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T05:46:32Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "SBI plans a major hiring drive of 12,000 jobs in FY27, signaling operational growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SBI plans a major hiring drive of 12,000 jobs in FY27, signaling operational growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141379,9 +141372,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1983,
-    "news_picked_today": 397,
-    "news_dropped_today": 1586
+    "news_seen_today": 2015,
+    "news_picked_today": 405,
+    "news_dropped_today": 1610
   },
   "book_momentum": {
     "live_count": 8,
