@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T02:40:05Z",
+  "generated_at": "2026-09-06T02:58:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -286,6 +286,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-059",
+      "headline": "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/sia-affected-ash-mount-anak-krakatau-eruption-leads-jakarta-airport-flight-suspensions",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:54:06Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Flight suspensions due to volcanic ash are disrupting operations for Singapore Airlines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Flight suspensions due to volcanic ash are disrupting operations for Singapore Airlines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-053",
       "headline": "How Binance keeps doing business in Europe without a licence",
       "headline_en": null,
@@ -559,6 +608,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-061",
+      "headline": "US-Iran war LIVE: Iran condemns US strikes on oil tankers, targets vessels on 'unauthorised' Hormuz route",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-war-news-latest-live-updates-donald-trump-bahrain-kuwait-jd-vance-abbas-araghchi-pezeshkian-strait-of-hormuz-attack-11788655201814.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T01:15:10Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Military escalation involving strikes on oil tankers in the Strait of Hormuz poses a severe threat to global oil supply chains and energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Military escalation involving strikes on oil tankers in the Strait of Hormuz poses a severe threat to global oil supply chains and energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-030",
       "headline": "Iran war live: IRGC claims attacks on 3 oil tankers and 3 US-linked ships",
       "headline_en": null,
@@ -744,6 +836,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-058",
+      "headline": "ASX on edge as oil war rattles markets",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-on-edge-as-oil-war-rattles-markets-20260904-p60ukz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:43:02Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "An oil war represents a major commodity supply shock that rattles global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "An oil war represents a major commodity supply shock that rattles global markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1167,6 +1302,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-056",
+      "headline": "Karnataka: Fit meters or face action, transport department warns cab operators",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/karnataka-fit-meters-or-face-action-transport-department-warns-cab-operators-4136644",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:26:45Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The transport department in Karnataka is threatening regulatory action against cab operators for failing to fit meters.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The transport department in Karnataka is threatening regulatory action against cab operators for failing to fit meters.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1666,185 +1844,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-021",
-      "headline": "U.S. grip on Venezuelan oil threatens billions owed to China",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/06/us-venezuela-oil-china/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T23:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "U.S. sanctions on Venezuelan oil threaten the recovery of billions in debt owed to Chinese entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "U.S. sanctions on Venezuelan oil threaten the recovery of billions in debt owed to Chinese entities.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-041",
-      "headline": "See's Candies Data Breach: Edelson Lechtzin LLP Launches Investigation Into Exposure of Personal Information",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/sees-candies-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-personal-information-302870759.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-06T01:51:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "See's Candies is facing a data breach investigation, which poses potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "See's Candies is facing a data breach investigation, which poses potential legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "See's Candies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-013",
-      "headline": "Indonesia's Jakarta airport suspends flights due to ash from Mount Anak Krakatau",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/environment/indonesias-jakarta-airport-suspends-flights-due-ash-mount-anak-krakatau-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:27:27Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Volcanic ash from Mount Anak Krakatau has forced the suspension of flights at Jakarta airport, disrupting regional travel operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Volcanic ash from Mount Anak Krakatau has forced the suspension of flights at Jakarta airport, disrupting regional travel operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-001",
-      "headline": "Viral Jennie clip tests limits of South Korea’s AI deepfake laws",
-      "headline_en": null,
-      "url": "https://www.scmp.com/week-asia/people/article/3366411/viral-jennie-clip-tests-limits-south-koreas-ai-deepfake-laws?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:00:10Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The headline discusses the broader implications of AI deepfake laws in South Korea without naming a specific company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "The headline discusses the broader implications of AI deepfake laws in South Korea without naming a specific company.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -101011,76 +101010,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f17885c63017",
-      "idea_version": "IDEAV-f8d1bd0b5cba4f65",
-      "idea_version_started_at": "2026-09-05T07:55:39Z",
-      "ticker": "LHA.DE",
-      "company": "Deutsche Lufthansa AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Portugal will negotiate with Lufthansa (and Air France-KLM) on the privatization of TAP Air Portugal, giving Lufthansa a credible path to acquire a strategic European airline asset.",
-      "why_now": "Bloomberg reported on 2026-09-04 that the Portuguese government is opening formal negotiations with Lufthansa and Air France-KLM.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-86d49a479b54"
-      ],
-      "primary_source_event_id": "EVT-86d49a479b54",
-      "source_headlines": [
-        "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale"
-      ],
-      "source_headline": "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-04/portugal-to-negotiate-with-lufthansa-air-france-klm-on-tap-sale",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T14:43:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T07:55:39Z",
-      "updated_at": "2026-09-05T07:55:39Z",
-      "decay_at": "2026-09-06T02:43:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c53a2590812",
       "idea_version": "IDEAV-462280871546be7e",
       "idea_version_started_at": "2026-09-05T07:36:33Z",
@@ -101642,78 +101571,6 @@
       "surfaced_at": "2026-09-05T23:52:55Z",
       "updated_at": "2026-09-05T23:52:55Z",
       "decay_at": "2026-09-06T23:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5d7419f0c968",
-      "idea_version": "IDEAV-5f4373d70d5503f4",
-      "idea_version_started_at": "2026-09-05T23:08:05Z",
-      "ticker": "MIS",
-      "company": "Al Moammar Information Systems",
-      "exchange": "TADAWUL",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is partnering with HUMAIN on a massive $2.5 billion fund dedicated to data center expansion, significantly increasing its capex and future revenue capacity.",
-      "why_now": "The fund details and partnership were disclosed on September 4, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bac2d9481c05"
-      ],
-      "primary_source_event_id": "EVT-bac2d9481c05",
-      "source_headlines": [
-        "‎HUMAIN eyes $2.5B fund to build data centers with MIS"
-      ],
-      "source_headline": "‎HUMAIN eyes $2.5B fund to build data centers with MIS",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1934135",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T14:58:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T23:08:05Z",
-      "updated_at": "2026-09-05T23:08:05Z",
-      "decay_at": "2026-09-06T02:58:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -103466,6 +103323,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f17885c63017",
+      "idea_version": "IDEAV-f8d1bd0b5cba4f65",
+      "idea_version_started_at": "2026-09-05T07:55:39Z",
+      "ticker": "LHA.DE",
+      "company": "Deutsche Lufthansa AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Portugal will negotiate with Lufthansa (and Air France-KLM) on the privatization of TAP Air Portugal, giving Lufthansa a credible path to acquire a strategic European airline asset.",
+      "why_now": "Bloomberg reported on 2026-09-04 that the Portuguese government is opening formal negotiations with Lufthansa and Air France-KLM.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-86d49a479b54"
+      ],
+      "primary_source_event_id": "EVT-86d49a479b54",
+      "source_headlines": [
+        "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale"
+      ],
+      "source_headline": "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-04/portugal-to-negotiate-with-lufthansa-air-france-klm-on-tap-sale",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:43:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:55:39Z",
+      "updated_at": "2026-09-05T07:55:39Z",
+      "decay_at": "2026-09-06T02:43:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d2ea5f1e500",
       "idea_version": "IDEAV-382033fa8fa96c69",
       "idea_version_started_at": "2026-09-04T21:55:24Z",
@@ -104445,6 +104372,78 @@
       "surfaced_at": "2026-09-03T22:15:11Z",
       "updated_at": "2026-09-03T22:15:11Z",
       "decay_at": "2026-09-05T04:27:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5d7419f0c968",
+      "idea_version": "IDEAV-5f4373d70d5503f4",
+      "idea_version_started_at": "2026-09-05T23:08:05Z",
+      "ticker": "MIS",
+      "company": "Al Moammar Information Systems",
+      "exchange": "TADAWUL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is partnering with HUMAIN on a massive $2.5 billion fund dedicated to data center expansion, significantly increasing its capex and future revenue capacity.",
+      "why_now": "The fund details and partnership were disclosed on September 4, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bac2d9481c05"
+      ],
+      "primary_source_event_id": "EVT-bac2d9481c05",
+      "source_headlines": [
+        "‎HUMAIN eyes $2.5B fund to build data centers with MIS"
+      ],
+      "source_headline": "‎HUMAIN eyes $2.5B fund to build data centers with MIS",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1934135",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T14:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T23:08:05Z",
+      "updated_at": "2026-09-05T23:08:05Z",
+      "decay_at": "2026-09-06T02:58:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -106111,13 +106110,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 437,
-    "shown_count": 437,
+    "total_count": 439,
+    "shown_count": 439,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 226,
-        "shown_count": 226,
+        "total_count": 228,
+        "shown_count": 228,
         "hidden_count": 0
       },
       "short": {
@@ -106142,6 +106141,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5d7419f0c968",
+        "idea_version": "IDEAV-5f4373d70d5503f4",
+        "idea_version_started_at": "2026-09-05T23:08:05Z",
+        "ticker": "MIS",
+        "company": "Al Moammar Information Systems",
+        "exchange": "TADAWUL",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is partnering with HUMAIN on a massive $2.5 billion fund dedicated to data center expansion, significantly increasing its capex and future revenue capacity.",
+        "why_now": "The fund details and partnership were disclosed on September 4, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bac2d9481c05"
+        ],
+        "primary_source_event_id": "EVT-bac2d9481c05",
+        "source_headlines": [
+          "‎HUMAIN eyes $2.5B fund to build data centers with MIS"
+        ],
+        "source_headline": "‎HUMAIN eyes $2.5B fund to build data centers with MIS",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1934135",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T14:58:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T23:08:05Z",
+        "updated_at": "2026-09-05T23:08:05Z",
+        "decay_at": "2026-09-06T02:58:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T02:58:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f17885c63017",
+        "idea_version": "IDEAV-f8d1bd0b5cba4f65",
+        "idea_version_started_at": "2026-09-05T07:55:39Z",
+        "ticker": "LHA.DE",
+        "company": "Deutsche Lufthansa AG",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Portugal will negotiate with Lufthansa (and Air France-KLM) on the privatization of TAP Air Portugal, giving Lufthansa a credible path to acquire a strategic European airline asset.",
+        "why_now": "Bloomberg reported on 2026-09-04 that the Portuguese government is opening formal negotiations with Lufthansa and Air France-KLM.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-86d49a479b54"
+        ],
+        "primary_source_event_id": "EVT-86d49a479b54",
+        "source_headlines": [
+          "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale"
+        ],
+        "source_headline": "Portugal to Negotiate With Lufthansa, Air France-KLM on TAP Sale",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-04/portugal-to-negotiate-with-lufthansa-air-france-klm-on-tap-sale",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T14:43:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T07:55:39Z",
+        "updated_at": "2026-09-05T07:55:39Z",
+        "decay_at": "2026-09-06T02:43:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T02:43:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8ce0d29dfa32",
         "idea_version": "IDEAV-143237a7d06b32d0",
@@ -138561,7 +138708,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 481,
-    "live_count": 42,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -138580,9 +138727,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 289,
-    "news_picked_today": 55,
-    "news_dropped_today": 234
+    "news_seen_today": 319,
+    "news_picked_today": 61,
+    "news_dropped_today": 258
   },
   "book_momentum": {
     "live_count": 8,
