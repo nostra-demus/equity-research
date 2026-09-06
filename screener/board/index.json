@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T09:15:05Z",
+  "generated_at": "2026-09-06T09:16:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-194",
@@ -102915,6 +102915,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-97098b27040b",
+      "idea_version": "IDEAV-76f8dd9d5b6e8f4d",
+      "idea_version_started_at": "2026-09-06T09:16:16Z",
+      "ticker": "2010",
+      "company": "SABIC",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Approval for feedstock for a new methanol plant allows for capacity expansion and long-term revenue growth in the chemical segment.",
+      "why_now": "The regulatory approval for the feedstock was announced on 2026-09-06.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-00d690d126f0"
+      ],
+      "primary_source_event_id": "EVT-00d690d126f0",
+      "source_headlines": [
+        "‎SABIC subsidiary gets feedstock approval for methanol plant"
+      ],
+      "source_headline": "‎SABIC subsidiary gets feedstock approval for methanol plant",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1934339",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-06T09:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T09:16:16Z",
+      "updated_at": "2026-09-06T09:16:16Z",
+      "decay_at": "2026-09-07T21:16:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-fe979375f297",
       "idea_version": "IDEAV-6f176b62dcc5277f",
       "idea_version_started_at": "2026-09-06T07:07:02Z",
@@ -140788,8 +140860,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 497,
-    "live_count": 42,
+    "surfaced_total": 498,
+    "live_count": 43,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
