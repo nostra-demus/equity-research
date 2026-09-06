@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T19:04:15Z",
+  "generated_at": "2026-09-06T19:19:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -96,6 +96,65 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-281",
+      "headline": "NCLT approves Shree Naman's Rs 1,800 cr bid for Gstaad, Neo Hotels",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/nclt-approves-shree-namans-rs-1800-cr-bid-for-gstaad-neo-hotels/articleshow/133848978.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T18:53:18Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "NCLT approved a Rs 1,800 crore acquisition bid for Gstaad and Neo Hotels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT approved a Rs 1,800 crore acquisition bid for Gstaad and Neo Hotels.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shree Naman",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Gstaad",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Neo Hotels",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,55 +1927,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-239",
-      "headline": "Nvidia's cash could reshape an AI cloud contender",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/nvidia-nscale-pre-ipo-investment",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T13:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Nvidia's potential capital deployment into an AI cloud contender could significantly alter the competitive landscape of the AI infrastructure sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Nvidia's potential capital deployment into an AI cloud contender could significantly alter the competitive landscape of the AI infrastructure sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141519,9 +141529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3318,
-    "news_picked_today": 652,
-    "news_dropped_today": 2666
+    "news_seen_today": 3356,
+    "news_picked_today": 664,
+    "news_dropped_today": 2692
   },
   "book_momentum": {
     "live_count": 8,
