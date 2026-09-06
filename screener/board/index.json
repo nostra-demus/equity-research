@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T02:59:04Z",
+  "generated_at": "2026-09-06T03:02:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-063",
+      "headline": "Inside Woodside country, the LNG producer’s $24b bet on the Deep South",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/energy/inside-woodside-country-the-lng-producer-s-24b-bet-on-the-deep-south-20260902-p60tkf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:57:12Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Woodside Energy is committing $24 billion to a major capital expenditure project in the Deep South.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Woodside Energy is committing $24 billion to a major capital expenditure project in the Deep South.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-009",
       "headline": "39-year-old major bullet manufacturer files Chapter 11 bankruptcy",
@@ -322,6 +371,55 @@
         "operations"
       ],
       "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Singapore Airlines",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-065",
+      "headline": "Jakarta airport suspends operations due to Anak Krakatau ash; SIA flights affected",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/jakarta-airport-suspends-operations-due-anak-krakatau-ash-sia-flights-affected",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T02:54:06Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Operational disruption at Jakarta airport due to volcanic ash is impacting Singapore Airlines flight schedules.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Operational disruption at Jakarta airport due to volcanic ash is impacting Singapore Airlines flight schedules.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "Singapore Airlines",
@@ -1756,98 +1854,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-020",
-      "headline": "CVB Financial Director Mike Maddox Buys 10,000 Shares",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cvb-financial-director-mike-maddox-buys-10000-shares",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-05T23:15:01Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Director Mike Maddox purchased 10,000 shares of CVB Financial.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Director Mike Maddox purchased 10,000 shares of CVB Financial.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVB Financial",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-026",
-      "headline": "US, Iran trade attacks on vessels in waters near Iran as conflict deepens",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/us-iran-trade-attacks-vessels-waters-near-iran-conflict-deepens",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:15:55Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Escalating military conflict in the Strait of Hormuz threatens global energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Escalating military conflict in the Strait of Hormuz threatens global energy supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138727,9 +138733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 319,
-    "news_picked_today": 61,
-    "news_dropped_today": 258
+    "news_seen_today": 335,
+    "news_picked_today": 65,
+    "news_dropped_today": 270
   },
   "book_momentum": {
     "live_count": 8,
