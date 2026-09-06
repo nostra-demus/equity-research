@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T01:24:27Z",
+  "generated_at": "2026-09-06T01:29:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-009",
@@ -374,6 +374,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-030",
+      "headline": "Iran war live: IRGC claims attacks on 3 oil tankers and 3 US-linked ships",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/6/iran-war-live-irgc-claims-new-attacks-on-us-warships-over-naval-blockade?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-06T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Military escalation involving attacks on oil tankers and US-linked ships represents a major supply shock risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Military escalation involving attacks on oil tankers and US-linked ships represents a major supply shock risk to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-006",
       "headline": "US strikes three Iranian oil tankers; Coalition didn’t model smoking rates after excise cut",
       "headline_en": null,
@@ -417,46 +460,46 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260906-027",
+      "inbox_id": "INB-20260906-029",
       "headline": "Greg Abel Says Berkshire Will Serve the Hyperscalers Only If Its Other Customers Don't Pay for It",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/05/greg-abel-says-berkshire-will-serve-the-hyperscalers-only-if-its-other-customers-don-t-pay-for-it/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/greg-abel-says-berkshire-will-serve-hyperscalers-only-if-its-other-customers-dont-pay-it",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-06T00:47:01Z",
+      "found_at": "2026-09-06T01:07:01Z",
       "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Commentary on utility capacity allocation strategy for data centers.",
+      "prelim_note": "Berkshire Hathaway management clarifies prioritization of existing utility customers over hyperscaler data center demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Commentary on utility capacity allocation strategy for data centers.",
+      "triage_score": 63,
+      "triage_reason": "Berkshire Hathaway management clarifies prioritization of existing utility customers over hyperscaler data center demand.",
       "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "relevance": "material",
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 0,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "management",
+        "event_id": null,
         "size_bucket": "mega"
       },
       "event_types": [
-        "management"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Berkshire Hathaway",
-          "ticker": null,
+          "ticker": "BRK.A",
           "listing_country": "US"
         }
       ],
@@ -137864,7 +137907,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2074,
+    "inbox_unconsumed": 2075,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -137873,9 +137916,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 150,
-    "news_picked_today": 28,
-    "news_dropped_today": 122
+    "news_seen_today": 164,
+    "news_picked_today": 30,
+    "news_dropped_today": 134
   },
   "book_momentum": {
     "live_count": 8,
