@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T12:41:08Z",
+  "generated_at": "2026-09-06T12:45:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -907,6 +907,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-237",
+      "headline": "Canada Hits Back With New US Tariffs",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-06/canada-hits-back-with-new-us-tariffs-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T12:38:01Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Canada imposing new tariffs on US goods represents a significant escalation in trade tensions between the two nations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Canada imposing new tariffs on US goods represents a significant escalation in trade tensions between the two nations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,55 +1917,6 @@
           "name": "Huawei",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-222",
-      "headline": "Equinor Starts Up 100 MW Energy Storage Project in Texas",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/equinor_starts_up_100_mw_energy_storage_project_in_texas-06-sep-2026-184546-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Equinor has commissioned a 100 MW energy storage project, expanding its operational capacity in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Equinor has commissioned a 100 MW energy storage project, expanding its operational capacity in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Equinor",
-          "ticker": null,
-          "listing_country": "NO"
         }
       ],
       "size_bucket": "large",
@@ -101876,78 +101871,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cd49f49da7a5",
-      "idea_version": "IDEAV-9946cdabc11a61e2",
-      "idea_version_started_at": "2026-09-05T22:50:47Z",
-      "ticker": "CVCB3",
-      "company": "CVC Brasil Operadora e Agência de Viagens S.A.",
-      "exchange": "B3",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CVC Corp has successfully renegotiated its debt obligations and extended its maturities until 2029, significantly reducing near-term default risk and improving its balance sheet runway.",
-      "why_now": "The debt renegotiation and maturity extension were finalized and announced on September 5, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e30cc62a4d7d"
-      ],
-      "primary_source_event_id": "EVT-e30cc62a4d7d",
-      "source_headlines": [
-        "CVC Corp renegotiates debt and extends maturities until 2029"
-      ],
-      "source_headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
-      "source_url": "https://www.reuters.com/pt/negocio/DM4XNZRX7NKETDH37DCUJEMCDY-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T00:41:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T22:50:47Z",
-      "updated_at": "2026-09-05T22:50:47Z",
-      "decay_at": "2026-09-06T12:41:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9db64567877d",
       "idea_version": "IDEAV-8c89f9876d9be9a9",
       "idea_version_started_at": "2026-09-05T22:30:39Z",
@@ -105604,6 +105527,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cd49f49da7a5",
+      "idea_version": "IDEAV-9946cdabc11a61e2",
+      "idea_version_started_at": "2026-09-05T22:50:47Z",
+      "ticker": "CVCB3",
+      "company": "CVC Brasil Operadora e Agência de Viagens S.A.",
+      "exchange": "B3",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "CVC Corp has successfully renegotiated its debt obligations and extended its maturities until 2029, significantly reducing near-term default risk and improving its balance sheet runway.",
+      "why_now": "The debt renegotiation and maturity extension were finalized and announced on September 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e30cc62a4d7d"
+      ],
+      "primary_source_event_id": "EVT-e30cc62a4d7d",
+      "source_headlines": [
+        "CVC Corp renegotiates debt and extends maturities until 2029"
+      ],
+      "source_headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
+      "source_url": "https://www.reuters.com/pt/negocio/DM4XNZRX7NKETDH37DCUJEMCDY-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T00:41:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T22:50:47Z",
+      "updated_at": "2026-09-05T22:50:47Z",
+      "decay_at": "2026-09-06T12:41:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9033b1d67836",
       "idea_version": "IDEAV-271d2a951da11553",
       "idea_version_started_at": "2026-09-05T20:32:18Z",
@@ -107702,13 +107697,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 456,
-    "shown_count": 456,
+    "total_count": 457,
+    "shown_count": 457,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 239,
-        "shown_count": 239,
+        "total_count": 240,
+        "shown_count": 240,
         "hidden_count": 0
       },
       "short": {
@@ -107733,6 +107728,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cd49f49da7a5",
+        "idea_version": "IDEAV-9946cdabc11a61e2",
+        "idea_version_started_at": "2026-09-05T22:50:47Z",
+        "ticker": "CVCB3",
+        "company": "CVC Brasil Operadora e Agência de Viagens S.A.",
+        "exchange": "B3",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "CVC Corp has successfully renegotiated its debt obligations and extended its maturities until 2029, significantly reducing near-term default risk and improving its balance sheet runway.",
+        "why_now": "The debt renegotiation and maturity extension were finalized and announced on September 5, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e30cc62a4d7d"
+        ],
+        "primary_source_event_id": "EVT-e30cc62a4d7d",
+        "source_headlines": [
+          "CVC Corp renegotiates debt and extends maturities until 2029"
+        ],
+        "source_headline": "CVC Corp renegocia dívida e alonga vencimentos até 2029",
+        "source_url": "https://www.reuters.com/pt/negocio/DM4XNZRX7NKETDH37DCUJEMCDY-2026-09-05/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T00:41:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T22:50:47Z",
+        "updated_at": "2026-09-05T22:50:47Z",
+        "decay_at": "2026-09-06T12:41:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T12:41:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8dc0eabbd79f",
         "idea_version": "IDEAV-006cb0d894266c7c",
@@ -141568,7 +141638,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 507,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -141587,9 +141657,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2074,
-    "news_picked_today": 420,
-    "news_dropped_today": 1654
+    "news_seen_today": 2083,
+    "news_picked_today": 425,
+    "news_dropped_today": 1658
   },
   "book_momentum": {
     "live_count": 8,
