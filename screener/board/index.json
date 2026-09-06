@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:56:06Z",
+  "generated_at": "2026-09-06T12:05:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -662,6 +662,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-225",
+      "headline": "How Tata Motors-Iveco €3.82 bn tender offer will impact TMCV share price after acquisition of Italian group | Decoded",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/how-tata-motors-iveco-3-82-bn-tender-offer-will-impact-tmcv-share-price-after-acquisition-of-italian-group-decoded-11788613188717.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T11:52:12Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Tata Motors is evaluating a potential €3.82 billion acquisition of an Italian group, which would significantly impact its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Tata Motors is evaluating a potential €3.82 billion acquisition of an Italian group, which would significantly impact its capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1883,55 +1932,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-218",
-      "headline": "SUNSHINE OIL (02012): ISSUE OF SHARES UNDER GENERAL MANDATE FOR SETTLEMENT OF DEBTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600065.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T11:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Sunshine Oil is issuing shares to settle debts, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Sunshine Oil is issuing shares to settle debts, which is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sunshine Oil",
-          "ticker": "02012",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141379,9 +141379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1952,
-    "news_picked_today": 390,
-    "news_dropped_today": 1562
+    "news_seen_today": 1983,
+    "news_picked_today": 397,
+    "news_dropped_today": 1586
   },
   "book_momentum": {
     "live_count": 8,
