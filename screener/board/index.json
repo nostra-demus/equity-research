@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T09:20:10Z",
+  "generated_at": "2026-09-06T09:31:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-198",
@@ -724,6 +724,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-199",
+      "headline": "Chalet Hotels targets 5,500 keys by FY30, bets on hybrid model",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/chalet-hotels-targets-5500-keys-by-fy30-bets-on-hybrid-model/article71434661.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T09:17:05Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Chalet Hotels announced a capacity expansion target of 5,500 keys by FY30.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Chalet Hotels announced a capacity expansion target of 5,500 keys by FY30.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chalet Hotels",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,55 +1942,6 @@
           "name": "Coal India",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-114",
-      "headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-06T05:02:23Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Operational incident involving an engine fire on a Qantas aircraft poses safety and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Operational incident involving an engine fire on a Qantas aircraft poses safety and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qantas",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -100966,76 +100966,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2c53a2590812",
-      "idea_version": "IDEAV-462280871546be7e",
-      "idea_version_started_at": "2026-09-05T07:36:33Z",
-      "ticker": "SWK",
-      "company": "Stanley Black & Decker",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The sale of Excel Industries allows the company to streamline its portfolio and focus on core high-margin tool segments while potentially reducing debt.",
-      "why_now": "The divestiture agreement with Bad Boy Mowers was announced on September 4, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a0461bbe44d"
-      ],
-      "primary_source_event_id": "EVT-0a0461bbe44d",
-      "source_headlines": [
-        "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers"
-      ],
-      "source_headline": "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers",
-      "source_url": "https://www.nasdaq.com/articles/stanley-black-decker-sell-excel-industries-bad-boy-mowers",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T21:27:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T07:36:33Z",
-      "updated_at": "2026-09-05T07:36:33Z",
-      "decay_at": "2026-09-06T09:27:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d20df5cd7aab",
       "idea_version": "IDEAV-ab91e936f845b300",
       "idea_version_started_at": "2026-09-06T04:20:13Z",
@@ -103850,6 +103780,76 @@
       "surfaced_at": "2026-09-05T07:55:39Z",
       "updated_at": "2026-09-05T07:55:39Z",
       "decay_at": "2026-09-06T02:43:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2c53a2590812",
+      "idea_version": "IDEAV-462280871546be7e",
+      "idea_version_started_at": "2026-09-05T07:36:33Z",
+      "ticker": "SWK",
+      "company": "Stanley Black & Decker",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The sale of Excel Industries allows the company to streamline its portfolio and focus on core high-margin tool segments while potentially reducing debt.",
+      "why_now": "The divestiture agreement with Bad Boy Mowers was announced on September 4, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a0461bbe44d"
+      ],
+      "primary_source_event_id": "EVT-0a0461bbe44d",
+      "source_headlines": [
+        "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers"
+      ],
+      "source_headline": "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers",
+      "source_url": "https://www.nasdaq.com/articles/stanley-black-decker-sell-excel-industries-bad-boy-mowers",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-04T21:27:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T07:36:33Z",
+      "updated_at": "2026-09-05T07:36:33Z",
+      "decay_at": "2026-09-06T09:27:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -107219,13 +107219,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 453,
-    "shown_count": 453,
+    "total_count": 454,
+    "shown_count": 454,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 237,
-        "shown_count": 237,
+        "total_count": 238,
+        "shown_count": 238,
         "hidden_count": 0
       },
       "short": {
@@ -107250,6 +107250,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2c53a2590812",
+        "idea_version": "IDEAV-462280871546be7e",
+        "idea_version_started_at": "2026-09-05T07:36:33Z",
+        "ticker": "SWK",
+        "company": "Stanley Black & Decker",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The sale of Excel Industries allows the company to streamline its portfolio and focus on core high-margin tool segments while potentially reducing debt.",
+        "why_now": "The divestiture agreement with Bad Boy Mowers was announced on September 4, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0a0461bbe44d"
+        ],
+        "primary_source_event_id": "EVT-0a0461bbe44d",
+        "source_headlines": [
+          "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers"
+        ],
+        "source_headline": "Stanley Black & Decker To Sell Excel Industries To Bad Boy Mowers",
+        "source_url": "https://www.nasdaq.com/articles/stanley-black-decker-sell-excel-industries-bad-boy-mowers",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T21:27:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T07:36:33Z",
+        "updated_at": "2026-09-05T07:36:33Z",
+        "decay_at": "2026-09-06T09:27:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-06T09:27:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-26a4a64ef76e",
         "idea_version": "IDEAV-ec4524e26d5257a4",
@@ -140861,7 +140934,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 498,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -140880,9 +140953,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1347,
-    "news_picked_today": 286,
-    "news_dropped_today": 1061
+    "news_seen_today": 1392,
+    "news_picked_today": 290,
+    "news_dropped_today": 1102
   },
   "book_momentum": {
     "live_count": 8,
