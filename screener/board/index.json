@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T05:54:28Z",
+  "generated_at": "2026-09-06T06:04:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -580,6 +580,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-130",
+      "headline": "Bathla founder at risk of personal bankruptcy after securing loans",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/residential/bathla-founder-at-risk-of-personal-bankruptcy-after-securing-loans-20260904-p60ul1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T06:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Founder at risk of personal bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Founder at risk of personal bankruptcy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-126",
       "headline": "SBI plans major hiring drive with around 12,000 jobs in FY27",
       "headline_en": null,
@@ -1063,6 +1112,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-131",
+      "headline": "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/cil-offers-additional-coal-to-power-plants-as-stocks-decline-heres-what-led-to-critically-low-levels-11788673042864.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T05:48:39Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Coal India is increasing supply to power plants due to low inventory levels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Coal India is increasing supply to power plants due to low inventory levels.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coal India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1814,104 +1912,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-127",
-      "headline": "‎Al-Jouf Agricultural submits capital increase file with pre-emptive rights suspension",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1934323",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T08:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Al-Jouf Agricultural has submitted a capital increase filing, which is a significant corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Al-Jouf Agricultural has submitted a capital increase filing, which is a significant corporate action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Al-Jouf Agricultural",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-079",
-      "headline": "Vinod Texworld to raise ₹42.83 cr through SME IPO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/vinod-texworld-to-raise-4283-cr-through-sme-ipo/article71434508.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:04:06Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Vinod Texworld is raising 42.83 crore rupees through an SME IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Vinod Texworld is raising 42.83 crore rupees through an SME IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vinod Texworld",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139959,9 +139959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 667,
-    "news_picked_today": 149,
-    "news_dropped_today": 518
+    "news_seen_today": 696,
+    "news_picked_today": 156,
+    "news_dropped_today": 540
   },
   "book_momentum": {
     "live_count": 8,
