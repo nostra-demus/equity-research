@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T07:16:54Z",
+  "generated_at": "2026-09-06T07:22:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -478,6 +478,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-174",
+      "headline": "‎ACDIMA completes sale of 10.5% stake in SPIMACO",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934360",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "ACDIMA has completed the sale of a 10.5% stake in SPIMACO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "ACDIMA has completed the sale of a 10.5% stake in SPIMACO.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPIMACO",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1900,49 +1949,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-044",
-      "headline": "Japan gov't eyes tougher monitoring of overseas operations at big banks",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260906/p2g/00m/0bu/014000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:05:37Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The Japanese government is planning stricter oversight of overseas operations for major banks, increasing compliance costs and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The Japanese government is planning stricter oversight of overseas operations for major banks, increasing compliance costs and operational risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -140434,9 +140440,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 960,
-    "news_picked_today": 208,
-    "news_dropped_today": 752
+    "news_seen_today": 995,
+    "news_picked_today": 217,
+    "news_dropped_today": 778
   },
   "book_momentum": {
     "live_count": 8,
