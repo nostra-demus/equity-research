@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-06T08:57:37Z",
+  "generated_at": "2026-09-06T09:00:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-194",
+      "headline": "Spire Healthcare overhauls board amid £1bn private takeover",
+      "headline_en": null,
+      "url": "https://www.cityam.com/spire-healthcare-overhauls-board-amid-1bn-private-takeover/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T08:49:45Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Spire Healthcare is subject to a £1bn takeover bid and is restructuring its board.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spire Healthcare is subject to a £1bn takeover bid and is restructuring its board.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spire Healthcare",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-178",
       "headline": "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion",
@@ -1882,55 +1932,6 @@
         "operations"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singapore Airlines",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-065",
-      "headline": "Jakarta airport suspends operations due to Anak Krakatau ash; SIA flights affected",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/jakarta-airport-suspends-operations-due-anak-krakatau-ash-sia-flights-affected",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:54:06Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Operational disruption at Jakarta airport due to volcanic ash is impacting Singapore Airlines flight schedules.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Operational disruption at Jakarta airport due to volcanic ash is impacting Singapore Airlines flight schedules.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "Singapore Airlines",
@@ -140802,9 +140803,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1269,
-    "news_picked_today": 269,
-    "news_dropped_today": 1000
+    "news_seen_today": 1292,
+    "news_picked_today": 273,
+    "news_dropped_today": 1019
   },
   "book_momentum": {
     "live_count": 8,
