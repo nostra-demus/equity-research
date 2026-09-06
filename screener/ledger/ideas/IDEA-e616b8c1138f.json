@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-e616b8c1138f",
+  "idea_version": "IDEAV-ff8c0fcd90704726",
+  "idea_version_started_at": "2026-09-06T00:49:26Z",
+  "ticker": "SGML",
+  "company": "Sigma Lithium",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A Brazilian court has suspended mining permits and halted operations, creating an immediate production stoppage and significant regulatory risk for the company's primary revenue source.",
+  "why_now": "The court order halting operations was issued on 2026-09-05.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-47f03e5251d3"
+  ],
+  "primary_source_event_id": "EVT-47f03e5251d3",
+  "source_headlines": [
+    "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine"
+  ],
+  "source_headline": "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-05/brazilian-court-suspends-permits-halts-sigma-lithium-s-mine",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-05T23:26:30Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-06T00:49:26Z",
+  "updated_at": "2026-09-06T00:49:26Z",
+  "decay_at": "2026-09-07T11:26:30Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
