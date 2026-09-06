@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T09:16:32Z",
+  "generated_at": "2026-09-06T09:20:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-198",
+      "headline": "Tether-backed Orionx to shut down after audit flags $7M custody gap",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/orionx-shut-down-7-million-move-outside-wallets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T09:07:08Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Orionx is shutting down following an audit that identified a $7 million custody gap, indicating insolvency or severe operational failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Orionx is shutting down following an audit that identified a $7 million custody gap, indicating insolvency or severe operational failure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orionx",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-194",
       "headline": "Spire Healthcare overhauls board amid £1bn private takeover",
@@ -1896,55 +1945,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-097",
-      "headline": "Putin says first oil flows through Rosneft's Vostok Oil pipeline",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/putin-says-first-oil-flows-through-rosnefts-vostok-oil-pipeline/article71434490.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:44:08Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Rosneft has commenced oil flows through its Vostok Oil pipeline, a major infrastructure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Rosneft has commenced oil flows through its Vostok Oil pipeline, a major infrastructure project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rosneft",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140880,9 +140880,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1334,
-    "news_picked_today": 283,
-    "news_dropped_today": 1051
+    "news_seen_today": 1347,
+    "news_picked_today": 286,
+    "news_dropped_today": 1061
   },
   "book_momentum": {
     "live_count": 8,
