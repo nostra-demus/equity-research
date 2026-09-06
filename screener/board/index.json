@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T23:39:13Z",
+  "generated_at": "2026-09-06T23:49:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-355",
+      "headline": "EXL: EXL Completion of Divestment of United States Business [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03132411-3A701181",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T23:41:15Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "EXL has completed the divestment of its United States business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EXL has completed the divestment of its United States business.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EXL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-351",
       "headline": "AKA: Victorian Mine and Mill Acquisition - Placement and SPP [price-sensitive]",
@@ -240,6 +289,55 @@
           "name": "Bilibili",
           "ticker": "09626",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-356",
+      "headline": "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:37:39Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Ingenia Communities rejected a $1.4 billion buyout bid from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia Communities rejected a $1.4 billion buyout bid from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1860,104 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-354",
-      "headline": "CY5: Scheme Update - CAML Shareholder Resolution Passed",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CY5?key=2924-03132390-6A1342470",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T23:32:25Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "CAML shareholders passed the resolution for the scheme of arrangement with CY5.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "CAML shareholders passed the resolution for the scheme of arrangement with CY5.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CY5",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-326",
-      "headline": "LRV: Excellent drill results continue from Clarks Gully [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LRV?key=2924-03132301-6A1342440",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T22:56:30Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "LRV announced excellent drill results from Clarks Gully.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "LRV announced excellent drill results from Clarks Gully.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LRV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141796,9 +141796,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4269,
-    "news_picked_today": 899,
-    "news_dropped_today": 3370
+    "news_seen_today": 4311,
+    "news_picked_today": 908,
+    "news_dropped_today": 3403
   },
   "book_momentum": {
     "live_count": 8,
