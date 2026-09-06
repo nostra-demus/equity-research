@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T15:03:42Z",
+  "generated_at": "2026-09-06T15:08:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -1627,6 +1627,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-247",
+      "headline": "Evercore expects softer third-quarter investment banking and trading guidance",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T14:23:27Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Evercore expects softer Q3 investment banking and trading guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Evercore expects softer Q3 investment banking and trading guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evercore",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-241",
       "headline": "Global dining leader closing 261 restaurants, steakhouse chain",
       "headline_en": null,
@@ -1872,55 +1921,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-112",
-      "headline": "Bosses eye bid to take control of Poundland after its current owner put it up for sale",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16107723/Bosses-eye-bid-control-Poundland-current-owner-sale.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T05:00:49Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Potential acquisition of Poundland by new owners indicates a change in control and strategic direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Potential acquisition of Poundland by new owners indicates a change in control and strategic direction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141802,9 +141802,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2562,
-    "news_picked_today": 495,
-    "news_dropped_today": 2067
+    "news_seen_today": 2588,
+    "news_picked_today": 506,
+    "news_dropped_today": 2082
   },
   "book_momentum": {
     "live_count": 8,
