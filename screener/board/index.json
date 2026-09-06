@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T09:46:44Z",
+  "generated_at": "2026-09-06T09:51:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-198",
@@ -1852,6 +1852,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-201",
+      "headline": "Elon Musk’s xAI Fails To Halt Minnesota Law Targeting AI-Generated Fake Nudes",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/elon-musks-xai-fails-to-halt-minnesota-law-targeting-ai-generated-fake-nudes",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T09:18:35Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Legal challenges regarding AI-generated content pose operational and regulatory risks for xAI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Legal challenges regarding AI-generated content pose operational and regulatory risks for xAI.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "xAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-177",
       "headline": "‘The engine’s on fire’: Qantas flight from Queenstown to Sydney reroutes after flames seen by passengers",
       "headline_en": null,
@@ -1893,55 +1942,6 @@
           "name": "Qantas Airways",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-131",
-      "headline": "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/cil-offers-additional-coal-to-power-plants-as-stocks-decline-heres-what-led-to-critically-low-levels-11788673042864.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T05:48:39Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Coal India is increasing supply to power plants due to low inventory levels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Coal India is increasing supply to power plants due to low inventory levels.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -141097,9 +141097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1431,
-    "news_picked_today": 297,
-    "news_dropped_today": 1134
+    "news_seen_today": 1454,
+    "news_picked_today": 302,
+    "news_dropped_today": 1152
   },
   "book_momentum": {
     "live_count": 8,
