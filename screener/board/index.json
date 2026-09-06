@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T03:17:56Z",
+  "generated_at": "2026-09-06T03:18:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-063",
@@ -101292,6 +101292,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-205ed939316f",
+      "idea_version": "IDEAV-23b289b6cd7b7c5b",
+      "idea_version_started_at": "2026-09-06T03:18:09Z",
+      "ticker": "SINGY",
+      "company": "Singapore Airlines",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Volcanic eruptions at Mount Anak Krakatau have forced the suspension of flights to Jakarta, directly impacting the airline's revenue and operational capacity in a key regional hub.",
+      "why_now": "The flight suspensions are active as of 2026-09-06, creating immediate operational disruption.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f7946a13a68"
+      ],
+      "primary_source_event_id": "EVT-0f7946a13a68",
+      "source_headlines": [
+        "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions"
+      ],
+      "source_headline": "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions",
+      "source_url": "https://www.businesstimes.com.sg/international/asean/sia-affected-ash-mount-anak-krakatau-eruption-leads-jakarta-airport-flight-suspensions",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-06T02:54:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T03:18:09Z",
+      "updated_at": "2026-09-06T03:18:09Z",
+      "decay_at": "2026-09-07T14:54:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-aae3ef159f69",
       "idea_version": "IDEAV-6b3d1e38bfd09573",
       "idea_version_started_at": "2026-09-05T22:50:47Z",
@@ -105959,78 +106029,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e019413aa7ee",
-      "idea_version": "IDEAV-ffadcbcb722357e9",
-      "idea_version_started_at": "2026-09-03T14:12:49Z",
-      "ticker": "NESN",
-      "company": "Nestle",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nestle plans to build a new infant formula plant in Brazil as part of a $393 million investment, which will expand its production capacity and market share in a key growth region.",
-      "why_now": "The investment and plant construction were announced on September 3, 2026, signaling a new strategic initiative.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c944a3292a52"
-      ],
-      "primary_source_event_id": "EVT-c944a3292a52",
-      "source_headlines": [
-        "Nestle to build infant formula plant in Brazil as part of $393 million investment"
-      ],
-      "source_headline": "Nestle to build infant formula plant in Brazil as part of $393 million investment",
-      "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/nestle-build-infant-formula-plant-brazil-part-393-million-investment-2026-09-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-03T03:04:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T14:12:49Z",
-      "updated_at": "2026-09-03T14:12:49Z",
-      "decay_at": "2026-09-04T15:04:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -106105,7 +106103,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 402,
+      "file_count": 403,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -108959,8 +108957,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-04T15:04:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-06T03:18:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -138708,8 +138706,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 481,
-    "live_count": 40,
+    "surfaced_total": 482,
+    "live_count": 41,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
