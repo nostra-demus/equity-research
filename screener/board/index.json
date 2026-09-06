@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T22:24:15Z",
+  "generated_at": "2026-09-06T22:34:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-313",
+      "headline": "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03132246-2A1695539",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-06T22:27:10Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "The company rejected a non-binding takeover offer, which may impact shareholder value expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company rejected a non-binding takeover offer, which may impact shareholder value expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": "INA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-220",
       "headline": "ZHIHU-W (02390): MAJOR TRANSACTION SUBSCRIPTION OF THE FUND",
@@ -1891,50 +1940,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-046",
-      "headline": "Labor to introduce $100m penalty for algorithm harm",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/middle-east/us-strikes-iran-live-updates-us-strikes-oil-tankers-20260906-p60urr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:20:46Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "The Australian government is introducing a $100 million penalty for algorithmic harm, creating significant regulatory risk for tech companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The Australian government is introducing a $100 million penalty for algorithmic harm, creating significant regulatory risk for tech companies.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -141320,9 +141325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3932,
-    "news_picked_today": 785,
-    "news_dropped_today": 3147
+    "news_seen_today": 3978,
+    "news_picked_today": 802,
+    "news_dropped_today": 3176
   },
   "book_momentum": {
     "live_count": 8,
