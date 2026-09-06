@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-06T21:54:24Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-0bb6f3ec82be",
+    "idea_version": "IDEAV-7ee800d30e2e7ed3",
+    "idea_version_started_at": "2026-09-04T03:44:18Z",
+    "ticker": "HCM",
+    "company": "Hutchmed",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The $1.3 billion licensing deal with GSK provides a significant cash infusion and validates the company's oncology pipeline.",
+    "why_now": "The deal was announced on 2026-09-03.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-e85d4da4d1b8"
+    ],
+    "primary_source_event_id": "EVT-e85d4da4d1b8",
+    "source_headlines": [
+      "GSK pens $1.3B Hutchmed deal for early-stage KRAS-EGFR cancer asset"
+    ],
+    "source_headline": "GSK pens $1.3B Hutchmed deal for early-stage KRAS-EGFR cancer asset",
+    "source_url": "https://www.fiercebiotech.com/biotech/gsk-pens-13b-hutchmed-deal-early-stage-kras-egfr-cancer-asset",
+    "source_name": "FierceBiotech",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-03T21:26:54Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-04T03:44:18Z",
+    "updated_at": "2026-09-04T03:44:18Z",
+    "decay_at": "2026-09-05T09:26:54Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
