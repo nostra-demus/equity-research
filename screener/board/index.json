@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T08:07:40Z",
+  "generated_at": "2026-09-06T08:21:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-178",
@@ -616,6 +616,60 @@
           "name": "Al Rajhi Bank",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-182",
+      "headline": "French-owned EDF Energy in talks to acquire smaller rival So Energy",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/french-owned-edf-energy-in-talks-to-acquire-smaller-rival-so-energy-13582202",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T07:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "EDF Energy is in talks to acquire smaller rival So Energy, representing a consolidation move in the UK energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "EDF Energy is in talks to acquire smaller rival So Energy, representing a consolidation move in the UK energy sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EDF Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "So Energy",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1895,55 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-175",
-      "headline": "2 bogies of Delhi-bound Sikkim Mahananda Express derail in Bihar's Ara",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/railways/2-bogies-of-delhi-bound-sikkim-mahananda-express-derail-in-bihars-ara/articleshow/133829446.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T07:18:14Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Train derailment involving Indian Railways causes operational disruption and potential safety liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Train derailment involving Indian Railways causes operational disruption and potential safety liability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Railways",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140736,9 +140741,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1117,
-    "news_picked_today": 243,
-    "news_dropped_today": 874
+    "news_seen_today": 1154,
+    "news_picked_today": 250,
+    "news_dropped_today": 904
   },
   "book_momentum": {
     "live_count": 8,
