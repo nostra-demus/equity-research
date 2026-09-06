@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T10:00:13Z",
+  "generated_at": "2026-09-06T10:05:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-203",
@@ -1852,6 +1852,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-205",
+      "headline": "DP Abhushan eyes 51 stores, ₹15,000 cr revenue by FY30",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/dp-abhushan-eyes-51-stores-15000-cr-revenue-by-fy30/article71434940.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T10:00:45Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "DP Abhushan announced a growth plan targeting 51 stores and 150 billion INR in revenue by FY30.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "DP Abhushan announced a growth plan targeting 51 stores and 150 billion INR in revenue by FY30.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DP Abhushan",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-087",
       "headline": "Russian gold floods through Hong Kong in wake of western sanctions",
       "headline_en": null,
@@ -1889,55 +1938,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-201",
-      "headline": "Elon Musk’s xAI Fails To Halt Minnesota Law Targeting AI-Generated Fake Nudes",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/elon-musks-xai-fails-to-halt-minnesota-law-targeting-ai-generated-fake-nudes",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T09:18:35Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Legal challenges regarding AI-generated content pose operational and regulatory risks for xAI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Legal challenges regarding AI-generated content pose operational and regulatory risks for xAI.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "xAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -141317,9 +141317,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1488,
-    "news_picked_today": 308,
-    "news_dropped_today": 1180
+    "news_seen_today": 1505,
+    "news_picked_today": 310,
+    "news_dropped_today": 1195
   },
   "book_momentum": {
     "live_count": 8,
