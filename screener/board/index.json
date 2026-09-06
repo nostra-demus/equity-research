@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T11:55:25Z",
+  "generated_at": "2026-09-06T11:56:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-220",
@@ -101306,6 +101306,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1f7551ff76b0",
+      "idea_version": "IDEAV-b2b94a9b4aab7ab7",
+      "idea_version_started_at": "2026-09-06T11:55:46Z",
+      "ticker": "2390",
+      "company": "Zhihu",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Zhihu announced a major transaction involving the subscription of a fund, which could provide capital for growth or strategic initiatives.",
+      "why_now": "The company filed an official disclosure on the HKEX today regarding a major transaction for fund subscription, making this a live capital event.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1484a6e8c27b"
+      ],
+      "primary_source_event_id": "EVT-1484a6e8c27b",
+      "source_headlines": [
+        "ZHIHU-W (02390): MAJOR TRANSACTION SUBSCRIPTION OF THE FUND"
+      ],
+      "source_headline": "ZHIHU-W (02390): MAJOR TRANSACTION SUBSCRIPTION OF THE FUND",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600067.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T11:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T11:55:46Z",
+      "updated_at": "2026-09-06T11:55:46Z",
+      "decay_at": "2026-09-07T23:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ffa54d096f0d",
       "idea_version": "IDEAV-4862dfe60015716c",
       "idea_version_started_at": "2026-09-06T10:10:50Z",
@@ -102392,6 +102463,77 @@
       "surfaced_at": "2026-09-05T13:02:11Z",
       "updated_at": "2026-09-05T13:02:11Z",
       "decay_at": "2026-09-06T22:37:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-362d48f7efbd",
+      "idea_version": "IDEAV-e40a49cea9ae78f9",
+      "idea_version_started_at": "2026-09-06T11:55:46Z",
+      "ticker": "656",
+      "company": "Fosun International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Fosun International disclosed a transaction for the disposal of certain shares in a subsidiary, which could improve its balance sheet or streamline operations.",
+      "why_now": "The company filed an official disclosure on the HKEX today regarding a disclosable transaction for share disposal, making this a live capital action.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c7c4faf7099"
+      ],
+      "primary_source_event_id": "EVT-4c7c4faf7099",
+      "source_headlines": [
+        "FOSUN INTL (00656): DISCLOSEABLE TRANSACTION - IN RELATION TO THE DISPOSAL OF CERTAIN SHARES IN A SUBSIDIARY"
+      ],
+      "source_headline": "FOSUN INTL (00656): DISCLOSEABLE TRANSACTION - IN RELATION TO THE DISPOSAL OF CERTAIN SHARES IN A SUBSIDIARY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-06T11:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T11:55:46Z",
+      "updated_at": "2026-09-06T11:55:46Z",
+      "decay_at": "2026-09-07T23:20:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -141217,8 +141359,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 502,
-    "live_count": 44,
+    "surfaced_total": 504,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
