@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T05:39:27Z",
+  "generated_at": "2026-09-06T05:49:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -575,6 +575,106 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-126",
+      "headline": "SBI plans major hiring drive with around 12,000 jobs in FY27",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/finance/sbi-plans-major-hiring-drive-with-around-12000-jobs-in-fy27-report-19984917.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T05:46:32Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "SBI plans a major hiring drive of 12,000 jobs in FY27, signaling operational growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SBI plans a major hiring drive of 12,000 jobs in FY27, signaling operational growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-125",
+      "headline": "SBI to hire 12,000 personnel, add 250 branches during FY27: Chairman Setty",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/sbi-to-hire-12000-personnel-add-250-branches-during-fy27-chairman-setty/articleshow/133826798.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T05:28:09Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "SBI announced a significant expansion plan to hire 12,000 personnel and add 250 branches in FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SBI announced a significant expansion plan to hire 12,000 personnel and add 250 branches in FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1719,6 +1819,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-127",
+      "headline": "‎Al-Jouf Agricultural submits capital increase file with pre-emptive rights suspension",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934323",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Al-Jouf Agricultural has submitted a capital increase filing, which is a significant corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Al-Jouf Agricultural has submitted a capital increase filing, which is a significant corporate action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al-Jouf Agricultural",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-079",
       "headline": "Vinod Texworld to raise ₹42.83 cr through SME IPO",
       "headline_en": null,
@@ -1763,135 +1912,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-068",
-      "headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T02:49:54Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Confirmed attack on oil tankers in the Strait of Hormuz creates an immediate supply shock risk for global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Confirmed attack on oil tankers in the Strait of Hormuz creates an immediate supply shock risk for global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-061",
-      "headline": "US-Iran war LIVE: Iran condemns US strikes on oil tankers, targets vessels on 'unauthorised' Hormuz route",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/iran-war-news-latest-live-updates-donald-trump-bahrain-kuwait-jd-vance-abbas-araghchi-pezeshkian-strait-of-hormuz-attack-11788655201814.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T01:15:10Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Military escalation involving strikes on oil tankers in the Strait of Hormuz poses a severe threat to global oil supply chains and energy prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Military escalation involving strikes on oil tankers in the Strait of Hormuz poses a severe threat to global oil supply chains and energy prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-030",
-      "headline": "Iran war live: IRGC claims attacks on 3 oil tankers and 3 US-linked ships",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/9/6/iran-war-live-irgc-claims-new-attacks-on-us-warships-over-naval-blockade?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-06T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Military escalation involving attacks on oil tankers and US-linked ships represents a major supply shock risk to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Military escalation involving attacks on oil tankers and US-linked ships represents a major supply shock risk to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139794,9 +139814,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 629,
-    "news_picked_today": 143,
-    "news_dropped_today": 486
+    "news_seen_today": 646,
+    "news_picked_today": 147,
+    "news_dropped_today": 499
   },
   "book_momentum": {
     "live_count": 8,
