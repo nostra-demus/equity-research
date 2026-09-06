@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-06T00:10:04Z",
+  "generated_at": "2026-09-06T00:24:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260906-009",
+      "headline": "39-year-old major bullet manufacturer files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/bullet-company-mead-industries-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-05T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "A 39-year-old major bullet manufacturer has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A 39-year-old major bullet manufacturer has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260906-007",
       "headline": "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
@@ -270,6 +319,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260906-010",
+      "headline": "US strikes Iran’s shadow fleet in dangerous war escalation",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/middle-east/us-strikes-iran-s-shadow-fleet-in-dangerous-war-escalation-20260906-p60usm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T00:11:50Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "US strikes on Iran's shadow fleet represent a significant geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "US strikes on Iran's shadow fleet represent a significant geopolitical escalation in the Middle East.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -136652,7 +136744,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2055,
+    "inbox_unconsumed": 2057,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -136661,9 +136753,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 34,
-    "news_picked_today": 8,
-    "news_dropped_today": 26
+    "news_seen_today": 52,
+    "news_picked_today": 10,
+    "news_dropped_today": 42
   },
   "book_momentum": {
     "live_count": 8,
