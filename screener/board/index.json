@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T23:24:42Z",
+  "generated_at": "2026-09-06T23:25:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-315",
@@ -102686,6 +102686,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f7dcbd0ed944",
+      "idea_version": "IDEAV-c5e424bc38c43638",
+      "idea_version_started_at": "2026-09-06T23:24:56Z",
+      "ticker": "BUB",
+      "company": "Bubs Australia",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Permanent FDA approval removes a major regulatory overhang and allows for stable, long-term access to the US infant formula market, which is a key growth driver.",
+      "why_now": "The regulatory approval was confirmed in an ASX filing on 2026-09-06.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cd8215470c9"
+      ],
+      "primary_source_event_id": "EVT-6cd8215470c9",
+      "source_headlines": [
+        "BUB: Bubs Secures Permanent US FDA Approval for Infant Formula [price-sensitive]"
+      ],
+      "source_headline": "BUB: Bubs Secures Permanent US FDA Approval for Infant Formula [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BUB?key=2924-03132331-6A1342422",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-06T23:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T23:24:56Z",
+      "updated_at": "2026-09-06T23:24:56Z",
+      "decay_at": "2026-09-08T11:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-26a4a64ef76e",
       "idea_version": "IDEAV-124b5d2aa2b3b853",
       "idea_version_started_at": "2026-09-06T19:44:58Z",
@@ -141696,8 +141767,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 517,
-    "live_count": 52,
+    "surfaced_total": 518,
+    "live_count": 53,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
