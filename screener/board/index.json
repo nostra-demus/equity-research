@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T07:31:46Z",
+  "generated_at": "2026-09-06T07:36:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260906-120",
@@ -1808,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260906-175",
+      "headline": "2 bogies of Delhi-bound Sikkim Mahananda Express derail in Bihar's Ara",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/railways/2-bogies-of-delhi-bound-sikkim-mahananda-express-derail-in-bihars-ara/articleshow/133829446.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T07:18:14Z",
+      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
+      "prelim_note": "Train derailment involving Indian Railways causes operational disruption and potential safety liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Train derailment involving Indian Railways causes operational disruption and potential safety liability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Railways",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260906-151",
       "headline": "NMDC to start commercial coal production next quarter; eyes 1 MT dry fuel sale in FY27: Chairman",
       "headline_en": null,
@@ -1896,55 +1945,6 @@
       "companies": [
         {
           "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260906-103",
-      "headline": "Jio At 10: 533.3 Million Users Later, Akash Ambani Sets Sights On Global Markets",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jio-at-10-5333-million-users-later-akash-ambani-sets-sights-on-global-markets",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T04:29:29Z",
-      "sweep_file": "screener/inbox/2026-09-06_sweep.json",
-      "prelim_note": "Reliance Jio reports 533.3 million users and announces strategic expansion into global markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Reliance Jio reports 533.3 million users and announces strategic expansion into global markets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Jio",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -140440,9 +140440,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1017,
-    "news_picked_today": 221,
-    "news_dropped_today": 796
+    "news_seen_today": 1027,
+    "news_picked_today": 223,
+    "news_dropped_today": 804
   },
   "book_momentum": {
     "live_count": 8,
