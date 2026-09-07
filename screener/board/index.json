@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T13:57:00Z",
+  "generated_at": "2026-09-07T14:34:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-402",
+      "headline": "Tribhovandas Bhimji Zaveri Limited: Axis Capital Limited (Manager to the Offer) has submitted to the Exchange a Detailed public statement dated September 4, 2026 (the Detailed Public Statement ) in relation to the open offer to the Public Shareholders (as defined in the Public Announcement) of Tribhovandas Bhimji Zaveri Limited ( Open Offer ).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/vipulr_07092026191306_TBZ_DPS_CoverLetter.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T13:45:27Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Tribhovandas Bhimji Zaveri Limited has issued a detailed public statement regarding an open offer to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tribhovandas Bhimji Zaveri Limited has issued a detailed public statement regarding an open offer to shareholders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tribhovandas Bhimji Zaveri Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-401",
       "headline": "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding Proceedings of Court Convened General Meeting of Unsecured Creditors held on September 07, 2026",
@@ -445,6 +494,310 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-426",
+      "headline": "Jaguar Land Rover will fast zehn Prozent der Stellen abbauen",
+      "headline_en": "Jaguar Land Rover to cut nearly ten percent of jobs",
+      "url": "https://www.reuters.com/de/firma/jaguar-land-rover-will-fast-zehn-prozent-der-stellen-abbauen-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:44:43Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover plans to cut nearly 10% of its workforce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover plans to cut nearly 10% of its workforce.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-404",
+      "headline": "udaan acquires Swiggy’s LYNK Logistics for ₹500 crore, gets Swiggy as shareholder",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/udaan-acquires-swiggys-lynk-logistics-for-500-crore-gets-swiggy-as-shareholder/article71438614.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:42:53Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "udaan acquired LYNK Logistics from Swiggy for 500 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "udaan acquired LYNK Logistics from Swiggy for 500 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "udaan",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Swiggy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-405",
+      "headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:42:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Novartis India Ltd is acquiring BP drug trademarks from Pfizer Inc for 1,250 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis India Ltd is acquiring BP drug trademarks from Pfizer Inc for 1,250 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis India Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Pfizer Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-420",
+      "headline": "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/neuland-laboratories-approves-126-crore-investment-buys-134-acres-for-future-expansion",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:28:56Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Neuland Laboratories announced a 126 crore investment for land acquisition and future capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Neuland Laboratories announced a 126 crore investment for land acquisition and future capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neuland Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-417",
+      "headline": "Jaguar Land Rover to cut 4,000 jobs globally, targets £1.7 billion in savings",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/jaguar-land-rover-to-cut-4000-jobs-globally-targets-17-billion-in-savings/article71438130.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:26:50Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover plans to cut 4,000 jobs to achieve £1.7 billion in savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover plans to cut 4,000 jobs to achieve £1.7 billion in savings.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-418",
+      "headline": "Jaguar Land Rover to cut 4,000 jobs amid cost-saving drive",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/jaguar-land-rover-jonathan-reynolds-unite-donald-trump-liam-byrne-b1296020.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:26:03Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving initiative.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving initiative.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-397",
       "headline": "£500,000 package to help JLR workers as carmaker announces 4,000 job cuts – business live",
       "headline_en": null,
@@ -538,6 +891,99 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-436",
+      "headline": "Loss of Costco deal helps push beverage brand into Chapter 11",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/loss-of-costco-deal-helps-push-focus-factor-maker-into-chapter-11",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T12:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A beverage brand filed for Chapter 11 bankruptcy following the loss of a Costco deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A beverage brand filed for Chapter 11 bankruptcy following the loss of a Costco deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-435",
+      "headline": "Range Rover Maker to Cut 4,000 Jobs as Trump’s Tariffs Bite",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/tata-motors-owned-jlr-plans-redundancy-program-as-it-targets-over-2b-in-savings-4f8fccdb?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T12:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs due to the impact of tariffs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs due to the impact of tariffs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1540,458 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-177",
-      "headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T03:45:31Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Warburg Pincus",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-173",
-      "headline": "More than 200 people stood down at embattled housing developer Bathla amid $3.4bn debt",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/australia-news/2026/sep/07/more-than-200-people-stood-down-at-embattled-housing-developer-bathla",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T03:07:23Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Developer Bathla faces $3.4bn in debt and has laid off 200 staff, indicating severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Developer Bathla faces $3.4bn in debt and has laid off 200 staff, indicating severe financial distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-161",
-      "headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T03:04:42Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Tata Motors has launched a tender offer for Iveco Group, valuing the company at €3.82 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors has launched a tender offer for Iveco Group, valuing the company at €3.82 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco Group",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-158",
-      "headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:23:27Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A fatal crash involving an Amazon cargo aircraft is a significant operational and reputational event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A fatal crash involving an Amazon cargo aircraft is a significant operational and reputational event for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-132",
-      "headline": "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/macquarie-asset-management-buys-serv-stake-from-aware-super-in-4-deal-20260906-p60uua?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:07:13Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Macquarie Asset Management is acquiring a stake in SERV from Aware Super in a deal valued at $4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Macquarie Asset Management is acquiring a stake in SERV from Aware Super in a deal valued at $4 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Macquarie Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-112",
-      "headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:01:54Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia rejected a takeover bid from Warburg Pincus, signaling a potential valuation gap or strategic shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia rejected a takeover bid from Warburg Pincus, signaling a potential valuation gap or strategic shift.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-091",
-      "headline": "Bathla Group Faces Funding Talks as $2.5 Billion Debt Crisis Deepens",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:08:06Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bathla Group is facing a $2.5 billion debt crisis, indicating a high risk of default or insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bathla Group is facing a $2.5 billion debt crisis, indicating a high risk of default or insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-072",
-      "headline": "Bathla Gets Stopgap Funding as Longer-Term Debt Crisis Lingers",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:08:06Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bathla faces a persistent debt crisis and is relying on stopgap funding, indicating severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bathla faces a persistent debt crisis and is relying on stopgap funding, indicating severe financial distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-047",
-      "headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:08:06Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bathla Group is facing a $2.5 billion debt crisis and is actively seeking emergency funding to avoid default.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bathla Group is facing a $2.5 billion debt crisis and is actively seeking emergency funding to avoid default.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146542,9 +146536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 302832,
-    "news_picked_today": 834,
-    "news_dropped_today": 12785
+    "news_seen_today": 319364,
+    "news_picked_today": 904,
+    "news_dropped_today": 13483
   },
   "book_momentum": {
     "live_count": 8,
