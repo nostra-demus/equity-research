@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T03:29:47Z",
+  "generated_at": "2026-09-07T03:34:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1222,6 +1222,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-168",
+      "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in US",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/at-least-5-killed-in-amazon-prime-air-cargo-plane-crash-in-us-4137474",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:14:37Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-094",
       "headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
       "headline_en": null,
@@ -1904,55 +1953,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-150",
-      "headline": "S-Oil Seen Posting Over 1 Trillion Won in Q3 Profit",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276312",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T06:08:06Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "S-Oil is projected to post over 1 trillion won in Q3 profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "S-Oil is projected to post over 1 trillion won in Q3 profit.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S-Oil",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145642,9 +145642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 934,
-    "news_picked_today": 220,
-    "news_dropped_today": 714
+    "news_seen_today": 961,
+    "news_picked_today": 225,
+    "news_dropped_today": 736
   },
   "book_momentum": {
     "live_count": 8,
