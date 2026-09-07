@@ -550,7 +550,7 @@ async function readJournal(directory: string): Promise<TransactionJournal | null
   }
 }
 
-async function removeTreeInside(directory: string, target: string): Promise<void> {
+function removeTreeInside(directory: string, target: string): void {
   removePrivateRunPlanTree(directory, target)
 }
 

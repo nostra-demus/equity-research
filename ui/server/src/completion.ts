@@ -1749,7 +1749,8 @@ function copyDir(srcAbs: string, dstAbs: string, preserveFrozenModes = false): v
       throw new Error(`source directory changed during copy: ${source}`)
     }
     const destination = path.join(dstAbs, path.relative(srcAbs, source))
-    const copied = copiedDirectories.get(destination)!
+    const copied = copiedDirectories.get(destination)
+    if (!copied) throw new Error(`destination directory missing after copy: ${destination}`)
     const fd = fs.openSync(destination, fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW)
     try {
       const actual = fs.fstatSync(fd)
