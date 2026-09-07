@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:11:22Z",
+  "generated_at": "2026-09-07T01:31:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-091",
+      "headline": "Bathla Group Faces Funding Talks as $2.5 Billion Debt Crisis Deepens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:08:06Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Bathla Group is facing a $2.5 billion debt crisis, indicating a high risk of default or insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bathla Group is facing a $2.5 billion debt crisis, indicating a high risk of default or insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -873,31 +922,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-023",
-      "headline": "Bathla administrators scramble for cash as 200 staff stood down",
+      "inbox_id": "INB-20260907-083",
+      "headline": "Bathla administrators get short-term cash as 200 staff stood down",
       "headline_en": null,
       "url": "https://www.afr.com/property/residential/bathla-administrators-scramble-for-cash-as-200-staff-stood-down-20260907-p60v0r?ref=rss&utm_medium=rss&utm_source=rss_feed",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:11:08Z",
+      "found_at": "2026-09-07T00:47:22Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bathla Group has entered administration and laid off 200 staff, indicating a significant corporate failure.",
+      "prelim_note": "Company in administration with 200 staff layoffs.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "Bathla Group has entered administration and laid off 200 staff, indicating a significant corporate failure.",
+      "triage_reason": "Company in administration with 200 staff layoffs.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
         "event": 9,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -906,13 +955,13 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
+        "restructuring_layoffs",
+        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bathla Group",
+          "name": "Bathla",
           "ticker": null,
           "listing_country": null
         }
@@ -1424,6 +1473,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-078",
+      "headline": "A StubHub Executive Dumps Over 10% of Their Company Shares Worth $1.1 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stubhub-executive-dumps-over-10-their-company-shares-worth-11-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:58:55Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A StubHub executive sold over 10% of their shares worth $1.1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A StubHub executive sold over 10% of their shares worth $1.1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "StubHub",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-040",
       "headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
       "headline_en": null,
@@ -1460,6 +1558,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-074",
+      "headline": "Karnataka farmers oppose move to acquire land for Dharwad–Belagavi industrial corridor",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/karnataka-farmers-oppose-move-to-acquire-land-for-dharwadbelagavi-industrial-corridor-4137313",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:03:16Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Local opposition to land acquisition for the Dharwad–Belagavi industrial corridor creates operational risk for regional development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Local opposition to land acquisition for the Dharwad–Belagavi industrial corridor creates operational risk for regional development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1510,6 +1651,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-081",
+      "headline": "Pranav Constructions IPO opens today: Should you subscribe to the ₹351 crore issue?",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pranav-constructions-ipo-subscription-opens-today-should-you-bid-issue-size-gmp-price-band-brokerages-19985090.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:23:13Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Pranav Constructions launched an IPO valued at ₹351 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Pranav Constructions launched an IPO valued at ₹351 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pranav Constructions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-053",
       "headline": "AMASSE CAPITAL (08168): EXCHANGE NOTICE - SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1554,6 +1744,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-073",
+      "headline": "India’s record foreign deposit push could cost RBI $10.6 billion: Why the diaspora fundraising drive may prove expensive",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/wealth/invest/indias-record-foreign-deposit-push-could-cost-rbi-10-6-billion-why-the-diaspora-fundraising-drive-may-prove-expensive/articleshow/133786418.cms",
+      "source_name": "The Economic Times Wealth",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "India's foreign deposit push could cost the RBI $10.6 billion in potential interest and hedging costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "India's foreign deposit push could cost the RBI $10.6 billion in potential interest and hedging costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1651,37 +1884,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-034",
-      "headline": "FRS: Becoming a substantial holder from RMS",
+      "inbox_id": "INB-20260907-076",
+      "headline": "MM8: Change in substantial holding",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRS?key=2924-03132458-6A1342478",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MM8?key=2924-03132490-6A1342485",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:15:50Z",
+      "found_at": "2026-09-07T01:20:10Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Standard disclosure of a substantial shareholder change.",
+      "prelim_note": "MM8 reported a change in substantial shareholding.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Standard disclosure of a substantial shareholder change.",
+      "triage_score": 75,
+      "triage_reason": "MM8 reported a change in substantial shareholding.",
       "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "relevance": "material",
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 50,
         "source_tier": 8,
         "scope": 6,
         "event": 6,
-        "size": -1,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "ownership_activist",
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "ownership_activist"
@@ -1689,245 +1922,11 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Firefinch",
-          "ticker": "FRS",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-001",
-      "headline": "HBM HOLDINGS-B (02142): VOLUNTARY ANNOUNCEMENT - INCLUSION OF THE SHARES OF THE COMPANY IN THE HONG KONG STOCK CONNECT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700033.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Inclusion in the Hong Kong Stock Connect increases liquidity and accessibility for mainland investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Inclusion in the Hong Kong Stock Connect increases liquidity and accessibility for mainland investors.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "index_rebalance",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HBM HOLDINGS",
-          "ticker": "02142",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-039",
-      "headline": "Alcohol distributor RNDC shutting down Georgia operations, laying off 558 workers after bankruptcy filing",
-      "headline_en": null,
-      "url": "https://www.reddit.com/r/Layoffs/comments/1w9ccar/alcohol_distributor_rndc_shutting_down_georgia",
-      "source_name": "Reddit r/Layoffs",
-      "input_nature": "social_discussion",
-      "found_at": "2026-09-06T23:59:06Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Company filed for bankruptcy and is shutting down operations, resulting in 558 layoffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Company filed for bankruptcy and is shutting down operations, resulting in 558 layoffs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -12,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "social",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Republic National Distributing Company",
+          "name": "MM8",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-021",
-      "headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:06:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "CStone Pharma has been included in the Southbound Stock Connect, increasing liquidity and access for mainland Chinese investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "CStone Pharma has been included in the Southbound Stock Connect, increasing liquidity and access for mainland Chinese investors.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CStone Pharmaceuticals",
-          "ticker": "02616",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-060",
-      "headline": "Asian stocks to gain, oil rises on US-Iran strikes: Markets wrap",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/asian-stocks-to-gain-oil-rises-on-us-iran-strikes-markets-wrap",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Geopolitical escalation involving US-Iran strikes is a major risk event affecting global energy prices and market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Geopolitical escalation involving US-Iran strikes is a major risk event affecting global energy prices and market stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-038",
-      "headline": "Oil extends gains after US and Iran strike ships",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:16:09Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Military strikes on ships in the Middle East create a supply shock for oil, driving prices higher.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Military strikes on ships in the Middle East create a supply shock for oil, driving prices higher.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -144952,9 +144951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 335,
-    "news_picked_today": 74,
-    "news_dropped_today": 261
+    "news_seen_today": 440,
+    "news_picked_today": 93,
+    "news_dropped_today": 347
   },
   "book_momentum": {
     "live_count": 8,
