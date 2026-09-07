@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:22:07Z",
+  "generated_at": "2026-09-07T04:27:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1570,6 +1570,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-194",
+      "headline": "Spacetech startup Pixxel raises $100 million led by Temasek, Seraphim",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/science/google-backed-indian-space-startup-raises-100-million-in-latest-funding-round/article71437308.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:20:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pixxel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-111",
       "headline": "CEO suspended over FMD vaccine pricing",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-159",
-      "headline": "BPP: Reinstatement to Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BPP?key=2924-03132523-6A1342496",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T02:59:56Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "BPP is being reinstated to trading after a suspension, which is a significant liquidity event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "BPP is being reinstated to trading after a suspension, which is a significant liquidity event for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPP",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145858,9 +145858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1231,
-    "news_picked_today": 298,
-    "news_dropped_today": 933
+    "news_seen_today": 1513,
+    "news_picked_today": 304,
+    "news_dropped_today": 1209
   },
   "book_momentum": {
     "live_count": 8,
