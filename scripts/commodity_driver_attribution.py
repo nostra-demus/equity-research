@@ -29,25 +29,22 @@ CONTRACT
   • "reconciled" form: explained + residual must equal 100 within COMM_RECONCILE_TOLERANCE points —
     the same arithmetic-integrity test check BE applies to RF-EARN-001/002 (CLAUDE.md §15).
   • "not attempted" form requires a non-empty reason (a bare dodge fails, matching check BE).
-  • Deliberately NOT gated on a rollout date or file mtime. The commodity swarm keeps one persistent
-    run folder per commodity with mtime-driven resume/skip (commodity/full.md step 5.1), and full.md
-    step 5.1 itself documents that mtimes are "not durable across a fresh clone" — every file lands
-    with the checkout time, so mtime cannot prove an orb is stale or fresh. decision_date is no better:
-    it can advance (a fresh commodity-thesis synthesis) without macro-drivers itself re-running, since
-    module resume decisions are independent per module. The only reliable signal is full.md's own
-    step-5.1 resume decision for the macro-positioning module — SKIP vs RERUN — computed fresh on every
-    invocation. So this script is invoked ONLY when that decision is RERUN in the CURRENT invocation
-    (commodity/full.md step 5.6); a skip-resumed pre-existing run (GOLD/ALUMINIUM/COPPER/WHEAT, none of
-    which carry this tag yet) is never blocked by a rule that postdates its last real regeneration.
+  • The caller decides whether a specialist was actually dispatched; a module's RERUN status and
+    file mtimes do not prove this. The publication pipeline uses --require-report so a missing
+    expected report fails. Standalone inspection may report a missing orb as N/A.
+  • This checks the declaration's arithmetic only. The specialist and synthesis must still verify
+    the multiplication, sensitivity basis, price units and agreement with the report's evidence.
   • Fails CLOSED like its siblings commodity_forecast_contract.py / commodity_pre_mortem_haircut.py:
     exits nonzero with GATE-FAIL on any violation; only a clean tag (or a not-yet-run orb) exits 0.
 
 CLI:
-  python3 scripts/commodity_driver_attribution.py <RUN_ROOT>
+  python3 scripts/commodity_driver_attribution.py <RUN_ROOT> [--require-report]
   python3 scripts/commodity_driver_attribution.py --selftest
 """
 from __future__ import annotations
 
+import argparse
+import math
 import os
 import re
 import sys
@@ -56,79 +53,112 @@ COMM_RECONCILE_TOLERANCE = 1.0  # percentage points — independently-rounded ex
 DRIVER_ATTRIBUTION_TAG = "RF-COMM-001"
 
 _RECON_RE = re.compile(
-    r"\breconciled\s*[—–\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*%\s*,\s*"
+    r"driver attribution reconciled\s*[—–\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*%\s*,\s*"
     r"residual\s+(-?\d+(?:\.\d+)?)\s*%",
     re.IGNORECASE,
 )
-_NOT_ATTEMPTED_RE = re.compile(r"not attempted\b(.*)$", re.IGNORECASE | re.DOTALL)
+_NOT_ATTEMPTED_RE = re.compile(r"driver attribution not attempted\s*[—–\-:]\s*(.*)", re.IGNORECASE)
 _NEG_LEADING_STRIP = " \t—–-:"
+_HEADING_RE = re.compile(r"^ {0,3}(#{1,6})[ \t]+(.*)$")
+_SECTION_RE = re.compile(r"1a\.?(?:\s|$)", re.IGNORECASE)
+_FENCE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
+_THEMATIC_BREAK_RE = re.compile(r" {0,3}(?:(?:\*[ \t]*){3,}|(?:-[ \t]*){3,}|(?:_[ \t]*){3,})")
 
 
 def _tag_line_rest(txt, tag):
-    """Return the cleaned remainder of the FIRST line in `txt` whose leading token (after shedding
-    markdown heading/bullet/table/quote/backtick cruft) is `tag`, skipping a first-cell status TABLE
-    ROW. Deliberately duplicates scripts/rating_caps.py's `_be_tag_line_rest` (same shape) rather than
-    importing/sharing it, so this new commodity-scoped check can never change equity check BE's
-    behaviour."""
-    if not txt:
-        return None
-    for raw in txt.splitlines():
-        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")
-        if not line.startswith(tag):
+    """Require one declaration closing one level-two Section 1a, outside code examples."""
+    lines = txt.splitlines()
+    headings = []
+    visible = set()
+    fence = None
+    for index, raw in enumerate(lines):
+        marker = _FENCE_RE.match(raw)
+        if fence is not None:
+            if marker and marker[1][0] == fence[0] and len(marker[1]) >= len(fence) and not marker[2].strip():
+                fence = None
             continue
-        rest = line[len(tag):]
-        if rest.lstrip().startswith("|"):
-            continue  # first-cell status table row, not a fired standalone tag
-        return rest
-    return None
+        if marker:
+            fence = marker[1]
+            continue
+        visible.add(index)
+        heading = _HEADING_RE.match(raw)
+        if heading:
+            headings.append((index, len(heading[1]), heading[2].strip()))
+    sections = [index for index, level, title in headings if level == 2 and _SECTION_RE.match(title)]
+    if len(sections) != 1:
+        raise ValueError(f"{tag} requires exactly one Section 1a attribution heading; found {len(sections)}")
+    start = sections[0]
+    end = next((index for index, level, _ in headings if index > start and level <= 2), len(lines))
+    declarations = []
+    for index in range(start + 1, end):
+        if index not in visible or lines[index].startswith(("    ", "\t")):
+            continue
+        # A table cell is not a standalone declaration. Preserve ordinary Markdown emphasis.
+        line = lines[index].strip().lstrip("#-*•>` \t").rstrip("*` \t")
+        if re.match(re.escape(tag) + r"(?![\w-])", line):
+            declarations.append((index, line))
+    if len(declarations) != 1:
+        raise ValueError(f"{tag} requires exactly one standalone declaration in Section 1a; found {len(declarations)}")
+    index, line = declarations[0]
+    # Existing commodity reports separate sections with thematic breaks; these add no qualification.
+    if any(raw.strip() and not _THEMATIC_BREAK_RE.fullmatch(raw) for raw in lines[index + 1:end]):
+        raise ValueError(f"{tag} must close Section 1a; put qualifications before the declaration")
+    if not line.startswith(tag + ":"):
+        raise ValueError(f"{tag} must be followed by ':' and a sanctioned declaration")
+    return line[len(tag) + 1:].strip()
 
 
-def check_text(txt):
-    """Validate the RF-COMM-001 tag inside macro-drivers specialist text `txt`. Returns a list of
-    violation strings (empty list = pass). Pure, side-effect-free — drives both the CLI and
-    --selftest."""
-    rest = _tag_line_rest(txt, DRIVER_ATTRIBUTION_TAG)
-    if rest is None:
-        return [
-            f"{DRIVER_ATTRIBUTION_TAG} is absent from 01_commodity-macro-drivers.md — section 1a "
-            f"must declare either the reconciled residual or that no decomposition was possible "
-            f"(CLAUDE.md §15: 'a large residual is the finding, not a caveat ... never rounded "
-            f"away'; MODULE_RULES.md §4a)"]
-    not_attempted = _NOT_ATTEMPTED_RE.search(rest)
+def _validate_text(txt):
+    """Return (violations, validated declaration) without changing the report."""
+    try:
+        rest = _tag_line_rest(txt, DRIVER_ATTRIBUTION_TAG)
+    except ValueError as exc:
+        return [str(exc)], None
+    not_attempted = _NOT_ATTEMPTED_RE.fullmatch(rest)
     if not_attempted:
         reason = not_attempted.group(1).lstrip(_NEG_LEADING_STRIP)
         if not reason.strip():
             return [
                 f"{DRIVER_ATTRIBUTION_TAG} declares 'not attempted' with no reason given — "
-                f"CLAUDE.md §15 requires stating what's missing, not a bare dodge"]
-        return []
-    match = _RECON_RE.search(rest)
+                f"CLAUDE.md §15 requires stating what's missing, not a bare dodge"], None
+        return [], f"{DRIVER_ATTRIBUTION_TAG}: driver attribution not attempted — {reason}"
+    match = _RECON_RE.fullmatch(rest)
     if not match:
         return [
             f"{DRIVER_ATTRIBUTION_TAG} does not match either sanctioned form — "
             f"'{DRIVER_ATTRIBUTION_TAG}: driver attribution reconciled — explained {{N}}%, "
             f"residual {{M}}%' or '{DRIVER_ATTRIBUTION_TAG}: driver attribution not attempted — "
             f"{{reason}}' — the residual cannot be verified as stated (CLAUDE.md §15; §11 caps "
-            f"must be applied, never silently unverifiable)"]
+            f"must be applied, never silently unverifiable)"], None
     explained, residual = (float(g) for g in match.groups())
+    if not all(math.isfinite(value) for value in (explained, residual, explained + residual)):
+        return [f"{DRIVER_ATTRIBUTION_TAG} explained and residual percentages must be finite"], None
     if abs((explained + residual) - 100.0) > COMM_RECONCILE_TOLERANCE:
         return [
             f"{DRIVER_ATTRIBUTION_TAG} states explained {explained}% + residual {residual}% = "
             f"{explained + residual}%, which does not reconcile to 100% within "
             f"{COMM_RECONCILE_TOLERANCE}pp (CLAUDE.md §15 driver-attribution arithmetic — 'a "
-            f"driver-attribution claim shows its own arithmetic and names its residual')"]
-    return []
+            f"driver-attribution claim shows its own arithmetic and names its residual')"], None
+    return [], (f"{DRIVER_ATTRIBUTION_TAG}: driver attribution reconciled — "
+                f"explained {match[1]}%, residual {match[2]}%")
 
 
-def check_file(run_root):
-    """Read <run_root>/macro-positioning/01_commodity-macro-drivers.md and return check_text()'s
-    result. Returns (violations, path): violations is None (not []) when the file itself is missing
-    — "orb never ran", nothing to gate — distinct from an empty list (orb ran, tag clean)."""
+def check_text(txt):
+    """Return violations (empty list = valid declaration); pure API for contract tests."""
+    return _validate_text(txt)[0]
+
+
+def check_file(run_root, *, require_report=False):
+    """Return (violations, path, declaration); only standalone missing-file inspection is N/A."""
     path = os.path.join(run_root, "macro-positioning", "01_commodity-macro-drivers.md")
-    if not os.path.isfile(path):
-        return None, path
-    with open(path, encoding="utf-8") as f:
-        return check_text(f.read()), path
+    try:
+        with open(path, encoding="utf-8") as f:
+            violations, declaration = _validate_text(f.read())
+        return violations, path, declaration
+    except FileNotFoundError:
+        return ([f"required macro-drivers report is missing: {path}"] if require_report else None), path, None
+    except (OSError, UnicodeError) as exc:
+        return [f"cannot read macro-drivers report {path}: {exc}"], path, None
 
 
 def _selftest():
@@ -170,7 +200,7 @@ def _selftest():
     check("table-cell false positive -> treated as absent", len(check_text(table_row)) == 1)
 
     heading_cruft = (
-        "### **RF-COMM-001: driver attribution reconciled — explained 100%, residual 0%**\n"
+        "## 1a\n### **RF-COMM-001: driver attribution reconciled — explained 100%, residual 0%**\n"
     )
     check("heading/bold cruft stripped -> pass", check_text(heading_cruft) == [])
 
@@ -185,20 +215,25 @@ def _selftest():
 
 
 def main(argv):
-    if "--selftest" in argv:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("run_root", nargs="?")
+    parser.add_argument("--require-report", action="store_true", help="fail if a dispatched report is missing")
+    parser.add_argument("--selftest", action="store_true")
+    args = parser.parse_args(argv)
+    if args.selftest:
+        if args.run_root or args.require_report:
+            parser.error("--selftest cannot be combined with a run root or --require-report")
         return _selftest()
-    if not argv:
-        print("usage: commodity_driver_attribution.py <RUN_ROOT> | --selftest", file=sys.stderr)
-        return 2
-    run_root = argv[0]
-    violations, path = check_file(run_root)
+    if not args.run_root:
+        parser.error("a run root is required")
+    violations, path, declaration = check_file(args.run_root, require_report=args.require_report)
     if violations is None:
         print(f"RF-COMM-001: N/A — {path} not found (macro-drivers orb has not run)")
         return 0
     if violations:
         print(f"GATE-FAIL: {'; '.join(violations)}", file=sys.stderr)
         return 1
-    print("RF-COMM-001: driver-attribution tag present and reconciled")
+    print(declaration)
     return 0
 
 

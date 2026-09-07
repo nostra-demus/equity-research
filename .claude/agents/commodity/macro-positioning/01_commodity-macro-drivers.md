@@ -53,6 +53,14 @@ or, when no sourced sensitivity exists:
 ```
 RF-COMM-001: driver attribution not attempted — {reason}
 ```
+Emit exactly one such declaration, as the final substantive line of the single Section 1a (an optional
+Markdown separator may follow). Keep it outside
+code fences, tables, headings, and blockquotes; do not repeat it in an appendix or a copied example. The
+entire line must match one sanctioned form: no negation such as "not reconciled", mixed declarations,
+or trailing commentary. Put qualifications and supporting arithmetic in the preceding prose. A
+`not attempted` reason must name the missing sourced sensitivity; it must not conceal a decomposition
+whose printed figures fail to reconcile. This tag verifies the declared percentage total only — it
+does not replace the multiplication, matched basis, unit conversion, citations, or causal judgment above.
 4. Every level `[Source, date]` (§5) — FRED/US Treasury for real yields, the Federal Reserve for the broad USD, EIA for energy. Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
@@ -79,6 +87,10 @@ tag line, in exactly one of its two forms — never omitted.)
 - [ ] Softs physical ratios, realised use/allocation, parity ranges and policy were not duplicated from their causal owner.
 - [ ] Each driver is marked Supportive/Neutral/Headwind with a dated source.
 - [ ] Section 1a ends with the standalone `RF-COMM-001` tag line, in exactly one of its two forms (reconciled explained/residual, or "not attempted — {reason}") — never omitted, and the explained/residual figures actually sum to 100%.
+- [ ] There is exactly one Section 1a and one complete declaration at its end; no fenced example,
+  duplicate, negated reconciliation, or mixed status can stand in for the finding. The prose and its
+  sourced arithmetic support the declared result; "not attempted" remains direction-only, never a
+  claim that the driver explained the observed move.
 
 # CHAT CONFIRMATION
 
