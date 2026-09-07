@@ -3,7 +3,9 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { randomUUID } from 'node:crypto'
 import {
+  assertPrivatePreparedRunRoot,
   captureOutputLineageAttempt,
   outputLineageManifestPath,
   readVerifiedOutputLineage,
@@ -258,6 +260,66 @@ try {
       assert.equal(fs.statSync(path.dirname(outputLineageManifestPath(root, options))).mode & 0o077, 0)
       assert.equal(fs.statSync(outputLineageManifestPath(root, options)).mode & 0o077, 0)
     }
+  }
+
+  {
+    const root = makeRoot('ZZLINEAGERETAIN')
+    const relative = 'business-model/01_retained.md'
+    const attempt = boundAttempt(root, relative, 'attempt-retained')
+    write(root, relative, '# Exact retained output\n\nVerified bytes survive a private transaction.\n')
+    settleOutputLineageAttempt(attempt, options)
+    const original = readVerifiedOutputLineage(root, options)
+    const canonical = path.join(repoRoot, root)
+    const workspace = path.join(repoRoot, 'analyses', '.run-plan-transactions', randomUUID())
+    const physicalRunRootAbs = path.join(workspace, 'prepared-root')
+    fs.mkdirSync(workspace, { recursive: true, mode: 0o700 })
+    fs.renameSync(canonical, physicalRunRootAbs)
+    const retainedOptions = { ...options, physicalRunRootAbs }
+    assert.deepEqual(readVerifiedOutputLineage(root, retainedOptions), original,
+      'private bytes keep the original protected logical root and digest when canonical is absent')
+    assert.equal(fs.existsSync(canonical), false, 'inspection never publishes the retained root')
+    write(root, relative, '# Different canonical bytes\n')
+    assert.deepEqual(readVerifiedOutputLineage(root, retainedOptions), original,
+      'a different canonical tree cannot influence retained-root validation')
+    const retainedOutput = path.join(physicalRunRootAbs, relative)
+    const originalBytes = fs.readFileSync(retainedOutput)
+    fs.writeFileSync(retainedOutput, '# Altered retained bytes\n')
+    assert.equal(readVerifiedOutputLineage(root, retainedOptions).entries.length, 0,
+      'an altered retained report cannot borrow canonical or manifest trust')
+    fs.writeFileSync(retainedOutput, originalBytes)
+    const linked = path.join(temporary, 'retained-hardlink.md')
+    fs.linkSync(retainedOutput, linked)
+    assert.equal(readVerifiedOutputLineage(root, retainedOptions).entries.length, 0,
+      'hardlinked retained reports never become reusable')
+    fs.unlinkSync(linked)
+    const moved = path.join(workspace, 'moved-root')
+    const proof = assertPrivatePreparedRunRoot(physicalRunRootAbs, repoRoot)
+    fs.renameSync(physicalRunRootAbs, moved)
+    fs.mkdirSync(physicalRunRootAbs)
+    assert.throws(proof, /changed while/, 'the read proof rejects a replaced private root inode')
+    fs.rmdirSync(physicalRunRootAbs)
+    fs.symlinkSync(moved, physicalRunRootAbs)
+    assert.throws(() => readVerifiedOutputLineage(root, retainedOptions), /unsafe private directory/,
+      'a private root symlink is rejected before reading its outputs')
+    fs.unlinkSync(physicalRunRootAbs)
+    fs.renameSync(moved, physicalRunRootAbs)
+    assert.throws(() => readVerifiedOutputLineage(root, { ...options, physicalRunRootAbs: canonical }),
+      /exact private transaction root/, 'a canonical or escaped path is not a retained-root capability')
+    fs.renameSync(physicalRunRootAbs, moved)
+    fs.linkSync(path.join(moved, relative), physicalRunRootAbs)
+    assert.throws(() => readVerifiedOutputLineage(root, retainedOptions), /unsafe private directory/,
+      'a hardlinked file cannot impersonate the retained root directory')
+    fs.unlinkSync(physicalRunRootAbs)
+    fs.renameSync(moved, physicalRunRootAbs)
+    const movedWorkspace = path.join(temporary, 'moved-workspace')
+    fs.renameSync(workspace, movedWorkspace)
+    fs.symlinkSync(movedWorkspace, workspace)
+    assert.throws(() => readVerifiedOutputLineage(root, retainedOptions), /unsafe private directory/,
+      'a symlinked transaction ancestor cannot redirect retained output reads')
+    fs.unlinkSync(workspace)
+    fs.renameSync(movedWorkspace, workspace)
+    assert.equal(readVerifiedOutputLineage(makeRoot('ZZLINEAGEFOREIGN'), retainedOptions).entries.length, 0,
+      'private bytes cannot acquire another root’s protected output lineage')
   }
 
   console.log('evidence-lineage tests passed')

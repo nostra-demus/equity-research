@@ -29,7 +29,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT, STATE_DIR } from './config'
 import {
   assertProviderAvailable, checkProviderUsage, finalDeliverablesPresent, launch, launchFullChained,
-  subjectChainActive,
+  subjectChainActive, durableFrozenGenerationSummaryForRun,
 } from './launcher'
 import { hasRunMarker, readRunMarker } from './outputs'
 import { listRuns } from './registry'
@@ -49,15 +49,18 @@ import {
   type ReviewedExactContinuation,
 } from './continuation'
 import { readVerifiedOutputLineage } from './evidence-lineage'
+import { assertPrivatePreparedRunRoot } from './evidence-lineage'
+import { buildSwarmGraph } from './roster'
 import { RESEARCH_SWARM_ID } from './swarms'
 import { canonicalJsonText } from './canonical-json'
 import {
-  sanitizeRecoverableChainRoot, thesisPlanForRequest, type ThesisPlan,
+  sanitizeRecoverableChainRoot, thesisPlanForRequest, continuationSourceArtifactsSha256Async, type ThesisPlan,
 } from './completion'
 import { getProviderAdapter } from './providers/registry'
 import {
   listCancelledChainIntents, listDeferredPreSpendRetries, listRecoverableChainIntents, readDeferredPreSpendRetry,
   readRecoverableChainIntent, rearmDeferredPreSpendRetry, resumeRecoverableChainIntent,
+  inspectDeferredPreSpendRetry,
   type CancelledChainIntentRecord, type DeferredPreSpendRetryRecord,
   type PreSpendRetryProfile, type PreparedRunPlanTransaction,
   type RecoverableChainIntentRecord,
@@ -535,12 +538,76 @@ export interface DeferredPreSpendDispatchDeps {
   markAdmitted: typeof markRunPlanAdmitted
 }
 
-const defaultDeferredPreSpendDispatchDeps: DeferredPreSpendDispatchDeps = {
-  withLock: withSubjectLock,
-  readRecord: (requestId) => readDeferredPreSpendRetry(requestId),
-  usage: checkProviderUsage,
-  providerAvailable: assertProviderAvailable,
-  revalidatePlan: (record) => thesisPlanForRequest(
+export async function revalidateDeferredPreSpendPlan(record: DeferredPreSpendRetryRecord): Promise<ThesisPlan> {
+  const original = record.reviewedPlan
+  if (original.continuationReceipt.action === 'continue') {
+    const { physicalRunRootAbs, intent } = await inspectDeferredPreSpendRetry(record)
+    const assertUnchanged = assertPrivatePreparedRunRoot(physicalRunRootAbs)
+    const receipt = original.continuationReceipt
+    if (!intent || intent.terminalStatus !== null || intent.chainId !== record.authority.recoveryRequestId
+        || canonicalJsonText(intent.selection) !== canonicalJsonText({
+          provider: record.authority.provider, model: record.authority.model,
+          reasoningLevel: record.authority.reasoningLevel, profileKey: record.authority.profileKey,
+          executionProfile: record.authority.executionProfile,
+        }) || canonicalJsonText(receipt.sourceRunRoots) !== canonicalJsonText([record.targetRunRoot])) {
+      throw new Error('retained Continue has no matching exact chain authority')
+    }
+    const graph = buildSwarmGraph(RESEARCH_SWARM_ID)
+    const roster = graph.modules.map((module) => ({ module: module.name, totalAgents: module.agentCount }))
+    const universe = [...graph.modules.flatMap((module) => Object.values(module.layers).flat().map((agent) => agent.key)),
+      'master/synthesizer'].sort()
+    const partition = [...receipt.reusableOrbKeys, ...receipt.payableOrbKeys].sort()
+    const declarations = graph.modules.map((module) => ({
+      module: module.name,
+      dependsOn: module.dependsOn.filter((name) => graph.modules.some((candidate) => candidate.name === name)).sort(),
+      synthesisOutputs: Object.values(module.layers).flat()
+        .filter((agent) => agent.isSynthesis || (agent.nn === '00' && agent.failFast))
+        .map((agent) => `${agent.key}.md`).sort(),
+    }))
+    if (canonicalJsonText(roster) !== canonicalJsonText(original.modules.map(({ module, totalAgents }) => ({ module, totalAgents })))
+        || canonicalJsonText(universe) !== canonicalJsonText(partition)
+        || intent.modules.length !== declarations.length
+        || intent.modules.some((prior, index) => {
+          const current = declarations[index]
+          return current.module !== prior.module || canonicalJsonText(current.dependsOn) !== canonicalJsonText(prior.dependsOn)
+            || prior.synthesisOutputs.some((output) => !current.synthesisOutputs.includes(output))
+        })) throw new Error('retained Continue module/orb scope changed')
+    const summary = durableFrozenGenerationSummaryForRun({ ticker: record.subject, runRoot: record.targetRunRoot },
+      STATE_DIR, { physicalRunRootAbs })
+    if (summary.generationDigest !== receipt.evidenceGenerationDigest
+        || receipt.dataPool.sha256 !== `sha256:${summary.generationDigest}`
+        || receipt.dataPool.files !== summary.fileCount || receipt.dataPool.newestMs !== summary.newestMs) {
+      throw new Error('retained Continue frozen evidence changed')
+    }
+    if (fs.existsSync(path.join(REPO_ROOT, record.targetRunRoot))
+        && await continuationSourceArtifactsSha256Async(record.targetRunRoot, original.carry) !== receipt.sourceArtifactsSha256) {
+      throw new Error('retained Continue canonical source changed while its private retry waited')
+    }
+    const lineage = new Map(readVerifiedOutputLineage(record.targetRunRoot, { physicalRunRootAbs }).entries
+      .map((artifact) => [artifact.output_rel, artifact]))
+    const reusable = new Map(receipt.reusableArtifacts.map((artifact) => [artifact.output_rel, artifact]))
+    for (const key of receipt.reusableOrbKeys) {
+      if (!reusable.has(`${key}.md`)) throw new Error(`retained Continue lost reusable orb ${key}`)
+    }
+    for (const artifact of receipt.reusableArtifacts) {
+      const current = lineage.get(artifact.output_rel)
+      if (!current || current.sha256 !== artifact.sha256 || current.generation_digest !== summary.generationDigest
+          || current.generation_digest !== artifact.generation_digest || current.attempt_id !== artifact.attempt_id) {
+        throw new Error(`retained Continue reusable evidence changed: ${artifact.output_rel}`)
+      }
+    }
+    for (const completed of intent.completed) for (const artifact of completed.artifacts) {
+      const current = lineage.get(artifact.outputRel)
+      if (!current || current.sha256 !== artifact.sha256 || current.generation_digest !== summary.generationDigest) {
+        throw new Error(`retained Continue completed evidence changed: ${artifact.outputRel}`)
+      }
+    }
+    assertUnchanged()
+    // Private preparation deliberately removes ambient bytes/markers. Their old aggregate hash is not a
+    // new paid-scope input: return the unchanged receipt only after proving its exact frozen/reusable scope.
+    return original
+  }
+  return thesisPlanForRequest(
     record.subject,
     RESEARCH_SWARM_ID,
     record.reviewedPlan.reuse,
@@ -552,7 +619,15 @@ const defaultDeferredPreSpendDispatchDeps: DeferredPreSpendDispatchDeps = {
       expectedProfileKey: record.authority.profileKey,
     },
     { freshRunRoot: record.targetRunRoot },
-  ),
+  )
+}
+
+const defaultDeferredPreSpendDispatchDeps: DeferredPreSpendDispatchDeps = {
+  withLock: withSubjectLock,
+  readRecord: (requestId) => readDeferredPreSpendRetry(requestId),
+  usage: checkProviderUsage,
+  providerAvailable: assertProviderAvailable,
+  revalidatePlan: revalidateDeferredPreSpendPlan,
   resolveProfile: (record) => {
     const resolved = getProviderAdapter(record.authority.provider).resolveProfile({
       model: record.authority.model,
@@ -617,8 +692,23 @@ export async function dispatchDeferredPreSpendRetry(
       let transaction: PreparedRunPlanTransaction
       try { transaction = await deps.rearm(current, plan, profile) } catch { return 'needs_attention' }
       try {
+        const continuing = current.reviewedPlan.continuationReceipt.action === 'continue'
+        if (continuing) {
+          const intent = transaction.recoveredChainIntent
+          if (!intent || intent.user !== request.user
+              || intent.userVia !== (request.user === 'local' ? 'local' : 'cf-access')) {
+            throw new Error('retained Continue request owner changed')
+          }
+          await transaction.activate()
+          sanitizeRecoverableChainRoot({
+            runRoot: current.targetRunRoot, reviewedPlan: current.reviewedPlan,
+            doneOrbKeys: current.reviewedPlan.continuationReceipt.reusableOrbKeys,
+            completed: transaction.recoveredChainIntent?.completed ?? [],
+          })
+        }
         const out = await deps.launch({
           kind: 'full', ticker: current.subject,
+          ...(continuing ? { continuation: true, runRoot: current.targetRunRoot } : {}),
           provider: profile.provider, model: profile.model,
           reasoningLevel: profile.reasoningLevel ?? undefined,
           expectedProfileKey: profile.profileKey,

@@ -304,7 +304,7 @@ function continuationSourceArtifactsSha256(
   return `sha256:${createHash('sha256').update(canonicalJsonText(rows)).digest('hex')}`
 }
 
-async function continuationSourceArtifactsSha256Async(
+export async function continuationSourceArtifactsSha256Async(
   targetRunRoot: string,
   carries: { module: string; copyFrom: string }[],
 ): Promise<string> {
@@ -1833,6 +1833,12 @@ function recoverInterruptedResumeSwap(runRoot: string, module: string): void {
   fs.renameSync(backupAbs, dstAbs)
 }
 
+/** Finish interrupted module swaps before an exact transaction moves their canonical parent privately. */
+export function recoverInterruptedRunPlanModuleSwaps(runRoot: string): void {
+  assertRealRunRootInsideAnalyses(runRoot)
+  for (const module of buildSwarmGraph(RESEARCH_SWARM_ID).modules) recoverInterruptedResumeSwap(runRoot, module.name)
+}
+
 /** The provenance stamp. A carried module's numbers were read against an OLDER data pool, so the thesis
  *  must be able to say so (CLAUDE.md §5 — vintage travels with the number). Deliberately named so it
  *  matches none of the engine's output patterns (`NN_*.md`, `99_*-synthesis.md`, `*_memo.md`,
@@ -2477,6 +2483,24 @@ export function sanitizeRecoverableChainRoot(input: RecoverableChainSanitizerInp
         throw new Error(`recoverable chain completed evidence disagrees with prepared lineage: ${artifact.outputRel}`)
       }
       allowed.set(artifact.outputRel, artifact.sha256)
+    }
+  }
+
+  // A completed module can have paid specialists newer than the original reviewed plan. Its protected
+  // same-generation roster outputs remain evidence too; retaining only the sealed synthesis would erase
+  // those completed reports from a resumed dossier. Ambient files still earn no reuse from their presence.
+  const generation = input.reviewedPlan.continuationReceipt.evidenceGenerationDigest
+  if (input.reviewedPlan.continuationReceipt.action === 'continue' && generation) {
+    const completedModules = new Set(input.completed.map((entry) => entry.module))
+    const completedRoster = new Set(graph.modules.filter((module) => completedModules.has(module.name))
+      .flatMap((module) => Object.values(module.layers).flat().map((agent) => `${agent.key}.md`)))
+    for (const artifact of readVerifiedOutputLineage(input.runRoot).entries) {
+      if (artifact.generation_digest !== generation || !completedRoster.has(artifact.output_rel)) continue
+      const expected = allowed.get(artifact.output_rel)
+      if (expected && expected !== artifact.sha256) {
+        throw new Error(`recoverable chain completed lineage changed: ${artifact.output_rel}`)
+      }
+      allowed.set(artifact.output_rel, artifact.sha256)
     }
   }
 
