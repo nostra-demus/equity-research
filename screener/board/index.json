@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T18:01:10Z",
+  "generated_at": "2026-09-07T18:06:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -634,6 +634,56 @@
           "name": "Wistron",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-560",
+      "headline": "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/netapp-q1-beat-and-raised-guidance-put-ai-storage-growth-focus",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T16:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "NetApp reported a Q1 earnings beat and raised its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NetApp reported a Q1 earnings beat and raised its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NetApp",
+          "ticker": "NTAP",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1917,55 +1967,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-542",
-      "headline": "Jaguar Land Rover To Cut 4,000 Jobs Over Two Years Amid Tariff, Cyber-Attack Fallout",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jaguar-land-rover-to-cut-4000-jobs-over-two-years-amid-tariff-cyber-attack-fallout",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:27:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover announces 4,000 job cuts due to tariff and cyber-attack fallout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover announces 4,000 job cuts due to tariff and cyber-attack fallout.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -146579,9 +146580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 397683,
-    "news_picked_today": 1450,
-    "news_dropped_today": 15793
+    "news_seen_today": 400492,
+    "news_picked_today": 1454,
+    "news_dropped_today": 15837
   },
   "book_momentum": {
     "live_count": 8,
