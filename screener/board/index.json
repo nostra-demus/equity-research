@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T23:21:52Z",
+  "generated_at": "2026-09-07T23:25:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-633",
+      "headline": "HFR: Appointment of Voluntary Administrators [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HFR?key=2924-03132958-6A1342708",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T23:19:29Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Company has entered voluntary administration, indicating insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company has entered voluntary administration, indicating insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HFR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-631",
       "headline": "BTC: Arna Pharma enters voluntary administration [price-sensitive]",
@@ -1938,55 +1987,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Jaguar Land Rover plans to cut 4,000 jobs to achieve £1.7 billion in savings.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-418",
-      "headline": "Jaguar Land Rover to cut 4,000 jobs amid cost-saving drive",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/jaguar-land-rover-jonathan-reynolds-unite-donald-trump-liam-byrne-b1296020.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T13:26:03Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving initiative.",
       "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -147112,9 +147112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428880,
-    "news_picked_today": 2008,
-    "news_dropped_today": 18264
+    "news_seen_today": 428902,
+    "news_picked_today": 2013,
+    "news_dropped_today": 18281
   },
   "book_momentum": {
     "live_count": 8,
