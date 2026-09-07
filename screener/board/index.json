@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T22:36:45Z",
+  "generated_at": "2026-09-07T22:41:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-623",
+      "headline": "Oil prices climb, Dow futures sink on reports of Saudi Aramco refinery being hit",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=e45e7468-205f-4c47-8f0f-6eb2d969b4c5&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T22:32:57Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A refinery attack on a major producer like Saudi Aramco is a significant supply shock event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A refinery attack on a major producer like Saudi Aramco is a significant supply shock event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,55 +1987,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Jaguar Land Rover is cutting nearly 10% of its workforce as part of a major turnaround plan.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-478",
-      "headline": "Automobil: Jaguar Land Rover muss sparen – 4.000 Stellen fallen weg",
-      "headline_en": "Automotive: Jaguar Land Rover must save – 4,000 jobs are being cut",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/automobil-jaguar-land-rover-muss-sparen-4.000-stellen-fallen-weg/100252635.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T12:47:35Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving measure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving measure.",
       "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -147260,9 +147260,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428721,
-    "news_picked_today": 1955,
-    "news_dropped_today": 18158
+    "news_seen_today": 428737,
+    "news_picked_today": 1960,
+    "news_dropped_today": 18169
   },
   "book_momentum": {
     "live_count": 8,
