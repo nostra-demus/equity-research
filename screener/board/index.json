@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T20:31:59Z",
+  "generated_at": "2026-09-07T20:32:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -102558,6 +102558,216 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-1ab96b799316",
+      "idea_version": "IDEAV-2a1f1c272c1525d5",
+      "idea_version_started_at": "2026-09-07T20:32:15Z",
+      "ticker": "NXT.L",
+      "company": "Next plc",
+      "exchange": "London",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company won a landmark legal ruling in the UK regarding equal pay claims, significantly reducing potential long-term litigation liabilities.",
+      "why_now": "The ruling was issued on 2026-09-07, providing immediate clarity on a major financial overhang.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-588a63039ec6"
+      ],
+      "primary_source_event_id": "EVT-588a63039ec6",
+      "source_headlines": [
+        "Next wins ‘landmark’ ruling in UK retail’s multibillion equal pay claim"
+      ],
+      "source_headline": "Next wins ‘landmark’ ruling in UK retail’s multibillion equal pay claim",
+      "source_url": "https://www.ft.com/content/314ef6d6-6c82-4f3f-8e47-7aff135a1dbe?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T12:13:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T20:32:15Z",
+      "updated_at": "2026-09-07T20:32:15Z",
+      "decay_at": "2026-09-09T00:13:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4b467da5d4b8",
+      "idea_version": "IDEAV-9bb312c14b68b563",
+      "idea_version_started_at": "2026-09-07T20:32:15Z",
+      "ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing Company",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TSMC raised its guidance due to surging demand for advanced semiconductor chips, signaling stronger-than-expected revenue and margin growth.",
+      "why_now": "The guidance update was released on 2026-09-07.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-48d7ea3259ee"
+      ],
+      "primary_source_event_id": "EVT-48d7ea3259ee",
+      "source_headlines": [
+        "Taiwan Semiconductor Manufacturing Company (TSM) Raises Guidance as Demand for Advanced Chips Soars"
+      ],
+      "source_headline": "Taiwan Semiconductor Manufacturing Company (TSM) Raises Guidance as Demand for Advanced Chips Soars",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-manufacturing-company-tsm-142602670.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T14:26:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T20:32:15Z",
+      "updated_at": "2026-09-07T20:32:15Z",
+      "decay_at": "2026-09-09T02:26:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e616b8c1138f",
+      "idea_version": "IDEAV-531b4a0532361583",
+      "idea_version_started_at": "2026-09-07T20:32:15Z",
+      "ticker": "SGML",
+      "company": "Sigma Lithium Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A Brazilian judge suspended the company's mine licenses and operations, halting production and revenue generation indefinitely.",
+      "why_now": "The suspension order was reported on 2026-09-07.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eff35c6e14bc"
+      ],
+      "primary_source_event_id": "EVT-eff35c6e14bc",
+      "source_headlines": [
+        "Brazilian judge suspends Sigma Lithium mine licences and operations"
+      ],
+      "source_headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
+      "source_url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T14:46:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:49:26Z",
+      "updated_at": "2026-09-07T20:32:15Z",
+      "decay_at": "2026-09-09T02:46:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-2f6f250091412bd5",
       "idea_version_started_at": "2026-09-07T18:37:04Z",
@@ -103112,79 +103322,6 @@
       "surfaced_at": "2026-09-04T05:44:07Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:07:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e616b8c1138f",
-      "idea_version": "IDEAV-fe0ec4c2ea8d94b1",
-      "idea_version_started_at": "2026-09-06T18:05:43Z",
-      "ticker": "SGML",
-      "company": "Sigma Lithium Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Brazilian federal court has suspended the environmental licenses and halted operations at the company's primary Grota do Cirilo mine in Minas Gerais.",
-      "why_now": "The court ruling was reported on September 5-6, 2026, creating an immediate cessation of production and revenue generation.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ede77fd9e61",
-        "EVT-47f03e5251d3",
-        "EVT-736beed6ff83"
-      ],
-      "primary_source_event_id": "EVT-3ede77fd9e61",
-      "source_headlines": [
-        "Brazilian court suspends licenses for Sigma Lithium mine",
-        "Brazilian Court Suspends Permits, Halts Sigma Lithium’s Mine",
-        "Federal Court suspends Sigma Lithium mine licenses in Minas Gerais"
-      ],
-      "source_headline": "Brazilian court suspends licenses for Sigma Lithium mine",
-      "source_url": "https://www.reuters.com/world/americas/brazilian-court-suspends-licenses-sigma-lithium-mine-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T15:53:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:49:26Z",
-      "updated_at": "2026-09-06T18:05:43Z",
-      "decay_at": "2026-09-08T03:53:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -146496,8 +146633,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 564,
-    "live_count": 76,
+    "surfaced_total": 566,
+    "live_count": 78,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
