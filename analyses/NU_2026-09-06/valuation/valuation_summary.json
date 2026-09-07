@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.4",
+  "ticker": "NU",
+  "as_of": "2026-09-06",
+  "currency": "USD",
+  "business_type": "Financial",
+  "basis": "equity",
+  "shares": 4878.395,
+  "net_debt": -7744.6,
+  "net_debt_basis": "strict",
+  "net_debt_note": "NET CASH USD 7,744.6m (total debt 5,807.0 - cash & equivalents 13,551.6), built from Q2 2026 Interim Report Notes 24/21/11 [01 s5/s7]. INFORMATIONAL ONLY: every case here is basis='equity' (a per-share P/E build), so net debt is NOT bridged into any level. For a Financial the EV bridge is invalid as a value (Business-Type Method Map) and the net cash is a bank's working liquidity inside regulated subsidiaries.",
+  "current_price": 14.30,
+  "price_as_of": "2026-08-28",
+  "price_state": "pool-verified",
+  "price_note": "Stale by 5 exact trading sessions / 6.4 on the x5/7 conversion -> valuation confidence max 70. Fresher corroborated indicative quote USD 15.37 at the 2026-09-04 close (web-sourced, not from the data pool, unverified, +7.48%) is carried in fresher_indicative_price and leads the price-relative reads per the MODULE_RULES re-anchor rule [01 s1/s7].",
+  "fresher_indicative_price": 15.37,
+  "fresher_indicative_as_of": "2026-09-04",
+  "fresher_indicative_state": "indicative",
+  "is_developed_mega_cap": false,
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": 1.09,
+      "metric_basis": "NTM",
+      "multiple": 17.97,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "applied",
+      "basis": "equity",
+      "level": 19.59,
+      "secondary_multiples": [
+        { "value": 7.835, "basis": "P/TBV on LTM tangible book of USD 2.50", "note": "cross-check only; identity P/TBV = forward P/E x forward ROTE (43.60%) reconciles" }
+      ],
+      "drivers": "12-month horizon to 2027-09-06. Street-high NTM EPS (FY2026E 0.91 / FY2027E 1.30 on the CIQ NTM blend). Credit cost improves ~100bp to 9.5% (+USD 530.2m); BRL repeats its +12.14% average-rate move (+USD 394.1m); effective tax rate holds near the 11.8% H1'26 filed level rather than the 30.2% consensus embeds (+USD 257.4m); efficiency ratio holds at the 17.6% Q1'26 print. Multiple expands to 03's N=5 warranted level, i.e. the growth differential over peers survives 5 years rather than 4 (Mexican bank licence operating since 2026-08-06, Colombia scaling).",
+      "source": "07_scenario-and-fair-value.md s3 scenario table (metric and multiple); Capital IQ Estimates -> Consensus, EPS (GAAP) High row, as-of 2026-08-29; 03_relative-valuation-peers.md s5 (N=5 warranted multiple 17.97x)"
+    },
+    {
+      "label": "base",
+      "forward_metric": 0.97,
+      "metric_basis": "NTM",
+      "multiple": 14.15,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "level": 13.73,
+      "secondary_multiples": [
+        { "value": 5.492, "basis": "P/TBV on LTM tangible book of USD 2.50", "note": "cross-check only; 14.15 x 38.80% forward ROTE = 5.492" }
+      ],
+      "drivers": "12-month horizon to 2027-09-06. The level is the mechanical method blend 0.67 x USD 14.73 (03 peers) + 0.33 x USD 11.71 (04 residual income) = USD 13.7334; the 14.15x multiple is what that value CORRESPONDS to on NTM EPS of USD 0.97, not an input. Consensus delivers (FY2026E 0.8482 and FY2027E 1.11006, both 16/16 estimates); forward return on tangible equity holds near 38.8%; the growth differential over peers survives roughly 4 years, close to the 3.8-4.3 years the market already pays for. No re-rating and no de-rating against today's 14.76x.",
+      "source": "07_scenario-and-fair-value.md s2 (weighted base point) and s3 scenario table; 03_relative-valuation-peers.md s5; 04_intrinsic-dcf.md s6"
+    },
+    {
+      "label": "bear_cyclical",
+      "forward_metric": 0.76,
+      "metric_basis": "NTM",
+      "multiple": 10.50,
+      "multiple_basis": "NTM P/E",
+      "multiple_kind": "applied",
+      "basis": "equity",
+      "level": 7.98,
+      "secondary_multiples": [
+        { "value": 3.192, "basis": "P/TBV on LTM tangible book of USD 2.50", "note": "cross-check only; 10.50 x 30.40% forward ROTE = 3.192" }
+      ],
+      "drivers": "12-month horizon to 2027-09-06. Street-low NTM EPS (FY2026E 0.75 / FY2027E 0.77), -22% below the mean. Three adverse drivers that earnings/07 states COMPOUND rather than offset: credit cost +110bp to the Q1'26 11.6% level (-USD 583.3m); BRL at the company's own disclosed 17.8% shock (-USD 577.9m); effective tax rate reverting to the 30.2% consensus embeds (-USD 549.4m at the zero-mitigation bound, -USD 302.2m at the measured 45% realised offset). Multiple compresses to the region of 06's named-comparable base (10.68x, the midpoint of BTG Pactual 9.39x and Credicorp 11.97x), still a 36% premium to the 7.73x peer median. Deliberately below 02's observed 12.90x floor because 02 s2 states the true full-cycle low sits below it (20-month window contains no downturn). Independently corroborated by 03's peer-implied 16.5% cost-of-equity route at USD 7-9.",
+      "source": "07_scenario-and-fair-value.md s3 scenario table and 'the bear case reaches a cited through-cycle trough'; Capital IQ Estimates -> Consensus, EPS (GAAP) Low row, as-of 2026-08-29; 06_sum-of-the-parts.md s2 (10.68x named-comp region)"
+    },
+    {
+      "label": "bear_structural",
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "equity",
+      "level": 5.76,
+      "drivers": "24-36 month horizon - a DIFFERENT point in time from the three cases above; do not blend silently. Avoid-ruin / permanent-impairment floor, NOT the 12-month bear. Built as an impaired residual-income (excess-return) model, not metric x multiple, so no metric/multiple pair is recorded: opening book USD 2.7160 + PV of explicit residual income USD 3.2160 + PV of a NEGATIVE terminal USD -0.2859 = USD 5.6461 at 2026-06-30, accreted x1.0203 to USD 5.7607. Return on equity fades from 35.5% (FY2028) to 12.0% by FY2033, BELOW the 13.0% cost of equity, with terminal growth cut to 1.5% nominal USD (negative real). Trigger: business-model/07_business-quality rate-of-change 38/100, RF-BQ-005 fast-changing industry (CLAUDE.md s24 Filter 5); the eroding-moat leg did NOT fire (09_moat: Narrow, stable). Equity-direct, so already net of debt - no net-debt subtraction.",
+      "source": "07_scenario-and-fair-value.md s3A; 04_intrinsic-dcf.md s5 structural-decline / runoff terminal"
+    }
+  ],
+  "methods": {
+    "own_history": 19.60,
+    "peers": 14.73,
+    "dcf": 11.71,
+    "sotp": 10.36
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.67,
+    "dcf": 0.33,
+    "sotp": 0.0
+  },
+  "method_basis": {
+    "own_history": "trailing",
+    "peers": "NTM",
+    "dcf": "NTM",
+    "sotp": "NTM"
+  },
+  "method_notes": {
+    "own_history": "02's own-median P/TangBV of 7.91x on LTM tangible book -> USD 19.60. TRAILING basis and ZERO weight, as required: 02 s4 states in its own header that its 20-month (not 3-5 year) window makes the reversion figures 'illustrative only and NOT a fair-value input for 07'. Its full illustrative field is USD 17.84-22.01. Excluded from the dispersion gate for the same reason.",
+    "peers": "03 s5 base point: warranted NTM P/E 15.18x x NTM EPS USD 0.97. Own dispersion USD 12.10-17.44, plus a separate peer-anchored cost-of-equity route at USD 7-9 that disagrees by ~2x and is carried into the bear rather than averaged. Anchor flagged cycle-elevated (RF-VAL-001) -> method confidence capped 60.",
+    "dcf": "04 is a residual-income (excess return on equity) model discounted at the cost of equity, NOT an FCFF DCF - the Business-Type Method Map bars an FCFF DCF and the EV bridge as a value for a Financial. Value USD 11.71 as of 2026-08-28. Not terminal-dominated (terminal 15.3% of value). Held to the cross-check third because ~47% of value comes from a self-built 10-year fade benchmarked against a one-broker strip.",
+    "sotp": "06 collapsed single-segment value (Banking = 100% of revenue and pre-tax profit). ZERO weight on its own producer's instruction: arithmetically the same construction as 03 (same NTM EPS 0.97, same 2026-08-29 comp set), so weighting it would be one read counted twice. Retained in the football field, which makes the full valid value-producing field USD 10.36-14.73 = 42.2% and fires the >40% dispersion cap.",
+    "dispersion": "Full high-to-low field of valid value-producing methods = 10.36 -> 14.73 = 42.2% of the low. MODULE_RULES Reconciliation Gate 6 fires -> valuation confidence max 55 (stated 52)."
+  },
+  "discount_rate": {
+    "rf": 0.0479,
+    "erp": 0.0423,
+    "beta": 0.94,
+    "cost_of_equity": 0.1300,
+    "wacc": null,
+    "after_tax_kd": null,
+    "country_risk_premium": 0.0324,
+    "note": "There is no WACC in this model and its absence is structural, not an omission: for a Financial the Method Map requires the equity to be valued directly at the cost of equity, so the after-tax k_d <= WACC < k_e bound has only one leg and does not apply [04 s3]. CAPM build k_e = 4.79% + 0.94 x 4.23% + 3.24% Brazil country-risk premium = 12.01% computed; 13.00% USED after a stated +0.99pp analyst override (inside the +/-1.5pp discipline). Comparators: company's own disclosed Brazilian cost of equity 16.51% (FY2025 20-F Note 3(b)) = 13.98-14.54% translated to USD; market-implied 11.58% (05). No RF-VAL-003 escalation fired.",
+    "source": "04_intrinsic-dcf.md s3 and s3A"
+  },
+  "dcf_grid": {
+    "wacc": [0.115, 0.130, 0.145],
+    "growth": [0.020, 0.025, 0.030, 0.035, 0.040],
+    "values": [
+      [13.85, 11.37, 9.52],
+      [14.15, 11.53, 9.61],
+      [14.48, 11.71, 9.70],
+      [14.85, 11.91, 9.81],
+      [15.26, 12.13, 9.92]
+    ],
+    "base": { "wacc": 0.130, "growth": 0.030 },
+    "source": "04_intrinsic-dcf.md s7 secondary grid (cost of equity x terminal growth, terminal ROE held at 18.0%). NOTE: the 'wacc' axis is the COST OF EQUITY - this is an equity-direct residual-income model and has no WACC (04 s3). The 16.5% column of the published grid is populated only at g=3.0% and is therefore not transcribed here; the three fully-populated columns are. Base cell (13.0%, 3.0%) = 11.71 = methods.dcf."
+  },
+  "peers_internals": {
+    "metric_name": "NTM forward P/E on NTM EPS of USD 0.97",
+    "median_multiple": 7.73,
+    "applied_multiple": 15.18,
+    "discount_pct": -96.38,
+    "anchors": [
+      { "multiple": 7.73, "value": 7.50, "label": "peer-median parity - REJECTED (asserts NU's 38.8% forward ROTE and 34% growth are worth nothing)" },
+      { "multiple": 12.47, "value": 12.10, "label": "sensitivity: the 8 NU-named peers only" },
+      { "multiple": 12.83, "value": 12.44, "label": "warranted, growth differential survives N=3 years" },
+      { "multiple": 14.45, "value": 14.02, "label": "sensitivity: ex-Credicorp, 9 peers" },
+      { "multiple": 15.18, "value": 14.73, "label": "warranted, N=4 - BASE (reproduces methods.peers)" },
+      { "multiple": 17.97, "value": 17.44, "label": "warranted, N=5" }
+    ],
+    "source": "03_relative-valuation-peers.md s5 'Implied values across the valid multiples' table. discount_pct is NEGATIVE because the warranted multiple is a PREMIUM to the median, not a discount: 15.18 = 7.73 x [(1.3398)/(1.1317)]^4, sizing the premium to the growth differential ALONE (the return differential is already in the P/E denominator - see 03's printed double-count ledger)."
+  }
+}
