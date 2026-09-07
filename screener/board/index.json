@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T03:21:25Z",
+  "generated_at": "2026-09-07T03:26:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-163",
+      "headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_07092026084840_SEIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T03:18:53Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Morepen Laboratories completed the first phase of its manufacturing capacity expansion ahead of schedule, which is a positive operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Morepen Laboratories completed the first phase of its manufacturing capacity expansion ahead of schedule, which is a positive operational development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morepen Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-160",
       "headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
@@ -1904,55 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-070",
-      "headline": "Berkshire Hathaway's Cash Fell From $397 Billion to $366 Billion in a Single Quarter",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/06/berkshire-hathaways-cash-fell-from-397-billion-to/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Berkshire Hathaway reported a $31 billion decrease in cash holdings over the quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Berkshire Hathaway reported a $31 billion decrease in cash holdings over the quarter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145497,9 +145497,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 900,
-    "news_picked_today": 214,
-    "news_dropped_today": 686
+    "news_seen_today": 914,
+    "news_picked_today": 216,
+    "news_dropped_today": 698
   },
   "book_momentum": {
     "live_count": 8,
