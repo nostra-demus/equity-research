@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:31:26Z",
+  "generated_at": "2026-09-07T04:36:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-195",
+      "headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:17:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1718,6 +1767,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-201",
+      "headline": "FNZ: the Credit Suisse spinout haemorrhaging cash",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/738f043b-9d26-401c-aee6-7a64a257fda2?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FNZ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-168",
       "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in US",
       "headline_en": null,
@@ -1857,104 +1955,6 @@
           "name": "Ingenia",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-036",
-      "headline": "ASX inches up; Ingenia jumps 16pc after bid rejection",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:18:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": "INA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-019",
-      "headline": "ASX to wobble; Ingenia rejects bid; Austal in counteroffer talk",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:03:15Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -145858,9 +145858,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1539,
-    "news_picked_today": 312,
-    "news_dropped_today": 1227
+    "news_seen_today": 1571,
+    "news_picked_today": 322,
+    "news_dropped_today": 1249
   },
   "book_momentum": {
     "live_count": 8,
