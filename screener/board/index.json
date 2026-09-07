@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:42:38Z",
+  "generated_at": "2026-09-07T04:47:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1374,6 +1374,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-202",
+      "headline": "Temasek emerges as sole contender for $100 million Blue Tokai stake",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/blue-tokai-temasek-tpg-chryscapital-blue-tokai-coffee-roasters-specialty-coffee-premium-coffee-caf-market-11788747642378.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:39:22Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Tokai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-110",
       "headline": "SLD: CEO Transition [price-sensitive]",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-050",
-      "headline": "ASX gains as Ingenia surges 19pc on rejected takeover bid",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:43:38Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia shares rose 19% following the rejection of a takeover bid, indicating market valuation discrepancy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia shares rose 19% following the rejection of a takeover bid, indicating market valuation discrepancy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146074,9 +146074,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1774,
-    "news_picked_today": 329,
-    "news_dropped_today": 1445
+    "news_seen_today": 1811,
+    "news_picked_today": 332,
+    "news_dropped_today": 1479
   },
   "book_momentum": {
     "live_count": 8,
