@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:36:29Z",
+  "generated_at": "2026-09-07T02:40:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -1315,6 +1315,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-144",
+      "headline": "삼성 평택캠퍼스 용적률 상향 추진”…반도체 배후 주거지 '브레인시티' 부상",
+      "headline_en": "Samsung pushes for higher floor area ratio at Pyeongtaek campus... Brain City emerges as semiconductor residential hub",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276304",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T02:16:14Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-118",
       "headline": "Bathla administrators scramble for cash; The five big property supply handbrakes; Ex-Sydney banker caught up in $833m collapse",
       "headline_en": null,
@@ -1879,55 +1928,6 @@
       "launched_signal_id": null,
       "triage_score": 85,
       "triage_reason": "Fatal cargo plane crash involving Amazon Prime Air operations in Miami.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-130",
-      "headline": "Caught On Camera: Fire, Clouds Of Somke As Amazon Cargo Plane Crashes At Miami Airport, Five Killed",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/caught-on-camera-fire-clouds-of-somke-as-amazon-cargo-plane-crashes-at-miami-airport-five-killed-12011127#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:29:40Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A fatal cargo plane crash involving Amazon's logistics network poses operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A fatal cargo plane crash involving Amazon's logistics network poses operational and reputational risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -145351,9 +145351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 714,
-    "news_picked_today": 168,
-    "news_dropped_today": 546
+    "news_seen_today": 736,
+    "news_picked_today": 173,
+    "news_dropped_today": 563
   },
   "book_momentum": {
     "live_count": 8,
