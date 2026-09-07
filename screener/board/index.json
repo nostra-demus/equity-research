@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T23:01:19Z",
+  "generated_at": "2026-09-07T23:02:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-631",
@@ -103981,6 +103981,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-24262cdd95f2",
+      "idea_version": "IDEAV-f25fe8fb0faa22c1",
+      "idea_version_started_at": "2026-09-07T23:01:43Z",
+      "ticker": "GCI",
+      "company": "GCI",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
+      "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-815b42714107"
+      ],
+      "primary_source_event_id": "EVT-815b42714107",
+      "source_headlines": [
+        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+      ],
+      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T22:42:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T23:01:43Z",
+      "updated_at": "2026-09-07T23:01:43Z",
+      "decay_at": "2026-09-09T10:42:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3993a824df55",
+      "idea_version": "IDEAV-9c808b9568582d5f",
+      "idea_version_started_at": "2026-09-07T23:01:43Z",
+      "ticker": "BTC",
+      "company": "Arna Pharma",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Arna Pharma has entered voluntary administration, indicating severe financial distress and potential insolvency.",
+      "why_now": "The company announced its entry into voluntary administration via an ASX filing on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-722f1d74193b"
+      ],
+      "primary_source_event_id": "EVT-722f1d74193b",
+      "source_headlines": [
+        "BTC: Arna Pharma enters voluntary administration [price-sensitive]"
+      ],
+      "source_headline": "BTC: Arna Pharma enters voluntary administration [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTC?key=2924-03132915-3A701253",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T22:52:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T23:01:43Z",
+      "updated_at": "2026-09-07T23:01:43Z",
+      "decay_at": "2026-09-09T10:52:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-671ed28cb051",
       "idea_version": "IDEAV-6b8a7dd33e0fae29",
       "idea_version_started_at": "2026-09-07T22:41:30Z",
@@ -146949,8 +147091,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 571,
-    "live_count": 77,
+    "surfaced_total": 573,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
