@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T20:15:25Z",
+  "generated_at": "2026-09-07T20:23:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-605",
+      "headline": "Poste Italiane raises Telecom Italia offer, waives threshold condition",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T20:16:09Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Poste Italiane has increased its offer for Telecom Italia and removed a key threshold condition, signaling a significant M&A development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poste Italiane has increased its offer for Telecom Italia and removed a key threshold condition, signaling a significant M&A development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poste Italiane",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Telecom Italia",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1993,6 @@
           "name": "Jaguar Land Rover",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-460",
-      "headline": "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids",
-      "headline_en": null,
-      "url": "http://thepeninsulaqatar.com/article/07/09/2026/jaguar-land-rover-to-cut-4000-jobs-as-european-car-sector-hits-skids",
-      "source_name": "The Peninsula Qatar — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:58:39Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs, indicating significant operational distress and sector-wide headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs, indicating significant operational distress and sector-wide headwinds.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -146511,9 +146516,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428011,
-    "news_picked_today": 1791,
-    "news_dropped_today": 17636
+    "news_seen_today": 428095,
+    "news_picked_today": 1803,
+    "news_dropped_today": 17684
   },
   "book_momentum": {
     "live_count": 8,
