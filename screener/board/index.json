@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:56:22Z",
+  "generated_at": "2026-09-07T02:06:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-112",
+      "headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T02:01:54Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia rejected a takeover bid from Warburg Pincus, signaling a potential valuation gap or strategic shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia rejected a takeover bid from Warburg Pincus, signaling a potential valuation gap or strategic shift.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -726,6 +775,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-111",
+      "headline": "CEO suspended over FMD vaccine pricing",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/south-africa/ceo-suspended-over-fmd-vaccine-pricing/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T02:00:33Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Onderstepoort Biological Products",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-098",
       "headline": "Google-backed Indian space startup raises $100 million in latest funding round",
       "headline_en": null,
@@ -1113,6 +1212,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-118",
+      "headline": "Bathla administrators scramble for cash; The five big property supply handbrakes; Ex-Sydney banker caught up in $833m collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/bathla-administrators-scramble-for-cash-the-five-big-property-supply-handbrakes-ex-sydney-banker-caught-up-in-833m-collapse-20260907-p60v2y?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:58:49Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Bathla property group is in administration with an $833 million collapse involving former bankers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Bathla property group is in administration with an $833 million collapse involving former bankers.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1766,186 +1914,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-048",
-      "headline": "iX Biopharma closes in on US military approval for pain drug",
+      "inbox_id": "INB-20260907-123",
+      "headline": "Samsung and SK hynix Inventories Fall Below 10 Days",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/ix-biopharma-closes-us-military-approval-pain-drug",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276296",
+      "source_name": "Business Korea — All English Articles",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:37:10Z",
+      "found_at": "2026-09-07T04:59:39Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "iX Biopharma is nearing regulatory approval from the US military for a pain drug, which would represent a significant commercial milestone.",
+      "prelim_note": "Samsung and SK hynix inventories have fallen below 10 days, indicating strong demand and improved supply-demand balance in the semiconductor sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 84,
-      "triage_reason": "iX Biopharma is nearing regulatory approval from the US military for a pain drug, which would represent a significant commercial milestone.",
-      "region": "OTHER",
+      "triage_reason": "Samsung and SK hynix inventories have fallen below 10 days, indicating strong demand and improved supply-demand balance in the semiconductor sector.",
+      "region": "KR",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 60,
         "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "iX Biopharma",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-078",
-      "headline": "A StubHub Executive Dumps Over 10% of Their Company Shares Worth $1.1 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stubhub-executive-dumps-over-10-their-company-shares-worth-11-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:58:55Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A StubHub executive sold over 10% of their shares worth $1.1 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A StubHub executive sold over 10% of their shares worth $1.1 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
+        "scope": 5,
         "event": 2,
-        "size": 0,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "insider_transaction"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "StubHub",
+          "name": "Samsung Electronics",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-040",
-      "headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:27:43Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "An aide to a key Japanese political figure projects a Bank of Japan rate hike in September, which would impact monetary policy and currency markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "An aide to a key Japanese political figure projects a Bank of Japan rate hike in September, which would impact monetary policy and currency markets.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-074",
-      "headline": "Karnataka farmers oppose move to acquire land for Dharwad–Belagavi industrial corridor",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/karnataka-farmers-oppose-move-to-acquire-land-for-dharwadbelagavi-industrial-corridor-4137313",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:03:16Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Local opposition to land acquisition for the Dharwad–Belagavi industrial corridor creates operational risk for regional development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Local opposition to land acquisition for the Dharwad–Belagavi industrial corridor creates operational risk for regional development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145261,9 +145278,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 528,
-    "news_picked_today": 116,
-    "news_dropped_today": 412
+    "news_seen_today": 567,
+    "news_picked_today": 131,
+    "news_dropped_today": 436
   },
   "book_momentum": {
     "live_count": 8,
