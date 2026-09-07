@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-0fa4dca8ab30",
+  "idea_version": "IDEAV-e69cf06ea094710d",
+  "idea_version_started_at": "2026-09-07T01:06:48Z",
+  "ticker": "EIQ.AX",
+  "company": "Enegex",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company has requested a trading halt due to a strategic review, which often precedes significant negative news or restructuring.",
+  "why_now": "The trading halt was announced on September 7th, 2026, indicating an immediate development.",
+  "conviction": 45,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 15,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ffc52c2f2a3b"
+  ],
+  "primary_source_event_id": "EVT-ffc52c2f2a3b",
+  "source_headlines": [
+    "EIQ: Trading Halt [price-sensitive]"
+  ],
+  "source_headline": "EIQ: Trading Halt [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
+  "source_name": "ASX (Australia Exchange Filing)",
+  "materiality_max": 93,
+  "newest_source_at": "2026-09-07T00:16:45Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-07T01:06:48Z",
+  "updated_at": "2026-09-07T01:06:48Z",
+  "decay_at": "2026-09-08T12:16:45Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

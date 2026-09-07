@@ -1,0 +1,180 @@
+id,section,test,flag,finding,confidence,source,owner_agent
+A1-01,A1,Board size & independence ratio,Green,88.9% independent (8 of 9); board of 9,4,DEF 14A 2026-03-31,05
+A1-02,A1,Chair-MD/CEO separation,Red,1 person holds both Chair and CEO,4,DEF 14A 2026-03-31; FY24 10-K signature page,05
+A1-03,A1,Non-executive non-promoter chair,Amber,0 independent non-promoter chairs; Lead Director with enumerated powers,4,DEF 14A 2026-03-31,05
+A1-04,A1,TRUE independence of IDs,Green,0 directors with a tenure/employment/fee/family/shareholding concern,4,DEF 14A 2026-03-31,05
+A1-05,A1,Director & KMP reputation (from 07),Amber,1 of 21 Minor concerns; 20 Clean; 0 Material; 0 Disqualifying,4,07 Section 1 Person Register,07
+A1-06,A1,Overboarding,Green,4 public boards max held by any director,4,DEF 14A 2026-03-31,05
+A1-07,A1,Attendance,Green,99% average attendance; every director >=75%,4,DEF 14A 2026-03-31,05
+A1-08,A1,Skills / competence matrix,Green,14 competencies mapped to named directors,4,DEF 14A 2026-03-31,05
+A1-09,A1,ID resignation pattern,Green,0 mid-term ID exits in 3 years,4,DEF 14A 2026-03-31,05
+A1-10,A1,Reappointment / removal patterns,Green,94.80% in favour lowest of nine nominees,4,8-K 2026-05-15,05
+A1-11,A1,Board evaluation process,Amber,1 externally facilitated evaluation; outcomes not established,3,DEF 14A 2026-03-31,05
+A1-12,A1,Diversity & refreshment,Green,7.0y median ID tenure (mean 5.75),4,DEF 14A 2026-03-31,05
+A1-13,A1,Succession planning,Green,1 disclosed annual board review of CEO and executive succession,3,DEF 14A 2026-03-31,05
+A1-14,A1,Meeting cadence & ID-inclusive quorum,Green,5 board meetings FY2025 (Audit 8 Comp 4 Governance 4),4,DEF 14A 2026-03-31,05
+A1-15,A1,Permanent / age-exempt board seats,Green,0 non-retiring seats; 1-year terms for all 9,4,DEF 14A 2026-03-31,05
+A1-16,A1,ID appointment/removal minority gate,Green,94.80% in favour lowest ID nominee,4,8-K 2026-05-15,05
+A1-17,A1,IDs-only session & D&O cover,Green,5 independent-only board sessions + 16 committee executive sessions FY2025,4,DEF 14A 2026-03-31,05
+A2-01,A2,Audit committee quality,Green,100% independent; 8 meetings FY2025; 2 designated financial experts,4,DEF 14A 2026-03-31,05
+A2-02,A2,NRC / Risk / Stakeholders committees,Green (NRC prong); N/A (risk & stakeholder prongs - regime),100% independent Compensation & Human Capital Committee; 4 meetings; no executive member,4,DEF 14A 2026-03-31,05
+A2-03,A2,CSR committee & spend (India),Not Applicable (regime),0 Section 135 obligation,5,Regime map 00 Section 5A,05
+A2-04,A2,Substance vs paper,Green,21 board + committee meetings FY2025 each with a management-free executive session,4,DEF 14A 2026-03-31,05
+A2-05,A2,Committee chair rotation & workload,Green,1 = max key committees chaired by any single ID,4,DEF 14A 2026-03-31,05
+A3-01,A3,Promoter/controller holding trend,Not Applicable (no controller under this regime),0 controlling shareholders,5,FY24 10-K cover page; 00 Section 5A,04
+A3-02,A3,Share pledging / encumbrance,Green,0% pledged; pledging/margin/hedging contractually prohibited,5,FY24 10-K Exhibit 19,04
+A3-03,A3,Cross-holdings & pyramiding,Green,0pp wedge between voting power and economic stake,5,FY24 10-K Exhibit 4.7,04
+A3-04,A3,Differential voting rights,Green,1 vote per ordinary share; 1 listed class,5,FY24 10-K Exhibit 4.7,04
+A3-05,A3,Cheap insider equity,Amber,$30.64 weighted-average option strike on 3250661 options vs $171.16 market,4,FY24 10-K Item 12,04
+A3-06,A3,Free float level,Green,~99% free float; largest disclosed holder ~9.1%; affiliates ~0.5%,3,FY24 10-K cover page; web 13G (unverified),04
+A3-07,A3,Marquee investor entry/exit,Insufficient Data,top_institutional_holders and institutional_ownership_trend both status missing,1,ciq_facts.json,04
+A3-08,A3,Promoter-group classification hygiene,Not Applicable (no promoter group),0 promoter-group entities,5,00 Section 5A,04
+A3-09,A3,Beneficial-ownership transparency,Amber,No 13D/13G or proxy ownership table in pool; ultimate holders not verifiable from pool evidence,2,Pool inventory 00 Section 5B,04
+A3-10,A3,Takeover-code / stake-disclosure hygiene,Amber,30% mandatory-offer threshold / 1% accelerated disclosure / 9.1% largest holder,3,Irish Takeover Rules; web 13G (unverified),04
+A4-01,A4,Auditor identity & rotation compliance,Green,Deloitte & Touche LLP 8 years (since 2017); no rotation cap to breach,5,FY24 10-K auditor's report,08
+A4-02,A4,Audit firm calibre vs complexity,Amber,Big-4 (PCAOB ID 34) auditing $4834m LTM revenue 138 subsidiaries; signing partner unidentified,4,FY24 10-K; PCAOB register,08
+A4-03,A4,Subsidiary & component auditor calibre,Amber,138 subsidiaries with zero component-auditor identities disclosed,4,FY24 10-K Exhibit 21,08
+A4-04,A4,Auditor resignation & stated reasons,Green,0 auditor resignations in 5 years; no Item 4.01 8-K ever,5,SEC EDGAR filing history,08
+A4-05,A4,Opinions: qualification/EoM/adverse/disclaimer,Green,3 consecutive years of unqualified opinions FY2022-FY2024,5,FY24 10-K auditor's report,08
+A4-06,A4,Audit vs non-audit fees,Not Applicable (no data),Fee table incorporated by reference to a proxy not in the pool; 3 retrievals truncated. RF-AUD-004 NOT CLEARED UNTESTED,1,FY24 10-K Item 14,08
+A4-07,A4,Auditor remuneration level & trend,Not Applicable (no data),No audit-fee figure anywhere in the pool,1,FY24 10-K Item 14,08
+A4-08,A4,Internal & secretarial audit,Green (internal audit); N/A (MR-3 regime),Internal audit function confirmed with a standing committee channel,4,DEF 14A 2026-03-31; 00 Section 5A,08
+A4-09,A4,Internal financial controls (ICFR),Green,1 unqualified Section 404(b) ICFR attestation as at 2024-12-31,5,FY24 10-K ICFR attestation,08
+A4-10,A4,Key/Critical Audit Matter recurrence,Insufficient Data,1 CAM readable (Trachte customer-relationship intangible $206.6m); recurrence untestable,3,FY24 10-K auditor's report,08
+A4-11,A4,CARO / companion-report flags (India),Not Applicable (regime),Instrument does not exist under US/SEC,5,00 Section 5A,08
+A4-12,A4,Audit-committee to auditor engagement,Green,8 committee meetings 2025 each with executive session without management,4,DEF 14A 2026-03-31,08
+A4-13,A4,Regulator discipline of firm/partner,Amber,3 historical settled orders vs the US firm (PCAOB 2013 PCAOB 2015 SEC 2015); no active order; partner prong coverage-limited,3,PCAOB/SEC enforcement registers 2026-09-07,08
+A4-14,A4,Component-auditor coverage,Green,100% of the consolidation; no AS 1205 division-of-responsibility paragraph,5,FY24 10-K auditor's report,08
+A4-15,A4,Gatekeeper exit cluster,Green,0 gatekeeper exits in any rolling 12 months; CFO change lateral with successor named 20 days ahead,5,FY24 10-K; 8-K series,08
+A5-01,A5,RPTs as % of revenue/PAT/assets,Green,0.0% in FY2023 FY2024 FY2025 on three independent legs,5,FY24 10-K Notes 1-18 (no ASC 850 note) + Note 17; DEF 14A 2026-03-31,09
+A5-02,A5,Royalty/brand/technology fees to controller group,Green,0.0% of turnover paid outside the group; brand estate at nVent Services GmbH,5,FY24 10-K Exhibit 21; 07 Section 3B,09
+A5-03,A5,Loans/ICDs/guarantees to group,Green,$0.0m to any director connected person or entity outside the group,5,FY24 10-K; Irish Companies Act 2014,09
+A5-04,A5,Promoter-vendor / promoter-customer transactions,Green,$0.0m through any controller entity; 0 both-roles name matches across all years,5,09 Section 4 cross-year name match,09
+A5-05,A5,Arm's-length substantiation,Green,4 written approval criteria the committee must apply,4,DEF 14A 2026-03-31 RPT policy,09
+A5-06,A5,Minority dissent on RPT resolutions,Not Applicable (no majority-of-minority RPT vote in this regime),No RPT resolution exists to vote on,5,00 Section 5A,09
+A5-07,A5,RPT approval hygiene,Green,$50000 company threshold (stricter than SEC $120000); all-independent pre-approval; no omnibus; no post-facto ratification,4,DEF 14A 2026-03-31,09
+A5-08,A5,RPT counterparty transparency,Green,0 unnamed-aggregate related-party lines,5,FY24 10-K; DEF 14A 2026-03-31,09
+A5-09,A5,Related-party M&A including aborted,Green,0 acquisitions or proposals from a controller-linked seller (6 tested); aborted-deal sweep nil,5,Deal documents 2023-2026,09
+A5-10,A5,Executive-counterparty conflicts,Green,Every director-linked customer/supplier relationship bounded below greater of $1.0m or 2% of that organisation's revenue 2023-2025,4,DEF 14A 2026-03-31,09
+A6-01,A6,Pay vs statutory cap & profit,Green,CEO reported pay 1.94% of net income FY2025 (2.96% FY2024); no local cap regime applies,3,FY24 10-K Item 5; web-sourced (unverified),03
+A6-02,A6,Controller-executive pay vs peers & gates,Amber,1.33x the single available listed peer CEO pay on 0.78x revenue; CEO pay CAGR 20.32% vs EPS CAGR 14.32%,2,Web-sourced (unverified); FY24 10-K Item 5,03
+A6-03,A6,Pay-for-performance linkage (>=30% variable),Amber,88.3% of CEO FY2024 package non-salary; metric weights unreadable from the pool,2,Web-sourced (unverified); FY24 10-K Note 16,03
+A6-04,A6,ESOP/RSU/SAR dilution & pricing,Green,Overhang 9.07% (14975842 of 165022146); annual burn 0.25-0.42%; market-priced,5,FY24 10-K Item 12,03
+A6-05,A6,CEO-to-median ratio & severance,Amber,~307x (web aggregator unverified); severance 2 years; modified double-trigger; awards at target not maximum,2,Web-sourced; Ex.10.23 Section 6,03
+A6-06,A6,Clawback & malus provisions,Green,Rule 10D-1 nVent Electric plc Recovery Policy (Exhibit 97); 3 award agreements with express recoupment,5,FY24 10-K Exhibit 97; Ex.10.22-10.24 Section 8,03
+A6-07,A6,Promoter family on the payroll,Not Applicable (no promoter/controller/family holding),0 family members on the payroll,5,00 Section 5A,03
+A6-08,A6,NED/ID compensation structure,Green,0 options or performance-conditioned awards to non-employee directors; $90000 board retainer + $12500 committee retainers,4,Ex.10.14; DEF 14A 2026-03-31,03
+A6-09,A6,Problematic pay practices & dissent response,Green,0 problematic practices in filed agreements; say-on-pay dissent 4.84% (2025 AGM),4,Ex.10.22-10.24; 8-K 2025-05-16,03
+A7-01,A7,Disclosure timeliness & completeness,Amber,12/12 quarters on time; 0 NT filings in 8 years; 3 sustained SEC staff comments (2024 cycle),4,SEC EDGAR filing history; SEC comment letter 2024-07-26,12
+A7-02,A7,Restatement frequency,Green,0 restatements in 5 years; both cover-page checkboxes unticked; Item 9 None,5,FY24 10-K cover page and Item 9,08
+A7-03,A7,KPI stability,Green,Segment rename pre-announced a quarter ahead; comparatives restated; no impact on consolidated results,5,FY24 10-K; Q1 FY26 10-Q,06
+A7-04,A7,Guidance hygiene,Green,Guidance raised 3 times with the prior range restated each time and the tariff cost increase disclosed alongside,5,Q1 and Q2 FY26 transcripts and 10-Qs,06
+A7a-01,A7a,Total CL as % of net worth,Amber,4.23% of $3986.9m net worth at BS date; 18.03% and 120.12% of $598.3m LTM PAT with the $550.0m Maverick earnout,4,Q2 FY26 10-Q; Maverick release 2026-08-24,10
+A7a-02,A7a,CL trend over time,Red,10.5 -> 10.7 -> 75.7 -> 82.6 -> 102.0 USDm; 7.08x in FY2025 and +34.7% in H1 FY26; note paragraph unchanged,5,FY24 10-K Note 18; Q1/Q2 FY26 10-Q Note 15,10
+A7a-03,A7a,Direct tax disputes,Green,$9.4m booked = 0.24% of net worth; roll-forward itemised and declining,5,FY24 10-K UTB roll-forward,10
+A7a-04,A7a,Indirect tax disputes,Amber,~$25.8m IEEPA tariff reimbursement recognised in income (4.3% of LTM PAT); no VAT/GST/excise dispute disclosed,4,Q2 FY26 10-Q,10
+A7a-05,A7a,Litigation / claims not acknowledged as debt,Amber,0 named cases; 0 disclosed rulings; 0 aggregate reserve in any period,4,FY24 10-K Note 18; Q2 FY26 10-Q Item 1,10
+A7a-06,A7a,Corporate guarantees given,Green,Nil to promoter/related/unconsolidated entities; intra-group note guarantee 0.00% incremental,5,Feb-2026 supplemental indenture; Q2 FY26 10-Q,10
+A7a-07,A7a,Bank guarantees & LCs,Amber,$102.0m face = 2.56% of net worth reported as one combined line never split,5,Q2 FY26 10-Q Note 15,10
+A7a-08,A7a,Capital commitments,Amber,Contracted capex not separately disclosed; raw-material purchase obligations $66.7m (stale); capex plan ~$130m FY2026,3,FY24 10-K; Q2 FY26 transcript,10
+A7a-09,A7a,Bills discounted with recourse,Green,Nil - 0 hits across all 15 pool sources re-verified 2026-09-07,5,Pool-wide sweep,10
+A7a-10,A7a,Statutory dues disputes,Not Applicable (no equivalent schedule in a US 10-K),-,5,00 Section 5A,10
+A7a-11,A7a,Regulatory / penalty demands,Green,Nil disclosed,4,FY24 10-K Note 18,10
+A7a-12,A7a,Subsidiary/JV/associate CLs,Amber,Tonka Bay captive reserve not disclosed; unconsolidated JV/VIE contingencies nil,3,FY24 10-K Exhibit 21,10
+A7a-13,A7a,Movement: additions/reversals/crystallization,Amber,0 crystallizations in 5 years; 1 unexplained $12.5m guarantee-liability reversal into FY2024 income (5.19% of continuing PAT),4,FY24 10-K MD&A,10
+A7a-14,A7a,Provided vs only-disclosed split,Amber,Provided $9.4m UTB + $2.0m penalties + $1.4m interest; only-disclosed $102.0m face + indemnities + litigation class; split never quantified,4,FY24 10-K Note 18; Q2 FY26 10-Q Note 15,10
+A7a-15,A7a,Unhedged forex / derivative exposure,Green,FX forwards $186.4m notional (4.68% of net worth); cross-currency swaps $350.5m (8.79%); AOCI deferred FX loss $9.2m,5,Q2 FY26 10-Q derivatives note,10
+A8-01,A8,CFO/PAT (accrual quality),Green,2.08 (FY2024); 0.92-2.08 across five years,5,FY24 10-K cash-flow statement,11
+A8-02,A8,Working-capital days creep,Green,Cash conversion cycle 76.4 days; 15.5 days shorter than FY2023,4,CIQ Ratios; FY24 10-K,11
+A8-03,A8,Receivables ageing >6 months,Amber,1.69% allowance/gross receivables (proxy - no ageing ladder exists under US GAAP); fell from 2.93%,3,FY24 10-K receivables note,11
+A8-04,A8,Expense capitalization,Green,$0.0m capitalised development software or interest disclosed anywhere,5,FY24 10-K accounting policies,11
+A8-05,A8,Recurring exceptionals & other income,Amber,Other income 1.9% of PBT; restructuring + acquisition costs recur in 5 of 5 years,5,FY24 10-K income statement,11
+A8-06,A8,Goodwill build-up & impairment,Green,Goodwill $2221.8m = 68.6% of equity; zero impairment in three years,5,FY24 10-K goodwill note,11
+A8-07,A8,Policy/estimate/year-end changes,Green,0 policy changes; 0 error corrections; inventory FIFO throughout,5,FY24 10-K accounting policies,11
+A8-08,A8,Depreciation rate consistency,Green,12.9%; charge accelerating $36.1m -> $43.7m -> $51.3m,5,FY24 10-K,11
+A8-09,A8,Provisioning adequacy,Amber,Allowance coverage 2.45% -> 2.93% -> 1.69% of gross receivables - falling two consecutive periods,4,FY24 10-K receivables note,11
+A8-10,A8,Effective tax-rate anomaly,Green,43.9% ETR vs 25.0% UK statutory - 18.9pp ABOVE statutory; $120.2m cash tax paid,5,FY24 10-K tax note,11
+A8-11,A8,Cash EPS vs accounting EPS,Green,2.08 (cash EPS $2.98 / diluted continuing EPS $1.43),5,FY24 10-K,11
+A8-12,A8,CFO/EBITDA conversion,Green,73.0% LTM; 69-79% across five years matched continuing-operations basis,4,earnings/06 as published; CIQ,11
+A8-13,A8,Consolidation opacity,Green,4 material perimeter changes in 4 years all disclosed with purchase price allocations,5,FY24 10-K; Q2 FY26 10-Q Note 5,11
+A8-14,A8,Beneish M-score,Amber,-2.67 FY2024 filing basis (Green band) / -2.07 FY2025 vendor basis (Amber); 0 of 7 components in the manipulator zone,4,FY24 10-K computed with python3; CIQ FY2025,11
+A8-15,A8,Revenue-quality cross-checks,Green,Contract assets 3.49% of revenue; collections 99.9% of revenue; cash taxes +37.7% vs revenue +31.0%; $2.5bn backlog contractual ASC 606,5,FY24 10-K; Q2 FY26 10-Q,11
+A8-16,A8,Segment/geography disclosure shifts,Green,2 segments before and after the rename; segment income rose in both segments every year,5,FY24 10-K; Q1 FY26 10-Q,11
+A8-17,A8,Dechow F-score & accrual battery,Red,1.92 filing / 1.91 vendor vs the 1.85 band; accrual content 0.11; ~1.76 from soft assets 92.9% + issuance dummy,4,FY24 10-K computed with python3,11
+A8-18,A8,Issuance in a flagged year,Amber,$500.0m long-term debt issued FY2024 in a composite-flagged year; TATA -0.0386 well below the 0.031 line,5,FY24 10-K cash-flow statement,11
+A8-19,A8,Cash authenticity,Green,Yield prong not computable (no scope-matched interest-income line); confirmation prong clean; cash 1.95% of total assets,4,FY24 10-K; Deloitte unqualified opinion + 404(b) attestation,11
+A8-20,A8,Regulator-found divergence,Green,1 SEC comment letter (2024-07-26) resolved by presentation revision; 0 figures restated 0 AAERs 0 forensic audits,5,SEC comment letter 2024-07-26,11
+A9-01,A9,Securities-regulator actions vs the COMPANY,Green,0 enforcement actions / consent orders 5-year lookback on a logged sweep,4,SEC EDGAR + enforcement sweep 2026-09-07,12
+A9-02,A9,NCLT/CCI/ED/CBI/SFIO & forensic investigations,Green,0 investigations or forensic audits; 0 corpus hits on subpoena/Wells notice/consent order,4,Federal docket + regulator sweep 2026-09-07,12
+A9-03,A9,Whistleblower / vigil mechanism & outcomes,Amber,Mechanism helpline ethics office non-retaliation training in 12 languages across 35 countries; complaint counts not published,4,DEF 14A 2026-03-31; Code of Business Conduct,12
+A9-04,A9,Controller's track record at other ventures,Not Applicable (no controller exists),0 controllers,5,07 Section 1; 00 Section 5A,07
+A9-05,A9,Rating actions,Green,Fitch BBB IDR/BBB senior unsecured affirmed 2025-09-22 Outlook Stable; 0 notches; no non-cooperation tag; no withdrawal with $1300.0m notes outstanding,4,Fitch rating action 2025-09-22,12
+A9-06,A9,Exchange fines & listing-compliance register,Green,0 fines / non-compliance notices across 8 quarters all exchanges; no NYSE deficiency notice; no Form 25,4,NYSE/SEC EDGAR sweep 2026-09-07,12
+A9-07,A9,Insider-trading / trading-window violations,Green,0 regulator or exchange orders 5-year lookback,4,SEC enforcement sweep 2026-09-07,12
+A9-08,A9,Sanctions/export-control/AML exposure,Amber,0 designations 0 enforcement actions; company-acknowledged dual-use/sanctioned-intermediary residual; Russian subsidiary unswept in Russian-language sources,4,OpenSanctions screen 2026-09-07; FY24 10-K risk factors,12
+A9-09,A9,ESG/environmental/consumer penalties,Green (coverage-limited on record-level breakdown),$176422 across 11 ordinary-course US regulatory penalty records = 0.004% of net worth,3,Violation Tracker aggregate 2026-09-07,12
+A9-10,A9,Litigation-register reconciliation,Amber,10 federal dockets found; 0 material cases absent from the filings; Vertiv v. nVent D.Del. 1:26-cv-00839 behind a paid docket,3,CourtListener sweep 2026-09-07; Q2 FY26 10-Q Item 1,12
+A9-11,A9,Response to whistleblowers & short-sellers,Not Applicable (no published allegation ever tested the record - no Green claimed),0 published allegations,5,Adverse-media sweep 2026-09-07,12
+A10-01,A10,Dividend policy & consistency,Amber,$0.70 -> $0.84/share annualised; 32 consecutive quarterly dividends 3 raises 0 cuts; 31.9% of five-year FCF; no documented policy,5,Q2 FY26 10-Q; FY24 10-K,02
+A10-02,A10,Swap ratios in group mergers,Not Applicable,0 share-swap or scheme transactions in the period,5,Deal record 2021-2026,05
+A10-03,A10,Institutional voting patterns,Green,All 16 resolutions across the 2025 and 2026 AGMs carried on 93.91%-99.92% of votes cast; highest dissent 6.09%,4,8-K 2025-05-16; 8-K 2026-05-15,05
+A10-04,A10,Rights / preferential pricing fairness,Green,0 preferential allotments rights issues QIPs or warrant issues in the period,5,FY24 10-K equity statement,05
+A10-05,A10,Buyback vs dividend conduct,Green,0 promoter tenders; 0% pledged; buying throttled to zero as shares ran to $171.16,5,FY24 10-K Exhibit 19; Q2 FY26 10-Q,02
+A10-06,A10,Delisting & exit-offer conduct,Not Applicable,0 delisting or exit-offer attempts,5,SEC EDGAR filing history,05
+A11-01,A11,Holding-structure complexity,Amber,137 named entities across 33 jurisdictions (above the >100 line); layer depth undisclosed - Insufficient Data; 0 offshore entities with no evident purpose,4,FY24 10-K Exhibit 21 (2024-12-31),09
+A11-02,A11,Trapped / round-tripped cash,Amber,31.1% of period-end cash where repatriation is limited ($79.6m) improving from 40.5%,4,Q2 FY26 10-Q; FY24 10-K,09
+A11-03,A11,Inter-corporate loans & deposits,Green (leakage) / Amber (visibility),$1592.1m due to the Obligor Group = 99.5% of its noncurrent assets unchanged across two quarters; rate and tenor undisclosed; all counterparties 100%-owned,4,Q2 FY26 10-Q Obligor Group table,09
+A11-04,A11,Listed-vs-unlisted sibling leakage,Green (predecessor limb); N/A (promoter limb - no controller),$0.0m flowing between nVent and Pentair plc tested on all three questions,5,09 Section 10; 07 Section 3B,09
+A11-05,A11,Subsidiary financial transparency,Amber,2 perimeter changes in 18 months ($1.7bn out $979.6m in $1.75bn pending); no material subsidiary publishes its own numbers; FY2025 Exhibit 21 absent,3,FY24 10-K Exhibit 21; Q2 FY26 10-Q Note 5,09
+A11-06,A11,Unlisted material-subsidiary governance (India),Not Applicable (LODR Reg 24 has no US/Irish equivalent),-,5,00 Section 5A,09
+A11-07,A11,Off-balance-sheet entities with recourse,Green,0 unconsolidated entities with recourse; $0.0m guarantees; no VIE no SPE; captive insurer and Luxembourg finance vehicle named and consolidated,5,FY24 10-K; Q2 FY26 10-Q,09
+A12-01,A12,Attrition,Insufficient Data,Not disclosed - the FY24 10-K Human Capital section carries no attrition figure,5,FY24 10-K Human Capital Matters,03
+A12-02,A12,Median-employee pay vs executive pay,Insufficient Data,Not disclosed in the pool - the pay-ratio disclosure sits in the absent proxy,1,FY24 10-K Item 11,03
+A12-03,A12,ESOP pool breadth,Amber,0.4m awards in the FY2026 annual grant to eligible employees; breadth evidenced by plan design not a disclosed participant count,4,Q2 FY26 10-Q; FY24 10-K Item 12,03
+A12-04,A12,Workplace-conduct record,Amber,0 disclosed injury-rate fatality or complaint statistics; no adverse record found either,4,FY24 10-K; adverse-media sweep 2026-09-07,03
+A13-01,A13,Professional CEO vs promoter-run,Green,9 of 9 non-employee directors independent; professional management no family control,5,DEF 14A 2026-03-31,07
+A13-02,A13,View on the CEO (operating record),Green,8 years as CEO; Pentair Electrical Pentair Flow & Filtration Honeywell ECC before; no failed or abandoned ventures found,4,FY24 10-K Executive Officers; sweep 2026-09-07,07
+A13-03,A13,Promoter vintage & involvement,Not Applicable (no promoters),0 promoters,5,00 Section 5A,07
+A13-04,A13,Top-management team vintage,Green,8.4 years median at the company / 5.0 years in role across 10 named officers,5,FY24 10-K Executive Officers,01
+A13-05,A13,Second-level team quality & bench,Green,10 named senior officers with dated roles and disclosed backgrounds; CFO seat refilled in one step,5,FY24 10-K; 8-K series 2025-03,01
+A13-06,A13,Family dynamics / succession disputes,Not Applicable (no family shareholdings or disputes),0,5,07 Section 2,07
+A13-07,A13,Controller's other material businesses,Not Applicable (no controller),0 competing or transacting private entities,5,07 Section 3 network map,07
+A13-08,A13,Sensitive government dealings,Green,0 concentrated discretionary government dependencies,4,FY24 10-K customer/geography disclosure,07
+A13-09,A13,Political connect,Green,0 political offices or donation links around any register person,4,PEP screen 2026-09-07,07
+A14-01,A14,Leverage level (governance lens),Amber,1.15x net debt/EBITDA strict Section 15 basis ($1236.4m / $1074.6m); memo 1.28x on CIQ broad vendor basis; ~2.43x pro-forma Maverick; touched 3.00x at FY2024,5,Q2 FY26 10-Q; balance-sheet-survival/01,11
+A14-02,A14,Loans & advances level,Green,0.0% of total assets - no loans advances or related-party receivable on the balance sheet,5,FY24 10-K balance sheet,11
+A14-03,A14,Quality of lenders / bankers,Green,$600.0m committed undrawn unsecured revolver; $200.0m term loan; top-tier unsecured lender group with a Bank of America bridge,4,Q2 FY26 10-Q debt note; Maverick release,12
+A15-01,A15,Exchange surveillance & volatility,Green,0 listing-deficiency notices halts or suspensions disclosed,4,NYSE/SEC EDGAR sweep 2026-09-07,04
+A15-02,A15,Volume & liquidity,Green,$27703.6m market capitalization (161.857939m shares x $171.16),4,CIQ Key Stats LTM Jun-2026,04
+A15-03,A15,Research coverage,Green,16 analysts (15 Buy 1 Outperform 0 Hold 0 Sell); 15 target-price contributors,4,CIQ Estimates Consensus tab,04
+A15-04,A15,Pre-announcement price conduct,Insufficient Data,Not tested - intraday price/volume history unavailable; recorded as not clean not as clean,1,Pool inventory,04
+A16-01,A16,Identity resolution,Green,21 persons anchored on a unique identifier or >=2 corroborating identifiers,4,07 Section 1,07
+A16-02,A16,Directorship map,Green,0 undisclosed directorships,4,Registry + proxy reconciliation 2026-09-07,07
+A16-03,A16,Disqualification registers,Green,0 bars or disqualifications,4,SEC officer-and-director bar register 2026-09-07,07
+A16-04,A16,Criminal proceedings & arrests,Green,0 matters found,4,CourtListener + SALI sweeps 2026-09-07,07
+A16-05,A16,Civil / commercial litigation history,Green,0 persons named in any posture,4,CourtListener sweep 2026-09-07,07
+A16-06,A16,Securities-regulator actions,Green,0 orders against any person; the one SALI Wozniak is Joseph J Wozniak - possible namesake not attributed,5,SALI sweep 2026-09-07,07
+A16-07,A16,Wilful-defaulter / fraud-borrower lists,Not Applicable (RBI instrument - no US/Irish equivalent),0 listings,5,00 Section 5A,07
+A16-08,A16,Insolvency - the corporate-graveyard test,Amber,1 company entered insolvency under a register person's board role (Tupperware Chapter 11 2024-09-18 under Cameron's non-executive chairmanship),4,07 Section 2.5; Chapter 11 docket,07
+A16-09,A16,Sanctions & watchlists,Green,0 matches on 13 of 21 persons screened; 8 persons not sanctions-screened (coverage-limited stated),4,OpenSanctions 2026-09-07,07
+A16-10,A16,PEP status & political exposure,Green,0 politically exposed persons,4,PEP screen 2026-09-07,07
+A16-11,A16,Credential verification,Green,0 contradicted credentials,3,Institutional/registry checks 2026-09-07,07
+A16-12,A16,Adverse media (dated tiered),Green,0 credible adverse items naming a register person,3,Dated adverse-media battery 2026-09-07,07
+A16-13,A16,Undisclosed related entities,Green,0 undisclosed related entities,4,Registry-outward mapping vs RPT disclosures 2026-09-07,07
+A16-14,A16,Regulatory-role conflicts,Green,0 conflicted seats,4,Directorship map 2026-09-07,07
+A16-15,A16,Integrity buzz (forums/social),Green,0 unresolved buzz items; business-model/01 routed nothing,3,07 Section 7; business-model/01,07
+A16-16,A16,Per-person overall grade,Amber,20 Clean / 1 Minor concerns / 0 Material / 0 Disqualifying,4,07 Section 1,07
+A16-17,A16,Resignation-timing (smart rat),Green,0 qualifying patterns,4,Career resignation timeline sweep 2026-09-07,07
+A16-18,A16,Association with past accounting failures,Amber,1 person with a qualifying association (Cameron / Tupperware 2023 restatement and disclosed control weaknesses),4,07 Section 2.5,07
+A16-19,A16,Professional-licence discipline,Insufficient Data,0 disciplinary actions found but the licence-jurisdiction gap made the axis unanswerable,2,07 Sections 2.2-2.4,07
+A16-20,A16,Public claims vs filed numbers,Green,0 unsupported public claims,4,Transcript/deck vs filing reconciliation 2026-09-07,07
+A17-01,A17,Discovery completeness,Green,53 subjects each with an enumerated discovery method; Phase 1 and Phase 2 both ran; hop 2 reached; terminated on breadth_budget,5,07 Sections 0.1-0.4,07
+A17-02,A17,Corporate lineage & former names,Green,Claimed 1988 lineage vs 2017-05-30 incorporation fully explained by the disclosed Pentair spin-off; 22-day former name classified not-disclosable,5,07 Sections 0A 3B; UK Companies House previous-names field,07
+A17-03,A17,Predecessor / phoenix test,Green,0 failed predecessors - Pentair solvent and listed; continuity via a pro-rata spin-off to Pentair's own shareholders; no RF-NET-002,5,07 Section 3B; nVent Form 10-12B 2018,07
+A17-04,A17,Brand & trademark ownership,Green,7 of 7 core marks owned or licensed by nVent Services GmbH a wholly-owned subsidiary on Exhibit 21; external royalty rate zero,5,FY24 10-K Exhibit 21; trademark-proprietor sweep 2026-09-07,07
+A17-05,A17,Registered-address cluster,Green,1 uncorroborated cluster lead (Ten Earlsfort Terrace - the company's law firm's office); no second independent link found,4,Companies House registered office; 07 Section 4,07
+A17-06,A17,Founder & past-controller trail,Insufficient Data,2 of 4 lineage-entity founders identified; Harry Hoffman (1945) and Pentair's 1966 founder candidate unverified - Scope-Boundary S1 and S2 budget_exhausted; never an adverse finding,3,07 Section 5,07
+A17-07,A17,Cross-linkage to adverse networks,Amber,2 hop-1 links carrying an adverse entity fact (Pentair plc; Tupperware Brands); RF-NET-003 tested and deliberately not fired by 07 and 12 and adjudicated not fired by 99,3,07 Sections 2B.3 2B.8; 12 Section 1A,07
+A17-08,A17,Undisclosed-network reconciliation,Green,0 subjects classified disclosable-and-omitted of 53 (44 filing-supplied 9 independently discovered 0 user-supplied),5,07 Section 4 four-class test; 09 Section 13,07
+A17-09,A17,Scope boundary declared,Green,9 named Scope-Boundary rows each with a machine-enum reason and what would close it; no RF-NET-006,5,07 Section 5,07
+A17-10,A17,Aggregator-conflict resolution,Green,1 conflict kept in scope and flagged (Dauch Corporation vs American Axle); both names swept resolved on the proxy; no name dropped,4,07 Section 6,07

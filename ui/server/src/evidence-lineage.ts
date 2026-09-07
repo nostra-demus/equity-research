@@ -49,6 +49,38 @@ export interface OutputLineageOptions {
   now?: () => Date
 }
 
+/** Internal read-only view of a root retained by a verified transaction. The caller must derive this
+ * path from its protected journal; this shape check is not a substitute for transaction authority. */
+export function assertPrivatePreparedRunRoot(absolute: string, repoRoot = REPO_ROOT): () => void {
+  const repository = path.resolve(repoRoot)
+  const relative = path.relative(repository, absolute).split(path.sep).join('/')
+  if (!path.isAbsolute(absolute) || path.resolve(absolute) !== absolute
+      || !/^analyses\/\.run-plan-transactions\/[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/prepared-root$/.test(relative)) {
+    throw new Error('retained run root is not an exact private transaction root')
+  }
+  const directories = [path.join(repository, 'analyses'), path.dirname(path.dirname(absolute)),
+    path.dirname(absolute), absolute]
+  const inspect = (directory: string, index: number) => {
+    const info = fs.lstatSync(directory)
+    if (!info.isDirectory() || info.isSymbolicLink() || fs.realpathSync(directory) !== directory
+        || (typeof process.getuid === 'function' && info.uid !== process.getuid())
+        || (process.platform !== 'win32' && index > 0 && index < 3 && (info.mode & 0o777) !== 0o700)) {
+      throw new Error('retained run root has an unsafe private directory')
+    }
+    return info
+  }
+  const identities = directories.map(inspect)
+  return () => {
+    directories.forEach((directory, index) => {
+      const after = inspect(directory, index)
+      const before = identities[index]
+      if (before.dev !== after.dev || before.ino !== after.ino || before.mode !== after.mode) {
+        throw new Error('retained run root changed while it was being verified')
+      }
+    })
+  }
+}
+
 export interface VerifiedOutputLineageSnapshot {
   runRoot: string
   /** Self-digest of the protected manifest, or null before any supervisor lineage has been recorded. */
@@ -278,8 +310,9 @@ function stableOutput(
   repoRoot: string,
   runRoot: string,
   outputRel: string,
+  physicalRunRootAbs?: string,
 ): StableOutput | null {
-  const root = path.resolve(repoRoot, ...runRoot.split('/'))
+  const root = physicalRunRootAbs ?? path.resolve(repoRoot, ...runRoot.split('/'))
   let rootInfo: fs.Stats
   try { rootInfo = fs.lstatSync(root) } catch { return null }
   if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(root) !== root) return null
@@ -301,6 +334,13 @@ function stableOutput(
     const after = fs.fstatSync(descriptor)
     if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
         || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs) return null
+    if (physicalRunRootAbs !== undefined) {
+      let current: fs.Stats
+      try { current = fs.lstatSync(absolute) } catch { return null }
+      if (!current.isFile() || current.isSymbolicLink() || current.nlink !== 1
+          || fs.realpathSync(absolute) !== absolute || current.dev !== after.dev || current.ino !== after.ino
+          || current.size !== after.size || current.mtimeMs !== after.mtimeMs || current.ctimeMs !== after.ctimeMs) return null
+    }
     return {
       sha256: `sha256:${createHash('sha256').update(content).digest('hex')}`,
       valid: validateAgentOutputText(content.toString('utf8')).valid,
@@ -528,13 +568,15 @@ export function verifyReusableOutputLineageForGeneration(
 /** Safe planner snapshot. Tampered/missing current files are omitted and therefore become payable work. */
 export function readVerifiedOutputLineage(
   runRoot: string,
-  options: OutputLineageOptions = {},
+  options: OutputLineageOptions & { physicalRunRootAbs?: string } = {},
 ): VerifiedOutputLineageSnapshot {
   const roots = normalizedRoots(options)
   const validatedRoot = validateLineageRunRoot(runRoot, roots.repoRoot)
+  const assertUnchanged = options.physicalRunRootAbs === undefined ? undefined
+    : assertPrivatePreparedRunRoot(options.physicalRunRootAbs, roots.repoRoot)
   const manifest = readManifest(validatedRoot, options)
   const entries = (manifest?.entries ?? []).filter((entry) => {
-    const current = stableOutput(roots.repoRoot, validatedRoot, entry.output_rel)
+    const current = stableOutput(roots.repoRoot, validatedRoot, entry.output_rel, options.physicalRunRootAbs)
     return current?.valid === true && current.sha256 === entry.sha256
   }).map((entry) => ({ ...entry }))
     .sort((left, right) => left.output_rel.localeCompare(right.output_rel))
@@ -544,5 +586,6 @@ export function readVerifiedOutputLineage(
     manifest_digest: manifestDigestValue,
     entries,
   }), 'utf8').digest('hex')}`
+  assertUnchanged?.()
   return { runRoot: validatedRoot, manifestDigest: manifestDigestValue, verifiedDigest, entries }
 }

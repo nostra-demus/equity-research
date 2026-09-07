@@ -91,7 +91,12 @@ export function reconcileRunIdentity<T extends ImmutableRunIdentity>(existing: T
     next.reasoningLevel = reasoning
   }
 
-  return next as T
+  // Replayed identity assertions must still pass every guard above, but an unchanged identity should
+  // not make every orb event notify active-run subscribers before its actual progress is published.
+  const unchanged = (Object.keys(next) as (keyof ImmutableRunIdentity)[]).every((key) =>
+    key === 'executionProfile' ? sameProfile(existing.executionProfile, next.executionProfile)
+      : Object.is(existing[key], next[key]))
+  return unchanged ? existing : next as T
 }
 
 /** A reconnect snapshot must prove the stream, subject and swarm it is about before any orb is painted. */

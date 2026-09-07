@@ -181,7 +181,9 @@ case "${0##*/}" in
     exit 0
     ;;
   stat)
-    date +%s
+    # Match the fixture file's mtime. Sampling a new wall-clock second here can make the watchdog's
+    # earlier `date +%s` look older than its health marker and skip even an interval-zero scanner check.
+    python3 -c 'import os, sys; print(int(os.stat(sys.argv[-1]).st_mtime))' "$@"
     ;;
   npm)
     exit 97

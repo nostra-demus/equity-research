@@ -306,6 +306,16 @@ jobs:
       - name: Deterministic extractor + CIQ facts tests (self-activates as the tools land on main)
         run: |
           rc=0
+          # The connector runner owns temporary fixture repositories and is independent of the
+          # extractor/ops suites below. Join its real exit status before this required job can pass.
+          connector_test_pid=""
+          connector_test_log="$RUNNER_TEMP/connector-runner-tests.log"
+          if [ -f ".claude/tools/run_connectors.py" ]; then
+            python3 -u .claude/tools/test_run_connectors.py >"$connector_test_log" 2>&1 &
+            connector_test_pid=$!
+          else
+            echo "skip: run_connectors.py not on this ref yet (lands with the connector-runner PR)"
+          fi
           # CIQ facts — tied to the sidecar tool. Once ciq_facts.py reaches main, its test is REQUIRED.
           if [ -f ".claude/tools/ciq_facts.py" ]; then
             echo "== test_ciq_facts.py =="
@@ -336,13 +346,6 @@ jobs:
             python3 .claude/tools/test_ingest_external.py || rc=1
           else
             echo "skip: ingest_external.py not on this ref yet (lands with the external-data-ingestion PR)"
-          fi
-          # Connector self-heal runner — tied to the tool. Once run_connectors.py reaches main, required.
-          if [ -f ".claude/tools/run_connectors.py" ]; then
-            echo "== test_run_connectors.py =="
-            python3 .claude/tools/test_run_connectors.py || rc=1
-          else
-            echo "skip: run_connectors.py not on this ref yet (lands with the connector-runner PR)"
           fi
           # Connector credential migration — tied to the helper. Once present,
           # preserving historical plist-only secrets is a required release gate.
@@ -380,6 +383,11 @@ jobs:
           bash scripts/ops/test-connector-service-recovery.sh || rc=1
           echo "== test-connector-supervisor.py =="
           python3 scripts/ops/test-connector-supervisor.py || rc=1
+          if [ -n "$connector_test_pid" ]; then
+            wait "$connector_test_pid" || rc=1
+            echo "== test_run_connectors.py =="
+            cat "$connector_test_log"
+          fi
           exit $rc
 
       # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so

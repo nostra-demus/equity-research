@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-09-07T01:55:04Z",
+  "swarm": "commodity",
+  "provider_calibration_schema_version": "1.0",
+  "n_commodities_tracked": 4,
+  "n_decisions": 5,
+  "n_reviews": 0,
+  "n_valid_reviews_as_of": 0,
+  "n_invalid_reviews": 0,
+  "n_future_reviews_excluded": 0,
+  "n_headline_outcomes": 0,
+  "n_decisive": 0,
+  "n_non_decisive": 0,
+  "n_horizon_observations": 0,
+  "n_probability_excluded": 0,
+  "min_decisive_for_hit_rate": 10,
+  "min_n_for_slice": 5,
+  "min_n_for_probability_metrics": 10,
+  "min_n_for_probability_slice": 5,
+  "hit_rate": null,
+  "calibration_by_commodity": {
+    "ALUMINIUM": "insufficient (N=0; floor 5)",
+    "COPPER": "insufficient (N=0; floor 5)",
+    "GOLD": "insufficient (N=0; floor 5)",
+    "WHEAT": "insufficient (N=0; floor 5)"
+  },
+  "forecast_calibration": {
+    "overall": {
+      "n": 0,
+      "status": "insufficient (N=0; floor 10)",
+      "metrics": null
+    },
+    "by_commodity": {},
+    "by_family": {},
+    "by_horizon": {}
+  },
+  "metric_definitions": {
+    "bias_pct": "forecast expected implementable return minus realised implementable return",
+    "multiclass_brier_score": "three-class bear/base/bull probability score; lower is better",
+    "crps": "continuous ranked probability score on the discrete scenario-return distribution; lower is better",
+    "maximum_adverse_excursion_pct": "worst implementable return observed from decision anchor through target date"
+  },
+  "error_taxonomy_distribution": {},
+  "decision_quality_distribution": {},
+  "calibration_by_provider": {},
+  "calibration_by_execution_profile": {},
+  "provider_comparison": {
+    "status": "withheld",
+    "policy": "No blended provider hit rate. Each recorded cohort is reported separately. A metric is comparable only when Claude and Codex independently clear its floor at a matched horizon. No automated superiority ranking or provider-specific confidence haircut is produced.",
+    "forecast_calibration": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "directional_hit_rate": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "matched_basket_horizons_ready": [],
+    "excluded_from_recorded_head_to_head": [],
+    "ranking": null,
+    "reason": "Claude and Codex have not both independently cleared any applicable metric floor; provider ranking and provider-specific confidence haircuts are refused."
+  },
+  "operational_aggregate_label": "Global production-system aggregate across all execution cohorts. It preserves historical continuity but cannot establish that Claude or Codex is calibrated or better.",
+  "verdict": "Pre-data — 0 of 10 decisive headline calls needed before hit rate means anything.",
+  "honesty_statement": "Headline hit rate counts each decision at most once; 0 validated horizon observations are scored separately. 0 legacy, superseded or invalid-probability reviews are excluded from probability calibration. The global figures are operational aggregates only; provider comparisons never blend cohorts.",
+  "legacy_provider_sensitivity": {
+    "legacy_inferred_claude": 0,
+    "unknown_legacy": 4,
+    "policy": "legacy_inferred_claude requires a separately verified pre_rollout_cockpit_history proof. Age or missing provenance alone remains unknown_legacy. Both cohorts are sensitivity-only and excluded from recorded Claude-versus-Codex comparisons."
+  }
+}
