@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:51:23Z",
+  "generated_at": "2026-09-07T05:11:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -145,6 +145,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-211",
+      "headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:56:44Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR Inox",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-206",
+      "headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:53:05Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Trade Desk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -939,6 +1038,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-210",
+      "headline": "Medical AI firm EchoIQ smashed over FDA rejection",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/medical-ai-firm-stumbles-over-tga-hurdle-fails-to-get-approval-20260907-p60v4m?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:38:06Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Medical AI firm EchoIQ was negatively impacted by an FDA rejection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Medical AI firm EchoIQ was negatively impacted by an FDA rejection.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EchoIQ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-037",
       "headline": "Israeli air strikes kills two in Gaza, including a child",
       "headline_en": null,
@@ -1222,6 +1370,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-215",
+      "headline": "Macquarie passes on Stack Infra’s $28b-plus data centres as bids land",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/macquarie-passes-on-stack-infra-s-28b-plus-data-centres-as-bids-land-20260906-p60uvm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T05:06:33Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Macquarie passes on a $28 billion-plus data center portfolio, signaling a major shift in a large-scale M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Macquarie passes on a $28 billion-plus data center portfolio, signaling a major shift in a large-scale M&A process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Stack Infrastructure",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1762,202 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-098",
-      "headline": "Google-backed Indian space startup raises $100 million in latest funding round",
-      "headline_en": null,
-      "url": "https://www.reuters.com/science/google-backed-indian-space-startup-raises-100-million-latest-funding-round-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:33:12Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "An Indian space startup raised $100 million in a funding round.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "An Indian space startup raised $100 million in a funding round.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pixxel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-201",
-      "headline": "FNZ: the Credit Suisse spinout haemorrhaging cash",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/738f043b-9d26-401c-aee6-7a64a257fda2?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:00:11Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FNZ",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-168",
-      "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in US",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/at-least-5-killed-in-amazon-prime-air-cargo-plane-crash-in-us-4137474",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T03:14:37Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-094",
-      "headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:09:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "SoftBank issued a ¥1 trillion retail bond, a significant capital market event for the company and the Japanese debt market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SoftBank issued a ¥1 trillion retail bond, a significant capital market event for the company and the Japanese debt market.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -103785,6 +103791,150 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1093d003f5d3",
+      "idea_version": "IDEAV-76712455695529dd",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, signaling a significant expansion of its commercial vehicle footprint in Europe.",
+      "why_now": "The tender offer was announced today, September 7, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T23:52:55Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-febecdcab4bc",
+      "idea_version": "IDEAV-eb2ab6011fca55a2",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "2317",
+      "company": "Foxconn",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Foxconn issued positive guidance for the third quarter, citing stronger-than-expected demand for AI-related hardware components.",
+      "why_now": "The guidance update was released on September 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-704ffd6cf4b1"
+      ],
+      "primary_source_event_id": "EVT-704ffd6cf4b1",
+      "source_headlines": [
+        "Foxconn says third quarter to outperform market expectations on AI strength"
+      ],
+      "source_headline": "Foxconn says third quarter to outperform market expectations on AI strength",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/foxconn-says-third-quarter-outperform-market-expectations-ai-strength",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:09:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:00:01Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T16:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-122637bff5ac",
       "idea_version": "IDEAV-628c6ced57c82bb9",
       "idea_version_started_at": "2026-09-07T04:42:15Z",
@@ -105581,6 +105731,78 @@
       "surfaced_at": "2026-09-06T08:57:19Z",
       "updated_at": "2026-09-06T08:57:19Z",
       "decay_at": "2026-09-07T20:44:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5a71f05995f2",
+      "idea_version": "IDEAV-c8a91fb64a314be9",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "ICICIBANK",
+      "company": "ICICI Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Reserve Bank of India has approved LIC to acquire a 9.99% stake in the bank, providing a stable, long-term institutional shareholder base.",
+      "why_now": "The regulatory approval was reported on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4a7b093ba9f"
+      ],
+      "primary_source_event_id": "EVT-a4a7b093ba9f",
+      "source_headlines": [
+        "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender"
+      ],
+      "source_headline": "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/icici-bank-shares-in-focus-as-lic-gets-rbi-nod-to-acquire-9-99-stake-in-private-lender/articleshow/133861811.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T03:32:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:44:15Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T15:32:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109240,79 +109462,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1093d003f5d3",
-      "idea_version": "IDEAV-9e9d718010d3e3b4",
-      "idea_version_started_at": "2026-09-05T23:52:55Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors is pursuing a €3.82 billion takeover of Iveco, which could expand its market share and product offerings in the commercial vehicle segment.",
-      "why_now": "Tata Motors launched a tender offer for Iveco Group on September 5, 2026, indicating an active M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e774de2326e3",
-        "EVT-f97392f53379"
-      ],
-      "primary_source_event_id": "EVT-e774de2326e3",
-      "source_headlines": [
-        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-        "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-      "source_url": "https://www.thehindubusinessline.com/companies/tata-motors-turns-to-iveco-shareholders-to-seal-382-billion-takeover/article71429995.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T11:17:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T23:52:55Z",
-      "updated_at": "2026-09-05T23:52:55Z",
-      "decay_at": "2026-09-06T23:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5d7419f0c968",
       "idea_version": "IDEAV-5f4373d70d5503f4",
       "idea_version_started_at": "2026-09-05T23:08:05Z",
@@ -110982,77 +111131,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-adcb076f23d8",
-      "idea_version": "IDEAV-1210c57b2265075e",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "RMS",
-      "company": "Ramelius Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ramelius Resources has completed the acquisition of the Edna May Gold Project, which is expected to be a positive development for its asset base and future production.",
-      "why_now": "The acquisition completion was officially filed with the Australian Exchange.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9e7e3059c103"
-      ],
-      "primary_source_event_id": "EVT-9e7e3059c103",
-      "source_headlines": [
-        "RMS: FRS: Completion of Edna May Gold Project Acquisition"
-      ],
-      "source_headline": "RMS: FRS: Completion of Edna May Gold Project Acquisition",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMS?key=2924-03131966_NPS-6A1342276",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T04:52:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T16:52:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b1c789441879",
       "idea_version": "IDEAV-44564504cc74c3f4",
       "idea_version_started_at": "2026-09-04T09:24:12Z",
@@ -111120,79 +111198,6 @@
       "surfaced_at": "2026-09-04T09:24:12Z",
       "updated_at": "2026-09-04T09:24:12Z",
       "decay_at": "2026-09-05T18:21:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5a71f05995f2",
-      "idea_version": "IDEAV-b01c5300632bc25d",
-      "idea_version_started_at": "2026-09-05T10:44:15Z",
-      "ticker": "ICICIBANK",
-      "company": "ICICI Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Reserve Bank of India has approved LIC to acquire up to a 9.99% stake in ICICI Bank, which will drive sustained institutional buying flow.",
-      "why_now": "The regulatory approval was announced on September 5, 2026, clearing the path for LIC to begin open-market or block-deal accumulations.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fdeedbd90d3c",
-        "EVT-33f69de4d6fd"
-      ],
-      "primary_source_event_id": "EVT-fdeedbd90d3c",
-      "source_headlines": [
-        "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-        "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank"
-      ],
-      "source_headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rbi-approves-lic-to-acquire-up-to-9-99-stake-in-icici-bank/articleshow/133791372.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-05T09:41:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:44:15Z",
-      "updated_at": "2026-09-05T10:44:15Z",
-      "decay_at": "2026-09-06T21:41:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111273,19 +111278,19 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 425,
+      "file_count": 426,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 469,
-    "shown_count": 469,
+    "total_count": 467,
+    "shown_count": 467,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 244,
-        "shown_count": 244,
+        "total_count": 242,
+        "shown_count": 242,
         "hidden_count": 0
       },
       "short": {
@@ -111917,82 +111922,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1093d003f5d3",
-        "idea_version": "IDEAV-9e9d718010d3e3b4",
-        "idea_version_started_at": "2026-09-05T23:52:55Z",
-        "ticker": "TTM",
-        "company": "Tata Motors",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors is pursuing a €3.82 billion takeover of Iveco, which could expand its market share and product offerings in the commercial vehicle segment.",
-        "why_now": "Tata Motors launched a tender offer for Iveco Group on September 5, 2026, indicating an active M&A catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e774de2326e3",
-          "EVT-f97392f53379"
-        ],
-        "primary_source_event_id": "EVT-e774de2326e3",
-        "source_headlines": [
-          "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-          "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion"
-        ],
-        "source_headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-        "source_url": "https://www.thehindubusinessline.com/companies/tata-motors-turns-to-iveco-shareholders-to-seal-382-billion-takeover/article71429995.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T11:17:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T23:52:55Z",
-        "updated_at": "2026-09-05T23:52:55Z",
-        "decay_at": "2026-09-06T23:17:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T23:17:18Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-671ed28cb051",
         "idea_version": "IDEAV-d856f2497aec3371",
         "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -112366,82 +112295,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-06T22:00:45Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5a71f05995f2",
-        "idea_version": "IDEAV-b01c5300632bc25d",
-        "idea_version_started_at": "2026-09-05T10:44:15Z",
-        "ticker": "ICICIBANK",
-        "company": "ICICI Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Reserve Bank of India has approved LIC to acquire up to a 9.99% stake in ICICI Bank, which will drive sustained institutional buying flow.",
-        "why_now": "The regulatory approval was announced on September 5, 2026, clearing the path for LIC to begin open-market or block-deal accumulations.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fdeedbd90d3c",
-          "EVT-33f69de4d6fd"
-        ],
-        "primary_source_event_id": "EVT-fdeedbd90d3c",
-        "source_headlines": [
-          "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-          "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank"
-        ],
-        "source_headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rbi-approves-lic-to-acquire-up-to-9-99-stake-in-icici-bank/articleshow/133791372.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-05T09:41:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T10:44:15Z",
-        "updated_at": "2026-09-05T10:44:15Z",
-        "decay_at": "2026-09-06T21:41:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T21:41:15Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -114675,8 +114528,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T16:52:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T05:00:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146130,8 +145983,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 547,
-    "live_count": 76,
+    "surfaced_total": 548,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146150,9 +146003,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1835,
-    "news_picked_today": 336,
-    "news_dropped_today": 1499
+    "news_seen_today": 2627,
+    "news_picked_today": 367,
+    "news_dropped_today": 2260
   },
   "book_momentum": {
     "live_count": 8,
