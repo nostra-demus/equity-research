@@ -17,6 +17,7 @@ import {
   CONTINUATION_RUN_ROOT_ENV,
   decideReadiness,
   durableFrozenGenerationReceiptPathForTest,
+  durableFrozenGenerationSummaryForRun,
   frozenEvidenceBindingForRunForTest,
   FROZEN_EVIDENCE_ROOT_ENV,
   FROZEN_POOL_BINDING_OUT_DIR_ENV,
@@ -1148,6 +1149,117 @@ async function copiedGenerationLifecycleChecks() {
   }
 }
 
+async function retainedGenerationInspectionChecks() {
+  if (process.platform === 'win32') return
+  const stateDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-retained-read-')))
+  const binding = { ticker: 'ZZRETAINREAD', runRoot: 'analyses/ZZRETAINREAD_2099-03-02' }
+  const canonical = path.join(REPO_ROOT, binding.runRoot)
+  const workspace = path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', randomUUID())
+  const physicalRunRootAbs = path.join(workspace, 'prepared-root')
+  const chain = `retained-inspection-${process.pid}`
+  try {
+    const frozen = writeFrozenReceipt(binding)
+    await assessChainedReadinessOnce(chain, 'initial', binding,
+      async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: frozen }), { stateDir })
+    clearChainedReadiness(chain)
+    const receiptPath = durableFrozenGenerationReceiptPathForTest(binding, stateDir)
+    const originalReceipt = fs.readFileSync(receiptPath)
+    fs.mkdirSync(workspace, { recursive: true, mode: 0o700 })
+    fs.renameSync(canonical, physicalRunRootAbs)
+    const inspect = () => durableFrozenGenerationSummaryForRun(binding, stateDir, { physicalRunRootAbs })
+    const observedLiveReads: string[] = []
+    const mutableFs = fs as unknown as Record<string, (...args: any[]) => any>
+    const originals = new Map<string, (...args: any[]) => any>()
+    for (const name of ['mkdirSync', 'chmodSync', 'writeFileSync', 'renameSync', 'rmSync', 'unlinkSync']) {
+      originals.set(name, mutableFs[name])
+      mutableFs[name] = () => { throw new Error(`retained inspection attempted mutation: ${name}`) }
+    }
+    for (const name of ['lstatSync', 'statSync', 'readdirSync', 'openSync', 'readFileSync', 'realpathSync']) {
+      const original = mutableFs[name]
+      originals.set(name, original)
+      mutableFs[name] = (...args: any[]) => {
+        if (typeof args[0] === 'string' && path.resolve(args[0]).startsWith(`${path.join(DATA_DIR, binding.ticker)}${path.sep}`)) {
+          observedLiveReads.push(name)
+        }
+        return Reflect.apply(original, fs, args)
+      }
+    }
+    try {
+      const summary = inspect()
+      assert.equal(summary.generationDigest, frozen.generationDigest)
+      assert.equal(summary.frozenPool.outDir, frozen.outDir, 'physical reads never rewrite logical evidence binding')
+      assert.equal(summary.frozenPool.generationDir, frozen.generationDir)
+    } finally {
+      for (const [name, original] of originals) mutableFs[name] = original
+    }
+    assert.deepEqual(observedLiveReads, [], 'private revalidation never reopens mutable data')
+    assert.equal(fs.existsSync(canonical), false, 'read-only inspection never activates the root')
+    assert.deepEqual(fs.readFileSync(receiptPath), originalReceipt, 'inspection never rewrites the protected receipt')
+    const privateSummary = inspect()
+    await assert.rejects(assessChainedReadinessOnce(`${chain}-not-capability`, 'private-summary', binding,
+      async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: privateSummary.frozenPool }), { stateDir }),
+    /generation parent is unavailable/,
+    'a private summary cannot act as provider evidence; canonical admission must independently verify after activation')
+    clearChainedReadiness(`${chain}-not-capability`)
+    fs.mkdirSync(canonical)
+    fs.writeFileSync(path.join(canonical, 'unrelated.txt'), 'a different canonical tree')
+    assert.equal(inspect().generationDigest, frozen.generationDigest, 'only retained private bytes supply the proof')
+
+    const generation = path.join(physicalRunRootAbs, '_pool_extracts', '.extract-generations', frozen.generationDigest)
+    const raw = path.join(generation, 'raw', binding.ticker, 'sample.txt')
+    const originalRaw = fs.readFileSync(raw)
+    fs.chmodSync(generation, 0o755)
+    assert.throws(inspect, /generation is writable/, 'a writable retained generation is not silently sealed')
+    assert.equal(fs.statSync(generation).mode & 0o777, 0o755)
+    fs.chmodSync(generation, 0o555)
+    fs.chmodSync(raw, 0o644)
+    fs.writeFileSync(raw, 'changed immutable evidence')
+    fs.chmodSync(raw, 0o444)
+    assert.throws(inspect, /artifact changed/, 'matching receipt metadata cannot conceal changed retained bytes')
+    fs.chmodSync(raw, 0o644)
+    fs.writeFileSync(raw, originalRaw)
+    fs.chmodSync(raw, 0o444)
+    const link = path.join(stateDir, 'hardlinked-source')
+    fs.linkSync(raw, link)
+    assert.throws(inspect, /hard-link/, 'retained evidence cannot alias external mutable bytes')
+    fs.unlinkSync(link)
+    const savedRaw = path.join(stateDir, 'saved-source')
+    fs.chmodSync(path.dirname(raw), 0o755)
+    fs.renameSync(raw, savedRaw)
+    fs.symlinkSync(savedRaw, raw)
+    fs.chmodSync(path.dirname(raw), 0o555)
+    assert.throws(inspect, /symlink/, 'retained evidence symlinks are rejected')
+    fs.chmodSync(path.dirname(raw), 0o755)
+    fs.unlinkSync(raw)
+    fs.renameSync(savedRaw, raw)
+    fs.chmodSync(path.dirname(raw), 0o555)
+    const wrongGeneration = path.join(path.dirname(generation), 'a'.repeat(64))
+    fs.chmodSync(path.dirname(generation), 0o755)
+    fs.chmodSync(generation, 0o755)
+    fs.renameSync(generation, wrongGeneration)
+    fs.chmodSync(wrongGeneration, 0o555)
+    assert.throws(inspect, /generation is unavailable/, 'another generation never substitutes for the protected digest')
+    fs.chmodSync(wrongGeneration, 0o755)
+    fs.renameSync(wrongGeneration, generation)
+    fs.chmodSync(generation, 0o555)
+    const receiptDirectory = path.dirname(receiptPath)
+    fs.chmodSync(receiptDirectory, 0o755)
+    assert.throws(inspect, /receipt directory is unsafe/, 'inspection rejects unsafe state without permission repair')
+    assert.equal(fs.statSync(receiptDirectory).mode & 0o777, 0o755)
+    fs.chmodSync(receiptDirectory, 0o700)
+    assert.equal(inspect().generationDigest, frozen.generationDigest)
+    assert.deepEqual(fs.readFileSync(receiptPath), originalReceipt)
+  } finally {
+    clearChainedReadiness(chain)
+    clearChainedReadiness(`${chain}-not-capability`)
+    for (const absolute of [workspace, canonical, stateDir]) {
+      makeTreeWritable(absolute)
+      fs.rmSync(absolute, { recursive: true, force: true })
+    }
+  }
+}
+
+await retainedGenerationInspectionChecks()
 await copiedGenerationLifecycleChecks()
 await coordinatorChecks()
 await durableRestartChecks()

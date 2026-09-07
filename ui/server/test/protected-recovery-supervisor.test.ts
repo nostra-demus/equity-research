@@ -23,7 +23,14 @@ const {
   legacyResearchCandidatesAfterProtectedRecovery, protectedResearchRecoveryOwnsSubject,
   revalidateRecoverableChainPlan, terminalizeRecoverablePublishedChain,
   verifyRecoverableChainCompletedArtifacts,
+  revalidateDeferredPreSpendPlan, dispatchDeferredPreSpendRetry,
 } = await import('../src/resume-supervisor')
+const {
+  prepareRunPlanTransaction, inspectDeferredPreSpendRetry, readDeferredPreSpendRetry,
+  rearmDeferredPreSpendRetry, recoverRunPlanTransactions,
+} = await import('../src/run-plan-transaction')
+const { removePrivateRunPlanTree } = await import('../src/completion')
+const { buildSwarmGraph } = await import('../src/roster')
 const {
   captureOutputLineageAttempt, readVerifiedOutputLineage, settleOutputLineageAttempt,
 } = await import('../src/evidence-lineage')
@@ -124,7 +131,157 @@ const profile: PreSpendRetryProfile = {
 let runRootAbs = ''
 let chainId = ''
 
+async function deferredContinuationChecks() {
+  const graph = buildSwarmGraph('research')
+  const declarations = graph.modules.map((module) => ({
+    module: module.name, dependsOn: module.dependsOn.filter((name) => graph.modules.some((m) => m.name === name)).sort(),
+    synthesisOutputs: Object.values(module.layers).flat()
+      .filter((agent) => agent.isSynthesis || (agent.nn === '00' && agent.failFast)).map((agent) => `${agent.key}.md`).sort(),
+  }))
+  for (const shape of ['sanitized', 'moved-original'] as const) {
+    const subject = `ZDC${shape === 'sanitized' ? 'S' : 'M'}${Date.now().toString().slice(-6)}`
+    const root = `analyses/${subject}_2099-04-01`
+    const absolute = path.join(REPO_ROOT, root)
+    const requestId = randomUUID()
+    const workspace = path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', requestId)
+    const frozen = writeFrozenPool({ ticker: subject, runRoot: root })
+    const frozenChain = randomUUID()
+    try {
+      await assessChainedReadinessOnce(frozenChain, 'freeze', { ticker: subject, runRoot: root }, async () => ({
+        ticker: subject, kind: 'full', overall: 'clean', fileCount: 1, usableCount: 1,
+        physicalPool: { state: 'nonempty', fileCount: 1, nonEmptyFileCount: 1 }, entities: [], issues: [], ts: 12345,
+        frozenPool: frozen,
+      }), { stateDir })
+      clearChainedReadiness(frozenChain)
+      const reusedModule = graph.modules[0]
+      const reusedFiles = Object.values(reusedModule.layers).flat().map((agent) => `${agent.key}.md`)
+      const writeProtected = (files: string[]) => {
+        const attempt = captureOutputLineageAttempt({ runRoot: root, outputRels: files,
+          generationDigest: frozen.generationDigest, attemptId: randomUUID(), provider: profile.provider, profileKey: profile.profileKey })
+        for (const rel of files) {
+          fs.mkdirSync(path.dirname(path.join(absolute, rel)), { recursive: true })
+          fs.writeFileSync(path.join(absolute, rel), `# ${rel}\n\nProtected original work.\n`)
+        }
+        settleOutputLineageAttempt(attempt)
+      }
+      writeProtected(reusedFiles)
+      fs.writeFileSync(path.join(absolute, 'ambient.txt'), 'untrusted old marker')
+      const reviewedContinue = await thesisPlanForRequest(subject, 'research', undefined, undefined, selection,
+        { continuationRunRoot: root })
+      assert.ok(reviewedContinue.reuse.includes(reusedModule.name))
+      const hash = (rel: string) => `sha256:${createHash('sha256').update(fs.readFileSync(path.join(absolute, rel))).digest('hex')}`
+      const completed = [{ module: reusedModule.name,
+        artifacts: declarations[0].synthesisOutputs.filter((rel) => reusedFiles.includes(rel))
+          .map((outputRel) => ({ outputRel, sha256: hash(outputRel) })) }]
+      let laterSpecialists: string[] = []
+      if (shape === 'moved-original') {
+        const additional = declarations[1].synthesisOutputs.find((rel) => rel.includes('/99_'))!
+        laterSpecialists = Object.values(graph.modules[1].layers).flat().filter((agent) => !agent.isSynthesis)
+          .slice(0, 3).map((agent) => `${agent.key}.md`)
+        writeProtected([additional, ...laterSpecialists])
+        completed.push({ module: declarations[1].module, artifacts: [{ outputRel: additional, sha256: hash(additional) }] })
+      }
+      const original = await prepareRunPlanTransaction(requestId, subject, reviewedContinue, {}, stateDir)
+      const originalChain = randomUUID()
+      await original.activate()
+      await original.beginChainIntent({ chainId: originalChain, user: 'local', userVia: 'local', selection: profile,
+        modules: declarations, completed, nextModules: reviewedContinue.run.filter((name) => !completed.some((item) => item.module === name)).slice(0, 1) })
+      let deferred = await original.deferPreSpendRetry({ ...profile, reason: 'engine_restarted_before_spend',
+        recoveryRequestId: originalChain, localAttempts: 1, notBeforeMs: 0 })
+      if (shape === 'moved-original') {
+        removePrivateRunPlanTree(workspace, path.join(workspace, 'prepared-root'))
+        fs.renameSync(absolute, path.join(workspace, 'prepared-root'))
+      }
+      const inspected = await inspectDeferredPreSpendRetry(deferred, stateDir)
+      const protectedHash = createHash('sha256').update(fs.readFileSync(path.join(inspected.physicalRunRootAbs, reusedFiles[0]))).digest('hex')
+      const canonicalBefore = fs.existsSync(absolute)
+      // The old implementation always reconstructed a fresh Full, demonstrating the exact action mismatch.
+      const oldPlan = await thesisPlanForRequest(subject, 'research', reviewedContinue.reuse, undefined, selection, { freshRunRoot: root })
+      assert.notEqual(oldPlan.continuationReceipt.action, reviewedContinue.continuationReceipt.action)
+      assert.deepEqual(await revalidateDeferredPreSpendPlan(deferred), deferred.reviewedPlan)
+      assert.equal(fs.existsSync(absolute), canonicalBefore, 'private validation never activates a canonical root')
+      const retainedOutput = path.join(inspected.physicalRunRootAbs, reusedFiles[0])
+      const retainedBytes = fs.readFileSync(retainedOutput)
+      fs.appendFileSync(retainedOutput, 'changed while waiting')
+      await assert.rejects(revalidateDeferredPreSpendPlan(deferred), /reusable evidence changed/)
+      fs.writeFileSync(retainedOutput, retainedBytes)
+      if (canonicalBefore) {
+        fs.writeFileSync(path.join(absolute, 'later-work.txt'), 'later canonical work')
+        await assert.rejects(revalidateDeferredPreSpendPlan(deferred), /canonical source changed/)
+        fs.rmSync(path.join(absolute, 'later-work.txt'))
+      }
+      let dispatches = 0
+      const dispatch = () => dispatchDeferredPreSpendRetry(deferred, Date.now(), {
+        withLock: async (_key, callback) => callback(), readRecord: (id) => readDeferredPreSpendRetry(id, stateDir),
+        usage: async () => ({ ok: true, checked: true }), providerAvailable: async () => undefined,
+        revalidatePlan: revalidateDeferredPreSpendPlan, resolveProfile: () => profile,
+        rearm: (record, revalidatedPlan, resolvedProfile) => rearmDeferredPreSpendRetry({ record, revalidatedPlan, resolvedProfile }, {}, stateDir),
+        requestUser: async () => ({ user: 'local', subject }), markAdmitted: async () => undefined,
+        launch: async (params) => {
+          dispatches++
+          assert.equal(params.continuation, true)
+          assert.equal(params.runRoot, root)
+          assert.equal(params.preSpendRetryAuthority?.recoveryRequestId, originalChain)
+          assert.deepEqual(params.preparedRunPlanTransaction?.recoveredChainIntent?.completed, completed)
+          assert.equal(fs.existsSync(path.join(absolute, 'ambient.txt')), false, 'unbound original bytes cannot presence-skip')
+          for (const rel of laterSpecialists) assert.equal(fs.readFileSync(path.join(absolute, rel), 'utf8'),
+            `# ${rel}\n\nProtected original work.\n`, 'newly completed module keeps every protected specialist report')
+          throw new Error('synthetic provider did not start')
+        },
+      })
+      const originalRename = fs.renameSync
+      let interrupted = false
+      fs.renameSync = ((source: fs.PathLike, destination: fs.PathLike) => {
+        originalRename(source, destination)
+        if (!interrupted && source === path.join(absolute, reusedModule.name)
+            && String(destination).includes('.resume-backup-')) {
+          interrupted = true
+          throw new Error('synthetic interruption after module backup rename')
+        }
+      }) as typeof fs.renameSync
+      try {
+        assert.equal(await dispatch(), 'needs_attention')
+        assert.equal(interrupted, true)
+        assert.equal(dispatches, 0, 'an interrupted sanitizer cannot reach provider launch')
+      } finally { fs.renameSync = originalRename }
+      deferred = (await readDeferredPreSpendRetry(requestId, stateDir))!
+      assert.ok(deferred)
+      assert.deepEqual(await revalidateDeferredPreSpendPlan(deferred), deferred.reviewedPlan,
+        'existing module swap recovery restores proven bytes before the root becomes private')
+      const outcome = await dispatch()
+      assert.equal(outcome, 'needs_attention')
+      assert.equal(dispatches, 1)
+      deferred = (await readDeferredPreSpendRetry(requestId, stateDir))!
+      assert.ok(deferred, 'pre-spend failure retains the only private saved tree')
+      assert.equal(deferred.rearmCount, 2)
+      assert.equal(deferred.authority.recoveryRequestId, originalChain)
+      await assert.rejects(rearmDeferredPreSpendRetry({ record: { ...deferred, rearmCount: 0 },
+        revalidatedPlan: deferred.reviewedPlan, resolvedProfile: profile }, {}, stateDir), /record was altered/)
+      await recoverRunPlanTransactions(stateDir)
+      const retained = await inspectDeferredPreSpendRetry(deferred, stateDir)
+      assert.equal(createHash('sha256').update(fs.readFileSync(path.join(retained.physicalRunRootAbs, reusedFiles[0]))).digest('hex'), protectedHash)
+      if (process.platform !== 'win32') assert.equal(fs.statSync(path.join(retained.physicalRunRootAbs,
+        '_pool_extracts', '.extract-generations', frozen.generationDigest)).mode & 0o777, 0o555)
+      assert.deepEqual(await revalidateDeferredPreSpendPlan(deferred), deferred.reviewedPlan)
+    } finally {
+      clearChainedReadiness(frozenChain)
+      if (fs.existsSync(workspace)) {
+        for (const name of ['prepared-root', 'previous-root', 'unstarted-root']) removePrivateRunPlanTree(workspace, path.join(workspace, name))
+        fs.rmSync(workspace, { recursive: true, force: true })
+      }
+      if (fs.existsSync(absolute)) {
+        const cleanup = fs.mkdtempSync(path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', 'cleanup-'))
+        fs.renameSync(absolute, path.join(cleanup, 'prepared-root'))
+        removePrivateRunPlanTree(cleanup, path.join(cleanup, 'prepared-root'))
+        fs.rmSync(cleanup, { recursive: true })
+      }
+      fs.rmSync(path.join(stateDir, 'run-plan-transactions', requestId), { recursive: true, force: true })
+    }
+  }
+}
+
 try {
+  await deferredContinuationChecks()
   fs.mkdirSync(dataRoot, { recursive: true })
   fs.writeFileSync(path.join(dataRoot, 'evidence.txt'), 'original live evidence\n')
   const reviewed = await thesisPlanForRequest(ticker, 'research', [], undefined, selection)

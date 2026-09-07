@@ -4661,7 +4661,7 @@ export const useStore = create<State>((set, get) => ({
       if (!adopted.swarmId) return
       const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
       if (!reconciled) return
-      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+      if (reconciled !== adopted) set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
     }
     const selected = get().selectedTicker
     const activeSwarm = get().activeSwarm
@@ -6850,7 +6850,7 @@ export const useStore = create<State>((set, get) => ({
       if (!adopted.swarmId) return
       const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
       if (!reconciled) return
-      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+      if (reconciled !== adopted) set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
     }
     const existingSubject = scRunSubjects.get(e.runId)
     const candidateSubject = existingSubject
