@@ -110,10 +110,15 @@ def run_block(block_path, run_root):
     """Execute the extracted gate block exactly as full.md does: from the repo
     root (its `sys.path.insert(0, "scripts")` is relative), argv[1] = run root.
     A crashed or hung validator must fail the test, never count as AJ silence."""
-    proc = subprocess.run(
-        [sys.executable, block_path, run_root],
-        cwd=REPO_ROOT, capture_output=True, text=True, check=True, timeout=30,
-    )
+    try:
+        proc = subprocess.run(
+            [sys.executable, block_path, run_root],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True, timeout=30,
+        )
+    except subprocess.CalledProcessError as exc:
+        print(f"Validator exited {exc.returncode}\nstdout:\n{exc.stdout}\nstderr:\n{exc.stderr}",
+              file=sys.stderr)
+        raise
     return proc.stdout
 
 
