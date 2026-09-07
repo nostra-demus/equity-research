@@ -1535,9 +1535,11 @@ if (process.platform !== 'win32') {
     let swapped = false
     if (shape === 'swap') fs.openSync = ((candidate: fs.PathLike, ...args: any[]) => {
       if (candidate === nested && !swapped) {
-        swapped = true
+        // macOS refuses to rename an owner-readonly directory; model a same-owner substitution.
+        fs.chmodSync(nested, 0o700)
         fs.renameSync(nested, `${nested}-original`)
         fs.symlinkSync(external, nested)
+        swapped = true
       }
       return (originalOpen as any)(candidate, ...args)
     }) as typeof fs.openSync
@@ -1547,6 +1549,7 @@ if (process.platform !== 'win32') {
         assert.equal(fs.existsSync(target), false, 'sealed private generations can be discarded')
       } else {
         assert.throws(() => removePrivateRunPlanTree(tx, target))
+        if (shape === 'swap') assert.equal(swapped, true, 'exercise the actual symlink substitution')
         if (shape !== 'swap') assert.equal(fs.statSync(target).mode & 0o777, 0o555,
           'the whole tree is audited before any permission changes')
       }
