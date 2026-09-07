@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-9dcb830cc86c",
+  "idea_version": "IDEAV-7863a0061b902af7",
+  "idea_version_started_at": "2026-09-07T23:26:05Z",
+  "ticker": "HFR",
+  "company": "HFR",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The appointment of voluntary administrators indicates severe insolvency distress that usually results in total equity wipeout for common shareholders.",
+  "why_now": "The official administration filing was released on September 7, 2026, creating an immediate catalyst for equity liquidation.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-ccc5a0b850bc"
+  ],
+  "primary_source_event_id": "EVT-ccc5a0b850bc",
+  "source_headlines": [
+    "HFR: Appointment of Voluntary Administrators [price-sensitive]"
+  ],
+  "source_headline": "HFR: Appointment of Voluntary Administrators [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HFR?key=2924-03132958-6A1342708",
+  "source_name": "ASX (Australia Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-07T23:19:29Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-07T23:26:05Z",
+  "updated_at": "2026-09-07T23:26:05Z",
+  "decay_at": "2026-09-09T11:19:29Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
