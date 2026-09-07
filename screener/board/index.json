@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T19:47:08Z",
+  "generated_at": "2026-09-07T20:14:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,65 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-601",
+      "headline": "Brookfield's ₹2500 crore Bikaner renewable energy portfolio acquisition: Inox Clean Energy, Purvah Green Power lead race",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/brookfields-2500-crore-bikaner-renewable-energy-portfolio-acquisition-inox-clean-energy-purvah-green-power-lead-race/articleshow/133895562.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T19:47:09Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Brookfield is acquiring a ₹2500 crore renewable energy portfolio in Bikaner, with Inox Clean Energy and Purvah Green Power leading the race.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is acquiring a ₹2500 crore renewable energy portfolio in Bikaner, with Inox Clean Energy and Purvah Green Power leading the race.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Inox Clean Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Purvah Green Power",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,60 +1988,6 @@
           "name": "Jaguar Land Rover",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-361",
-      "headline": "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/adani-power-receives-loi-to-acquire-gvk-energys-330-mw-hydro-power-plant-19985760.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:55:05Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Adani Power received a Letter of Intent to acquire a 330 MW hydro power plant from GVK Energy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Power received a Letter of Intent to acquire a 330 MW hydro power plant from GVK Energy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Power",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "GVK Energy",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -105482,78 +105487,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ddeb10a10dec",
-      "idea_version": "IDEAV-c80451360011b6f6",
-      "idea_version_started_at": "2026-09-06T18:05:43Z",
-      "ticker": "RPGLIFE",
-      "company": "RPG Life Sciences",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating a ₹500 crore capital expenditure program for manufacturing and API expansion, significantly increasing its long-term production capacity.",
-      "why_now": "The expansion plan was formally announced on September 6, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1dfc7e5c2114"
-      ],
-      "primary_source_event_id": "EVT-1dfc7e5c2114",
-      "source_headlines": [
-        "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion"
-      ],
-      "source_headline": "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion",
-      "source_url": "https://www.thehindubusinessline.com/companies/rpg-life-sciences-to-deploy-500-cr-for-manufacturing-api-expansion/article71434557.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T07:49:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T05:34:45Z",
-      "updated_at": "2026-09-06T18:05:43Z",
-      "decay_at": "2026-09-07T19:49:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1f7551ff76b0",
       "idea_version": "IDEAV-b2b94a9b4aab7ab7",
       "idea_version_started_at": "2026-09-06T11:55:46Z",
@@ -109052,6 +108985,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ddeb10a10dec",
+      "idea_version": "IDEAV-c80451360011b6f6",
+      "idea_version_started_at": "2026-09-06T18:05:43Z",
+      "ticker": "RPGLIFE",
+      "company": "RPG Life Sciences",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is initiating a ₹500 crore capital expenditure program for manufacturing and API expansion, significantly increasing its long-term production capacity.",
+      "why_now": "The expansion plan was formally announced on September 6, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1dfc7e5c2114"
+      ],
+      "primary_source_event_id": "EVT-1dfc7e5c2114",
+      "source_headlines": [
+        "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion"
+      ],
+      "source_headline": "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion",
+      "source_url": "https://www.thehindubusinessline.com/companies/rpg-life-sciences-to-deploy-500-cr-for-manufacturing-api-expansion/article71434557.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T07:49:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T05:34:45Z",
+      "updated_at": "2026-09-06T18:05:43Z",
+      "decay_at": "2026-09-07T19:49:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-77bccc5c9aab",
       "idea_version": "IDEAV-3f5801aa7b843e1f",
       "idea_version_started_at": "2026-09-06T05:50:29Z",
@@ -110810,14 +110815,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 485,
+    "total_count": 486,
     "shown_count": 481,
-    "hidden_count": 4,
+    "hidden_count": 5,
     "side_counts": {
       "long": {
-        "total_count": 254,
+        "total_count": 255,
         "shown_count": 250,
-        "hidden_count": 4
+        "hidden_count": 5
       },
       "short": {
         "total_count": 231,
@@ -110841,6 +110846,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ddeb10a10dec",
+        "idea_version": "IDEAV-c80451360011b6f6",
+        "idea_version_started_at": "2026-09-06T18:05:43Z",
+        "ticker": "RPGLIFE",
+        "company": "RPG Life Sciences",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is initiating a ₹500 crore capital expenditure program for manufacturing and API expansion, significantly increasing its long-term production capacity.",
+        "why_now": "The expansion plan was formally announced on September 6, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1dfc7e5c2114"
+        ],
+        "primary_source_event_id": "EVT-1dfc7e5c2114",
+        "source_headlines": [
+          "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion"
+        ],
+        "source_headline": "RPG Life Sciences to deploy ₹500 cr for manufacturing, API expansion",
+        "source_url": "https://www.thehindubusinessline.com/companies/rpg-life-sciences-to-deploy-500-cr-for-manufacturing-api-expansion/article71434557.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T07:49:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T05:34:45Z",
+        "updated_at": "2026-09-06T18:05:43Z",
+        "decay_at": "2026-09-07T19:49:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T19:49:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a499ce26ab02",
         "idea_version": "IDEAV-7113bf0dae83b7ef",
@@ -145153,81 +145233,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1b994a384f0c",
-        "idea_version": "IDEAV-ba7eecc710002e47",
-        "idea_version_started_at": "2026-08-20T20:38:06Z",
-        "ticker": "000660",
-        "company": "SK Hynix",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company announced a record $28.9 billion share buyback, which significantly reduces share count and signals strong management confidence in future cash flow.",
-        "why_now": "The announcement was made on 2026-08-19 and is currently being digested by the market.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d6f45fdfdaf4"
-        ],
-        "primary_source_event_id": "EVT-d6f45fdfdaf4",
-        "source_headlines": [
-          "SK hynix unveils record $28.9 bn share buyback"
-        ],
-        "source_headline": "SK hynix unveils record $28.9 bn share buyback",
-        "source_url": "https://www.qatar-tribune.com/article/249584/business/sk-hynix-unveils-record-289-bn-share-buyback",
-        "source_name": "Qatar Tribune — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T21:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T20:38:06Z",
-        "updated_at": "2026-08-20T20:38:06Z",
-        "decay_at": "2026-08-21T09:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T21:10:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f8343593fd62",
         "idea_version": "IDEAV-4052d9406f137644",
         "idea_version_started_at": "2026-08-21T03:03:54Z",
@@ -146561,7 +146566,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 563,
-    "live_count": 76,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146580,9 +146585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 426643,
-    "news_picked_today": 1699,
-    "news_dropped_today": 17128
+    "news_seen_today": 428011,
+    "news_picked_today": 1791,
+    "news_dropped_today": 17636
   },
   "book_momentum": {
     "live_count": 8,
