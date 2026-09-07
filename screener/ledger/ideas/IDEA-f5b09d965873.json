@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-f5b09d965873",
+  "idea_version": "IDEAV-d71dfdf015505bc2",
+  "idea_version_started_at": "2026-09-07T01:06:48Z",
+  "ticker": "INA.AX",
+  "company": "Ingenia Communities",
+  "exchange": "Australian",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The company rejected a $1.4 billion takeover offer, indicating its shares are undervalued and likely to trade higher as it continues as an independent entity.",
+  "why_now": "The news of the rejected bid and subsequent share surge occurred on September 6th and 7th, 2026.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-591e2c9cf770",
+    "EVT-4d3c48efe4f6"
+  ],
+  "primary_source_event_id": "EVT-4d3c48efe4f6",
+  "source_headlines": [
+    "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
+    "ASX inches up; Ingenia jumps 16pc after bid rejection"
+  ],
+  "source_headline": "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-06/australia-s-ingenia-rejects-1-4-billion-warburg-pincus-bid",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-07T00:18:04Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-07T01:06:48Z",
+  "updated_at": "2026-09-07T01:06:48Z",
+  "decay_at": "2026-09-08T12:18:04Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
