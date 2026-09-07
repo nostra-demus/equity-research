@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T15:20:27Z",
+  "generated_at": "2026-09-07T15:45:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -543,6 +543,213 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-504",
+      "headline": "Hyundai India to invest Rs450bn, launch 26 models by 2030 – report",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/articles/hyundai-india-invest-rs450bn-launch-145423640.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:54:23Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Hyundai India plans to invest Rs450bn and launch 26 models by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai India plans to invest Rs450bn and launch 26 models by 2030.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor India Limited",
+          "ticker": "HYUNDAI",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-498",
+      "headline": "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/hapag-lloyd-plans-improvements-42-billion-bid-israels-zim-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:49:52Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Hapag-Lloyd plans to improve its $4.2 billion bid for Israel's ZIM.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hapag-Lloyd plans to improve its $4.2 billion bid for Israel's ZIM.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hapag-Lloyd",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "ZIM",
+          "ticker": null,
+          "listing_country": "IL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-505",
+      "headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:46:17Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A Brazilian judge has suspended Sigma Lithium's mine licences and operations, halting production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Brazilian judge has suspended Sigma Lithium's mine licences and operations, halting production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sigma Lithium Corporation",
+          "ticker": "SGML",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-496",
+      "headline": "DAMAC Digital, Vodafone Türkiye inaugurate Aegean region’s largest data center with $100 million investment",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/damac-digital-vodafone-turkiye-inaugurate-aegean-regions-largest-data-center-with-100-million-investment/?utm_source=rss&utm_medium=rss&utm_campaign=damac-digital-vodafone-turkiye-inaugurate-aegean-regions-largest-data-center-with-100-million-investment",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:41:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "DAMAC Digital and Vodafone Türkiye inaugurated the Aegean region's largest data center with a $100 million investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DAMAC Digital and Vodafone Türkiye inaugurated the Aegean region's largest data center with a $100 million investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DAMAC Digital",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Vodafone Türkiye",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-463",
       "headline": "Taiwan Semiconductor Manufacturing Company (TSM) Raises Guidance as Demand for Advanced Chips Soars",
       "headline_en": null,
@@ -999,6 +1206,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-508",
+      "headline": "UK's Jaguar Land Rover to cut nearly 10% of workforce under turnaround plan",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/jaguar-land-rover-cut-4000-jobs-globally-over-next-two-years-2026-09-07/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T13:10:56Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting nearly 10% of its workforce as part of a major turnaround plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting nearly 10% of its workforce as part of a major turnaround plan.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-478",
       "headline": "Automobil: Jaguar Land Rover muss sparen – 4.000 Stellen fallen weg",
       "headline_en": "Automotive: Jaguar Land Rover must save – 4,000 jobs are being cut",
@@ -1184,6 +1440,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-515",
+      "headline": "Range Rover Maker to Cut 4,000 Jobs as Trump’s Tariffs Bite",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jaguar-land-rover-plans-cut-103800013.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T12:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs due to the impact of US tariffs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs due to the impact of US tariffs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1686,310 +1991,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-391",
-      "headline": "Marco Polo Marine inks agreement for S$139 million RTO of Fuji Offset Plates Manufacturing",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/marco-polo-marine-inks-agreement-s139-million-rto-fuji-offset-plates-manufacturing",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T09:38:41Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Marco Polo Marine is acquiring Fuji Offset Plates Manufacturing for S$139 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marco Polo Marine is acquiring Fuji Offset Plates Manufacturing for S$139 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marco Polo Marine",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "Fuji Offset Plates Manufacturing",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-307",
-      "headline": "Novartis India To Acquire Pfizer's 'Minipress' Trademark For ₹1,250 Crore",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/novartis-india-to-acquire-pfizers-minipress-trademark-for-1250-crore",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T08:36:46Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Novartis India is acquiring the Minipress trademark from Pfizer for 1.25 billion INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis India is acquiring the Minipress trademark from Pfizer for 1.25 billion INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-294",
-      "headline": "UK’s biggest private hospital firm Spire agrees £1bn takeover by hedge fund",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/sep/07/uk-private-hospital-spire-healthcare-takeover-hedge-fund-toscafund-nhs",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T08:33:33Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Spire agrees £1 billion takeover by hedge fund, a confirmed M&A transaction with named deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Spire agrees £1 billion takeover by hedge fund, a confirmed M&A transaction with named deal value.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spire Healthcare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-300",
-      "headline": "Spire Healthcare takes aim at Labour's tax hikes as it exits market in £1bn takeover",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16110973/Spire-Healthcare-takes-aim-Labours-tax-hikes-exits-market-1bn-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T08:10:56Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Spire Healthcare is the subject of a £1 billion takeover bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Spire Healthcare is the subject of a £1 billion takeover bid.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spire Healthcare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-269",
-      "headline": "Spire Healthcare agrees to be taken private in £1bn takeover deal",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/spire-healthcare-england-wales-gps-b3045756.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T07:35:30Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Spire Healthcare agreed to a £1 billion takeover deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Spire Healthcare agreed to a £1 billion takeover deal.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spire Healthcare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-271",
-      "headline": "Australia's Ingenia rejects Warburg Pincus' $1.4 billion offer, sticks with Peet acquisition",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T07:12:20Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia rejected a $1.4 billion offer from Warburg Pincus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia rejected a $1.4 billion offer from Warburg Pincus.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -103325,76 +103326,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d20df5cd7aab",
-      "idea_version": "IDEAV-ab91e936f845b300",
-      "idea_version_started_at": "2026-09-06T04:20:13Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen",
-      "exchange": "OTC Markets",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has reached a restructuring agreement to slash jobs, which is expected to improve operating margins and reduce structural costs.",
-      "why_now": "The board-approved restructuring plan was announced on 2026-09-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1259bce9810e"
-      ],
-      "primary_source_event_id": "EVT-1259bce9810e",
-      "source_headlines": [
-        "VW’s surprise job-slashing deal is a big win for its bosses"
-      ],
-      "source_headline": "VW’s surprise job-slashing deal is a big win for its bosses",
-      "source_url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
-      "source_name": "Hindustan Times (Business)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-06T03:30:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T04:20:13Z",
-      "updated_at": "2026-09-06T04:20:13Z",
-      "decay_at": "2026-09-07T15:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-84ea9b6e944a",
       "idea_version": "IDEAV-0429ceca0d873c9b",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -108141,81 +108072,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-99383b893cfe",
-      "idea_version": "IDEAV-51e5699e56ff490e",
-      "idea_version_started_at": "2026-09-06T03:55:04Z",
-      "ticker": "USO",
-      "company": "United States Oil Fund LP",
-      "exchange": "NYSE Arca",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Direct military engagement involving the US Navy striking Iranian oil tankers in the Strait of Hormuz creates an immediate supply-side risk premium and disruption to global crude transit.",
-      "why_now": "The escalation reached a kinetic phase on September 6, 2026, with confirmed US strikes on tankers following threats from the Defense Secretary.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e22818ca95",
-        "EVT-a632221c2c6a",
-        "EVT-176bb6e5e1b3"
-      ],
-      "primary_source_event_id": "EVT-46e22818ca95",
-      "source_headlines": [
-        "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
-        "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
-        "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk"
-      ],
-      "source_headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
-      "source_url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
-      "source_name": "Gulf News",
-      "materiality_max": 73,
-      "newest_source_at": "2026-09-06T03:24:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:55:04Z",
-      "updated_at": "2026-09-06T03:55:04Z",
-      "decay_at": "2026-09-07T15:24:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5ba954274621",
       "idea_version": "IDEAV-8dd7b4128bc81d8f",
       "idea_version_started_at": "2026-09-07T00:24:17Z",
@@ -109195,6 +109051,76 @@
       "surfaced_at": "2026-09-04T17:37:30Z",
       "updated_at": "2026-09-05T22:50:47Z",
       "decay_at": "2026-09-06T03:50:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d20df5cd7aab",
+      "idea_version": "IDEAV-ab91e936f845b300",
+      "idea_version_started_at": "2026-09-06T04:20:13Z",
+      "ticker": "VWAGY",
+      "company": "Volkswagen",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has reached a restructuring agreement to slash jobs, which is expected to improve operating margins and reduce structural costs.",
+      "why_now": "The board-approved restructuring plan was announced on 2026-09-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1259bce9810e"
+      ],
+      "primary_source_event_id": "EVT-1259bce9810e",
+      "source_headlines": [
+        "VW’s surprise job-slashing deal is a big win for its bosses"
+      ],
+      "source_headline": "VW’s surprise job-slashing deal is a big win for its bosses",
+      "source_url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
+      "source_name": "Hindustan Times (Business)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-06T03:30:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T04:20:13Z",
+      "updated_at": "2026-09-06T04:20:13Z",
+      "decay_at": "2026-09-07T15:30:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111296,6 +111222,81 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-99383b893cfe",
+      "idea_version": "IDEAV-51e5699e56ff490e",
+      "idea_version_started_at": "2026-09-06T03:55:04Z",
+      "ticker": "USO",
+      "company": "United States Oil Fund LP",
+      "exchange": "NYSE Arca",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Direct military engagement involving the US Navy striking Iranian oil tankers in the Strait of Hormuz creates an immediate supply-side risk premium and disruption to global crude transit.",
+      "why_now": "The escalation reached a kinetic phase on September 6, 2026, with confirmed US strikes on tankers following threats from the Defense Secretary.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46e22818ca95",
+        "EVT-a632221c2c6a",
+        "EVT-176bb6e5e1b3"
+      ],
+      "primary_source_event_id": "EVT-46e22818ca95",
+      "source_headlines": [
+        "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+        "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
+        "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk"
+      ],
+      "source_headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+      "source_url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
+      "source_name": "Gulf News",
+      "materiality_max": 73,
+      "newest_source_at": "2026-09-06T03:24:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T03:55:04Z",
+      "updated_at": "2026-09-06T03:55:04Z",
+      "decay_at": "2026-09-07T15:24:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ffd3303f2ba5",
       "idea_version": "IDEAV-7ca58afb2ce1f40a",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -111451,13 +111452,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 474,
-    "shown_count": 474,
+    "total_count": 476,
+    "shown_count": 476,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 248,
-        "shown_count": 248,
+        "total_count": 250,
+        "shown_count": 250,
         "hidden_count": 0
       },
       "short": {
@@ -111482,6 +111483,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d20df5cd7aab",
+        "idea_version": "IDEAV-ab91e936f845b300",
+        "idea_version_started_at": "2026-09-06T04:20:13Z",
+        "ticker": "VWAGY",
+        "company": "Volkswagen",
+        "exchange": "OTC Markets",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has reached a restructuring agreement to slash jobs, which is expected to improve operating margins and reduce structural costs.",
+        "why_now": "The board-approved restructuring plan was announced on 2026-09-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1259bce9810e"
+        ],
+        "primary_source_event_id": "EVT-1259bce9810e",
+        "source_headlines": [
+          "VW’s surprise job-slashing deal is a big win for its bosses"
+        ],
+        "source_headline": "VW’s surprise job-slashing deal is a big win for its bosses",
+        "source_url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
+        "source_name": "Hindustan Times (Business)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-06T03:30:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T04:20:13Z",
+        "updated_at": "2026-09-06T04:20:13Z",
+        "decay_at": "2026-09-07T15:30:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T15:30:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-99383b893cfe",
+        "idea_version": "IDEAV-51e5699e56ff490e",
+        "idea_version_started_at": "2026-09-06T03:55:04Z",
+        "ticker": "USO",
+        "company": "United States Oil Fund LP",
+        "exchange": "NYSE Arca",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Direct military engagement involving the US Navy striking Iranian oil tankers in the Strait of Hormuz creates an immediate supply-side risk premium and disruption to global crude transit.",
+        "why_now": "The escalation reached a kinetic phase on September 6, 2026, with confirmed US strikes on tankers following threats from the Defense Secretary.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46e22818ca95",
+          "EVT-a632221c2c6a",
+          "EVT-176bb6e5e1b3"
+        ],
+        "primary_source_event_id": "EVT-46e22818ca95",
+        "source_headlines": [
+          "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+          "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
+          "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk"
+        ],
+        "source_headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
+        "source_url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
+        "source_name": "Gulf News",
+        "materiality_max": 73,
+        "newest_source_at": "2026-09-06T03:24:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T03:55:04Z",
+        "updated_at": "2026-09-06T03:55:04Z",
+        "decay_at": "2026-09-07T15:24:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T15:24:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f9e57ac4023c",
         "idea_version": "IDEAV-356ce18b87b89dd9",
@@ -146669,7 +146821,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 82,
+    "live_count": 80,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146688,9 +146840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 338055,
-    "news_picked_today": 1013,
-    "news_dropped_today": 14046
+    "news_seen_today": 346357,
+    "news_picked_today": 1113,
+    "news_dropped_today": 14402
   },
   "book_momentum": {
     "live_count": 8,
