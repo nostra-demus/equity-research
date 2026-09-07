@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "10d210ec-3d22-48fd-8b50-ea59c4d15106",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "d3770885-fca0-48e0-9e22-4207f0054ddf",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "management-governance"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T07:54:07.921Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "d3770885-fca0-48e0-9e22-4207f0054ddf",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T07:54:07.921Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "4ff48acc-e58a-4179-9856-1f440e6a088a",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "valuation"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T09:54:13.921Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "4ff48acc-e58a-4179-9856-1f440e6a088a",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T09:54:13.921Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "566db3ec-a52e-4059-8b32-309f4c1c3458",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "recorded",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "research",
+        "module",
+        "catalyst"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T10:46:16.454Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "566db3ec-a52e-4059-8b32-309f4c1c3458",
+      "provider": "claude",
+      "model": "opus",
+      "reasoning_level": "default",
+      "attribution": "configured",
+      "profile_key": "claude:opus:default",
+      "cli_version": "2.1.241 (Claude Code)",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-07T10:46:16.454Z"
+    }
+  ],
+  "written_at": "2026-09-07T11:05:09.587Z"
+}
