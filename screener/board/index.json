@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T22:41:12Z",
+  "generated_at": "2026-09-07T22:41:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -103981,6 +103981,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-671ed28cb051",
+      "idea_version": "IDEAV-6b8a7dd33e0fae29",
+      "idea_version_started_at": "2026-09-07T22:41:30Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Subsidiary Jaguar Land Rover is cutting 4,000 jobs amid a broader European automotive downturn, signaling severe margin pressure and weakening demand.",
+      "why_now": "The layoff announcement on September 7, 2024, confirms the severity of the operational headwinds facing the group.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-345ec94b81fa"
+      ],
+      "primary_source_event_id": "EVT-345ec94b81fa",
+      "source_headlines": [
+        "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids"
+      ],
+      "source_headline": "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids",
+      "source_url": "https://japantoday.com/category/business/jaguar-land-rover-to-cut-4-000-jobs-as-european-car-sector-hits-skids",
+      "source_name": "Japan Today",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T21:38:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T11:28:01Z",
+      "updated_at": "2026-09-07T22:41:30Z",
+      "decay_at": "2026-09-09T09:38:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3c061905fff4",
       "idea_version": "IDEAV-3bbfa9cd6e3ec8d2",
       "idea_version_started_at": "2026-09-07T21:57:29Z",
@@ -108930,78 +109003,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-671ed28cb051",
-      "idea_version": "IDEAV-d856f2497aec3371",
-      "idea_version_started_at": "2026-09-06T18:05:43Z",
-      "ticker": "TTM",
-      "company": "Tata Motors Limited",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Subsidiary Jaguar Land Rover (JLR) is cutting 4,000 UK jobs due to deteriorating sales and tariff pressures, signaling significant margin compression and structural headwinds.",
-      "why_now": "The layoff announcement on September 5, 2026, indicates an immediate pivot to cost-cutting in response to worsening trade conditions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1f7dd145f47d"
-      ],
-      "primary_source_event_id": "EVT-1f7dd145f47d",
-      "source_headlines": [
-        "Tata-owned JLR to cut 4,000 jobs in the UK amid sales and tariff pressures"
-      ],
-      "source_headline": "Tata-owned JLR to cut 4,000 jobs in the UK amid sales and tariff pressures",
-      "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/tata-owned-jlr-to-cut-4000-jobs-in-the-uk-amid-sales-and-tariff-pressures/articleshow/133797840.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:55:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T11:28:01Z",
-      "updated_at": "2026-09-06T18:05:43Z",
-      "decay_at": "2026-09-06T22:55:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ddeb10a10dec",
       "idea_version": "IDEAV-c80451360011b6f6",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -109289,79 +109290,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9033b1d67836",
-      "idea_version": "IDEAV-271d2a951da11553",
-      "idea_version_started_at": "2026-09-05T20:32:18Z",
-      "ticker": "CAMP",
-      "company": "Campbell Soup Company",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Campbell's is cutting 13% of its salaried workforce and closing plants as part of a turnaround effort, indicating significant operational challenges.",
-      "why_now": "The workforce reduction and plant closures are immediate actions in a turnaround effort.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21f6eddbc19c"
-      ],
-      "primary_source_event_id": "EVT-21f6eddbc19c",
-      "source_headlines": [
-        "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
-      ],
-      "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-      "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-      "source_name": "Fox Business — Markets",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T21:58:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T20:32:18Z",
-      "updated_at": "2026-09-05T20:32:18Z",
-      "decay_at": "2026-09-06T09:58:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f3e1a3fa9508",
       "idea_version": "IDEAV-368c514bf3f95826",
       "idea_version_started_at": "2026-09-05T20:32:18Z",
@@ -109429,78 +109357,6 @@
       "surfaced_at": "2026-09-05T20:32:18Z",
       "updated_at": "2026-09-05T20:32:18Z",
       "decay_at": "2026-09-06T22:55:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c59cbad8d027",
-      "idea_version": "IDEAV-a7c559340ad16ca3",
-      "idea_version_started_at": "2026-09-05T20:08:22Z",
-      "ticker": "CPB",
-      "company": "Campbell Soup Company",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is initiating a significant restructuring involving a 13% reduction in salaried workforce and plant closures, indicating underlying margin pressure and structural challenges.",
-      "why_now": "The restructuring plan was announced on September 4, 2026, as part of a turnaround effort that suggests near-term earnings volatility.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21f6eddbc19c"
-      ],
-      "primary_source_event_id": "EVT-21f6eddbc19c",
-      "source_headlines": [
-        "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
-      ],
-      "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-      "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-      "source_name": "Fox Business — Markets",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T21:58:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-03T18:13:00Z",
-      "updated_at": "2026-09-05T20:08:22Z",
-      "decay_at": "2026-09-06T09:58:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109870,78 +109726,6 @@
       "surfaced_at": "2026-09-05T13:02:11Z",
       "updated_at": "2026-09-05T13:02:11Z",
       "decay_at": "2026-09-06T22:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8dc0eabbd79f",
-      "idea_version": "IDEAV-006cb0d894266c7c",
-      "idea_version_started_at": "2026-09-05T04:38:24Z",
-      "ticker": "CPB",
-      "company": "Campbell Soup Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Campbell Soup is cutting 13% of salaried staff and closing plants in a structured turnaround that should lower fixed costs and improve margins if executed.",
-      "why_now": "Restructuring announced 2026-09-04 with immediate implementation timeline; cost savings are measurable and near-term.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21f6eddbc19c"
-      ],
-      "primary_source_event_id": "EVT-21f6eddbc19c",
-      "source_headlines": [
-        "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
-      ],
-      "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-      "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-      "source_name": "Fox Business — Markets",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T21:58:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T04:38:24Z",
-      "updated_at": "2026-09-05T04:38:24Z",
-      "decay_at": "2026-09-06T09:58:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111182,14 +110966,14 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 451,
+      "file_count": 454,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 493,
-    "shown_count": 485,
+    "total_count": 492,
+    "shown_count": 484,
     "hidden_count": 8,
     "side_counts": {
       "long": {
@@ -111198,8 +110982,8 @@
         "hidden_count": 8
       },
       "short": {
-        "total_count": 235,
-        "shown_count": 235,
+        "total_count": 234,
+        "shown_count": 234,
         "hidden_count": 0
       }
     },
@@ -113769,81 +113553,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-671ed28cb051",
-        "idea_version": "IDEAV-d856f2497aec3371",
-        "idea_version_started_at": "2026-09-06T18:05:43Z",
-        "ticker": "TTM",
-        "company": "Tata Motors Limited",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Subsidiary Jaguar Land Rover (JLR) is cutting 4,000 UK jobs due to deteriorating sales and tariff pressures, signaling significant margin compression and structural headwinds.",
-        "why_now": "The layoff announcement on September 5, 2026, indicates an immediate pivot to cost-cutting in response to worsening trade conditions.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1f7dd145f47d"
-        ],
-        "primary_source_event_id": "EVT-1f7dd145f47d",
-        "source_headlines": [
-          "Tata-owned JLR to cut 4,000 jobs in the UK amid sales and tariff pressures"
-        ],
-        "source_headline": "Tata-owned JLR to cut 4,000 jobs in the UK amid sales and tariff pressures",
-        "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/tata-owned-jlr-to-cut-4000-jobs-in-the-uk-amid-sales-and-tariff-pressures/articleshow/133797840.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T10:55:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T11:28:01Z",
-        "updated_at": "2026-09-06T18:05:43Z",
-        "decay_at": "2026-09-06T22:55:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T22:55:17Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f3e1a3fa9508",
         "idea_version": "IDEAV-368c514bf3f95826",
         "idea_version_started_at": "2026-09-05T20:32:18Z",
@@ -114291,8 +114000,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-06T09:58:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T22:41:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114367,8 +114076,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-06T09:58:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T22:41:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114442,8 +114151,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-06T09:58:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T22:41:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -147241,7 +146950,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 571,
-    "live_count": 76,
+    "live_count": 77,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
