@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:06:30Z",
+  "generated_at": "2026-09-07T04:11:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1374,6 +1374,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-184",
+      "headline": "RRR: Response to ASX Price and Volume Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRR?key=2924-03132551-6A1342515",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T04:03:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RRR",
+          "ticker": "RRR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-111",
       "headline": "CEO suspended over FMD vaccine pricing",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-144",
-      "headline": "삼성 평택캠퍼스 용적률 상향 추진”…반도체 배후 주거지 '브레인시티' 부상",
-      "headline_en": "Samsung pushes for higher floor area ratio at Pyeongtaek campus... Brain City emerges as semiconductor residential hub",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276304",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:16:14Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145861,9 +145861,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1132,
-    "news_picked_today": 274,
-    "news_dropped_today": 858
+    "news_seen_today": 1169,
+    "news_picked_today": 285,
+    "news_dropped_today": 884
   },
   "book_momentum": {
     "live_count": 8,
