@@ -39,9 +39,6 @@ FULL_MD = os.path.join(REPO_ROOT, ".claude", "commands", "research", "full.md")
 # date the retrospective (ddte-gated) AJ is N/A; the live gate must still apply.
 PRE_CUTOFF_DATE = "2026-06-01"
 
-AJ_SUBSTR = "Decision Audit Trail"  # the AJ violation string; absent => AJ did not fire
-
-
 def extract_step_10b1_block(md_text):
     """Return the Python body of the Step 10B.1 finish-gate heredoc from full.md —
     the `python3 - "<RUN_ROOT>" <<'PY' ... PY` block whose argv[1] is the run root."""
@@ -65,20 +62,28 @@ def extract_step_10b1_block(md_text):
 
 
 def write_fixture(root, thesis_md):
-    """A synthetic run folder with a pre-cutoff decision_date. Only the Decision
-    Audit Trail presence varies between cases; other checks may also flag — the
-    assertions isolate AJ by the presence/absence of its own violation string."""
+    """A pre-cutoff record that passes the other live checks. Only the audit
+    table varies, so a populated table must produce a real GATE: PASS."""
     os.makedirs(root, exist_ok=True)
     rec = {
         "ticker": "TEST", "decision_date": PRE_CUTOFF_DATE, "decision": "Watchlist",
+        "entry_price": 100, "confidence_score": 50, "data_sufficiency_score": 60,
         "scenarios": [
-            {"name": "bull", "probability": 30, "return_pct": 20},
-            {"name": "base", "probability": 40, "return_pct": 5},
-            {"name": "bear", "probability": 30, "return_pct": -15},
+            {"label": label, "probability": probability, "return_pct": return_pct,
+             "probability_basis": "judgment", "conditions": [condition],
+             "joint_probability_basis": None}
+            for label, probability, return_pct, condition in [
+                ("bull", 30, 20, "Operating demand grows faster than expected"),
+                ("base", 40, 5, "Operating demand grows at the current rate"),
+                ("bear", 30, -15, "Operating demand contracts"),
+            ]
         ],
         "expected_return_pct": 3.5, "downside_risk_pct": 15,
-        "kill_criteria": [{"metric": "x", "threshold": "y",
-                           "comparable_basis": "YoY same period", "fired_last_two_periods": False}],
+        "kill_criteria": [{
+            "condition": "Audited operating cash flow turns negative in the next annual filing.",
+            "comparable_basis": "Annual audited operating cash flow, same currency and accounting basis.",
+            "fired_last_two_periods": False,
+        }],
     }
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
@@ -103,12 +108,13 @@ THESIS_WITH_DAT = (
 
 def run_block(block_path, run_root):
     """Execute the extracted gate block exactly as full.md does: from the repo
-    root (its `sys.path.insert(0, "scripts")` is relative), argv[1] = run root."""
+    root (its `sys.path.insert(0, "scripts")` is relative), argv[1] = run root.
+    A crashed or hung validator must fail the test, never count as AJ silence."""
     proc = subprocess.run(
         [sys.executable, block_path, run_root],
-        cwd=REPO_ROOT, capture_output=True, text=True,
+        cwd=REPO_ROOT, capture_output=True, text=True, check=True, timeout=30,
     )
-    return (proc.stdout or "") + (proc.stderr or "")
+    return proc.stdout
 
 
 def main():
@@ -132,35 +138,43 @@ def main():
         with open(block_path, "w", encoding="utf-8") as f:
             f.write(block)
 
-        # Case 1 — pre-cutoff folder, NO Decision Audit Trail: the live gate MUST flag it.
-        run_a = os.path.join(tmp, "runA")
-        write_fixture(run_a, THESIS_NO_DAT)
-        out_a = run_block(block_path, run_a)
-        if AJ_SUBSTR in out_a and "GATE: PROVISIONAL" in out_a:
-            print("  [ok] pre-cutoff folder, missing Decision Audit Trail -> AJ flags PROVISIONAL")
-        else:
-            bad += 1
-            print("  [XX] pre-cutoff folder, missing Decision Audit Trail -> AJ did NOT fire "
-                  "(expected PROVISIONAL naming the Decision Audit Trail). Got:\n" + out_a)
-
-        # Case 2 — pre-cutoff folder, POPULATED Decision Audit Trail: AJ must NOT fire
-        # (other checks may still flag; we assert only the AJ string is absent).
-        run_b = os.path.join(tmp, "runB")
-        write_fixture(run_b, THESIS_WITH_DAT)
-        out_b = run_block(block_path, run_b)
-        if AJ_SUBSTR not in out_b:
-            print("  [ok] pre-cutoff folder, populated Decision Audit Trail -> AJ does not fire")
-        else:
-            bad += 1
-            print("  [XX] pre-cutoff folder, populated Decision Audit Trail -> AJ fired unexpectedly. Got:\n" + out_b)
+        cases = [
+            ("missing table", THESIS_NO_DAT, "PROVISIONAL", [
+                "'## Decision Audit Trail' section not found",
+            ]),
+            ("populated table", THESIS_WITH_DAT, "PASS", []),
+            ("italic placeholders", THESIS_WITH_DAT.replace("equity funded", "_N/A_")
+             .replace("no near-term break", "_-_"), "PROVISIONAL", [
+                 "blank 'Bear Evidence' cell", "blank 'Why?' cell",
+             ]),
+            ("malformed header", THESIS_WITH_DAT.replace("| Bear Evidence |", "| Other details |"),
+             "PROVISIONAL", ["Decision Audit Trail header column 3"]),
+            ("thin table", THESIS_WITH_DAT.replace(
+                "| Solvency | net cash | equity funded | Bull | no near-term break |\n", ""),
+             "PROVISIONAL", ["only 2 Decision Audit Trail row(s)"]),
+        ]
+        for index, (name, thesis, verdict, diagnostics) in enumerate(cases):
+            run_root = os.path.join(tmp, f"case{index}", f"TEST_{PRE_CUTOFF_DATE}")
+            write_fixture(run_root, thesis)
+            output = run_block(block_path, run_root)
+            gates = [line for line in output.splitlines() if line.startswith("GATE:")]
+            # The PASS summary also names Decision Audit Trail. Check the actual
+            # verdict and the specific failure diagnostics, not a generic substring.
+            if (len(gates) == 1 and gates[0].startswith(f"GATE: {verdict} — ")
+                    and all(message in gates[0] for message in diagnostics)):
+                print(f"  [ok] pre-cutoff folder, {name} -> {verdict}")
+            else:
+                bad += 1
+                print(f"  [XX] pre-cutoff folder, {name}: expected {verdict} "
+                      f"with {diagnostics!r}. Got:\n{output}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
     if bad:
         print(f"LIVE-GATE AJ SELFTEST FAIL ({bad} case(s))")
         sys.exit(1)
-    print("LIVE-GATE AJ SELFTEST PASS — Step 10B.1 gates AJ on _live_date; missing/placeholder "
-          "Decision Audit Trail -> PROVISIONAL, populated -> pass, even on a pre-AJ_DATE rerun folder")
+    print("LIVE-GATE AJ SELFTEST PASS — missing, placeholder, malformed, and thin audit tables "
+          "produce PROVISIONAL; a populated table produces PASS on a pre-AJ_DATE rerun folder")
 
 
 if __name__ == "__main__":
