@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-759cf3b531e6",
+  "idea_version": "IDEAV-4ade98d402d9122a",
+  "idea_version_started_at": "2026-09-07T03:45:17Z",
+  "ticker": "AMZN",
+  "company": "Amazon",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
+  "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-89191f47ab8e"
+  ],
+  "primary_source_event_id": "EVT-89191f47ab8e",
+  "source_headlines": [
+    "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
+  ],
+  "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
+  "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
+  "source_name": "Free Press Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-07T02:23:27Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/AMZN_2026-07-20",
+    "latest_decision": null,
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-09-07T03:45:17Z",
+  "updated_at": "2026-09-07T03:45:17Z",
+  "decay_at": "2026-09-08T14:23:27Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

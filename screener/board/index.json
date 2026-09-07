@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T03:44:57Z",
+  "generated_at": "2026-09-07T03:45:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -102515,6 +102515,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-759cf3b531e6",
+      "idea_version": "IDEAV-4ade98d402d9122a",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
+      "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-89191f47ab8e"
+      ],
+      "primary_source_event_id": "EVT-89191f47ab8e",
+      "source_headlines": [
+        "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
+      ],
+      "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
+      "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:23:27Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:23:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f5b09d965873",
       "idea_version": "IDEAV-d71dfdf015505bc2",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -103704,6 +103774,78 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e28ce99f344d",
+      "idea_version": "IDEAV-b6b25379f08032a3",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ING",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
+      "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ab7cb9e8649"
+      ],
+      "primary_source_event_id": "EVT-5ab7cb9e8649",
+      "source_headlines": [
+        "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
+      ],
+      "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
+      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:01:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:01:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -105220,6 +105362,78 @@
       "surfaced_at": "2026-09-06T08:57:19Z",
       "updated_at": "2026-09-06T08:57:19Z",
       "decay_at": "2026-09-07T20:44:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-9363c87dbbf9fb45",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
+      "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c87ff9d466f3"
+      ],
+      "primary_source_event_id": "EVT-c87ff9d466f3",
+      "source_headlines": [
+        "Austal confirms counterbid talks for its US arm by mystery Florida firm"
+      ],
+      "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
+      "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T02:25:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:25:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -145622,8 +145836,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 540,
-    "live_count": 70,
+    "surfaced_total": 543,
+    "live_count": 73,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
