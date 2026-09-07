@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T06:08:00Z",
+  "generated_at": "2026-09-07T06:28:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1919,37 +1919,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-225",
-      "headline": "Macquarie emerges with stakes in four registries after $4b Victoria deal",
+      "inbox_id": "INB-20260907-227",
+      "headline": "Stellantis reportedly in talks with Huawei and JAC over Maserati partnership",
       "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/macquarie-emerges-with-stakes-in-four-registries-after-4b-victoria-deal-20260907-p60v49?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://technode.com/2026/09/07/stellantis-huawei-jac-maserati-partnership/",
+      "source_name": "TechNode",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T05:18:29Z",
+      "found_at": "2026-09-07T05:56:07Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Macquarie has acquired stakes in four registries following a $4 billion deal in Victoria.",
+      "prelim_note": "Stellantis is reportedly in talks with Huawei and JAC for a potential Maserati partnership.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Macquarie has acquired stakes in four registries following a $4 billion deal in Victoria.",
-      "region": "OTHER",
+      "triage_reason": "Stellantis is reportedly in talks with Huawei and JAC for a potential Maserati partnership.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "mna"
@@ -1957,12 +1957,17 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Macquarie Group",
+          "name": "Stellantis",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "NL"
+        },
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146430,9 +146435,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15698,
-    "news_picked_today": 400,
-    "news_dropped_today": 5299
+    "news_seen_today": 22370,
+    "news_picked_today": 405,
+    "news_dropped_today": 6086
   },
   "book_momentum": {
     "live_count": 8,
