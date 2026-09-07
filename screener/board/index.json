@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:08:18Z",
+  "generated_at": "2026-09-07T00:14:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-020",
@@ -40,6 +40,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-022",
+      "headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03132451-2A1695628",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T00:06:05Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Manuka Resources announced a capital raise of A$14.5 million to fund the completion of its silver circuit, a significant operational milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Manuka Resources announced a capital raise of A$14.5 million to fund the completion of its silver circuit, a significant operational milestone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manuka Resources",
+          "ticker": "MKR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -388,6 +437,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-023",
+      "headline": "Bathla administrators scramble for cash as 200 staff stood down",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/residential/bathla-administrators-scramble-for-cash-as-200-staff-stood-down-20260907-p60v0r?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:11:08Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Bathla Group has entered administration and laid off 200 staff, indicating a significant corporate failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Bathla Group has entered administration and laid off 200 staff, indicating a significant corporate failure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-016",
       "headline": "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL",
       "headline_en": null,
@@ -643,6 +742,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-021",
+      "headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T00:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "CStone Pharma has been included in the Southbound Stock Connect, increasing liquidity and access for mainland Chinese investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "CStone Pharma has been included in the Southbound Stock Connect, increasing liquidity and access for mainland Chinese investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CStone Pharmaceuticals",
+          "ticker": "02616",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-014",
       "headline": "Oil prices hold near $97 as US-Iran conflict and Hormuz disruptions keep geopolitical premium high",
       "headline_en": null,
@@ -667,6 +815,49 @@
         "event": 0,
         "size": 0,
         "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-028",
+      "headline": "Asian Stocks Open Higher, Oil Rises After Attacks: Markets Wrap",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-06/stock-market-today-dow-s-p-live-updates",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T22:15:34Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Geopolitical military attacks are driving market volatility and oil price increases.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Geopolitical military attacks are driving market volatility and oil price increases.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
@@ -730,6 +921,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-024",
+      "headline": "롯데카드 베트남 법인, 현지 진출 금융사 최초 '종합금융 회사' 승인",
+      "headline_en": "Lotte Card's Vietnam subsidiary becomes the first local financial company to be approved as a 'comprehensive financial company'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276273",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:01:16Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Lotte Card's Vietnam subsidiary received approval as a comprehensive financial company, a first for a Korean firm in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Lotte Card's Vietnam subsidiary received approval as a comprehensive financial company, a first for a Korean firm in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lotte Card",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -833,6 +1073,152 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-026",
+      "headline": "넥센타이어, 현대차 8세대 아반떼에 신차용 타이어 공급",
+      "headline_en": "Nexen Tire to supply original equipment tires for Hyundai Motor's 8th generation Avante",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276264",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:26:14Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Nexen Tire secured a contract to supply original equipment tires for the Hyundai Avante 8th generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Nexen Tire secured a contract to supply original equipment tires for the Hyundai Avante 8th generation.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nexen Tire",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-025",
+      "headline": "강남 재건축 상징 은마아파트...한미글로벌, 건설사업관리 선정",
+      "headline_en": "Gangnam reconstruction symbol Eunma Apartment... HanmiGlobal selected for construction management",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276271",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:56:25Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "HanmiGlobal was selected for construction management of the Eunma Apartment reconstruction project, a major urban development contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "HanmiGlobal was selected for construction management of the Eunma Apartment reconstruction project, a major urban development contract.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HanmiGlobal",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-027",
+      "headline": "China's crude oil imports stayed weak in August. Can this continue?",
+      "headline_en": null,
+      "url": "https://www.reuters.com/commentary/reuters-open-interest/chinas-crude-oil-imports-stayed-weak-august-can-this-continue-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:01:28Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Weak crude oil imports in China signal potential demand-side weakness in the world's second-largest economy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Weak crude oil imports in China signal potential demand-side weakness in the world's second-largest economy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-013",
       "headline": "Standard Chartered ‘doubling down’ on China wealth opportunities despite tax pivot",
       "headline_en": null,
@@ -907,6 +1293,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-029",
+      "headline": "China Expands Patrols Off Taiwan's Pacific Coast, Raising Maritime Tensions",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-06/china-piles-pressure-on-taiwan-with-fresh-patrols-off-east-coast",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Increased maritime patrols and tensions near Taiwan represent a significant geopolitical escalation risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Increased maritime patrols and tensions near Taiwan represent a significant geopolitical escalation risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -143063,7 +143492,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2106,
+    "inbox_unconsumed": 2115,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -143072,9 +143501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 75,
-    "news_picked_today": 20,
-    "news_dropped_today": 55
+    "news_seen_today": 105,
+    "news_picked_today": 29,
+    "news_dropped_today": 76
   },
   "book_momentum": {
     "live_count": 8,
