@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T13:47:35Z",
+  "generated_at": "2026-09-07T13:57:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-401",
+      "headline": "Marathon Nextgen Realty Limited: Marathon Nextgen Realty Limited has informed the Exchange regarding Proceedings of Court Convened General Meeting of Unsecured Creditors held on September 07, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARATHON_07092026185147_PROCEEDING.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T13:21:57Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Court-convened general meeting of unsecured creditors signals formal debt restructuring or insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court-convened general meeting of unsecured creditors signals formal debt restructuring or insolvency proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marathon Nextgen Realty Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-393",
       "headline": "GET NICE (00064): JOINT ANNOUNCEMENT - MONTHLY UPDATE IN RELATION TO (1) PROPOSED PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
@@ -1942,49 +1991,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-020",
-      "headline": "Former Sydney banker caught up in $833m hedge fund collapse",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/former-sydney-banker-caught-up-in-833m-hedge-fund-collapse-20260904-p60ue5?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:01:38Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A hedge fund collapse involving $833 million represents a significant financial loss and potential systemic risk for involved counterparties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A hedge fund collapse involving $833 million represents a significant financial loss and potential systemic risk for involved counterparties.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -146536,9 +146542,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 297589,
-    "news_picked_today": 824,
-    "news_dropped_today": 12579
+    "news_seen_today": 302832,
+    "news_picked_today": 834,
+    "news_dropped_today": 12785
   },
   "book_momentum": {
     "live_count": 8,
