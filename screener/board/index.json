@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T05:17:02Z",
+  "generated_at": "2026-09-07T05:58:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -1326,6 +1326,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-217",
+      "headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T05:13:15Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HFCL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-162",
       "headline": "C7A: $1.95m Sale Agreement for Kildanga Ni-Co project [price-sensitive]",
       "headline_en": null,
@@ -1870,100 +1919,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-194",
-      "headline": "Spacetech startup Pixxel raises $100 million led by Temasek, Seraphim",
+      "inbox_id": "INB-20260907-225",
+      "headline": "Macquarie emerges with stakes in four registries after $4b Victoria deal",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/science/google-backed-indian-space-startup-raises-100-million-in-latest-funding-round/article71437308.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.afr.com/companies/financial-services/macquarie-emerges-with-stakes-in-four-registries-after-4b-victoria-deal-20260907-p60v49?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:20:46Z",
+      "found_at": "2026-09-07T05:18:29Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
+      "prelim_note": "Macquarie has acquired stakes in four registries following a $4 billion deal in Victoria.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pixxel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-111",
-      "headline": "CEO suspended over FMD vaccine pricing",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/ceo-suspended-over-fmd-vaccine-pricing/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:00:33Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
+      "triage_reason": "Macquarie has acquired stakes in four registries following a $4 billion deal in Victoria.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 65,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
-        "management",
-        "executive_exit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Onderstepoort Biological Products",
+          "name": "Macquarie Group",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -103370,76 +103369,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52d5d226425f",
-      "idea_version": "IDEAV-6eec8179783540c8",
-      "idea_version_started_at": "2026-09-06T19:20:01Z",
-      "ticker": "ATI",
-      "company": "ATI Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
-      "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8005218c37b"
-      ],
-      "primary_source_event_id": "EVT-f8005218c37b",
-      "source_headlines": [
-        "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
-      ],
-      "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T17:54:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T18:21:47Z",
-      "updated_at": "2026-09-06T19:20:01Z",
-      "decay_at": "2026-09-07T05:54:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d20df5cd7aab",
       "idea_version": "IDEAV-ab91e936f845b300",
       "idea_version_started_at": "2026-09-06T04:20:13Z",
@@ -108606,6 +108535,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-52d5d226425f",
+      "idea_version": "IDEAV-6eec8179783540c8",
+      "idea_version_started_at": "2026-09-06T19:20:01Z",
+      "ticker": "ATI",
+      "company": "ATI Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
+      "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8005218c37b"
+      ],
+      "primary_source_event_id": "EVT-f8005218c37b",
+      "source_headlines": [
+        "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+      ],
+      "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T17:54:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T18:21:47Z",
+      "updated_at": "2026-09-06T19:20:01Z",
+      "decay_at": "2026-09-07T05:54:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-495f024fede1",
       "idea_version": "IDEAV-d4a48f5cbb8ea34a",
       "idea_version_started_at": "2026-09-05T22:50:47Z",
@@ -111282,13 +111281,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 467,
-    "shown_count": 467,
+    "total_count": 468,
+    "shown_count": 468,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 242,
-        "shown_count": 242,
+        "total_count": 243,
+        "shown_count": 243,
         "hidden_count": 0
       },
       "short": {
@@ -111313,6 +111312,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52d5d226425f",
+        "idea_version": "IDEAV-6eec8179783540c8",
+        "idea_version_started_at": "2026-09-06T19:20:01Z",
+        "ticker": "ATI",
+        "company": "ATI Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
+        "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f8005218c37b"
+        ],
+        "primary_source_event_id": "EVT-f8005218c37b",
+        "source_headlines": [
+          "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+        ],
+        "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T17:54:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T18:21:47Z",
+        "updated_at": "2026-09-06T19:20:01Z",
+        "decay_at": "2026-09-07T05:54:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T05:54:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be2010792483",
         "idea_version": "IDEAV-de0b1021b593e033",
@@ -145982,7 +146054,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 548,
-    "live_count": 79,
+    "live_count": 78,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146001,9 +146073,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2651,
-    "news_picked_today": 371,
-    "news_dropped_today": 2280
+    "news_seen_today": 11979,
+    "news_picked_today": 384,
+    "news_dropped_today": 4115
   },
   "book_momentum": {
     "live_count": 8,
