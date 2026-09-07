@@ -52,6 +52,29 @@ async function reloadReady(page: Page): Promise<void> {
 
 test.describe.configure({ mode: 'serial' })
 
+test('an Access login redirect is sign-in expiry, not an engine outage', async ({ page, request }) => {
+  await reset(request, 'claude')
+  await page.goto('/e2e/lifecycle.html?provider=claude')
+  await expect(page.getByTestId('lifecycle-harness')).toHaveAttribute('data-ready', 'yes')
+  let loginRequests = 0
+  // A different origin with no CORS grant reproduces the browser's real Access redirect failure.
+  await page.route('http://127.0.0.1:8899/access-login', async (route) => {
+    loginRequests++
+    await route.fulfill({ contentType: 'text/html', body: '<h1>Sign in</h1>' })
+  })
+  await page.route('**/api/health', (route) => route.fulfill({
+    status: 302, headers: { location: 'http://127.0.0.1:8899/access-login' },
+  }))
+  const health = await page.evaluate(async () => {
+    const { useStore } = await import('/src/lib/store.ts')
+    await useStore.getState()._tickHealth()
+    return useStore.getState().health
+  })
+  expect(health).toBe('session-expired')
+  expect(loginRequests).toBe(0) // The health probe must not follow Access into a cross-origin CORS error.
+  expect((await state(request)).spawnCount).toBe(0)
+})
+
 for (const provider of ['claude', 'codex'] as const) {
   test(`${provider} has the same exact-root queued interruption and continuation lifecycle`, async ({ page, request }) => {
     await reset(request, provider)

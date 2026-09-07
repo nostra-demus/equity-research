@@ -4554,7 +4554,9 @@ export const useStore = create<State>((set, get) => ({
     let deploymentPending = false
     let deploymentLag: DeploymentLag | null = null
     try {
-      const r = await performanceFetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
+      // Access redirects an expired session to another origin. Following that redirect makes the
+      // browser throw a CORS error before we can identify sign-in expiry; manual keeps it observable.
+      const r = await performanceFetch('/api/health', { cache: 'no-store', redirect: 'manual', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
       if (r.headers.get('x-engine-status') === 'offline' || r.status >= 520) {
         outcome = 'engine' // the edge Worker / Cloudflare says the origin is down
@@ -4578,7 +4580,7 @@ export const useStore = create<State>((set, get) => ({
             reason: deployment.reason,
           }
         }
-      } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
+      } else if (r.type === 'opaqueredirect' || r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
         outcome = 'engine'
