@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T16:59:38Z",
+  "generated_at": "2026-09-07T17:07:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-549",
+      "headline": "Taiwan's Wistron raises $1.5 billion in global share sale to fund raw material purchases",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/taiwans-wistron-raises-1-5-billion-in-global-share-sale-to-fund-raw-material-purchases/articleshow/133889813.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T16:45:21Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Wistron raised $1.5 billion in a share sale to fund operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wistron raised $1.5 billion in a share sale to fund operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wistron",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-371",
-      "headline": "Grindr To Settle UK Lawsuit Over Alleged Sharing Of Users' HIV Status, Will Pay ₹294 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/grindr-to-settle-uk-lawsuit-over-alleged-sharing-of-users-hiv-status-will-pay-294-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:07:42Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Grindr will pay ₹294 crore to settle a UK lawsuit regarding data privacy violations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grindr will pay ₹294 crore to settle a UK lawsuit regarding data privacy violations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grindr",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107635,79 +107635,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aaed0a1c84fe",
-      "idea_version": "IDEAV-9e5a19a904e69bf3",
-      "idea_version_started_at": "2026-09-06T05:34:45Z",
-      "ticker": "QAN",
-      "company": "Qantas Airways",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
-      "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-406bd580d8cb"
-      ],
-      "primary_source_event_id": "EVT-406bd580d8cb",
-      "source_headlines": [
-        "Flames burst from Qantas plane engine after New Zealand takeoff"
-      ],
-      "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
-      "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-06T05:02:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T05:34:45Z",
-      "updated_at": "2026-09-06T05:34:45Z",
-      "decay_at": "2026-09-07T17:02:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b287a5dccf6f",
       "idea_version": "IDEAV-3ed9c7bd15e1c551",
       "idea_version_started_at": "2026-09-07T01:32:16Z",
@@ -110437,6 +110364,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-aaed0a1c84fe",
+      "idea_version": "IDEAV-9e5a19a904e69bf3",
+      "idea_version_started_at": "2026-09-06T05:34:45Z",
+      "ticker": "QAN",
+      "company": "Qantas Airways",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
+      "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-406bd580d8cb"
+      ],
+      "primary_source_event_id": "EVT-406bd580d8cb",
+      "source_headlines": [
+        "Flames burst from Qantas plane engine after New Zealand takeoff"
+      ],
+      "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
+      "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-06T05:02:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T05:34:45Z",
+      "updated_at": "2026-09-06T05:34:45Z",
+      "decay_at": "2026-09-07T17:02:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-99383b893cfe",
       "idea_version": "IDEAV-51e5699e56ff490e",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -110667,8 +110667,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 478,
-    "shown_count": 478,
+    "total_count": 479,
+    "shown_count": 479,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -110677,8 +110677,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 228,
-        "shown_count": 228,
+        "total_count": 229,
+        "shown_count": 229,
         "hidden_count": 0
       }
     },
@@ -110698,6 +110698,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aaed0a1c84fe",
+        "idea_version": "IDEAV-9e5a19a904e69bf3",
+        "idea_version_started_at": "2026-09-06T05:34:45Z",
+        "ticker": "QAN",
+        "company": "Qantas Airways",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
+        "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-406bd580d8cb"
+        ],
+        "primary_source_event_id": "EVT-406bd580d8cb",
+        "source_headlines": [
+          "Flames burst from Qantas plane engine after New Zealand takeoff"
+        ],
+        "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
+        "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
+        "source_name": "Al Jazeera — All news",
+        "materiality_max": 85,
+        "newest_source_at": "2026-09-06T05:02:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T05:34:45Z",
+        "updated_at": "2026-09-06T05:34:45Z",
+        "decay_at": "2026-09-07T17:02:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T17:02:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1e4418649180",
         "idea_version": "IDEAV-dec86f5bf9ababfe",
@@ -146184,7 +146260,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 78,
+    "live_count": 77,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146203,9 +146279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 366648,
-    "news_picked_today": 1340,
-    "news_dropped_today": 15327
+    "news_seen_today": 372170,
+    "news_picked_today": 1350,
+    "news_dropped_today": 15389
   },
   "book_momentum": {
     "live_count": 8,
