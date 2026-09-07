@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.4",
+  "ticker": "NVT",
+  "as_of": "2026-09-07",
+  "currency": "USD",
+  "business_type": "Operating",
+  "basis": "equity",
+  "shares": 164.2,
+  "net_debt": 1236.4,
+  "net_debt_basis": "strict",
+  "current_price": 171.16,
+  "price_as_of": "2026-08-12",
+  "price_state": "pool-verified",
+  "indicative_price": 156.03,
+  "indicative_price_as_of": "2026-09-04",
+  "indicative_price_note": "Web-sourced, corroborated by two independent sources, unverified - NOT the anchor. Pool anchor is stale by ~17-19 trading days (-8.84% drift). 01_price-and-capital-structure.md SS1 and SS7.",
+  "is_developed_mega_cap": true,
+  "scenarios": [
+    {
+      "label": "bull",
+      "level": 198.88,
+      "forward_metric": 6.63,
+      "metric_basis": "NTM",
+      "multiple": 30.0,
+      "multiple_basis": "NTM P/E on adjusted diluted EPS",
+      "multiple_kind": "applied",
+      "basis": "equity",
+      "source": "07_scenario-and-fair-value.md SS3 scenario table and SS3A block D",
+      "drivers": "NTM revenue $6,519.6m (data-centre revenue +20%, +$400m on the guided >$2.0bn base) x adjusted return on sales 22.5% (30% incremental conversion); backlog back above $2.6bn and organic orders out of 'low double digits' at the 2026-10-30 Q3 print; implied GAAP EBITDA margin 23.5%. Multiple is roughly the anchor-date traded level (29.66x), below the observed six-quarter high of 38.16x."
+    },
+    {
+      "label": "base",
+      "level": 128.24,
+      "forward_metric": 5.77,
+      "metric_basis": "NTM",
+      "multiple": 22.23,
+      "multiple_basis": "NTM P/E on consensus adjusted diluted EPS",
+      "multiple_kind": "implied",
+      "basis": "equity",
+      "secondary_multiples": [
+        {
+          "value": 16.39,
+          "basis": "EV/NTM EBITDA (NTM EBITDA $1,359.8m)",
+          "note": "cross-check only; current 21.39x, own-history NTM band 12.40-27.23x"
+        }
+      ],
+      "source": "07_scenario-and-fair-value.md SS2D weighted point and SS3 scenario table",
+      "drivers": "Weighted blend of the value-producing methods (03 peers 67% x $141.37 + 04 DCF 22% x $76.30 + 06 SOTP 11% x $152.16 = $128.24); the 22.23x multiple is DERIVED from that point, not assumed, and sits essentially at the current peer median of 22.06x. Requires consensus to deliver (FY2026 revenue at the +37-39% guided midpoint, adjusted EPS $5.00-5.10; FY2027 consensus $6,368.6m) while the +2.44-turn growth premium is competed away. Implied GAAP EBITDA margin 22.2%, at the LTM level."
+    },
+    {
+      "label": "bear_cyclical",
+      "level": 77.23,
+      "forward_metric": 4.29,
+      "metric_basis": "NTM",
+      "multiple": 18.0,
+      "multiple_basis": "NTM P/E on adjusted diluted EPS",
+      "multiple_kind": "applied",
+      "basis": "equity",
+      "source": "07_scenario-and-fair-value.md SS3 scenario table and SS3A block D",
+      "drivers": "12-month cyclical trough (the HEADLINE bear). NTM revenue $5,719.6m (data-centre revenue -20%, -$400m) x adjusted return on sales 17.0%; backlog keeps falling through the 2026-10-30 and Feb-2027 prints while three committed Minnesota plants enlarge the fixed base, reversing the fixed-overhead absorption that was 109% of the Q2 FY26 margin gain. Implied GAAP EBITDA margin 18.14%, 0.94pp above the documented FY2022 trough of 17.2%. Multiple compressed toward, not to, the observed six-quarter minimum of 14.87x."
+    },
+    {
+      "label": "bear_structural",
+      "level": 69.92,
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md SS3 and SS3A block F; 04_intrinsic-dcf.md SS5 runoff terminal",
+      "drivers": "24-36 month permanent-impairment path, carried as the CLAUDE.md SS24 avoid-ruin floor, NOT the 12-month bear. Liquid-cooling architecture or the 800-volt DC rack standard settles against nVent's product set and the growth vertical becomes a share loss rather than a cycle. Impaired-DCF enterprise value, not a multiple.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 12716.8,
+        "net_debt": 1236.4,
+        "net_debt_basis": "strict (CLAUDE.md SS15; 01_price-and-capital-structure.md canonical, total debt 1,492.4 filing debt-note basis less cash 256.0)",
+        "minority": 0.0,
+        "other": 0.0,
+        "shares": 164.2,
+        "source": "04_intrinsic-dcf.md SS5 executed runoff snippet ('EV 12716.8 ; equity 11480.4 ; $69.92/sh'); bridged in 07_scenario-and-fair-value.md SS3A block F",
+        "stated_drivers": [
+          {
+            "label": "terminal EBITDA margin (non-recovering)",
+            "value": 0.175,
+            "note": "the company's own FY2022 trough level (17.2%); impaired-DCF input - its per-year mapping to EV is not tabulated by the orb"
+          },
+          {
+            "label": "terminal nominal growth",
+            "value": 0.0,
+            "note": "approximately -2.3% real, i.e. permanent real shrinkage; impaired-DCF input - mapping to EV not tabulated"
+          },
+          {
+            "label": "terminal value as % of EV",
+            "value": 0.411,
+            "note": "recorded by 04 SS5; display-only provenance"
+          }
+        ]
+      }
+    }
+  ],
+  "methods": {
+    "own_history": null,
+    "peers": 141.37,
+    "dcf": 76.3,
+    "sotp": 152.16
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.67,
+    "dcf": 0.22,
+    "sotp": 0.11
+  },
+  "method_basis": {
+    "own_history": null,
+    "peers": "NTM",
+    "dcf": "FY+1",
+    "sotp": "FY+1"
+  },
+  "method_notes": "own_history is null and zero-weighted because 02_multiples-own-history.md SS4 declares its own output 'ILLUSTRATIVE ONLY - NOT A FAIR-VALUE INPUT FOR 07' (six quarterly closes, ~1.5 years). peers = warranted forward P/E 24.5x x NTM EPS $5.77. dcf = 04's forward FCFF model, valuation date 30-Jun-2026, explicit H2-2026 stub through FY2035 then terminal - forward basis throughout, NOT trailing. sotp = FY2026E segment income x forward comparable multiples (06 cleared the forward-basis hard rule; a trailing build was explicitly refused). No method carries base-point weight on a trailing period. Multiples-first policy holds: peers 0.67 majority, dcf+sotp combined exactly 0.33 at the <=1/3 cross-check cap, so no method_weight_exception is required.",
+  "method_weight_exception": null,
+  "discount_rate": {
+    "rf": 0.0479,
+    "erp": 0.0423,
+    "beta": 1.36,
+    "cost_of_equity": 0.105428,
+    "wacc": 0.102152,
+    "after_tax_kd": 0.04134
+  },
+  "dcf_grid": {
+    "wacc": [0.0922, 0.1022, 0.1122],
+    "growth": [0.025, 0.03, 0.035],
+    "values": [
+      [87.66, 76.11, 67.17],
+      [88.39, 76.3, 67.07],
+      [89.21, 76.48, 66.94]
+    ],
+    "base": {
+      "wacc": 0.1022,
+      "growth": 0.03
+    },
+    "source": "04_intrinsic-dcf.md SS7 required WACC x terminal-growth sensitivity grid (terminal ROIC held at 10.22%, terminal EBITDA margin 20.0%)"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Systems Protection",
+      "metric_name": "FY2026E reportable segment income (EBIT-type, before the corporate pool)",
+      "metric": 888.9,
+      "multiple": 26.0,
+      "comp": "Vertiv Holdings Co (NYSE:VRT) at 32.6x forward EV / FY2026E adjusted operating profit; 26.0x is a ~20% discount pricing the ~third of the segment that is not data centres",
+      "source": "06_sum-of-the-parts.md SS2 and SS3"
+    },
+    {
+      "segment": "Electrical Connections",
+      "metric_name": "FY2026E reportable segment income (EBIT-type, before the corporate pool)",
+      "metric": 388.2,
+      "multiple": 17.0,
+      "comp": "Hubbell Incorporated (NYSE:HUBB) at 18.6x forward EV / FY2026E adjusted operating profit; ~9% discount for margin trajectory, not level",
+      "source": "06_sum-of-the-parts.md SS2 and SS3"
+    },
+    {
+      "segment": "Enterprise and other (unallocated corporate cost pool)",
+      "metric_name": "FY2026E corporate cost, capitalized at the blended segment multiple",
+      "metric": -150.0,
+      "multiple": 23.26,
+      "comp": null,
+      "source": "06_sum-of-the-parts.md SS4 equity bridge - capitalized, never dropped (Reconciliation Gate 3)"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": 1236.4,
+    "minority": 0.0,
+    "other": 0.0,
+    "source": "06_sum-of-the-parts.md SS4; net debt strict CLAUDE.md SS15 basis, 01_price-and-capital-structure.md canonical figure (total debt 1,492.4 less cash 256.0). No conglomerate/holdco discount applied."
+  },
+  "peers_internals": {
+    "metric_name": "NTM P/E applied to consensus NTM EPS of $5.77",
+    "median_multiple": 22.06,
+    "applied_multiple": 24.5,
+    "discount_pct": -11.1,
+    "anchors": [
+      {
+        "multiple": 24.5,
+        "value": 141.37,
+        "label": "warranted forward P/E - the base case (peer median +2.44 turns: an evidenced ~5-turn growth premium halved because the growth does not earn its cost of capital)"
+      },
+      {
+        "multiple": 22.06,
+        "value": 127.29,
+        "label": "seven-peer median forward P/E, unadjusted"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md SS5A dispersion table and SS5B base case; peer multiples web-sourced 2026-09-07, unverified (no comps export in the pool)"
+  },
+  "caps_applied": {
+    "stale_pool_verified_price": "valuation confidence max 60 (anchor 2026-08-12, ~17-19 trading days, -8.84% drift)",
+    "no_peer_data": "overall usefulness max 70",
+    "cross_method_field_over_40pct": "valuation confidence max 55 (field $76.30-$152.16 = 99.4% of the low)",
+    "sector_cycle_compounding": "valuation confidence max 55 (RF-VAL-001 fired in BOTH 02 and 03, same direction)",
+    "most_restrictive_confidence_cap": 55,
+    "published_valuation_confidence": 45,
+    "rf_own_004_unaligned_owner": "NOT triggered - no attractiveness cap from ownership"
+  },
+  "declared_limitations": "All levels, the EV bridge, the DCF, the reverse-DCF and every consensus mark are PRE-MAVERICK-POWER: the $1.75bn cash acquisition plus up to $550m earnout (~$700m target 2026 revenue, close expected Q4 2026, cash-and-new-debt funded) was announced 2026-08-24, after the price anchor (2026-08-12), the consensus set (to 2026-08-07) and the 30-Jun-2026 balance sheet. The FY2025 10-K is absent from the pool. No peer-multiple data exists in the pool. Own-history multiple window is ~1.5 years."
+}
