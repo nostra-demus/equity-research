@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:14:11Z",
+  "generated_at": "2026-09-07T00:19:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-020",
@@ -693,6 +693,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-030",
+      "headline": "EV DYNAMICS (00476): DISCLOSEABLE TRANSACTION IN RELATION TO DISPOSAL OF PROPERTY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700063.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T00:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is disposing of property, which is a discloseable transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "The company is disposing of property, which is a discloseable transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EV Dynamics",
+          "ticker": "00476",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-001",
       "headline": "HBM HOLDINGS-B (02142): VOLUNTARY ANNOUNCEMENT - INCLUSION OF THE SHARES OF THE COMPANY IN THE HONG KONG STOCK CONNECT",
       "headline_en": null,
@@ -970,6 +1019,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-031",
+      "headline": "CCR: Notification of buy-back - CCR",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CCR?key=2924-03132454-3A701188",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T00:09:45Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company announced a share buy-back program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "The company announced a share buy-back program.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCR",
+          "ticker": "CCR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1263,6 +1361,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-032",
+      "headline": "Iran war live: Tehran to announce new Hormuz shipping route in coming days",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/7/iran-war-live-tehran-to-announce-new-hormuz-shipping-route-in-coming-days?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-07T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -143492,7 +143633,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2115,
+    "inbox_unconsumed": 2118,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -143501,9 +143642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 105,
-    "news_picked_today": 29,
-    "news_dropped_today": 76
+    "news_seen_today": 117,
+    "news_picked_today": 32,
+    "news_dropped_today": 85
   },
   "book_momentum": {
     "live_count": 8,
