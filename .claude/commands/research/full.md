@@ -418,7 +418,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation plus red-flag severity reconciliation (checks AI/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -681,6 +681,7 @@ _aq_spec = {
 viol.extend(rc.eval_aq_forensic_mosaic_cap(dec, ddte, _aq_synth, _aq_spec) or [])
 # checks AI/AK — Headline Scorecard reconciliation + red-flag severity reconciliation (live
 # pre-publish; mirrors eval.py checks AI/AK via scripts/headline_checks.py, the shared detection
+# module — AJ, the Decision Audit Trail structural check, is wired in right below this block
 # module — same pattern as rating_caps.py above). Until this block existed, these two checks
 # existed ONLY as post-hoc eval.py checks nobody was required to run before commit, and both
 # defect classes have already shipped to `main` clean: TMCV_2026-06-07/final_thesis.md's Headline
@@ -704,6 +705,22 @@ for _sp in glob.glob(os.path.join(run, "*", "99_*-synthesis.md")):
     except Exception: pass
 viol.extend(hc.eval_ai_headline_reconciliation(ddte, d, _thesis_text_ak) or [])
 viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak, _module_texts_ak) or [])
+# check AJ — Decision Audit Trail structural check (live pre-publish; mirrors eval.py check AJ via
+# scripts/headline_checks.py, the same shared module as AI/AK above, reusing the already-loaded
+# `_thesis_text_ak`). CLAUDE.md §8/§22 require the Part II "Decision Audit Trail" table — the
+# per-decision-driver bull/bear adjudication, "which side wins and why" — but until now that was
+# enforced only by synthesizer.md prompt instruction (Step 5), with NO mechanical check that a run
+# actually ships it present and populated. A synthesizer could regress to an empty or token table
+# (the exact "summarize, don't adjudicate" failure §22 warns against) and nothing before this would
+# catch it. AJ existed in eval.py since 2026-07-10 but, like AM/AR before this same fix, was never
+# moved into an importable module, so the live gate could never call it — a thesis could ship with
+# no Decision Audit Trail section (or one with blank adjudication cells), print `GATE: PASS`, and
+# commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual `/research:eval`
+# run. Moving it into headline_checks.py (see that module) closes that hole the same way it was
+# already closed for AI/AK. Uses `ddte`, matching how AI/AK are gated on this same line above (not
+# `_live_date`) — AJ_DATE, like AI_DATE/AK_DATE, predates every run old enough for a rerun-on-stale-
+# decision_date edge case to matter in practice.
+viol.extend(hc.eval_aj_decision_audit_trail(ddte, _thesis_text_ak) or [])
 # AP valuation-summary lever-sidecar integrity (pre-publish; SAME pure core as eval.py check AP, via
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that
@@ -844,7 +861,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
 PY
 ```
 

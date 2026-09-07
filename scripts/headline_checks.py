@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Headline-integrity detectors — Headline Scorecard reconciliation (check AI, CLAUDE.md
-§10/§21) and red-flag severity reconciliation (check AK, CLAUDE.md §13/§18).
+§10/§21), the Decision Audit Trail structural check (check AJ, CLAUDE.md §8/§22), and
+red-flag severity reconciliation (check AK, CLAUDE.md §13/§18).
 
-Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks AI
-and AK) so the SAME detection functions can run in TWO places instead of one, mirroring
+Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks AI,
+AJ, and AK) so the SAME detection functions can run in TWO places instead of one, mirroring
 exactly why `scripts/rating_caps.py` exists (see that module's docstring):
 
 1. **Retrospective** — `scripts/eval.py` imports these to grade already-committed runs
-   (checks AI/AK), as it always has.
+   (checks AI/AJ/AK), as it always has.
 2. **Live, pre-publish** — `/research:full` Step 10B.1 (the deterministic finish-gate that
    also runs on every `/research:rerun`, per fix F-RRGATE) imports these to check a thesis
    BEFORE it ships, stamping `final_thesis.md` PROVISIONAL on a violation instead of letting
@@ -16,7 +17,9 @@ exactly why `scripts/rating_caps.py` exists (see that module's docstring):
 Before this module existed, checks AI and AK were the two checks that had NOT received the
 same live-gate treatment already given to the §24 rejector-filter caps (checks AC/AD/AE/AF,
 `rating_caps.py`) — they existed only as post-hoc `eval.py` checks nobody was required to run
-before commit. Both defect classes have already shipped to `main` clean:
+before commit. Check AJ joined this module later, for the identical reason (it too existed only
+as a post-hoc `eval.py` check, so the live gate could never call it). All three defect classes
+have already shipped to `main` clean, or were caught only by luck of timing:
 
 - **AI** (Headline Scorecard prose drifting from `decision_record.json`'s own numbers):
   `TMCV_2026-06-07/final_thesis.md` shipped "Expected return | +4.3%" while its own
@@ -25,6 +28,12 @@ before commit. Both defect classes have already shipped to `main` clean:
   `ERRATUM` banner (DECISION_LEDGER.md §4a). The live finish-gate's own scenario-math block
   (10B.1) re-derives `decision_record.json`'s INTERNAL math consistency, but never opened
   `final_thesis.md` to check the PROSE the reader actually sees still matches it.
+- **AJ** (the Part II "Decision Audit Trail" table — CLAUDE.md §8/§22's per-driver bull/bear
+  adjudication, "which side wins and why" — actually present and populated, not merely
+  instructed by synthesizer.md prompt text): until this check existed anywhere, a synthesizer
+  could regress to an empty or token table and nothing would catch it — the exact
+  "summarize, don't adjudicate" failure §22 warns against. See the AJ section below for the
+  full rationale.
 - **AK** (a module's declared Critical red flag silently failing to reach
   `decision_record.json`'s `red_flags` array, or the Headline Scorecard's "Rating cap" cell
   denying one exists): `AMZN_2026-07-10/final_thesis.md` ships with its own earnings module
@@ -511,6 +520,120 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
                                                f"the size scripts/confidence.py derives for "
                                                f"decision={jdec2!r} + conviction={cv} ({_want.get(_k)!r}) — the "
                                                f"reader is shown an unsupported position size")
+    return det
+
+
+# ── Check AJ (Decision Audit Trail structural check, CLAUDE.md §8/§22) ──
+# The Part II "Decision Audit Trail" table is the auditable adjudication core of the verdict — for each
+# decision driver, which side won and why — but until now it was enforced only by synthesizer.md prompt
+# instruction (Step 5, "Contradiction audit") with NO mechanical check that a run actually ships it
+# populated. A synthesizer could regress to an empty or token table (the exact "summarize, don't
+# adjudicate" failure §22 warns against) and nothing before this would catch it — the same class of
+# silent-doctrine-violation defect check AI closed for the Headline Scorecard, and the improvement that
+# check AI's own landing PR named as the next-highest-leverage gap.
+#
+# Moved here (not copied) from `scripts/eval.py`, mirroring exactly why `eval_ai_headline_reconciliation`
+# and `eval_ak_red_flag_severity_reconciliation` already live in this module: `eval.py` was the only
+# caller, so the live `/research:full` Step 10B.1 finish-gate could never call it — a run could ship a
+# `final_thesis.md` with no Decision Audit Trail table (or one with blank adjudication cells), print
+# `GATE: PASS`, and commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual
+# `/research:eval` run. Wiring it into the live gate closes that hole the same way it was already closed
+# for AI/AK.
+AJ_DATE = "2026-07-10"
+AJ_MIN_ROWS = 3
+AJ_REQUIRED_COLS = ["Decision Driver", "Bull Evidence", "Bear Evidence", "Which Side Wins?", "Why?"]
+def _decision_audit_section(thesis):
+    """The text of the '## Decision Audit Trail' section ONLY — from its heading up to the next '## '
+    heading (or EOF), mirroring `_scorecard_section`'s scoping so a table living in a LATER section
+    cannot satisfy this check. None if absent.
+
+    When the dossier uses the PART structure (synthesizer.md emits the audit trail under
+    '# PART II — CROSS-CUTTING ANALYSIS'), the search is FIRST restricted to the Part II slice, so a
+    later appendix/process section carrying its own '## Decision Audit Trail' heading cannot satisfy
+    the check while Part II omits the table (r3556238203). Falls back to the whole document only when
+    no Part II heading exists (degenerate/non-PART dossiers)."""
+    p2 = re.search(r"(?ims)^#\s+PART\s+II\b.*?(?=^#\s+PART\b|\Z)", thesis)
+    scope_text = p2.group(0) if p2 else thesis
+    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##\s|\Z)", scope_text)
+    return m.group(0) if m else None
+def _decision_audit_header(section):
+    """The HEADER cells of the Decision Audit Trail pipe-table (the first non-separator pipe row), or []
+    if the section holds no table. Split out so check AJ can verify the table actually carries the
+    required bull/bear adjudication COLUMNS, not merely five columns of any shape (r3556238195)."""
+    if not section: return []
+    for line in section.splitlines():
+        s=line.strip()
+        if not s.startswith("|"): continue
+        if re.match(r"^\|[\s:|-]+\|$", s): continue  # separator row
+        return [c.strip() for c in s.strip("|").split("|")]
+    return []
+def _decision_audit_rows(section):
+    """The DATA rows of the Decision Audit Trail pipe-table (header and separator rows excluded), or []
+    if the section holds no table. Side-effect-free + module-level so `selftest` can drive it directly."""
+    if not section: return []
+    rows=[]; header_seen=False
+    for line in section.splitlines():
+        s=line.strip()
+        if not s.startswith("|"):
+            if header_seen: break  # table ended
+            continue
+        if re.match(r"^\|[\s:|-]+\|$", s):
+            continue  # the header/body separator row
+        cells=[c.strip() for c in s.strip("|").split("|")]
+        if not header_seen:
+            header_seen=True  # this pipe row IS the header — skip it, start collecting after
+            continue
+        rows.append(cells)
+    return rows
+def _audit_cell_blank(cell):
+    """A cell counts as blank if it's empty after stripping markdown emphasis, or is a bare placeholder
+    token rather than real adjudication content. Placeholders include any WHOLE-cell run of dash
+    characters — ASCII '-'/'--'/'---' and the Unicode figure/en/em dashes and horizontal bar
+    (—, –, ―) the synthesizer commonly types (r3556238198) — plus 'n/a', 'tbd', 'none', '?'. Matching
+    a whole-cell dash run (not a substring) keeps real content like '~11–12%' or '₹1,184M–586M' from
+    being misread as blank.
+
+    Markdown emphasis is stripped with BOTH markers (`*` bold/italic AND `_` italic, r3942853467): a
+    synthesizer that italicises a placeholder as `_N/A_` or `_-_` must still be caught as blank, exactly
+    as `**-**` / `*n/a*` already were — otherwise an underscore-italicised placeholder slips through the
+    §8/§22 adjudication gate. Stripping `_` never turns real content blank: after removal the cell only
+    counts as blank when it is empty, a whole-cell dash run, or one of the fixed placeholder tokens, so a
+    word like `_growth_` (→ `growth`) or an identifier like `net_debt/EBITDA` survives unflagged."""
+    c = re.sub(r"[*_]+", "", cell or "").strip()
+    if re.fullmatch(r"[-‒–—―]+", c):
+        return True  # a cell that is ONLY dash characters is a placeholder
+    return (not c) or c.lower() in {"n/a", "na", "tbd", "none", "?"}
+def eval_aj_decision_audit_trail(decision_date, thesis):
+    """Core of check AJ. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
+    `thesis` is the full final_thesis.md text. Side-effect-free + module-level so `eval.py selftest` can
+    drive it with synthetic table snippets, fixture-free."""
+    if not (isdate(decision_date) and decision_date >= AJ_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    section = _decision_audit_section(thesis)
+    if section is None:
+        return ["'## Decision Audit Trail' section not found in final_thesis.md"]
+    rows = _decision_audit_rows(section)
+    if not rows:
+        return ["'## Decision Audit Trail' table has no data rows"]
+    det=[]
+    # Validate the table HEADER carries the required bull/bear adjudication columns, in order, before
+    # trusting the positional per-cell checks below (r3556238195). A five-column table whose header
+    # omits or reorders 'Bear Evidence' would otherwise pass the positional checks with the wrong fields.
+    hdr=[re.sub(r"\*+","",h).strip().lower() for h in _decision_audit_header(section)]
+    for j, label in enumerate(AJ_REQUIRED_COLS):
+        if j >= len(hdr) or label.lower() not in hdr[j]:
+            got = hdr[j] if j < len(hdr) else "<missing>"
+            det.append(f"Decision Audit Trail header column {j+1} is {got!r} — expected {label!r} "
+                       f"(required columns, in order: {', '.join(AJ_REQUIRED_COLS)})")
+    if len(rows) < AJ_MIN_ROWS:
+        det.append(f"only {len(rows)} Decision Audit Trail row(s) — fewer than the {AJ_MIN_ROWS} required for a real cross-module adjudication")
+    for i, cells in enumerate(rows, 1):
+        if len(cells) < len(AJ_REQUIRED_COLS):
+            det.append(f"row {i} has only {len(cells)} column(s), fewer than the {len(AJ_REQUIRED_COLS)} required ({', '.join(AJ_REQUIRED_COLS)})")
+            continue
+        for j, label in enumerate(AJ_REQUIRED_COLS):
+            if _audit_cell_blank(cells[j]):
+                det.append(f"row {i} ({cells[0]!r}) has a blank {label!r} cell")
     return det
 
 
