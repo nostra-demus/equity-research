@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T10:22:57Z",
+  "generated_at": "2026-09-07T10:31:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-306",
@@ -346,6 +346,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-307",
+      "headline": "Novartis India To Acquire Pfizer's 'Minipress' Trademark For ₹1,250 Crore",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/novartis-india-to-acquire-pfizers-minipress-trademark-for-1250-crore",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T08:36:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Novartis India is acquiring the Minipress trademark from Pfizer for 1.25 billion INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis India is acquiring the Minipress trademark from Pfizer for 1.25 billion INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Pfizer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-294",
       "headline": "UK’s biggest private hospital firm Spire agrees £1bn takeover by hedge fund",
       "headline_en": null,
@@ -436,60 +490,6 @@
           "name": "Spire Healthcare",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-267",
-      "headline": "Novartis India to acquire Pfizer's ‘Minipress’ trademark for ₹1,250 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/novartis-india-to-acquire-pfizers-minipress-trademark-for-1250-crore/article71437778.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T07:45:32Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Novartis India is acquiring a trademark for 1,250 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis India is acquiring a trademark for 1,250 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -146646,9 +146646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 174554,
-    "news_picked_today": 522,
-    "news_dropped_today": 8609
+    "news_seen_today": 177987,
+    "news_picked_today": 524,
+    "news_dropped_today": 8943
   },
   "book_momentum": {
     "live_count": 8,
