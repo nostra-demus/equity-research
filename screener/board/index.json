@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T05:17:02Z",
+  "generated_at": "2026-09-07T07:05:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -989,6 +989,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-228",
+      "headline": "PVR INOX Limited: The Exchange has sought clarification from PVR INOX Limited with respect to recent news item captioned PVR Inox shares fall 8% amid internal probe into alleged Rs 200-crore kickbacks. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=PVRINOX&seq=106772426",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T06:21:40Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is facing an internal probe into alleged kickbacks of Rs 200 crore, raising significant governance and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company is facing an internal probe into alleged kickbacks of Rs 200 crore, raising significant governance and operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR INOX Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-022",
       "headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
       "headline_en": null,
@@ -1277,6 +1327,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-261",
+      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has intimated the Exchange regarding the Eleventh (11th) Committee of Creditors meeting to be held on Wednesday, September 09, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_07092026121318_SKIL_Letter_Intimation_11th_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T06:43:29Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is in a Committee of Creditors meeting, indicating ongoing insolvency or debt restructuring proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company is in a Committee of Creditors meeting, indicating ongoing insolvency or debt restructuring proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-179",
       "headline": "AEON STORES (00984): VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE NEW LEASE",
       "headline_en": null,
@@ -1326,6 +1425,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-217",
+      "headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T05:13:15Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HFCL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-162",
       "headline": "C7A: $1.95m Sale Agreement for Kildanga Ni-Co project [price-sensitive]",
       "headline_en": null,
@@ -1370,6 +1518,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-234",
+      "headline": "‎Al Rasheed secures GAC clearance to acquire 50% stake in Taif Shipping",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934586",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T09:27:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Al Rasheed received clearance to acquire a 50% stake in Taif Shipping.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Al Rasheed received clearance to acquire a 50% stake in Taif Shipping.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taif Shipping",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1527,6 +1724,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-230",
+      "headline": "Tembo Global Industries Limited: Tembo Global Industries Limited has informed the Exchange regarding a press release dated September 07, 2026, titled \"Tembo Global Industries Signs MoU with Belgium s Lachaussee SA to Establish Advanced Ammunition Production Line in India\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TEMBO_07092026114658_PressRelease07092026_Sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T06:17:25Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Tembo Global Industries signed an MoU to establish an ammunition production line in India, representing a significant strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Tembo Global Industries signed an MoU to establish an ammunition production line in India, representing a significant strategic expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tembo Global Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-004",
       "headline": "PAC: Strategic Review Update [price-sensitive]",
       "headline_en": null,
@@ -1625,6 +1871,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-236",
+      "headline": "NAG: Response to ASX Price Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NAG?key=2924-03132604-3A701211",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T06:02:31Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is responding to an ASX price query, which often precedes material disclosure or clarifies market speculation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company is responding to an ASX price query, which often precedes material disclosure or clarifies market speculation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NAG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-110",
       "headline": "SLD: CEO Transition [price-sensitive]",
       "headline_en": null,
@@ -1666,301 +1961,6 @@
           "name": "SLD",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-033",
-      "headline": "EIQ: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:16:45Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Trading halt indicates pending price-sensitive information, likely a capital raise or M&A.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading halt indicates pending price-sensitive information, likely a capital raise or M&A.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enegex",
-          "ticker": "EIQ",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-008",
-      "headline": "EIQ: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132441-2A1695642",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T23:54:50Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Trading halt pending a material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Trading halt pending a material announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIQ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-009",
-      "headline": "NGY: Tanjung Enim PSC designated as a National Strategic Project",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NGY?key=2924-03132440-6A1342477",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T23:54:45Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Project designation as a National Strategic Project provides regulatory and operational support.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Project designation as a National Strategic Project provides regulatory and operational support.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NGY",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-184",
-      "headline": "RRR: Response to ASX Price and Volume Query [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRR?key=2924-03132551-6A1342515",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T04:03:51Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RRR",
-          "ticker": "RRR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-194",
-      "headline": "Spacetech startup Pixxel raises $100 million led by Temasek, Seraphim",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/science/google-backed-indian-space-startup-raises-100-million-in-latest-funding-round/article71437308.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:20:46Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pixxel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-111",
-      "headline": "CEO suspended over FMD vaccine pricing",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/ceo-suspended-over-fmd-vaccine-pricing/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:00:33Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The suspension of a CEO due to pricing controversies represents a significant management and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Onderstepoort Biological Products",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -102526,6 +102526,146 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-f5b09d965873",
+      "idea_version": "IDEAV-970c88d5ffedf5aa",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "INA.AX",
+      "company": "Ingenia",
+      "exchange": "Australian",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has rejected a $2.9 billion takeover bid from a private equity firm, suggesting management believes the company is worth more than the offer, which could lead to a higher bid or independent value realization.",
+      "why_now": "The bid has been made and rejected, creating immediate M&A speculation and potential for a revised offer.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dbd51705dd6c"
+      ],
+      "primary_source_event_id": "EVT-dbd51705dd6c",
+      "source_headlines": [
+        "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus"
+      ],
+      "source_headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
+      "source_url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:45:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T15:45:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f8811cd4e8f2",
+      "idea_version": "IDEAV-d5e245c9bae889eb",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "TTD",
+      "company": "The Trade Desk",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The adtech company is laying off 15% of its global workforce, signaling potential headwinds in its business operations and revenue growth.",
+      "why_now": "The layoffs are a current event indicating immediate operational adjustments.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813629d1c263"
+      ],
+      "primary_source_event_id": "EVT-813629d1c263",
+      "source_headlines": [
+        "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected"
+      ],
+      "source_headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
+      "source_url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:53:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T16:53:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-759cf3b531e6",
       "idea_version": "IDEAV-4ade98d402d9122a",
       "idea_version_started_at": "2026-09-07T03:45:17Z",
@@ -102590,77 +102730,6 @@
       "surfaced_at": "2026-09-07T03:45:17Z",
       "updated_at": "2026-09-07T03:45:17Z",
       "decay_at": "2026-09-08T14:23:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f5b09d965873",
-      "idea_version": "IDEAV-d71dfdf015505bc2",
-      "idea_version_started_at": "2026-09-07T01:06:48Z",
-      "ticker": "INA.AX",
-      "company": "Ingenia Communities",
-      "exchange": "Australian",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company rejected a $1.4 billion takeover offer, indicating its shares are undervalued and likely to trade higher as it continues as an independent entity.",
-      "why_now": "The news of the rejected bid and subsequent share surge occurred on September 6th and 7th, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-591e2c9cf770",
-        "EVT-4d3c48efe4f6"
-      ],
-      "primary_source_event_id": "EVT-4d3c48efe4f6",
-      "source_headlines": [
-        "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
-        "ASX inches up; Ingenia jumps 16pc after bid rejection"
-      ],
-      "source_headline": "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-06/australia-s-ingenia-rejects-1-4-billion-warburg-pincus-bid",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T00:18:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:06:48Z",
-      "updated_at": "2026-09-07T01:06:48Z",
-      "decay_at": "2026-09-08T12:18:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -103230,6 +103299,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7f632fc10e45",
+      "idea_version": "IDEAV-81d0e989a85aab37",
+      "idea_version_started_at": "2026-09-07T06:29:09Z",
+      "ticker": "HFCL.NS",
+      "company": "HFCL",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company's order book for FY26 has surged 113% to Rs 21,206 crore, indicating strong commercial growth.",
+      "why_now": "The surge in the order book was reported today, providing a clear catalyst for a potential stock price increase.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11c7570d57f7"
+      ],
+      "primary_source_event_id": "EVT-11c7570d57f7",
+      "source_headlines": [
+        "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore"
+      ],
+      "source_headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-07T05:13:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T06:29:09Z",
+      "updated_at": "2026-09-07T06:29:09Z",
+      "decay_at": "2026-09-08T17:13:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8e3889fc0c2a",
       "idea_version": "IDEAV-cbe9aace503d2bc0",
       "idea_version_started_at": "2026-09-06T21:14:05Z",
@@ -103370,76 +103509,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52d5d226425f",
-      "idea_version": "IDEAV-6eec8179783540c8",
-      "idea_version_started_at": "2026-09-06T19:20:01Z",
-      "ticker": "ATI",
-      "company": "ATI Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
-      "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f8005218c37b"
-      ],
-      "primary_source_event_id": "EVT-f8005218c37b",
-      "source_headlines": [
-        "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
-      ],
-      "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T17:54:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T18:21:47Z",
-      "updated_at": "2026-09-06T19:20:01Z",
-      "decay_at": "2026-09-07T05:54:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d20df5cd7aab",
       "idea_version": "IDEAV-ab91e936f845b300",
       "idea_version_started_at": "2026-09-06T04:20:13Z",
@@ -103504,6 +103573,77 @@
       "surfaced_at": "2026-09-06T04:20:13Z",
       "updated_at": "2026-09-06T04:20:13Z",
       "decay_at": "2026-09-07T15:30:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-84ea9b6e944a",
+      "idea_version": "IDEAV-0429ceca0d873c9b",
+      "idea_version_started_at": "2026-09-07T06:29:09Z",
+      "ticker": "PVRINOX.NS",
+      "company": "PVR Inox",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Shares fell due to an alleged Rs 200 crore kickback investigation and the exit of a senior executive.",
+      "why_now": "The investigation and executive exit were reported today, causing an immediate share price drop.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-91a6b422e0f3"
+      ],
+      "primary_source_event_id": "EVT-91a6b422e0f3",
+      "source_headlines": [
+        "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light"
+      ],
+      "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:56:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T06:29:09Z",
+      "updated_at": "2026-09-07T06:29:09Z",
+      "decay_at": "2026-09-08T16:56:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -103785,6 +103925,222 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7d9e4fcfb73c",
+      "idea_version": "IDEAV-a46e11b59dc622b4",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "2376.TW",
+      "company": "Foxconn",
+      "exchange": "TWSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has guided that its third quarter will outperform market expectations due to strength in AI-related business, indicating better-than-anticipated revenue and profitability.",
+      "why_now": "This is a forward-looking guidance change for the current quarter.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-704ffd6cf4b1"
+      ],
+      "primary_source_event_id": "EVT-704ffd6cf4b1",
+      "source_headlines": [
+        "Foxconn says third quarter to outperform market expectations on AI strength"
+      ],
+      "source_headline": "Foxconn says third quarter to outperform market expectations on AI strength",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/foxconn-says-third-quarter-outperform-market-expectations-ai-strength",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:09:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T16:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e5a0e1444d94",
+      "idea_version": "IDEAV-85dbb1bef1230e5d",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "JAGLF",
+      "company": "Jaguar Land Rover",
+      "exchange": "OTC",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The UK government has ruled out a bailout, and the company is planning significant job cuts amid rising costs, indicating severe financial distress and operational challenges.",
+      "why_now": "The government's decision and planned layoffs are immediate negative catalysts.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-31b202d35008"
+      ],
+      "primary_source_event_id": "EVT-31b202d35008",
+      "source_headlines": [
+        "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs"
+      ],
+      "source_headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+      "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:17:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T16:17:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ec5483650c1c",
+      "idea_version": "IDEAV-49e03f73bda22986",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "000020.KS",
+      "company": "Hyundai Steel",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is making a substantial capital investment of $5.8 billion in Louisiana, signaling significant expansion and future revenue potential.",
+      "why_now": "The investment amount is specific and represents a new capital expenditure plan.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d7f1f0062de"
+      ],
+      "primary_source_event_id": "EVT-3d7f1f0062de",
+      "source_headlines": [
+        "Hyundai Steel to Invest $5.8 Billion in Louisiana"
+      ],
+      "source_headline": "Hyundai Steel to Invest $5.8 Billion in Louisiana",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276279",
+      "source_name": "Business Korea — All English Articles",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:55:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T15:55:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -105802,6 +106158,78 @@
       "surfaced_at": "2026-09-06T08:57:19Z",
       "updated_at": "2026-09-06T08:57:19Z",
       "decay_at": "2026-09-07T20:44:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-513ec330d65a",
+      "idea_version": "IDEAV-9ebe5fda6444d094",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "ICICI.NS",
+      "company": "ICICI Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "LIC, a state-owned insurer, has received regulatory approval to acquire a significant stake, indicating strong institutional support and potential for future growth.",
+      "why_now": "RBI has granted approval for LIC to acquire the stake, making the news current.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4a7b093ba9f"
+      ],
+      "primary_source_event_id": "EVT-a4a7b093ba9f",
+      "source_headlines": [
+        "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender"
+      ],
+      "source_headline": "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/icici-bank-shares-in-focus-as-lic-gets-rbi-nod-to-acquire-9-99-stake-in-private-lender/articleshow/133861811.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T03:32:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T15:32:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -108606,6 +109034,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-52d5d226425f",
+      "idea_version": "IDEAV-6eec8179783540c8",
+      "idea_version_started_at": "2026-09-06T19:20:01Z",
+      "ticker": "ATI",
+      "company": "ATI Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
+      "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f8005218c37b"
+      ],
+      "primary_source_event_id": "EVT-f8005218c37b",
+      "source_headlines": [
+        "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+      ],
+      "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T17:54:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T18:21:47Z",
+      "updated_at": "2026-09-06T19:20:01Z",
+      "decay_at": "2026-09-07T05:54:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-495f024fede1",
       "idea_version": "IDEAV-d4a48f5cbb8ea34a",
       "idea_version_started_at": "2026-09-05T22:50:47Z",
@@ -110985,78 +111483,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7c7191296ccd",
-      "idea_version": "IDEAV-88caf68c80d25cef",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "TATA",
-      "company": "Tata Motors",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has received regulatory approval from Italy for its Iveco takeover offer, which is a positive step towards consolidating its position in the commercial vehicle market.",
-      "why_now": "The Italian market regulator's nod is a recent development clearing a key hurdle for the takeover.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d41ae3169d3"
-      ],
-      "primary_source_event_id": "EVT-7d41ae3169d3",
-      "source_headlines": [
-        "Tata Motors gets Italy market regulator nod for Iveco takeover offer"
-      ],
-      "source_headline": "Tata Motors gets Italy market regulator nod for Iveco takeover offer",
-      "source_url": "https://www.thehindubusinessline.com/markets/tata-motors-gets-italy-market-regulator-nod-for-iveco-takeover-offer/article71427156.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T06:19:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T18:19:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9a1422482f25",
       "idea_version": "IDEAV-c566f34d88458f14",
       "idea_version_started_at": "2026-09-04T09:24:12Z",
@@ -111123,79 +111549,6 @@
       "surfaced_at": "2026-09-04T09:24:12Z",
       "updated_at": "2026-09-04T09:24:12Z",
       "decay_at": "2026-09-05T19:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b1c789441879",
-      "idea_version": "IDEAV-44564504cc74c3f4",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "TATACEM",
-      "company": "Tata Chemicals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Kenyan President has reportedly asked Tata Chemicals to cease operations, citing concerns about the company not benefiting the country, which poses a significant regulatory and operational risk.",
-      "why_now": "There are direct reports from multiple news sources detailing the Kenyan President's order for the company to stop operations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-906b6430ae0d",
-        "EVT-f16081a578a0"
-      ],
-      "primary_source_event_id": "EVT-906b6430ae0d",
-      "source_headlines": [
-        "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
-        "Kenya Orders Tata Chemicals To Stop Operations After President Ruto Accuses Company Of Failing To Benefit Country"
-      ],
-      "source_headline": "Tata Chemicals shares fall after reports suggest Kenya President asks for ceasing operations",
-      "source_url": "https://www.cnbctv18.com/market/tata-chemicals-share-price-reports-suggest-kenya-president-asks-for-ceasing-operations-19983829.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T06:21:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T18:21:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111276,19 +111629,19 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 426,
+      "file_count": 428,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 467,
-    "shown_count": 467,
+    "total_count": 468,
+    "shown_count": 468,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 242,
-        "shown_count": 242,
+        "total_count": 243,
+        "shown_count": 243,
         "hidden_count": 0
       },
       "short": {
@@ -111313,6 +111666,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52d5d226425f",
+        "idea_version": "IDEAV-6eec8179783540c8",
+        "idea_version_started_at": "2026-09-06T19:20:01Z",
+        "ticker": "ATI",
+        "company": "ATI Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
+        "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f8005218c37b"
+        ],
+        "primary_source_event_id": "EVT-f8005218c37b",
+        "source_headlines": [
+          "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+        ],
+        "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T17:54:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T18:21:47Z",
+        "updated_at": "2026-09-06T19:20:01Z",
+        "decay_at": "2026-09-07T05:54:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T05:54:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be2010792483",
         "idea_version": "IDEAV-de0b1021b593e033",
@@ -114377,8 +114803,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T18:21:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T06:29:15Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114452,8 +114878,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T18:19:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T06:29:15Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145981,8 +146407,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 548,
-    "live_count": 79,
+    "surfaced_total": 555,
+    "live_count": 85,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146001,9 +146427,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2651,
-    "news_picked_today": 371,
-    "news_dropped_today": 2280
+    "news_seen_today": 73488,
+    "news_picked_today": 449,
+    "news_dropped_today": 7170
   },
   "book_momentum": {
     "live_count": 8,
