@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-07T07:05:38Z",
+  "generated_at": "2026-09-07T10:02:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-288",
+      "headline": "STO: Santos to increase interest in Papua LNG",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STO?key=2924-03132694-2A1695889",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T07:32:22Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Santos is increasing its interest in the Papua LNG project, representing a strategic expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Santos is increasing its interest in the Papua LNG project, representing a strategic expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Santos",
+          "ticker": "STO",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-262",
+      "headline": "[TSE]Decision on Delisting:IBIS HOLDINGS Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1021/20260907_19.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T07:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is being delisted, which is a terminal event for public shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is being delisted, which is a terminal event for public shareholders.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IBIS HOLDINGS Co.,Ltd.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-163",
       "headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
@@ -145,6 +243,158 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-267",
+      "headline": "Novartis India to acquire Pfizer's ‘Minipress’ trademark for ₹1,250 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/novartis-india-to-acquire-pfizers-minipress-trademark-for-1250-crore/article71437778.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T07:45:32Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Novartis India is acquiring a trademark for 1,250 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis India is acquiring a trademark for 1,250 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Pfizer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-269",
+      "headline": "Spire Healthcare agrees to be taken private in £1bn takeover deal",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/spire-healthcare-england-wales-gps-b3045756.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T07:35:30Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Spire Healthcare agreed to a £1 billion takeover deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spire Healthcare agreed to a £1 billion takeover deal.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spire Healthcare",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-271",
+      "headline": "Australia's Ingenia rejects Warburg Pincus' $1.4 billion offer, sticks with Peet acquisition",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T07:12:20Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia rejected a $1.4 billion offer from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia rejected a $1.4 billion offer from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1474,6 +1724,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-278",
+      "headline": "SUL: Ceasing to be a substantial holder from MQG",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SUL?key=2924-03132664-2A1695875",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T07:01:21Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Macquarie Group has ceased to be a substantial holder in Super Retail Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Macquarie Group has ceased to be a substantial holder in Super Retail Group.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Retail Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-162",
       "headline": "C7A: $1.95m Sale Agreement for Kildanga Ni-Co project [price-sensitive]",
       "headline_en": null,
@@ -1670,300 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-140",
-      "headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:25:26Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Austal confirmed it is in talks regarding a potential acquisition of its US subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Austal confirmed it is in talks regarding a potential acquisition of its US subsidiary.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Austal",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-230",
-      "headline": "Tembo Global Industries Limited: Tembo Global Industries Limited has informed the Exchange regarding a press release dated September 07, 2026, titled \"Tembo Global Industries Signs MoU with Belgium s Lachaussee SA to Establish Advanced Ammunition Production Line in India\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TEMBO_07092026114658_PressRelease07092026_Sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T06:17:25Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Tembo Global Industries signed an MoU to establish an ammunition production line in India, representing a significant strategic expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Tembo Global Industries signed an MoU to establish an ammunition production line in India, representing a significant strategic expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tembo Global Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-004",
-      "headline": "PAC: Strategic Review Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAC?key=2924-03132449-2A1695646",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T23:58:50Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Company is actively exploring strategic alternatives which may lead to a sale or restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company is actively exploring strategic alternatives which may lead to a sale or restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PAC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-202",
-      "headline": "Temasek emerges as sole contender for $100 million Blue Tokai stake",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/blue-tokai-temasek-tpg-chryscapital-blue-tokai-coffee-roasters-specialty-coffee-premium-coffee-caf-market-11788747642378.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:39:22Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blue Tokai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-236",
-      "headline": "NAG: Response to ASX Price Query [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NAG?key=2924-03132604-3A701211",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T06:02:31Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The company is responding to an ASX price query, which often precedes material disclosure or clarifies market speculation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The company is responding to an ASX price query, which often precedes material disclosure or clarifies market speculation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NAG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-110",
-      "headline": "SLD: CEO Transition [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SLD?key=2924-03132497-2A1695690",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T01:43:55Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "CEO transition is a material management change for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "CEO transition is a material management change for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SLD",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -103016,146 +103021,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0beb62fe006b",
-      "idea_version": "IDEAV-8151dcab328d0292",
-      "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "SWX",
-      "company": "Southwest Gas",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is increasing its capital expenditure by $600 million for pipeline expansion, which is expected to drive long-term rate base growth.",
-      "why_now": "The capex increase was reported on 2026-09-05.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7cd4124e1133"
-      ],
-      "primary_source_event_id": "EVT-7cd4124e1133",
-      "source_headlines": [
-        "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger"
-      ],
-      "source_headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
-      "source_url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T19:28:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:49:26Z",
-      "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-07T07:28:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f31085db06b9",
-      "idea_version": "IDEAV-52d4fd07b12b030b",
-      "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "MGY",
-      "company": "Magnolia Oil & Gas",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a doubling of profits alongside an aggressive growth strategy, signaling strong operational efficiency and cash flow generation.",
-      "why_now": "The earnings and growth announcement occurred on 2026-09-05.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b46747e7cef3"
-      ],
-      "primary_source_event_id": "EVT-b46747e7cef3",
-      "source_headlines": [
-        "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
-      ],
-      "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
-      "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T19:20:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:30:20Z",
-      "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-07T07:20:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-4d13e431ef8d7fcf",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -108683,6 +108548,146 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0beb62fe006b",
+      "idea_version": "IDEAV-8151dcab328d0292",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "SWX",
+      "company": "Southwest Gas",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is increasing its capital expenditure by $600 million for pipeline expansion, which is expected to drive long-term rate base growth.",
+      "why_now": "The capex increase was reported on 2026-09-05.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7cd4124e1133"
+      ],
+      "primary_source_event_id": "EVT-7cd4124e1133",
+      "source_headlines": [
+        "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger"
+      ],
+      "source_headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
+      "source_url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T19:28:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:49:26Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-07T07:28:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f31085db06b9",
+      "idea_version": "IDEAV-52d4fd07b12b030b",
+      "idea_version_started_at": "2026-09-06T18:32:33Z",
+      "ticker": "MGY",
+      "company": "Magnolia Oil & Gas",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a doubling of profits alongside an aggressive growth strategy, signaling strong operational efficiency and cash flow generation.",
+      "why_now": "The earnings and growth announcement occurred on 2026-09-05.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b46747e7cef3"
+      ],
+      "primary_source_event_id": "EVT-b46747e7cef3",
+      "source_headlines": [
+        "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
+      ],
+      "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+      "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T19:20:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:30:20Z",
+      "updated_at": "2026-09-06T18:32:33Z",
+      "decay_at": "2026-09-07T07:20:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-177f467dfd2a",
       "idea_version": "IDEAV-eed1b52b265141e7",
       "idea_version_started_at": "2026-09-05T22:12:55Z",
@@ -111635,13 +111640,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 468,
-    "shown_count": 468,
+    "total_count": 470,
+    "shown_count": 470,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 243,
-        "shown_count": 243,
+        "total_count": 245,
+        "shown_count": 245,
         "hidden_count": 0
       },
       "short": {
@@ -111666,6 +111671,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0beb62fe006b",
+        "idea_version": "IDEAV-8151dcab328d0292",
+        "idea_version_started_at": "2026-09-06T18:32:33Z",
+        "ticker": "SWX",
+        "company": "Southwest Gas",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is increasing its capital expenditure by $600 million for pipeline expansion, which is expected to drive long-term rate base growth.",
+        "why_now": "The capex increase was reported on 2026-09-05.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7cd4124e1133"
+        ],
+        "primary_source_event_id": "EVT-7cd4124e1133",
+        "source_headlines": [
+          "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger"
+        ],
+        "source_headline": "Southwest Gas’s (SWX) Pipeline Bet Just Got $600M Bigger",
+        "source_url": "https://finance.yahoo.com/energy/articles/southwest-gas-swx-pipeline-bet-192801901.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T19:28:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T00:49:26Z",
+        "updated_at": "2026-09-06T18:32:33Z",
+        "decay_at": "2026-09-07T07:28:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T07:28:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f31085db06b9",
+        "idea_version": "IDEAV-52d4fd07b12b030b",
+        "idea_version_started_at": "2026-09-06T18:32:33Z",
+        "ticker": "MGY",
+        "company": "Magnolia Oil & Gas",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a doubling of profits alongside an aggressive growth strategy, signaling strong operational efficiency and cash flow generation.",
+        "why_now": "The earnings and growth announcement occurred on 2026-09-05.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b46747e7cef3"
+        ],
+        "primary_source_event_id": "EVT-b46747e7cef3",
+        "source_headlines": [
+          "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth"
+        ],
+        "source_headline": "Magnolia Oil & Gas (MGY) Doubles Profits While Betting Big On Growth",
+        "source_url": "https://finance.yahoo.com/energy/articles/magnolia-oil-gas-mgy-doubles-192051152.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T19:20:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T00:30:20Z",
+        "updated_at": "2026-09-06T18:32:33Z",
+        "decay_at": "2026-09-07T07:20:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T07:20:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52d5d226425f",
         "idea_version": "IDEAV-6eec8179783540c8",
@@ -146408,7 +146559,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 555,
-    "live_count": 85,
+    "live_count": 83,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146427,9 +146578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 73488,
-    "news_picked_today": 449,
-    "news_dropped_today": 7170
+    "news_seen_today": 148680,
+    "news_picked_today": 484,
+    "news_dropped_today": 8311
   },
   "book_momentum": {
     "live_count": 8,
