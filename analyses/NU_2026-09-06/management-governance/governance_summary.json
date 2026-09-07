@@ -1,0 +1,87 @@
+{
+  "ticker": "NU",
+  "company": "Nu Holdings Ltd.",
+  "line_read": "NYSE:NU Class A ordinary shares, USD",
+  "date": "2026-09-06",
+  "module": "management-governance",
+  "run_mode": "full (all 13 specialists completed; zero failures; nine-component formula, no substituted components)",
+  "stewardship_verdict": "Aligned & competent",
+  "verdict_qualifier": "Alignment is economic (18.6% founder stake, 0% pledged, RPT 0.58% of revenue) and competence is delivered (net income to parent -364.6m FY2022 to 3,607.1m TTM Jun-2026). The flags are NOT minor - they are structural minority-rights flags, and they are what caps the rating at Watchlist. Never restate as 'good governance' or 'shareholder-friendly'.",
+  "non_negotiable_gate": "PASS",
+  "gate_tripping_fact": null,
+  "gate_conditions_tested": {
+    "hard_disqualifier_business_model_01": false,
+    "critical_red_flag_in_module": false,
+    "disqualifying_graded_controller_ceo_cfo_chair": false,
+    "material_undisclosed_legal_matter": false
+  },
+  "hard_disqualifier_verbatim": "No disqualifier triggered. | Any disqualifier triggered: N | No lock is applied here. This scan clears NU on all eight hard tests only.",
+  "scores": {
+    "management_quality": 65,
+    "capital_allocation": 73,
+    "incentive_alignment": 54,
+    "shareholder_friendliness": 50,
+    "disclosure_candor": 69,
+    "people_and_network_integrity": 50,
+    "audit_and_assurance_quality": 65,
+    "rpt_and_leakage_risk_INVERTED": 22,
+    "contingent_liability_risk_INVERTED": 32,
+    "accounting_forensics_risk_INVERTED": 31,
+    "legal_and_regulatory_risk_INVERTED": 15,
+    "governance_risk_INVERTED": 55,
+    "data_quality": 82,
+    "overall_usefulness": 85
+  },
+  "score_provenance": {
+    "people_and_network_integrity": "raw 77 from 07, capped to 50 by RF-NET-003 band (b)",
+    "governance_risk": "evidence read ~50; RF-NET-003 band (b) floor of 55 binds",
+    "all_others": "specialist earned scores, uncapped"
+  },
+  "checklist_risk": 32,
+  "checklist_risk_binding_component": "contingent_liability_risk (agent 10)",
+  "governance_score": 60,
+  "governance_score_inputs": "0.14x73 + 0.11x54 + 0.11x50 + 0.10x69 + 0.11x65 + 0.09x65 + 0.11x50 + 0.11x(100-55) + 0.12x(100-32) = 60.17",
+  "confidence_score": 76,
+  "confidence_adjusted_governance_score": 46,
+  "governance_rating": "Watchlist",
+  "conviction_cap": "No rating above Watchlist until the RF-NET-003 linkage is explained by primary evidence",
+  "red_flag_count": 6,
+  "critical_red_flag_count": 0,
+  "red_flag_ids": ["RF-NET-003", "RF-AUD-007", "RF-CL-001", "RF-DISC-002", "RF-DISC-001", "RF-REG-001"],
+  "checklist_coverage": {
+    "total_registry_items": 179,
+    "answered": 160,
+    "coverage_pct": 89.4,
+    "green": 85,
+    "amber": 65,
+    "red": 10,
+    "not_available_or_na_or_insufficient": 19,
+    "red_item_ids": ["A1-02","A1-03","A1-04","A1-06","A3-03","A3-04","A4-13","A7-04","A7a-05","A17-07"]
+  },
+  "people_register": {"swept": 25, "clean": 22, "minor_concerns": 3, "material_concerns": 0, "disqualifying": 0},
+  "network_discovery": {
+    "phase_1_ran": true, "phase_2_ran": true, "max_hop": 2, "termination_rule": "breadth_budget",
+    "subjects_on_register": 68, "entities": 43,
+    "filing_supplied": 62, "independently_discovered": 6, "user_supplied": 0,
+    "disclosable_and_omitted": 0,
+    "scope_boundary_rows": 8, "overflow_subjects": 65,
+    "rf_net_flags_fired": ["RF-NET-003 (band b)"]
+  },
+  "insider_ownership": "21.99% of shares outstanding (founder 18.6% = 906,212,615 sh, ~US$13.0bn); 0% pledged; 0 open-market buys / 4 sells, net -592,707 sh (~US$9.0m), every sale after results",
+  "biggest_governance_signal": "74.4% of votes on 18.6% of the economics - a 55.8pp wedge - plus a founder veto over dividends, share issues, M&A and officer pay surviving until Class B voting power falls below 10% (84.2% today)",
+  "section_24_filters": {
+    "filter_1_integrity": "not tripped - nothing routed; RF-MGT-005 not emitted",
+    "filter_2_turnaround": "not tripped - RF-MGT-004 not emitted",
+    "filter_4_serial_acquirer": "not tripped - US$131.9m over 5 years; RF-CAP-004 not emitted",
+    "filter_6_unaligned_owner": "TESTED AND NEGATIVE - RF-OWN-004 NOT emitted; no ShFriendliness cap of 55, no GovRisk floor of 55 from this source, and NO VALUE-TRAP NOTE to valuation"
+  },
+  "caps_applied": [
+    {"cap": "RF-NET-003 band (b) - hop-1 link to a Material-equivalent fact", "effect": "People & network integrity max 50; Governance risk floor 55; no rating above Watchlist", "basis": "Grupo Casas Bahia S.A. recuperacao judicial ~2026-08-16, R$17.3bn, via Rogerio Calderon's board seat. EXPOSURE - no adverse record against the person."},
+    {"cap": "Declared breadth overflow (breadth_budget)", "effect": "People & network integrity max 70 (superseded by the 50 cap); Confidence max 80 (applied 76)", "basis": "~65 named E-A/E-B subjects unswept; no lineage or Tier-A-controlled entity in the overflow"}
+  ],
+  "caps_tested_and_not_applied": ["no proxy/comp disclosure","no ownership data","no board disclosure","no multi-year capital history","no transcripts/prior promises","hard disqualifier","critical red flag","turnaround","serial acquirer","unaligned owner (RF-OWN-004)","unresolved integrity signal (RF-MGT-005)","checklist coverage <50%","no auditor-fee disclosure","legal-database sweep did not run","no RPT note","no contingent-liability note","Disqualifying-graded KMP","Material-concerns KMP","discovery loop did not run","undisclosed predecessor/phoenix","RF-NET-003 Disqualifying band","RF-NET-006 silent truncation","RF-NET-005","RF-NET-004 (all four bands)","budget_exhausted","pending-12-reconciliation unresolved","RF-CMP-001/RF-PPL-005","accounting-forensics battery red"],
+  "supersedes": "business-model/11_capital-allocation-governance - the master synthesizer must treat this module's governance verdict and scores as the primary governance read",
+  "single_highest_value_next_data_request": "The 2026 AGM poll tallies split between founder and public shareholders (the 6-K gives only 96.23% of all votes cast for the nine-director slate)",
+  "peer_benchmark": "Peer set exists (Itau Unibanco, Bradesco, Santander Brasil, Caixa, Banco do Brasil) but the pool holds no peer governance disclosures - relative governance not assessed",
+  "prior_run_delta": "No prior run - first governance snapshot"
+}
