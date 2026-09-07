@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T21:01:53Z",
+  "generated_at": "2026-09-07T21:09:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-615",
+      "headline": "Rosneft Ships First Crude From $157 Billion Vostok Oil Project",
+      "headline_en": null,
+      "url": "https://oilprice.com/Energy/Crude-Oil/Rosneft-Ships-First-Crude-From-157-Billion-Vostok-Oil-Project.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Rosneft has commenced shipments from its $157 billion Vostok Oil project, a major capacity milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rosneft has commenced shipments from its $157 billion Vostok Oil project, a major capacity milestone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rosneft",
+          "ticker": null,
+          "listing_country": "RU"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,49 +2012,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-436",
-      "headline": "Loss of Costco deal helps push beverage brand into Chapter 11",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/loss-of-costco-deal-helps-push-focus-factor-maker-into-chapter-11",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T12:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A beverage brand filed for Chapter 11 bankruptcy following the loss of a Costco deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A beverage brand filed for Chapter 11 bankruptcy following the loss of a Costco deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146880,9 +146887,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428212,
-    "news_picked_today": 1819,
-    "news_dropped_today": 17785
+    "news_seen_today": 428252,
+    "news_picked_today": 1832,
+    "news_dropped_today": 17812
   },
   "book_momentum": {
     "live_count": 8,
