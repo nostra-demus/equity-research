@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T15:45:43Z",
+  "generated_at": "2026-09-07T16:01:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -691,6 +691,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-518",
+      "headline": "Williams Completes $5.5B Momentum Acquisition",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/williams_completes_55b_momentum_acquisition-07-sep-2026-184557-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:43:11Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Williams completes $5.5 billion acquisition of Momentum, materially affecting debt capacity, earnings accretion timing, and energy-infrastructure strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Williams completes $5.5 billion acquisition of Momentum, materially affecting debt capacity, earnings accretion timing, and energy-infrastructure strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Williams",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1972,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-291",
-      "headline": "UK cost of living squeeze tightens as mortgage rates rise ; JLR announces 4,000 job cuts – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/sep/07/uk-house-prices-fall-subdued-market-jlr-job-cuts-shares-oil-latest-news-updates",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T09:46:08Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover announced 4,000 job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover announced 4,000 job cuts.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -103467,76 +103467,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-04738164be6f",
-      "idea_version": "IDEAV-66987093c8e398fb",
-      "idea_version_started_at": "2026-09-06T04:54:50Z",
-      "ticker": "MC.PA",
-      "company": "LVMH",
-      "exchange": "Paris",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The luxury sector is experiencing a sharp decline in demand as the 'feelgood factor' fades, directly impacting LVMH's revenue growth and margin expansion.",
-      "why_now": "The report on 2026-09-06 highlights a structural shift in consumer behavior that is currently being repriced by the market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fc6dc4ad0c77"
-      ],
-      "primary_source_event_id": "EVT-fc6dc4ad0c77",
-      "source_headlines": [
-        "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades"
-      ],
-      "source_headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
-      "source_url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-06T04:00:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T04:54:50Z",
-      "updated_at": "2026-09-06T04:54:50Z",
-      "decay_at": "2026-09-07T16:00:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-40daa458c3f6",
       "idea_version": "IDEAV-f50b43f7ea84c8ba",
       "idea_version_started_at": "2026-09-06T20:29:47Z",
@@ -109198,6 +109128,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-04738164be6f",
+      "idea_version": "IDEAV-66987093c8e398fb",
+      "idea_version_started_at": "2026-09-06T04:54:50Z",
+      "ticker": "MC.PA",
+      "company": "LVMH",
+      "exchange": "Paris",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The luxury sector is experiencing a sharp decline in demand as the 'feelgood factor' fades, directly impacting LVMH's revenue growth and margin expansion.",
+      "why_now": "The report on 2026-09-06 highlights a structural shift in consumer behavior that is currently being repriced by the market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc6dc4ad0c77"
+      ],
+      "primary_source_event_id": "EVT-fc6dc4ad0c77",
+      "source_headlines": [
+        "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades"
+      ],
+      "source_headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
+      "source_url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-06T04:00:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T04:54:50Z",
+      "updated_at": "2026-09-06T04:54:50Z",
+      "decay_at": "2026-09-07T16:00:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-205ed939316f",
       "idea_version": "IDEAV-23b289b6cd7b7c5b",
       "idea_version_started_at": "2026-09-06T03:18:09Z",
@@ -111452,8 +111452,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 476,
-    "shown_count": 476,
+    "total_count": 477,
+    "shown_count": 477,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -111462,8 +111462,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 226,
-        "shown_count": 226,
+        "total_count": 227,
+        "shown_count": 227,
         "hidden_count": 0
       }
     },
@@ -111483,6 +111483,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-04738164be6f",
+        "idea_version": "IDEAV-66987093c8e398fb",
+        "idea_version_started_at": "2026-09-06T04:54:50Z",
+        "ticker": "MC.PA",
+        "company": "LVMH",
+        "exchange": "Paris",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The luxury sector is experiencing a sharp decline in demand as the 'feelgood factor' fades, directly impacting LVMH's revenue growth and margin expansion.",
+        "why_now": "The report on 2026-09-06 highlights a structural shift in consumer behavior that is currently being repriced by the market.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fc6dc4ad0c77"
+        ],
+        "primary_source_event_id": "EVT-fc6dc4ad0c77",
+        "source_headlines": [
+          "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades"
+        ],
+        "source_headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
+        "source_url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-06T04:00:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T04:54:50Z",
+        "updated_at": "2026-09-06T04:54:50Z",
+        "decay_at": "2026-09-07T16:00:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T16:00:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d20df5cd7aab",
         "idea_version": "IDEAV-ab91e936f845b300",
@@ -146821,7 +146894,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 80,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146840,9 +146913,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 346357,
-    "news_picked_today": 1113,
-    "news_dropped_today": 14402
+    "news_seen_today": 352815,
+    "news_picked_today": 1133,
+    "news_dropped_today": 14598
   },
   "book_momentum": {
     "live_count": 8,
