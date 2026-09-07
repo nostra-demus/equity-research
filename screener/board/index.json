@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T03:11:29Z",
+  "generated_at": "2026-09-07T03:16:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-160",
+      "headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T03:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Oricon Inc. is facing a delisting decision from the Tokyo Stock Exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oricon Inc. is facing a delisting decision from the Tokyo Stock Exchange.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oricon Inc.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-052",
       "headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
@@ -93,6 +142,60 @@
           "name": "Hyundai Steel",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-161",
+      "headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:04:42Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Tata Motors has launched a tender offer for Iveco Group, valuing the company at €3.82 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors has launched a tender offer for Iveco Group, valuing the company at €3.82 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group",
+          "ticker": null,
+          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -1845,109 +1948,6 @@
       "companies": [
         {
           "name": "Bathla Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-018",
-      "headline": "Seattle Times and Newsday sue OpenAI and Microsoft for infringement",
-      "headline_en": null,
-      "url": "https://www.theverge.com/ai-artificial-intelligence/990932/seattle-times-newsday-lawsuit-openai-microsoft",
-      "source_name": "The Verge",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T23:36:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Lawsuits against OpenAI and Microsoft regarding copyright infringement pose potential legal and operational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Lawsuits against OpenAI and Microsoft regarding copyright infringement pose potential legal and operational risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-015",
-      "headline": "Asia OneHealthcare targets RM7 billion Malaysia IPO in Q1 2027",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/quek-leng-chan-tpg-backed-asia-onehealthcare-targets-rm7-billion-malaysia-ipo-q1-2027",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Asia OneHealthcare is targeting a RM7 billion IPO in Q1 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Asia OneHealthcare is targeting a RM7 billion IPO in Q1 2027.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Asia OneHealthcare",
           "ticker": null,
           "listing_country": null
         }
@@ -145497,9 +145497,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 862,
-    "news_picked_today": 207,
-    "news_dropped_today": 655
+    "news_seen_today": 889,
+    "news_picked_today": 211,
+    "news_dropped_today": 678
   },
   "book_momentum": {
     "live_count": 8,
