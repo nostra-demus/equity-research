@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T13:21:32Z",
+  "generated_at": "2026-09-07T13:32:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-393",
+      "headline": "GET NICE (00064): JOINT ANNOUNCEMENT - MONTHLY UPDATE IN RELATION TO (1) PROPOSED PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090701259.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T12:52:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Proposed privatization and special dividend announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed privatization and special dividend announcement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Get Nice Holdings",
+          "ticker": "00064",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-309",
       "headline": "CHINA TIANRUI (01252): (1) SUPPLEMENTAL INFORMATION ON RESIGNATION OF AUDITOR; (2) PROPOSED APPOINTMENT OF AUDITOR AND (3) CONTINUED SUSPENSION OF TRADING",
@@ -1934,60 +1983,6 @@
           "name": "Ingenia",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-317",
-      "headline": "USAS BUILDING (02671): DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF 43% EQUITY INTEREST IN MEGA CONSTRUCTION (JIANGSU) CO., LTD.",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090701021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T10:51:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "USAS BUILDING disposes of 43% equity interest in Mega Construction (Jiangsu), flagged as discloseable and connected transaction, impacting capital structure and cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "USAS BUILDING disposes of 43% equity interest in Mega Construction (Jiangsu), flagged as discloseable and connected transaction, impacting capital structure and cash flow.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "USAS BUILDING",
-          "ticker": "02671",
-          "listing_country": "HK"
-        },
-        {
-          "name": "Mega Construction (Jiangsu) Co., Ltd.",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -108573,81 +108568,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ffd3303f2ba5",
-      "idea_version": "IDEAV-7ca58afb2ce1f40a",
-      "idea_version_started_at": "2026-09-06T03:55:04Z",
-      "ticker": "688169",
-      "company": "Beijing Roborock Technology",
-      "exchange": "SSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported 27.6% revenue growth for H1 2026, demonstrating successful global expansion and market share gains in the robotic vacuum sector despite broader consumer electronics headwinds.",
-      "why_now": "The H1 2026 interim results were officially released on September 6, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d9e93e3e0c0",
-        "EVT-a6dd22d392b6"
-      ],
-      "primary_source_event_id": "EVT-0d9e93e3e0c0",
-      "source_headlines": [
-        "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
-        "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership"
-      ],
-      "source_headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
-      "source_url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
-      "source_name": "PR Newswire — All News Releases",
-      "materiality_max": 65,
-      "newest_source_at": "2026-09-06T01:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:55:04Z",
-      "updated_at": "2026-09-06T03:55:04Z",
-      "decay_at": "2026-09-07T13:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-9fc5a70d33aecf8e",
       "idea_version_started_at": "2026-09-06T18:59:32Z",
@@ -111372,6 +111292,81 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ffd3303f2ba5",
+      "idea_version": "IDEAV-7ca58afb2ce1f40a",
+      "idea_version_started_at": "2026-09-06T03:55:04Z",
+      "ticker": "688169",
+      "company": "Beijing Roborock Technology",
+      "exchange": "SSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported 27.6% revenue growth for H1 2026, demonstrating successful global expansion and market share gains in the robotic vacuum sector despite broader consumer electronics headwinds.",
+      "why_now": "The H1 2026 interim results were officially released on September 6, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d9e93e3e0c0",
+        "EVT-a6dd22d392b6"
+      ],
+      "primary_source_event_id": "EVT-0d9e93e3e0c0",
+      "source_headlines": [
+        "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
+        "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership"
+      ],
+      "source_headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
+      "source_url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
+      "source_name": "PR Newswire — All News Releases",
+      "materiality_max": 65,
+      "newest_source_at": "2026-09-06T01:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T03:55:04Z",
+      "updated_at": "2026-09-06T03:55:04Z",
+      "decay_at": "2026-09-07T13:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -111452,13 +111447,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 471,
-    "shown_count": 471,
+    "total_count": 472,
+    "shown_count": 472,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 246,
-        "shown_count": 246,
+        "total_count": 247,
+        "shown_count": 247,
         "hidden_count": 0
       },
       "short": {
@@ -111483,6 +111478,84 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ffd3303f2ba5",
+        "idea_version": "IDEAV-7ca58afb2ce1f40a",
+        "idea_version_started_at": "2026-09-06T03:55:04Z",
+        "ticker": "688169",
+        "company": "Beijing Roborock Technology",
+        "exchange": "SSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported 27.6% revenue growth for H1 2026, demonstrating successful global expansion and market share gains in the robotic vacuum sector despite broader consumer electronics headwinds.",
+        "why_now": "The H1 2026 interim results were officially released on September 6, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0d9e93e3e0c0",
+          "EVT-a6dd22d392b6"
+        ],
+        "primary_source_event_id": "EVT-0d9e93e3e0c0",
+        "source_headlines": [
+          "Roborock recorded 27.6% revenue growth in the first half of 2026 and consolidated its leadership in the global market",
+          "Roborock Reports 27.6% Revenue Growth in H1 2026, Reinforcing Global Market Leadership"
+        ],
+        "source_headline": "Roborock, 2026 yılının ilk yarısında %27,6'lık gelir artışı kaydetti ve küresel pazardaki liderliğini pekiştirdi",
+        "source_url": "https://www.prnewswire.com/news-releases/roborock-2026-ylnn-ilk-yarsnda-27-6lk-gelir-art-kaydetti-ve-kuresel-pazardaki-liderliini-pekitirdi-302869389.html",
+        "source_name": "PR Newswire — All News Releases",
+        "materiality_max": 65,
+        "newest_source_at": "2026-09-06T01:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T03:55:04Z",
+        "updated_at": "2026-09-06T03:55:04Z",
+        "decay_at": "2026-09-07T13:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T13:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14d83f2c882e",
         "idea_version": "IDEAV-4d13e431ef8d7fcf",
@@ -146444,7 +146517,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 85,
+    "live_count": 84,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146463,9 +146536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 276568,
-    "news_picked_today": 791,
-    "news_dropped_today": 12252
+    "news_seen_today": 286896,
+    "news_picked_today": 808,
+    "news_dropped_today": 12331
   },
   "book_momentum": {
     "live_count": 8,
