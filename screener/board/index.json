@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T10:17:38Z",
+  "generated_at": "2026-09-07T10:22:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-306",
+      "headline": "PVR INOX Limited: The Exchange has sought clarification from PVR INOX Limited with respect to recent news item captioned PVR Inox shares fall 8% amid internal probe into alleged Rs 200-crore kickbacks. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PVRINOXLTD_07092026154036_PVRINOXRumourverification07092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T10:12:23Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company is under investigation for alleged kickbacks of Rs 200 crore, posing significant legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is under investigation for alleged kickbacks of Rs 200 crore, posing significant legal and reputational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR INOX Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-288",
       "headline": "STO: Santos to increase interest in Papua LNG",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-303",
-      "headline": "Tata Motors Passenger Vehicles Limited: Tata Motors Passenger Vehicles Limited has informed the Exchange regarding a press release dated September 07, 2026, titled \"JLR update on strategic Transformation Programme\" issued by Jaguar Land Rover Automotive PLC, Wholly Owned Subsidiary of Tata MotorsPassenger Vehicles Limited (formerly Tata Motors Limited).",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TATAMOTORSSJS_07092026151058_NSEBSEJLR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T09:41:07Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is providing an update on its strategic transformation program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Jaguar Land Rover is providing an update on its strategic transformation program.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146646,9 +146646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 171143,
-    "news_picked_today": 509,
-    "news_dropped_today": 8550
+    "news_seen_today": 174554,
+    "news_picked_today": 522,
+    "news_dropped_today": 8609
   },
   "book_momentum": {
     "live_count": 8,
