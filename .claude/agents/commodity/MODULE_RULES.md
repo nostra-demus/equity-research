@@ -95,6 +95,14 @@ Three rules follow, and they bind every commodity agent:
   the thesis does not yet know what moved it — that caps conviction (§11/§12) and belongs in the risk
   summary, not in a closing hedge sentence.
 
+**Mechanized.** `commodity-macro-drivers` §1a closes with a standalone `RF-COMM-001` tag
+(`... reconciled — explained {N}%, residual {M}%` or `... not attempted — {reason}`), checked by
+`scripts/commodity_driver_attribution.py` — the commodity-swarm twin of the research swarm's
+`RF-EARN-001`/`RF-EARN-002` tags and eval check BE (`scripts/rating_caps.py`). `commodity/full.md`
+step 5.6 runs it whenever the macro-positioning module is genuinely regenerated in the current
+invocation, and stops the run before commit on a violation — the residual can no longer be silently
+omitted or rounded away on any commodity this swarm analyzes going forward.
+
 ## 5. Action discipline (the verdict)
 
 The terminal `commodity-thesis` module emits ONE `Action:` verdict — `Buy`, `Hold`, `Trim`, `Avoid`, or

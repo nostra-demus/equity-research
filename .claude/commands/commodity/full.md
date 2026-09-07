@@ -187,6 +187,34 @@ This helper writes `<RUN_ROOT>/decisions/<DECISION_ID>/decision_record.json` cre
 It is archive-first: a crash may leave the prior UI projection in place, but can never publish a projection
 without its immutable snapshot. On `ARCHIVE-FAIL`, STOP before commit. Record the `DECISION-ARCHIVE:` line.
 
+## 5.6. Driver-attribution integrity check (§15)
+
+`CLAUDE.md` §15 requires any driver-attribution claim to show its own arithmetic and name its residual —
+`commodity-macro-drivers` §1a already implements this in prose (MODULE_RULES.md §4a), closed by a
+standalone `RF-COMM-001` tag line. Nothing previously verified that tag mechanically before commit.
+
+**Run this step iff** the `macro-positioning` module's step-5.1 resume decision in THIS invocation was
+`RERUN` (any reason) — i.e. `01_commodity-macro-drivers.md` was genuinely regenerated in this pass, not
+skip-resumed from a prior run. Unlike step 5.5, there is **no backfill branch**: a skip-resumed run cannot
+be made to carry a valid tag without re-deriving genuine attribution arithmetic, so a pre-existing run that
+predates this rule (GOLD, ALUMINIUM, COPPER, WHEAT all currently lack the tag) is never blocked by it until
+its own macro-positioning module is next genuinely re-run (`/commodity:intake`, a changed profile
+sensitivity, or an explicit `/commodity:rerun` of that module).
+
+When the step runs:
+
+```bash
+python3 scripts/commodity_driver_attribution.py "<RUN_ROOT>"
+```
+
+The script **fails closed**: it exits `0` and prints `RF-COMM-001: ...reconciled` only when the tag is
+present and its explained/residual figures sum to 100% (within 1.0pp); it exits `0` with `RF-COMM-001: N/A`
+only when the orb genuinely never ran (nothing to gate); on any other defect — tag missing, malformed, a
+bare "not attempted" dodge, or explained+residual not reconciling to 100% — it prints `GATE-FAIL:` and
+exits **nonzero**. **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a
+macro-drivers orb whose driver-attribution residual was never verified.** Record the printed line for
+step 7 (report).
+
 ## 6. Commit the dossier
 
 Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream). Commit through the serialized helper (data pathspec only):
@@ -209,6 +237,9 @@ Print a final summary:
 - **The immutable publication result:** decision ID + archive path from `DECISION-ARCHIVE:`, or "already
   archived and unchanged" only when an existing `decision_id` resolves to an identical archive; an archive
   failure halts before commit.
+- **The driver-attribution check result (step 5.6):** the `RF-COMM-001: ...reconciled` line; "not run
+  (macro-positioning skip-resumed)" if step 5.6 did not apply; `RF-COMM-001: N/A` if the orb never ran; or,
+  if the script exited nonzero, the `GATE-FAIL:` reason and the fact that the run was HALTED before commit.
 - The commit SHA pushed to `origin/main` (or NOOP).
 
 ---
