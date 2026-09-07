@@ -234,6 +234,12 @@ jobs:
           python3 scripts/test_commodity_decision_archive.py
           python3 scripts/test_commodity_review_contract.py
 
+      - name: Driver-attribution declaration and publication contract tests
+        run: |
+          python3 scripts/test_driver_attribution_residual.py
+          python3 scripts/test_commodity_driver_attribution.py
+          python3 scripts/test_commodity_driver_attribution_pipeline.py
+
       - name: Commodity calibration scoreboard selftest (Phase 4 twin — fixture-free)
         run: python3 scripts/commodity_calibrate.py --selftest
 
