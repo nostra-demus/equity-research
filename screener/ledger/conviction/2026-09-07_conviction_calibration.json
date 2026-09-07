@@ -1,0 +1,153 @@
+{
+  "generated_at": "2026-09-07T01:55:08Z",
+  "provider_calibration_schema_version": "1.0",
+  "n_theses": 8,
+  "n_checkpoints": 84,
+  "n_resolved": 0,
+  "min_resolved_for_calibration": 10,
+  "sufficient": false,
+  "hit_rate": null,
+  "brier": null,
+  "n_resolved_with_prob": 0,
+  "median_days_lock_to_confirm": null,
+  "selected_minus_discarded_edge": null,
+  "error_taxonomy_distribution": {},
+  "false_discard_rate": null,
+  "by_edge_band": {},
+  "n_integrity_reviewed": 1,
+  "n_integrity_terminal": 1,
+  "integrity_gate_distribution": {
+    "Thesis broken": 1
+  },
+  "integrity_gate_hit_rate": null,
+  "integrity_gate_note": "1 of 1 reviewed theses have a terminal latest integrity verdict (watchlist_integrity_downgrade / _broken); the rest routed Proceed ({'Thesis broken': 1}). This is gate ACTIVITY, not accuracy — integrity_gate_hit_rate stays null because judging whether a terminal verdict was the right call needs a later outcome-check against the thesis's own claims, which no review mechanism provides yet (a terminal verdict stops the pipeline before candidate-surfacing, so unlike a live conviction discard there is no ticker-level checkpoint to ever resolve).",
+  "calibration_by_provider": {
+    "unknown_legacy": {
+      "forecast_author_calibration": {
+        "status": "insufficient",
+        "n": 0,
+        "n_subjects": 0,
+        "floor": {
+          "n": 10,
+          "distinct_subjects": 5
+        },
+        "brier": null,
+        "score_type": null
+      },
+      "pipeline_directional": {
+        "status": "insufficient",
+        "n": 0,
+        "k_hits": 0,
+        "floor": {
+          "n": 10
+        },
+        "hit_rate": null
+      },
+      "pipeline_basket_outcomes": {
+        "selected": {
+          "current_state": {
+            "status": "available",
+            "n": 8,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "value_metric": "edge_score_live_proxy_not_realized_return",
+            "mean_value": 63.375
+          }
+        }
+      },
+      "error_taxonomy_distribution": {},
+      "attribution_policy": "Forecast/Brier rows follow decision_author; directional/headline and basket outcomes follow the whole-pipeline execution cohort. Mixed, partial, and legacy cohorts are never reassigned."
+    }
+  },
+  "calibration_by_execution_profile": {
+    "unknown_legacy": {
+      "forecast_author_calibration": {
+        "status": "insufficient",
+        "n": 0,
+        "n_subjects": 0,
+        "floor": {
+          "n": 10,
+          "distinct_subjects": 5
+        },
+        "brier": null,
+        "score_type": null
+      },
+      "pipeline_directional": {
+        "status": "insufficient",
+        "n": 0,
+        "k_hits": 0,
+        "floor": {
+          "n": 10
+        },
+        "hit_rate": null
+      },
+      "pipeline_basket_outcomes": {
+        "selected": {
+          "current_state": {
+            "status": "available",
+            "n": 8,
+            "floor": {
+              "n": 5,
+              "matched_horizon_required": true
+            },
+            "value_metric": "edge_score_live_proxy_not_realized_return",
+            "mean_value": 63.375
+          }
+        }
+      },
+      "error_taxonomy_distribution": {},
+      "attribution_policy": "Forecast/Brier rows follow decision_author; directional/headline and basket outcomes follow the whole-pipeline execution cohort. Mixed, partial, and legacy cohorts are never reassigned."
+    }
+  },
+  "provider_comparison": {
+    "status": "withheld",
+    "policy": "No blended provider hit rate. Each recorded cohort is reported separately. A metric is comparable only when Claude and Codex independently clear its floor at a matched horizon. No automated superiority ranking or provider-specific confidence haircut is produced.",
+    "forecast_calibration": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "directional_hit_rate": {
+      "comparison_ready": false,
+      "claude": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      },
+      "codex": {
+        "status": "insufficient",
+        "n": 0,
+        "brier": null,
+        "hit_rate": null
+      }
+    },
+    "matched_basket_horizons_ready": [],
+    "excluded_from_recorded_head_to_head": [
+      "unknown_legacy"
+    ],
+    "ranking": null,
+    "reason": "Claude and Codex have not both independently cleared any applicable metric floor; provider ranking and provider-specific confidence haircuts are refused."
+  },
+  "operational_aggregate_label": "Global production-system aggregate across all execution cohorts. It preserves historical continuity but cannot establish that Claude or Codex is calibrated or better.",
+  "verdict": "Insufficient resolved history — 0 of 10 resolved checks needed before a track record means anything. 84 proof points are scheduled across 8 ideas; the record fills in as they hit their dates. (Refusing to quote a hit-rate or Brier on thin data, §11.)",
+  "legacy_provider_sensitivity": {
+    "legacy_inferred_claude": 0,
+    "unknown_legacy": 10,
+    "policy": "legacy_inferred_claude requires a separately verified pre_rollout_cockpit_history proof. Age or missing provenance alone remains unknown_legacy. Both cohorts are sensitivity-only and excluded from recorded Claude-versus-Codex comparisons."
+  },
+  "n_discards": 0,
+  "n_restored": 0
+}
