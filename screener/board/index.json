@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T16:01:58Z",
+  "generated_at": "2026-09-07T16:26:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -537,6 +537,49 @@
           "listing_country": "CN"
         }
       ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-526",
+      "headline": "Loss of Costco deal helps push beverage brand into Chapter 11",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/loss-costco-deal-helps-push-150700837.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T15:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Loss of a major contract with Costco has forced a beverage brand into Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Loss of a major contract with Costco has forced a beverage brand into Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
@@ -1745,6 +1788,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-542",
+      "headline": "Jaguar Land Rover To Cut 4,000 Jobs Over Two Years Amid Tariff, Cyber-Attack Fallout",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/jaguar-land-rover-to-cut-4000-jobs-over-two-years-amid-tariff-cyber-attack-fallout",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T11:27:04Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover announces 4,000 job cuts due to tariff and cyber-attack fallout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover announces 4,000 job cuts due to tariff and cyber-attack fallout.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-354",
       "headline": "ChargePoint (CHPT) Posts Strong Q2 Results, But Q3 Outlook Raises Concerns",
       "headline_en": null,
@@ -1888,109 +1980,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-344",
-      "headline": "Tata Motors’ Jaguar Land Rover aims to reduce costs by ₹21,700 crore by layin off 4,000 jobs",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-motors-jaguar-land-rover-to-lay-off-4-000-jobs-reduce-costs-by-21-700-crore-11788777549404.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T10:43:07Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover aims to reduce costs by 21.7 billion INR through 4,000 job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover aims to reduce costs by 21.7 billion INR through 4,000 job cuts.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-312",
-      "headline": "Jaguar Land Rover confirms reports of 4,000 job cuts over two years",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-motors-pv-jaguar-land-rover-confirms-4000-job-cuts-over-two-years-19985671.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T10:31:34Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover confirmed 4,000 job cuts over two years, representing a significant operational restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover confirmed 4,000 job cuts over two years, representing a significant operational restructuring.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -106922,78 +106911,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1e4418649180",
-      "idea_version": "IDEAV-dec86f5bf9ababfe",
-      "idea_version_started_at": "2026-09-06T04:54:50Z",
-      "ticker": "GLAND",
-      "company": "Gland Pharma",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
-      "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6958bd3121b"
-      ],
-      "primary_source_event_id": "EVT-c6958bd3121b",
-      "source_headlines": [
-        "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
-      ],
-      "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
-      "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
-      "source_name": "Free Press Journal",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-06T04:17:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-06T04:54:50Z",
-      "decay_at": "2026-09-07T16:17:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85224f632c88",
       "idea_version": "IDEAV-87f9e3fd785ba495",
       "idea_version_started_at": "2026-09-07T03:06:44Z",
@@ -111222,6 +111139,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1e4418649180",
+      "idea_version": "IDEAV-dec86f5bf9ababfe",
+      "idea_version_started_at": "2026-09-06T04:54:50Z",
+      "ticker": "GLAND",
+      "company": "Gland Pharma",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
+      "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6958bd3121b"
+      ],
+      "primary_source_event_id": "EVT-c6958bd3121b",
+      "source_headlines": [
+        "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
+      ],
+      "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
+      "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
+      "source_name": "Free Press Journal",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-06T04:17:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T17:14:18Z",
+      "updated_at": "2026-09-06T04:54:50Z",
+      "decay_at": "2026-09-07T16:17:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-99383b893cfe",
       "idea_version": "IDEAV-51e5699e56ff490e",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -111452,8 +111441,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 477,
-    "shown_count": 477,
+    "total_count": 478,
+    "shown_count": 478,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -111462,8 +111451,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 227,
-        "shown_count": 227,
+        "total_count": 228,
+        "shown_count": 228,
         "hidden_count": 0
       }
     },
@@ -111483,6 +111472,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1e4418649180",
+        "idea_version": "IDEAV-dec86f5bf9ababfe",
+        "idea_version_started_at": "2026-09-06T04:54:50Z",
+        "ticker": "GLAND",
+        "company": "Gland Pharma",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
+        "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c6958bd3121b"
+        ],
+        "primary_source_event_id": "EVT-c6958bd3121b",
+        "source_headlines": [
+          "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
+        ],
+        "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
+        "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
+        "source_name": "Free Press Journal",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-06T04:17:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T17:14:18Z",
+        "updated_at": "2026-09-06T04:54:50Z",
+        "decay_at": "2026-09-07T16:17:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T16:17:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-04738164be6f",
         "idea_version": "IDEAV-66987093c8e398fb",
@@ -146894,7 +146958,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 79,
+    "live_count": 78,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146913,9 +146977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 352815,
-    "news_picked_today": 1133,
-    "news_dropped_today": 14598
+    "news_seen_today": 358714,
+    "news_picked_today": 1202,
+    "news_dropped_today": 14913
   },
   "book_momentum": {
     "live_count": 8,
