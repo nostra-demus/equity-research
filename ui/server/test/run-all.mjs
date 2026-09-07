@@ -1,4 +1,4 @@
-// Auto-discovers and runs every `test/*.test.ts` via tsx, with two isolated workers, and fails if ANY
+// Auto-discovers and runs every `test/*.test.ts` via tsx, with four isolated workers, and fails if ANY
 // file fails. Keeping one process per file preserves the environment/filesystem isolation the suite has
 // always relied on; the small fixed pool stops the required PR check from being starved by frequent
 // data-only commits to main.
@@ -38,7 +38,7 @@ async function runWorker() {
   }
 }
 
-await Promise.all(Array.from({ length: Math.min(2, files.length) }, () => runWorker()))
+await Promise.all(Array.from({ length: Math.min(4, files.length) }, () => runWorker()))
 
 console.log(`\n${files.length - failed}/${files.length} test files passed${failed ? ` — ${failed} FAILED` : ''}`)
 // Set exitCode and let the process end naturally — process.exit() can truncate the line above when
