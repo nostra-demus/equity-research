@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:21:24Z",
+  "generated_at": "2026-09-07T02:31:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -574,6 +574,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-140",
+      "headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T02:25:26Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Austal confirmed it is in talks regarding a potential acquisition of its US subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Austal confirmed it is in talks regarding a potential acquisition of its US subsidiary.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austal",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,55 +1928,6 @@
       "launched_signal_id": null,
       "triage_score": 85,
       "triage_reason": "A fatal cargo plane crash involving Amazon's logistics network poses operational and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-099",
-      "headline": "Amazon says it’s 'working closely' with authorities after cargo plane crash kills 5",
-      "headline_en": null,
-      "url": "https://www.foxbusiness.com/markets/amazon-says-its-working-closely-authorities-after-cargo-plane-crash-kills-5",
-      "source_name": "Fox Business — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:24:32Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -145201,9 +145201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 647,
-    "news_picked_today": 149,
-    "news_dropped_today": 498
+    "news_seen_today": 689,
+    "news_picked_today": 160,
+    "news_dropped_today": 529
   },
   "book_momentum": {
     "live_count": 8,
