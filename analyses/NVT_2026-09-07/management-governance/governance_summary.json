@@ -1,0 +1,106 @@
+{
+  "ticker": "NVT",
+  "date": "2026-09-07",
+  "module": "management-governance",
+  "jurisdiction": "United States (SEC domestic filer); issuer incorporated in Ireland, UK tax resident",
+  "reporting_standard": "US GAAP",
+  "currency": "USD",
+  "stewardship_verdict": "Standard / mixed",
+  "non_negotiable_gate": {
+    "result": "PASS",
+    "tripping_fact": null,
+    "conditions_tested": {
+      "1_hard_disqualifier_from_business_model_01": false,
+      "2_critical_red_flag_in_module": false,
+      "3_disqualifying_controller_ceo_cfo_chair": false,
+      "4_material_undisclosed_legal_matter": false
+    },
+    "coverage_behind_pass": "154 of 179 registry items answered (86.0%)",
+    "locks_applied": []
+  },
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_verbatim": "No verdict-lock. The synthesizer is free to score this business on its merits; nothing in this scan overrides other scores.",
+  "scores": {
+    "management_quality": 77,
+    "capital_allocation": 50,
+    "incentive_alignment": 50,
+    "shareholder_friendliness": 60,
+    "disclosure_candor": 72,
+    "people_and_network_integrity": 70,
+    "audit_and_assurance_quality": 65,
+    "rpt_and_leakage_risk_INVERTED": 40,
+    "contingent_liability_risk_INVERTED": 40,
+    "accounting_forensics_risk_INVERTED": 29,
+    "legal_and_regulatory_risk_INVERTED": 20,
+    "governance_risk_INVERTED": 60,
+    "data_quality": 55,
+    "overall_usefulness": 70
+  },
+  "scores_pre_cap": {
+    "capital_allocation": 63,
+    "incentive_alignment": 57,
+    "shareholder_friendliness": 79,
+    "people_and_network_integrity": 88,
+    "audit_and_assurance_quality": 69,
+    "rpt_and_leakage_risk_INVERTED": 14
+  },
+  "checklist_risk": {
+    "value": 40,
+    "formula": "max(RPT 40, ContingentLiability 40, AccountingForensics 29, LegalRegulatory 20)",
+    "binding_component": "tie: RPT & leakage risk (conservatively applied floor over an evidence-based 14) and contingent-liability risk (10's own earned score) — treat contingent-liability risk as the substantive binding constraint"
+  },
+  "governance_score": {
+    "value": 60,
+    "raw": 59.92,
+    "formula": "0.14*50 + 0.11*50 + 0.11*60 + 0.10*72 + 0.11*77 + 0.09*65 + 0.11*70 + 0.11*(100-60) + 0.12*(100-40)",
+    "mode": "nine-component (full run — all of 07-12 completed; six-component fallback NOT used; no component substituted)"
+  },
+  "confidence_score": 74,
+  "confidence_ceiling_binding": 80,
+  "confidence_adjusted_governance_score": 44,
+  "governance_rating": "Watchlist",
+  "red_flag_count": 5,
+  "critical_red_flag_count": 0,
+  "red_flag_ids": ["RF-CAP-004", "RF-DISC-002", "RF-ACC-001", "RF-CL-001", "RF-FIN-003"],
+  "forensic_tags_propagated": ["RF-DISC-002"],
+  "forensic_tags_tested_not_fired": ["RF-DISC-001", "RF-REG-002"],
+  "checklist_coverage": {
+    "total_registry_items": 179,
+    "answered": 154,
+    "coverage_pct": 86.0,
+    "green": 110,
+    "amber": 41,
+    "red": 3,
+    "not_applicable": 18,
+    "insufficient_data": 7,
+    "red_items": ["A1-02", "A7a-02", "A8-17"]
+  },
+  "insider_ownership_pct": 0.5,
+  "insider_ownership_basis": "derived from the FY24 10-K cover-page non-affiliate test; no proxy ownership table in the pool; web cross-check 0.33% (unverified)",
+  "open_market_insider_purchases": 0,
+  "pledge_pct": 0.0,
+  "people_register": {"total": 21, "clean": 20, "minor_concerns": 1, "material_concerns": 0, "disqualifying": 0},
+  "network_discovery": {
+    "phase_1_ran": true, "phase_2_ran": true, "max_hop": 2, "termination_rule": "breadth_budget",
+    "subjects_total": 53, "filing_supplied": 44, "independently_discovered": 9, "user_supplied": 0,
+    "disclosable_and_omitted": 0, "scope_boundary_rows": 9,
+    "breadth_limit_used": 25, "breadth_overflow": 31, "rf_net_flags_fired": []
+  },
+  "section_24_filters": {
+    "filter_1_integrity": "not tripped",
+    "filter_2_turnaround": "not tripped",
+    "filter_4_serial_acquirer": "TRIPPED — CapAlloc max 50, GovRisk floor 60, RF-CAP-004, conviction cap",
+    "filter_6_unaligned_owner": "not tripped"
+  },
+  "caps_applied": [
+    "No proxy/compensation disclosure -> Incentive alignment max 50; Overall usefulness max 70",
+    "No ownership/insider data -> Shareholder friendliness max 60",
+    "Serial-acquirer pattern (RF-CAP-004) -> Capital allocation max 50; Governance risk floor 60",
+    "No auditor-fee/audit-detail disclosure -> Audit & assurance quality max 65; Confidence max 80",
+    "No related-party note -> RPT & leakage risk floor 40; Confidence max 80 (applied conservatively over 09's evidence-based 14; immaterial to the composite)",
+    "Declared breadth overflow (breadth_budget) -> People & network integrity max 70; Confidence max 80"
+  ],
+  "supersedes": "business-model/11_capital-allocation-governance",
+  "primary_governance_read": true,
+  "highest_value_next_data_request": "The DEF 14A (2026-03-31, and the 2025 proxy) collected into the evidence pool — it carries the CD&A and metric weights, the beneficial-ownership table, the related-person-transaction disclosure and the audit vs non-audit fee table, lifting three caps at once"
+}
