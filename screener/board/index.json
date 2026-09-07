@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:07:37Z",
+  "generated_at": "2026-09-07T00:08:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-020",
@@ -104048,6 +104048,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5e3b0ec8d5d9",
+      "idea_version": "IDEAV-7c943781b4f123b1",
+      "idea_version_started_at": "2026-09-07T00:07:53Z",
+      "ticker": "PAC",
+      "company": "Pacific Current Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has issued a price-sensitive update regarding its strategic review, which typically signals progress toward asset sales, capital returns, or a formal takeover offer.",
+      "why_now": "The update was filed as price-sensitive on September 6, 2026, creating an immediate catalyst for price discovery as the market digests the review's progress.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-63c37510b38b"
+      ],
+      "primary_source_event_id": "EVT-63c37510b38b",
+      "source_headlines": [
+        "PAC: Strategic Review Update [price-sensitive]"
+      ],
+      "source_headline": "PAC: Strategic Review Update [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAC?key=2924-03132449-2A1695646",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-06T23:58:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T05:34:45Z",
+      "updated_at": "2026-09-07T00:07:53Z",
+      "decay_at": "2026-09-08T11:58:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a499ce26ab02",
       "idea_version": "IDEAV-7113bf0dae83b7ef",
       "idea_version_started_at": "2026-09-06T19:44:58Z",
@@ -104114,6 +104185,77 @@
       "surfaced_at": "2026-09-06T05:50:29Z",
       "updated_at": "2026-09-06T19:44:58Z",
       "decay_at": "2026-09-07T18:27:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-97b282210bd2",
+      "idea_version": "IDEAV-69aa1a471168c9c3",
+      "idea_version_started_at": "2026-09-07T00:07:53Z",
+      "ticker": "NGY",
+      "company": "NuEnergy Gas Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The designation of the Tanjung Enim PSC as a National Strategic Project in Indonesia provides the company with streamlined regulatory approvals and prioritized infrastructure support for its gas assets.",
+      "why_now": "The official designation was announced via exchange filing on September 6, 2026, providing a concrete de-risking event for the project's development timeline.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-15ba7a6208c4"
+      ],
+      "primary_source_event_id": "EVT-15ba7a6208c4",
+      "source_headlines": [
+        "NGY: Tanjung Enim PSC designated as a National Strategic Project"
+      ],
+      "source_headline": "NGY: Tanjung Enim PSC designated as a National Strategic Project",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NGY?key=2924-03132440-6A1342477",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-06T23:54:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:07:53Z",
+      "updated_at": "2026-09-07T00:07:53Z",
+      "decay_at": "2026-09-08T11:54:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -104623,6 +104765,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-20111a3ff2d1",
+      "idea_version": "IDEAV-79f742a707403eb1",
+      "idea_version_started_at": "2026-09-07T00:07:53Z",
+      "ticker": "GG1",
+      "company": "Galan Lithium",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A renounceable entitlement offer typically leads to share price dilution and immediate selling pressure as the market adjusts to the new supply of shares and the offer price discount.",
+      "why_now": "The prospectus for the capital action was filed on September 6, 2026, creating immediate technical pressure on the stock.",
+      "conviction": 62,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd1d93c55010"
+      ],
+      "primary_source_event_id": "EVT-bd1d93c55010",
+      "source_headlines": [
+        "GG1: Renounceable Entitlement Offer Prospectus [price-sensitive]"
+      ],
+      "source_headline": "GG1: Renounceable Entitlement Offer Prospectus [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GG1?key=2924-03132437-2A1695632",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-06T23:52:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:07:53Z",
+      "updated_at": "2026-09-07T00:07:53Z",
+      "decay_at": "2026-09-08T11:52:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dd03ee33d73c",
       "idea_version": "IDEAV-db5231668637eeb5",
       "idea_version_started_at": "2026-09-06T09:32:08Z",
@@ -104913,23 +105126,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5e3b0ec8d5d9",
-      "idea_version": "IDEAV-a7a74e3309e9ce6d",
-      "idea_version_started_at": "2026-09-06T05:34:45Z",
-      "ticker": "PAC",
-      "company": "Pacific Current Group",
-      "exchange": "ASX",
+      "idea_id": "IDEA-109a85b7c084",
+      "idea_version": "IDEAV-80ffeba9b3c81b22",
+      "idea_version_started_at": "2026-09-07T00:07:53Z",
+      "ticker": "06872",
+      "company": "Tennor Therapeutics",
+      "exchange": "HKEX",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company is the subject of a takeover bid from Roc Partners, creating a floor and potential premium for shareholders as the suitor pressures the board for engagement.",
-      "why_now": "The suitor publicly criticized the board's silence on 2026-09-06, signaling an active pursuit.",
-      "conviction": 70,
+      "reason": "Positive Phase IIa proof-of-concept data for Rifaquizinone in treating prosthetic joint infections allows the company to progress to a multi-center Phase IIb trial, significantly de-risking the clinical pipeline.",
+      "why_now": "The results and the initiation of the next trial phase were announced on September 7, 2026.",
+      "conviction": 58,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
+        "evidence": 25,
+        "impact": 16,
         "specificity": 7,
         "timing": 10,
         "expression": 0,
@@ -104942,7 +105155,6 @@
         "verified listing",
         "live liquidity",
         "dated catalyst",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -104959,26 +105171,97 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-ed62516cf7af"
+        "EVT-1e517a867bc8"
       ],
-      "primary_source_event_id": "EVT-ed62516cf7af",
+      "primary_source_event_id": "EVT-1e517a867bc8",
       "source_headlines": [
-        "Secret suitor Roc slams Pacific Current Group’s silence on hidden bid"
+        "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL"
       ],
-      "source_headline": "Secret suitor Roc slams Pacific Current Group’s silence on hidden bid",
-      "source_url": "https://www.afr.com/street-talk/secret-suitor-roc-slams-pacific-current-group-s-silence-on-hidden-bid-20260906-p60uuc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "source_headline": "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "materiality_max": 88,
-      "newest_source_at": "2026-09-06T05:29:27Z",
+      "newest_source_at": "2026-09-07T00:03:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-06T05:34:45Z",
-      "updated_at": "2026-09-06T05:34:45Z",
-      "decay_at": "2026-09-07T17:29:27Z",
+      "surfaced_at": "2026-09-07T00:07:53Z",
+      "updated_at": "2026-09-07T00:07:53Z",
+      "decay_at": "2026-09-08T12:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-643afac61036",
+      "idea_version": "IDEAV-7795ba101e42d252",
+      "idea_version_started_at": "2026-09-07T00:07:53Z",
+      "ticker": "CC5",
+      "company": "Clever Culture Systems (LBT Innovations)",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Novo Nordisk's decision to expand the use of the APAS Independence platform validates the technology's commercial utility and provides a high-profile reference customer for future sales.",
+      "why_now": "The expansion was announced as a price-sensitive commercial update on September 6, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d47fb94a0d5"
+      ],
+      "primary_source_event_id": "EVT-3d47fb94a0d5",
+      "source_headlines": [
+        "CC5: Novo Nordisk Expand Use of APAS Independence [price-sensitive]"
+      ],
+      "source_headline": "CC5: Novo Nordisk Expand Use of APAS Independence [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CC5?key=2924-03132444-2A1695645",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-06T23:56:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:07:53Z",
+      "updated_at": "2026-09-07T00:07:53Z",
+      "decay_at": "2026-09-08T11:56:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142769,8 +143052,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 519,
-    "live_count": 54,
+    "surfaced_total": 523,
+    "live_count": 58,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
