@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:31:32Z",
+  "generated_at": "2026-09-07T02:32:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -103715,6 +103715,84 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7f0cb5a0adaa",
+      "idea_version": "IDEAV-be92643744795d0e",
+      "idea_version_started_at": "2026-09-07T02:31:45Z",
+      "ticker": "BGL",
+      "company": "Bathla Group",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Bathla Group is facing a severe debt crisis, with escalating funding issues and staff layoffs, suggesting a high risk of default or significant financial distress.",
+      "why_now": "Multiple reports on September 7, 2026, detail the deepening debt crisis and the need for stopgap funding.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ec9c6737acab",
+        "EVT-b0a65951d027",
+        "EVT-3f2a332122ea",
+        "EVT-d1c1aeaedcdc",
+        "EVT-92eb3226a6e7"
+      ],
+      "primary_source_event_id": "EVT-ec9c6737acab",
+      "source_headlines": [
+        "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+        "Morgan Stanley Banker in Australia Says Bathla Is ‘Hammer Blow’",
+        "Bathla Group Faces Funding Talks as $2.5 Billion Debt Crisis Deepens",
+        "Bathla Gets Stopgap Funding as Longer-Term Debt Crisis Lingers"
+      ],
+      "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:47:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T02:31:45Z",
+      "updated_at": "2026-09-07T02:31:45Z",
+      "decay_at": "2026-09-08T12:47:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-61fc8091add8",
       "idea_version": "IDEAV-0c85c13f2a8d7ca8",
       "idea_version_started_at": "2026-09-07T01:51:35Z",
@@ -104718,6 +104796,78 @@
       "surfaced_at": "2026-09-06T11:55:46Z",
       "updated_at": "2026-09-06T11:55:46Z",
       "decay_at": "2026-09-07T23:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f69625cadec8",
+      "idea_version": "IDEAV-d68ad6f60ccae3bb",
+      "idea_version_started_at": "2026-09-07T02:31:45Z",
+      "ticker": "MYNT",
+      "company": "Mynt",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
+      "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-146e2faafdc6"
+      ],
+      "primary_source_event_id": "EVT-146e2faafdc6",
+      "source_headlines": [
+        "Philippines regulator clears Mynt for up to $1.5 billion IPO"
+      ],
+      "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
+      "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-07T01:36:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T02:31:45Z",
+      "updated_at": "2026-09-07T02:31:45Z",
+      "decay_at": "2026-09-08T13:36:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -145181,8 +145331,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 535,
-    "live_count": 66,
+    "surfaced_total": 537,
+    "live_count": 68,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
