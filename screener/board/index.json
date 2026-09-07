@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T04:27:16Z",
+  "generated_at": "2026-09-07T04:42:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-195",
+      "headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:17:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1718,6 +1767,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-201",
+      "headline": "FNZ: the Credit Suisse spinout haemorrhaging cash",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/738f043b-9d26-401c-aee6-7a64a257fda2?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:00:11Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "FNZ is facing significant financial distress and cash flow issues, raising concerns about its operational viability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FNZ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-168",
       "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in US",
       "headline_en": null,
@@ -1857,104 +1955,6 @@
           "name": "Ingenia",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-036",
-      "headline": "ASX inches up; Ingenia jumps 16pc after bid rejection",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:18:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": "INA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-019",
-      "headline": "ASX to wobble; Ingenia rejects bid; Austal in counteroffer talk",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:03:15Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -103785,6 +103785,222 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-122637bff5ac",
+      "idea_version": "IDEAV-628c6ced57c82bb9",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "TATA.NS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, valuing the company at €3.82 billion, which would be a strategic acquisition for Tata Motors.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3a23128a09e2",
+      "idea_version": "IDEAV-222848955cb0ed5c",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "4714.T",
+      "company": "Oricon Inc.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Oricon Inc. is facing delisting from the Tokyo Stock Exchange, indicating severe financial distress or non-compliance.",
+      "why_now": "The decision on delisting was announced on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11eb67755ea6"
+      ],
+      "primary_source_event_id": "EVT-11eb67755ea6",
+      "source_headlines": [
+        "[TSE]Decision on Delisting, etc.: Oricon Inc."
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e35461f60911",
+      "idea_version": "IDEAV-9106403afff5a766",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "IVC",
+      "company": "Iveco Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Iveco Group is the target of a tender offer from Tata Motors at €3.82 billion, suggesting a potential sale and exit for current shareholders at a specific price.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-67edac5436ac",
       "idea_version": "IDEAV-493e94dd58a9cc9e",
       "idea_version_started_at": "2026-09-07T04:21:47Z",
@@ -145838,8 +146054,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 544,
-    "live_count": 74,
+    "surfaced_total": 547,
+    "live_count": 77,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -145858,9 +146074,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1513,
-    "news_picked_today": 304,
-    "news_dropped_today": 1209
+    "news_seen_today": 1774,
+    "news_picked_today": 329,
+    "news_dropped_today": 1445
   },
   "book_momentum": {
     "live_count": 8,
