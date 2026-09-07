@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:51:23Z",
+  "generated_at": "2026-09-07T01:51:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -103703,6 +103703,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-61fc8091add8",
+      "idea_version": "IDEAV-0c85c13f2a8d7ca8",
+      "idea_version_started_at": "2026-09-07T01:51:35Z",
+      "ticker": "08168",
+      "company": "Amasse Capital",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company announced the removal of its CEO and executive director alongside a suspension of trading, indicating severe governance and potential solvency issues.",
+      "why_now": "The official exchange filing was released on September 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-111976633c89"
+      ],
+      "primary_source_event_id": "EVT-111976633c89",
+      "source_headlines": [
+        "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES"
+      ],
+      "source_headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:51:35Z",
+      "updated_at": "2026-09-07T01:51:35Z",
+      "decay_at": "2026-09-08T12:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c6f6fe27dcb6",
       "idea_version": "IDEAV-c17c600f3a7ecfa3",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -145093,8 +145165,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 534,
-    "live_count": 66,
+    "surfaced_total": 535,
+    "live_count": 67,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
