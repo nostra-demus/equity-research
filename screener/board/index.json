@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T16:26:59Z",
+  "generated_at": "2026-09-07T16:59:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-546",
+      "headline": "Nvidia Acquires HuggingFace for $12.9B",
+      "headline_en": null,
+      "url": "https://www.eetimes.com/nvidia-acquires-huggingface-for-12-9b/",
+      "source_name": "EE Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T15:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Nvidia is acquiring HuggingFace for $12.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is acquiring HuggingFace for $12.9 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "HuggingFace",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-335",
-      "headline": "Saudi Aramco facility hit in new strikes",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9ffb0fb3-51f6-4aa8-9270-a949196bf441?syn-25a6b1a6=1",
-      "source_name": "Financial Times — Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T10:52:14Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A Saudi Aramco facility was hit in new military strikes, posing a direct threat to global oil supply and infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Saudi Aramco facility was hit in new military strikes, posing a direct threat to global oil supply and infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Arabian Oil Company",
-          "ticker": "ARAMCO",
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146977,9 +146982,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 358714,
-    "news_picked_today": 1202,
-    "news_dropped_today": 14913
+    "news_seen_today": 366648,
+    "news_picked_today": 1340,
+    "news_dropped_today": 15327
   },
   "book_momentum": {
     "live_count": 8,
