@@ -717,10 +717,19 @@ viol.extend(hc.eval_ak_red_flag_severity_reconciliation(ddte, d, _thesis_text_ak
 # no Decision Audit Trail section (or one with blank adjudication cells), print `GATE: PASS`, and
 # commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual `/research:eval`
 # run. Moving it into headline_checks.py (see that module) closes that hole the same way it was
-# already closed for AI/AK. Uses `ddte`, matching how AI/AK are gated on this same line above (not
-# `_live_date`) — AJ_DATE, like AI_DATE/AK_DATE, predates every run old enough for a rerun-on-stale-
-# decision_date edge case to matter in practice.
-viol.extend(hc.eval_aj_decision_audit_trail(ddte, _thesis_text_ak) or [])
+# already closed for AI/AK.
+# [review fix] Gate on `_live_date`, NOT `ddte` — AJ guards `final_thesis.md` content that a
+# /research:rerun REGENERATES, so it belongs with the AT/AU/AV/BB/BC family (line 640), not the
+# ddte family. A standalone rerun (rerun.md Step 8A runs this block verbatim) keeps the folder's
+# ORIGINAL decision_date pinned (synthesizer.md), so a pre-AJ_DATE folder (e.g. BG/HCG_2026-06-01,
+# TMCV_2026-06-07, EMAAR_2026-07-03) would evaluate AJ at ddte < AJ_DATE → N/A → the freshly
+# rewritten thesis could ship with NO Decision Audit Trail, GATE: PASS, straight to main — the
+# exact hole this check exists to close. `_live_date` (today) is always ≥ AJ_DATE, so the live gate
+# always applies to what is about to ship. Retrospective eval.py check AJ correctly keeps the true
+# decision_date, so historical fixtures retain their intended pre-AJ_DATE N/A applicability.
+# (AI/AK on the two lines above still use `ddte` and guard regenerated content too — same latent
+# rerun asymmetry — but they predate this PR; left unchanged here to keep this diff scoped.)
+viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 # AP valuation-summary lever-sidecar integrity (pre-publish; SAME pure core as eval.py check AP, via
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that
