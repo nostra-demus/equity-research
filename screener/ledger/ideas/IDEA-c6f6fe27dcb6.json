@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-c6f6fe27dcb6",
+  "idea_version": "IDEAV-c17c600f3a7ecfa3",
+  "idea_version_started_at": "2026-09-07T01:06:48Z",
+  "ticker": "BTH.AX",
+  "company": "Bathla Group",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
+  "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 6,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-edff9146f2b6",
+    "EVT-ec9c6737acab"
+  ],
+  "primary_source_event_id": "EVT-ec9c6737acab",
+  "source_headlines": [
+    "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+    "Bathla administrators scramble for cash as 200 staff stood down"
+  ],
+  "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-07T00:11:08Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-07T01:06:48Z",
+  "updated_at": "2026-09-07T01:06:48Z",
+  "decay_at": "2026-09-08T12:11:08Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

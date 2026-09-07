@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-d6de8a96e915",
+  "idea_version": "IDEAV-6b01ba7922e31ce9",
+  "idea_version_started_at": "2026-09-07T01:06:48Z",
+  "ticker": "XTI",
+  "company": "Crude Oil",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
+  "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "commodity_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-4d69fd5ce5c4"
+  ],
+  "primary_source_event_id": "EVT-4d69fd5ce5c4",
+  "source_headlines": [
+    "Oil extends gains after US and Iran strike ships"
+  ],
+  "source_headline": "Oil extends gains after US and Iran strike ships",
+  "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
+  "source_name": "Reuters — Latest (news sitemap)",
+  "materiality_max": 68,
+  "newest_source_at": "2026-09-07T00:16:09Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-07T01:06:48Z",
+  "updated_at": "2026-09-07T01:06:48Z",
+  "decay_at": "2026-09-08T12:16:09Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:06:34Z",
+  "generated_at": "2026-09-07T01:07:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -102485,6 +102485,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-f5b09d965873",
+      "idea_version": "IDEAV-d71dfdf015505bc2",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "INA.AX",
+      "company": "Ingenia Communities",
+      "exchange": "Australian",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company rejected a $1.4 billion takeover offer, indicating its shares are undervalued and likely to trade higher as it continues as an independent entity.",
+      "why_now": "The news of the rejected bid and subsequent share surge occurred on September 6th and 7th, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-591e2c9cf770",
+        "EVT-4d3c48efe4f6"
+      ],
+      "primary_source_event_id": "EVT-4d3c48efe4f6",
+      "source_headlines": [
+        "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
+        "ASX inches up; Ingenia jumps 16pc after bid rejection"
+      ],
+      "source_headline": "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-06/australia-s-ingenia-rejects-1-4-billion-warburg-pincus-bid",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:18:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:18:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e6f71ab27180",
       "idea_version": "IDEAV-f2cc9003c6d9acbb",
       "idea_version_started_at": "2026-09-06T23:49:29Z",
@@ -103603,6 +103674,79 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c6f6fe27dcb6",
+      "idea_version": "IDEAV-c17c600f3a7ecfa3",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "BTH.AX",
+      "company": "Bathla Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
+      "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-edff9146f2b6",
+        "EVT-ec9c6737acab"
+      ],
+      "primary_source_event_id": "EVT-ec9c6737acab",
+      "source_headlines": [
+        "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+        "Bathla administrators scramble for cash as 200 staff stood down"
+      ],
+      "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:11:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:11:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -105049,6 +105193,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0fa4dca8ab30",
+      "idea_version": "IDEAV-e69cf06ea094710d",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "EIQ.AX",
+      "company": "Enegex",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has requested a trading halt due to a strategic review, which often precedes significant negative news or restructuring.",
+      "why_now": "The trading halt was announced on September 7th, 2026, indicating an immediate development.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ffc52c2f2a3b"
+      ],
+      "primary_source_event_id": "EVT-ffc52c2f2a3b",
+      "source_headlines": [
+        "EIQ: Trading Halt [price-sensitive]"
+      ],
+      "source_headline": "EIQ: Trading Halt [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-07T00:16:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:16:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-97b282210bd2",
       "idea_version": "IDEAV-69aa1a471168c9c3",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -106128,6 +106344,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-98f5ab3a4fab",
+      "idea_version": "IDEAV-babf068505b2027b",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "TATA.NS",
+      "company": "Tata Sons",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Fresh questions have arisen regarding a top executive's conduct, potentially impacting management and corporate governance.",
+      "why_now": "The news surfaced on September 7th, 2026, raising immediate concerns.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9fb7d22eb502"
+      ],
+      "primary_source_event_id": "EVT-9fb7d22eb502",
+      "source_headlines": [
+        "An email throws up fresh questions on Tata Sons' clean chit to top exec"
+      ],
+      "source_headline": "An email throws up fresh questions on Tata Sons' clean chit to top exec",
+      "source_url": "https://www.livemint.com/companies/news/tata-trusts-tata-sons-group-company-secretary-suprakash-mukhopadhyay-11788684881220.html",
+      "source_name": "Mint",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-07T00:15:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:15:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-643afac61036",
       "idea_version": "IDEAV-7795ba101e42d252",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -106556,6 +106844,78 @@
       "surfaced_at": "2026-09-07T00:24:17Z",
       "updated_at": "2026-09-07T00:24:17Z",
       "decay_at": "2026-09-08T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d6de8a96e915",
+      "idea_version": "IDEAV-6b01ba7922e31ce9",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "XTI",
+      "company": "Crude Oil",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
+      "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d69fd5ce5c4"
+      ],
+      "primary_source_event_id": "EVT-4d69fd5ce5c4",
+      "source_headlines": [
+        "Oil extends gains after US and Iran strike ships"
+      ],
+      "source_headline": "Oil extends gains after US and Iran strike ships",
+      "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-09-07T00:16:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:16:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -144566,8 +144926,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 527,
-    "live_count": 59,
+    "surfaced_total": 532,
+    "live_count": 64,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
