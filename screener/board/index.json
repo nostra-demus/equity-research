@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T03:45:40Z",
+  "generated_at": "2026-09-07T03:49:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -194,6 +194,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-177",
+      "headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:45:31Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Warburg Pincus",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1958,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-101",
-      "headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:30:58Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145856,9 +145861,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1012,
-    "news_picked_today": 241,
-    "news_dropped_today": 771
+    "news_seen_today": 1030,
+    "news_picked_today": 246,
+    "news_dropped_today": 784
   },
   "book_momentum": {
     "live_count": 8,
