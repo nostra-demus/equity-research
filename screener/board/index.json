@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T15:01:47Z",
+  "generated_at": "2026-09-07T15:20:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -543,6 +543,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-463",
+      "headline": "Taiwan Semiconductor Manufacturing Company (TSM) Raises Guidance as Demand for Advanced Chips Soars",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/taiwan-semiconductor-manufacturing-company-tsm-142602670.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T14:26:02Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "TSMC raised its financial guidance due to strong demand for advanced chips.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TSMC raised its financial guidance due to strong demand for advanced chips.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Taiwan Semiconductor Manufacturing Company",
+          "ticker": "TSM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-439",
       "headline": "EQT to acquire majority stake in McGill and Partners for $2bn",
       "headline_en": null,
@@ -927,6 +976,55 @@
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-478",
+      "headline": "Automobil: Jaguar Land Rover muss sparen – 4.000 Stellen fallen weg",
+      "headline_en": "Automotive: Jaguar Land Rover must save – 4,000 jobs are being cut",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/automobil-jaguar-land-rover-muss-sparen-4.000-stellen-fallen-weg/100252635.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T12:47:35Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving measure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs as part of a cost-saving measure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -1892,105 +1990,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-211",
-      "headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:56:44Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PVR Inox",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-206",
-      "headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T04:53:05Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Trade Desk",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105915,78 +105914,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f9e57ac4023c",
-      "idea_version": "IDEAV-356ce18b87b89dd9",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "CON",
-      "company": "Continental AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Continental AG is convening an extraordinary Sunday board meeting to finalize and approve the sale of its 'mycar' business unit to a new owner.",
-      "why_now": "The board meeting is scheduled for Sunday, September 6, 2026, indicating an official transaction announcement is imminent.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74abcdb05d21"
-      ],
-      "primary_source_event_id": "EVT-74abcdb05d21",
-      "source_headlines": [
-        "Continetal AG calls Sunday board huddle to anoint mycar’s new owner"
-      ],
-      "source_headline": "Continetal AG calls Sunday board huddle to anoint mycar’s new owner",
-      "source_url": "https://www.afr.com/street-talk/continetal-ag-calls-sunday-board-huddle-to-anoint-mycar-s-new-owner-20260906-p60uuf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-06T03:19:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:55:04Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-07T15:19:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9908603014ee",
       "idea_version": "IDEAV-fb3e9ebbd19dfd8d",
       "idea_version_started_at": "2026-09-06T10:27:02Z",
@@ -111297,6 +111224,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f9e57ac4023c",
+      "idea_version": "IDEAV-356ce18b87b89dd9",
+      "idea_version_started_at": "2026-09-06T19:44:58Z",
+      "ticker": "CON",
+      "company": "Continental AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Continental AG is convening an extraordinary Sunday board meeting to finalize and approve the sale of its 'mycar' business unit to a new owner.",
+      "why_now": "The board meeting is scheduled for Sunday, September 6, 2026, indicating an official transaction announcement is imminent.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74abcdb05d21"
+      ],
+      "primary_source_event_id": "EVT-74abcdb05d21",
+      "source_headlines": [
+        "Continetal AG calls Sunday board huddle to anoint mycar’s new owner"
+      ],
+      "source_headline": "Continetal AG calls Sunday board huddle to anoint mycar’s new owner",
+      "source_url": "https://www.afr.com/street-talk/continetal-ag-calls-sunday-board-huddle-to-anoint-mycar-s-new-owner-20260906-p60uuf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-06T03:19:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T03:55:04Z",
+      "updated_at": "2026-09-06T19:44:58Z",
+      "decay_at": "2026-09-07T15:19:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ffd3303f2ba5",
       "idea_version": "IDEAV-7ca58afb2ce1f40a",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -111452,13 +111451,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 473,
-    "shown_count": 473,
+    "total_count": 474,
+    "shown_count": 474,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 247,
-        "shown_count": 247,
+        "total_count": 248,
+        "shown_count": 248,
         "hidden_count": 0
       },
       "short": {
@@ -111483,6 +111482,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f9e57ac4023c",
+        "idea_version": "IDEAV-356ce18b87b89dd9",
+        "idea_version_started_at": "2026-09-06T19:44:58Z",
+        "ticker": "CON",
+        "company": "Continental AG",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Continental AG is convening an extraordinary Sunday board meeting to finalize and approve the sale of its 'mycar' business unit to a new owner.",
+        "why_now": "The board meeting is scheduled for Sunday, September 6, 2026, indicating an official transaction announcement is imminent.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-74abcdb05d21"
+        ],
+        "primary_source_event_id": "EVT-74abcdb05d21",
+        "source_headlines": [
+          "Continetal AG calls Sunday board huddle to anoint mycar’s new owner"
+        ],
+        "source_headline": "Continetal AG calls Sunday board huddle to anoint mycar’s new owner",
+        "source_url": "https://www.afr.com/street-talk/continetal-ag-calls-sunday-board-huddle-to-anoint-mycar-s-new-owner-20260906-p60uuf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-06T03:19:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T03:55:04Z",
+        "updated_at": "2026-09-06T19:44:58Z",
+        "decay_at": "2026-09-07T15:19:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T15:19:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-205ed939316f",
         "idea_version": "IDEAV-23b289b6cd7b7c5b",
@@ -146595,7 +146669,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 558,
-    "live_count": 83,
+    "live_count": 82,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146614,9 +146688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 329029,
-    "news_picked_today": 975,
-    "news_dropped_today": 13892
+    "news_seen_today": 338055,
+    "news_picked_today": 1013,
+    "news_dropped_today": 14046
   },
   "book_momentum": {
     "live_count": 8,
