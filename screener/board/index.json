@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:46:27Z",
+  "generated_at": "2026-09-07T01:51:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -520,6 +520,55 @@
       "companies": [
         {
           "name": "PAC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-110",
+      "headline": "SLD: CEO Transition [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SLD?key=2924-03132497-2A1695690",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T01:43:55Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "CEO transition is a material management change for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "CEO transition is a material management change for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SLD",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1895,49 +1944,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-051",
-      "headline": "MP’s Sagar Hooch Tragedy Claims 11 Lives; 84 Hospitalised, CM Mohan Yadav Orders Probe & Officials Face Axe",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/mps-sagar-hooch-tragedy-claims-11-lives-84-hospitalised-cm-mohan-yadav-orders-probe-officials-face-axe",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A major tragedy involving 11 deaths and 84 hospitalizations has triggered a government probe and disciplinary action against officials.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A major tragedy involving 11 deaths and 84 hospitalizations has triggered a government probe and disciplinary action against officials.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -145107,9 +145113,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 490,
-    "news_picked_today": 111,
-    "news_dropped_today": 379
+    "news_seen_today": 510,
+    "news_picked_today": 115,
+    "news_dropped_today": 395
   },
   "book_momentum": {
     "live_count": 8,
