@@ -556,6 +556,11 @@ def _decision_audit_section(thesis):
     scope_text = p2.group(0) if p2 else thesis
     m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##?\s|\Z)", scope_text)
     return m.group(0) if m else None
+def _decision_audit_cells(row):
+    """Remove one outer pipe while preserving empty audit-table cells."""
+    content = row[1:-1] if row.endswith("|") else row[1:]
+    return [cell.strip() for cell in content.split("|")]
+
 def _decision_audit_header(section):
     """The HEADER cells of the Decision Audit Trail pipe-table (the first non-separator pipe row), or []
     if the section holds no table. Split out so check AJ can verify the table actually carries the
@@ -565,8 +570,7 @@ def _decision_audit_header(section):
         s=line.strip()
         if not s.startswith("|"): continue
         if re.match(r"^\|[\s:|-]+\|$", s): continue  # separator row
-        content = s[1:-1] if s.endswith("|") else s[1:]
-        return [c.strip() for c in content.split("|")]
+        return _decision_audit_cells(s)
     return []
 def _decision_audit_rows(section):
     """The DATA rows of the Decision Audit Trail pipe-table (header and separator rows excluded), or []
@@ -580,8 +584,7 @@ def _decision_audit_rows(section):
             continue
         if re.match(r"^\|[\s:|-]+\|$", s):
             continue  # the header/body separator row
-        content = s[1:-1] if s.endswith("|") else s[1:]
-        cells=[c.strip() for c in content.split("|")]
+        cells=_decision_audit_cells(s)
         if not header_seen:
             header_seen=True  # this pipe row IS the header — skip it, start collecting after
             continue
