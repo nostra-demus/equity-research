@@ -6,6 +6,7 @@ import { canonicalJsonText } from './canonical-json'
 import {
   continuationPlanReceiptFingerprint,
   prepareThesisPlanPrivately,
+  removePrivateRunPlanTree,
   type PrivateThesisPlanPreparation,
   type ThesisPlan,
 } from './completion'
@@ -549,11 +550,8 @@ async function readJournal(directory: string): Promise<TransactionJournal | null
   }
 }
 
-async function removeTreeInside(directory: string, target: string): Promise<void> {
-  const base = path.resolve(directory)
-  const resolved = path.resolve(target)
-  if (!resolved.startsWith(`${base}${path.sep}`)) throw new Error('transaction cleanup escaped its directory')
-  if (await pathEntryExists(resolved)) await fs.promises.rm(resolved, { recursive: true, force: true })
+function removeTreeInside(directory: string, target: string): void {
+  removePrivateRunPlanTree(directory, target)
 }
 
 type SpawnBoundary = 'unstarted' | 'released' | 'ambiguous'
@@ -592,6 +590,14 @@ function spawnBoundary(journal: TransactionJournal, stateDir: string): SpawnBoun
 }
 
 async function restoreUnstarted(workspace: string, journal: TransactionJournal, stateDir: string): Promise<void> {
+  // Cleanup can fail after the restore was durably completed. A retry through the same transaction
+  // object must honor that journal, even if its in-memory state still says the new root is activated.
+  const directory = journalDir(journal.requestId, stateDir)
+  const current = await readJournal(directory)
+  if (!current || current.requestId !== journal.requestId || current.targetRunRoot !== journal.targetRunRoot) {
+    throw new Error('run-plan rollback journal is missing or changed')
+  }
+  journal = current
   if (spawnBoundary(journal, stateDir) !== 'unstarted') {
     throw new Error('an attempted paid child may own this transaction; automatic rollback is unsafe')
   }
@@ -603,11 +609,22 @@ async function restoreUnstarted(workspace: string, journal: TransactionJournal, 
   const preparedExists = await pathEntryExists(preparedAbs)
   const canonicalWasActivated = journal.status === 'activated' || journal.status === 'spawning'
     || (journal.status === 'activating' && (backupExists || !preparedExists))
-  if (await pathEntryExists(targetAbs) && canonicalWasActivated) {
-    if (await pathEntryExists(displacedAbs)) await removeTreeInside(workspace, displacedAbs)
+  // Keep the displaced tree until restoration is journaled. Its presence proves the first rename
+  // already happened; a canonical root alongside it may be the restored original after a crash.
+  if (await pathEntryExists(targetAbs) && canonicalWasActivated && !await pathEntryExists(displacedAbs)) {
     await fs.promises.rename(targetAbs, displacedAbs)
+    await syncDirectory(path.dirname(targetAbs))
+    await syncDirectory(workspace)
   }
-  if (await pathEntryExists(backupAbs)) await fs.promises.rename(backupAbs, targetAbs)
+  if (await pathEntryExists(backupAbs)) {
+    if (await pathEntryExists(targetAbs)) throw new Error('cannot restore prior root over an existing target')
+    await fs.promises.rename(backupAbs, targetAbs)
+    await syncDirectory(path.dirname(targetAbs))
+    await syncDirectory(workspace)
+  }
+  // Seal restoration BEFORE deleting the evidence of the rename. Otherwise a crash after cleanup
+  // leaves an activated journal that mistakes the restored original for disposable unstarted work.
+  if (journal.status !== 'rolled_back') await writeJournal(directory, { ...journal, status: 'rolled_back' })
   if (await pathEntryExists(displacedAbs)) await removeTreeInside(workspace, displacedAbs)
   if (await pathEntryExists(preparedAbs)) await removeTreeInside(workspace, preparedAbs)
 }
@@ -698,7 +715,7 @@ export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): 
       recovered.started.push(journal.requestId)
       continue
     }
-    if (journal.version === 3 && journal.chainIntent?.terminalStatus === 'cancelled') {
+    if (journal.status === 'rolled_back' || (journal.version === 3 && journal.chainIntent?.terminalStatus === 'cancelled')) {
       if (await pathEntryExists(workspace)) await restoreUnstarted(workspace, journal, stateDir)
       abortUnreleasedSpawnAttempts(journal, stateDir)
       await writeJournal(journalDirectory, { ...journal, status: 'rolled_back' })
@@ -1019,6 +1036,7 @@ async function prepareRunPlanTransactionInternal(
     } catch (error) {
       // Preparation has not published or spent anything. Do not strand an unreadable request directory that
       // makes the same durable request permanently unrecoverable after a local staging/sanitizer failure.
+      await removeTreeInside(workspace, path.join(workspace, 'prepared-root'))
       await fs.promises.rm(workspace, { recursive: true, force: true })
       await fs.promises.rm(journalDirectory, { recursive: true, force: true })
       throw error
@@ -1049,6 +1067,7 @@ async function prepareRunPlanTransactionInternal(
   const stagingDevice = (await fs.promises.lstat(preparation.stagingRootAbs)).dev
   const targetDevice = (await fs.promises.lstat(path.dirname(targetAbs))).dev
   if (stagingDevice !== targetDevice) {
+    await removeTreeInside(workspace, preparation.stagingRootAbs)
     await fs.promises.rm(workspace, { recursive: true, force: true })
     await fs.promises.rm(journalDirectory, { recursive: true, force: true })
     throw new Error('private run-plan staging is not on the atomic target filesystem')

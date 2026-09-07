@@ -23,6 +23,11 @@ Every provider follows the same user-visible sequence:
 9. Validate and expose the same required artifacts. Filesystem artifacts, not provider prose, are completion
    truth.
 
+The parent must join its dispatched specialists before advancing a layer or ending the session. A native
+background-task acknowledgement or a final progress update cannot complete a module. Tracked Claude pins
+the documented foreground-task runtime policy; all providers retain the same output and publication gates
+if a parent nevertheless exits early. This does not widen tools, network access, or paid retry authority.
+
 ## Unattended Full and Continue
 
 A Full or Continue request has one data-readiness admission for the whole logical chain. The supervisor runs
@@ -71,6 +76,15 @@ Model choice is part of the same provider-transparent contract, not a second lau
   publication unchanged. Continue may reuse valid outputs and rerun missing, stale, or invalid orbs, but it
   may never call the generic full-run route, default to today's folder, or widen into Full. Reused artifact
   hashes are immutable evidence: if valid saved work changes, the continuation fails closed before spend.
+- Private continuation staging must preserve the saved evidence generation's file and directory permissions
+  as well as its bytes. Verify the activated copy through the same durable readiness receipt before provider
+  dispatch; a successful check of the original folder is not proof of the copy. Full and exact-module
+  continuation tests must cross this copy/activation boundary under both providers, preserve reusable output
+  hashes, and reject writable, substituted, or corrupt source evidence. A generic recursive copy must never
+  silently turn a sealed generation into a writable one.
+- Rollback must remain idempotent across a restart at every rename boundary. Once the previous saved root
+  has been restored, recovery may only remove the proven discarded private copy; a stale transaction journal
+  must never classify that restored original as the unstarted replacement.
 - A profile name is a runtime promise. Every unpinned nested agent must use the selected specialist tier;
   canonical role pins may only make the tier stricter. Unsupported, stale, mismatched, or unavailable profiles
   fail before admission. There is no silent substitution.

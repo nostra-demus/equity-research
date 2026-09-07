@@ -1717,18 +1717,98 @@ let carrySeq = 0
 /** Analysis outputs must be a closed tree of real directories and regular files. Dereferencing a descendant
  *  symlink can import arbitrary bytes from outside analyses into a checkpoint; preserving one can publish a
  *  path whose meaning changes later. Validate before AND after copy so either form fails closed. */
-function assertCopyableTree(abs: string): void {
+function assertCopyableTree(abs: string, directories?: Map<string, fs.Stats>): void {
   const stat = fs.lstatSync(abs)
   if (stat.isSymbolicLink()) throw new Error(`module tree contains a symlink: ${abs}`)
-  if (stat.isFile()) return
+  if (stat.isFile()) {
+    if (directories && stat.nlink !== 1) throw new Error(`module tree contains a hard-link: ${abs}`)
+    return
+  }
   if (!stat.isDirectory()) throw new Error(`module tree contains a non-file entry: ${abs}`)
-  for (const entry of fs.readdirSync(abs)) assertCopyableTree(path.join(abs, entry))
+  directories?.set(abs, stat)
+  for (const entry of fs.readdirSync(abs)) assertCopyableTree(path.join(abs, entry), directories)
 }
 
-function copyDir(srcAbs: string, dstAbs: string): void {
-  assertCopyableTree(srcAbs)
+function copyDir(srcAbs: string, dstAbs: string, preserveFrozenModes = false): void {
+  const directories = preserveFrozenModes ? new Map<string, fs.Stats>() : undefined
+  assertCopyableTree(srcAbs, directories)
   fs.cpSync(srcAbs, dstAbs, { recursive: true, dereference: false, force: true, preserveTimestamps: true })
-  assertCopyableTree(dstAbs)
+  if (preserveFrozenModes) assertCopyableTree(srcAbs, new Map())
+  const copiedDirectories = preserveFrozenModes ? new Map<string, fs.Stats>() : undefined
+  assertCopyableTree(dstAbs, copiedDirectories)
+  if (!directories || !copiedDirectories || process.platform === 'win32') return
+  // cpSync makes copied directories owner-writable, including sealed extraction generations. Restore the
+  // source's exact generation permissions after copying children; never seal a writable source. Ordinary
+  // module directories retain their previous copy behavior so private continuation can sanitize them.
+  const generationParent = path.join(srcAbs, '_pool_extracts', '.extract-generations')
+  for (const [source, before] of [...directories].reverse()) {
+    if (source !== generationParent && !source.startsWith(`${generationParent}${path.sep}`)) continue
+    const current = fs.lstatSync(source)
+    if (!current.isDirectory() || current.isSymbolicLink() || current.dev !== before.dev
+        || current.ino !== before.ino || current.mode !== before.mode) {
+      throw new Error(`source directory changed during copy: ${source}`)
+    }
+    const destination = path.join(dstAbs, path.relative(srcAbs, source))
+    const copied = copiedDirectories.get(destination)
+    if (!copied) throw new Error(`destination directory missing after copy: ${destination}`)
+    const fd = fs.openSync(destination, fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW)
+    try {
+      const actual = fs.fstatSync(fd)
+      if (actual.dev !== copied.dev || actual.ino !== copied.ino || actual.mode !== copied.mode) {
+        throw new Error(`destination directory changed during copy: ${destination}`)
+      }
+      fs.fchmodSync(fd, before.mode & 0o777)
+    } finally { fs.closeSync(fd) }
+  }
+}
+
+/** Remove only an audited, privately owned transaction tree. Frozen directories need owner write permission
+ * for deletion on Unix; never chmod the canonical saved root, follow a link, or touch a shared file inode. */
+export function removePrivateRunPlanTree(transactionDir: string, target: string): void {
+  const base = path.resolve(transactionDir)
+  const absolute = path.resolve(target)
+  if (path.dirname(absolute) !== base
+      || !['prepared-root', 'previous-root', 'unstarted-root'].includes(path.basename(absolute))) {
+    throw new Error('transaction cleanup escaped its private tree')
+  }
+  const baseInfo = fs.lstatSync(base)
+  const owned = (info: fs.Stats) => process.platform === 'win32' || info.uid === process.getuid!()
+  if (!baseInfo.isDirectory() || baseInfo.isSymbolicLink() || !owned(baseInfo)
+      || (process.platform !== 'win32' && (baseInfo.mode & 0o077) !== 0)) {
+    throw new Error('transaction cleanup directory is unsafe')
+  }
+  try {
+    const targetInfo = fs.lstatSync(absolute)
+    if (!targetInfo.isDirectory() || targetInfo.isSymbolicLink()) {
+      throw new Error('transaction cleanup tree is not a plain directory')
+    }
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return
+    throw error
+  }
+  const directories = new Map<string, fs.Stats>()
+  const audit = (entry: string) => {
+    const info = fs.lstatSync(entry)
+    if (info.isSymbolicLink() || !owned(info)
+        || (!info.isDirectory() && (!info.isFile() || info.nlink !== 1))) {
+      throw new Error('transaction cleanup tree contains an unsafe entry')
+    }
+    if (!info.isDirectory()) return
+    directories.set(entry, info)
+    for (const name of fs.readdirSync(entry)) audit(path.join(entry, name))
+  }
+  audit(absolute) // Audit the entire tree before relaxing even one directory's permissions.
+  if (process.platform !== 'win32') for (const [entry, before] of directories) {
+    const fd = fs.openSync(entry, fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW)
+    try {
+      const current = fs.fstatSync(fd)
+      if (current.dev !== before.dev || current.ino !== before.ino || current.mode !== before.mode) {
+        throw new Error('transaction cleanup directory changed after audit')
+      }
+      fs.fchmodSync(fd, (before.mode & 0o777) | 0o700)
+    } finally { fs.closeSync(fd) }
+  }
+  fs.rmSync(absolute, { recursive: true, force: false })
 }
 
 function resumeSwapBackupAbs(runRoot: string, module: string): string {
@@ -2473,21 +2553,21 @@ export function prepareThesisPlanPrivately(
   const stagingRootAbs = path.join(transactionDir, 'prepared-root')
   if (fs.existsSync(stagingRootAbs)) throw new Error('run-plan staging root already exists')
   const targetAbs = path.join(REPO_ROOT, plan.targetRunRoot)
-  if (fs.existsSync(targetAbs)) {
-    assertRealRunRootInsideAnalyses(plan.targetRunRoot)
-    copyDir(targetAbs, stagingRootAbs)
-  } else {
-    fs.mkdirSync(stagingRootAbs, { mode: 0o700 })
-  }
-
-  const graph = buildSwarmGraph(swarmId)
-  const moduleByName = new Map(graph.modules.map((module) => [module.name, module]))
-  const planByName = new Map(plan.modules.map((module) => [module.module, module]))
-  const carried: { module: string; from: string }[] = []
-  const doneOrbKeys: string[] = []
-  const ranClean: string[] = []
-
   try {
+    if (fs.existsSync(targetAbs)) {
+      assertRealRunRootInsideAnalyses(plan.targetRunRoot)
+      copyDir(targetAbs, stagingRootAbs, true)
+    } else {
+      fs.mkdirSync(stagingRootAbs, { mode: 0o700 })
+    }
+
+    const graph = buildSwarmGraph(swarmId)
+    const moduleByName = new Map(graph.modules.map((module) => [module.name, module]))
+    const planByName = new Map(plan.modules.map((module) => [module.module, module]))
+    const carried: { module: string; from: string }[] = []
+    const doneOrbKeys: string[] = []
+    const ranClean: string[] = []
+
     if (plan.continuationReceipt.action === 'continue') {
       sanitizePrivateContinuationRoot(stagingRootAbs, new Set(moduleByName.keys()))
     }
@@ -2644,7 +2724,7 @@ export function prepareThesisPlanPrivately(
       ranClean: [...new Set(ranClean)].sort(),
     }
   } catch (error) {
-    fs.rmSync(stagingRootAbs, { recursive: true, force: true })
+    removePrivateRunPlanTree(transactionDir, stagingRootAbs)
     throw error
   }
 }

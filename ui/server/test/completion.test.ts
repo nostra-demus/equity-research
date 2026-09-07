@@ -78,7 +78,7 @@ write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 const {
   capturePreparedModuleResumeScope, continuationPlanReceiptMatches, thesisPlan, thesisPlanForRequest,
   carryForwardModules, dataPoolNewest, prepareExactModuleContinuationPrivately, prepareFullContinuation,
-  legacySingleRunMigrationPlan, prepareModuleResume, prepareThesisPlanPrivately,
+  legacySingleRunMigrationPlan, prepareModuleResume, prepareThesisPlanPrivately, removePrivateRunPlanTree,
   sanitizeRecoverableChainRoot,
 } = await import('../src/completion')
 const { buildSwarmGraph } = await import('../src/roster')
@@ -1510,6 +1510,71 @@ function exactScope(runRoot: string) {
     'private staging removes the whole downstream module so no old specialist can presence-skip')
   fs.rmSync(tx, { recursive: true, force: true })
   console.log('✅ upstream generation changes make every downstream orb payable in the same exact root')
+}
+
+// Transaction cleanup may thaw only a discarded private tree, after auditing every member.
+if (process.platform !== 'win32') {
+  const tx = fs.mkdtempSync(path.join(REPO, '.cleanup-private-'))
+  const external = fs.mkdtempSync(path.join(REPO, '.cleanup-canonical-'))
+  const sentinel = path.join(external, 'saved.txt')
+  fs.writeFileSync(sentinel, 'original evidence', { mode: 0o444 })
+  fs.chmodSync(external, 0o555)
+  const target = path.join(tx, 'prepared-root')
+  assert.throws(() => removePrivateRunPlanTree(tx, external), /escaped/)
+  removePrivateRunPlanTree(tx, target)
+  for (const shape of ['valid', 'symlink', 'hardlink', 'swap'] as const) {
+    const nested = path.join(target, 'generation')
+    const unsafe = path.join(target, 'unsafe')
+    fs.mkdirSync(nested, { recursive: true })
+    fs.writeFileSync(path.join(nested, 'manifest.json'), '{}', { mode: 0o444 })
+    if (shape === 'symlink') fs.symlinkSync(external, unsafe)
+    if (shape === 'hardlink') fs.linkSync(sentinel, unsafe)
+    fs.chmodSync(nested, 0o555)
+    fs.chmodSync(target, 0o555)
+    const originalOpen = fs.openSync
+    let swapped = false
+    if (shape === 'swap') fs.openSync = ((candidate: fs.PathLike, ...args: any[]) => {
+      if (candidate === nested && !swapped) {
+        // macOS refuses to rename an owner-readonly directory; model a same-owner substitution.
+        fs.chmodSync(nested, 0o700)
+        fs.renameSync(nested, `${nested}-original`)
+        fs.symlinkSync(external, nested)
+        swapped = true
+      }
+      return (originalOpen as any)(candidate, ...args)
+    }) as typeof fs.openSync
+    try {
+      if (shape === 'valid') {
+        removePrivateRunPlanTree(tx, target)
+        assert.equal(fs.existsSync(target), false, 'sealed private generations can be discarded')
+      } else {
+        assert.throws(() => removePrivateRunPlanTree(tx, target))
+        if (shape === 'swap') assert.equal(swapped, true, 'exercise the actual symlink substitution')
+        if (shape !== 'swap') assert.equal(fs.statSync(target).mode & 0o777, 0o555,
+          'the whole tree is audited before any permission changes')
+      }
+      assert.equal(fs.statSync(external).mode & 0o777, 0o555)
+      assert.equal(fs.statSync(sentinel).mode & 0o777, 0o444)
+      assert.equal(fs.readFileSync(sentinel, 'utf8'), 'original evidence',
+        'neither a link nor a swapped path can modify canonical evidence')
+    } finally {
+      fs.openSync = originalOpen
+      if (fs.existsSync(target)) {
+        fs.chmodSync(target, 0o700)
+        if (shape === 'symlink' || shape === 'hardlink') fs.unlinkSync(unsafe)
+        if (swapped) {
+          fs.unlinkSync(nested)
+          fs.renameSync(`${nested}-original`, nested)
+        }
+        fs.chmodSync(nested, 0o700)
+        fs.rmSync(target, { recursive: true })
+      }
+    }
+  }
+  fs.chmodSync(external, 0o700)
+  fs.rmSync(external, { recursive: true })
+  fs.rmSync(tx, { recursive: true })
+  console.log('✅ discarded frozen trees are removed without thawing linked or canonical evidence')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })
