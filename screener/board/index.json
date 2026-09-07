@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T21:50:49Z",
+  "generated_at": "2026-09-07T21:57:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-618",
+      "headline": "EverBank to combine with WaFd in $3.9 billion reverse merger",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/everbank-combine-with-wafd-39-billion-reverse-merger-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T21:50:23Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "EverBank and WaFd announced a $3.9 billion reverse merger, which is a significant consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EverBank and WaFd announced a $3.9 billion reverse merger, which is a significant consolidation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EverBank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "WaFd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,55 +2017,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-386",
-      "headline": "Sweden to buy Lockheed Martin's Himars artillery rocket system in $729 mln deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/aerospace-defense/sweden-buy-lockheed-martins-himars-artillery-rocket-system-729-mln-deal-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T12:13:47Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Sweden is purchasing Lockheed Martin's Himars system in a deal valued at $729 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sweden is purchasing Lockheed Martin's Himars system in a deal valued at $729 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -147033,9 +147038,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428382,
-    "news_picked_today": 1856,
-    "news_dropped_today": 17918
+    "news_seen_today": 428389,
+    "news_picked_today": 1857,
+    "news_dropped_today": 17924
   },
   "book_momentum": {
     "live_count": 8,
