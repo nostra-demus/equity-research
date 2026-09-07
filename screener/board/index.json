@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:11:26Z",
+  "generated_at": "2026-09-07T02:16:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -93,6 +93,55 @@
           "name": "Hyundai Steel",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-132",
+      "headline": "Macquarie Asset Management buys SERV stake from Aware Super, $4b deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/macquarie-asset-management-buys-serv-stake-from-aware-super-in-4-deal-20260906-p60uua?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T02:07:13Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Macquarie Asset Management is acquiring a stake in SERV from Aware Super in a deal valued at $4 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macquarie Asset Management is acquiring a stake in SERV from Aware Super in a deal valued at $4 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -770,55 +819,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-127",
-      "headline": "Macquarie Asset Management buys SERV stake from Aware Super in $4 deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/macquarie-asset-management-buys-serv-stake-from-aware-super-in-4-deal-20260906-p60uua?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:07:13Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Macquarie Asset Management acquired a stake in SERV for $4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Macquarie Asset Management acquired a stake in SERV for $4 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Macquarie Asset Management",
-          "ticker": "MQG",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1865,20 +1865,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-099",
-      "headline": "Amazon says it’s 'working closely' with authorities after cargo plane crash kills 5",
+      "inbox_id": "INB-20260907-130",
+      "headline": "Caught On Camera: Fire, Clouds Of Somke As Amazon Cargo Plane Crashes At Miami Airport, Five Killed",
       "headline_en": null,
-      "url": "https://www.foxbusiness.com/markets/amazon-says-its-working-closely-authorities-after-cargo-plane-crash-kills-5",
-      "source_name": "Fox Business — Markets",
+      "url": "https://www.ndtvprofit.com/world/caught-on-camera-fire-clouds-of-somke-as-amazon-cargo-plane-crashes-at-miami-airport-five-killed-12011127#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:24:32Z",
+      "found_at": "2026-09-07T01:29:40Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
+      "prelim_note": "A fatal cargo plane crash involving Amazon's logistics network poses operational and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 85,
-      "triage_reason": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
+      "triage_reason": "A fatal cargo plane crash involving Amazon's logistics network poses operational and reputational risk.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1914,31 +1914,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-056",
-      "headline": "Five dead after Amazon cargo plane crashes at Miami airport",
+      "inbox_id": "INB-20260907-099",
+      "headline": "Amazon says it’s 'working closely' with authorities after cargo plane crash kills 5",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c0e3p1j7n3ro?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
+      "url": "https://www.foxbusiness.com/markets/amazon-says-its-working-closely-authorities-after-cargo-plane-crash-kills-5",
+      "source_name": "Fox Business — Markets",
       "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:39:45Z",
+      "found_at": "2026-09-07T01:24:32Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A fatal cargo plane crash involving Amazon's logistics network presents significant operational and reputational risk.",
+      "prelim_note": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 85,
-      "triage_reason": "A fatal cargo plane crash involving Amazon's logistics network presents significant operational and reputational risk.",
+      "triage_reason": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
         "event": 2,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -145201,9 +145201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 595,
-    "news_picked_today": 136,
-    "news_dropped_today": 459
+    "news_seen_today": 631,
+    "news_picked_today": 146,
+    "news_dropped_today": 485
   },
   "book_momentum": {
     "live_count": 8,
