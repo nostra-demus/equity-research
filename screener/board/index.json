@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T10:31:59Z",
+  "generated_at": "2026-09-07T10:42:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-306",
@@ -1773,6 +1773,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-308",
+      "headline": "Lululemon cuts FY26 outlook as ‘negative commentary’ hits Q2",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-cuts-fy26-outlook-negative-101307220.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T10:13:07Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Lululemon cutting full-year FY26 guidance on negative Q2 commentary signals management concern about demand and margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Lululemon cutting full-year FY26 guidance on negative Q2 commentary signals management concern about demand and margin pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lululemon Athletica",
+          "ticker": "LULU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-109",
       "headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-217",
-      "headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T05:13:15Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company reported a significant 113% surge in its FY26 order book to Rs 21,206 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HFCL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146646,9 +146646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 177987,
-    "news_picked_today": 524,
-    "news_dropped_today": 8943
+    "news_seen_today": 184085,
+    "news_picked_today": 537,
+    "news_dropped_today": 9338
   },
   "book_momentum": {
     "live_count": 8,
