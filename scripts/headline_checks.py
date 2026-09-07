@@ -543,18 +543,18 @@ AJ_DATE = "2026-07-10"
 AJ_MIN_ROWS = 3
 AJ_REQUIRED_COLS = ["Decision Driver", "Bull Evidence", "Bear Evidence", "Which Side Wins?", "Why?"]
 def _decision_audit_section(thesis):
-    """The text of the '## Decision Audit Trail' section ONLY — from its heading up to the next '## '
-    heading (or EOF), mirroring `_scorecard_section`'s scoping so a table living in a LATER section
-    cannot satisfy this check. None if absent.
+    """The text of the '## Decision Audit Trail' section ONLY — from its heading up to the next H1
+    or H2 heading (or EOF), so a table living in a LATER section cannot satisfy this check. None if absent.
 
     When the dossier uses the PART structure (synthesizer.md emits the audit trail under
     '# PART II — CROSS-CUTTING ANALYSIS'), the search is FIRST restricted to the Part II slice, so a
     later appendix/process section carrying its own '## Decision Audit Trail' heading cannot satisfy
-    the check while Part II omits the table (r3556238203). Falls back to the whole document only when
+    the check while Part II omits the table (r3556238203). Any H1 ends Part II, including an appendix
+    without a PART label. Falls back to the whole document only when
     no Part II heading exists (degenerate/non-PART dossiers)."""
-    p2 = re.search(r"(?ims)^#\s+PART\s+II\b.*?(?=^#\s+PART\b|\Z)", thesis)
+    p2 = re.search(r"(?ims)^#\s+PART\s+II\b.*?(?=^#\s|\Z)", thesis)
     scope_text = p2.group(0) if p2 else thesis
-    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##\s|\Z)", scope_text)
+    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##?\s|\Z)", scope_text)
     return m.group(0) if m else None
 def _decision_audit_header(section):
     """The HEADER cells of the Decision Audit Trail pipe-table (the first non-separator pipe row), or []
@@ -565,7 +565,8 @@ def _decision_audit_header(section):
         s=line.strip()
         if not s.startswith("|"): continue
         if re.match(r"^\|[\s:|-]+\|$", s): continue  # separator row
-        return [c.strip() for c in s.strip("|").split("|")]
+        content = s[1:-1] if s.endswith("|") else s[1:]
+        return [c.strip() for c in content.split("|")]
     return []
 def _decision_audit_rows(section):
     """The DATA rows of the Decision Audit Trail pipe-table (header and separator rows excluded), or []
@@ -579,7 +580,8 @@ def _decision_audit_rows(section):
             continue
         if re.match(r"^\|[\s:|-]+\|$", s):
             continue  # the header/body separator row
-        cells=[c.strip() for c in s.strip("|").split("|")]
+        content = s[1:-1] if s.endswith("|") else s[1:]
+        cells=[c.strip() for c in content.split("|")]
         if not header_seen:
             header_seen=True  # this pipe row IS the header — skip it, start collecting after
             continue
@@ -619,7 +621,7 @@ def eval_aj_decision_audit_trail(decision_date, thesis):
     # Validate the table HEADER carries the required bull/bear adjudication columns, in order, before
     # trusting the positional per-cell checks below (r3556238195). A five-column table whose header
     # omits or reorders 'Bear Evidence' would otherwise pass the positional checks with the wrong fields.
-    hdr=[re.sub(r"\*+","",h).strip().lower() for h in _decision_audit_header(section)]
+    hdr=[re.sub(r"[*_]+","",h).strip().lower() for h in _decision_audit_header(section)]
     for j, label in enumerate(AJ_REQUIRED_COLS):
         if j >= len(hdr) or label.lower() not in hdr[j]:
             got = hdr[j] if j < len(hdr) else "<missing>"

@@ -118,7 +118,8 @@ def run_block(block_path, run_root):
 
 
 def main():
-    md = open(FULL_MD, encoding="utf-8").read()
+    with open(FULL_MD, encoding="utf-8") as f:
+        md = f.read()
     block = extract_step_10b1_block(md)
 
     bad = 0
@@ -152,6 +153,31 @@ def main():
             ("thin table", THESIS_WITH_DAT.replace(
                 "| Solvency | net cash | equity funded | Bull | no near-term break |\n", ""),
              "PROVISIONAL", ["only 2 Decision Audit Trail row(s)"]),
+            ("non-PART dossier", THESIS_WITH_DAT.replace(
+                "# PART II — CROSS-CUTTING ANALYSIS\n\n", ""), "PASS", []),
+            ("table under a later H1", THESIS_WITH_DAT.replace(
+                "# PART II — CROSS-CUTTING ANALYSIS\n\n", "").replace(
+                    "## Decision Audit Trail\n\n",
+                    "## Decision Audit Trail\n\nNo audit table.\n\n# Appendix\n\n"),
+             "PROVISIONAL", ["'## Decision Audit Trail' table has no data rows"]),
+            ("audit section after Part II ends", THESIS_WITH_DAT.replace(
+                "## Decision Audit Trail\n\n", "# Appendix\n\n## Decision Audit Trail\n\n"),
+             "PROVISIONAL", ["'## Decision Audit Trail' section not found"]),
+            ("empty leading header cell", THESIS_WITH_DAT.replace(
+                "| Decision Driver |", "|| Decision Driver |"),
+             "PROVISIONAL", ["Decision Audit Trail header column 1"]),
+            ("empty driver beside populated evidence", THESIS_WITH_DAT.replace(
+                "| Solvency | net cash | equity funded | Bull | no near-term break |",
+                "|| net cash | equity funded | Bull | no near-term break | 50 |"),
+             "PROVISIONAL", ["blank 'Decision Driver' cell"]),
+            ("empty trailing Why cell", THESIS_WITH_DAT.replace(
+                "| Solvency | net cash | equity funded | Bull | no near-term break |",
+                "| Solvency | net cash | equity funded | Bull ||"),
+             "PROVISIONAL", ["blank 'Why?' cell"]),
+            ("underscore emphasis in header", THESIS_WITH_DAT.replace(
+                "| Decision Driver | Bull Evidence | Bear Evidence | Which Side Wins? | Why? |",
+                "| _Decision_ Driver | Bull _Evidence_ | _Bear Evidence_ | Which Side _Wins_? | _Why_? |"),
+             "PASS", []),
         ]
         for index, (name, thesis, verdict, diagnostics) in enumerate(cases):
             run_root = os.path.join(tmp, f"case{index}", f"TEST_{PRE_CUTOFF_DATE}")
