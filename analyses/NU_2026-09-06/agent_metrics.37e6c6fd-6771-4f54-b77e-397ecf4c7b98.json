@@ -1,0 +1,255 @@
+{
+  "agents": [
+    {
+      "agent": "candor-and-disclosure-quality",
+      "model": "claude-opus-5",
+      "calls": 33,
+      "usage": {
+        "input_tokens": 66,
+        "output_tokens": 55106,
+        "cache_read_input_tokens": 3913141,
+        "cache_creation_input_tokens": 375852,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 375852,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.6836255,
+      "runtime_ms": 725425,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-governance-synthesis",
+      "model": "claude-opus-5",
+      "calls": 49,
+      "usage": {
+        "input_tokens": 98,
+        "output_tokens": 81017,
+        "cache_read_input_tokens": 9518245,
+        "cache_creation_input_tokens": 289188,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 289188,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 8.5924625,
+      "runtime_ms": 1065293,
+      "module": "management-governance"
+    },
+    {
+      "agent": "audit-and-assurance-quality",
+      "model": "claude-opus-5",
+      "calls": 40,
+      "usage": {
+        "input_tokens": 80,
+        "output_tokens": 73299,
+        "cache_read_input_tokens": 4998618,
+        "cache_creation_input_tokens": 421439,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 421439,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 6.96617775,
+      "runtime_ms": 1050829,
+      "module": "management-governance"
+    },
+    {
+      "agent": "contingent-liabilities-and-commitments",
+      "model": "claude-opus-5",
+      "calls": 40,
+      "usage": {
+        "input_tokens": 80,
+        "output_tokens": 59420,
+        "cache_read_input_tokens": 4217940,
+        "cache_creation_input_tokens": 342962,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 342962,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.7383825,
+      "runtime_ms": 827472,
+      "module": "management-governance"
+    },
+    {
+      "agent": "people-integrity-dossiers",
+      "model": "claude-opus-5",
+      "calls": 44,
+      "usage": {
+        "input_tokens": 88,
+        "output_tokens": 157823,
+        "cache_read_input_tokens": 8450758,
+        "cache_creation_input_tokens": 357471,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 357471,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 10.40558775,
+      "runtime_ms": 2005696,
+      "module": "management-governance"
+    },
+    {
+      "agent": "related-party-and-group-forensics",
+      "model": "claude-opus-5",
+      "calls": 95,
+      "usage": {
+        "input_tokens": 188,
+        "output_tokens": 114703,
+        "cache_read_input_tokens": 13161216,
+        "cache_creation_input_tokens": 425070,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 425070,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 12.1058105,
+      "runtime_ms": 3354546,
+      "module": "management-governance"
+    },
+    {
+      "agent": "board-and-shareholder-rights",
+      "model": "claude-opus-5",
+      "calls": 54,
+      "usage": {
+        "input_tokens": 108,
+        "output_tokens": 88125,
+        "cache_read_input_tokens": 7643355,
+        "cache_creation_input_tokens": 457276,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 457276,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 8.8833175,
+      "runtime_ms": 1173254,
+      "module": "management-governance"
+    },
+    {
+      "agent": "regulatory-legal-and-compliance",
+      "model": "claude-opus-5",
+      "calls": 39,
+      "usage": {
+        "input_tokens": 78,
+        "output_tokens": 64640,
+        "cache_read_input_tokens": 6873758,
+        "cache_creation_input_tokens": 520081,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 520081,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 8.30377525,
+      "runtime_ms": 934610,
+      "module": "management-governance"
+    },
+    {
+      "agent": "incentives-and-compensation",
+      "model": "claude-opus-5",
+      "calls": 38,
+      "usage": {
+        "input_tokens": 76,
+        "output_tokens": 60615,
+        "cache_read_input_tokens": 5221786,
+        "cache_creation_input_tokens": 409143,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 409143,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 6.68379175,
+      "runtime_ms": 821970,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-and-track-record",
+      "model": "claude-opus-5",
+      "calls": 41,
+      "usage": {
+        "input_tokens": 82,
+        "output_tokens": 57683,
+        "cache_read_input_tokens": 6164816,
+        "cache_creation_input_tokens": 436579,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 436579,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 7.25351175,
+      "runtime_ms": 769920,
+      "module": "management-governance"
+    },
+    {
+      "agent": "ownership-and-insider-behavior",
+      "model": "claude-opus-5",
+      "calls": 23,
+      "usage": {
+        "input_tokens": 46,
+        "output_tokens": 77130,
+        "cache_read_input_tokens": 2584302,
+        "cache_creation_input_tokens": 375850,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 375850,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.5696935,
+      "runtime_ms": 947149,
+      "module": "management-governance"
+    },
+    {
+      "agent": "accounting-forensics",
+      "model": "claude-opus-5",
+      "calls": 29,
+      "usage": {
+        "input_tokens": 58,
+        "output_tokens": 64181,
+        "cache_read_input_tokens": 3511503,
+        "cache_creation_input_tokens": 369996,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 369996,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 5.6730415,
+      "runtime_ms": 843479,
+      "module": "management-governance"
+    },
+    {
+      "agent": "capital-allocation-scorecard",
+      "model": "claude-opus-5",
+      "calls": 43,
+      "usage": {
+        "input_tokens": 86,
+        "output_tokens": 70893,
+        "cache_read_input_tokens": 5669397,
+        "cache_creation_input_tokens": 401250,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 401250,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 7.115266,
+      "runtime_ms": 925841,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-opus-5",
+    "calls": 27,
+    "usage": {
+      "input_tokens": 54,
+      "output_tokens": 36683,
+      "cache_read_input_tokens": 2956027,
+      "cache_creation_input_tokens": 144362,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 144362
+      }
+    },
+    "cost": 3.8389785,
+    "runtime_ms": 0
+  }
+}
