@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-07T22:45:46Z",
+  "generated_at": "2026-09-07T22:51:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-625",
+      "headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T22:42:24Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company completed a significant $86.25M wholesale placement, impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company completed a significant $86.25M wholesale placement, impacting capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GCI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-440",
       "headline": "FURNIWEB (08480): INSIDE INFORMATION UPDATE ON WINDING-UP PETITION AGAINST CONTROLLING SHAREHOLDER: GRANT OF INTERIM JUDICIAL MANAGEMENT ORDER HEARING DATE FOR THE APPLICATION FOR JUDICIAL MANAGEMENT ORDER BY CONTROLLING SHAREHOLDER",
@@ -1950,55 +1999,6 @@
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-508",
-      "headline": "UK's Jaguar Land Rover to cut nearly 10% of workforce under turnaround plan",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/jaguar-land-rover-cut-4000-jobs-globally-over-next-two-years-2026-09-07/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T13:10:56Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is cutting nearly 10% of its workforce as part of a major turnaround plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover is cutting nearly 10% of its workforce as part of a major turnaround plan.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -146969,9 +146969,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428744,
-    "news_picked_today": 1964,
-    "news_dropped_today": 18172
+    "news_seen_today": 428758,
+    "news_picked_today": 1966,
+    "news_dropped_today": 18184
   },
   "book_momentum": {
     "live_count": 8,
