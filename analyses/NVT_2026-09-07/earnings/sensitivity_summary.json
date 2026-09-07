@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NVT",
+  "as_of": "2026-09-07",
+  "currency": "USD",
+  "base_metric": "adjusted_diluted_eps_usd",
+  "base_value": 5.05,
+  "base_value_source": "Q2 FY26 earnings call transcript (S&P Global Market Intelligence, verbatim), 31-Jul-2026, prepared remarks (CFO Corona) - FY2026 adjusted EPS guidance $5.00-$5.10, midpoint $5.05; independently recorded at Capital IQ Estimates export -> Guidance tab, EPS Normalized FY 2026, guidance date 2026-07-31 (tier-5 vendor data, as of ~12-Aug-2026)",
+  "base_period": "FY2026 (company guidance midpoint)",
+  "base_metric_definition": "Company non-GAAP adjusted diluted EPS, continuing operations. Adjusted operating income excludes intangible amortisation, acquisition-related expense, restructuring, impairments, other unusual non-operating items and the $25.8m IEEPA tariff reimbursement (Q1 FY26 earnings presentation, 1-May-2026, slide 16; Q2 FY26 10-Q, Note 13, p.21). NOT reported GAAP EPS: FY2025 adjusted EPS of $3.35 ran 28.8% above GAAP continuing-ops EPS of $2.60, and 87% of the operating add-back is acquisition intangible amortisation. Never mix the two bases (CLAUDE.md 15).",
+  "revenue_base": null,
+  "revenue_period": null,
+  "revenue_base_note": "Deliberately null. The base metric is per-share, so the engine emits no margin. FY2026 guided revenue is $5,372.5m (midpoint), but a margin at constant revenue would be meaningless here because the largest coefficient is itself a revenue-volume coefficient.",
+  "conversion_note": "Every coefficient below was built from a pre-tax dollar move using $1m pre-tax = $0.004729 of adjusted diluted EPS = (1 - 0.224) / 164.1. Tax rate 22.4% (six months ended 30-Jun-2026, Q2 FY26 10-Q income-tax note); diluted shares 164.1m (Q2 FY26 10-Q, Note 4, p.9).",
+  "sensitivities": [
+    {
+      "variable": "infrastructure_datacentre_revenue",
+      "label": "Data-centre / infrastructure demand volume (group revenue)",
+      "unit": "USD m of group revenue",
+      "base_value": 2000.0,
+      "coefficient": 0.001182,
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -400, "high": 400},
+      "non_linearity": "OPERATING DELEVERAGE - the downside is worse than this linear rate implies. The 25c-per-dollar conversion rate was measured on RISING volume (Q2 FY26 organic sales +46.9%) against a fixed-cost base being deliberately enlarged (three Minnesota liquid-cooling plants; FY2026 capex guided ~$130m, up ~40%; D&A guided ~$230m). 109% of the Q2 FY26 operating-margin gain was SG&A absorption, which reverses on the way down. No organic-revenue decline exists in the post-divestiture record, so the true down-volume decremental is NOT measurable from this pool: the bear case is a zero-mitigation BOUND (0% mitigation, no cost-out assumed), not a forecast. Also multiplicative with incremental_margin_rate - do not add the two rows.",
+      "source": "Conversion rate: Q2 FY26 earnings call transcript (S&P Global, verbatim), 31-Jul-2026, Q&A (CFO Corona) - 'assuming mid-20s incrementals in the second half'; corroborated by the company's own reported numbers - adjusted operating income $322.7m vs $200.0m = +$122.7m on revenue +$508.2m = 24.1% realised incremental (Q2 FY26 10-Q, Note 13, p.21). Base level: Q2 FY26 transcript, prepared remarks (data-centre sales >$2.0bn in 2026, more than double last year) and Q2 FY26 10-Q, Note 2 (Revenue), p.9 (infrastructure $882.5m = 60.0% of Q2 sales)."
+    },
+    {
+      "variable": "incremental_margin_rate",
+      "label": "Incremental adjusted operating margin rate on FY2026 incremental revenue",
+      "unit": "percentage point of incremental margin rate",
+      "base_value": 25.0,
+      "coefficient": 0.07,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "This row IS the mitigation/absorption channel - it carries no separate mitigation assumption and must not be read as a zero-mitigation bound. Applied to FY2026 incremental revenue of $1,479.4m ($5,372.5m guided midpoint less FY2025 $3,893.1m). The 20-30% band is the company's own stated range (old 30% target explicitly abandoned; mid-20s guided; 24.1% realised). Multiplicative with infrastructure_datacentre_revenue: at the joint bear (-$400m revenue AND a 20% rate) the compound effect is about -$0.73, not the -$0.82 that adding the two rows gives.",
+      "source": "Q2 FY26 earnings call transcript, 31-Jul-2026, Q&A (Corona / Dean Dray) - mid-20s H2 incrementals; Q&A (Corona / Scott Graham) - the pre-divestiture 30% figure is no longer the target, 'to ensure that we can invest to support the growth'. Incremental revenue base derived from the FY26 guide (Q2 FY26 transcript, prepared remarks) over FY2025 revenue $3,893.1m (Capital IQ Financials -> Income Statement, 12m Dec-31-2025, tier-5 vendor data as of ~12-Aug-2026)."
+    },
+    {
+      "variable": "all_in_us_tariff_cost",
+      "label": "All-in US tariff cost (annual)",
+      "unit": "USD m of annual tariff cost",
+      "base_value": 100.0,
+      "coefficient": -0.001986,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -50, "high": 50},
+      "non_linearity": "Coefficient is recorded at the MEASURED realised offset of 58% (H1 FY26), per CLAUDE.md 9: -0.42 x 0.004729. The ZERO-MITIGATION BOUND is -0.004729 per $1m, 2.38x larger - that bound is a bound, never the expected outcome. PASS-THROUGH LAG of one to two quarters: realised offset ran 40% (Q1 FY26) then 79% (Q2 FY26), so a step-change in tariffs lands roughly a full quarter before its offset does and the quarterly damage exceeds this annualised rate. The BULL side is also run at 58% retention, not 100%, because the prior cycle gave price back (+5.5% group price in 2023, then -0.2% in 2024 when cost pressure eased). Note: nVent has NO contractual pass-through (no escalator, no index-linked price, fixed-price project bids) - that is a fact about contracts, not a measurement; 58% is the measurement.",
+      "source": "Cost level: Q2 FY26 transcript, 31-Jul-2026, prepared remarks ('approximately $100 million, up from $80 million previously'); Q1 FY26 transcript (FactSet, verbatim), 1-May-2026, Q&A (Sprague / Corona) ('$80 million this year followed from $90 last year. So, $170 million all-in'). Offset arithmetic: ~$110m of H1 FY26 disclosed pre-mitigation inflation / $2,713.3m H1 sales = ~405bps against an observed H1 gross-margin change of -170bps => 1 - 170/405 = 58% (Q1 FY26 10-Q, MD&A p.24; Q2 FY26 10-Q, MD&A p.26-27; both FY26 transcripts)."
+    },
+    {
+      "variable": "non_tariff_input_inflation",
+      "label": "Non-tariff input-cost inflation (copper, steel, aluminium, electronic components, labour, fuel, freight)",
+      "unit": "USD m of annual non-tariff input-cost inflation",
+      "base_value": 80.0,
+      "coefficient": -0.001986,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -40, "high": 40},
+      "non_linearity": "Same 58% realised-offset basis and same zero-mitigation bound multiple (2.38x, i.e. -0.004729 per $1m) as all_in_us_tariff_cost - the company discloses the offset only against TOTAL inflation and never splits it by cost type, so this coefficient shares that basis. Same one-to-two-quarter pass-through lag. NO COMMODITY HEDGING PROGRAMME IS DISCLOSED anywhere in the pool (FY24 10-K Item 7A covers interest-rate and currency risk only) and no commodity-price sensitivity is published - metals move straight into cost of goods sold. Base level is a residual of two 'more than / approximately' call figures, so it is a floor. DO NOT add this row's bear to the tariff row's bear as a single sensitivity - that is a joint scenario, not a sensitivity.",
+      "source": "Q2 FY26 transcript, 31-Jul-2026, prepared remarks ('inflation of more than $50 million, including more than $30 million in tariff impact'); Q1 FY26 transcript, 1-May-2026, Q&A (Scott Graham / Corona) - 'we have raised our expectations for inflation a little under a point for the year. And it's really driven by fuel and copper'; input list at FY24 10-K, Item 1 (Raw materials); no commodity derivative disclosed at FY24 10-K, Item 7A."
+    },
+    {
+      "variable": "interest_rate_floating_debt",
+      "label": "Interest rate on floating-rate debt",
+      "unit": "percentage point (100bp) change in interest rates",
+      "base_value": null,
+      "coefficient": -0.00946,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -1, "high": 1},
+      "non_linearity": "STEP-CHANGE PENDING. Coefficient is on the CURRENT book only: $200.0m of $1,500.0m total debt was variable-rate at 30-Jun-2026 (13%), so 100bp = $2.0m of interest = $0.0095 of EPS. The company's own disclosed coefficient of $8.7m per 100bp was measured on a 60% fixed / 40% variable book at 31-Dec-2024 and does NOT apply to today's 87/13 book - a sensitivity carries its basis (CLAUDE.md 15). If the $1.75bn Maverick Power purchase (expected to close Q4 2026) were funded entirely with new floating-rate debt, the same 100bp would be worth $17.5m = $0.083 of EPS - that is a ZERO-MITIGATION BOUND (0% mitigation; it assumes no fixed-rate or cash funding), because the cash-versus-new-debt split is not disclosed. Cash was $256.0m at 30-Jun-2026. The disclosed fixed-rate sensitivity (100bp = -$63.1m / +$67.5m of fair value) hits FAIR VALUE only, not interest incurred or cash flow, and is deliberately excluded here.",
+      "source": "Disclosed sensitivity: FY24 10-K, Item 7A, p.36 - 'a 100 basis point increase or decrease in interest rates would result in a $8.7 million increase or decrease in interest incurred'. Current balance: Q2 FY26 10-Q, fair-value note - Variable rate debt $200.0m / Fixed rate debt $1,300.0m / Total debt $1,500.0m at 30-Jun-2026. Maverick funding language: nVent press release 'nVent to Acquire Maverick Power', 24-Aug-2026."
+    },
+    {
+      "variable": "systems_protection_revenue_weight",
+      "label": "Segment mix - Systems Protection share of group revenue",
+      "unit": "percentage point of group revenue weight",
+      "base_value": 72.5,
+      "coefficient": -0.01042,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "Derived using the Q2 FY26 SEGMENT INCOME margin gap (Systems Protection 23.2% vs Electrical Connections 27.3% = 4.1pp) as a proxy for the marginal adjusted operating margin, applied to guided FY2026 revenue of $5,372.5m: 1pp of weight = $53.7m x 4.1pp = $2.20m x 0.004729 = $0.0104. Segment income is NOT an operating margin (struck before all intangible amortisation and all enterprise cost) - using its DIFFERENCE for a marginal shift is inference, not from filings. ALTERNATIVE METRIC on the company's own disclosed segment cost of goods sold: -7.74bps of GROUP GROSS MARGIN per pp of weight shift (the -56.1bps the upstream bridge attributed to the observed +7.25pp shift). Zero mitigation assumed - a BOUND; the realised mix-offset rate is not computable from this pool because the two segments' margins moved in opposite directions for opposite reasons in the same quarter (Systems Protection +150bps on overhead absorption, Electrical Connections -140bps on price-cost and growth spending). Directionally one-sided: Maverick Power most likely lands in Systems Protection and pushes the mix the same way (segment placement is inference, not from filings).",
+      "source": "Q2 FY26 10-Q, Note 13 (Segment information), p.20 (segment net sales and cost of goods sold, both periods) and MD&A p.29-30 (segment income margins 23.2% / 27.3%); FY24 10-K, Note 15, p.70 (FY2024 Systems Protection weight 60.7%); gross-margin coefficient derived in analyses/NVT_2026-09-07/earnings/03_margin-drivers.md, section 7a."
+    }
+  ],
+  "omitted_variables": [
+    {
+      "variable": "maverick_power_acquisition",
+      "reason": "Section 2 variable 5 carries deal terms ($1.75bn plus up to $550m contingent, ~$700m estimated 2026 revenue, close expected Q4 2026 subject to regulatory approval) and a company assertion of first-year adjusted-EPS accretion, but NO clean per-unit rate. Maverick's own margin is undisclosed, its intangible amortisation is unknown, and the cash-versus-new-debt funding split is not disclosed, so no coefficient can be derived without inventing one (forbidden). Revenue effect only: +~$175m in Q4 2026 = +3.3% of the guided FY2026 revenue midpoint; ~$700m annualised = +13.0%. Source: nVent press release, 24-Aug-2026."
+    },
+    {
+      "variable": "fx_translation",
+      "reason": "Scored Low in both upstream driver tables and Low-Mid in business-model 10_external-dependency. Currency added 0.5pp to Q2 FY26 revenue growth and 1.2pp to H1; roughly 81% of FY2025 revenue was Americas and costs are generally denominated in the same local currencies as revenue. The only disclosed FX sensitivity (+/-10% USD/EUR = +/-$13.6m) hits Accumulated other comprehensive loss - EQUITY, not earnings (FY24 10-K, Item 7A). No earnings coefficient exists."
+    }
+  ]
+}
