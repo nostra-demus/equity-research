@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T17:46:55Z",
+  "generated_at": "2026-09-07T18:01:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-558",
+      "headline": "Nigeria's Dangote refinery plans $14 billion expansion as it signs IPO documents",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/nigerias-dangote-sign-refinery-ipo-documents-ceremony-later-monday-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T17:21:07Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Nigeria's Dangote refinery plans a $14 billion expansion and is signing IPO documents.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nigeria's Dangote refinery plans a $14 billion expansion and is signing IPO documents.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dangote refinery",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,56 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-354",
-      "headline": "ChargePoint (CHPT) Posts Strong Q2 Results, But Q3 Outlook Raises Concerns",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/chargepoint-chpt-posts-strong-q2-112224186.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:22:24Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "ChargePoint reported Q2 results and provided a Q3 outlook that raised investor concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ChargePoint reported Q2 results and provided a Q3 outlook that raised investor concerns.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ChargePoint",
-          "ticker": "CHPT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107275,79 +107275,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fe979375f297",
-      "idea_version": "IDEAV-6f176b62dcc5277f",
-      "idea_version_started_at": "2026-09-06T07:07:02Z",
-      "ticker": "BATHLA",
-      "company": "Bathla",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The founder of Bathla is at risk of personal bankruptcy due to secured loans, suggesting severe financial distress for the company.",
-      "why_now": "The risk of personal bankruptcy is an immediate catalyst for financial distress.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d07da47f0167"
-      ],
-      "primary_source_event_id": "EVT-d07da47f0167",
-      "source_headlines": [
-        "Bathla founder at risk of personal bankruptcy after securing loans"
-      ],
-      "source_headline": "Bathla founder at risk of personal bankruptcy after securing loans",
-      "source_url": "https://www.afr.com/property/residential/bathla-founder-at-risk-of-personal-bankruptcy-after-securing-loans-20260904-p60ul1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-06T06:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T07:07:02Z",
-      "updated_at": "2026-09-06T07:07:02Z",
-      "decay_at": "2026-09-07T18:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-109a85b7c084",
       "idea_version": "IDEAV-80ffeba9b3c81b22",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -107556,78 +107483,6 @@
       "surfaced_at": "2026-09-07T00:07:53Z",
       "updated_at": "2026-09-07T00:07:53Z",
       "decay_at": "2026-09-08T11:56:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6dedf05fd8fd",
-      "idea_version": "IDEAV-7b3806cc4533f29a",
-      "idea_version_started_at": "2026-09-06T06:12:14Z",
-      "ticker": "COALINDIA",
-      "company": "Coal India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Critically low coal stocks at power plants are forcing Coal India to supply additional volumes, which will boost near-term sales volumes and revenue.",
-      "why_now": "The supply push is happening immediately to address the current critical deficit at power generation plants.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9a362872fce7"
-      ],
-      "primary_source_event_id": "EVT-9a362872fce7",
-      "source_headlines": [
-        "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels"
-      ],
-      "source_headline": "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels",
-      "source_url": "https://www.livemint.com/companies/news/cil-offers-additional-coal-to-power-plants-as-stocks-decline-heres-what-led-to-critically-low-levels-11788673042864.html",
-      "source_name": "Mint",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-06T05:48:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T06:12:14Z",
-      "updated_at": "2026-09-06T06:12:14Z",
-      "decay_at": "2026-09-07T17:48:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -110435,6 +110290,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fe979375f297",
+      "idea_version": "IDEAV-6f176b62dcc5277f",
+      "idea_version_started_at": "2026-09-06T07:07:02Z",
+      "ticker": "BATHLA",
+      "company": "Bathla",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The founder of Bathla is at risk of personal bankruptcy due to secured loans, suggesting severe financial distress for the company.",
+      "why_now": "The risk of personal bankruptcy is an immediate catalyst for financial distress.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d07da47f0167"
+      ],
+      "primary_source_event_id": "EVT-d07da47f0167",
+      "source_headlines": [
+        "Bathla founder at risk of personal bankruptcy after securing loans"
+      ],
+      "source_headline": "Bathla founder at risk of personal bankruptcy after securing loans",
+      "source_url": "https://www.afr.com/property/residential/bathla-founder-at-risk-of-personal-bankruptcy-after-securing-loans-20260904-p60ul1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-06T06:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T07:07:02Z",
+      "updated_at": "2026-09-06T07:07:02Z",
+      "decay_at": "2026-09-07T18:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4050e91a76a5",
       "idea_version": "IDEAV-5d816ac990f22f6f",
       "idea_version_started_at": "2026-09-06T06:12:14Z",
@@ -110502,6 +110430,78 @@
       "surfaced_at": "2026-09-06T06:12:14Z",
       "updated_at": "2026-09-06T06:12:14Z",
       "decay_at": "2026-09-07T17:46:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6dedf05fd8fd",
+      "idea_version": "IDEAV-7b3806cc4533f29a",
+      "idea_version_started_at": "2026-09-06T06:12:14Z",
+      "ticker": "COALINDIA",
+      "company": "Coal India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Critically low coal stocks at power plants are forcing Coal India to supply additional volumes, which will boost near-term sales volumes and revenue.",
+      "why_now": "The supply push is happening immediately to address the current critical deficit at power generation plants.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9a362872fce7"
+      ],
+      "primary_source_event_id": "EVT-9a362872fce7",
+      "source_headlines": [
+        "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels"
+      ],
+      "source_headline": "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels",
+      "source_url": "https://www.livemint.com/companies/news/cil-offers-additional-coal-to-power-plants-as-stocks-decline-heres-what-led-to-critically-low-levels-11788673042864.html",
+      "source_name": "Mint",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-06T05:48:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T06:12:14Z",
+      "updated_at": "2026-09-06T06:12:14Z",
+      "decay_at": "2026-09-07T17:48:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -110811,18 +110811,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 481,
-    "shown_count": 480,
-    "hidden_count": 1,
+    "total_count": 483,
+    "shown_count": 481,
+    "hidden_count": 2,
     "side_counts": {
       "long": {
-        "total_count": 251,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 1
+        "hidden_count": 2
       },
       "short": {
-        "total_count": 230,
-        "shown_count": 230,
+        "total_count": 231,
+        "shown_count": 231,
         "hidden_count": 0
       }
     },
@@ -110842,6 +110842,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fe979375f297",
+        "idea_version": "IDEAV-6f176b62dcc5277f",
+        "idea_version_started_at": "2026-09-06T07:07:02Z",
+        "ticker": "BATHLA",
+        "company": "Bathla",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The founder of Bathla is at risk of personal bankruptcy due to secured loans, suggesting severe financial distress for the company.",
+        "why_now": "The risk of personal bankruptcy is an immediate catalyst for financial distress.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d07da47f0167"
+        ],
+        "primary_source_event_id": "EVT-d07da47f0167",
+        "source_headlines": [
+          "Bathla founder at risk of personal bankruptcy after securing loans"
+        ],
+        "source_headline": "Bathla founder at risk of personal bankruptcy after securing loans",
+        "source_url": "https://www.afr.com/property/residential/bathla-founder-at-risk-of-personal-bankruptcy-after-securing-loans-20260904-p60ul1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 89,
+        "newest_source_at": "2026-09-06T06:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T07:07:02Z",
+        "updated_at": "2026-09-06T07:07:02Z",
+        "decay_at": "2026-09-07T18:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T18:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6dedf05fd8fd",
+        "idea_version": "IDEAV-7b3806cc4533f29a",
+        "idea_version_started_at": "2026-09-06T06:12:14Z",
+        "ticker": "COALINDIA",
+        "company": "Coal India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Critically low coal stocks at power plants are forcing Coal India to supply additional volumes, which will boost near-term sales volumes and revenue.",
+        "why_now": "The supply push is happening immediately to address the current critical deficit at power generation plants.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9a362872fce7"
+        ],
+        "primary_source_event_id": "EVT-9a362872fce7",
+        "source_headlines": [
+          "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels"
+        ],
+        "source_headline": "CIL offers additional coal to power plants as stocks decline: Here's what led to critically low levels",
+        "source_url": "https://www.livemint.com/companies/news/cil-offers-additional-coal-to-power-plants-as-stocks-decline-heres-what-led-to-critically-low-levels-11788673042864.html",
+        "source_name": "Mint",
+        "materiality_max": 85,
+        "newest_source_at": "2026-09-06T05:48:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T06:12:14Z",
+        "updated_at": "2026-09-06T06:12:14Z",
+        "decay_at": "2026-09-07T17:48:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T17:48:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4050e91a76a5",
         "idea_version": "IDEAV-5d816ac990f22f6f",
@@ -146333,79 +146484,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-90b902d53889",
-        "idea_version": "IDEAV-57f62d4ab17b9424",
-        "idea_version_started_at": "2026-08-14T02:35:25Z",
-        "ticker": "NVDA",
-        "company": "NVIDIA Corporation",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "NVIDIA is raising $500 billion to fund AI infrastructure, boosting its revenue and margin prospects.",
-        "why_now": "The capital raise announcement was made on 2026‑08‑12, creating an immediate upside catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e57584d28802"
-        ],
-        "primary_source_event_id": "EVT-e57584d28802",
-        "source_headlines": [
-          "Nvidia partners with Wall Street giants to raise $500 billion for AI buildout"
-        ],
-        "source_headline": "Nvidia partners with Wall Street giants to raise $500 billion for AI buildout",
-        "source_url": "https://www.khaleejtimes.com/business/nvidia-partners-with-wall-street-giants-to-raise-500-billion-for-ai-buildout",
-        "source_name": "Khaleej Times — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-12T17:35:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-14T02:35:25Z",
-        "updated_at": "2026-08-14T02:35:25Z",
-        "decay_at": "2026-08-14T05:35:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-20T01:31:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4c2faef06d80",
         "idea_version": "IDEAV-2606c4267b621a1a",
         "idea_version_started_at": "2026-08-12T13:29:28Z",
@@ -146482,7 +146560,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 560,
-    "live_count": 77,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146501,9 +146579,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 389423,
-    "news_picked_today": 1406,
-    "news_dropped_today": 15645
+    "news_seen_today": 397683,
+    "news_picked_today": 1450,
+    "news_dropped_today": 15793
   },
   "book_momentum": {
     "live_count": 8,
