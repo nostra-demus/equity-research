@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T03:34:53Z",
+  "generated_at": "2026-09-07T05:17:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-163",
@@ -150,6 +150,252 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-211",
+      "headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:56:44Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PVR Inox faces a significant investigation into alleged Rs 200 crore kickbacks alongside an executive departure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR Inox",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-206",
+      "headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:53:05Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Trade Desk is laying off 15% of its global workforce, which will negatively impact its operations and potentially its financial performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Trade Desk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-195",
+      "headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:17:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JLR plans 4,000 job cuts due to rising costs, with the UK government ruling out a bailout.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-191",
+      "headline": "Foxconn says third quarter to outperform market expectations on AI strength",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/foxconn-says-third-quarter-outperform-market-expectations-ai-strength",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:09:48Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Foxconn issued positive guidance stating Q3 performance will outperform market expectations due to AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Foxconn issued positive guidance stating Q3 performance will outperform market expectations due to AI demand.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foxconn",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-193",
+      "headline": "Bitcoin-based Liquid Network says $320 million withdrawn in hack",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/bitcoin-based-liquid-network-says-320-million-withdrawn-hack-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:05:52Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A $320 million hack of the Liquid Network represents a major security failure and significant loss of assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $320 million hack of the Liquid Network represents a major security failure and significant loss of assets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liquid Network",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-063",
       "headline": "Hyundai Steel to Invest $5.8 Billion in Louisiana",
       "headline_en": null,
@@ -194,6 +440,110 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-177",
+      "headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:45:31Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia rejected a $2.9 billion takeover bid from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Warburg Pincus",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-173",
+      "headline": "More than 200 people stood down at embattled housing developer Bathla amid $3.4bn debt",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/sep/07/more-than-200-people-stood-down-at-embattled-housing-developer-bathla",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:07:23Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Developer Bathla faces $3.4bn in debt and has laid off 200 staff, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Developer Bathla faces $3.4bn in debt and has laid off 200 staff, indicating severe financial distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bathla",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -688,6 +1038,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-210",
+      "headline": "Medical AI firm EchoIQ smashed over FDA rejection",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/medical-ai-firm-stumbles-over-tga-hurdle-fails-to-get-approval-20260907-p60v4m?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:38:06Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Medical AI firm EchoIQ was negatively impacted by an FDA rejection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Medical AI firm EchoIQ was negatively impacted by an FDA rejection.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EchoIQ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-037",
       "headline": "Israeli air strikes kills two in Gaza, including a child",
       "headline_en": null,
@@ -726,6 +1125,104 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-186",
+      "headline": "CIM: CIMCL completes RAISE Wholesale Notes issuance",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CIM?key=2924-03132554-2A1695758",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T04:07:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Completion of a wholesale notes issuance indicates successful capital raising for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Completion of a wholesale notes issuance indicates successful capital raising for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CIMIC Group",
+          "ticker": "CIM",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-169",
+      "headline": "LM1: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM1?key=2924-03132538-6A1342507",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T03:32:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Trading halt on price-sensitive information indicates a significant pending announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Trading halt on price-sensitive information indicates a significant pending announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lindian Resources",
+          "ticker": "LM1",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -780,6 +1277,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-179",
+      "headline": "AEON STORES (00984): VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE NEW LEASE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700191.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Company announced a very substantial acquisition related to a new lease.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company announced a very substantial acquisition related to a new lease.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aeon Stores",
+          "ticker": "00984",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-162",
       "headline": "C7A: $1.95m Sale Agreement for Kildanga Ni-Co project [price-sensitive]",
       "headline_en": null,
@@ -824,6 +1370,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-215",
+      "headline": "Macquarie passes on Stack Infra’s $28b-plus data centres as bids land",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/macquarie-passes-on-stack-infra-s-28b-plus-data-centres-as-bids-land-20260906-p60uvm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T05:06:33Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Macquarie passes on a $28 billion-plus data center portfolio, signaling a major shift in a large-scale M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Macquarie passes on a $28 billion-plus data center portfolio, signaling a major shift in a large-scale M&A process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Stack Infrastructure",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-170",
+      "headline": "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/icici-bank-shares-in-focus-as-lic-gets-rbi-nod-to-acquire-9-99-stake-in-private-lender/articleshow/133861811.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T03:32:21Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "LIC received regulatory approval to acquire a 9.99% stake in ICICI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "LIC received regulatory approval to acquire a 9.99% stake in ICICI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -919,6 +1568,55 @@
           "name": "PAC",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-202",
+      "headline": "Temasek emerges as sole contender for $100 million Blue Tokai stake",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/blue-tokai-temasek-tpg-chryscapital-blue-tokai-coffee-roasters-specialty-coffee-premium-coffee-caf-market-11788747642378.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:39:22Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Temasek is the sole bidder for a $100 million stake in Blue Tokai, indicating a significant potential capital injection.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Tokai",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1123,6 +1821,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-184",
+      "headline": "RRR: Response to ASX Price and Volume Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRR?key=2924-03132551-6A1342515",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T04:03:51Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Exchange-mandated price query indicates unusual market activity requiring company disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RRR",
+          "ticker": "RRR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-194",
+      "headline": "Spacetech startup Pixxel raises $100 million led by Temasek, Seraphim",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/science/google-backed-indian-space-startup-raises-100-million-in-latest-funding-round/article71437308.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T04:20:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Pixxel raised $100 million in a funding round led by Temasek and Seraphim.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pixxel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-111",
       "headline": "CEO suspended over FMD vaccine pricing",
       "headline_en": null,
@@ -1168,791 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-098",
-      "headline": "Google-backed Indian space startup raises $100 million in latest funding round",
-      "headline_en": null,
-      "url": "https://www.reuters.com/science/google-backed-indian-space-startup-raises-100-million-latest-funding-round-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:33:12Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "An Indian space startup raised $100 million in a funding round.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "An Indian space startup raised $100 million in a funding round.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pixxel",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-168",
-      "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in US",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/at-least-5-killed-in-amazon-prime-air-cargo-plane-crash-in-us-4137474",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T03:14:37Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A fatal crash involving an Amazon Prime Air cargo plane represents a significant operational and safety incident for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-094",
-      "headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:09:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "SoftBank issued a ¥1 trillion retail bond, a significant capital market event for the company and the Japanese debt market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SoftBank issued a ¥1 trillion retail bond, a significant capital market event for the company and the Japanese debt market.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-050",
-      "headline": "ASX gains as Ingenia surges 19pc on rejected takeover bid",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:43:38Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia shares rose 19% following the rejection of a takeover bid, indicating market valuation discrepancy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia shares rose 19% following the rejection of a takeover bid, indicating market valuation discrepancy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-036",
-      "headline": "ASX inches up; Ingenia jumps 16pc after bid rejection",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:18:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities shares rose 16% following the rejection of a takeover bid, signaling potential for a higher offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": "INA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-019",
-      "headline": "ASX to wobble; Ingenia rejects bid; Austal in counteroffer talk",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:03:15Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-159",
-      "headline": "BPP: Reinstatement to Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BPP?key=2924-03132523-6A1342496",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T02:59:56Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "BPP is being reinstated to trading after a suspension, which is a significant liquidity event for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "BPP is being reinstated to trading after a suspension, which is a significant liquidity event for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPP",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-010",
-      "headline": "GG1: Renounceable Entitlement Offer Prospectus [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GG1?key=2924-03132437-2A1695632",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T23:52:55Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Renounceable entitlement offer indicates capital raising, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Renounceable entitlement offer indicates capital raising, which is dilutive to existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GG1",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-011",
-      "headline": "CLOVER BIO-B (02197): Voluntary Announcement Clover Announces Positive Australia Phase 2 Clinical Data for RSV + hMPV + PIV3 Respiratory Combination Vaccine Candidates in Older Adults",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700013.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T22:11:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The company reported positive Phase 2 clinical trial data for its respiratory vaccine candidates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company reported positive Phase 2 clinical trial data for its respiratory vaccine candidates.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Clover Biopharmaceuticals",
-          "ticker": "02197",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-012",
-      "headline": "KINTOR PHARMA-B (09939): VOLUNTARY ANNOUNCEMENT - SUCCESSFUL COMPLETION OF LONG-TERM HUMAN SAFETY TRIAL OF KT-939",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-06T22:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The company successfully completed a long-term human safety trial for its KT-939 drug candidate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company successfully completed a long-term human safety trial for its KT-939 drug candidate.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kintor Pharmaceutical",
-          "ticker": "09939",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-144",
-      "headline": "삼성 평택캠퍼스 용적률 상향 추진”…반도체 배후 주거지 '브레인시티' 부상",
-      "headline_en": "Samsung pushes for higher floor area ratio at Pyeongtaek campus... Brain City emerges as semiconductor residential hub",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276304",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T02:16:14Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Samsung is pursuing a floor area ratio increase for its Pyeongtaek campus, signaling potential capacity expansion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-118",
-      "headline": "Bathla administrators scramble for cash; The five big property supply handbrakes; Ex-Sydney banker caught up in $833m collapse",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/bathla-administrators-scramble-for-cash-the-five-big-property-supply-handbrakes-ex-sydney-banker-caught-up-in-833m-collapse-20260907-p60v2y?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:58:49Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bathla property group is in administration with an $833 million collapse involving former bankers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Bathla property group is in administration with an $833 million collapse involving former bankers.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-101",
-      "headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:30:58Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-083",
-      "headline": "Bathla administrators get short-term cash as 200 staff stood down",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/residential/bathla-administrators-scramble-for-cash-as-200-staff-stood-down-20260907-p60v0r?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:47:22Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Company in administration with 200 staff layoffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Company in administration with 200 staff layoffs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bathla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-145",
-      "headline": "VA Tech Wabag Limited: WABAG secures repeat order from RIL to deliver state-of-the-art ETP at Jamnagar",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VATECH_07092026080746_SEIntimationRIL070926.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T02:44:48Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "VA Tech Wabag secured a repeat order from Reliance Industries for an effluent treatment plant at Jamnagar.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "VA Tech Wabag secured a repeat order from Reliance Industries for an effluent treatment plant at Jamnagar.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VA Tech Wabag",
-          "ticker": "533269",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-016",
-      "headline": "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "The company reported positive Phase IIa results for TNP-2092 and is initiating a Phase IIb trial.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The company reported positive Phase IIa results for TNP-2092 and is initiating a Phase IIb trial.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TENNOR THERAP-B",
-          "ticker": "06872",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -102515,6 +102526,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-759cf3b531e6",
+      "idea_version": "IDEAV-4ade98d402d9122a",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
+      "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-89191f47ab8e"
+      ],
+      "primary_source_event_id": "EVT-89191f47ab8e",
+      "source_headlines": [
+        "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
+      ],
+      "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
+      "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:23:27Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:23:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f5b09d965873",
       "idea_version": "IDEAV-d71dfdf015505bc2",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -103710,6 +103791,725 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-bbdb78046def1927",
+      "idea_version_started_at": "2026-09-07T05:16:41Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia has rejected a $2.9 billion buyout offer from private equity giant Warburg Pincus, signaling that management believes the company is worth significantly more and setting a high valuation floor.",
+      "why_now": "The rejection of the bid was reported on September 7, 2026, putting the stock in play for potential sweetened offers or alternative bidders.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dbd51705dd6c"
+      ],
+      "primary_source_event_id": "EVT-dbd51705dd6c",
+      "source_headlines": [
+        "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus"
+      ],
+      "source_headline": "Ingenia knocks back $2.9b bid from PE giant Warburg Pincus",
+      "source_url": "https://www.afr.com/companies/financial-services/ingenia-knocks-back-2-9b-bid-from-pe-giant-warburg-pincus-20260907-p60v29?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:45:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:24:17Z",
+      "updated_at": "2026-09-07T05:16:41Z",
+      "decay_at": "2026-09-08T15:45:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a025b73a32d6",
+      "idea_version": "IDEAV-191232abad28680e",
+      "idea_version_started_at": "2026-09-07T05:16:41Z",
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a tender offer to acquire Iveco Group for an enterprise value of €3.82 billion, which will expand its commercial vehicle footprint globally.",
+      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate catalyst for share price movement.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:25:28Z",
+      "updated_at": "2026-09-07T05:16:41Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1093d003f5d3",
+      "idea_version": "IDEAV-76712455695529dd",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, signaling a significant expansion of its commercial vehicle footprint in Europe.",
+      "why_now": "The tender offer was announced today, September 7, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T23:52:55Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-febecdcab4bc",
+      "idea_version": "IDEAV-eb2ab6011fca55a2",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "2317",
+      "company": "Foxconn",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Foxconn issued positive guidance for the third quarter, citing stronger-than-expected demand for AI-related hardware components.",
+      "why_now": "The guidance update was released on September 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-704ffd6cf4b1"
+      ],
+      "primary_source_event_id": "EVT-704ffd6cf4b1",
+      "source_headlines": [
+        "Foxconn says third quarter to outperform market expectations on AI strength"
+      ],
+      "source_headline": "Foxconn says third quarter to outperform market expectations on AI strength",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/foxconn-says-third-quarter-outperform-market-expectations-ai-strength",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:09:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:00:01Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T16:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-122637bff5ac",
+      "idea_version": "IDEAV-628c6ced57c82bb9",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "TATA.NS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, valuing the company at €3.82 billion, which would be a strategic acquisition for Tata Motors.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3a23128a09e2",
+      "idea_version": "IDEAV-222848955cb0ed5c",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "4714.T",
+      "company": "Oricon Inc.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Oricon Inc. is facing delisting from the Tokyo Stock Exchange, indicating severe financial distress or non-compliance.",
+      "why_now": "The decision on delisting was announced on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11eb67755ea6"
+      ],
+      "primary_source_event_id": "EVT-11eb67755ea6",
+      "source_headlines": [
+        "[TSE]Decision on Delisting, etc.: Oricon Inc."
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e35461f60911",
+      "idea_version": "IDEAV-9106403afff5a766",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "IVC",
+      "company": "Iveco Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Iveco Group is the target of a tender offer from Tata Motors at €3.82 billion, suggesting a potential sale and exit for current shareholders at a specific price.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-493e94dd58a9cc9e",
+      "idea_version_started_at": "2026-09-07T04:21:47Z",
+      "ticker": "IVG",
+      "company": "Iveco Group NV",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a tender offer to acquire the company at a valuation of €3.82 billion, providing a clear floor and premium for shareholders.",
+      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate arbitrage or exit window.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-07T04:21:47Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-894c196d214b",
+      "idea_version": "IDEAV-bab79fcfa8ee1fd0",
+      "idea_version_started_at": "2026-09-07T04:21:47Z",
+      "ticker": "MOREPENLAB",
+      "company": "Morepen Laboratories Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of the first phase of manufacturing capacity expansion ahead of schedule accelerates the company's ability to scale revenue and meet demand.",
+      "why_now": "The business update confirming early completion was filed with the exchange on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e520e1d28f6a"
+      ],
+      "primary_source_event_id": "EVT-e520e1d28f6a",
+      "source_headlines": [
+        "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule"
+      ],
+      "source_headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_07092026084840_SEIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:18:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:21:47Z",
+      "updated_at": "2026-09-07T04:21:47Z",
+      "decay_at": "2026-09-08T15:18:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e28ce99f344d",
+      "idea_version": "IDEAV-b6b25379f08032a3",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ING",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
+      "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ab7cb9e8649"
+      ],
+      "primary_source_event_id": "EVT-5ab7cb9e8649",
+      "source_headlines": [
+        "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
+      ],
+      "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
+      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:01:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:01:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b8cfb6be47e3",
       "idea_version": "IDEAV-ee5553cd5f3c92e7",
       "idea_version_started_at": "2026-09-07T03:26:40Z",
@@ -104148,152 +104948,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a025b73a32d6",
-      "idea_version": "IDEAV-e93faa804a883ec3",
-      "idea_version_started_at": "2026-09-06T19:20:01Z",
-      "ticker": "TATAMOTORS",
-      "company": "Tata Motors",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors launched a tender offer to acquire Iveco Group for €3.82 billion, which could expand its market presence and product portfolio.",
-      "why_now": "The tender offer was launched on September 5, 2026, with news reports discussing its potential impact on Tata Motors' share price.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f97392f53379",
-        "EVT-4f09247022be"
-      ],
-      "primary_source_event_id": "EVT-f97392f53379",
-      "source_headlines": [
-        "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion",
-        "How Tata Motors-Iveco €3.82 bn tender offer will impact TMCV share price after acquisition of Italian group | Decoded"
-      ],
-      "source_headline": "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-launches-tender-offer-for-iveco-group-deal-values-company-at-3-82-billion/articleshow/133798356.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T11:52:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:25:28Z",
-      "updated_at": "2026-09-06T19:20:01Z",
-      "decay_at": "2026-09-07T23:52:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-be2010792483",
-      "idea_version": "IDEAV-de0b1021b593e033",
-      "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "SPI",
-      "company": "Spire Healthcare",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has agreed to a £1.03 billion acquisition by Toscafund and other investors, which typically aligns the market price with the offer terms.",
-      "why_now": "The acquisition agreement was announced on 2026-09-05.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c148e6ef6fe1"
-      ],
-      "primary_source_event_id": "EVT-c148e6ef6fe1",
-      "source_headlines": [
-        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
-      ],
-      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
-      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:47:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-07T04:47:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ddeb10a10dec",
       "idea_version": "IDEAV-c80451360011b6f6",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -104574,78 +105228,6 @@
       "surfaced_at": "2026-09-06T05:50:29Z",
       "updated_at": "2026-09-06T05:50:29Z",
       "decay_at": "2026-09-07T17:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-69be6242b6c3",
-      "idea_version": "IDEAV-1dbf69985b06a3b9",
-      "idea_version_started_at": "2026-09-05T16:54:01Z",
-      "ticker": "OLAELEC",
-      "company": "Ola Electric Mobility",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden departure of Chief Operating Officer Hyun Shik Park alongside plans to raise up to Rs 1,500 crore in fresh capital signals operational instability and imminent equity dilution.",
-      "why_now": "The executive exit and capital raise plans were announced on September 5, 2026, presenting an immediate negative catalyst as the market digests the management shakeup.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ecdd297dc910"
-      ],
-      "primary_source_event_id": "EVT-ecdd297dc910",
-      "source_headlines": [
-        "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down"
-      ],
-      "source_headline": "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down",
-      "source_url": "https://www.ndtvprofit.com/markets/ola-electric-plans-to-raise-up-to-rs-1-500-crore-coo-hyun-shik-park-steps-down-12006862#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T16:54:01Z",
-      "updated_at": "2026-09-05T16:54:01Z",
-      "decay_at": "2026-09-07T04:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -105220,6 +105802,150 @@
       "surfaced_at": "2026-09-06T08:57:19Z",
       "updated_at": "2026-09-06T08:57:19Z",
       "decay_at": "2026-09-07T20:44:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5a71f05995f2",
+      "idea_version": "IDEAV-c8a91fb64a314be9",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "ICICIBANK",
+      "company": "ICICI Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Reserve Bank of India has approved LIC to acquire a 9.99% stake in the bank, providing a stable, long-term institutional shareholder base.",
+      "why_now": "The regulatory approval was reported on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4a7b093ba9f"
+      ],
+      "primary_source_event_id": "EVT-a4a7b093ba9f",
+      "source_headlines": [
+        "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender"
+      ],
+      "source_headline": "ICICI Bank shares in focus as LIC gets RBI nod to acquire 9.99% stake in private lender",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/icici-bank-shares-in-focus-as-lic-gets-rbi-nod-to-acquire-9-99-stake-in-private-lender/articleshow/133861811.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T03:32:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:44:15Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T15:32:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-9363c87dbbf9fb45",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
+      "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c87ff9d466f3"
+      ],
+      "primary_source_event_id": "EVT-c87ff9d466f3",
+      "source_headlines": [
+        "Austal confirms counterbid talks for its US arm by mystery Florida firm"
+      ],
+      "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
+      "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T02:25:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:25:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -106009,79 +106735,6 @@
       "surfaced_at": "2026-09-07T03:26:40Z",
       "updated_at": "2026-09-07T03:26:40Z",
       "decay_at": "2026-09-08T13:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-201153801317b62a",
-      "idea_version_started_at": "2026-09-07T00:24:17Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The rejection of a takeover bid signals that the board believes the company's intrinsic value is higher than the offer price, often leading to a re-rating.",
-      "why_now": "The news of the bid rejection and subsequent 16% jump occurred on 2026-09-07.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-591e2c9cf770"
-      ],
-      "primary_source_event_id": "EVT-591e2c9cf770",
-      "source_headlines": [
-        "ASX inches up; Ingenia jumps 16pc after bid rejection"
-      ],
-      "source_headline": "ASX inches up; Ingenia jumps 16pc after bid rejection",
-      "source_url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-07T00:18:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T00:24:17Z",
-      "updated_at": "2026-09-07T00:24:17Z",
-      "decay_at": "2026-09-08T12:18:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -108590,17 +109243,17 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-27711a58c7a5bfbc",
+      "idea_id": "IDEA-be2010792483",
+      "idea_version": "IDEAV-de0b1021b593e033",
       "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "IVG",
-      "company": "Iveco Group",
-      "exchange": "BIT",
+      "ticker": "SPI",
+      "company": "Spire Healthcare",
+      "exchange": "LSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
-      "why_now": "The takeover offer was officially announced on 2026-09-05.",
-      "conviction": 85,
+      "reason": "The company has agreed to a £1.03 billion acquisition by Toscafund and other investors, which typically aligns the market price with the offer terms.",
+      "why_now": "The acquisition agreement was announced on 2026-09-05.",
+      "conviction": 80,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "evidence_gate_v2",
@@ -108637,26 +109290,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-bd74a41471c6"
+        "EVT-c148e6ef6fe1"
       ],
-      "primary_source_event_id": "EVT-bd74a41471c6",
+      "primary_source_event_id": "EVT-c148e6ef6fe1",
       "source_headlines": [
-        "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
+        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
       ],
-      "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-      "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
-      "source_name": "Free Press Journal",
+      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-05T06:37:04Z",
+      "newest_source_at": "2026-09-05T16:47:24Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-02T12:20:12Z",
+      "surfaced_at": "2026-09-05T17:14:18Z",
       "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-06T18:37:04Z",
+      "decay_at": "2026-09-07T04:47:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -108801,79 +109454,6 @@
       "surfaced_at": "2026-09-06T11:28:01Z",
       "updated_at": "2026-09-06T18:05:43Z",
       "decay_at": "2026-09-06T22:55:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1093d003f5d3",
-      "idea_version": "IDEAV-9e9d718010d3e3b4",
-      "idea_version_started_at": "2026-09-05T23:52:55Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors is pursuing a €3.82 billion takeover of Iveco, which could expand its market share and product offerings in the commercial vehicle segment.",
-      "why_now": "Tata Motors launched a tender offer for Iveco Group on September 5, 2026, indicating an active M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e774de2326e3",
-        "EVT-f97392f53379"
-      ],
-      "primary_source_event_id": "EVT-e774de2326e3",
-      "source_headlines": [
-        "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-        "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-      "source_url": "https://www.thehindubusinessline.com/companies/tata-motors-turns-to-iveco-shareholders-to-seal-382-billion-takeover/article71429995.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T11:17:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T23:52:55Z",
-      "updated_at": "2026-09-05T23:52:55Z",
-      "decay_at": "2026-09-06T23:17:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109597,6 +110177,78 @@
       "surfaced_at": "2026-09-04T11:22:21Z",
       "updated_at": "2026-09-05T19:30:09Z",
       "decay_at": "2026-09-05T21:48:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-69be6242b6c3",
+      "idea_version": "IDEAV-1dbf69985b06a3b9",
+      "idea_version_started_at": "2026-09-05T16:54:01Z",
+      "ticker": "OLAELEC",
+      "company": "Ola Electric Mobility",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden departure of Chief Operating Officer Hyun Shik Park alongside plans to raise up to Rs 1,500 crore in fresh capital signals operational instability and imminent equity dilution.",
+      "why_now": "The executive exit and capital raise plans were announced on September 5, 2026, presenting an immediate negative catalyst as the market digests the management shakeup.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ecdd297dc910"
+      ],
+      "primary_source_event_id": "EVT-ecdd297dc910",
+      "source_headlines": [
+        "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down"
+      ],
+      "source_headline": "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down",
+      "source_url": "https://www.ndtvprofit.com/markets/ola-electric-plans-to-raise-up-to-rs-1-500-crore-coo-hyun-shik-park-steps-down-12006862#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T16:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T16:54:01Z",
+      "updated_at": "2026-09-05T16:54:01Z",
+      "decay_at": "2026-09-07T04:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -110333,78 +110985,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-02091865ea7a",
-      "idea_version": "IDEAV-081fe3565951befd",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "VERT",
-      "company": "Vertiv Holdings",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Vertiv is investing $1.45 billion in AI power infrastructure, signaling a significant capital expenditure aimed at capitalizing on the growing demand for AI-related data center solutions.",
-      "why_now": "The company's substantial investment in AI power infrastructure is a current strategic move to capture market opportunity.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2116e6797de8"
-      ],
-      "primary_source_event_id": "EVT-2116e6797de8",
-      "source_headlines": [
-        "Vertiv Is Putting $1.45 Billion Down for AI Power. Nearly Half the Price Is Contingent."
-      ],
-      "source_headline": "Vertiv Is Putting $1.45 Billion Down for AI Power. Nearly Half the Price Is Contingent.",
-      "source_url": "https://www.nasdaq.com/articles/vertiv-putting-145-billion-down-ai-power-nearly-half-price-contingent",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T04:07:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T16:07:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7c7191296ccd",
       "idea_version": "IDEAV-88caf68c80d25cef",
       "idea_version_started_at": "2026-09-04T09:24:12Z",
@@ -110549,77 +111129,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-adcb076f23d8",
-      "idea_version": "IDEAV-1210c57b2265075e",
-      "idea_version_started_at": "2026-09-04T09:24:12Z",
-      "ticker": "RMS",
-      "company": "Ramelius Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ramelius Resources has completed the acquisition of the Edna May Gold Project, which is expected to be a positive development for its asset base and future production.",
-      "why_now": "The acquisition completion was officially filed with the Australian Exchange.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9e7e3059c103"
-      ],
-      "primary_source_event_id": "EVT-9e7e3059c103",
-      "source_headlines": [
-        "RMS: FRS: Completion of Edna May Gold Project Acquisition"
-      ],
-      "source_headline": "RMS: FRS: Completion of Edna May Gold Project Acquisition",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMS?key=2924-03131966_NPS-6A1342276",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-04T04:52:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T09:24:12Z",
-      "updated_at": "2026-09-04T09:24:12Z",
-      "decay_at": "2026-09-05T16:52:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b1c789441879",
       "idea_version": "IDEAV-44564504cc74c3f4",
       "idea_version_started_at": "2026-09-04T09:24:12Z",
@@ -110687,79 +111196,6 @@
       "surfaced_at": "2026-09-04T09:24:12Z",
       "updated_at": "2026-09-04T09:24:12Z",
       "decay_at": "2026-09-05T18:21:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5a71f05995f2",
-      "idea_version": "IDEAV-b01c5300632bc25d",
-      "idea_version_started_at": "2026-09-05T10:44:15Z",
-      "ticker": "ICICIBANK",
-      "company": "ICICI Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Reserve Bank of India has approved LIC to acquire up to a 9.99% stake in ICICI Bank, which will drive sustained institutional buying flow.",
-      "why_now": "The regulatory approval was announced on September 5, 2026, clearing the path for LIC to begin open-market or block-deal accumulations.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fdeedbd90d3c",
-        "EVT-33f69de4d6fd"
-      ],
-      "primary_source_event_id": "EVT-fdeedbd90d3c",
-      "source_headlines": [
-        "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-        "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank"
-      ],
-      "source_headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rbi-approves-lic-to-acquire-up-to-9-99-stake-in-icici-bank/articleshow/133791372.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-05T09:41:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:44:15Z",
-      "updated_at": "2026-09-05T10:44:15Z",
-      "decay_at": "2026-09-06T21:41:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -110840,24 +111276,24 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 424,
+      "file_count": 426,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 468,
-    "shown_count": 468,
+    "total_count": 467,
+    "shown_count": 467,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 244,
-        "shown_count": 244,
+        "total_count": 242,
+        "shown_count": 242,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 224,
-        "shown_count": 224,
+        "total_count": 225,
+        "shown_count": 225,
         "hidden_count": 0
       }
     },
@@ -110877,6 +111313,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-be2010792483",
+        "idea_version": "IDEAV-de0b1021b593e033",
+        "idea_version_started_at": "2026-09-06T18:32:33Z",
+        "ticker": "SPI",
+        "company": "Spire Healthcare",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has agreed to a £1.03 billion acquisition by Toscafund and other investors, which typically aligns the market price with the offer terms.",
+        "why_now": "The acquisition agreement was announced on 2026-09-05.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c148e6ef6fe1"
+        ],
+        "primary_source_event_id": "EVT-c148e6ef6fe1",
+        "source_headlines": [
+          "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
+        ],
+        "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
+        "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T16:47:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T17:14:18Z",
+        "updated_at": "2026-09-06T18:32:33Z",
+        "decay_at": "2026-09-07T04:47:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T04:47:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-69be6242b6c3",
+        "idea_version": "IDEAV-1dbf69985b06a3b9",
+        "idea_version_started_at": "2026-09-05T16:54:01Z",
+        "ticker": "OLAELEC",
+        "company": "Ola Electric Mobility",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The sudden departure of Chief Operating Officer Hyun Shik Park alongside plans to raise up to Rs 1,500 crore in fresh capital signals operational instability and imminent equity dilution.",
+        "why_now": "The executive exit and capital raise plans were announced on September 5, 2026, presenting an immediate negative catalyst as the market digests the management shakeup.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ecdd297dc910"
+        ],
+        "primary_source_event_id": "EVT-ecdd297dc910",
+        "source_headlines": [
+          "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down"
+        ],
+        "source_headline": "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down",
+        "source_url": "https://www.ndtvprofit.com/markets/ola-electric-plans-to-raise-up-to-rs-1-500-crore-coo-hyun-shik-park-steps-down-12006862#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T16:22:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T16:54:01Z",
+        "updated_at": "2026-09-05T16:54:01Z",
+        "decay_at": "2026-09-07T04:22:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T04:22:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-193e9ee8df21",
         "idea_version": "IDEAV-5bbebbaadac6e480",
@@ -111333,82 +111920,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1093d003f5d3",
-        "idea_version": "IDEAV-9e9d718010d3e3b4",
-        "idea_version_started_at": "2026-09-05T23:52:55Z",
-        "ticker": "TTM",
-        "company": "Tata Motors",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors is pursuing a €3.82 billion takeover of Iveco, which could expand its market share and product offerings in the commercial vehicle segment.",
-        "why_now": "Tata Motors launched a tender offer for Iveco Group on September 5, 2026, indicating an active M&A catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e774de2326e3",
-          "EVT-f97392f53379"
-        ],
-        "primary_source_event_id": "EVT-e774de2326e3",
-        "source_headlines": [
-          "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-          "Tata Motors launches tender offer for Iveco Group; deal values company at €3.82 billion"
-        ],
-        "source_headline": "Tata Motors turns to Iveco shareholders to seal €3.82-billion takeover",
-        "source_url": "https://www.thehindubusinessline.com/companies/tata-motors-turns-to-iveco-shareholders-to-seal-382-billion-takeover/article71429995.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T11:17:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T23:52:55Z",
-        "updated_at": "2026-09-05T23:52:55Z",
-        "decay_at": "2026-09-06T23:17:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T23:17:18Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-671ed28cb051",
         "idea_version": "IDEAV-d856f2497aec3371",
         "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -111782,158 +112293,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-06T22:00:45Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5a71f05995f2",
-        "idea_version": "IDEAV-b01c5300632bc25d",
-        "idea_version_started_at": "2026-09-05T10:44:15Z",
-        "ticker": "ICICIBANK",
-        "company": "ICICI Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Reserve Bank of India has approved LIC to acquire up to a 9.99% stake in ICICI Bank, which will drive sustained institutional buying flow.",
-        "why_now": "The regulatory approval was announced on September 5, 2026, clearing the path for LIC to begin open-market or block-deal accumulations.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fdeedbd90d3c",
-          "EVT-33f69de4d6fd"
-        ],
-        "primary_source_event_id": "EVT-fdeedbd90d3c",
-        "source_headlines": [
-          "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-          "LIC gets RBI approval to acquire up to 9.99% stake in ICICI Bank"
-        ],
-        "source_headline": "RBI approves LIC to acquire up to 9.99% stake in ICICI Bank",
-        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rbi-approves-lic-to-acquire-up-to-9-99-stake-in-icici-bank/articleshow/133791372.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-05T09:41:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T10:44:15Z",
-        "updated_at": "2026-09-05T10:44:15Z",
-        "decay_at": "2026-09-06T21:41:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T21:41:15Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-67edac5436ac",
-        "idea_version": "IDEAV-27711a58c7a5bfbc",
-        "idea_version_started_at": "2026-09-06T18:32:33Z",
-        "ticker": "IVG",
-        "company": "Iveco Group",
-        "exchange": "BIT",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors has launched a takeover offer for the company at €14.1 per share, providing a clear floor for the stock price.",
-        "why_now": "The takeover offer was officially announced on 2026-09-05.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bd74a41471c6"
-        ],
-        "primary_source_event_id": "EVT-bd74a41471c6",
-        "source_headlines": [
-          "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share"
-        ],
-        "source_headline": "Tata Motors Launches Iveco Takeover Offer At €14.1 Per Share",
-        "source_url": "https://www.freepressjournal.in/business/tata-motors-launches-iveco-takeover-offer-at-141-per-share",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T06:37:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T12:20:12Z",
-        "updated_at": "2026-09-06T18:32:33Z",
-        "decay_at": "2026-09-06T18:37:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T18:37:04Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -114167,8 +114526,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T16:52:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T05:00:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -114242,8 +114601,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-05T16:07:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-07T04:21:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145622,8 +145981,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 540,
-    "live_count": 70,
+    "surfaced_total": 548,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -145642,9 +146001,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 961,
-    "news_picked_today": 225,
-    "news_dropped_today": 736
+    "news_seen_today": 2651,
+    "news_picked_today": 371,
+    "news_dropped_today": 2280
   },
   "book_momentum": {
     "live_count": 8,

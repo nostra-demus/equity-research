@@ -182,6 +182,19 @@ try {
     }
   })
 
+  check('tracked Claude keeps subagents foreground until their layer settles', () => {
+    for (const makeEnv of [claudeChildEnv, claudeNestedToolEnv]) {
+      const env = makeEnv({
+        CLAUDE_CODE_DISABLE_BACKGROUND_TASKS: '0',
+        CLAUDE_AUTO_BACKGROUND_TASKS: '1',
+      })
+      assert.equal(env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS, '1',
+        'headless research cannot return a final progress message while specialist tasks are detached')
+      assert.equal(env.CLAUDE_AUTO_BACKGROUND_TASKS, undefined,
+        'an inherited setting cannot turn synchronous specialist dispatch into background work')
+    }
+  })
+
   check('tracked Claude accepts only first-party subscription auth and scrubs headless credentials', () => {
     const maxLogin = { loggedIn: true, authMethod: 'claude.ai', apiProvider: 'firstParty', subscriptionType: 'max' }
     const headless = { loggedIn: true, authMethod: 'oauth_token', apiProvider: 'firstParty' }

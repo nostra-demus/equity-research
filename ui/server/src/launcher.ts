@@ -76,7 +76,7 @@ import {
   verifyResearchMemoryBeforeSpawn,
 } from './research-memory'
 import { acquireProviderRunDeployLease } from './deploy-barrier'
-import { captureOutputLineageAttempt, settleOutputLineageAttempt } from './evidence-lineage'
+import { assertPrivatePreparedRunRoot, captureOutputLineageAttempt, settleOutputLineageAttempt } from './evidence-lineage'
 import {
   createFrozenEvidenceReadCapability,
   destroyFrozenEvidenceReadCapability,
@@ -3206,8 +3206,21 @@ function validatedDurableReadinessReport(
 function loadDurableFrozenGenerationReceipt(
   binding: ChainedReadinessState['binding'],
   stateDir: string,
+  physicalRunRootAbs?: string,
 ): { report: ReadinessReport; frozenPool: FrozenPoolBinding } {
-  ensureOwnerOnlyReceiptRoot(stateDir)
+  if (physicalRunRootAbs === undefined) ensureOwnerOnlyReceiptRoot(stateDir)
+  else {
+    // Retained-root inspection is strictly read-only, including supervisor state. Missing/unsafe receipt
+    // directories are a failed proof, never something this diagnostic path repairs with mkdir/chmod.
+    for (const directory of [path.resolve(stateDir), durableFrozenGenerationRoot(stateDir)]) {
+      const info = fs.lstatSync(directory)
+      if (!info.isDirectory() || info.isSymbolicLink() || fs.realpathSync(directory) !== directory
+          || (typeof process.getuid === 'function' && info.uid !== process.getuid())
+          || (process.platform !== 'win32' && (info.mode & 0o077) !== 0)) {
+        throw new Error('saved run frozen generation receipt directory is unsafe')
+      }
+    }
+  }
   const target = durableFrozenGenerationReceiptPath(binding, stateDir)
   let parsed: unknown
   try { parsed = JSON.parse(readOwnerOnlyReceiptFile(target).toString('utf8')) } catch (error) {
@@ -3230,7 +3243,7 @@ function loadDurableFrozenGenerationReceipt(
   }
   const provisional = parsed.frozen_pool as unknown as FrozenPoolBinding
   const report = validatedDurableReadinessReport(parsed.readiness_report, binding, provisional)
-  const frozenPool = verifiedFrozenPoolBinding(binding, report)
+  const frozenPool = verifiedFrozenPoolBinding(binding, report, physicalRunRootAbs)
   if (!frozenPool || frozenPool.generationDigest !== parsed.generation_digest) {
     throw new Error('saved run frozen generation no longer verifies')
   }
@@ -3244,11 +3257,18 @@ function loadDurableFrozenGenerationReceipt(
 export function durableFrozenGenerationSummaryForRun(
   binding: ChainedReadinessBinding,
   stateDir: string = STATE_DIR,
+  options: { physicalRunRootAbs?: string } = {},
 ): { generationDigest: string; fileCount: number; newestMs: number; frozenPool: FrozenPoolBinding } {
+  const assertUnchanged = options.physicalRunRootAbs === undefined ? undefined
+    : assertPrivatePreparedRunRoot(options.physicalRunRootAbs)
   const canonical = canonicalChainedReadinessBinding(binding)
-  const { report, frozenPool } = loadDurableFrozenGenerationReceipt(canonical, path.resolve(stateDir))
+  const { report, frozenPool } = loadDurableFrozenGenerationReceipt(
+    canonical, path.resolve(stateDir), options.physicalRunRootAbs,
+  )
   const artifact = readFrozenArtifact(
-    path.join(frozenPool.generationDir, 'manifest.json'),
+    path.join(options.physicalRunRootAbs === undefined ? frozenPool.generationDir
+      : path.join(options.physicalRunRootAbs, '_pool_extracts', '.extract-generations', frozenPool.generationDigest),
+    'manifest.json'),
     'frozen evidence manifest',
   )
   let manifest: Record<string, unknown>
@@ -3273,6 +3293,7 @@ export function durableFrozenGenerationSummaryForRun(
     }
     newestMs = Math.max(newestMs, Number(value.mtime_ns) / 1_000_000)
   }
+  assertUnchanged?.()
   return {
     generationDigest: frozenPool.generationDigest,
     fileCount: report.fileCount,
@@ -3458,11 +3479,17 @@ function verifyFrozenPoolMetadata(frozen: FrozenPoolBinding): FrozenPoolBinding 
 function verifyFrozenPoolReceipt(
   binding: ChainedReadinessState['binding'],
   frozen: FrozenPoolBinding,
+  physicalRunRootAbs?: string,
 ): FrozenPoolBinding {
   const expectedData = path.resolve(DATA_DIR, binding.ticker)
   const expectedOut = path.resolve(binding.runRoot, '_pool_extracts')
   const expectedGenerationParent = path.join(expectedOut, '.extract-generations')
   const expectedGenerationDir = path.join(expectedGenerationParent, frozen.generationDigest)
+  // Receipt paths and manifest semantics remain bound to the canonical run root. Only filesystem reads
+  // may point at the exact transaction-owned retained copy; neither bytes nor logical paths are rewritten.
+  const physicalOut = physicalRunRootAbs === undefined ? expectedOut : path.join(physicalRunRootAbs, '_pool_extracts')
+  const physicalGenerationParent = path.join(physicalOut, '.extract-generations')
+  const physicalGenerationDir = path.join(physicalGenerationParent, frozen.generationDigest)
   if (path.resolve(frozen.dataPath) !== expectedData
       || path.resolve(frozen.outDir) !== expectedOut
       || !/^[a-f0-9]{64}$/.test(frozen.generationDigest)
@@ -3473,11 +3500,17 @@ function verifyFrozenPoolReceipt(
   // The Python extractor proves the same schema before returning, but admission independently verifies
   // every artifact hash, source reference, digest, mode, and filesystem identity. A forged or legacy JSON
   // file therefore cannot turn a mutable Drive view into provider evidence.
-  frozenPathIdentity(expectedGenerationParent, 'frozen evidence generation parent', 'directory', false)
+  const privateAncestors = physicalRunRootAbs === undefined ? []
+    : [physicalOut, physicalGenerationParent].map((directory) => {
+      const identity = frozenPathIdentity(directory, 'retained frozen evidence parent', 'directory', false)
+      if (fs.realpathSync(directory) !== directory) throw new Error('retained frozen evidence parent is unsafe')
+      return identity
+    })
+  frozenPathIdentity(physicalGenerationParent, 'frozen evidence generation parent', 'directory', false)
   const identities = new Map<string, FrozenPathIdentity>()
   const recordIdentity = (identity: FrozenPathIdentity) => { identities.set(identity.path, identity) }
-  recordIdentity(frozenPathIdentity(expectedGenerationDir, 'frozen evidence generation', 'directory'))
-  const manifestPath = path.join(expectedGenerationDir, 'manifest.json')
+  recordIdentity(frozenPathIdentity(physicalGenerationDir, 'frozen evidence generation', 'directory'))
+  const manifestPath = path.join(physicalGenerationDir, 'manifest.json')
   let manifest: Record<string, unknown>
   try {
     const manifestArtifact = readFrozenArtifact(manifestPath, 'frozen evidence manifest')
@@ -3563,14 +3596,14 @@ function verifyFrozenPoolReceipt(
       }
     }
   }
-  walk(expectedGenerationDir)
+  walk(physicalGenerationDir)
   for (const expected of expectedFiles) {
     if (!foundFiles.has(expected)) throw new Error(`frozen evidence artifact is missing: ${expected}`)
   }
 
   for (const [rel, expectedDigest] of Object.entries(artifacts)) {
     const artifact = readFrozenArtifact(
-      path.join(expectedGenerationDir, ...rel.split('/')),
+      path.join(physicalGenerationDir, ...rel.split('/')),
       `frozen evidence artifact ${rel}`,
     )
     recordIdentity(artifact.identity)
@@ -3611,6 +3644,12 @@ function verifyFrozenPoolReceipt(
       throw new Error(`${expected.label} changed while its generation was being verified`)
     }
   }
+  for (const expected of privateAncestors) {
+    const actual = frozenPathIdentity(expected.path, expected.label, 'directory', false)
+    if (!sameFrozenPathIdentity(expected, actual) || fs.realpathSync(expected.path) !== expected.path) {
+      throw new Error('retained frozen evidence parent changed while its generation was being verified')
+    }
+  }
   const verified = Object.freeze({
     dataPath: expectedData,
     outDir: expectedOut,
@@ -3618,7 +3657,9 @@ function verifyFrozenPoolReceipt(
     generationDir: expectedGenerationDir,
     evidenceRoot: expectedEvidenceRoot,
   })
-  frozenPoolMetadataByBinding.set(verified, {
+  // A private inspection proves retained bytes for plan revalidation only. It must not mint an
+  // admission-time capability for a different physical location; activation requires normal verification.
+  if (physicalRunRootAbs === undefined) frozenPoolMetadataByBinding.set(verified, {
     identities: Object.freeze([...identities.values()].map((identity) => Object.freeze(identity))),
   })
   return verified
@@ -3627,6 +3668,7 @@ function verifyFrozenPoolReceipt(
 function verifiedFrozenPoolBinding(
   binding: ChainedReadinessState['binding'],
   report: ReadinessReport,
+  physicalRunRootAbs?: string,
 ): FrozenPoolBinding | null {
   if (report.ticker.trim().toUpperCase() !== binding.ticker) {
     throw new Error('chained readiness report ticker does not match its exact chain binding')
@@ -3637,7 +3679,7 @@ function verifiedFrozenPoolBinding(
     // boundary. Fail before provider spend instead of silently falling back to the changing live pool.
     throw new Error('chained readiness did not produce a verified frozen evidence generation')
   }
-  return verifyFrozenPoolReceipt(binding, report.frozenPool)
+  return verifyFrozenPoolReceipt(binding, report.frozenPool, physicalRunRootAbs)
 }
 
 function frozenPoolBindingForRun(run: RunState): FrozenPoolBinding | null {
@@ -5079,16 +5121,24 @@ async function launchRegistered(params: LaunchParams): Promise<LaunchResult> {
   }
   if (params.preSpendRetryAuthority) {
     const authority = params.preSpendRetryAuthority
+    const retainedContinue = params.preparedRunPlanTransaction?.continuationRetryAuthority
+    const continuationMatches = params.continuation === true && retainedContinue !== undefined
+      && isDeepStrictEqual(authority, retainedContinue)
+      && params.runRoot === params.preparedRunPlanTransaction?.preparation.targetRunRoot
+      && params.preparedRunPlanTransaction?.recoveredChainIntent?.chainId === authority.recoveryRequestId
+      && (kind === 'full' || (params.chained === true && params.chainId === authority.recoveryRequestId
+        && (kind === 'module' || (kind === 'rerun' && module === 'master'))))
     const profileMatches = authority.provider === profile.provider && authority.model === profile.model
       && authority.reasoningLevel === (profile.reasoningLevel ?? null)
       && authority.profileKey === profile.profileKey
       && isDeepStrictEqual(authority.executionProfile, profile.executionProfile)
-    if (!params.preparedRunPlanTransaction || params.continuation || params.technicalReadinessRetry
+    if (!params.preparedRunPlanTransaction || (params.continuation && !continuationMatches)
+        || (retainedContinue !== undefined && !continuationMatches) || params.technicalReadinessRetry
         || params.parityCanary || params.parity || !['full', 'module', 'rerun'].includes(kind)
         || authority.localAttempts < 0 || !Number.isSafeInteger(authority.localAttempts)
         || !Number.isSafeInteger(authority.notBeforeMs)
         || !RECOVERY_REQUEST_ID_RE.test(authority.recoveryRequestId) || !profileMatches) {
-      throw Object.assign(new Error('Pre-spend retry authority does not match this exact fresh Full plan.'), {
+      throw Object.assign(new Error('Pre-spend retry authority does not match this exact reviewed plan.'), {
         statusCode: 409, code: 'pre_spend_retry_authority_changed',
       })
     }

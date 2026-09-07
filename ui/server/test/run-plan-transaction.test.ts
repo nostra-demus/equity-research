@@ -189,6 +189,55 @@ try {
   assert.equal(fs.readFileSync(path.join(existingTarget, 'original.txt'), 'utf8'), 'original\n')
   assert.equal(fs.existsSync(path.join(existingTarget, 'new.txt')), false, 'rollback restores the byte-identical prior root')
 
+  for (const recovery of ['restart', 'same transaction'] as const) {
+    for (const crashPoint of ['displaced', 'restored', 'before cleanup', 'after cleanup'] as const) {
+      const subject = `ZZRB${createdRequests.length}`
+      const plan = freshPlan(subject)
+      const target = path.join(REPO_ROOT, plan.targetRunRoot)
+      fs.mkdirSync(target, { recursive: true })
+      fs.writeFileSync(path.join(target, 'saved.txt'), 'completed research\n')
+      const transaction = await prepareRunPlanTransaction(newRequestId(), subject, plan, {}, state)
+      const workspace = path.dirname(transaction.preparation.stagingRootAbs)
+      const displaced = path.join(workspace, 'unstarted-root')
+      fs.writeFileSync(path.join(transaction.preparation.stagingRootAbs, 'new.txt'), 'unstarted work\n')
+      await transaction.activate()
+      const rename = fs.promises.rename
+      const remove = fs.rmSync
+      let interrupted = false
+      const interrupt = () => {
+        interrupted = true
+        throw new Error('fixture interrupted rollback')
+      }
+      fs.promises.rename = async (from, to) => {
+        await rename(from, to)
+        if (!interrupted && ((crashPoint === 'displaced' && String(to) === displaced)
+            || (crashPoint === 'restored' && String(from) === path.join(workspace, 'previous-root')))) interrupt()
+      }
+      fs.rmSync = (entry, options) => {
+        if (!interrupted && String(entry) === displaced && crashPoint === 'before cleanup') interrupt()
+        remove(entry, options)
+        if (!interrupted && String(entry) === displaced && crashPoint === 'after cleanup') interrupt()
+      }
+      try {
+        await assert.rejects(transaction.rollbackIfUnstarted('fixture failure'), /fixture interrupted rollback/)
+      } finally {
+        fs.promises.rename = rename
+        fs.rmSync = remove
+      }
+      if (recovery === 'same transaction') await transaction.rollbackIfUnstarted('fixture retry')
+      else await recoverRunPlanTransactions(state)
+      assert.equal(fs.readFileSync(path.join(target, 'saved.txt'), 'utf8'), 'completed research\n',
+        `${recovery} after ${crashPoint} preserves the restored original`)
+      assert.equal(fs.existsSync(path.join(target, 'new.txt')), false)
+      for (const name of ['previous-root', 'prepared-root', 'unstarted-root']) {
+        assert.equal(fs.existsSync(path.join(workspace, name)), false, `${recovery} cleans ${name}`)
+      }
+      await recoverRunPlanTransactions(state)
+      assert.equal(fs.readFileSync(path.join(target, 'saved.txt'), 'utf8'), 'completed research\n',
+        'repeated restart recovery never removes the restored original')
+    }
+  }
+
   const startedPlan = freshPlan('ZZTXNC')
   const startedTarget = path.join(REPO_ROOT, startedPlan.targetRunRoot)
   const startedRequest = newRequestId()

@@ -3,12 +3,14 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import {
   PROVIDER_TRANSPARENT_UX_CONTRACT_VERSION,
+  launchFailureMessage,
   preflightConfirmationMatches,
   requiresTypedSubjectConfirmation,
   typedSubjectConfirmationMatches,
 } from './launchExperience'
 import { isTechnicalReadinessFailure } from '../components/ReadinessWarnings'
-import { isPhysicallyEmptyReadiness } from './store'
+import { isPhysicallyEmptyReadiness, useStore } from './store'
+import { api } from './api'
 import type { RunKind } from './types'
 
 assert.equal(PROVIDER_TRANSPARENT_UX_CONTRACT_VERSION, 'provider-transparent-ux/1')
@@ -91,4 +93,54 @@ assert.ok(
 assert.doesNotMatch(rediscoverySource, /\.unref\?\./,
   'browser provider rediscovery must use browser timers without Node-only timer methods')
 
-console.log('provider-transparent UX: run-kind confirmation and frozen-subject guards passed')
+const privateDiagnostic = 'PRIVATE_DIAGNOSTIC_SENTINEL /private/account/config token=fixture-secret'
+const evidenceFailure = `continuation_spawn_failed: frozen evidence generation is writable; ${privateDiagnostic}`
+const evidenceMessage = 'The saved evidence must be read-only before this run can start. Your completed work is saved.'
+assert.equal(launchFailureMessage('launch_failed', evidenceFailure), evidenceMessage)
+assert.equal(launchFailureMessage('spawn_failed', evidenceFailure), evidenceMessage)
+assert.equal(launchFailureMessage('out_of_credits', evidenceFailure), undefined,
+  'the launch mapper does not replace quota-specific recovery')
+assert.doesNotMatch(launchFailureMessage('launch_failed', privateDiagnostic)!, /PRIVATE_DIAGNOSTIC|fixture-secret|\/private\//)
+
+// The same pre-spawn failure can be reported by a module or the first child of Continue. Both must show
+// the safe cause rather than a machine code, regardless of which provider owns the saved run.
+const before = useStore.getState()
+const originalManifest = api.runManifest
+let displayed = ''
+try {
+  api.runManifest = async () => { throw new Error('fixture: no manifest refresh needed') }
+  for (const provider of ['claude', 'codex'] as const) {
+    for (const chained of [false, true]) {
+      for (const message of [evidenceFailure, privateDiagnostic]) {
+        const runId = `${provider}-${chained ? 'chain' : 'module'}`
+        displayed = ''
+        useStore.setState({
+          selectedTicker: 'NU', activeSwarm: 'research', constellationSwarm: 'research',
+          selectToken: 404, nodeRuntime: { 'business-model/saved': { status: 'done' } },
+          readinessGate: null, readinessGateQueue: [], readinessRecovery: {}, stoppingRuns: {},
+          chainTickers: new Set(chained ? ['research\0NU'] : []),
+          activeRuns: { [runId]: {
+            runId, ticker: 'NU', swarmId: 'research', kind: 'module', module: 'management-governance',
+            status: 'starting', provider, continuation: true,
+          } },
+          refreshActiveRuns: async () => {},
+          setToast: (toast) => { displayed = toast?.msg || '' },
+        })
+        useStore.getState()._handleEvent({
+          type: 'run-error', runId, status: 'error', reason: 'launch_failed', message, provider, ts: 1,
+        })
+        assert.equal(displayed, launchFailureMessage('launch_failed', message),
+          `${provider}/${chained}: the actual event handler surfaces the safe launch diagnosis`)
+        assert.doesNotMatch(displayed, /PRIVATE_DIAGNOSTIC|fixture-secret|\/private\//)
+        assert.equal(useStore.getState().activeRuns[runId].status, 'error')
+        assert.equal(useStore.getState().nodeRuntime['business-model/saved'].status, 'done')
+        assert.equal(useStore.getState().chainTickers.size, 0, 'the failed chain is no longer shown as running')
+      }
+    }
+  }
+} finally {
+  api.runManifest = originalManifest
+  useStore.setState(before)
+}
+
+console.log('provider-transparent UX: confirmation, frozen-subject guards, and safe launch-failure diagnostics passed')

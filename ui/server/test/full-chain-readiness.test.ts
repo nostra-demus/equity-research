@@ -2,7 +2,7 @@
 // Run: npx tsx test/full-chain-readiness.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -17,6 +17,7 @@ import {
   CONTINUATION_RUN_ROOT_ENV,
   decideReadiness,
   durableFrozenGenerationReceiptPathForTest,
+  durableFrozenGenerationSummaryForRun,
   frozenEvidenceBindingForRunForTest,
   FROZEN_EVIDENCE_ROOT_ENV,
   FROZEN_POOL_BINDING_OUT_DIR_ENV,
@@ -35,6 +36,8 @@ import {
   waitForChainedReadinessResolution,
 } from '../src/launcher'
 import { exactModuleContinuationOnTerminal } from '../src/continuation'
+import { prepareExactModuleContinuationPrivately, prepareThesisPlanPrivately, thesisPlan } from '../src/completion'
+import { prepareRunPlanTransaction } from '../src/run-plan-transaction'
 import { DATA_DIR, REPO_ROOT } from '../src/config'
 import { claudeSandboxSettings } from '../src/providers/claude'
 import { codexSandboxConfig } from '../src/providers/codex'
@@ -1005,6 +1008,259 @@ async function coordinatorChecks() {
     'terminal cleanup deletes the cancelled-chain kill switch instead of leaking forever')
 }
 
+async function copiedGenerationLifecycleChecks() {
+  if (process.platform === 'win32') return
+  const stateDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-copy-receipt-')))
+  const requests: string[] = []
+  const roots: string[] = []
+  const chains: string[] = []
+  const snapshot = (root: string): Array<{ path: string; mode: number; sha256?: string }> => {
+    const rows: Array<{ path: string; mode: number; sha256?: string }> = []
+    const visit = (absolute: string) => {
+      const info = fs.lstatSync(absolute)
+      assert.ok(!info.isSymbolicLink())
+      rows.push({ path: path.relative(root, absolute), mode: info.mode & 0o777,
+        ...(info.isFile() ? { sha256: createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') } : {}) })
+      if (info.isDirectory()) for (const name of fs.readdirSync(absolute).sort()) visit(path.join(absolute, name))
+    }
+    visit(root)
+    return rows
+  }
+  try {
+    for (const kind of ['full', 'continue', 'module'] as const) {
+      const binding = { ticker: `ZZCOPY${kind.toUpperCase()}`, runRoot: `analyses/ZZCOPY${kind.toUpperCase()}_2099-03-01` }
+      roots.push(binding.runRoot)
+      const frozen = writeFrozenReceipt(binding)
+      const original = snapshot(frozen.generationDir)
+      const staleModuleDir = path.join(REPO_ROOT, binding.runRoot, 'management-governance', 'stale')
+      fs.mkdirSync(staleModuleDir, { recursive: true })
+      fs.writeFileSync(path.join(staleModuleDir, 'note.txt'), 'unattested old module output')
+      fs.chmodSync(staleModuleDir, 0o555)
+      const initialChain = `copy-initial-${kind}-${process.pid}`
+      chains.push(initialChain)
+      await assessChainedReadinessOnce(initialChain, 'initial', binding,
+        async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: frozen }), { stateDir })
+      clearChainedReadiness(initialChain)
+      const scope = { continuationRunRoot: binding.runRoot, frozenGeneration: {
+        generationDigest: frozen.generationDigest, fileCount: 1, newestMs: disagreement.ts,
+        verifiedLineageDigest: `sha256:${'0'.repeat(64)}`, reusableArtifacts: [],
+      } }
+      const moduleName = kind === 'module' ? 'management-governance' : undefined
+      const plan = thesisPlan(binding.ticker, 'research', undefined, moduleName, { provider: 'claude' },
+        kind === 'full' ? { freshRunRoot: binding.runRoot } : scope)
+      const requestId = randomUUID()
+      requests.push(requestId)
+      if (kind === 'continue') for (const failure of ['sanitizer', 'hook'] as const) {
+        await assert.rejects(prepareRunPlanTransaction(requestId, binding.ticker, plan, {
+          prepare: (subject, reviewed, workspace) => {
+            if (failure === 'sanitizer') return prepareThesisPlanPrivately(subject,
+              { ...reviewed, reuse: [...reviewed.reuse, 'unregistered-module'] }, workspace)
+            prepareThesisPlanPrivately(subject, reviewed, workspace)
+            throw new Error('fixture after private copy')
+          },
+        }, stateDir), failure === 'sanitizer' ? /private reused module changed/ : /fixture after private copy/)
+        assert.equal(fs.existsSync(path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', requestId)), false,
+          `${failure} failure deletes the sealed private copy so the same request can retry`)
+        assert.deepEqual(snapshot(frozen.generationDir), original)
+      }
+      const transaction = await prepareRunPlanTransaction(requestId, binding.ticker, plan,
+        kind === 'module' ? { prepare: (subject, reviewed, workspace) =>
+          prepareExactModuleContinuationPrivately(subject, moduleName!, reviewed, workspace) } : {}, stateDir)
+      assert.deepEqual(snapshot(frozen.generationDir), original, `${kind} preparation leaves source modes and bytes unchanged`)
+      const stagedGeneration = path.join(transaction.preparation.stagingRootAbs,
+        '_pool_extracts', '.extract-generations', frozen.generationDigest)
+      assert.deepEqual(snapshot(stagedGeneration), original,
+        `${kind} copies must preserve the frozen generation's read-only directory modes, not just file bytes`)
+      if (kind !== 'full') assert.equal(fs.existsSync(path.join(transaction.preparation.stagingRootAbs,
+        'management-governance', 'stale')), false, 'readonly stale module descendants remain safely sanitizable')
+      await transaction.activate()
+      for (const provider of ['claude', 'codex'] as const) {
+        const chain = `copy-reload-${kind}-${provider}-${process.pid}`
+        chains.push(chain)
+        let liveReads = 0
+        const resumed = await assessChainedReadinessOnce(chain, provider, binding,
+          async () => { liveReads++; throw new Error('must not re-read live data') },
+          { stateDir, requireExistingReceipt: true })
+        assert.equal(resumed.frozenPool?.generationDigest, frozen.generationDigest)
+        assert.equal(liveReads, 0, `${kind}/${provider} reuses the activated immutable generation`)
+        clearChainedReadiness(chain)
+      }
+      await transaction.rollbackIfUnstarted('synthetic zero-spend launch failure')
+      assert.deepEqual(snapshot(frozen.generationDir), original, `${kind} rollback restores exact original modes and bytes`)
+      assert.equal(fs.existsSync(transaction.preparation.stagingRootAbs), false)
+      assert.equal(fs.statSync(staleModuleDir).mode & 0o777, 0o555, 'rollback does not thaw the original module')
+    }
+
+    for (const damage of ['writable', 'corrupt', 'hardlink'] as const) {
+      const binding = { ticker: `ZZ${damage.toUpperCase()}`, runRoot: `analyses/ZZ${damage.toUpperCase()}_2099-03-01` }
+      roots.push(binding.runRoot)
+      const frozen = writeFrozenReceipt(binding)
+      const initialChain = `copy-damage-initial-${damage}-${process.pid}`
+      chains.push(initialChain)
+      await assessChainedReadinessOnce(initialChain, 'initial', binding,
+        async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: frozen }), { stateDir })
+      clearChainedReadiness(initialChain)
+      const plan = thesisPlan(binding.ticker, 'research', undefined, undefined, { provider: 'claude' }, {
+        continuationRunRoot: binding.runRoot, frozenGeneration: {
+          generationDigest: frozen.generationDigest, fileCount: 1, newestMs: disagreement.ts,
+          verifiedLineageDigest: `sha256:${'0'.repeat(64)}`, reusableArtifacts: [],
+        },
+      })
+      const sourceFile = path.join(frozen.generationDir, 'raw', binding.ticker, 'sample.txt')
+      if (damage === 'writable') fs.chmodSync(frozen.generationDir, 0o755)
+      if (damage === 'corrupt') {
+        fs.chmodSync(sourceFile, 0o644)
+        fs.writeFileSync(sourceFile, 'corrupted frozen source')
+        fs.chmodSync(sourceFile, 0o444)
+      }
+      if (damage === 'hardlink') fs.linkSync(sourceFile, path.join(stateDir, 'linked-source'))
+      const original = snapshot(frozen.generationDir)
+      const requestId = randomUUID()
+      requests.push(requestId)
+      if (damage === 'hardlink') {
+        await assert.rejects(prepareRunPlanTransaction(requestId, binding.ticker, plan, {}, stateDir), /hard-link/)
+        assert.equal(fs.statSync(sourceFile).nlink, 2, 'copy rejection does not modify the shared source inode')
+        assert.equal(fs.existsSync(path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', requestId)), false)
+      } else {
+        const transaction = await prepareRunPlanTransaction(requestId, binding.ticker, plan, {}, stateDir)
+        await transaction.activate()
+        const chain = `copy-damaged-${damage}-${process.pid}`
+        chains.push(chain)
+        await assert.rejects(assessChainedReadinessOnce(chain, 'continued', binding,
+          async () => { throw new Error('damaged evidence must never refresh itself') },
+          { stateDir, requireExistingReceipt: true }), damage === 'writable' ? /generation is writable/ : /artifact changed/)
+        await transaction.rollbackIfUnstarted('damaged frozen source rejected before spend')
+      }
+      assert.deepEqual(snapshot(frozen.generationDir), original, `${damage} source is rejected without repair or mutation`)
+    }
+  } finally {
+    for (const chain of chains) clearChainedReadiness(chain)
+    for (const runRoot of roots) {
+      const absolute = path.join(REPO_ROOT, runRoot)
+      makeTreeWritable(absolute)
+      fs.rmSync(absolute, { recursive: true, force: true })
+    }
+    for (const requestId of requests) {
+      const workspace = path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', requestId)
+      makeTreeWritable(workspace)
+      fs.rmSync(workspace, { recursive: true, force: true })
+    }
+    fs.rmSync(stateDir, { recursive: true, force: true })
+  }
+}
+
+async function retainedGenerationInspectionChecks() {
+  if (process.platform === 'win32') return
+  const stateDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-retained-read-')))
+  const binding = { ticker: 'ZZRETAINREAD', runRoot: 'analyses/ZZRETAINREAD_2099-03-02' }
+  const canonical = path.join(REPO_ROOT, binding.runRoot)
+  const workspace = path.join(REPO_ROOT, 'analyses', '.run-plan-transactions', randomUUID())
+  const physicalRunRootAbs = path.join(workspace, 'prepared-root')
+  const chain = `retained-inspection-${process.pid}`
+  try {
+    const frozen = writeFrozenReceipt(binding)
+    await assessChainedReadinessOnce(chain, 'initial', binding,
+      async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: frozen }), { stateDir })
+    clearChainedReadiness(chain)
+    const receiptPath = durableFrozenGenerationReceiptPathForTest(binding, stateDir)
+    const originalReceipt = fs.readFileSync(receiptPath)
+    fs.mkdirSync(workspace, { recursive: true, mode: 0o700 })
+    fs.renameSync(canonical, physicalRunRootAbs)
+    const inspect = () => durableFrozenGenerationSummaryForRun(binding, stateDir, { physicalRunRootAbs })
+    const observedLiveReads: string[] = []
+    const mutableFs = fs as unknown as Record<string, (...args: any[]) => any>
+    const originals = new Map<string, (...args: any[]) => any>()
+    for (const name of ['mkdirSync', 'chmodSync', 'writeFileSync', 'renameSync', 'rmSync', 'unlinkSync']) {
+      originals.set(name, mutableFs[name])
+      mutableFs[name] = () => { throw new Error(`retained inspection attempted mutation: ${name}`) }
+    }
+    for (const name of ['lstatSync', 'statSync', 'readdirSync', 'openSync', 'readFileSync', 'realpathSync']) {
+      const original = mutableFs[name]
+      originals.set(name, original)
+      mutableFs[name] = (...args: any[]) => {
+        if (typeof args[0] === 'string' && path.resolve(args[0]).startsWith(`${path.join(DATA_DIR, binding.ticker)}${path.sep}`)) {
+          observedLiveReads.push(name)
+        }
+        return Reflect.apply(original, fs, args)
+      }
+    }
+    try {
+      const summary = inspect()
+      assert.equal(summary.generationDigest, frozen.generationDigest)
+      assert.equal(summary.frozenPool.outDir, frozen.outDir, 'physical reads never rewrite logical evidence binding')
+      assert.equal(summary.frozenPool.generationDir, frozen.generationDir)
+    } finally {
+      for (const [name, original] of originals) mutableFs[name] = original
+    }
+    assert.deepEqual(observedLiveReads, [], 'private revalidation never reopens mutable data')
+    assert.equal(fs.existsSync(canonical), false, 'read-only inspection never activates the root')
+    assert.deepEqual(fs.readFileSync(receiptPath), originalReceipt, 'inspection never rewrites the protected receipt')
+    const privateSummary = inspect()
+    await assert.rejects(assessChainedReadinessOnce(`${chain}-not-capability`, 'private-summary', binding,
+      async () => ({ ...disagreement, ticker: binding.ticker, frozenPool: privateSummary.frozenPool }), { stateDir }),
+    /generation parent is unavailable/,
+    'a private summary cannot act as provider evidence; canonical admission must independently verify after activation')
+    clearChainedReadiness(`${chain}-not-capability`)
+    fs.mkdirSync(canonical)
+    fs.writeFileSync(path.join(canonical, 'unrelated.txt'), 'a different canonical tree')
+    assert.equal(inspect().generationDigest, frozen.generationDigest, 'only retained private bytes supply the proof')
+
+    const generation = path.join(physicalRunRootAbs, '_pool_extracts', '.extract-generations', frozen.generationDigest)
+    const raw = path.join(generation, 'raw', binding.ticker, 'sample.txt')
+    const originalRaw = fs.readFileSync(raw)
+    fs.chmodSync(generation, 0o755)
+    assert.throws(inspect, /generation is writable/, 'a writable retained generation is not silently sealed')
+    assert.equal(fs.statSync(generation).mode & 0o777, 0o755)
+    fs.chmodSync(generation, 0o555)
+    fs.chmodSync(raw, 0o644)
+    fs.writeFileSync(raw, 'changed immutable evidence')
+    fs.chmodSync(raw, 0o444)
+    assert.throws(inspect, /artifact changed/, 'matching receipt metadata cannot conceal changed retained bytes')
+    fs.chmodSync(raw, 0o644)
+    fs.writeFileSync(raw, originalRaw)
+    fs.chmodSync(raw, 0o444)
+    const link = path.join(stateDir, 'hardlinked-source')
+    fs.linkSync(raw, link)
+    assert.throws(inspect, /hard-link/, 'retained evidence cannot alias external mutable bytes')
+    fs.unlinkSync(link)
+    const savedRaw = path.join(stateDir, 'saved-source')
+    fs.chmodSync(path.dirname(raw), 0o755)
+    fs.renameSync(raw, savedRaw)
+    fs.symlinkSync(savedRaw, raw)
+    fs.chmodSync(path.dirname(raw), 0o555)
+    assert.throws(inspect, /symlink/, 'retained evidence symlinks are rejected')
+    fs.chmodSync(path.dirname(raw), 0o755)
+    fs.unlinkSync(raw)
+    fs.renameSync(savedRaw, raw)
+    fs.chmodSync(path.dirname(raw), 0o555)
+    const wrongGeneration = path.join(path.dirname(generation), 'a'.repeat(64))
+    fs.chmodSync(path.dirname(generation), 0o755)
+    fs.chmodSync(generation, 0o755)
+    fs.renameSync(generation, wrongGeneration)
+    fs.chmodSync(wrongGeneration, 0o555)
+    assert.throws(inspect, /generation is unavailable/, 'another generation never substitutes for the protected digest')
+    fs.chmodSync(wrongGeneration, 0o755)
+    fs.renameSync(wrongGeneration, generation)
+    fs.chmodSync(generation, 0o555)
+    const receiptDirectory = path.dirname(receiptPath)
+    fs.chmodSync(receiptDirectory, 0o755)
+    assert.throws(inspect, /receipt directory is unsafe/, 'inspection rejects unsafe state without permission repair')
+    assert.equal(fs.statSync(receiptDirectory).mode & 0o777, 0o755)
+    fs.chmodSync(receiptDirectory, 0o700)
+    assert.equal(inspect().generationDigest, frozen.generationDigest)
+    assert.deepEqual(fs.readFileSync(receiptPath), originalReceipt)
+  } finally {
+    clearChainedReadiness(chain)
+    clearChainedReadiness(`${chain}-not-capability`)
+    for (const absolute of [workspace, canonical, stateDir]) {
+      makeTreeWritable(absolute)
+      fs.rmSync(absolute, { recursive: true, force: true })
+    }
+  }
+}
+
+await retainedGenerationInspectionChecks()
+await copiedGenerationLifecycleChecks()
 await coordinatorChecks()
 await durableRestartChecks()
 console.log('PASS: chain readiness is one exact assessment, one empty-data gate, and no child re-scan')

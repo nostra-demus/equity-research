@@ -71,6 +71,11 @@ export function claudeChildEnv(base: NodeJS.ProcessEnv = process.env): NodeJS.Pr
   // The CLI's own scrub keeps this inference-only credential out of every model-visible subprocess.
   if (base.CLAUDE_CODE_OAUTH_TOKEN) env.CLAUDE_CODE_OAUTH_TOKEN = base.CLAUDE_CODE_OAUTH_TOKEN
   env.CLAUDE_CODE_SUBPROCESS_ENV_SCRUB = '1'
+  // Tracked headless runs must join a layer's specialists before returning. Native background Agent
+  // calls can otherwise outlive the parent's final progress message and never reach publication.
+  // Pin the documented runtime control, rather than inheriting an operator setting or relying on prose:
+  // https://code.claude.com/docs/en/env-vars
+  env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS = '1'
   env.NOSTRA_COCKPIT_RUN = '1'
   env.NO_COLOR = '1'
   for (const key of CLAUDE_COCKPIT_ENV_ALLOWLIST) if (base[key]) env[key] = base[key]
@@ -956,6 +961,9 @@ async function buildLaunch(context: ProviderLaunchContext): Promise<ProviderLaun
         const inline = args[args.indexOf('--settings') + 1]
         if (inline !== settings || JSON.stringify(JSON.parse(inline)) !== settings) {
           throw new Error('tracked Claude inline sandbox settings changed before spawn')
+        }
+        if (env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS !== '1' || env.CLAUDE_AUTO_BACKGROUND_TASKS !== undefined) {
+          throw new Error('tracked Claude foreground task policy changed before spawn')
         }
       },
       cleanup: mirror.cleanup,

@@ -1,0 +1,129 @@
+{
+  "agents": [
+    {
+      "agent": "competitive-intel-triage",
+      "model": "claude-opus-5",
+      "calls": 10,
+      "usage": {
+        "input_tokens": 20,
+        "output_tokens": 13592,
+        "cache_read_input_tokens": 630826,
+        "cache_creation_input_tokens": 108006,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 108006,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.3303505,
+      "runtime_ms": 180526,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-claim-extraction",
+      "model": "claude-opus-5",
+      "calls": 10,
+      "usage": {
+        "input_tokens": 20,
+        "output_tokens": 11540,
+        "cache_read_input_tokens": 626814,
+        "cache_creation_input_tokens": 86477,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 86477,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.14248825,
+      "runtime_ms": 164434,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "competitive-intel-synthesis",
+      "model": "claude-opus-5",
+      "calls": 5,
+      "usage": {
+        "input_tokens": 10,
+        "output_tokens": 11569,
+        "cache_read_input_tokens": 263785,
+        "cache_creation_input_tokens": 94228,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 94228,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.0100925,
+      "runtime_ms": 139053,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-narrative-triangulation",
+      "model": "claude-opus-5",
+      "calls": 12,
+      "usage": {
+        "input_tokens": 24,
+        "output_tokens": 14045,
+        "cache_read_input_tokens": 822498,
+        "cache_creation_input_tokens": 96249,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 96249,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.36405025,
+      "runtime_ms": 206764,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-dimension-matrix",
+      "model": "claude-opus-5",
+      "calls": 7,
+      "usage": {
+        "input_tokens": 14,
+        "output_tokens": 8348,
+        "cache_read_input_tokens": 370282,
+        "cache_creation_input_tokens": 72780,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 72780,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.848786,
+      "runtime_ms": 110096,
+      "module": "competitive-intel"
+    },
+    {
+      "agent": "peer-readthrough-to-subject",
+      "model": "claude-opus-5",
+      "calls": 8,
+      "usage": {
+        "input_tokens": 16,
+        "output_tokens": 14113,
+        "cache_read_input_tokens": 490448,
+        "cache_creation_input_tokens": 94647,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 94647,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.18967275,
+      "runtime_ms": 182651,
+      "module": "competitive-intel"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-opus-5",
+    "calls": 26,
+    "usage": {
+      "input_tokens": 52,
+      "output_tokens": 21554,
+      "cache_read_input_tokens": 2455530,
+      "cache_creation_input_tokens": 119462,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 119462
+      }
+    },
+    "cost": 2.961495,
+    "runtime_ms": 0
+  }
+}

@@ -14,7 +14,7 @@ import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
-import { preflightConfirmationMatches } from './launchExperience'
+import { launchFailureMessage, preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, DeploymentLag, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { isDataScanProgress } from './dataScan'
@@ -4554,7 +4554,9 @@ export const useStore = create<State>((set, get) => ({
     let deploymentPending = false
     let deploymentLag: DeploymentLag | null = null
     try {
-      const r = await performanceFetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
+      // Access redirects an expired session to another origin. Following that redirect makes the
+      // browser throw a CORS error before we can identify sign-in expiry; manual keeps it observable.
+      const r = await performanceFetch('/api/health', { cache: 'no-store', redirect: 'manual', headers: { accept: 'application/json' }, signal: ac.signal })
       const ct = r.headers.get('content-type') || ''
       if (r.headers.get('x-engine-status') === 'offline' || r.status >= 520) {
         outcome = 'engine' // the edge Worker / Cloudflare says the origin is down
@@ -4578,7 +4580,7 @@ export const useStore = create<State>((set, get) => ({
             reason: deployment.reason,
           }
         }
-      } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
+      } else if (r.type === 'opaqueredirect' || r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
         outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
       } else {
         outcome = 'engine'
@@ -4659,7 +4661,7 @@ export const useStore = create<State>((set, get) => ({
       if (!adopted.swarmId) return
       const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
       if (!reconciled) return
-      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+      if (reconciled !== adopted) set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
     }
     const selected = get().selectedTicker
     const activeSwarm = get().activeSwarm
@@ -4856,9 +4858,9 @@ export const useStore = create<State>((set, get) => ({
         if (r && get().chainTickers.has(chainKey)) {
           set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== chainKey)) })
           if (runOnScreen) {
-            const msg = e.status === 'incomplete'
+            const msg = launchFailureMessage(e.reason, e.message) ?? (e.status === 'incomplete'
               ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
-              : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
+              : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`)
             get().setToast({ msg, tone: 'bad' })
             const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
             api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
@@ -4878,7 +4880,8 @@ export const useStore = create<State>((set, get) => ({
             }).catch(() => {})
           } else {
             const failedProvider = isRunProvider(e.provider) ? e.provider : isRunProvider(r?.provider) ? r.provider : undefined
-            get().setToast({ msg: e.reason === 'out_of_credits' && failedProvider ? `${providerLabel(failedProvider)} plan usage is exhausted — run paused` : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
+            get().setToast({ msg: launchFailureMessage(e.reason, e.message)
+              ?? (e.reason === 'out_of_credits' && failedProvider ? `${providerLabel(failedProvider)} plan usage is exhausted — run paused` : `Run ${e.status}: ${e.reason}`), tone: 'bad' })
             if (e.reason === 'out_of_credits' && failedProvider) {
               const providers = get().providers
               patch.providers = { ...providers, [failedProvider]: { ...providers[failedProvider], usage: { ok: false, reason: 'out_of_credits', checked: true } } }
@@ -6847,7 +6850,7 @@ export const useStore = create<State>((set, get) => ({
       if (!adopted.swarmId) return
       const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
       if (!reconciled) return
-      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+      if (reconciled !== adopted) set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
     }
     const existingSubject = scRunSubjects.get(e.runId)
     const candidateSubject = existingSubject

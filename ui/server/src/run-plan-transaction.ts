@@ -3,9 +3,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT, STATE_DIR } from './config'
 import { canonicalJsonText } from './canonical-json'
+import { assertPrivatePreparedRunRoot } from './evidence-lineage'
 import {
   continuationPlanReceiptFingerprint,
   prepareThesisPlanPrivately,
+  removePrivateRunPlanTree,
+  recoverInterruptedRunPlanModuleSwaps,
   type PrivateThesisPlanPreparation,
   type ThesisPlan,
 } from './completion'
@@ -32,10 +35,13 @@ export interface PaidChildProcessProof {
 export interface PreparedRunPlanTransaction {
   requestId: string
   preparation: PrivateThesisPlanPreparation
-  /** Present only when startup reopened a previously-started chain. The scheduler must trust only these
+  /** Present when startup restores a protected chain, including an unspent Continue. This is progress
+   * authority, not proof that a paid child started. The scheduler must trust only these
    * terminally sealed module hashes when rebuilding its `done` set; a valid-looking file left by a killed
    * child is not proof of completion. */
   recoveredChainIntent?: ChainIntentJournal
+  /** Internal authority issued only by exact rearm of a retained Continue. */
+  continuationRetryAuthority?: PreSpendRetryAuthority
   registerPaidChildAttempt(attemptId: string): void
   activate(): Promise<void>
   markPaidChildSpawning(attemptId: string, identity: PaidChildSpawnIdentity): Promise<ProviderSpawnGate>
@@ -549,11 +555,8 @@ async function readJournal(directory: string): Promise<TransactionJournal | null
   }
 }
 
-async function removeTreeInside(directory: string, target: string): Promise<void> {
-  const base = path.resolve(directory)
-  const resolved = path.resolve(target)
-  if (!resolved.startsWith(`${base}${path.sep}`)) throw new Error('transaction cleanup escaped its directory')
-  if (await pathEntryExists(resolved)) await fs.promises.rm(resolved, { recursive: true, force: true })
+function removeTreeInside(directory: string, target: string): void {
+  removePrivateRunPlanTree(directory, target)
 }
 
 type SpawnBoundary = 'unstarted' | 'released' | 'ambiguous'
@@ -592,6 +595,14 @@ function spawnBoundary(journal: TransactionJournal, stateDir: string): SpawnBoun
 }
 
 async function restoreUnstarted(workspace: string, journal: TransactionJournal, stateDir: string): Promise<void> {
+  // Cleanup can fail after the restore was durably completed. A retry through the same transaction
+  // object must honor that journal, even if its in-memory state still says the new root is activated.
+  const directory = journalDir(journal.requestId, stateDir)
+  const current = await readJournal(directory)
+  if (!current || current.requestId !== journal.requestId || current.targetRunRoot !== journal.targetRunRoot) {
+    throw new Error('run-plan rollback journal is missing or changed')
+  }
+  journal = current
   if (spawnBoundary(journal, stateDir) !== 'unstarted') {
     throw new Error('an attempted paid child may own this transaction; automatic rollback is unsafe')
   }
@@ -601,13 +612,52 @@ async function restoreUnstarted(workspace: string, journal: TransactionJournal, 
   const displacedAbs = path.join(workspace, 'unstarted-root')
   const backupExists = await pathEntryExists(backupAbs)
   const preparedExists = await pathEntryExists(preparedAbs)
-  const canonicalWasActivated = journal.status === 'activated' || journal.status === 'spawning'
-    || (journal.status === 'activating' && (backupExists || !preparedExists))
-  if (await pathEntryExists(targetAbs) && canonicalWasActivated) {
-    if (await pathEntryExists(displacedAbs)) await removeTreeInside(workspace, displacedAbs)
-    await fs.promises.rename(targetAbs, displacedAbs)
+
+  // An explicitly cancelled retained Continue can hold the only surviving saved checkpoint. Stop ends
+  // retry authority; it does not make those existing research bytes disposable fresh-Full output. Prefer
+  // the original backup when one exists, otherwise preserve/restore the sole retained root by rename.
+  const preserveCancelledCheckpoint = !backupExists && journal.version === 3
+    && journal.reviewedPlan.continuationReceipt.action === 'continue' && journal.preSpendRetry !== null
+    && journal.chainIntent?.terminalStatus === 'cancelled'
+  if (preserveCancelledCheckpoint) {
+    await assertCanonicalTargetSafe(targetAbs)
+    if (!await pathEntryExists(targetAbs)) {
+      const retained = []
+      for (const candidate of [preparedAbs, displacedAbs]) {
+        if (await pathEntryExists(candidate)) retained.push(candidate)
+      }
+      if (retained.length > 1) throw new Error('cancelled Continue has ambiguous retained checkpoints')
+      if (retained.length === 1) {
+        const source = retained[0]
+        const info = await fs.promises.lstat(source)
+        if (!info.isDirectory() || info.isSymbolicLink() || await fs.promises.realpath(source) !== source
+            || (typeof process.getuid === 'function' && info.uid !== process.getuid())) {
+          throw new Error('cancelled Continue checkpoint is unsafe')
+        }
+        await fs.promises.rename(source, targetAbs)
+        await syncDirectory(path.dirname(targetAbs))
+        await syncDirectory(workspace)
+      }
+    }
   }
-  if (await pathEntryExists(backupAbs)) await fs.promises.rename(backupAbs, targetAbs)
+  const canonicalWasActivated = !preserveCancelledCheckpoint && (journal.status === 'activated' || journal.status === 'spawning'
+    || (journal.status === 'activating' && (backupExists || !preparedExists)))
+  // Keep the displaced tree until restoration is journaled. Its presence proves the first rename
+  // already happened; a canonical root alongside it may be the restored original after a crash.
+  if (await pathEntryExists(targetAbs) && canonicalWasActivated && !await pathEntryExists(displacedAbs)) {
+    await fs.promises.rename(targetAbs, displacedAbs)
+    await syncDirectory(path.dirname(targetAbs))
+    await syncDirectory(workspace)
+  }
+  if (await pathEntryExists(backupAbs)) {
+    if (await pathEntryExists(targetAbs)) throw new Error('cannot restore prior root over an existing target')
+    await fs.promises.rename(backupAbs, targetAbs)
+    await syncDirectory(path.dirname(targetAbs))
+    await syncDirectory(workspace)
+  }
+  // Seal restoration BEFORE deleting the evidence of the rename. Otherwise a crash after cleanup
+  // leaves an activated journal that mistakes the restored original for disposable unstarted work.
+  if (journal.status !== 'rolled_back') await writeJournal(directory, { ...journal, status: 'rolled_back' })
   if (await pathEntryExists(displacedAbs)) await removeTreeInside(workspace, displacedAbs)
   if (await pathEntryExists(preparedAbs)) await removeTreeInside(workspace, preparedAbs)
 }
@@ -630,6 +680,10 @@ async function privatizePreSpendRetryTarget(
   const targetExists = await pathEntryExists(targetAbs)
   const backupExists = await pathEntryExists(backupAbs)
   const preparedExists = await pathEntryExists(preparedAbs)
+
+  // A sanitizer crash can leave a module in its existing external swap backup. Recover the canonical
+  // module before moving its parent, so private verification never strands otherwise-proven saved work.
+  if (targetExists && !preparedExists) recoverInterruptedRunPlanModuleSwaps(journal.targetRunRoot)
 
   // Layout before deferral: target=new, backup=old-or-absent, prepared=absent.
   // Layout after the first rename: target=absent, backup=old-or-absent, prepared=new.
@@ -698,7 +752,7 @@ export async function recoverRunPlanTransactions(stateDir: string = STATE_DIR): 
       recovered.started.push(journal.requestId)
       continue
     }
-    if (journal.version === 3 && journal.chainIntent?.terminalStatus === 'cancelled') {
+    if (journal.status === 'rolled_back' || (journal.version === 3 && journal.chainIntent?.terminalStatus === 'cancelled')) {
       if (await pathEntryExists(workspace)) await restoreUnstarted(workspace, journal, stateDir)
       abortUnreleasedSpawnAttempts(journal, stateDir)
       await writeJournal(journalDirectory, { ...journal, status: 'rolled_back' })
@@ -801,6 +855,27 @@ export async function readDeferredPreSpendRetry(
     throw new Error('deferred pre-spend retry private root is unsafe or missing')
   }
   return deferredRecordFromJournal(journal)
+}
+
+/** Resolve private bytes only from the current protected request, never from a caller-selected path. */
+export async function inspectDeferredPreSpendRetry(
+  record: DeferredPreSpendRetryRecord,
+  stateDir: string = STATE_DIR,
+): Promise<{ physicalRunRootAbs: string; intent: ChainIntentJournal | null }> {
+  assertDeferredRecordIntegrity(record)
+  const current = await readDeferredPreSpendRetry(record.requestId, stateDir)
+  if (!current || canonicalJsonText(current) !== canonicalJsonText(record)) {
+    throw new Error('deferred pre-spend retry changed before private inspection')
+  }
+  const journal = await readJournal(journalDir(record.requestId, stateDir))
+  if (!journal || journal.version !== 3 || journal.status !== 'waiting_pre_spend_retry'
+      || journal.chainIntent?.terminalStatus === 'cancelled'
+      || spawnBoundary(journal, stateDir) !== 'unstarted') {
+    throw new Error('deferred private inspection has no unspent transaction')
+  }
+  const physicalRunRootAbs = path.join(workspaceDir(record.requestId), 'prepared-root')
+  assertPrivatePreparedRunRoot(physicalRunRootAbs)
+  return { physicalRunRootAbs, intent: jsonClone(journal.chainIntent) }
 }
 
 /** List only retryable protected intents. A corrupt transaction is an operator-visible failure, never an
@@ -952,6 +1027,7 @@ async function prepareRunPlanTransactionInternal(
     }
     const current = await readJournal(journalDirectory)
     if (!current || current.version !== 3 || current.status !== 'waiting_pre_spend_retry'
+        || current.chainIntent?.terminalStatus === 'cancelled'
         || !current.preSpendRetry || current.integritySha256 !== open.journal.integritySha256) {
       throw new Error('deferred pre-spend retry changed before rearm')
     }
@@ -1019,6 +1095,7 @@ async function prepareRunPlanTransactionInternal(
     } catch (error) {
       // Preparation has not published or spent anything. Do not strand an unreadable request directory that
       // makes the same durable request permanently unrecoverable after a local staging/sanitizer failure.
+      await removeTreeInside(workspace, path.join(workspace, 'prepared-root'))
       await fs.promises.rm(workspace, { recursive: true, force: true })
       await fs.promises.rm(journalDirectory, { recursive: true, force: true })
       throw error
@@ -1049,6 +1126,7 @@ async function prepareRunPlanTransactionInternal(
   const stagingDevice = (await fs.promises.lstat(preparation.stagingRootAbs)).dev
   const targetDevice = (await fs.promises.lstat(path.dirname(targetAbs))).dev
   if (stagingDevice !== targetDevice) {
+    await removeTreeInside(workspace, preparation.stagingRootAbs)
     await fs.promises.rm(workspace, { recursive: true, force: true })
     await fs.promises.rm(journalDirectory, { recursive: true, force: true })
     throw new Error('private run-plan staging is not on the atomic target filesystem')
@@ -1073,6 +1151,54 @@ async function prepareRunPlanTransactionInternal(
     return result
   }
 
+  const deferRetry = async (authorityInput: PreSpendRetryAuthority): Promise<DeferredPreSpendRetryRecord> => {
+    const latest = await readJournal(journalDirectory)
+    if (!latest || latest.version !== 3) throw new Error('pre-spend retry journal became unavailable')
+    if (latest.integritySha256 !== (journal as TransactionJournalV3).integritySha256) {
+      if (latest.chainIntent?.terminalStatus !== 'cancelled') throw new Error('pre-spend retry journal changed')
+      journal = latest // Explicit durable cancellation must survive an older launch handle's failure.
+    }
+    if (journal.version !== 3) throw new Error('legacy transaction cannot retain an exact pre-spend retry')
+    if (paidChildStarted || journal.status === 'started' || spawnBoundary(journal, stateDir) !== 'unstarted') {
+      throw new Error('a paid child may have started; pre-spend retry deferral is forbidden')
+    }
+    const authority = jsonClone(authorityInput)
+    if (!validRetryAuthority(authority)) throw new Error('invalid pre-spend retry authority')
+    validateAuthorityAgainstPlan(authority, journal.reviewedPlan)
+    rollbackClosing = true
+    pendingAttempts.clear()
+    spawningAttempts.clear()
+    const priorRetry = journal.preSpendRetry
+    const retry: Omit<DeferredPreSpendRetryRecord, 'integritySha256'> = {
+      version: 1,
+      requestId: journal.requestId,
+      subject: journal.subject,
+      targetRunRoot: journal.targetRunRoot,
+      reviewedPlan: jsonClone(journal.reviewedPlan),
+      preparation: jsonClone(journal.preparation),
+      authority,
+      deferredAt: priorRetry?.deferredAt ?? new Date().toISOString(),
+      notBeforeMs: authority.notBeforeMs,
+      rearmCount: priorRetry?.rearmCount ?? 0,
+      lastRearmedAt: priorRetry?.lastRearmedAt ?? null,
+      planSha256: sha256Json(journal.reviewedPlan),
+    }
+    journal = await writeJournal(journalDirectory, {
+      ...journal,
+      status: 'deferring_pre_spend_retry',
+      preSpendRetry: retry,
+    }) as TransactionJournalV3
+    abortUnreleasedSpawnAttempts(journal, stateDir)
+    if (await privatizePreSpendRetryTarget(workspace, journal, stateDir) === 'missing') {
+      throw new Error('pre-spend retry lost both canonical and private prepared roots')
+    }
+    journal = await writeJournal(journalDirectory, {
+      ...journal,
+      status: 'waiting_pre_spend_retry',
+    }) as TransactionJournalV3
+    return deferredRecordFromJournal(journal)
+  }
+
   const rollback = async (reason: string, attemptId?: string): Promise<void> => {
     if (paidChildStarted || journal.status === 'started' || journal.status === 'rolled_back') return
     // A released gate is the paid boundary even if the process died before the following journal write.
@@ -1087,6 +1213,13 @@ async function prepareRunPlanTransactionInternal(
     // still cross the boundary. An attempt-specific rollback releases only that child and lets the last
     // proved-no-child owner perform the restore.
     if (pendingAttempts.size > 0 || spawningAttempts.size > 0) return
+    // A rearmed Continue may hold the only surviving saved root. A zero-spend failure must put that
+    // exact tree back into the durable retry lane, not discard it as a failed newly-created Full.
+    if (open?.mode === 'pre_spend_rearm' && journal.version === 3
+        && journal.reviewedPlan.continuationReceipt.action === 'continue' && journal.preSpendRetry) {
+      await deferRetry(journal.preSpendRetry.authority)
+      return
+    }
     // Close registration synchronously before the first restore await. A later launch that was not part
     // of the admitted wave must fail before provider work instead of entering a root being rolled back.
     rollbackClosing = true
@@ -1102,8 +1235,14 @@ async function prepareRunPlanTransactionInternal(
   return {
     requestId: requestId.toLowerCase(),
     preparation,
-    ...(open?.mode === 'chain_recovery' && journal.version === 3 && journal.chainIntent
+    ...((open?.mode === 'chain_recovery'
+      || (open?.mode === 'pre_spend_rearm' && reviewedPlan.continuationReceipt.action === 'continue'))
+      && journal.version === 3 && journal.chainIntent
       ? { recoveredChainIntent: jsonClone(journal.chainIntent) }
+      : {}),
+    ...(open?.mode === 'pre_spend_rearm' && reviewedPlan.continuationReceipt.action === 'continue'
+      && journal.version === 3 && journal.preSpendRetry
+      ? { continuationRetryAuthority: jsonClone(journal.preSpendRetry.authority) }
       : {}),
     registerPaidChildAttempt(attemptId) {
       const id = attempt(attemptId)
@@ -1116,6 +1255,11 @@ async function prepareRunPlanTransactionInternal(
     },
     async activate() {
       return serial(async () => {
+        const latest = await readJournal(journalDirectory)
+        if (latest?.version === 3 && latest.chainIntent?.terminalStatus === 'cancelled') {
+          journal = latest
+          throw new Error('cancelled run-plan transaction cannot activate')
+        }
         if (journal.status === 'activated' || journal.status === 'spawning' || journal.status === 'started') return
         const rearming = journal.status === 'rearming_pre_spend_retry'
         if (journal.status !== 'prepared' && !rearming) {
@@ -1350,47 +1494,7 @@ async function prepareRunPlanTransactionInternal(
       })
     },
     async deferPreSpendRetry(authorityInput) {
-      return serial(async () => {
-        if (journal.version !== 3) throw new Error('legacy transaction cannot retain an exact pre-spend retry')
-        if (paidChildStarted || journal.status === 'started' || spawnBoundary(journal, stateDir) !== 'unstarted') {
-          throw new Error('a paid child may have started; pre-spend retry deferral is forbidden')
-        }
-        const authority = jsonClone(authorityInput)
-        if (!validRetryAuthority(authority)) throw new Error('invalid pre-spend retry authority')
-        validateAuthorityAgainstPlan(authority, journal.reviewedPlan)
-        rollbackClosing = true
-        pendingAttempts.clear()
-        spawningAttempts.clear()
-        const priorRetry = journal.preSpendRetry
-        const retry: Omit<DeferredPreSpendRetryRecord, 'integritySha256'> = {
-          version: 1,
-          requestId: journal.requestId,
-          subject: journal.subject,
-          targetRunRoot: journal.targetRunRoot,
-          reviewedPlan: jsonClone(journal.reviewedPlan),
-          preparation: jsonClone(journal.preparation),
-          authority,
-          deferredAt: priorRetry?.deferredAt ?? new Date().toISOString(),
-          notBeforeMs: authority.notBeforeMs,
-          rearmCount: priorRetry?.rearmCount ?? 0,
-          lastRearmedAt: priorRetry?.lastRearmedAt ?? null,
-          planSha256: sha256Json(journal.reviewedPlan),
-        }
-        journal = await writeJournal(journalDirectory, {
-          ...journal,
-          status: 'deferring_pre_spend_retry',
-          preSpendRetry: retry,
-        }) as TransactionJournalV3
-        abortUnreleasedSpawnAttempts(journal, stateDir)
-        if (await privatizePreSpendRetryTarget(workspace, journal, stateDir) === 'missing') {
-          throw new Error('pre-spend retry lost both canonical and private prepared roots')
-        }
-        journal = await writeJournal(journalDirectory, {
-          ...journal,
-          status: 'waiting_pre_spend_retry',
-        }) as TransactionJournalV3
-        return deferredRecordFromJournal(journal)
-      })
+      return serial(() => deferRetry(authorityInput))
     },
     async rollbackIfUnstarted(reason = 'provider child did not start', attemptId) {
       return serial(() => rollback(reason, attemptId))
@@ -1441,6 +1545,7 @@ export async function rearmDeferredPreSpendRetry(
   }
   const journal = await readJournal(journalDir(stored.requestId, stateDir))
   if (!journal || journal.version !== 3 || journal.status !== 'waiting_pre_spend_retry'
+      || journal.chainIntent?.terminalStatus === 'cancelled'
       || !journal.preSpendRetry) throw new Error('deferred pre-spend retry is no longer waiting')
   return prepareRunPlanTransactionInternal(
     stored.requestId,
