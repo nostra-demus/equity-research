@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:24:38Z",
+  "generated_at": "2026-09-07T00:34:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-020",
@@ -40,6 +40,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-045",
+      "headline": "Ingenia Shares Surge After Spurning $1.4 Billion Warburg Offer",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-06/australia-s-ingenia-rejects-1-4-billion-warburg-pincus-bid",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T22:51:38Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia rejected a $1.4 billion acquisition offer from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia rejected a $1.4 billion acquisition offer from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -883,6 +932,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-040",
+      "headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:27:43Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "An aide to a key Japanese political figure projects a Bank of Japan rate hike in September, which would impact monetary policy and currency markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "An aide to a key Japanese political figure projects a Bank of Japan rate hike in September, which would impact monetary policy and currency markets.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-030",
       "headline": "EV DYNAMICS (00476): DISCLOSEABLE TRANSACTION IN RELATION TO DISPOSAL OF PROPERTY",
       "headline_en": null,
@@ -1649,6 +1741,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-044",
+      "headline": "Gold Holds Drop as US Jobs, Hormuz Strikes Boost Rate-Hike Case",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-06/gold-holds-decline-as-traders-weigh-prospects-for-fed-rate-hike",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:28:46Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Geopolitical strikes in the Hormuz region are impacting global commodity prices and interest rate expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Geopolitical strikes in the Hormuz region are impacting global commodity prices and interest rate expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-013",
       "headline": "Standard Chartered ‘doubling down’ on China wealth opportunities despite tax pivot",
       "headline_en": null,
@@ -1698,21 +1833,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-032",
-      "headline": "Iran war live: Tehran to announce new Hormuz shipping route in coming days",
+      "inbox_id": "INB-20260907-043",
+      "headline": "Netanyahu orders evacuation of some West Bank settler outposts, minister says",
       "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/9/7/iran-war-live-tehran-to-announce-new-hormuz-shipping-route-in-coming-days?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-07T00:00:00Z",
+      "url": "https://www.japantimes.co.jp/news/2026/09/07/world/netanyahu-evacuation-west-bank/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:25:00Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
+      "prelim_note": "The evacuation of West Bank outposts signals a potential escalation in regional geopolitical instability.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
-      "region": "GLOBAL",
+      "triage_reason": "The evacuation of West Bank outposts signals a potential escalation in regional geopolitical instability.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1741,74 +1876,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260907-017",
-      "headline": "Iran plans to announce an ‘exclusion zone’ that runs from the U.S. naval blockade line, through the Strait of Hormuz, and into the Persian Gulf",
+      "inbox_id": "INB-20260907-032",
+      "headline": "Iran war live: Tehran to announce new Hormuz shipping route in coming days",
       "headline_en": null,
-      "url": "https://fortune.com/2026/09/06/iran-exclusion-zone-us-naval-blockade-line-strait-of-hormuz-persian-gulf/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T23:18:31Z",
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/7/iran-war-live-tehran-to-announce-new-hormuz-shipping-route-in-coming-days?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-07T00:00:00Z",
       "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Iran's plan to establish an exclusion zone in the Strait of Hormuz represents a significant geopolitical escalation and potential supply shock for global oil markets.",
+      "prelim_note": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 47,
-      "triage_reason": "Iran's plan to establish an exclusion zone in the Strait of Hormuz represents a significant geopolitical escalation and potential supply shock for global oil markets.",
+      "triage_reason": "Potential geopolitical escalation in the Strait of Hormuz poses a significant risk to global oil supply and shipping routes.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
         "scope": -43,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-029",
-      "headline": "China Expands Patrols Off Taiwan's Pacific Coast, Raising Maritime Tensions",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-06/china-piles-pressure-on-taiwan-with-fresh-patrols-off-east-coast",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Increased maritime patrols and tensions near Taiwan represent a significant geopolitical escalation risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Increased maritime patrols and tensions near Taiwan represent a significant geopolitical escalation risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -103227,77 +103319,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2b72b57fa630",
-      "idea_version": "IDEAV-b213b35b717884f8",
-      "idea_version_started_at": "2026-09-05T15:28:18Z",
-      "ticker": "SOFI",
-      "company": "SoFi Technologies",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The stock fell 10% despite the company raising its revenue guidance, indicating a potential disconnect between company performance and market perception.",
-      "why_now": "The stock price reaction occurred on September 5, 2026, following the guidance update.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eaad760addfd"
-      ],
-      "primary_source_event_id": "EVT-eaad760addfd",
-      "source_headlines": [
-        "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed."
-      ],
-      "source_headline": "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed.",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/sofi-raised-revenue-guidance-stock-122701154.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T12:27:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T15:28:18Z",
-      "updated_at": "2026-09-05T15:28:18Z",
-      "decay_at": "2026-09-07T00:27:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-41676c4142cc",
       "idea_version": "IDEAV-524a4a78236aa0ce",
       "idea_version_started_at": "2026-09-06T15:09:06Z",
@@ -103788,78 +103809,6 @@
       "surfaced_at": "2026-09-05T10:25:28Z",
       "updated_at": "2026-09-06T19:20:01Z",
       "decay_at": "2026-09-07T23:52:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-ce1685e0acce36dc",
-      "idea_version_started_at": "2026-09-06T18:59:32Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing $7.4 billion to AI data center infrastructure, positioning it to capture significant demand in the high-growth artificial intelligence services market.",
-      "why_now": "The capital expenditure plan was announced on 2026-09-05.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4a2a1b4daf1"
-      ],
-      "primary_source_event_id": "EVT-b4a2a1b4daf1",
-      "source_headlines": [
-        "India's TCS unit to invest up to $7.4 billion in AI data center campus"
-      ],
-      "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
-      "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T12:27:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T13:02:11Z",
-      "updated_at": "2026-09-06T18:59:32Z",
-      "decay_at": "2026-09-07T00:27:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -107314,6 +107263,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2b72b57fa630",
+      "idea_version": "IDEAV-b213b35b717884f8",
+      "idea_version_started_at": "2026-09-05T15:28:18Z",
+      "ticker": "SOFI",
+      "company": "SoFi Technologies",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The stock fell 10% despite the company raising its revenue guidance, indicating a potential disconnect between company performance and market perception.",
+      "why_now": "The stock price reaction occurred on September 5, 2026, following the guidance update.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eaad760addfd"
+      ],
+      "primary_source_event_id": "EVT-eaad760addfd",
+      "source_headlines": [
+        "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed."
+      ],
+      "source_headline": "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed.",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/sofi-raised-revenue-guidance-stock-122701154.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T12:27:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T15:28:18Z",
+      "updated_at": "2026-09-05T15:28:18Z",
+      "decay_at": "2026-09-07T00:27:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b4fb75fc2792",
       "idea_version": "IDEAV-62c171cab3fd35ec",
       "idea_version_started_at": "2026-09-05T10:44:15Z",
@@ -107661,6 +107681,78 @@
       "surfaced_at": "2026-09-04T15:47:15Z",
       "updated_at": "2026-09-04T15:47:15Z",
       "decay_at": "2026-09-06T01:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-ce1685e0acce36dc",
+      "idea_version_started_at": "2026-09-06T18:59:32Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing $7.4 billion to AI data center infrastructure, positioning it to capture significant demand in the high-growth artificial intelligence services market.",
+      "why_now": "The capital expenditure plan was announced on 2026-09-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4a2a1b4daf1"
+      ],
+      "primary_source_event_id": "EVT-b4a2a1b4daf1",
+      "source_headlines": [
+        "India's TCS unit to invest up to $7.4 billion in AI data center campus"
+      ],
+      "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
+      "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-05T12:27:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T13:02:11Z",
+      "updated_at": "2026-09-06T18:59:32Z",
+      "decay_at": "2026-09-07T00:27:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109773,18 +109865,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 463,
-    "shown_count": 463,
+    "total_count": 465,
+    "shown_count": 465,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 242,
-        "shown_count": 242,
+        "total_count": 243,
+        "shown_count": 243,
         "hidden_count": 0
       },
       "short": {
-        "total_count": 221,
-        "shown_count": 221,
+        "total_count": 222,
+        "shown_count": 222,
         "hidden_count": 0
       }
     },
@@ -109804,6 +109896,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9db64567877d",
+        "idea_version": "IDEAV-ce1685e0acce36dc",
+        "idea_version_started_at": "2026-09-06T18:59:32Z",
+        "ticker": "TCS",
+        "company": "Tata Consultancy Services",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing $7.4 billion to AI data center infrastructure, positioning it to capture significant demand in the high-growth artificial intelligence services market.",
+        "why_now": "The capital expenditure plan was announced on 2026-09-05.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4a2a1b4daf1"
+        ],
+        "primary_source_event_id": "EVT-b4a2a1b4daf1",
+        "source_headlines": [
+          "India's TCS unit to invest up to $7.4 billion in AI data center campus"
+        ],
+        "source_headline": "India's TCS unit to invest up to $7.4 billion in AI data center campus",
+        "source_url": "https://www.reuters.com/world/india/indias-tcs-unit-invest-up-74-billion-ai-data-center-campus-2026-09-05/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T12:27:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T13:02:11Z",
+        "updated_at": "2026-09-06T18:59:32Z",
+        "decay_at": "2026-09-07T00:27:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T00:27:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-2b72b57fa630",
+        "idea_version": "IDEAV-b213b35b717884f8",
+        "idea_version_started_at": "2026-09-05T15:28:18Z",
+        "ticker": "SOFI",
+        "company": "SoFi Technologies",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The stock fell 10% despite the company raising its revenue guidance, indicating a potential disconnect between company performance and market perception.",
+        "why_now": "The stock price reaction occurred on September 5, 2026, following the guidance update.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eaad760addfd"
+        ],
+        "primary_source_event_id": "EVT-eaad760addfd",
+        "source_headlines": [
+          "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed."
+        ],
+        "source_headline": "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed.",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/sofi-raised-revenue-guidance-stock-122701154.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-05T12:27:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T15:28:18Z",
+        "updated_at": "2026-09-05T15:28:18Z",
+        "decay_at": "2026-09-07T00:27:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T00:27:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-221f5766989f",
         "idea_version": "IDEAV-ccc0495923ad5e20",
@@ -144170,7 +144411,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 526,
-    "live_count": 61,
+    "live_count": 59,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -144180,7 +144421,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2125,
+    "inbox_unconsumed": 2127,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -144189,9 +144430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 139,
-    "news_picked_today": 39,
-    "news_dropped_today": 100
+    "news_seen_today": 176,
+    "news_picked_today": 45,
+    "news_dropped_today": 131
   },
   "book_momentum": {
     "live_count": 8,
