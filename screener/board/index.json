@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-09-07T00:03:06Z",
+  "generated_at": "2026-09-07T00:07:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260907-020",
+      "headline": "Former Sydney banker caught up in $833m hedge fund collapse",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/former-sydney-banker-caught-up-in-833m-hedge-fund-collapse-20260904-p60ue5?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:01:38Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "A hedge fund collapse involving $833 million represents a significant financial loss and potential systemic risk for involved counterparties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A hedge fund collapse involving $833 million represents a significant financial loss and potential systemic risk for involved counterparties.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260907-004",
       "headline": "PAC: Strategic Review Update [price-sensitive]",
@@ -149,6 +192,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-019",
+      "headline": "ASX to wobble; Ingenia rejects bid; Austal in counteroffer talk",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-jittery-start-as-oil-pushes-above-us96-20260906-p60uu8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:03:15Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Ingenia Communities rejected a takeover bid, which is a material event for its shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-010",
       "headline": "GG1: Renounceable Entitlement Offer Prospectus [price-sensitive]",
       "headline_en": null,
@@ -291,6 +383,109 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-016",
+      "headline": "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T00:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The company reported positive Phase IIa results for TNP-2092 and is initiating a Phase IIb trial.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The company reported positive Phase IIa results for TNP-2092 and is initiating a Phase IIb trial.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TENNOR THERAP-B",
+          "ticker": "06872",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-018",
+      "headline": "Seattle Times and Newsday sue OpenAI and Microsoft for infringement",
+      "headline_en": null,
+      "url": "https://www.theverge.com/ai-artificial-intelligence/990932/seattle-times-newsday-lawsuit-openai-microsoft",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:36:04Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Lawsuits against OpenAI and Microsoft regarding copyright infringement pose potential legal and operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Lawsuits against OpenAI and Microsoft regarding copyright infringement pose potential legal and operational risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -682,6 +877,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-017",
+      "headline": "Iran plans to announce an ‘exclusion zone’ that runs from the U.S. naval blockade line, through the Strait of Hormuz, and into the Persian Gulf",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/06/iran-exclusion-zone-us-naval-blockade-line-strait-of-hormuz-persian-gulf/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-06T23:18:31Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Iran's plan to establish an exclusion zone in the Strait of Hormuz represents a significant geopolitical escalation and potential supply shock for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Iran's plan to establish an exclusion zone in the Strait of Hormuz represents a significant geopolitical escalation and potential supply shock for global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -142542,7 +142780,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2101,
+    "inbox_unconsumed": 2106,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -142551,9 +142789,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47,
-    "news_picked_today": 15,
-    "news_dropped_today": 32
+    "news_seen_today": 75,
+    "news_picked_today": 20,
+    "news_dropped_today": 55
   },
   "book_momentum": {
     "live_count": 8,
