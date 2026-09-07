@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:44:10Z",
+  "generated_at": "2026-09-07T00:45:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-047",
@@ -106566,6 +106566,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4ba6c74f269e",
+      "idea_version": "IDEAV-f6984b9949cbe737",
+      "idea_version_started_at": "2026-09-07T00:44:57Z",
+      "ticker": "02616",
+      "company": "CStone Pharmaceuticals",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Inclusion in the Southbound Stock Connect allows mainland Chinese investors to trade the stock, typically increasing liquidity and broadening the investor base.",
+      "why_now": "The announcement was made on 2026-09-07, and the liquidity impact usually follows the effective date of inclusion.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "liquidity_positioning",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f803d8a55d0"
+      ],
+      "primary_source_event_id": "EVT-0f803d8a55d0",
+      "source_headlines": [
+        "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT"
+      ],
+      "source_headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-09-07T00:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:44:57Z",
+      "updated_at": "2026-09-07T00:44:57Z",
+      "decay_at": "2026-09-08T12:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ffd3303f2ba5",
       "idea_version": "IDEAV-7ca58afb2ce1f40a",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -144499,8 +144570,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 526,
-    "live_count": 58,
+    "surfaced_total": 527,
+    "live_count": 59,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
