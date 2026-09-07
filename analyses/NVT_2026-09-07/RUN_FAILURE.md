@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-07T20:22:57.198Z
+- stopped_at_utc: 2026-09-07T21:45:41.278Z
 
 ## Modules completed
 
@@ -20,18 +20,25 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-hat absence. The FY2024 Form 10-K *inside this run's own frozen generation* carries Item 1 "Backlog of Orders by Segment" — Total **$749.3m (2024) vs $462.8m (2023), +61.9%** — and the CIQ Balance Sheet tab carries the same $749.3m plus FY2025 $2,349.9m. Three on-record Q2 statements pointing the other way (CFO: *"off to a really strong start here in Q3 on the order front"*; LTM order growth *"much higher"*; CEO framing the backlog fall as deliberate) appear nowhere in the thesis — a §3 failure to adjudicate the disagreeing number in the engine's own data.
+ication_report_v2.json`, `pre_mortem_v2.json`, `expectations_gap_v2.json`.
 
-Both audits judge the **direction** as surviving (it rests on reverse-DCF/DCF/comp evidence that never touches the order series — 6.21% implied cost of capital vs the company's own disclosed 10.0% WACC) while the **edge** does not: expectations-gap grades variant perception `Weak` / not exploitable, edge **26**/100 against the synthesizer's self-scored 46.
+**Step 9A:** all 7 deferred module memos generated and validated.
 
-## To unblock
+### The run is incomplete — `IDEA-ADMISSION: error`
 
-Two options, your call:
+`create_idea_projection_manifest.py` failed (exit 2): `Operation not permitted` creating its atomic temp file. This is an **environment write-permission denial, not a data or logic failure** — the sandbox write allowlist for this run directory covers only `final_thesis.md`, `memo.md`, `audit_dossier.md`, and `decision_record.json`. It reproduced identically on an independent second attempt, and direct `git` is blocked the same way.
 
-1. **Widen the Bash sandbox write allowlist** to the run root `/Users/admin/nostra-prod/analyses/NVT_2026-09-07/` (or at minimum permit new-file creation there), then re-run from `10B.4`: manifest → final re-projection → schema checks → freezer → memo/dossier → `RUN_METADATA` refresh → marker removal → single commit. Nothing needs redoing before that point; the audit set is already pinned to the current bytes.
-2. **Treat it as a hard manifest failure** under `10B.4`'s literal branch and start a new dated `/research:full NVT` run. I'd argue against this: that branch is written for an audit set that cannot honestly bless the run, whereas here the creator never evaluated any content — it died on a permission error before reading a byte, and no manifest exists to have been repaired-and-retried.
+Per 10B.4 this is a hard stop, so I performed **no** market capture, final re-projection, schema replacement, freezer invocation, or derived-output recovery. Therefore:
+- No `idea_projection_manifest.json`, no `idea_admission.json` — the run is **not sealed**.
+- `idea_3_6m.json` remains the preliminary pre-audit `not_assessable` wrapper and must not be read as final.
+- The deferred master **`memo.md` and `audit_dossier.md` were not generated** (items 6–7 of Step 9B) — they may only be built from sealed final state.
+- Both markers deliberately left in place: `.requires_idea_publication` and `.defer_module_memos`.
 
-I'd recommend (1). Separately, given what the audits found, the thesis's edge claim deserves a correction pass before this gets sealed as an ex-ante forecast — but that is a decision for you, not something I should fold into a rerun.
+I recorded all of this in `RUN_METADATA.md` rather than letting the metadata imply completeness. 10B.4 prohibits repairing in place and retrying this dated projection — once the write permission for the run directory is fixed, this needs a genuinely new dated run.
+
+**Intake receipt:** none (3-token form). **Commit:** `PUBLICATION_QUEUED=62d3eaf5-43bc-45f4-85c3-f506cb8d3051` — queued to the trusted supervisor; no SHA is available to me in cockpit mode, and the bytes are preserved as 10B.4 requires.
+
+One judgment call worth your attention: I committed rather than withholding, because 10B.4 says to preserve the failed run bytes and the markers keep the cockpit's own incompleteness signal intact. **This must not be reported as a done run.**
 ```
 
 ## Resume
