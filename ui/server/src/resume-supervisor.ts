@@ -703,7 +703,7 @@ export async function dispatchDeferredPreSpendRetry(
           sanitizeRecoverableChainRoot({
             runRoot: current.targetRunRoot, reviewedPlan: current.reviewedPlan,
             doneOrbKeys: current.reviewedPlan.continuationReceipt.reusableOrbKeys,
-            completed: transaction.recoveredChainIntent?.completed ?? [],
+            completed: intent.completed,
           })
         }
         const out = await deps.launch({
