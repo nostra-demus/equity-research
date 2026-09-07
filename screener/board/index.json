@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T18:26:56Z",
+  "generated_at": "2026-09-07T18:32:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-440",
@@ -538,6 +538,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-566",
+      "headline": "Jaguar Land Rover to axe 4,000 jobs amid Europe slump",
+      "headline_en": null,
+      "url": "https://kuwaittimes.com/article/49369/business/jaguar-land-rover-to-axe-4000-jobs-amid-europe-slump/",
+      "source_name": "Kuwait Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T17:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs, indicating significant operational distress and restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs, indicating significant operational distress and restructuring.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
           "name": "GVK Energy",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-382",
-      "headline": "Jaguar Land Rover To Cut 4,000 Jobs Over Two Years Amid Tariff, Cyber-Attack Fallout",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/jaguar-land-rover-to-cut-4000-jobs-over-two-years-amid-tariff-cyber-attack-fallout",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T11:27:04Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Jaguar Land Rover is cutting 4,000 jobs over two years due to operational headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jaguar Land Rover is cutting 4,000 jobs over two years due to operational headwinds.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -106271,78 +106271,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a499ce26ab02",
-      "idea_version": "IDEAV-7113bf0dae83b7ef",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "SBIN",
-      "company": "State Bank of India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "State Bank of India plans to unlock significant balance sheet value by diluting a 1% stake in the highly anticipated National Stock Exchange (NSE) IPO while expanding its physical footprint.",
-      "why_now": "The bank announced these concrete capital actions and hiring plans for the upcoming fiscal period on September 6, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6cf7661d47e1"
-      ],
-      "primary_source_event_id": "EVT-6cf7661d47e1",
-      "source_headlines": [
-        "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO"
-      ],
-      "source_headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
-      "source_url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
-      "source_name": "Free Press Journal",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-06T06:27:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T05:50:29Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-07T18:27:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0fa4dca8ab30",
       "idea_version": "IDEAV-e69cf06ea094710d",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -110147,6 +110075,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a499ce26ab02",
+      "idea_version": "IDEAV-7113bf0dae83b7ef",
+      "idea_version_started_at": "2026-09-06T19:44:58Z",
+      "ticker": "SBIN",
+      "company": "State Bank of India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "State Bank of India plans to unlock significant balance sheet value by diluting a 1% stake in the highly anticipated National Stock Exchange (NSE) IPO while expanding its physical footprint.",
+      "why_now": "The bank announced these concrete capital actions and hiring plans for the upcoming fiscal period on September 6, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cf7661d47e1"
+      ],
+      "primary_source_event_id": "EVT-6cf7661d47e1",
+      "source_headlines": [
+        "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO"
+      ],
+      "source_headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
+      "source_url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
+      "source_name": "Free Press Journal",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-06T06:27:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T05:50:29Z",
+      "updated_at": "2026-09-06T19:44:58Z",
+      "decay_at": "2026-09-07T18:27:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1e4418649180",
       "idea_version": "IDEAV-dec86f5bf9ababfe",
       "idea_version_started_at": "2026-09-06T04:54:50Z",
@@ -110812,14 +110812,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 484,
+    "total_count": 485,
     "shown_count": 481,
-    "hidden_count": 3,
+    "hidden_count": 4,
     "side_counts": {
       "long": {
-        "total_count": 253,
+        "total_count": 254,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 4
       },
       "short": {
         "total_count": 231,
@@ -110843,6 +110843,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a499ce26ab02",
+        "idea_version": "IDEAV-7113bf0dae83b7ef",
+        "idea_version_started_at": "2026-09-06T19:44:58Z",
+        "ticker": "SBIN",
+        "company": "State Bank of India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "State Bank of India plans to unlock significant balance sheet value by diluting a 1% stake in the highly anticipated National Stock Exchange (NSE) IPO while expanding its physical footprint.",
+        "why_now": "The bank announced these concrete capital actions and hiring plans for the upcoming fiscal period on September 6, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6cf7661d47e1"
+        ],
+        "primary_source_event_id": "EVT-6cf7661d47e1",
+        "source_headlines": [
+          "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO"
+        ],
+        "source_headline": "SBI Plans 12,000 Hires, 250 New Branches In FY27; To Dilute 1% Stake In NSE IPO",
+        "source_url": "https://www.freepressjournal.in/business/sbi-plans-12000-hires-250-new-branches-in-fy27-to-dilute-1-stake-in-nse-ipo",
+        "source_name": "Free Press Journal",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-06T06:27:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T05:50:29Z",
+        "updated_at": "2026-09-06T19:44:58Z",
+        "decay_at": "2026-09-07T18:27:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T18:27:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6b61bf91f6fc",
         "idea_version": "IDEAV-435ea97810f0622a",
@@ -145228,80 +145303,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f42669c74af8",
-        "idea_version": "IDEAV-47eee9241429bd83",
-        "idea_version_started_at": "2026-08-20T07:13:16Z",
-        "ticker": "01416",
-        "company": "CTR Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company successfully tendered for land at Kaki Bukit, Singapore, representing a very substantial asset acquisition that expands its operational footprint.",
-        "why_now": "The successful tender announcement was officially filed on August 19, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c9be8bcf140d"
-        ],
-        "primary_source_event_id": "EVT-c9be8bcf140d",
-        "source_headlines": [
-          "CTR HOLDINGS (01416): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SUCCESSFUL TENDER OF LAND AT KAKI BUKIT, SINGAPORE"
-        ],
-        "source_headline": "CTR HOLDINGS (01416): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SUCCESSFUL TENDER OF LAND AT KAKI BUKIT, SINGAPORE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901707.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T14:34:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T07:13:16Z",
-        "updated_at": "2026-08-20T07:13:16Z",
-        "decay_at": "2026-08-21T02:34:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T14:49:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7775515b1f9c",
         "idea_version": "IDEAV-08a4bb2fcecd389e",
         "idea_version_started_at": "2026-08-20T06:40:08Z",
@@ -146562,7 +146563,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 560,
-    "live_count": 74,
+    "live_count": 73,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -146581,9 +146582,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 412214,
-    "news_picked_today": 1480,
-    "news_dropped_today": 15979
+    "news_seen_today": 414002,
+    "news_picked_today": 1488,
+    "news_dropped_today": 16019
   },
   "book_momentum": {
     "live_count": 8,
