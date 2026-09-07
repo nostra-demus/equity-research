@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T00:59:20Z",
+  "generated_at": "2026-09-07T01:06:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -918,6 +918,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-070",
+      "headline": "Berkshire Hathaway's Cash Fell From $397 Billion to $366 Billion in a Single Quarter",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/06/berkshire-hathaways-cash-fell-from-397-billion-to/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Berkshire Hathaway reported a $31 billion decrease in cash holdings over the quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Berkshire Hathaway reported a $31 billion decrease in cash holdings over the quarter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1860,49 +1909,6 @@
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-028",
-      "headline": "Asian Stocks Open Higher, Oil Rises After Attacks: Markets Wrap",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-06/stock-market-today-dow-s-p-live-updates",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-06T22:15:34Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Geopolitical military attacks are driving market volatility and oil price increases.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Geopolitical military attacks are driving market volatility and oil price increases.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
@@ -144580,9 +144586,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 282,
-    "news_picked_today": 63,
-    "news_dropped_today": 219
+    "news_seen_today": 324,
+    "news_picked_today": 72,
+    "news_dropped_today": 252
   },
   "book_momentum": {
     "live_count": 8,
