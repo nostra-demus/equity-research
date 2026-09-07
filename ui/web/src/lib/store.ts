@@ -14,7 +14,7 @@ import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
-import { preflightConfirmationMatches } from './launchExperience'
+import { launchFailureMessage, preflightConfirmationMatches } from './launchExperience'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataScanProgress, DataStatus, DeploymentLag, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewCompanyInput, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, PendingAdmission, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, RunPublicationPhase, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { isDataScanProgress } from './dataScan'
@@ -4856,9 +4856,9 @@ export const useStore = create<State>((set, get) => ({
         if (r && get().chainTickers.has(chainKey)) {
           set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== chainKey)) })
           if (runOnScreen) {
-            const msg = e.status === 'incomplete'
+            const msg = launchFailureMessage(e.reason, e.message) ?? (e.status === 'incomplete'
               ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
-              : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
+              : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`)
             get().setToast({ msg, tone: 'bad' })
             const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
             api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
@@ -4878,7 +4878,8 @@ export const useStore = create<State>((set, get) => ({
             }).catch(() => {})
           } else {
             const failedProvider = isRunProvider(e.provider) ? e.provider : isRunProvider(r?.provider) ? r.provider : undefined
-            get().setToast({ msg: e.reason === 'out_of_credits' && failedProvider ? `${providerLabel(failedProvider)} plan usage is exhausted — run paused` : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
+            get().setToast({ msg: launchFailureMessage(e.reason, e.message)
+              ?? (e.reason === 'out_of_credits' && failedProvider ? `${providerLabel(failedProvider)} plan usage is exhausted — run paused` : `Run ${e.status}: ${e.reason}`), tone: 'bad' })
             if (e.reason === 'out_of_credits' && failedProvider) {
               const providers = get().providers
               patch.providers = { ...providers, [failedProvider]: { ...providers[failedProvider], usage: { ok: false, reason: 'out_of_credits', checked: true } } }

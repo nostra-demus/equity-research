@@ -180,6 +180,15 @@ current discovered synthesis only; a specialist receipt can never authorize it.
 
 Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on to Step 4B.
 
+Keep those calls in the foreground: never request `run_in_background`, and never end the parent session
+with a final message that merely says specialists are running or that you are waiting. A task ID or launch
+acknowledgement is not a returned report. Join every dispatched specialist, verify its saved output under
+Step 4B, and then advance through the remaining layers and the caller's publication step. If a provider
+still returns a background handle, use its supported wait mechanism until it settles; if that mechanism is
+unavailable, report an incomplete execution rather than claiming completion. Tracked Claude pins
+`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1` in its adapter so this layer barrier survives native automatic
+backgrounding; concurrent foreground calls still follow the same layer order.
+
 > **Note on self-persisted reports.** Agents may carry tool sets that differ by module (e.g., in the validation run the business-model specialists had `Write` and used Mode A, while several earnings specialists lacked `Write` and used Mode B via a `Bash` heredoc). The orchestrator does not need to know each agent's tools in advance — the Task message offers all three modes, the agent picks the one it can execute, and Step 4B verifies the file landed correctly either way.
 
 > **Note on cross-module context format.** The caller builds the cross-module context string from the module's `depends_on` list (see `/research:full` step 8A): one sentence per dependency that completed in the run, in the form `<Dep> cross-module path: <PATH>.` — the dependency's module name with its first letter capitalized (e.g. `Business-model cross-module path: …`, `Earnings cross-module path: …`). Agents parse the label(s) for the dependencies they read and ignore the rest. The shared pipeline does NOT add a label of its own — it pastes the caller's string verbatim. A new module declares what it reads via `depends_on` on its `99_*-synthesis.md`; its agents look for those deps' labels.
