@@ -41,6 +41,7 @@ used to silently kill a run. Both call sites (eval.py, the finish-gate) turn a n
 result into a visible flag (a FAIL row, or a PROVISIONAL banner) — never a silent abort.
 """
 
+import math
 import re
 
 
@@ -698,16 +699,20 @@ MARGIN_BRIDGE_TAG = "RF-EARN-002"  # margin-drivers §7a: bridge reconciled / no
 BE_RECONCILE_TOLERANCE = 1.0       # units (pp or bps) — independently-rounded components' slack
 
 _BE_RECON_RE = re.compile(
-    r"\breconciled\s*[—–\-:]\s*explained\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
-    r"residual\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)\s*,\s*"
-    r"total\s+(-?\d+(?:\.\d+)?)\s*(?:pp|bps)",
+    r":\s*(?P<label>revenue decomposition|margin bridge)\s+reconciled\s*[—–\-:]\s*"
+    r"explained\s+(?P<explained>-?\d+(?:\.\d+)?)\s*(?P<unit>pp|bps)\s*,\s*"
+    r"residual\s+(?P<residual>-?\d+(?:\.\d+)?)\s*(?P=unit)\s*,\s*"
+    r"total\s+(?P<total>-?\d+(?:\.\d+)?)\s*(?P=unit)",
     re.IGNORECASE,
 )
-_BE_NOT_ATTEMPTED_RE = re.compile(r"not attempted\b(.*)$", re.IGNORECASE | re.DOTALL)
+_BE_NOT_ATTEMPTED_RE = re.compile(
+    r":\s*(?P<label>revenue decomposition|margin bridge)\s+not attempted\s*[—–\-:]\s*(?P<reason>.*)",
+    re.IGNORECASE,
+)
 
 
-def _be_tag_line_rest(txt, tag):
-    """Return the cleaned remainder of the FIRST line in `txt` whose leading token (after shedding
+def _be_tag_line_rests(txt, tag):
+    """Return the cleaned remainder of each exact standalone tag line (after shedding
     markdown heading/bullet/table/quote/backtick cruft) is `tag`, skipping a first-cell status TABLE
     ROW the same way `_tag_fired_standalone` does. Unlike `_tag_fired_standalone`, does NOT apply the
     `_CAP_TAG_NEGATIONS` filter — check BE's own two sanctioned forms ("reconciled — ..." /
@@ -716,45 +721,49 @@ def _be_tag_line_rest(txt, tag):
     "not attempted — no segment-level pricing is disclosed, none of the components are separable"
     reason). Deliberately duplicates the line-cleaning logic in `_tag_fired_standalone`/`_bd_tag_rest`
     rather than refactoring either, so this new check cannot change their behaviour."""
-    if not txt:
-        return None
-    for raw in txt.splitlines():
-        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")
-        if not line.startswith(tag):
+    rests = []
+    for raw in (txt or "").splitlines():
+        line = raw.strip().lstrip("#-*•>|` \t").rstrip("*` \t")
+        if not re.match(re.escape(tag) + r"(?=[:\s]|$)", line):
             continue
         rest = line[len(tag):]
         if rest.lstrip().startswith("|"):
             continue  # first-cell status table row, not a fired standalone tag
-        return rest
-    return None
+        rests.append(rest.strip())
+    return rests
 
 
 def _be_check_one(txt, filename, tag, unit, label):
     """Check one specialist file's RF-EARN-00N tag. Returns a list of violation strings (empty =
     pass)."""
-    rest = _be_tag_line_rest(txt, tag)
-    if rest is None:
+    rests = _be_tag_line_rests(txt, tag)
+    if not rests:
         return [
             f"{tag} is absent from {filename} — every {label} the specialist attempts must declare "
             f"either the reconciled residual or that no decomposition was possible (CLAUDE.md §15: "
             f"'a large residual is the finding, not a caveat ... never rounded away'; MODULE_RULES.md "
             f"Driver Attribution)"]
-    not_attempted = _BE_NOT_ATTEMPTED_RE.search(rest)
-    if not_attempted:
-        reason = not_attempted.group(1).lstrip(_NEG_LEADING_STRIP)
+    if len(rests) != 1:
+        return [f"{tag} in {filename} must have exactly one standalone declaration; found {len(rests)}"]
+    rest = rests[0]
+    not_attempted = _BE_NOT_ATTEMPTED_RE.fullmatch(rest)
+    if not_attempted and not_attempted.group("label").lower() == label:
+        reason = not_attempted.group("reason").lstrip(_NEG_LEADING_STRIP).strip()
         if not reason.strip():
             return [
                 f"{tag} in {filename} declares 'not attempted' with no reason given — CLAUDE.md §15 "
                 f"requires stating what's missing, not a bare dodge"]
         return []
-    match = _BE_RECON_RE.search(rest)
-    if not match:
+    match = _BE_RECON_RE.fullmatch(rest)
+    if not match or match.group("label").lower() != label or match.group("unit").lower() != unit:
         return [
             f"{tag} in {filename} does not match either sanctioned form — "
             f"'{tag}: {label} reconciled — explained {{N}}{unit}, residual {{M}}{unit}, total {{T}}{unit}' "
             f"or '{tag}: {label} not attempted — {{reason}}' — the residual cannot be verified as stated "
             f"(CLAUDE.md §15; §11: caps must be applied, never silently unverifiable)"]
-    explained, residual, total = (float(g) for g in match.groups())
+    explained, residual, total = (float(match.group(name)) for name in ("explained", "residual", "total"))
+    if not all(math.isfinite(value) for value in (explained, residual, total, explained + residual)):
+        return [f"{tag} in {filename} requires finite explained, residual and total figures"]
     if abs((explained + residual) - total) > BE_RECONCILE_TOLERANCE:
         return [
             f"{tag} in {filename} states explained {explained}{unit} + residual {residual}{unit} = "

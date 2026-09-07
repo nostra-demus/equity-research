@@ -45,7 +45,22 @@ You DO NOT set the action verdict; you rate the macro drivers.
 1. Read `CLAUDE.md` and `.claude/agents/commodity/MODULE_RULES.md`; read the profile's macro lenses.
 2. For each applicable driver, give the current level/trend (cited, dated) and mark it **Supportive / Neutral / Headwind** for the price, with a one-line why. For gold: real yields, USD, rates policy and safe-haven/geopolitical demand. Do not emit or score central-bank purchases; the demand/inventory orb owns them. For softs, enforce the boundary above; sugar macro may score BRL but not crude or ethanol parity. For grains, enforce the causal-owner boundary above.
 3. Name the single macro driver that matters most right now and what would flip it.
-3a. **Attribute the recent move, and say how much is left over (MODULE_RULES §4a / `CLAUDE.md` §15).** Where the profile or a cited source gives a sensitivity, write the one-line `Attribution:` form for the dominant driver over the move the dossier will discuss: the multiplication done in the text, converted to the price's own units, with the share explained and the share residual. Two hard stops: quote the sensitivity's **basis** (nominal yield / real yield / breakeven / trade-weighted vs bilateral FX) and refuse to apply it across a basis it was not measured on; and never let a word like "tracks almost exactly" stand over arithmetic that does not support it. If no sourced sensitivity exists, say so and attribute nothing — an unquantified driver is `Supportive/Neutral/Headwind` on direction only, never a numeric explanation.
+3a. **Attribute the recent move, and say how much is left over (MODULE_RULES §4a / `CLAUDE.md` §15).** Where the profile or a cited source gives a sensitivity, write the one-line `Attribution:` form for the dominant driver over the move the dossier will discuss: the multiplication done in the text, converted to the price's own units, with the share explained and the share residual. Two hard stops: quote the sensitivity's **basis** (nominal yield / real yield / breakeven / trade-weighted vs bilateral FX) and refuse to apply it across a basis it was not measured on; and never let a word like "tracks almost exactly" stand over arithmetic that does not support it. If no sourced sensitivity exists, say so and attribute nothing — an unquantified driver is `Supportive/Neutral/Headwind` on direction only, never a numeric explanation. Close Section 1a with a standalone machine-readable tag line, in ONE of two exact forms (this mechanizes the reconciliation above for `scripts/commodity_driver_attribution.py` — the residual must never be silently omitted or rounded away, `CLAUDE.md` §15):
+```
+RF-COMM-001: driver attribution reconciled — explained {N}%, residual {M}%
+```
+or, when no sourced sensitivity exists:
+```
+RF-COMM-001: driver attribution not attempted — {reason}
+```
+Emit exactly one such declaration, as the final substantive line of the single Section 1a (an optional
+Markdown separator may follow). Keep it outside
+code fences, tables, headings, and blockquotes; do not repeat it in an appendix or a copied example. The
+entire line must match one sanctioned form: no negation such as "not reconciled", mixed declarations,
+or trailing commentary. Put qualifications and supporting arithmetic in the preceding prose. A
+`not attempted` reason must name the missing sourced sensitivity; it must not conceal a decomposition
+whose printed figures fail to reconcile. This tag verifies the declared percentage total only — it
+does not replace the multiplication, matched basis, unit conversion, citations, or causal judgment above.
 4. Every level `[Source, date]` (§5) — FRED/US Treasury for real yields, the Federal Reserve for the broad USD, EIA for energy. Save to `OUTPUT_PATH` (Mode A); return CHAT CONFIRMATION.
 
 # REPORT STRUCTURE
@@ -59,7 +74,8 @@ You DO NOT set the action verdict; you rate the macro drivers.
 
 ## 1a. Attribution of the recent move (§15 / MODULE_RULES §4a)
 (the one-line `Attribution:` form — arithmetic printed, sensitivity's basis named, residual stated; or
-"No sourced sensitivity — direction only, nothing attributed.")
+"No sourced sensitivity — direction only, nothing attributed." Ends with the standalone `RF-COMM-001`
+tag line, in exactly one of its two forms — never omitted.)
 
 ## 2. The driver that matters most now
 - (which one, and what would flip it)
@@ -70,6 +86,11 @@ You DO NOT set the action verdict; you rate the macro drivers.
 - [ ] Grain demand, mandates, trade restrictions, war and routing were not duplicated from their causal owner.
 - [ ] Softs physical ratios, realised use/allocation, parity ranges and policy were not duplicated from their causal owner.
 - [ ] Each driver is marked Supportive/Neutral/Headwind with a dated source.
+- [ ] Section 1a ends with the standalone `RF-COMM-001` tag line, in exactly one of its two forms (reconciled explained/residual, or "not attempted — {reason}") — never omitted, and the explained/residual figures actually sum to 100%.
+- [ ] There is exactly one Section 1a and one complete declaration at its end; no fenced example,
+  duplicate, negated reconciliation, or mixed status can stand in for the finding. The prose and its
+  sourced arithmetic support the declared result; "not attempted" remains direction-only, never a
+  claim that the driver explained the observed move.
 
 # CHAT CONFIRMATION
 

@@ -81,6 +81,15 @@ Glob `.claude/agents/commodity/*/99_*-synthesis.md`. For each, the parent folder
 
 ## 5. Run each module in order (resume-aware)
 
+Track an invocation-local outcome for each discovered specialist: `NOT_REACHED` initially, `REUSED`
+only when its module is skipped or the shared Step 4A output checks actually reuse it,
+`DISPATCHED_PENDING` immediately before its Task call, `DISPATCHED_VERIFIED` only after that Task and
+Step 4B verification succeed, or `FAILED`. Return these outcomes with each module's status. A module's
+`RERUN` result does not prove any particular specialist was dispatched: `RERUN:no-synthesis`, for
+example, can reuse every valid specialist and regenerate only the synthesis. Never infer a specialist's
+outcome from module status, report existence, mtimes, or the decision date. Do not carry these outcomes
+over from an earlier invocation; the pending-verification marker below is the durable crash checkpoint.
+
 For each module in topo order:
 
 1. **Resume check — COMPLETE and CURRENT, not merely present.** A module is skippable only when a prior run genuinely finished the work this run would do. "Its synthesis file exists" is not that test, and using it let a module stay `done` forever: the GOLD run's `supply-demand` and `commodity-thesis` syntheses were written before `04_commodity-supply-security` and `02_commodity-cost-curve-fair-value` existed, so every later `/commodity:full GOLD` skipped both modules and those two orbs never ran — while the dossier's own pre-mortem was separately noting the cost-curve orb's absence as a reason its margin of safety was not durable. A stale module survives precisely because it is stale.
@@ -102,6 +111,9 @@ For each module in topo order:
 # prints SKIP or RERUN:<reason> for <module>
 MOD=<module>; RR=<RUN_ROOT>; SYN="$RR/$MOD/99_$MOD-synthesis.md"
 EVIDENCE_STATE="$(python3 scripts/commodity_evidence_delta.py "$RR" --module-status "$MOD")" || exit $?
+if [ "$MOD" = "macro-positioning" ] && { [ -e "$RR/$MOD/.driver-attribution-pending" ] || [ -L "$RR/$MOD/.driver-attribution-pending" ]; }; then
+  echo "RERUN:driver-attribution-pending"; exit 0
+fi
 case "$EVIDENCE_STATE" in RERUN:evidence-changed) echo "$EVIDENCE_STATE";; CLEAR)
 if [ ! -s "$SYN" ]; then echo "RERUN:no-synthesis"; else
   reason=""
@@ -125,6 +137,53 @@ fi
    Report each module's SKIP / RERUN decision and its reason in step 7 — a resume that silently skipped a module carrying a missing orb is exactly the failure this check exists to make visible. The evidence delta covers accepted profile-series changes; `/commodity:intake` separately covers user documents and notes landing in `data/<COMMODITY>/`. Neither substitutes for the other.
 2. **Cross-module context:** build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A specifies — one sentence per dependency module that is DONE in this run, `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (capitalize the dep's first letter). If the module has no deps, set it to `none`.
 3. **Run the module pipeline:** follow `frameworks/MODULE_PIPELINE.md` with `<TICKER>` = `<COMMODITY>`, `<DATE>`, `<MODULE>` = the module, `<RUN_ROOT>` = `commodity/runs/<COMMODITY>`, and `<CROSS_MODULE_CONTEXT>` as built. **Commodity deviations:** (a) SKIP Step 1.5 (`extract_pool.py`) unless `data/<COMMODITY>/` exists with files; (b) in the Step 4A Task message the "Data pool path: data/<COMMODITY>/" line is fine — agents read the profile, consume current accepted connector vintages and lawful shared market routes first, and use live public facts only as explicitly unvintaged context. Connector existence or URL reachability never raises sufficiency. WILTW and report-derived assertions are forbidden runtime inputs.
+
+   **RF-COMM-001 specialist acceptance and crash recovery.** For the discovered specialist whose
+   frontmatter `name` is `commodity-macro-drivers`, additionally run this mechanical predicate at shared
+   Step 4A before deciding reuse, and at Step 4B after any dispatch. It is scoped to this rule's report;
+   it does not replace the shared Markdown, signal-sidecar, or memory checks:
+
+```bash
+# RF-COMM-001 pending specialist validity
+PENDING="<RUN_ROOT>/macro-positioning/.driver-attribution-pending"
+if [ -e "$PENDING" ] || [ -L "$PENDING" ]; then
+  if [ ! -f "$PENDING" ] || [ -L "$PENDING" ]; then
+    echo "GATE-FAIL: unsafe driver-attribution pending marker"; exit 2
+  fi
+  python3 scripts/commodity_driver_attribution.py "<RUN_ROOT>" --require-report || exit $?
+fi
+```
+
+   Exit `0` permits the remaining shared validity checks. At Step 4A, exit `1` means this exact
+   specialist's pending output is invalid or missing: dispatch it under the existing scoped retry rules,
+   keeping every other valid specialist reused. At Step 4B, exit `1` is a failed output check, subject to
+   the same existing recovery limit; do not mark it verified, advance its dependants, or publish while
+   it still fails. Exit `2` or any other unexpected command failure stops before dispatch or publication.
+   No marker means an untouched legacy report is exempt from this new predicate, even if its module
+   must rerun. This is a mechanical declared-contract check, never a subjective prose-quality retry.
+
+   **Immediately before an actual Task dispatch** of that specialist, persist its pending marker using
+   the block below and record `DISPATCHED_PENDING`. Never create it merely because a module returned
+   `RERUN`, when reusing an output, or for an unreached module. The module directory already exists per
+   the shared pipeline. If this block fails, do not dispatch. The marker survives a crash before the
+   report is written, a Task failure, and a failed attribution check; only step 5.4 may clear it, after a
+   successful required-report check. It is verification state, not a lock or permission for extra Tasks.
+
+```bash
+# RF-COMM-001 before actual Task dispatch
+PENDING="<RUN_ROOT>/macro-positioning/.driver-attribution-pending"
+if [ ! -e "$PENDING" ]; then
+  (set -C; : > "$PENDING") || exit $?
+fi
+if [ ! -f "$PENDING" ] || [ -L "$PENDING" ]; then
+  echo "GATE-FAIL: unsafe driver-attribution pending marker"; exit 2
+fi
+```
+
+   Keep the marker when reporting a failed Task even if it left a syntactically valid file behind. On
+   retry, step 5.1's `RERUN:driver-attribution-pending` prevents a module-level skip, and the Step 4A
+   predicate either reuses an already-valid report without another paid Task or selects only this
+   invalid specialist for regeneration. Missing tags cannot become exempt just by surviving a retry.
 4. **Compile evidence; freeze coverage once for the terminal:** after every module decision, including
    `SKIP`, run `python3 scripts/commodity_signal_evidence.py "<RUN_ROOT>"`. Any
    `SIGNAL-EVIDENCE-FAIL` stops before the next module. Immediately BEFORE the terminal synthesis resume
@@ -148,6 +207,60 @@ python3 scripts/commodity_profile_coverage.py "<RUN_ROOT>" --promote-preflight -
    coverage is valid, but forces both horizons to `not_assessable` and `Research More` unless a proven
    critical risk forces `Avoid`.
 5. **Fail-fast:** if the module's Layer-0 triage returns Insufficient (only `market-structure` has a `fail_fast` triage), the pipeline reports `fail_fast_triggered = true`. Stop the run: commit what exists (step 6) and report the abort — do NOT run downstream modules, since the commodity could not be identified/priced.
+
+## 5.4. Driver-attribution integrity check (§15) — before decision publication
+
+`CLAUDE.md` §15 requires any driver-attribution claim to show its own arithmetic and name its residual —
+`commodity-macro-drivers` §1a already implements this in prose (MODULE_RULES.md §4a), closed by a
+standalone `RF-COMM-001` tag line. Verify that declaration before step 5.5's pre-mortem, immutable
+archive, or UI projection update. Stopping only before commit would leave a rejected archive that a
+later whole-root commit could publish.
+
+Resolve `<MACRO_DRIVERS_OUTCOME>` from the actual per-specialist outcome recorded in step 5. A verified
+dispatch always requires the report. A reused report is checked if its durable pending marker remains
+from an earlier dispatch; otherwise record the legacy/reuse exemption. There is **no blanket backfill**:
+pre-existing untouched reports (including GOLD, ALUMINIUM, COPPER, and WHEAT reports that predate the tag)
+must not be blocked or force-regenerated merely because another output or the synthesis reran. A changed
+profile, `/commodity:intake`, or a module `RERUN` reason alone does not prove this specialist reran.
+
+Run this block in one Bash invocation, replacing the outcome placeholder explicitly; never rely on a
+shell variable surviving another tool call:
+
+```bash
+# RF-COMM-001 publication gate
+PENDING="<RUN_ROOT>/macro-positioning/.driver-attribution-pending"
+case "<MACRO_DRIVERS_OUTCOME>" in
+  DISPATCHED_VERIFIED) CHECK_ATTRIBUTION=1;;
+  REUSED)
+    if [ -e "$PENDING" ] || [ -L "$PENDING" ]; then CHECK_ATTRIBUTION=1; else CHECK_ATTRIBUTION=0; fi;;
+  *) echo "GATE-FAIL: macro-drivers specialist outcome is not verified or reused"; exit 1;;
+esac
+if [ "$CHECK_ATTRIBUTION" = 1 ]; then
+  if [ -e "$PENDING" ] || [ -L "$PENDING" ]; then
+    if [ ! -f "$PENDING" ] || [ -L "$PENDING" ]; then
+      echo "GATE-FAIL: unsafe driver-attribution pending marker"; exit 2
+    fi
+  fi
+  python3 scripts/commodity_driver_attribution.py "<RUN_ROOT>" --require-report || exit $?
+  if [ -e "$PENDING" ]; then rm -- "$PENDING" || exit $?; fi
+else
+  echo "RF-COMM-001: not run (specialist reused; no pending verification)"
+fi
+```
+
+The script **fails closed**: it accepts exactly one standalone declaration at the end of Section 1a.
+A reconciled declaration prints its explained/residual figures only when they sum to 100% (within
+1.0pp). A `not attempted` declaration prints that status and its non-empty reason; it never claims the
+attribution reconciled. This checks the declared percentage total, not the underlying multiplication,
+sensitivity basis, unit conversion, source quality, or agreement with the prose — the specialist and
+synthesizers still must verify all of those under §15. `--require-report` makes a missing report fail;
+the helper's standalone-inspection `N/A` result is not a successful dispatch outcome.
+
+On any defect — report missing, tag absent/malformed/duplicated/outside Section 1a, a bare "not attempted"
+dodge, or explained+residual not reconciling — keep the pending marker and **STOP before step 5.5 and
+step 6**. Report the `GATE-FAIL:` reason; do not archive or publish a decision whose required attribution
+check failed. Record the exact printed result for step 7. A fail-fast abort before macro is reached
+takes step 5's existing abort path and never enters decision publication.
 
 ## 5.5. Integrity finish-gate — pre-mortem haircut propagation
 
@@ -174,7 +287,8 @@ python3 scripts/commodity_pre_mortem_haircut.py "<RUN_ROOT>" ${PRIOR_PM:+--prior
 
 The helper **fails closed**: it exits `0` and prints `RATING-CAP:` only when it actually propagated a fresh, complete pre-mortem; on `no_pre_mortem` / `read_error` / `incomplete_pre_mortem` / `stale_pre_mortem` / `no_fresh_pre_mortem` it prints `GATE-FAIL:` and exits **nonzero**, leaving `decision_record.json` unpatched. Because step 2 just generated a fresh pre-mortem against this run, a nonzero exit means the integrity gate genuinely could not run — **STOP before the step 6 commit and report the `GATE-FAIL:` reason; do not ship a `decision_record.json` whose `Action:` verdict was never red-teamed.** On success, record the printed `RATING-CAP:` line for step 7 (report). The patch is additive — `confidence_haircut`, `pre_mortem_verdict`, `post_review_confidence_score`, `post_mortem_action`, `post_mortem_target_exposure_risk_units` — and never rewrites the synthesizer's own original `action`/`confidence` fields (CLAUDE.md §18/§22: caps are applied, never silently overridden; the original call stays visible for audit). The cap is enforced deterministically by the helper (a would-be conviction RAISE from a mis-authored pre-mortem is clamped/rejected), not trusted from the LLM-authored report.
 
-5. **Immutable decision publication — only after the record has a completed red-team.** Run this whenever
+5. **Immutable decision publication — only after step 5.4 passed or recorded a lawful reuse exemption,
+and the record has a completed red-team.** Run this whenever
 step 5.5 ran OR the already-audited current record has no `decision_id` yet (one-time archive backfill).
 Archive the exact reviewed record, then atomically update the top-level UI projection:
 
@@ -209,6 +323,12 @@ Print a final summary:
 - **The immutable publication result:** decision ID + archive path from `DECISION-ARCHIVE:`, or "already
   archived and unchanged" only when an existing `decision_id` resolves to an identical archive; an archive
   failure halts before commit.
+- **The driver-attribution check result (step 5.4):** the actual specialist dispatch/reuse outcome and
+  exact `RF-COMM-001:` line, including explained/residual figures or the honest `not attempted` reason;
+  "not run (specialist reused; no pending verification)" for an exempt reuse; "not reached (fail-fast
+  abort)" when applicable; or the `GATE-FAIL:` reason and confirmation that the run HALTED before
+  pre-mortem, immutable archive, UI projection publication, and commit. Report a retained pending marker
+  so the next invocation's scoped specialist retry is explicit.
 - The commit SHA pushed to `origin/main` (or NOOP).
 
 ---
