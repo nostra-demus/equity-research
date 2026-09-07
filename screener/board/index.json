@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T01:36:51Z",
+  "generated_at": "2026-09-07T01:46:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -432,6 +432,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-109",
+      "headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:36:45Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "The Philippine regulator has cleared Mynt for an IPO of up to $1.5 billion, a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The Philippine regulator has cleared Mynt for an IPO of up to $1.5 billion, a significant capital market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mynt",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-004",
       "headline": "PAC: Strategic Review Update [price-sensitive]",
       "headline_en": null,
@@ -623,6 +672,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-098",
+      "headline": "Google-backed Indian space startup raises $100 million in latest funding round",
+      "headline_en": null,
+      "url": "https://www.reuters.com/science/google-backed-indian-space-startup-raises-100-million-latest-funding-round-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:33:12Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "An Indian space startup raised $100 million in a funding round.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "An Indian space startup raised $100 million in a funding round.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pixxel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -963,6 +1061,55 @@
           "name": "Kintor Pharmaceutical",
           "ticker": "09939",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-101",
+      "headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:30:58Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Coforge reaffirms confidence in hitting a $5 billion revenue target.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1423,6 +1570,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-103",
+      "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in Miami",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/09/07/world/amazon-plane-crash-miami/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Fatal cargo plane crash involving Amazon Prime Air operations in Miami.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Fatal cargo plane crash involving Amazon Prime Air operations in Miami.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-099",
+      "headline": "Amazon says it’s 'working closely' with authorities after cargo plane crash kills 5",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/amazon-says-its-working-closely-authorities-after-cargo-plane-crash-kills-5",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T01:24:32Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Amazon cargo plane crash resulting in 5 fatalities, triggering investigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-056",
       "headline": "Five dead after Amazon cargo plane crashes at Miami airport",
       "headline_en": null,
@@ -1691,233 +1936,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-081",
-      "headline": "Pranav Constructions IPO opens today: Should you subscribe to the ₹351 crore issue?",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/pranav-constructions-ipo-subscription-opens-today-should-you-bid-issue-size-gmp-price-band-brokerages-19985090.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:23:13Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Pranav Constructions launched an IPO valued at ₹351 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Pranav Constructions launched an IPO valued at ₹351 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pranav Constructions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-053",
-      "headline": "AMASSE CAPITAL (08168): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700085.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T00:43:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Trading suspension for Amasse Capital following the executive removal announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Trading suspension for Amasse Capital following the executive removal announcement.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amasse Capital",
-          "ticker": "08168",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-097",
-      "headline": "Allemagne-Vers une large victoire de l'AfD lors d'un scrutin en Saxe-Anhalt",
-      "headline_en": "Germany - Towards a large victory for the AfD in an election in Saxony-Anhalt",
-      "url": "https://www.reuters.com/fr/affaires/allemagne-vers-une-large-victoire-de-lafd-lors-dun-scrutin-en-saxe-anhalt-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:28:33Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Political shift in Germany with a potential large victory for AfD, signaling significant domestic policy uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Political shift in Germany with a potential large victory for AfD, signaling significant domestic policy uncertainty.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-073",
-      "headline": "India’s record foreign deposit push could cost RBI $10.6 billion: Why the diaspora fundraising drive may prove expensive",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/wealth/invest/indias-record-foreign-deposit-push-could-cost-rbi-10-6-billion-why-the-diaspora-fundraising-drive-may-prove-expensive/articleshow/133786418.cms",
-      "source_name": "The Economic Times Wealth",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "India's foreign deposit push could cost the RBI $10.6 billion in potential interest and hedging costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "India's foreign deposit push could cost the RBI $10.6 billion in potential interest and hedging costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-059",
-      "headline": "Bitcoin drops below $80,000 as hot jobs data spurs US Federal Reserve hike bets",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/bitcoin-drops-below-80000-as-hot-jobs-data-spurs-us-federal-reserve-hike-bets",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:52:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Bitcoin price volatility and shifting Federal Reserve interest rate expectations impact global risk-asset sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Bitcoin price volatility and shifting Federal Reserve interest rate expectations impact global risk-asset sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -145089,9 +145107,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 460,
-    "news_picked_today": 99,
-    "news_dropped_today": 361
+    "news_seen_today": 490,
+    "news_picked_today": 111,
+    "news_dropped_today": 379
   },
   "book_momentum": {
     "live_count": 8,
