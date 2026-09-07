@@ -938,105 +938,9 @@ def eval_ah_expectations_gap_gate(decision_date, confidence_score, eg):
 from headline_checks import (
     AI_DATE, CONF_SPLIT_DATE, _scorecard_section, _hs_cell, _metric_numbers, _reconciles,
     eval_ai_headline_reconciliation,
+    AJ_DATE, AJ_MIN_ROWS, AJ_REQUIRED_COLS, _decision_audit_section, _decision_audit_header,
+    _decision_audit_rows, _audit_cell_blank, eval_aj_decision_audit_trail,
 )
-
-# ── Check AJ (Decision Audit Trail structural check, CLAUDE.md §8/§22) ──
-# The Part II "Decision Audit Trail" table is the auditable adjudication core of the verdict — for each
-# decision driver, which side won and why — but until now it was enforced only by synthesizer.md prompt
-# instruction (Step 5, "Contradiction audit") with NO mechanical check that a run actually ships it
-# populated. A synthesizer could regress to an empty or token table (the exact "summarize, don't
-# adjudicate" failure §22 warns against) and nothing before this would catch it — the same class of
-# silent-doctrine-violation defect check AI closed for the Headline Scorecard, and the improvement that
-# check AI's own landing PR named as the next-highest-leverage gap.
-AJ_DATE = "2026-07-10"
-AJ_MIN_ROWS = 3
-AJ_REQUIRED_COLS = ["Decision Driver", "Bull Evidence", "Bear Evidence", "Which Side Wins?", "Why?"]
-def _decision_audit_section(thesis):
-    """The text of the '## Decision Audit Trail' section ONLY — from its heading up to the next '## '
-    heading (or EOF), mirroring `_scorecard_section`'s scoping so a table living in a LATER section
-    cannot satisfy this check. None if absent.
-
-    When the dossier uses the PART structure (synthesizer.md emits the audit trail under
-    '# PART II — CROSS-CUTTING ANALYSIS'), the search is FIRST restricted to the Part II slice, so a
-    later appendix/process section carrying its own '## Decision Audit Trail' heading cannot satisfy
-    the check while Part II omits the table (r3556238203). Falls back to the whole document only when
-    no Part II heading exists (degenerate/non-PART dossiers)."""
-    p2 = re.search(r"(?ims)^#\s+PART\s+II\b.*?(?=^#\s+PART\b|\Z)", thesis)
-    scope_text = p2.group(0) if p2 else thesis
-    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##\s|\Z)", scope_text)
-    return m.group(0) if m else None
-def _decision_audit_header(section):
-    """The HEADER cells of the Decision Audit Trail pipe-table (the first non-separator pipe row), or []
-    if the section holds no table. Split out so check AJ can verify the table actually carries the
-    required bull/bear adjudication COLUMNS, not merely five columns of any shape (r3556238195)."""
-    if not section: return []
-    for line in section.splitlines():
-        s=line.strip()
-        if not s.startswith("|"): continue
-        if re.match(r"^\|[\s:|-]+\|$", s): continue  # separator row
-        return [c.strip() for c in s.strip("|").split("|")]
-    return []
-def _decision_audit_rows(section):
-    """The DATA rows of the Decision Audit Trail pipe-table (header and separator rows excluded), or []
-    if the section holds no table. Side-effect-free + module-level so `selftest` can drive it directly."""
-    if not section: return []
-    rows=[]; header_seen=False
-    for line in section.splitlines():
-        s=line.strip()
-        if not s.startswith("|"):
-            if header_seen: break  # table ended
-            continue
-        if re.match(r"^\|[\s:|-]+\|$", s):
-            continue  # the header/body separator row
-        cells=[c.strip() for c in s.strip("|").split("|")]
-        if not header_seen:
-            header_seen=True  # this pipe row IS the header — skip it, start collecting after
-            continue
-        rows.append(cells)
-    return rows
-def _audit_cell_blank(cell):
-    """A cell counts as blank if it's empty after stripping markdown bold, or is a bare placeholder
-    token rather than real adjudication content. Placeholders include any WHOLE-cell run of dash
-    characters — ASCII '-'/'--'/'---' and the Unicode figure/en/em dashes and horizontal bar
-    (—, –, ―) the synthesizer commonly types (r3556238198) — plus 'n/a', 'tbd', 'none', '?'. Matching
-    a whole-cell dash run (not a substring) keeps real content like '~11–12%' or '₹1,184M–586M' from
-    being misread as blank."""
-    c = re.sub(r"\*+", "", cell or "").strip()
-    if re.fullmatch(r"[-‒–—―]+", c):
-        return True  # a cell that is ONLY dash characters is a placeholder
-    return (not c) or c.lower() in {"n/a", "na", "tbd", "none", "?"}
-def eval_aj_decision_audit_trail(decision_date, thesis):
-    """Core of check AJ. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
-    `thesis` is the full final_thesis.md text. Side-effect-free + module-level so `eval.py selftest` can
-    drive it with synthetic table snippets, fixture-free."""
-    if not (isdate(decision_date) and decision_date >= AJ_DATE):
-        return None  # forward-looking; pre-gate runs N/A
-    section = _decision_audit_section(thesis)
-    if section is None:
-        return ["'## Decision Audit Trail' section not found in final_thesis.md"]
-    rows = _decision_audit_rows(section)
-    if not rows:
-        return ["'## Decision Audit Trail' table has no data rows"]
-    det=[]
-    # Validate the table HEADER carries the required bull/bear adjudication columns, in order, before
-    # trusting the positional per-cell checks below (r3556238195). A five-column table whose header
-    # omits or reorders 'Bear Evidence' would otherwise pass the positional checks with the wrong fields.
-    hdr=[re.sub(r"\*+","",h).strip().lower() for h in _decision_audit_header(section)]
-    for j, label in enumerate(AJ_REQUIRED_COLS):
-        if j >= len(hdr) or label.lower() not in hdr[j]:
-            got = hdr[j] if j < len(hdr) else "<missing>"
-            det.append(f"Decision Audit Trail header column {j+1} is {got!r} — expected {label!r} "
-                       f"(required columns, in order: {', '.join(AJ_REQUIRED_COLS)})")
-    if len(rows) < AJ_MIN_ROWS:
-        det.append(f"only {len(rows)} Decision Audit Trail row(s) — fewer than the {AJ_MIN_ROWS} required for a real cross-module adjudication")
-    for i, cells in enumerate(rows, 1):
-        if len(cells) < len(AJ_REQUIRED_COLS):
-            det.append(f"row {i} has only {len(cells)} column(s), fewer than the {len(AJ_REQUIRED_COLS)} required ({', '.join(AJ_REQUIRED_COLS)})")
-            continue
-        for j, label in enumerate(AJ_REQUIRED_COLS):
-            if _audit_cell_blank(cells[j]):
-                det.append(f"row {i} ({cells[0]!r}) has a blank {label!r} cell")
-    return det
 
 # ── Check AK (red-flag severity reconciliation, CLAUDE.md §13/§18) ──
 # Detection logic extracted to scripts/headline_checks.py — see that module's docstring and the
@@ -2791,6 +2695,14 @@ if scope=="selftest":
         "| Valuation | Cheap vs peers | Priced for perfection | **Bear** | DCF below price | 60 |\n"
         "| Solvency | Net cash | — | **Bull** | No near-term break | 70 |\n"        # em-dash Bear Evidence
         "| Governance | Clean audit | No disqualifiers | **Bull** | – | 55 |\n")     # en-dash Why?
+    # (2b) Underscore-italic placeholder cells — `_N/A_` / `_-_` are placeholders, not adjudication, and
+    #      must be caught exactly as the `**-**`/em-dash forms already are (r3942853467). Before the
+    #      `[*_]+` emphasis-strip fix, `_audit_cell_blank` stripped only `*`, so these leaked through the
+    #      gate (a false PASS on a thesis with an italicised placeholder in a required bull/bear cell).
+    TH_DAT_ITALIC_DASH=_dat_thesis(ROW_HEAD+
+        "| Valuation | Cheap vs peers | Priced for perfection | **Bear** | DCF below price | 60 |\n"
+        "| Solvency | Net cash | _N/A_ | **Bull** | No near-term break | 70 |\n"        # italic 'N/A' Bear Evidence
+        "| Governance | Clean audit | No disqualifiers | **Bull** | _-_ | 55 |\n")       # italic dash Why?
     # (3) Part II omits the table; a later appendix carries its own '## Decision Audit Trail' — must NOT satisfy.
     TH_DAT_APPENDIX_ONLY=("# PART II — CROSS-CUTTING ANALYSIS\n\nNarrative only, no audit table here.\n\n"
         "# PART V — EVIDENCE AND PROCESS\n\n## Decision Audit Trail\n\n"+ROW_HEAD+
@@ -2809,6 +2721,7 @@ if scope=="selftest":
         ("2026-07-10", TH_DAT_BLANK_CELL, ["blank 'Bear Evidence'", "blank 'Why?'"]),
         ("2026-07-10", TH_DAT_BAD_HEADER, ["header column 3", "Bear Evidence"]),   # (1) header lacks Bear Evidence col
         ("2026-07-10", TH_DAT_UNICODE_DASH, ["blank 'Bear Evidence'", "blank 'Why?'"]),  # (2) em/en-dash placeholders
+        ("2026-07-10", TH_DAT_ITALIC_DASH, ["blank 'Bear Evidence'", "blank 'Why?'"]),   # (2b) underscore-italic placeholders (r3942853467)
         ("2026-07-10", TH_DAT_APPENDIX_ONLY, ["section not found"]),               # (3) table only in appendix, not Part II
         ("2026-07-10", TH_DAT_CLEAN_PART2, []),                                     # (3) positive control: clean table IN Part II passes
         ("2026-07-10", TH_DAT_CLEAN, []),                                          # clean, real-shape pass

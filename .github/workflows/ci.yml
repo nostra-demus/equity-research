@@ -113,6 +113,9 @@ jobs:
       - name: Check W + X + Y selftest (sector-valuation + evidence-integrity + data-sufficiency gates — fixture-free)
         run: python3 scripts/eval.py selftest
 
+      - name: Live finish-gate AJ regression (Step 10B.1 gates Decision Audit Trail on _live_date, not decision_date)
+        run: python3 scripts/test_live_gate_aj.py
+
       - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
         run: python3 scripts/test_screener_score_breakdown.py
 
