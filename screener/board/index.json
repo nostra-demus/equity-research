@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T02:44:50Z",
+  "generated_at": "2026-09-07T02:49:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260907-052",
@@ -1512,6 +1512,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260907-145",
+      "headline": "VA Tech Wabag Limited: WABAG secures repeat order from RIL to deliver state-of-the-art ETP at Jamnagar",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VATECH_07092026080746_SEIntimationRIL070926.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-07T02:44:48Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "VA Tech Wabag secured a repeat order from Reliance Industries for an effluent treatment plant at Jamnagar.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "VA Tech Wabag secured a repeat order from Reliance Industries for an effluent treatment plant at Jamnagar.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VA Tech Wabag",
+          "ticker": "533269",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260907-016",
       "headline": "TENNOR THERAP-B (06872): VOLUNTARY ANNOUNCEMENT POSITIVE RESULTS FROM A PHASE IIA PROOF-OF-CONCEPT CLINICAL TRIAL OF RIFAQUIZINONE (TNP-2092) FOR THE TREATMENT OF PROSTHETIC JOINT INFECTION AND INITIATION OF A MULTI-CENTER PHASE IIB CLINICAL TRIAL",
       "headline_en": null,
@@ -1556,6 +1605,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260907-150",
+      "headline": "S-Oil Seen Posting Over 1 Trillion Won in Q3 Profit",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276312",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T06:08:06Z",
+      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
+      "prelim_note": "S-Oil is projected to post over 1 trillion won in Q3 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "S-Oil is projected to post over 1 trillion won in Q3 profit.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S-Oil",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1860,104 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-035",
-      "headline": "An email throws up fresh questions on Tata Sons' clean chit to top exec",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-trusts-tata-sons-group-company-secretary-suprakash-mukhopadhyay-11788684881220.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T00:15:17Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Fresh questions regarding executive conduct at a major conglomerate pose governance and reputational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Fresh questions regarding executive conduct at a major conglomerate pose governance and reputational risks.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260907-103",
-      "headline": "At least 5 killed in Amazon Prime Air cargo plane crash in Miami",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/09/07/world/amazon-plane-crash-miami/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T01:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-07_sweep.json",
-      "prelim_note": "Fatal cargo plane crash involving Amazon Prime Air operations in Miami.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Fatal cargo plane crash involving Amazon Prime Air operations in Miami.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145351,9 +145351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 757,
-    "news_picked_today": 176,
-    "news_dropped_today": 581
+    "news_seen_today": 775,
+    "news_picked_today": 183,
+    "news_dropped_today": 592
   },
   "book_momentum": {
     "live_count": 8,
