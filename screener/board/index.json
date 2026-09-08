@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T12:03:35Z",
+  "generated_at": "2026-09-08T12:21:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -642,6 +642,114 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-515",
+      "headline": "GE Aerospace to Buy Consolidated Precision Products for $11.75 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/ge-aerospace-to-buy-consolidated-precision-products-for-11-75-billion-ed7c8fc8?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T12:02:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion, a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Consolidated Precision Products",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-506",
+      "headline": "WaFd and EverBank Financial agree on $3.9bn reverse merger",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/wafd-everbank-financial-agree-3-115556827.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T11:55:56Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "WaFd and EverBank agreed to a $3.9bn reverse merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "WaFd and EverBank agreed to a $3.9bn reverse merger.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WaFd",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "EverBank Financial",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,109 +2016,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-324",
-      "headline": "Old Mutual Profit Drops as US-Iran War Fallout Curbs Investments",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-08/old-mutual-profit-drops-us-iran-war-fallout-curbs-investments",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:25:10Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Old Mutual reported a profit drop directly attributed to geopolitical conflict fallout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Old Mutual reported a profit drop directly attributed to geopolitical conflict fallout.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Old Mutual",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-253",
-      "headline": "GRT Jewellers To Acquire Controlling Stake In Tribhovandas Bhimji Zaveri In ₹1,033 Crore Deal",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/grt-jewellers-to-acquire-controlling-stake-in-tribhovandas-bhimji-zaveri-in-1033-crore-deal",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T04:47:50Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GRT Jewellers is acquiring a controlling stake in Tribhovandas Bhimji Zaveri for ₹1,033 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GRT Jewellers is acquiring a controlling stake in Tribhovandas Bhimji Zaveri for ₹1,033 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GRT Jewellers",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Tribhovandas Bhimji Zaveri",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108659,79 +108664,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c6f6fe27dcb6",
-      "idea_version": "IDEAV-c17c600f3a7ecfa3",
-      "idea_version_started_at": "2026-09-07T01:06:48Z",
-      "ticker": "BTH.AX",
-      "company": "Bathla Group",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
-      "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-edff9146f2b6",
-        "EVT-ec9c6737acab"
-      ],
-      "primary_source_event_id": "EVT-ec9c6737acab",
-      "source_headlines": [
-        "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-        "Bathla administrators scramble for cash as 200 staff stood down"
-      ],
-      "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T00:11:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:06:48Z",
-      "updated_at": "2026-09-07T01:06:48Z",
-      "decay_at": "2026-09-08T12:11:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -108798,77 +108730,6 @@
       "surfaced_at": "2026-09-08T03:57:59Z",
       "updated_at": "2026-09-08T03:57:59Z",
       "decay_at": "2026-09-09T14:40:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-fdef9c56cf5c",
-      "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
-      "idea_version_started_at": "2026-09-07T00:24:17Z",
-      "ticker": "MKR",
-      "company": "Manuka Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing $A14.5 million in funding allows the company to complete its silver circuit, directly enabling production and revenue generation.",
-      "why_now": "The filing was released on 2026-09-07, providing immediate clarity on the company's ability to execute its capital project.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-50b51a32387b"
-      ],
-      "primary_source_event_id": "EVT-50b51a32387b",
-      "source_headlines": [
-        "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]"
-      ],
-      "source_headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03132451-2A1695628",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-07T00:06:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T00:24:17Z",
-      "updated_at": "2026-09-07T00:24:17Z",
-      "decay_at": "2026-09-08T12:06:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109373,78 +109234,6 @@
       "surfaced_at": "2026-09-08T04:32:58Z",
       "updated_at": "2026-09-08T04:32:58Z",
       "decay_at": "2026-09-09T15:11:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0fa4dca8ab30",
-      "idea_version": "IDEAV-e69cf06ea094710d",
-      "idea_version_started_at": "2026-09-07T01:06:48Z",
-      "ticker": "EIQ.AX",
-      "company": "Enegex",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has requested a trading halt due to a strategic review, which often precedes significant negative news or restructuring.",
-      "why_now": "The trading halt was announced on September 7th, 2026, indicating an immediate development.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ffc52c2f2a3b"
-      ],
-      "primary_source_event_id": "EVT-ffc52c2f2a3b",
-      "source_headlines": [
-        "EIQ: Trading Halt [price-sensitive]"
-      ],
-      "source_headline": "EIQ: Trading Halt [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-07T00:16:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:06:48Z",
-      "updated_at": "2026-09-07T01:06:48Z",
-      "decay_at": "2026-09-08T12:16:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -110025,78 +109814,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-98f5ab3a4fab",
-      "idea_version": "IDEAV-babf068505b2027b",
-      "idea_version_started_at": "2026-09-07T01:06:48Z",
-      "ticker": "TATA.NS",
-      "company": "Tata Sons",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Fresh questions have arisen regarding a top executive's conduct, potentially impacting management and corporate governance.",
-      "why_now": "The news surfaced on September 7th, 2026, raising immediate concerns.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9fb7d22eb502"
-      ],
-      "primary_source_event_id": "EVT-9fb7d22eb502",
-      "source_headlines": [
-        "An email throws up fresh questions on Tata Sons' clean chit to top exec"
-      ],
-      "source_headline": "An email throws up fresh questions on Tata Sons' clean chit to top exec",
-      "source_url": "https://www.livemint.com/companies/news/tata-trusts-tata-sons-group-company-secretary-suprakash-mukhopadhyay-11788684881220.html",
-      "source_name": "Mint",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-07T00:15:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:06:48Z",
-      "updated_at": "2026-09-07T01:06:48Z",
-      "decay_at": "2026-09-08T12:15:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-53205b605f3a",
       "idea_version": "IDEAV-ce3df47642c52ad5",
       "idea_version_started_at": "2026-09-08T01:02:06Z",
@@ -110451,149 +110168,6 @@
       "surfaced_at": "2026-09-08T01:22:05Z",
       "updated_at": "2026-09-08T01:22:05Z",
       "decay_at": "2026-09-09T12:19:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d6de8a96e915",
-      "idea_version": "IDEAV-6b01ba7922e31ce9",
-      "idea_version_started_at": "2026-09-07T01:06:48Z",
-      "ticker": "XTI",
-      "company": "Crude Oil",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
-      "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d69fd5ce5c4"
-      ],
-      "primary_source_event_id": "EVT-4d69fd5ce5c4",
-      "source_headlines": [
-        "Oil extends gains after US and Iran strike ships"
-      ],
-      "source_headline": "Oil extends gains after US and Iran strike ships",
-      "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 68,
-      "newest_source_at": "2026-09-07T00:16:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:06:48Z",
-      "updated_at": "2026-09-07T01:06:48Z",
-      "decay_at": "2026-09-08T12:16:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4ba6c74f269e",
-      "idea_version": "IDEAV-f6984b9949cbe737",
-      "idea_version_started_at": "2026-09-07T00:44:57Z",
-      "ticker": "02616",
-      "company": "CStone Pharmaceuticals",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inclusion in the Southbound Stock Connect allows mainland Chinese investors to trade the stock, typically increasing liquidity and broadening the investor base.",
-      "why_now": "The announcement was made on 2026-09-07, and the liquidity impact usually follows the effective date of inclusion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0f803d8a55d0"
-      ],
-      "primary_source_event_id": "EVT-0f803d8a55d0",
-      "source_headlines": [
-        "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT"
-      ],
-      "source_headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 68,
-      "newest_source_at": "2026-09-07T00:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T00:44:57Z",
-      "updated_at": "2026-09-07T00:44:57Z",
-      "decay_at": "2026-09-08T12:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -112008,6 +111582,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c6f6fe27dcb6",
+      "idea_version": "IDEAV-c17c600f3a7ecfa3",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "BTH.AX",
+      "company": "Bathla Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
+      "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-edff9146f2b6",
+        "EVT-ec9c6737acab"
+      ],
+      "primary_source_event_id": "EVT-ec9c6737acab",
+      "source_headlines": [
+        "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+        "Bathla administrators scramble for cash as 200 staff stood down"
+      ],
+      "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:11:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:11:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5364e3f8a882",
       "idea_version": "IDEAV-eb5e9fb99b46e938",
       "idea_version_started_at": "2026-09-06T22:59:37Z",
@@ -112875,6 +112522,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fdef9c56cf5c",
+      "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
+      "idea_version_started_at": "2026-09-07T00:24:17Z",
+      "ticker": "MKR",
+      "company": "Manuka Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing $A14.5 million in funding allows the company to complete its silver circuit, directly enabling production and revenue generation.",
+      "why_now": "The filing was released on 2026-09-07, providing immediate clarity on the company's ability to execute its capital project.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-50b51a32387b"
+      ],
+      "primary_source_event_id": "EVT-50b51a32387b",
+      "source_headlines": [
+        "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]"
+      ],
+      "source_headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03132451-2A1695628",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-07T00:06:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:24:17Z",
+      "updated_at": "2026-09-07T00:24:17Z",
+      "decay_at": "2026-09-08T12:06:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-362d48f7efbd",
       "idea_version": "IDEAV-e40a49cea9ae78f9",
       "idea_version_started_at": "2026-09-06T11:55:46Z",
@@ -113443,6 +113161,78 @@
       "surfaced_at": "2026-09-06T05:50:29Z",
       "updated_at": "2026-09-06T19:44:58Z",
       "decay_at": "2026-09-07T18:27:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0fa4dca8ab30",
+      "idea_version": "IDEAV-e69cf06ea094710d",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "EIQ.AX",
+      "company": "Enegex",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has requested a trading halt due to a strategic review, which often precedes significant negative news or restructuring.",
+      "why_now": "The trading halt was announced on September 7th, 2026, indicating an immediate development.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ffc52c2f2a3b"
+      ],
+      "primary_source_event_id": "EVT-ffc52c2f2a3b",
+      "source_headlines": [
+        "EIQ: Trading Halt [price-sensitive]"
+      ],
+      "source_headline": "EIQ: Trading Halt [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-07T00:16:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:16:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114455,6 +114245,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-98f5ab3a4fab",
+      "idea_version": "IDEAV-babf068505b2027b",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "TATA.NS",
+      "company": "Tata Sons",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Fresh questions have arisen regarding a top executive's conduct, potentially impacting management and corporate governance.",
+      "why_now": "The news surfaced on September 7th, 2026, raising immediate concerns.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9fb7d22eb502"
+      ],
+      "primary_source_event_id": "EVT-9fb7d22eb502",
+      "source_headlines": [
+        "An email throws up fresh questions on Tata Sons' clean chit to top exec"
+      ],
+      "source_headline": "An email throws up fresh questions on Tata Sons' clean chit to top exec",
+      "source_url": "https://www.livemint.com/companies/news/tata-trusts-tata-sons-group-company-secretary-suprakash-mukhopadhyay-11788684881220.html",
+      "source_name": "Mint",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-07T00:15:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:15:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-643afac61036",
       "idea_version": "IDEAV-7795ba101e42d252",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -114889,6 +114751,149 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d6de8a96e915",
+      "idea_version": "IDEAV-6b01ba7922e31ce9",
+      "idea_version_started_at": "2026-09-07T01:06:48Z",
+      "ticker": "XTI",
+      "company": "Crude Oil",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
+      "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d69fd5ce5c4"
+      ],
+      "primary_source_event_id": "EVT-4d69fd5ce5c4",
+      "source_headlines": [
+        "Oil extends gains after US and Iran strike ships"
+      ],
+      "source_headline": "Oil extends gains after US and Iran strike ships",
+      "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-09-07T00:16:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:06:48Z",
+      "updated_at": "2026-09-07T01:06:48Z",
+      "decay_at": "2026-09-08T12:16:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4ba6c74f269e",
+      "idea_version": "IDEAV-f6984b9949cbe737",
+      "idea_version_started_at": "2026-09-07T00:44:57Z",
+      "ticker": "02616",
+      "company": "CStone Pharmaceuticals",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Inclusion in the Southbound Stock Connect allows mainland Chinese investors to trade the stock, typically increasing liquidity and broadening the investor base.",
+      "why_now": "The announcement was made on 2026-09-07, and the liquidity impact usually follows the effective date of inclusion.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "liquidity_positioning",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f803d8a55d0"
+      ],
+      "primary_source_event_id": "EVT-0f803d8a55d0",
+      "source_headlines": [
+        "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT"
+      ],
+      "source_headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-09-07T00:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:44:57Z",
+      "updated_at": "2026-09-07T00:44:57Z",
+      "decay_at": "2026-09-08T12:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ffd3303f2ba5",
       "idea_version": "IDEAV-7ca58afb2ce1f40a",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -115044,18 +115049,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 517,
-    "shown_count": 490,
-    "hidden_count": 27,
+    "total_count": 523,
+    "shown_count": 493,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 240,
-        "shown_count": 240,
+        "total_count": 243,
+        "shown_count": 243,
         "hidden_count": 0
       }
     },
@@ -115075,6 +115080,455 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0fa4dca8ab30",
+        "idea_version": "IDEAV-e69cf06ea094710d",
+        "idea_version_started_at": "2026-09-07T01:06:48Z",
+        "ticker": "EIQ.AX",
+        "company": "Enegex",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has requested a trading halt due to a strategic review, which often precedes significant negative news or restructuring.",
+        "why_now": "The trading halt was announced on September 7th, 2026, indicating an immediate development.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ffc52c2f2a3b"
+        ],
+        "primary_source_event_id": "EVT-ffc52c2f2a3b",
+        "source_headlines": [
+          "EIQ: Trading Halt [price-sensitive]"
+        ],
+        "source_headline": "EIQ: Trading Halt [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03132461-2A1695662",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 93,
+        "newest_source_at": "2026-09-07T00:16:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:06:48Z",
+        "updated_at": "2026-09-07T01:06:48Z",
+        "decay_at": "2026-09-08T12:16:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:16:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d6de8a96e915",
+        "idea_version": "IDEAV-6b01ba7922e31ce9",
+        "idea_version_started_at": "2026-09-07T01:06:48Z",
+        "ticker": "XTI",
+        "company": "Crude Oil",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Oil prices are extending gains due to geopolitical tensions involving strikes on ships in the Middle East.",
+        "why_now": "The event occurred on September 7th, 2026, driving immediate price action.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d69fd5ce5c4"
+        ],
+        "primary_source_event_id": "EVT-4d69fd5ce5c4",
+        "source_headlines": [
+          "Oil extends gains after US and Iran strike ships"
+        ],
+        "source_headline": "Oil extends gains after US and Iran strike ships",
+        "source_url": "https://www.reuters.com/business/energy/oil-extends-gains-after-us-iran-strike-ships-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 68,
+        "newest_source_at": "2026-09-07T00:16:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:06:48Z",
+        "updated_at": "2026-09-07T01:06:48Z",
+        "decay_at": "2026-09-08T12:16:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:16:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-98f5ab3a4fab",
+        "idea_version": "IDEAV-babf068505b2027b",
+        "idea_version_started_at": "2026-09-07T01:06:48Z",
+        "ticker": "TATA.NS",
+        "company": "Tata Sons",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Fresh questions have arisen regarding a top executive's conduct, potentially impacting management and corporate governance.",
+        "why_now": "The news surfaced on September 7th, 2026, raising immediate concerns.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9fb7d22eb502"
+        ],
+        "primary_source_event_id": "EVT-9fb7d22eb502",
+        "source_headlines": [
+          "An email throws up fresh questions on Tata Sons' clean chit to top exec"
+        ],
+        "source_headline": "An email throws up fresh questions on Tata Sons' clean chit to top exec",
+        "source_url": "https://www.livemint.com/companies/news/tata-trusts-tata-sons-group-company-secretary-suprakash-mukhopadhyay-11788684881220.html",
+        "source_name": "Mint",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-07T00:15:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:06:48Z",
+        "updated_at": "2026-09-07T01:06:48Z",
+        "decay_at": "2026-09-08T12:15:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:15:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c6f6fe27dcb6",
+        "idea_version": "IDEAV-c17c600f3a7ecfa3",
+        "idea_version_started_at": "2026-09-07T01:06:48Z",
+        "ticker": "BTH.AX",
+        "company": "Bathla Group",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
+        "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-edff9146f2b6",
+          "EVT-ec9c6737acab"
+        ],
+        "primary_source_event_id": "EVT-ec9c6737acab",
+        "source_headlines": [
+          "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+          "Bathla administrators scramble for cash as 200 staff stood down"
+        ],
+        "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T00:11:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:06:48Z",
+        "updated_at": "2026-09-07T01:06:48Z",
+        "decay_at": "2026-09-08T12:11:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:11:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-fdef9c56cf5c",
+        "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
+        "idea_version_started_at": "2026-09-07T00:24:17Z",
+        "ticker": "MKR",
+        "company": "Manuka Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Securing $A14.5 million in funding allows the company to complete its silver circuit, directly enabling production and revenue generation.",
+        "why_now": "The filing was released on 2026-09-07, providing immediate clarity on the company's ability to execute its capital project.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-50b51a32387b"
+        ],
+        "primary_source_event_id": "EVT-50b51a32387b",
+        "source_headlines": [
+          "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]"
+        ],
+        "source_headline": "MKR: $A14.5 Million to Complete Silver Circuit [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MKR?key=2924-03132451-2A1695628",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-07T00:06:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T00:24:17Z",
+        "updated_at": "2026-09-07T00:24:17Z",
+        "decay_at": "2026-09-08T12:06:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:06:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4ba6c74f269e",
+        "idea_version": "IDEAV-f6984b9949cbe737",
+        "idea_version_started_at": "2026-09-07T00:44:57Z",
+        "ticker": "02616",
+        "company": "CStone Pharmaceuticals",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Inclusion in the Southbound Stock Connect allows mainland Chinese investors to trade the stock, typically increasing liquidity and broadening the investor base.",
+        "why_now": "The announcement was made on 2026-09-07, and the liquidity impact usually follows the effective date of inclusion.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "liquidity_positioning",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0f803d8a55d0"
+        ],
+        "primary_source_event_id": "EVT-0f803d8a55d0",
+        "source_headlines": [
+          "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT"
+        ],
+        "source_headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - THE COMPANY INCLUDED IN SOUTHBOUND STOCK CONNECT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0907/2026090700051.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 68,
+        "newest_source_at": "2026-09-07T00:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T00:44:57Z",
+        "updated_at": "2026-09-07T00:44:57Z",
+        "decay_at": "2026-09-08T12:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-109a85b7c084",
         "idea_version": "IDEAV-80ffeba9b3c81b22",
@@ -147324,228 +147778,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-70b8068a4e51",
-        "idea_version": "IDEAV-e5fe083e1712ff14",
-        "idea_version_started_at": "2026-08-23T02:23:58Z",
-        "ticker": "PARA",
-        "company": "Paramount Global",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Preliminary talks regarding a potential deal between Paramount and Warner Bros. Discovery create a merger arbitrage opportunity where Paramount is the likely target.",
-        "why_now": "Preliminary talks are scheduled to begin on Monday, August 24, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c19a7d1d8eac"
-        ],
-        "primary_source_event_id": "EVT-c19a7d1d8eac",
-        "source_headlines": [
-          "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report"
-        ],
-        "source_headline": "Paramount and California to hold preliminary talks on Monday over Warner Bros deal: Report",
-        "source_url": "https://www.livemint.com/companies/news/paramount-and-california-to-hold-preliminary-talks-on-monday-over-warner-bros-deal-report-11787444046114.html",
-        "source_name": "Mint",
-        "materiality_max": 91,
-        "newest_source_at": "2026-08-23T00:22:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T02:23:58Z",
-        "updated_at": "2026-08-23T02:23:58Z",
-        "decay_at": "2026-08-24T12:22:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T00:29:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-90b902d53889",
-        "idea_version": "IDEAV-d973ffda90feccc6",
-        "idea_version_started_at": "2026-08-23T02:23:58Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Nvidia is implementing price hikes of over 15% for its AI products, which will directly expand its gross margins and revenue per unit.",
-        "why_now": "Customers were notified of the price increases as of August 22, 2026, creating an immediate catalyst for margin expansion.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d7cc14edbc35"
-        ],
-        "primary_source_event_id": "EVT-d7cc14edbc35",
-        "source_headlines": [
-          "Nvidia customers notified about AI-related price hikes above 15%"
-        ],
-        "source_headline": "Nvidia customers notified about AI-related price hikes above 15%",
-        "source_url": "https://www.straitstimes.com/business/nvidia-customers-notified-about-ai-related-price-hikes-above-15-bloomberg",
-        "source_name": "The Straits Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-22T23:55:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T22:06:30Z",
-        "updated_at": "2026-08-23T02:23:58Z",
-        "decay_at": "2026-08-24T11:55:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T00:07:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-af31c2e0f9bf",
-        "idea_version": "IDEAV-8a3955213e634ef6",
-        "idea_version_started_at": "2026-08-22T22:34:43Z",
-        "ticker": "AAPL",
-        "company": "Apple Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Apple announced its largest-ever stock buyback, reducing share count and returning capital to shareholders, supporting per-share value.",
-        "why_now": "Announced 2026-08-22, live as the capital action is fresh.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fe6f38fef1de"
-        ],
-        "primary_source_event_id": "EVT-fe6f38fef1de",
-        "source_headlines": [
-          "Apple Announced Its Largest-Ever Stock Buyback Under Tim Cook's Leadership. Here's Why the Size of the Repurchase Program Matters for Shareholders."
-        ],
-        "source_headline": "Apple Announced Its Largest-Ever Stock Buyback Under Tim Cook's Leadership. Here's Why the Size of the Repurchase Program Matters for Shareholders.",
-        "source_url": "https://www.nasdaq.com/articles/apple-announced-its-largest-ever-stock-buyback-under-tim-cooks-leadership-heres-why-size",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-22T22:20:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T22:34:43Z",
-        "updated_at": "2026-08-22T22:34:43Z",
-        "decay_at": "2026-08-24T10:20:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-25T22:29:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0ac5d784c64f",
         "idea_version": "IDEAV-4baa810c8a8e6979",
         "idea_version_started_at": "2026-08-22T22:06:30Z",
@@ -151471,7 +151703,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 605,
-    "live_count": 86,
+    "live_count": 80,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151490,9 +151722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 825041,
-    "news_picked_today": 894,
-    "news_dropped_today": 6288
+    "news_seen_today": 903767,
+    "news_picked_today": 931,
+    "news_dropped_today": 6371
   },
   "book_momentum": {
     "live_count": 8,
