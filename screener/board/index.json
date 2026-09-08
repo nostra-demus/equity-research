@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:46:55Z",
+  "generated_at": "2026-09-08T09:47:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-369",
@@ -105412,6 +105412,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-e15ec643a0a42a39",
+      "idea_version_started_at": "2026-09-08T09:47:09Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of a phase 3 clinical trial for a key asset in a $12 billion acquisition significantly impairs the expected return on investment and future revenue potential of the deal.",
+      "why_now": "The trial failure was reported today, September 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a28b54b6b035"
+      ],
+      "primary_source_event_id": "EVT-a28b54b6b035",
+      "source_headlines": [
+        "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test"
+      ],
+      "source_headline": "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test",
+      "source_url": "https://www.fiercebiotech.com/biotech/novartis-centerpiece-12b-avidity-buyout-flunks-crucial-phase-3-test",
+      "source_name": "FierceBiotech",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-08T08:19:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T08:46:50Z",
+      "updated_at": "2026-09-08T09:47:09Z",
+      "decay_at": "2026-09-09T20:19:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7f632fc10e45",
       "idea_version": "IDEAV-81d0e989a85aab37",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -106038,6 +106108,77 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b15468d98102",
+      "idea_version": "IDEAV-0cb5f8ce6e5d2776",
+      "idea_version_started_at": "2026-09-08T09:47:09Z",
+      "ticker": "JUPITERWAG",
+      "company": "Jupiter Wagons Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a new commercial order worth Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
+      "why_now": "The order announcement was filed today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d206bf5ebfb"
+      ],
+      "primary_source_event_id": "EVT-5d206bf5ebfb",
+      "source_headlines": [
+        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
+      ],
+      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T08:06:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T09:47:09Z",
+      "updated_at": "2026-09-08T09:47:09Z",
+      "decay_at": "2026-09-09T20:06:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111572,76 +111713,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-9fc5a70d33aecf8e",
-      "idea_version_started_at": "2026-09-06T18:59:32Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
-      "why_now": "The halt was reported on 2026-09-05.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6c00aac88c4"
-      ],
-      "primary_source_event_id": "EVT-d6c00aac88c4",
-      "source_headlines": [
-        "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
-      ],
-      "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
-      "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T10:00:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T08:46:50Z",
-      "updated_at": "2026-09-06T18:59:32Z",
-      "decay_at": "2026-09-06T22:00:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0beb62fe006b",
       "idea_version": "IDEAV-8151dcab328d0292",
       "idea_version_started_at": "2026-09-06T18:32:33Z",
@@ -115173,8 +115244,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 506,
-    "shown_count": 487,
+    "total_count": 505,
+    "shown_count": 486,
     "hidden_count": 19,
     "side_counts": {
       "long": {
@@ -115183,8 +115254,8 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 237,
-        "shown_count": 237,
+        "total_count": 236,
+        "shown_count": 236,
         "hidden_count": 0
       }
     },
@@ -119015,79 +119086,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-06T22:37:23Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-85129948d8af",
-        "idea_version": "IDEAV-9fc5a70d33aecf8e",
-        "idea_version_started_at": "2026-09-06T18:59:32Z",
-        "ticker": "NVS",
-        "company": "Novartis",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The clinical trial halt due to patient deaths in a CAR-T program creates significant regulatory risk and potential impairment of a key pipeline asset.",
-        "why_now": "The halt was reported on 2026-09-05.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d6c00aac88c4"
-        ],
-        "primary_source_event_id": "EVT-d6c00aac88c4",
-        "source_headlines": [
-          "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more"
-        ],
-        "source_headline": "CAR-T deaths prompt halt by Novartis; Eli Lilly’s 13th acquisition of 2026; and more",
-        "source_url": "https://endpoints.news/car-t-deaths-prompt-halt-by-novartis-eli-lillys-13th-acquisition-of-2026-and-more/",
-        "source_name": "Endpoints News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T10:00:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T08:46:50Z",
-        "updated_at": "2026-09-06T18:59:32Z",
-        "decay_at": "2026-09-06T22:00:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T22:00:45Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -151372,8 +151370,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 603,
-    "live_count": 95,
+    "surfaced_total": 604,
+    "live_count": 97,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
