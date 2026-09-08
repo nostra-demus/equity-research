@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T17:22:24Z",
+  "generated_at": "2026-09-08T17:38:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -886,6 +886,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-664",
+      "headline": "Why Valaris (VAL) Surged on a Takeover Bid",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-valaris-val-surged-takeover-165420282.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T16:54:20Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Valaris stock surged following a takeover bid, indicating a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Valaris stock surged following a takeover bid, indicating a significant M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Valaris",
+          "ticker": "VAL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-648",
       "headline": "EasyJet faces $72 million lawsuit tied to stranded Airbus planes, FT reports",
       "headline_en": null,
@@ -1084,6 +1133,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-670",
+      "headline": "PACS Expands Florida Footprint With 32-Facility Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pacs-expands-florida-footprint-32-facility-acquisition",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T15:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "PACS is acquiring 32 facilities, representing a significant expansion of its operational footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PACS is acquiring 32 facilities, representing a significant expansion of its operational footprint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PACS",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1895,103 +1993,6 @@
         {
           "name": "ABM Industries",
           "ticker": "ABM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-524",
-      "headline": "Biotech filed for bankruptcy 11 weeks before its big FDA decision",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/biotech-filed-bankruptcy-11-weeks-120300807.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T12:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Biotech company filed for bankruptcy shortly before a major FDA decision.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Biotech company filed for bankruptcy shortly before a major FDA decision.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-506",
-      "headline": "WaFd and EverBank Financial agree on $3.9bn reverse merger",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/wafd-everbank-financial-agree-3-115556827.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T11:55:56Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "WaFd and EverBank agreed to a $3.9bn reverse merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "WaFd and EverBank agreed to a $3.9bn reverse merger.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WaFd",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "EverBank Financial",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -152370,9 +152371,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2585840,
-    "news_picked_today": 1315,
-    "news_dropped_today": 8459
+    "news_seen_today": 2648695,
+    "news_picked_today": 1329,
+    "news_dropped_today": 8541
   },
   "book_momentum": {
     "live_count": 8,
