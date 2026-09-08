@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T06:58:23Z",
+  "generated_at": "2026-09-08T07:03:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -1341,6 +1341,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-284",
+      "headline": "Old Mutual profit drops as US-Iran war fallout curbs investments",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/old-mutual-profit-drops-as-us-iran-war-fallout-curbs-investments/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T06:07:16Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Old Mutual reports a drop in profit as geopolitical fallout from US-Iran tensions curbs investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Old Mutual reports a drop in profit as geopolitical fallout from US-Iran tensions curbs investments.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Old Mutual Limited",
+          "ticker": "OMU",
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-246",
       "headline": "Shiprocket Share Price Jumps Over 6% After Q1 Net Loss Narrows, Revenue Surges",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "Suzlon Energy",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-001",
-      "headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T23:57:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Pateo is conducting a share placement, which will dilute existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Pateo is conducting a share placement, which will dilute existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pateo",
-          "ticker": "02889",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -151241,9 +151241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 34910,
-    "news_picked_today": 503,
-    "news_dropped_today": 4063
+    "news_seen_today": 37787,
+    "news_picked_today": 524,
+    "news_dropped_today": 4258
   },
   "book_momentum": {
     "live_count": 8,
