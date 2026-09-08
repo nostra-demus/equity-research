@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T01:02:25Z",
+  "generated_at": "2026-09-08T01:06:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -1596,6 +1596,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-052",
+      "headline": "Tiny, Slow, And Super Cheap: The VinFast VF 2 Could Come To America And Europe",
+      "headline_en": null,
+      "url": "https://www.carscoops.com/2026/09/vinfast-vf2-international-sales/",
+      "source_name": "Carscoops",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "VinFast is considering expanding its product lineup to the US and Europe, though no firm commitment is made.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "VinFast is considering expanding its product lineup to the US and Europe, though no firm commitment is made.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VinFast",
+          "ticker": null,
+          "listing_country": "VN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-031",
       "headline": "Radware COO Gabriel Malka Sells 6,500 Shares for $195,000",
       "headline_en": null,
@@ -1838,49 +1887,6 @@
       "triage_score": 47,
       "triage_reason": "Geopolitical escalation involving North Korea and the US poses a risk to regional stability and global markets.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-005",
-      "headline": "Myanmar military intensifies operations to retake China project areas",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/spotlight/myanmar-crisis/myanmar-military-intensifies-operations-to-retake-china-project-areas",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:04:22Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Escalation of military conflict in Myanmar threatens critical infrastructure projects involving Chinese investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Escalation of military conflict in Myanmar threatens critical infrastructure projects involving Chinese investment.",
-      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -149520,9 +149526,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 260,
-    "news_picked_today": 50,
-    "news_dropped_today": 210
+    "news_seen_today": 277,
+    "news_picked_today": 52,
+    "news_dropped_today": 225
   },
   "book_momentum": {
     "live_count": 8,
