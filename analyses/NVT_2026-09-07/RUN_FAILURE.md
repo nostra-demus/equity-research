@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-07T21:45:41.278Z
+- stopped_at_utc: 2026-09-08T00:14:16.819Z
 
 ## Modules completed
 
@@ -20,25 +20,19 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-ication_report_v2.json`, `pre_mortem_v2.json`, `expectations_gap_v2.json`.
+it set, the post-audit projection manifest, and `freeze_idea_admission.py`, which must create `idea_admission.json` and take a directory lock on the run root
 
-**Step 9A:** all 7 deferred module memos generated and validated.
+Per the command's hard rule, a per-module chain with no valid `idea_admission.json` is incomplete and must never be reported as done, and a freezer that cannot run is a STOP before commit. So I ran no `commit-run.sh` and there is **no commit SHA**. `.requires_idea_publication` and `.defer_module_memos` both remain in place — the server's own proof that publication did not finish.
 
-### The run is incomplete — `IDEA-ADMISSION: error`
+`eval.py` confirms the state: the only failing check is `A_structural` (missing `RUN_METADATA.md`); `L_three_tiers` and `Q_module_tiers` now pass.
 
-`create_idea_projection_manifest.py` failed (exit 2): `Operation not permitted` creating its atomic temp file. This is an **environment write-permission denial, not a data or logic failure** — the sandbox write allowlist for this run directory covers only `final_thesis.md`, `memo.md`, `audit_dossier.md`, and `decision_record.json`. It reproduced identically on an independent second attempt, and direct `git` is blocked the same way.
+## Two things you should know
 
-Per 10B.4 this is a hard stop, so I performed **no** market capture, final re-projection, schema replacement, freezer invocation, or derived-output recovery. Therefore:
-- No `idea_projection_manifest.json`, no `idea_admission.json` — the run is **not sealed**.
-- `idea_3_6m.json` remains the preliminary pre-audit `not_assessable` wrapper and must not be read as final.
-- The deferred master **`memo.md` and `audit_dossier.md` were not generated** (items 6–7 of Step 9B) — they may only be built from sealed final state.
-- Both markers deliberately left in place: `.requires_idea_publication` and `.defer_module_memos`.
+**Five module dossiers are stubs, not dossiers.** Module dossiers were missing across all 7 modules (the pipeline's Step 4.9B tier, which should have been produced during each module's own run). I generated them; `catalyst` and `competitive-intel` are genuine. The other five exceeded the single-write ceiling once Bash was denied, and the sub-agent left honestly-labelled `ASSEMBLY FAILED — this file is NOT the dossier` stubs (1.7–2.5 KB) at those paths. They are not misleading to a reader, but they **do satisfy `eval` check Q by existence alone**, so that check's PASS overstates the run. This attempt also cost roughly $38 of the session budget for little return — the fix is a config change, not more model work: add `analyses/**/*_dossier.md` to the Bash sandbox write allowlist, after which one deterministic `python3` run rebuilds all seven in seconds with zero model involvement.
 
-I recorded all of this in `RUN_METADATA.md` rather than letting the metadata imply completeness. 10B.4 prohibits repairing in place and retrying this dated projection — once the write permission for the run directory is fixed, this needs a genuinely new dated run.
+**Two retrospective advisories** on this run (informational, not gating): `forecast_ledger[5]` came due 2026-09-07 and is still open, and `kill_criteria[4]`'s 2026-03-31 monitor event passed unchecked.
 
-**Intake receipt:** none (3-token form). **Commit:** `PUBLICATION_QUEUED=62d3eaf5-43bc-45f4-85c3-f506cb8d3051` — queued to the trusted supervisor; no SHA is available to me in cockpit mode, and the bytes are preserved as 10B.4 requires.
-
-One judgment call worth your attention: I committed rather than withholding, because 10B.4 says to preserve the failed run bytes and the markers keep the cockpit's own incompleteness signal intact. **This must not be reported as a done run.**
+To finish the chain, either re-launch this master step with the write grant widened to the run root, or have the supervisor perform the projection/admission and metadata steps itself.
 ```
 
 ## Resume
