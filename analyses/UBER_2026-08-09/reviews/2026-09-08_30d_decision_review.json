@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "original_decision_date": "2026-08-09",
+  "review_date": "2026-09-08",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 68.18,
+  "tracking_price": null,
+  "review_price": 75.76,
+  "absolute_return_pct": 11.12,
+  "benchmark_return_pct": -0.50,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 11.62,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "Q3 FY2026 guided EBITDA clears the guided high end ($2,960M) for a 3rd straight quarter",
+      "status": "still open",
+      "evidence": "FQ3 2026 results are not due until through 2026-11-03; not yet reported as of this review date.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Delivery Hero bridge-to-term-loan conversion is priced <=5.7% weighted-average coupon with no first-time maintenance covenant",
+      "status": "falsified",
+      "evidence": "Uber executed a senior unsecured Term Loan Credit Agreement on 2026-08-06 (SEC 8-K ex10-3, TipRanks/StockTitan coverage, accessed 2026-09-08) that DOES include a financial maintenance covenant -- a minimum interest-coverage ratio of at least 3.00-to-1.00, tested on an ongoing basis, alongside limits on additional secured debt and a $500mm cross-default/judgment threshold. The forecast required BOTH conditions (pricing <=5.7% AND no first-time maintenance covenant) to hold; since a maintenance covenant did appear, the conjunctive forecast is falsified regardless of the pricing leg. Margin data found (EURIBOR/ESTR loans priced at a margin of roughly mid-0.x% to ~1.3-1.4% over the reference rate, rating-dependent, per the same 8-K coverage) suggests the ALL-IN coupon is plausibly still below 5.7%, but this was not independently confirmed as a weighted-average figure. This review could not confirm from public sources whether Uber had a prior maintenance covenant in an existing facility, so 'first-time' is treated as most-likely-true based on the pre-mortem's own framing rather than independently re-verified.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Revenue consensus for FQ3 FY26 stabilizes (no further net cut beyond 1% from the Aug-2026 level)",
+      "status": "not assessable",
+      "evidence": "No dated, corroborated sell-side consensus revision series for UBER FQ3 FY26 revenue was located via public web search as of 2026-09-08 (a search result claiming Q3 2026 had 'already reported' with specific revenue figures was internally inconsistent with the confirmed Oct/Nov 2026 reporting window and was not used).",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "The N.D. Cal. derivative lawsuit reaches a motion-to-dismiss ruling, discovery order, or settlement naming the board",
+      "status": "still open",
+      "evidence": "The case (Louisiana Sheriffs' Pension & Relief Fund et al. v. Khosrowshahi et al., N.D. Cal., filed 2026-07-22, docket 3:26-cv-07600 per CourtListener, accessed 2026-09-08) remains in early procedural stages: a Case Management Statement is due 2026-10-13 and the Initial Case Management Conference is set for 2026-10-20. No motion to dismiss has been filed or ruled on yet.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "FY2026 10-K (filed ~Feb-2027) reintroduces the full company-level Adjusted-EBITDA-to-GAAP reconciliation",
+      "status": "still open",
+      "evidence": "Window (~Feb-2027) far from elapsed.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Q4/FY2026 print (~Feb-2027) discloses a first quantified autonomous-vehicle investment cost figure",
+      "status": "still open",
+      "evidence": "Window far from elapsed.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Pro-forma net debt/TTM EBITDA (post Delivery Hero bridge draw) exceeds 2.5x by Q4 FY2026 reporting",
+      "status": "still open",
+      "evidence": "The Delivery Hero deal has not closed and the acquisition-related bridge/term-loan facilities have not been drawn against the closed acquisition; this metric is not yet computable.",
+      "as_of": "2026-09-08"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Delivery Hero bridge/term-loan financing execution",
+      "status": "occurred",
+      "evidence": "Term Loan Credit Agreement and revolving facilities (~$11.7bn combined) executed 2026-08-06, disclosing covenant terms for the first time (see forecast #2 above)."
+    },
+    {
+      "catalyst": "N.D. Cal. derivative lawsuit procedural milestones",
+      "status": "pending, procedural stage only",
+      "evidence": "Case Management Statement due 2026-10-13; Initial Case Management Conference 2026-10-20 (CourtListener docket 3:26-cv-07600, accessed 2026-09-08). No MTD filed yet."
+    },
+    {
+      "catalyst": "Delivery Hero shareholder acceptance period",
+      "status": "occurred, ongoing",
+      "evidence": "Acceptance period runs 2026-08-27 to 2026-11-05, per Uber investor-relations releases."
+    },
+    {
+      "catalyst": "Q3 FY2026 earnings (through Nov-03-2026)",
+      "status": "pending",
+      "evidence": "Not yet occurred."
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Derivative lawsuit survives motion to dismiss and discovery corroborates the false-disclosure allegation",
+      "status": "pending, too early",
+      "evidence": "No motion to dismiss has been filed yet; the case is still at the initial case-management stage (statement due 2026-10-13, conference 2026-10-20). This risk cannot resolve before that process advances."
+    },
+    {
+      "risk": "Delivery Hero bridge drawn in full, priced above ~5.7%, or a first-ever maintenance covenant appears",
+      "status": "trending toward materializing (covenant leg)",
+      "evidence": "A financial maintenance covenant (3.00x minimum interest coverage) IS now disclosed in the executed 2026-08-06 Term Loan Credit Agreement -- satisfying the 'maintenance covenant appears' leg of this OR-condition risk, on the same-day evidence used for the forecast above. This is the closest thing to a live kill-criterion trigger found in this review cycle and is why thesis_status is marked at-risk rather than on-track. The pricing leg (>5.7%) was not independently confirmed as breached; available margin data suggests it is plausibly not breached.",
+      "note": "This risk was explicitly named in this run's own pre-mortem as MORE probable and proximate than the derivative-lawsuit killer risk the report's headline foregrounded -- that read looks directionally correct so far."
+    },
+    {
+      "risk": "Adverse driver/courier reclassification ruling in the US (50.9% of FY25 revenue)",
+      "status": "not materialized",
+      "evidence": "No new adverse ruling found via public search as of 2026-09-08."
+    },
+    {
+      "risk": "A 3rd straight revenue miss beyond the recent +/-0.6% range, or EBITDA/EPS falls below the guided low end",
+      "status": "pending",
+      "evidence": "No Q3 FY2026 print yet."
+    },
+    {
+      "risk": "Reported revenue growth fails to recover once the UK VAT drag laps in Q1 FY27",
+      "status": "still open",
+      "evidence": "Window (Q1 FY27) far from elapsed."
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price action: UBER rose from an entry price of $68.18 (2026-08-06, Capital IQ) to a web-sourced $75.76 close on 2026-09-04 (Investing.com/CNBC aggregation, accessed 2026-09-08) -- a +11.12% absolute move, ahead of the S&P 500's -0.50% over the same window (7,757.64 on 2026-08-06, a record close, to 7,718.60 on 2026-09-04, both CNBC-dated), a +11.62pp benchmark-relative outperformance.",
+    "sector_return_pct is left null: the decision record itself notes no dedicated mobility/delivery index exists in this pool.",
+    "The single most consequential development this review found: the forecast this run's own pre-mortem flagged as MORE probable than its headline derivative-lawsuit risk -- a first-ever maintenance covenant appearing in the Delivery Hero financing -- appears to have happened. The 2026-08-06 Term Loan Credit Agreement (executed 3 days before this run's decision_date) discloses a 3.00x minimum interest-coverage covenant. This falsifies the specific conjunctive forecast (pricing<=5.7% AND no maintenance covenant) and is treated as the risk 'trending toward materializing' on the covenant leg -- exactly the direction the pre-mortem anticipated, which is itself informative about this run's own red-team calibration (see pre_mortem_check).",
+    "The derivative lawsuit -- the risk this run's OWN headline foregrounded as the killer risk -- remains at an early procedural stage (no MTD filed; case-management conference not until 2026-10-20), consistent with the pre-mortem's argument that it was LESS proximate than the financing-covenant risk. This is a genuinely useful early data point on this run's internal risk-ranking, though far from conclusive at 30 days.",
+    "This run's decision_date (2026-08-09) is only 3 days after the prior UBER_2026-08-06 run's decision_date; both stand as independent, non-superseded records per this run's own corrections.json (a note_clear erratum only, no supersession) and per the decision-ledger discovery script. Both are reviewed independently in this cycle; see analyses/UBER_2026-08-06/reviews/2026-09-08_30d_decision_review.json for the twin review.",
+    "decision_quality is marked 'not assessable': despite the covenant-leg finding above, nothing has fully resolved (headroom uncalculated, deal not closed, lawsuit not past initial pleadings), and the +11.1% price move is not itself evidence on the specific named risks."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_module": "management-governance (RF-MGT-005 Critical unresolved derivative lawsuit; RF-CAP-004 Critical serial-acquirer/debt-funded-M&A pattern) was most responsible for the Watchlist cap.",
+    "most_accurate_so_far": "This run's own pre-mortem (not a module per se, but the finish-gate red-team layer) looks directionally more accurate than the run's own headline framing so far: it explicitly ranked the Delivery Hero financing-covenant risk as MORE probable and proximate than the derivative lawsuit the report's headline foregrounded, and the covenant-leg evidence found in this review supports that ranking (a maintenance covenant appeared within days of decision_date, while the lawsuit remains at the initial pleadings stage).",
+    "missed_key_variable": "None identified as a genuine miss yet -- the covenant disclosure emerged via a same-week SEC 8-K, and it is unclear whether the pool at decision time (2026-08-09) already reflected these exact covenant terms as 'undisclosed'; if it did not extract an already-public 8-K dated 2026-08-06, that would be a bad-extraction candidate for a future review to confirm once the primary filing is checked against the pool directly.",
+    "valuation_mattered_most": false,
+    "earnings_mattered_most": false,
+    "governance_mattered_most": true,
+    "balance_sheet_survival_mattered_most": true,
+    "business_quality_mattered_most": false,
+    "note": "Too early for full calibration credit, but the pre-mortem's relative risk-ranking (financing covenant over derivative lawsuit) is the one piece of this run's own reasoning that has a real, if partial, data point supporting it after 30 days."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist cap (Critical RF-MGT-005 unresolved derivative lawsuit and RF-CAP-004 serial-acquirer/leverage pattern) is unchanged; the newly disclosed maintenance covenant is a genuine step toward the pre-mortem's named killer risk but headroom is still uncalculated, and the derivative lawsuit remains too early in its own process to resolve either way."
+  },
+  "confidence_update": {
+    "before": 47,
+    "after": 42,
+    "change_reason": "The pre-mortem's own preferred killer risk (a first-ever maintenance covenant appearing in the Delivery Hero financing) shows a real, dated data point supporting it within days of decision_date, which is a modest reason for LESS confidence in the thesis's overall risk/reward, not more -- while the derivative lawsuit (the run's own headline risk) has produced no adverse development yet."
+  },
+  "next_check": {
+    "date": "2026-11-07",
+    "label": "90d review, informed by the Q3 FY2026 print (through Nov-03-2026) and the derivative lawsuit's Initial Case Management Conference (2026-10-20)",
+    "trigger": "Check whether Q3 FY2026 EBITDA cleared the guided high end for a third straight quarter, whether the derivative lawsuit survived or was narrowed at or after the case-management conference, and whether Uber has disclosed actual post-draw interest-coverage headroom against the 3.00x covenant."
+  },
+  "learning": {
+    "why_right_or_wrong": "Too early to grade the headline call, but the run's own pre-mortem correctly anticipated that the Delivery Hero financing-covenant risk was more proximate than the derivative lawsuit it foregrounded -- a maintenance covenant appeared within days of decision_date, while the lawsuit remains at initial pleadings.",
+    "error_source": "",
+    "rule_for_future": "When a run's own pre-mortem explicitly re-ranks the killer risk against the report's own headline framing, track BOTH risks separately in the review rather than defaulting to the headline framing -- the pre-mortem's re-ranking can itself be a testable, gradable claim.",
+    "future_research_check": "Before the 90d review, confirm from the primary 8-K/10-Q filings whether the 3.00x minimum interest-coverage covenant is genuinely Uber's first such maintenance covenant (not previously present in an existing facility), and check whether it was disclosed in time to have been captured in the pool this run actually used at decision_date (2026-08-09)."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/UBER_2026-08-09/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "thesis_status is at-risk (one risk trending toward materializing) but nothing has fully resolved either way at 30 days, so this is too_early for vindicated/contradicted per the decision table. Worth flagging: the pre-mortem's own re-ranking of the killer risk (Delivery Hero financing-covenant risk over the derivative lawsuit) looks directionally supported so far -- the covenant appeared, the lawsuit has not advanced past initial pleadings -- which is informative context for the eventual outcome_vs_verdict call at 90d/180d, even though it cannot be scored as vindicated yet."
+  },
+  "memo_delta": {
+    "summary": "Thirty days into the Watchlist call, UBER is up +11.1% (vs. the S&P 500's -0.5%), and the run's own pre-mortem re-ranking looks directionally supported: the Delivery Hero financing-covenant risk it flagged as MORE proximate than the derivative lawsuit shows a real data point (a 3.00x minimum interest-coverage maintenance covenant disclosed 2026-08-06), while the derivative lawsuit remains at the initial pleadings stage (case-management conference not until 2026-10-20). Nothing has fully resolved either way.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "Uber is up about 11% since our August 9 Watchlist call, well ahead of a roughly flat-to-down S&P 500, but the two risks we named have moved in different directions. The federal shareholder lawsuit over the board's safety disclosures -- the risk our report's headline focused on -- is still very early: no ruling, not even a formal motion to dismiss yet, with the next real step not until an October 20 court conference. But our own internal red-team review, done right after the report was written, flagged a DIFFERENT risk as more likely to bite first: whether Uber's Delivery Hero financing would come with a real ongoing covenant. It has -- a signed loan agreement from August 6 requires Uber to keep meeting a minimum interest-coverage test, something it apparently has not had to do before. We still cannot say how much cushion Uber has against that test. We are not changing the rating, but this is a real, if partial, confirmation of our own report's internal caution about where the actual risk sits. Next real test: the Q3 earnings print and the October 20 court conference.",
+    "changed_sections": [
+      {
+        "section": "Part I Killer Risk / kill criterion 2 (Delivery Hero bridge pricing and maintenance covenant)",
+        "original_claim": "The Delivery Hero bridge converting on rich, undisclosed terms (priced above ~5.7%, or carrying a first-ever maintenance covenant) within roughly seven weeks of this report -- a more probable and more proximate killer than the derivative lawsuit the report's own headline foregrounds.",
+        "new_evidence": "A Term Loan Credit Agreement executed 2026-08-06 discloses a 3.00x minimum interest-coverage maintenance covenant -- the specific condition the pre-mortem flagged as most likely. Pricing (the >5.7% leg) was not independently confirmed as breached; available margin data suggests it may still be below that threshold.",
+        "evidence_source": "Web: SEC 8-K (ex10-3), Uber Technologies Inc, filed 2026-08-06/08 (primary, dated); TipRanks/StockTitan coverage, accessed 2026-09-08",
+        "materiality_score": 55,
+        "impact_direction": "negative",
+        "impacted_modules": ["balance-sheet-survival", "management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "Materiality (55) is below the 60 re-run threshold -- the covenant's EXISTENCE is now confirmed, but its headroom (the actual number that matters for the kill criterion) is not yet computable from public sources. Revisit once Uber discloses a post-draw interest-coverage figure or a subsequent quarterly filing shows the ratio.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Part I Red Flags / RF-MGT-005 (derivative lawsuit)",
+        "original_claim": "Unresolved federal shareholder derivative lawsuit naming CEO, Chairman, and every sitting director, alleging suppressed safety data and false 2024-2026 proxy disclosures -- Critical.",
+        "new_evidence": "Case remains at the initial pleadings stage: Case Management Statement due 2026-10-13, Initial Case Management Conference 2026-10-20 (CourtListener docket 3:26-cv-07600). No motion to dismiss filed or ruled on yet.",
+        "evidence_source": "Web: CourtListener docket 3:26-cv-07600, accessed 2026-09-08 (primary court record)",
+        "materiality_score": 20,
+        "impact_direction": "neutral",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "No real change -- the case is proceeding on an ordinary procedural timeline with nothing yet to re-price.",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "N.D. Cal. derivative lawsuit's Initial Case Management Conference (2026-10-20) and any motion to dismiss filed before or after it",
+      "Actual post-draw interest-coverage headroom against the disclosed 3.00x minimum covenant",
+      "Q3 FY2026 earnings (through 2026-11-03): EBITDA vs. the guided high end for a 3rd straight quarter, revenue consensus stabilization",
+      "Delivery Hero shareholder acceptance period outcome (concludes 2026-11-05)",
+      "Whether the FY2026 10-K reintroduces the full Adjusted-EBITDA-to-GAAP reconciliation"
+    ],
+    "management_questions": [
+      "What is Uber's actual and pro-forma interest-coverage ratio against the newly disclosed 3.00x minimum covenant, and is this Uber's first such maintenance covenant in any facility?",
+      "What is the company's substantive response to the Louisiana Sheriffs' Pension & Relief Fund derivative complaint's specific allegations about the 2017-built assault-prediction tool?",
+      "Will the FY2026 10-K reintroduce the full company-level Adjusted-EBITDA-to-GAAP reconciliation discontinued in Q1 FY2026?",
+      "Has a first quantified autonomous-vehicle investment cost figure been prepared for the FY2026 Q4 print?",
+      "What is the expected weighted-average coupon across the full Delivery Hero financing package once the bridge is drawn against the closed acquisition?"
+    ],
+    "memo_delta_file": "analyses/UBER_2026-08-09/reviews/2026-09-08_30d_memo_delta.md"
+  }
+}

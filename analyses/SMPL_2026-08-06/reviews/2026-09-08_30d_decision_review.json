@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "ticker": "SMPL",
+  "original_decision_date": "2026-08-06",
+  "review_date": "2026-09-08",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 11.33,
+  "tracking_price": null,
+  "review_price": 11.45,
+  "absolute_return_pct": 1.06,
+  "benchmark_return_pct": -0.24,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 1.30,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "SMPL's FQ4 FY2026 print (Oct-23-2026) lands within management's guided range ($322M-$332M net sales / $52M-$57M Adj. EBITDA)",
+      "status": "still open",
+      "evidence": "The print is not due until 2026-10-23, more than 5 weeks after this review date; no result exists yet.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "A fourth consecutive-quarter goodwill/intangible impairment occurs in FQ4 FY2026 or FY2027",
+      "status": "still open",
+      "evidence": "The next live test is the same Oct-23-2026 FQ4 print; no interim 8-K or Note disclosure of a new impairment was found via public search as of 2026-09-08.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "A third material (>$50M), debt-funded acquisition is announced before OWYN's 2-year post-impairment anniversary (mid-2028)",
+      "probability_note": "no change",
+      "status": "still open",
+      "evidence": "No new M&A announcement was found via public search as of 2026-09-08; management has not signaled acquisition intent in any post-decision public source located.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "The September-2026 price increase's net effect (visible in the FQ1 FY2027 print) shows realized net revenue on the affected base within +/-1% of flat",
+      "status": "still open",
+      "evidence": "The high-single-digit price increase across most of the portfolio appears to have taken effect in September 2026 as management previously guided (Q3 FY2026 earnings call, July 2026); no realized-elasticity data exists yet -- the FQ1 FY2027 print that would reveal it still has no confirmed report date.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "SMPL's stock price closes within the $13.76-$17.53 live-triangulating fair-value range within 12 months of this run",
+      "status": "still open",
+      "evidence": "Current price (~$11.45, 2026-08-31, Macrotrends historical data, most recent dated close located) remains well below the $13.76 low end of the range; window runs to 2027-08-06.",
+      "as_of": "2026-09-08"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "September 2026 high-single-digit list-price increase",
+      "status": "implemented as planned, result pending",
+      "evidence": "No public reporting found indicating the price increase was delayed or altered from the plan management described on the July 2026 Q3 FY2026 earnings call. Its realized elasticity effect will not be visible until the FQ1 FY2027 print, which has no confirmed date."
+    },
+    {
+      "catalyst": "Oct-23-2026 FQ4 FY2026 earnings + first formal FY2027 guide",
+      "status": "pending",
+      "evidence": "Not yet occurred as of this review date (2026-09-08)."
+    },
+    {
+      "catalyst": "~Late Jan-2027 next Annual General Meeting",
+      "status": "pending",
+      "evidence": "Window not yet reached."
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "RF-CAP-004 -- serial-acquirer pattern (OWYN)",
+      "status": "escalated, not newly materialized",
+      "evidence": "A securities-fraud class action (Monroe County Employees' Retirement System v. The Simply Good Foods Company, alleging non-disclosure of OWYN integration/personnel losses and the pea-protein sourcing defect between 2024-10-24 and 2026-04-08) was filed and publicized by multiple plaintiffs'-firm press releases between 2026-08-25 and 2026-09-04 (Morningstar/PR Newswire 2026-08-25; multiple GlobeNewswire releases 2026-09-01 through 2026-09-04; lead-plaintiff deadline 2026-10-13). This is a legal escalation of the ALREADY-flagged OWYN impairment/disclosure pattern (RF-CAP-004, RF-DISC-002), not a new underlying fact about the business -- the alleged conduct predates decision_date. It is new PROCEDURAL/legal-risk evidence since 2026-08-06 and is logged here rather than silently absorbed."
+    },
+    {
+      "risk": "RF-DISC-002 -- recurring 'one-off' non-GAAP add-backs / impairment pattern",
+      "status": "pending",
+      "evidence": "Next live test is the Oct-23-2026 FQ4 print (per the pre-mortem's own read: impairments in FQ4 FY2025, FQ2 FY2026, and FQ3 FY2026 -- 3 of the last 4 reported quarters). No new impairment reported since decision_date."
+    },
+    {
+      "risk": "RF-MGT-004 -- turnaround claimed without proven inflection",
+      "status": "pending",
+      "evidence": "No new quarter of results has printed since decision_date to test operating delivery."
+    },
+    {
+      "risk": "RF-EQ-001 -- accrual-quality flags (revenue outgrowing CFO, etc.)",
+      "status": "pending",
+      "evidence": "No new quarterly filing since decision_date to re-test the accrual metrics."
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price action was essentially flat over the 30-day window: entry $11.33 (2026-08-04, Capital IQ) to a review price of $11.45 (2026-08-31, Macrotrends historical data, most recent dated close located as of 2026-09-08 -- a precise 2026-09-05/08 close could not be corroborated across sources; one aggregator (Simply Wall St, dated ~2026-09-01) showed a materially different figure (~$12.63) that could not be cross-verified against a second dated source and was NOT used). +1.06% absolute, +1.30% ahead of the S&P 500 (7,737 on 2026-08-04 to 7,718.60 on 2026-09-04, both CNBC-sourced, dated) -- an immaterial move consistent with 'on-track, nothing resolved yet.'",
+    "sector_return_pct (S&P 500 Packaged Food & Meats index) is left null: located index levels (471.97 and 572.22 from different aggregators) could not be reconciled to a consistent index vintage/base, so no like-for-like sector return could be computed without guessing -- left null per DECISION_LEDGER.md S8 rather than fabricated.",
+    "None of the five forecast-ledger items has resolved -- all remain 'still open,' correctly, because the single decisive catalyst (the Oct-23-2026 FQ4 print, which is also the next live test of the recurring-impairment kill criterion per this run's own pre-mortem) has not yet occurred. This is exactly the outcome the pre-mortem's own outcome_vs_verdict logic classifies as too_early, not vindication or contradiction.",
+    "A genuinely new fact since decision_date: a securities-fraud class action was filed and publicized (first press release located 2026-08-25, multiple follow-ups through 2026-09-04; lead-plaintiff deadline 2026-10-13) alleging SMPL failed to disclose OWYN integration/personnel losses and a pea-protein sourcing defect during 2024-10-24 to 2026-04-08. The underlying conduct predates decision_date and was already captured in substance by RF-CAP-004 and RF-DISC-002 (Critical), so this is a legal escalation of a known risk, not a new underlying fact -- but the formal litigation itself (discovery costs, potential settlement exposure, distraction risk) is new incremental information logged in memo_delta below rather than silently absorbed into the existing red flags.",
+    "decision_quality is marked 'not assessable': the price move is immaterial and none of the five forecast items nor any risk has resolved either way at 30 days -- exactly the 'too early to grade' state the framework anticipates for a review this close to decision_date on a thesis whose defining catalyst is dated 11 weeks out."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_module": "management-governance (RF-CAP-004 Critical serial-acquirer cap) was most responsible for the Watchlist decision and its rating ceiling; valuation (base case +34.8% / bull +94.0% / headline bear -25.7%) was most responsible for the return framing.",
+    "most_accurate_so_far": "Not yet assessable -- no forecast has resolved in either direction at 30 days.",
+    "missed_key_variable": "None identified yet -- the securities class action is an escalation of an already-flagged risk (RF-CAP-004/RF-DISC-002), not evidence the management-governance module missed a variable; the underlying facts (OWYN personnel loss, pea-protein sourcing defect) were already known and cited pre-decision.",
+    "valuation_mattered_most": false,
+    "earnings_mattered_most": false,
+    "governance_mattered_most": true,
+    "balance_sheet_survival_mattered_most": false,
+    "business_quality_mattered_most": false,
+    "note": "Too early (30 days into a thesis whose defining catalyst is the Oct-23-2026 print) for any confident module-accuracy attribution. The 90d review (2026-11-04), which will have the FQ4 print and its impairment/guidance content in hand, is the first checkpoint likely to carry real calibration signal."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist cap (Critical RF-CAP-004 serial-acquirer red flag, per CLAUDE.md S18/S24) is unchanged; the newly filed securities class action escalates a known risk rather than introducing a new one, and price action (+1.06%, essentially flat) gives no reason to revisit before the Oct-23-2026 FQ4 print."
+  },
+  "confidence_update": {
+    "before": 30.0,
+    "after": 28,
+    "change_reason": "A securities-fraud class action tied to the already-flagged OWYN disclosure pattern was filed and publicized since decision_date (first release 2026-08-25), adding incremental legal/procedural risk on top of the existing Critical governance cap; no other evidence has moved either direction, so this is a small, evidence-specific adjustment, not a reassessment of the underlying thesis."
+  },
+  "next_check": {
+    "date": "2026-11-04",
+    "label": "90d review, informed by the Oct-23-2026 FQ4 FY2026 print and first FY2027 guide",
+    "trigger": "Check whether FQ4 FY2026 printed inside the guided range, whether a fourth consecutive-quarter impairment occurred, and whether the September-2026 price increase's realized elasticity (if disclosed) tracks toward or away from management's '1 or higher' fear."
+  },
+  "learning": {
+    "why_right_or_wrong": "Too early to grade -- nothing in the thesis (Watchlist, capped by the Critical serial-acquirer red flag) has been confirmed or falsified in the first 30 days, and price action has been immaterial, consistent with the fact that the single decisive catalyst (Oct-23-2026 FQ4 print) has not yet occurred.",
+    "error_source": "",
+    "rule_for_future": "When a thesis's defining catalyst is dated well past the 30d checkpoint, do not force a luck-vs-skill or thesis-status verdict at 30d beyond 'on-track' / 'not assessable' -- the informative checkpoint is the one that actually contains the dated catalyst (here, the 90d review, which will have the Oct-23 print in hand).",
+    "future_research_check": "Before the 90d review, pull the FQ4 FY2026 primary filing (not just aggregator coverage) for the exact Adj. EBITDA/net-sales figures vs. the guided range, and check whether the newly filed securities class action's complaint (Monroe County Employees' Retirement System v. SMPL) has produced any new disclosure beyond what RF-CAP-004/RF-DISC-002 already captured."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/SMPL_2026-08-06/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "thesis_status is on-track with nothing in risk_results resolved either way at 30 days -- the pre-mortem's named killer risk (a confirmed new impairment on the Oct-23-2026 FQ4 print) has not yet been tested, so this cannot yet be vindicated or contradicted. Revisit at the 90d review, which will have the Oct-23 print in hand."
+  },
+  "memo_delta": {
+    "summary": "Thirty days into the Watchlist call, price action is immaterial (+1.06% vs. the S&P 500's -0.24%) and none of the five forecast-ledger items or five red-flag-linked risks has resolved -- the thesis remains exactly where it was, correctly classified as too early to grade. The one genuinely new fact is a securities-fraud class action (filed/publicized 2026-08-25 through 2026-09-04, lead-plaintiff deadline 2026-10-13) alleging non-disclosure of OWYN integration and pea-protein sourcing issues during 2024-10-24 to 2026-04-08 -- a legal escalation of the already-flagged RF-CAP-004/RF-DISC-002 Critical red flags, not new underlying business information.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "Simply Good Foods is basically flat since our August 6 Watchlist call -- up about 1%, in line with a roughly flat S&P 500 over the same month. Nothing in the thesis has actually been tested yet: the decisive event is the October 23 earnings print, which will show whether the company stayed inside its own guidance and whether a fourth straight quarter of write-downs shows up, and that has not happened yet. The one new development is that shareholders have filed a securities-fraud lawsuit over the OWYN acquisition, alleging the company hid integration and product-quality problems before the big write-down earlier this year. This is not new information about the business -- we already knew about and flagged those OWYN problems -- but the formal lawsuit itself is a new, and modestly negative, layer of legal and distraction risk sitting on top of the Critical red flag that already caps this at Watchlist. We are not changing the rating. The next real test is the October 23 print.",
+    "changed_sections": [
+      {
+        "section": "Part I S12 Red Flags / RF-CAP-004 (serial-acquirer pattern, OWYN)",
+        "original_claim": "RF-CAP-004 (Critical): serial-acquirer pattern; OWYN acquisition (~$280.2M, debt-funded, Jun-2024) 71% impaired within 24 months, incremental ROIC ~0% before the write-down.",
+        "new_evidence": "A securities-fraud class action (Monroe County Employees' Retirement System v. The Simply Good Foods Company) was filed alleging SMPL failed to disclose OWYN key-personnel losses, elevated G&A spend to compensate, and a pea-protein sourcing defect during the class period 2024-10-24 to 2026-04-08; lead-plaintiff deadline 2026-10-13.",
+        "evidence_source": "Web: Morningstar/PR Newswire, dated 2026-08-25 (indicative, unverified -- primary court docket not directly reviewed); multiple corroborating law-firm press releases via GlobeNewswire, dated 2026-09-01 through 2026-09-04",
+        "materiality_score": 45,
+        "impact_direction": "negative",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "Materiality (45) is below the 60 re-run threshold -- the underlying facts (OWYN personnel loss, sourcing defect, impairment) were already captured in RF-CAP-004/RF-DISC-002 before this lawsuit was filed; the class action is a legal escalation, not new information about the business's economics. Revisit if the complaint's discovery process surfaces a fact not already in the pool (e.g. an internal document contradicting a specific management statement).",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Oct-23-2026 FQ4 FY2026 print vs. the guided $322M-$332M net sales / $52M-$57M Adj. EBITDA range, and whether a fourth consecutive-quarter impairment appears",
+      "Any docket activity in Monroe County Employees' Retirement System v. The Simply Good Foods Company beyond the 2026-10-13 lead-plaintiff deadline",
+      "September-2026 price increase's realized elasticity, once visible in the FQ1 FY2027 print (no confirmed date yet)",
+      "Any new M&A announcement before OWYN's mid-2028 two-year post-impairment anniversary",
+      "The full Credit Agreement Eighth Amendment exhibit (covenant-EBITDA addback definition), still not in the pool"
+    ],
+    "management_questions": [
+      "What is the company's response to the Monroe County Employees' Retirement System securities class action, and does it dispute the specific factual allegations about OWYN personnel losses and the pea-protein sourcing decision?",
+      "Is the September-2026 price increase tracking toward or away from the '1 or higher' elasticity fear so far, even ahead of the formal FQ1 FY2027 disclosure?",
+      "Has the FQ4 FY2026 shipment pattern normalized toward consumption levels as anticipated after the FQ3 deliberate under-shipment?",
+      "Is any further goodwill or intangible impairment test underway ahead of the Oct-23-2026 print?",
+      "Has the company disclosed the full Credit Agreement Eighth Amendment terms, including the covenant-EBITDA addback definition?"
+    ],
+    "memo_delta_file": "analyses/SMPL_2026-08-06/reviews/2026-09-08_30d_memo_delta.md"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.0",
+  "ticker": "UBER",
+  "original_decision_date": "2026-08-06",
+  "review_date": "2026-09-08",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 68.18,
+  "tracking_price": null,
+  "review_price": 75.76,
+  "absolute_return_pct": 11.12,
+  "benchmark_return_pct": 0.11,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 11.01,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "Uber's FQ3 2026 (quarter ended Sep-30-2026) results will report Adjusted EBITDA within or above the guided $2,860-$2,960mm range.",
+      "status": "still open",
+      "evidence": "FQ3 2026 has not yet ended (Sept-30-2026) and results are not due until the 2026-10-25 to 2026-11-05 window. No result exists yet as of this review date.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Uber's FQ3 2026 reported Revenue growth will miss the Street's own pre-print consensus estimate for a third consecutive quarter.",
+      "status": "still open",
+      "evidence": "Same reporting window as above; not yet determinable.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Uber's FQ3 2026 SG&A ratio will be at or above the LTM Jun-2026 level of 20.50%.",
+      "status": "still open",
+      "evidence": "Not reported yet.",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "The Delivery Hero SE acquisition will close within the H2 2027 window at or near its announced terms, without a leverage covenant breach or waiver disclosed in the twelve months following the bridge-facility draw.",
+      "status": "still open",
+      "evidence": "The deal remains on its originally disclosed timeline: BaFin approved the offer document, the shareholder acceptance period runs 2026-08-27 to 2026-11-05, and the EU antitrust workaround (a $1.6bn divestiture of 14 overlapping markets to SSW Partners) is already in place, per Delivery Hero/Uber investor-relations releases and Euronews/TechFundingNews coverage (accessed 2026-09-08). Close is still guided to H2 2027; the covenant-breach/waiver window has not started because the bridge has not yet been drawn against the acquisition (a separate Term Loan Credit Agreement was executed 2026-08-06 for related financing, see risk_results below).",
+      "as_of": "2026-09-08"
+    },
+    {
+      "prediction": "Uber's NTM EV/EBITDA multiple will sit at or above 13.0x (versus 11.89x today) within the next 12 months, consistent with the base-case re-rating.",
+      "status": "still open",
+      "evidence": "Window runs to 2027-08-31; no current multiple re-verification was performed in this review (would require a pool-quality data-vendor pull, not reliably available via public web search for a same-day comparison to the original 11.89x baseline).",
+      "as_of": "2026-09-08"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Delivery Hero bridge/term-loan financing execution",
+      "status": "occurred (partially)",
+      "evidence": "Uber entered a new senior unsecured Term Loan Credit Agreement (two tranches) and revolving credit agreements totalling ~$11.7bn on 2026-08-06, arranged by Morgan Stanley, to help fund the Delivery Hero offer and refinance Delivery Hero debt (SEC 8-K, TipRanks/StockTitan coverage, accessed 2026-09-08). This is DIFFERENT from -- and disclosed on the same day as -- the original ~EUR14.2bn bridge facility referenced in the decision record; both appear to be part of the same financing package."
+    },
+    {
+      "catalyst": "Delivery Hero shareholder acceptance period",
+      "status": "occurred, ongoing",
+      "evidence": "Offer document published following BaFin approval; acceptance period runs 2026-08-27 to 2026-11-05 (Uber investor-relations press release, accessed 2026-09-08)."
+    },
+    {
+      "catalyst": "FQ3 2026 earnings (2026-10-25 to 2026-11-05)",
+      "status": "pending",
+      "evidence": "Not yet occurred as of this review date."
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Delivery Hero bridge facility discloses a covenant threshold with <10% post-draw headroom, or a covenant breach/waiver is disclosed within 4 quarters of the draw",
+      "status": "pending, with new partial disclosure",
+      "evidence": "The 2026-08-06 Term Loan Credit Agreement (SEC 8-K, ex10-3) discloses affirmative/negative covenants including a minimum interest-coverage ratio of at least 3.00-to-1.00 and limits on additional secured debt, cross-default/judgment thresholds of $500mm -- the first concrete covenant terms found since decision_date. Headroom against the 3.00x floor was not disclosed in the sources located and cannot yet be computed without Uber's own interest-coverage figure at draw; the bridge itself has not yet been fully drawn (the Delivery Hero deal has not closed)."
+    },
+    {
+      "risk": "Revenue misses the Street for a 3rd straight quarter AND the LTM SG&A ratio continues rising past 20.50%",
+      "status": "pending",
+      "evidence": "No FQ3 2026 print yet; not testable."
+    },
+    {
+      "risk": "A further large debt-funded acquisition is announced before Delivery Hero even closes, or gross leverage overshoots the (unverified) <2x target",
+      "status": "not materialized",
+      "evidence": "No NEW acquisition (beyond Delivery Hero itself) was found via public search as of 2026-09-08. The additional $11.7bn term loan/revolver facilities disclosed 2026-08-06 finance the SAME Delivery Hero transaction and Delivery Hero's existing debt refinancing, not a new deal."
+    },
+    {
+      "risk": "A driver-classification ruling or new law in a major market (US or EU) reclassifies gig drivers as employees",
+      "status": "not materialized",
+      "evidence": "No new adverse driver/courier classification ruling in the US or EU was found via public search as of 2026-09-08."
+    },
+    {
+      "risk": "The NTM EV/EBITDA multiple compresses further toward Lyft's 7.94x rather than re-rating",
+      "status": "not assessable",
+      "evidence": "A reliable, comparably sourced current multiple was not located via public web search for this review; the stock's own +11.1% move (well ahead of the S&P 500's ~flat return) is directionally inconsistent with a compressing multiple, but this is inference from price action, not a verified multiple reading."
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price action: UBER rose from an entry price of $68.18 (2026-08-05, Capital IQ) to a web-sourced $75.76 close on 2026-09-04 (Investing.com/CNBC aggregation, accessed 2026-09-08) -- a +11.12% absolute move in ~30 days, essentially flat against the S&P 500 benchmark (7,709.96 on 2026-08-05 to 7,718.60 on 2026-09-04, both CNBC-sourced dated closes, +0.11%), for a +11.01pp benchmark-relative outperformance.",
+    "sector_return_pct is left null: the decision record itself notes 'no dedicated mobility/delivery index used in this pool' for the sector benchmark field, so no like-for-like sector series exists to compute a relative return against.",
+    "The single most consequential new fact since decision_date is the 2026-08-06 Term Loan Credit Agreement (executed the SAME DAY as this run's decision_date), which for the first time discloses concrete covenant terms (a 3.00x minimum interest-coverage maintenance covenant) for part of the Delivery Hero financing package -- this is exactly the category of disclosure the thesis's own kill criteria and pre-mortem killer risk were waiting on, though it does not by itself confirm or falsify the <10%-headroom kill criterion (headroom cannot yet be computed).",
+    "None of the five forecast-ledger items has resolved (all still open); the FQ3 2026 print (2026-10-25 to 2026-11-05) remains the single most consequential near-term test and falls just after the 90d checkpoint window opens (2026-11-04).",
+    "decision_quality is marked 'not assessable': the Watchlist cap rests on a Critical serial-acquirer/leverage red flag (RF-CAP-004) tied to the Delivery Hero deal's financing structure, which remains genuinely unresolved (deal not closed, bridge not drawn against the acquisition, headroom uncalculated) despite a sizeable positive price move that is not itself evidence the underlying risk was overstated."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_module": "management-governance (RF-CAP-004 serial-acquirer/debt-funded-M&A Critical flag) was most responsible for the Watchlist cap; balance-sheet-survival's covenant-headroom framing was most responsible for the killer-risk statement.",
+    "most_accurate_so_far": "Not yet assessable -- no forecast-ledger item has resolved in either direction at 30 days.",
+    "missed_key_variable": "None identified yet. The newly disclosed 3.00x minimum interest-coverage covenant is consistent with, not contradictory to, the balance-sheet-survival module's framing of covenant-headroom risk as the killer risk -- it is additional confirming detail, not a correction.",
+    "valuation_mattered_most": false,
+    "earnings_mattered_most": false,
+    "governance_mattered_most": true,
+    "balance_sheet_survival_mattered_most": true,
+    "business_quality_mattered_most": false,
+    "note": "Too early (30 days into a thesis whose defining catalyst, the Delivery Hero close, is dated H2 2027) for a confident calibration verdict. The FQ3 2026 print (informing the 90d review) is the first checkpoint likely to carry real signal on the earnings-side forecasts."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist cap (Critical RF-CAP-004 serial-acquirer/leverage red flag tied to the Delivery Hero deal) is unchanged; the newly disclosed term-loan covenant terms are informative but do not yet resolve the headroom question, and the +11% price move is not itself evidence the underlying leverage risk was overstated."
+  },
+  "confidence_update": {
+    "before": 42.0,
+    "after": 40,
+    "change_reason": "No forecast or risk has resolved in either direction; a small downward nudge reflects that the first concrete Delivery Hero financing covenant (a 3.00x minimum interest-coverage maintenance test) has now been disclosed and is a genuine, if still unquantified, step toward the pre-mortem's named killer risk, not a reason for more confidence."
+  },
+  "next_check": {
+    "date": "2026-11-04",
+    "label": "90d review, informed by the FQ3 2026 print (2026-10-25 to 2026-11-05) and the Delivery Hero shareholder acceptance outcome (period ends 2026-11-05)",
+    "trigger": "Check whether FQ3 2026 Adjusted EBITDA cleared the guided $2,860-$2,960mm range, whether the SG&A ratio held at/above 20.50%, and whether the Delivery Hero acceptance period concluded with the deal proceeding toward its H2 2027 close."
+  },
+  "learning": {
+    "why_right_or_wrong": "Too early to grade -- the Watchlist cap rests on the Delivery Hero deal's financing/covenant structure, which has not resolved (deal not closed, bridge not drawn against the acquisition). A sizeable positive price move in the first 30 days is not evidence either way on that specific risk.",
+    "error_source": "",
+    "rule_for_future": "When a Watchlist thesis's killer risk is tied to a dated future financing event (a bridge draw, a covenant test), track the ACTUAL disclosed covenant package as it is filed (here, the 2026-08-06 Term Loan Credit Agreement) rather than waiting only for the final acquisition close -- interim financing filings can pre-disclose covenant terms well before the risk fully resolves.",
+    "future_research_check": "Before the 90d review, pull the primary SEC 8-K/10-Q covenant schedule to compute actual interest-coverage headroom against the disclosed 3.00x minimum, and confirm whether this is Uber's first-ever maintenance covenant or consistent with prior facilities."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/UBER_2026-08-06/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 6.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "thesis_status is on-track with nothing in risk_results resolved either way at 30 days -- the pre-mortem's named killer risk (Delivery Hero bridge drawn without adequate covenant headroom) has a first partial data point (a disclosed 3.00x minimum interest-coverage covenant) but headroom itself remains uncalculated, so this cannot yet be vindicated or contradicted."
+  },
+  "memo_delta": {
+    "summary": "Thirty days into the Watchlist call, UBER is up +11.1% (vs. the S&P 500's roughly flat +0.1%), but none of the five forecast-ledger items has resolved and the Critical serial-acquirer/leverage red flag (RF-CAP-004) underlying the Watchlist cap remains open. The one genuinely new fact is the 2026-08-06 Term Loan Credit Agreement, which for the first time discloses part of the Delivery Hero financing package's actual covenant terms (a 3.00x minimum interest-coverage maintenance covenant) -- directly on-point for the thesis's own killer risk, though headroom against that covenant cannot yet be computed.",
+    "thesis_delta_verdict": "unchanged",
+    "stage_one_comment": "Uber is up about 11% since our August 6 Watchlist call, well ahead of a roughly flat S&P 500, but nothing in the actual thesis has been tested yet. The Delivery Hero acquisition -- the deal whose debt-funded structure is the reason we capped this at Watchlist -- is still on track for a second-half-2027 close, with a shareholder acceptance window running through early November. The one real new piece of information is that Uber has now signed a term loan agreement that, for the first time, discloses an actual financial covenant (a minimum interest-coverage ratio the company has to keep meeting) tied to part of this financing. That is exactly the kind of disclosure our balance-sheet risk was waiting on, but we still cannot calculate how much cushion there actually is. We are not changing the rating. The next real tests are the October 25-November 5 earnings print and the acceptance period's outcome around the same time.",
+    "changed_sections": [
+      {
+        "section": "Part I Killer Risk / kill criterion 1 (Delivery Hero bridge covenant headroom)",
+        "original_claim": "The Delivery Hero acquisition closing and drawing its ~EUR14bn bridge facility without adequate disclosed covenant headroom -- pro-forma leverage would compress the assumed covenant cushion from +62-72% today to a breach on as little as a 0.9%-25.5% EBITDA decline.",
+        "new_evidence": "A separate ~$11.7bn Term Loan Credit Agreement (executed 2026-08-06, same day as decision_date) discloses concrete covenant terms for the first time: a minimum interest-coverage ratio of at least 3.00-to-1.00, limits on additional secured debt, and a $500mm cross-default/judgment threshold. This is the first primary-source covenant disclosure since decision_date, though it does not by itself confirm the specific <10%-headroom kill criterion.",
+        "evidence_source": "Web: SEC 8-K (ex10-3), Uber Technologies Inc, filed 2026-08-06/08 (primary, dated); TipRanks/StockTitan coverage, accessed 2026-09-08",
+        "materiality_score": 50,
+        "impact_direction": "negative",
+        "impacted_modules": ["balance-sheet-survival"],
+        "rerun_recommended": false,
+        "rerun_reason": "Materiality (50) is below the 60 re-run threshold -- the disclosure is directionally on-point but does not yet supply the actual headroom calculation needed to confirm or falsify the kill criterion. Revisit once Uber's own interest-coverage figure at or near the bridge draw is available.",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "FQ3 2026 earnings (2026-10-25 to 2026-11-05): Adjusted EBITDA vs. the guided $2,860-$2,960mm range, revenue vs. Street consensus, and the SG&A ratio vs. 20.50%",
+      "Delivery Hero shareholder acceptance period outcome (concludes 2026-11-05)",
+      "Actual interest-coverage headroom against the disclosed 3.00x minimum covenant once Uber discloses a post-draw figure",
+      "Any new debt-funded acquisition announced before the Delivery Hero deal closes",
+      "EU/Austria/Spain/Poland antitrust clearance progress for the Delivery Hero deal"
+    ],
+    "management_questions": [
+      "What is Uber's current and pro-forma (post-Delivery-Hero-draw) interest-coverage ratio against the disclosed 3.00x minimum covenant?",
+      "Is the 3.00x minimum interest-coverage covenant Uber's first-ever maintenance covenant, or consistent with terms in prior facilities?",
+      "Is the ~$11.7bn Term Loan Credit Agreement (2026-08-06) additive to, or a restructuring of, the ~EUR14.2bn bridge facility referenced at the deal's announcement?",
+      "What is the expected timeline for EU antitrust clearance in the remaining jurisdictions (Austria, Spain, Poland)?",
+      "Has any portion of the SG&A increase driving the 20.50% LTM ratio been identified as one-off vs. structural?"
+    ],
+    "memo_delta_file": "analyses/UBER_2026-08-06/reviews/2026-09-08_30d_memo_delta.md"
+  }
+}
