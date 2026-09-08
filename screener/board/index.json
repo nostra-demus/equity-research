@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-08T08:46:57Z",
+  "generated_at": "2026-09-08T08:56:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-341",
+      "headline": "CARMEN CENTURY (00612): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF 2026 INTERIM RESULTS; (2) DELAY IN DESPATCH OF 2026 INTERIM REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800230.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The company announced a delay in financial reporting and continued trading suspension, indicating significant operational or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a delay in financial reporting and continued trading suspension, indicating significant operational or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carmen Century",
+          "ticker": "00612",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-338",
       "headline": "LENS (06613): JOINT ANNOUNCEMENT MONTHLY UPDATE IN RELATION TO THE PRE-CONDITIONAL VOLUNTARY CONDITIONAL GENERAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF LENS TECHNOLOGY CO., LTD. TO ACQUIRE ALL THE ISSUED SHARES OF JU TENG INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED OR AGREED TO BE ACQUIRED BY LENS TECHNOLOGY CO., LTD. AND PARTIES ACTING IN CONCERT WITH IT)",
@@ -1504,6 +1554,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-343",
+      "headline": "ING: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ING?key=2924-03133234-2A1696168",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:06:31Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "ING has become a substantial holder in an ASX-listed entity, indicating a significant change in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "ING has become a substantial holder in an ASX-listed entity, indicating a significant change in ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ING",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-328",
       "headline": "MMS: Change in substantial holding from PPT",
       "headline_en": null,
@@ -1888,104 +1987,6 @@
           "name": "Old Mutual",
           "ticker": null,
           "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-306",
-      "headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:44:16Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "HSBC issued a report warning of a 46% downside for Vodafone Idea, citing it as a key overhang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "HSBC issued a report warning of a 46% downside for Vodafone Idea, citing it as a key overhang.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-224",
-      "headline": "Mistral AI Raises €3 Bln With Samsung Leading the Round (Video)",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-08/mistral-ai-raises-3-bln-with-samsung-leading-the-round-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:00:24Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Mistral AI raised 3 billion Euros in a funding round led by Samsung.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Mistral AI raised 3 billion Euros in a funding round led by Samsung.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mistral AI",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -151393,9 +151394,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 199351,
-    "news_picked_today": 639,
-    "news_dropped_today": 4935
+    "news_seen_today": 225365,
+    "news_picked_today": 648,
+    "news_dropped_today": 4998
   },
   "book_momentum": {
     "live_count": 8,
