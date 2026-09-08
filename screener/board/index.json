@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:51:32Z",
+  "generated_at": "2026-09-08T00:56:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -480,49 +480,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-018",
-      "headline": "Japan’s GDP Growth Revised Higher, Backing BOJ Hike Case",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-07/japan-s-gdp-growth-revised-higher-backing-boj-rate-hike-case",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T23:57:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Japan's GDP revision supports the Bank of Japan's case for interest rate hikes, impacting monetary policy expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Japan's GDP revision supports the Bank of Japan's case for interest rate hikes, impacting monetary policy expectations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260908-027",
       "headline": "Firmus lands OpenAI deal for Malaysian data centres",
       "headline_en": null,
@@ -812,6 +769,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-045",
+      "headline": "Oil rises as risks of prolonged Mideast conflict heighten supply worries",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/oil-rises-risks-prolonged-mideast-conflict-heighten-supply-worries-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:51:43Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Heightened risks of a prolonged Mideast conflict are driving oil prices higher due to supply disruption fears.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Heightened risks of a prolonged Mideast conflict are driving oil prices higher due to supply disruption fears.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-042",
+      "headline": "영풍과 MBK파트너스, 고려아연 펀드 손실 위험 100억 추가 발견",
+      "headline_en": "Young Poong and MBK Partners discover an additional 10 billion won in fund loss risks at Korea Zinc",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276385",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:44:04Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "MBK Partners and Young Poong identified an additional 10 billion KRW in fund losses at Korea Zinc, raising governance and financial risk concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "MBK Partners and Young Poong identified an additional 10 billion KRW in fund losses at Korea Zinc, raising governance and financial risk concerns.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korea Zinc",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Young Poong",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "MBK Partners",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1301,6 +1361,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-043",
+      "headline": "셀트리온, 한일 민관 협력 바이오 스타트업 육성 프로그램 가동",
+      "headline_en": "Celltrion launches a Korea-Japan public-private bio startup incubation program",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276384",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Celltrion is launching a bio-startup incubation program, which is a minor operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Celltrion is launching a bio-startup incubation program, which is a minor operational development.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Celltrion",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-026",
       "headline": "Oil Rises Amid Fears of More Supply Disruptions in Middle East",
       "headline_en": null,
@@ -1755,141 +1864,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-022",
-      "headline": "Satya Niketan collapse: CJP puts 7 demands before Govt – PG ‘mafia’ probe, ₹1 cr aid, more DU hostels | Full List",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/satya-niketan-collapse-cjp-7-demands-pg-mafia-probe-safety-audits-1-cr-aid-more-du-hostels-full-list-rekha-gupta-11788824979387.html",
-      "source_name": "Mint",
+      "inbox_id": "INB-20260908-044",
+      "headline": "오뚜기, 협력사 하도급대금 129억원 조기 지급",
+      "headline_en": "Ottogi pays 12.9 billion won in subcontracting fees early",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276380",
+      "source_name": "Business Korea — All Articles (CDN)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:28:14Z",
+      "found_at": "2026-09-08T00:17:22Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Local infrastructure and policy demands are not material to broader investment decisions.",
+      "prelim_note": "Ottogi is paying 12.9 billion KRW in subcontracting fees early, a routine cash flow management action.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Local infrastructure and policy demands are not material to broader investment decisions.",
-      "region": "IN",
+      "triage_score": 42,
+      "triage_reason": "Ottogi is paying 12.9 billion KRW in subcontracting fees early, a routine cash flow management action.",
+      "region": "KR",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 30,
       "rank_factors": {
         "materiality": 30,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-035",
-      "headline": "ASX falls; Ampol, Santos gain on rising oil",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-copper-resets-record-high-in-london-trading-20260908-p60v9p?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:35:19Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Ampol and Santos shares rose due to an increase in oil prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Ampol and Santos shares rose due to an increase in oil prices.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -22,
+        "scope": 6,
         "event": 0,
-        "size": 2,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "commodity",
+        "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "macro_sector"
+        "commercial"
       ],
-      "issuer_linkage": "secondary",
+      "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Ampol",
+          "name": "Ottogi",
           "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Santos",
-          "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-030",
-      "headline": "AI, chip firms among bidders for flagship Northern Metropolis tech hub at border",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3366667/ai-chip-firms-among-bidders-flagship-northern-metropolis-tech-hub-border?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:30:06Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Multiple AI and chip firms are bidding for a major tech hub development, indicating significant sector-specific capital investment interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Multiple AI and chip firms are bidding for a major tech hub development, indicating significant sector-specific capital investment interest.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149434,9 +149452,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 226,
-    "news_picked_today": 41,
-    "news_dropped_today": 185
+    "news_seen_today": 242,
+    "news_picked_today": 45,
+    "news_dropped_today": 197
   },
   "book_momentum": {
     "live_count": 8,
