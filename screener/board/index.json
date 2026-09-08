@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:37:04Z",
+  "generated_at": "2026-09-08T09:46:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-369",
@@ -248,6 +248,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-380",
+      "headline": "Directions under Section 35A read with Section 56 of the Banking Regulation Act, 1949 – The Amanath Co-operative Bank Ltd., Bangalore - Extension of Period",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63543",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-08T07:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The RBI extended regulatory restrictions on The Amanath Co-operative Bank Ltd under Section 35A, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The RBI extended regulatory restrictions on The Amanath Co-operative Bank Ltd under Section 35A, indicating ongoing financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Amanath Co-operative Bank Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-146",
       "headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
       "headline_en": null,
@@ -342,6 +392,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-377",
+      "headline": "Tamarack Valley, Headwater Exploration agree $7.2 billion all-stock merger",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/tamarack-valley-headwater-exploration-agree-72-billion-all-stock-merger-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T09:20:35Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Large $7.2 billion all-stock merger announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Large $7.2 billion all-stock merger announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tamarack Valley Energy",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Headwater Exploration",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1347,6 +1451,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-378",
+      "headline": "CONTINENTAL H (00513): DELAY IN DESPATCH OF CIRCULAR IN RELATION TO VERY SUBSTANTIAL DISPOSAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800448.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T09:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Delay in circular for a very substantial disposal indicates potential regulatory or procedural hurdles for a major transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Delay in circular for a very substantial disposal indicates potential regulatory or procedural hurdles for a major transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CONTINENTAL H",
+          "ticker": "00513",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-351",
       "headline": "LENOVO GROUP LENOVO B2908 LENOVO GROUP-R (00992 05440 80992): PARTIAL CONVERSION AND CANCELLATION OF US$675 MILLION 2.50% CONVERTIBLE BONDS DUE 2029",
       "headline_en": null,
@@ -1834,163 +1987,6 @@
           "name": "Decart",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-345",
-      "headline": "Mazagon Dock Shipbuilders Limited: Mazagon Dock Shipbuilders Limited has informed the Exchange regarding Change in Auditors of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MAZDOCK_08092026141917_SE_Discl_Appointment_of_Stat_Auditor.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:49:24Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Change in auditors is a significant governance event that can signal accounting or operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Change in auditors is a significant governance event that can signal accounting or operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mazagon Dock Shipbuilders Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-276",
-      "headline": "Gaja Alternative Asset Management Limited: Gaja Alternative Asset Management Limited has informed the Exchange about Resignation of Statutory Auditor",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GAJA_ROSA_98106_KMP_Doc.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T06:14:53Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "The resignation of a statutory auditor is a significant corporate governance red flag.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The resignation of a statutory auditor is a significant corporate governance red flag.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gaja Alternative Asset Management Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-331",
-      "headline": "Brookfield seeks IC greenlight to buy KKR, CBA’s Colonial First State",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/brookfield-seeks-ic-greenlight-to-buy-kkr-cba-s-colonial-first-state-20260908-p60vdm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T08:05:41Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Brookfield is seeking regulatory approval to acquire Colonial First State, a major asset management firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Brookfield is seeking regulatory approval to acquire Colonial First State, a major asset management firm.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Colonial First State",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -151396,9 +151392,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 324211,
-    "news_picked_today": 701,
-    "news_dropped_today": 5353
+    "news_seen_today": 351909,
+    "news_picked_today": 713,
+    "news_dropped_today": 5413
   },
   "book_momentum": {
     "live_count": 8,
