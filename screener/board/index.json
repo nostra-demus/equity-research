@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-08T08:36:53Z",
+  "generated_at": "2026-09-08T08:46:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-338",
+      "headline": "LENS (06613): JOINT ANNOUNCEMENT MONTHLY UPDATE IN RELATION TO THE PRE-CONDITIONAL VOLUNTARY CONDITIONAL GENERAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF LENS TECHNOLOGY CO., LTD. TO ACQUIRE ALL THE ISSUED SHARES OF JU TENG INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED OR AGREED TO BE ACQUIRED BY LENS TECHNOLOGY CO., LTD. AND PARTIES ACTING IN CONCERT WITH IT)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800170.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Monthly update on a previously announced voluntary conditional cash offer to acquire Ju Teng International.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monthly update on a previously announced voluntary conditional cash offer to acquire Ju Teng International.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lens Technology",
+          "ticker": "06613",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-339",
+      "headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:06:23Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Jupiter Wagons secured a new order worth Rs. 97.66 Crore from GATX India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jupiter Wagons secured a new order worth Rs. 97.66 Crore from GATX India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jupiter Wagons Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-146",
       "headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
@@ -1891,105 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-202",
-      "headline": "GE Vernova shares surge 8% as firm declared lowest bidder for Power Grid project; Nomura raises target price",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/ge-vernova-shares-surge-8-as-firm-declared-lowest-bidder-for-power-grid-project-nomura-raises-target-price/articleshow/133906695.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T04:15:13Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE Vernova was declared the lowest bidder for a Power Grid project, leading to an 8% share price increase and a target price hike by Nomura.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "GE Vernova was declared the lowest bidder for a Power Grid project, leading to an 8% share price increase and a target price hike by Nomura.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-329",
-      "headline": "EIQ: EchoSolv HF FDA Application Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIQ?key=2924-03133176-2A1696123",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T06:53:01Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "EchoSolv provided a price-sensitive update regarding its FDA application status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "EchoSolv provided a price-sensitive update regarding its FDA application status.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EIQ",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105482,76 +105481,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-add212649783",
-      "idea_version": "IDEAV-077a713b11dabc6a",
-      "idea_version_started_at": "2026-09-06T21:14:05Z",
-      "ticker": "MCK",
-      "company": "McKesson",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "McKesson is expanding its high-margin oncology and precision medicine footprint through a $2.25 billion acquisition, which should improve long-term earnings quality.",
-      "why_now": "The acquisition was announced on 2026-09-06, signaling an immediate shift in capital allocation strategy.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-137d127b278d"
-      ],
-      "primary_source_event_id": "EVT-137d127b278d",
-      "source_headlines": [
-        "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy"
-      ],
-      "source_headline": "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy",
-      "source_url": "https://finance.yahoo.com/healthcare/articles/mckesson-bets-2-25-billion-204339450.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T20:43:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T21:14:05Z",
-      "updated_at": "2026-09-06T21:14:05Z",
-      "decay_at": "2026-09-08T08:43:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7f632fc10e45",
       "idea_version": "IDEAV-81d0e989a85aab37",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -105616,76 +105545,6 @@
       "surfaced_at": "2026-09-07T06:29:09Z",
       "updated_at": "2026-09-07T06:29:09Z",
       "decay_at": "2026-09-08T17:13:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8e3889fc0c2a",
-      "idea_version": "IDEAV-cbe9aace503d2bc0",
-      "idea_version_started_at": "2026-09-06T21:14:05Z",
-      "ticker": "FUL",
-      "company": "H.B. Fuller",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "H.B. Fuller's rejection of a $1.2 billion offer indicates management's confidence in higher intrinsic value, likely forcing the bidder to increase the offer or attracting other suitors.",
-      "why_now": "The rejection was made public on 2026-09-06, creating a live M&A premium situation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b5822c66f892"
-      ],
-      "primary_source_event_id": "EVT-b5822c66f892",
-      "source_headlines": [
-        "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough"
-      ],
-      "source_headline": "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/h-b-fuller-ful-tells-204640998.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-06T20:46:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T21:14:05Z",
-      "updated_at": "2026-09-06T21:14:05Z",
-      "decay_at": "2026-09-08T08:46:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111572,6 +111431,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-add212649783",
+      "idea_version": "IDEAV-077a713b11dabc6a",
+      "idea_version_started_at": "2026-09-06T21:14:05Z",
+      "ticker": "MCK",
+      "company": "McKesson",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "McKesson is expanding its high-margin oncology and precision medicine footprint through a $2.25 billion acquisition, which should improve long-term earnings quality.",
+      "why_now": "The acquisition was announced on 2026-09-06, signaling an immediate shift in capital allocation strategy.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-137d127b278d"
+      ],
+      "primary_source_event_id": "EVT-137d127b278d",
+      "source_headlines": [
+        "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy"
+      ],
+      "source_headline": "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy",
+      "source_url": "https://finance.yahoo.com/healthcare/articles/mckesson-bets-2-25-billion-204339450.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T20:43:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T21:14:05Z",
+      "updated_at": "2026-09-06T21:14:05Z",
+      "decay_at": "2026-09-08T08:43:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-fa3fd6df5c04a20d",
       "idea_version_started_at": "2026-09-06T20:29:47Z",
@@ -111916,6 +111845,76 @@
       "surfaced_at": "2026-09-06T00:49:26Z",
       "updated_at": "2026-09-06T18:05:43Z",
       "decay_at": "2026-09-07T10:03:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8e3889fc0c2a",
+      "idea_version": "IDEAV-cbe9aace503d2bc0",
+      "idea_version_started_at": "2026-09-06T21:14:05Z",
+      "ticker": "FUL",
+      "company": "H.B. Fuller",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "H.B. Fuller's rejection of a $1.2 billion offer indicates management's confidence in higher intrinsic value, likely forcing the bidder to increase the offer or attracting other suitors.",
+      "why_now": "The rejection was made public on 2026-09-06, creating a live M&A premium situation.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b5822c66f892"
+      ],
+      "primary_source_event_id": "EVT-b5822c66f892",
+      "source_headlines": [
+        "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough"
+      ],
+      "source_headline": "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/h-b-fuller-ful-tells-204640998.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-06T20:46:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T21:14:05Z",
+      "updated_at": "2026-09-06T21:14:05Z",
+      "decay_at": "2026-09-08T08:46:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115173,14 +115172,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 503,
+    "total_count": 505,
     "shown_count": 487,
-    "hidden_count": 16,
+    "hidden_count": 18,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 18
       },
       "short": {
         "total_count": 237,
@@ -115204,6 +115203,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8e3889fc0c2a",
+        "idea_version": "IDEAV-cbe9aace503d2bc0",
+        "idea_version_started_at": "2026-09-06T21:14:05Z",
+        "ticker": "FUL",
+        "company": "H.B. Fuller",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "H.B. Fuller's rejection of a $1.2 billion offer indicates management's confidence in higher intrinsic value, likely forcing the bidder to increase the offer or attracting other suitors.",
+        "why_now": "The rejection was made public on 2026-09-06, creating a live M&A premium situation.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b5822c66f892"
+        ],
+        "primary_source_event_id": "EVT-b5822c66f892",
+        "source_headlines": [
+          "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough"
+        ],
+        "source_headline": "H.B. Fuller (FUL) Tells Ancora its $1.2 Billion Offer isn’t Enough",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/h-b-fuller-ful-tells-204640998.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 95,
+        "newest_source_at": "2026-09-06T20:46:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T21:14:05Z",
+        "updated_at": "2026-09-06T21:14:05Z",
+        "decay_at": "2026-09-08T08:46:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T08:46:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-add212649783",
+        "idea_version": "IDEAV-077a713b11dabc6a",
+        "idea_version_started_at": "2026-09-06T21:14:05Z",
+        "ticker": "MCK",
+        "company": "McKesson",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "McKesson is expanding its high-margin oncology and precision medicine footprint through a $2.25 billion acquisition, which should improve long-term earnings quality.",
+        "why_now": "The acquisition was announced on 2026-09-06, signaling an immediate shift in capital allocation strategy.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-137d127b278d"
+        ],
+        "primary_source_event_id": "EVT-137d127b278d",
+        "source_headlines": [
+          "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy"
+        ],
+        "source_headline": "McKesson Bets $2.25 Billion More on Oncology With Precision Medicine Buy",
+        "source_url": "https://finance.yahoo.com/healthcare/articles/mckesson-bets-2-25-billion-204339450.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T20:43:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T21:14:05Z",
+        "updated_at": "2026-09-06T21:14:05Z",
+        "decay_at": "2026-09-08T08:43:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T08:43:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-40daa458c3f6",
         "idea_version": "IDEAV-f50b43f7ea84c8ba",
@@ -148858,80 +149003,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e9347bfcd444",
-        "idea_version": "IDEAV-85e836b691acc2ec",
-        "idea_version_started_at": "2026-08-22T02:12:31Z",
-        "ticker": "01259",
-        "company": "Prosper Future",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert, indicating better-than-expected financial performance.",
-        "why_now": "The positive profit alert was announced on August 21, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fe8738c34b43"
-        ],
-        "primary_source_event_id": "EVT-fe8738c34b43",
-        "source_headlines": [
-          "PROSPER FUTURE (01259): POSITIVE PROFIT ALERT"
-        ],
-        "source_headline": "PROSPER FUTURE (01259): POSITIVE PROFIT ALERT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100732.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T09:56:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T14:23:00Z",
-        "updated_at": "2026-08-22T02:12:31Z",
-        "decay_at": "2026-08-22T21:56:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T10:05:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-033c53ba90ad",
         "idea_version": "IDEAV-d10eb13132fea90e",
         "idea_version_started_at": "2026-08-21T10:31:43Z",
@@ -149298,84 +149369,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-24T08:35:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-318e05ced228",
-        "idea_version": "IDEAV-1825e56fde8390d8",
-        "idea_version_started_at": "2026-08-21T09:27:03Z",
-        "ticker": "BAMI",
-        "company": "Banco BPM",
-        "exchange": "BIT",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Monte dei Paschi has launched a takeover bid for Banco BPM, which typically forces a price adjustment toward the offer premium.",
-        "why_now": "The bid was announced on 2026-08-21.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1ecb8effa2e5",
-          "EVT-97180be91d07",
-          "EVT-68c6551e9e85"
-        ],
-        "primary_source_event_id": "EVT-1ecb8effa2e5",
-        "source_headlines": [
-          "Monte dei Paschi Makes $40 Billion Move to Buy Italian Peers Banco BPM, Banca Generali",
-          "Italy’s Monte dei Paschi Makes $40 Billion Move to Buy Rival Banks",
-          "Monte dei Paschi launches twin takeover bids for Banca Generali and Banco BPM"
-        ],
-        "source_headline": "Monte dei Paschi Makes $40 Billion Move to Buy Italian Peers Banco BPM, Banca Generali",
-        "source_url": "https://www.wsj.com/business/deals/monte-dei-paschi-makes-40-billion-move-to-buy-italian-peers-banco-bpm-banca-generali-711620fd?mod=rss_markets_main",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T07:30:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T09:27:03Z",
-        "updated_at": "2026-08-21T09:27:03Z",
-        "decay_at": "2026-08-22T19:30:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": "up",
-        "stale": true,
-        "archived_at": "2026-08-24T07:52:43Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -151381,7 +151374,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 603,
-    "live_count": 98,
+    "live_count": 96,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151400,9 +151393,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 173633,
-    "news_picked_today": 611,
-    "news_dropped_today": 4867
+    "news_seen_today": 199351,
+    "news_picked_today": 639,
+    "news_dropped_today": 4935
   },
   "book_momentum": {
     "live_count": 8,
