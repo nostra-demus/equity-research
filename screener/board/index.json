@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T17:43:08Z",
+  "generated_at": "2026-09-08T18:07:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -829,6 +829,55 @@
           "name": "AKA",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-673",
+      "headline": "AI Startup Cognition Raises $2 Billion at a $48 Billion Value",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/ai-startup-cognition-raises-2-billion-at-a-48-billion-value",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T17:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "AI startup Cognition raised $2 billion at a $48 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AI startup Cognition raised $2 billion at a $48 billion valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognition",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1944,55 +1993,6 @@
         {
           "name": "Boston Scientific",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-541",
-      "headline": "ABM Industries (ABM) Q3 Earnings and Revenues Beat Estimates",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/abm-industries-abm-q3-earnings-and-revenues-beat-estimates",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T12:10:02Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "ABM Industries beat Q3 earnings and revenue estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ABM Industries beat Q3 earnings and revenue estimates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ABM Industries",
-          "ticker": "ABM",
           "listing_country": "US"
         }
       ],
@@ -152371,9 +152371,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2661288,
-    "news_picked_today": 1334,
-    "news_dropped_today": 8584
+    "news_seen_today": 2861936,
+    "news_picked_today": 1340,
+    "news_dropped_today": 8794
   },
   "book_momentum": {
     "live_count": 8,
