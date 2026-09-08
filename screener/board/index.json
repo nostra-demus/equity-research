@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-08T09:22:00Z",
+  "generated_at": "2026-09-08T09:37:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-369",
+      "headline": "CHINA ECOTOUR (01371): Dismissal of Winding-Up Petition",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800358.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:56:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The dismissal of a winding-up petition removes a significant existential threat to the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The dismissal of a winding-up petition removes a significant existential threat to the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA ECOTOUR",
+          "ticker": "01371",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-348",
       "headline": "MANY IDEA CLOUD (06696): (1) ESTABLISHMENT OF AN INDEPENDENT COMMITTEE; (2) APPOINTMENT OF AN INDEPENDENT INVESTIGATOR; AND (3) APPOINTMENT OF AN INDEPENDENT INTERNAL CONTROL CONSULTANT",
@@ -1942,55 +1991,6 @@
           "name": "Colonial First State",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-088",
-      "headline": "REC raises ₹500 crore through India’s first tokenised bond",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/rec-raises-500-crore-through-indias-first-tokenised-bond/article71441086.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:41:35Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "REC raised 500 crore rupees through a novel tokenised bond issuance, marking a financial innovation for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "REC raised 500 crore rupees through a novel tokenised bond issuance, marking a financial innovation for the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "REC Ltd",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -105416,76 +105416,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-521e020bb493",
-      "idea_version": "IDEAV-011016c6c4f9b10f",
-      "idea_version_started_at": "2026-09-06T21:54:21Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Anthropic has committed over $100 billion to AWS, which is a significant revenue driver for Amazon's cloud computing segment.",
-      "why_now": "The scale of the commitment and potential for further details was highlighted on September 6, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f0f79d3813bc"
-      ],
-      "primary_source_event_id": "EVT-f0f79d3813bc",
-      "source_headlines": [
-        "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract"
-      ],
-      "source_headline": "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract",
-      "source_url": "https://www.fool.com/investing/2026/09/06/anthropic-has-committed-more-than-usd100-billion-to-aws-and-its-prospectus-could-reveal-more-details-about-this-contract/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T21:23:01Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-06T21:54:21Z",
-      "updated_at": "2026-09-06T21:54:21Z",
-      "decay_at": "2026-09-08T09:23:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7f632fc10e45",
       "idea_version": "IDEAV-81d0e989a85aab37",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -111436,6 +111366,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-521e020bb493",
+      "idea_version": "IDEAV-011016c6c4f9b10f",
+      "idea_version_started_at": "2026-09-06T21:54:21Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Anthropic has committed over $100 billion to AWS, which is a significant revenue driver for Amazon's cloud computing segment.",
+      "why_now": "The scale of the commitment and potential for further details was highlighted on September 6, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f0f79d3813bc"
+      ],
+      "primary_source_event_id": "EVT-f0f79d3813bc",
+      "source_headlines": [
+        "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract"
+      ],
+      "source_headline": "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract",
+      "source_url": "https://www.fool.com/investing/2026/09/06/anthropic-has-committed-more-than-usd100-billion-to-aws-and-its-prospectus-could-reveal-more-details-about-this-contract/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T21:23:01Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-06T21:54:21Z",
+      "updated_at": "2026-09-06T21:54:21Z",
+      "decay_at": "2026-09-08T09:23:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-add212649783",
       "idea_version": "IDEAV-077a713b11dabc6a",
       "idea_version_started_at": "2026-09-06T21:14:05Z",
@@ -115177,14 +115177,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 505,
+    "total_count": 506,
     "shown_count": 487,
-    "hidden_count": 18,
+    "hidden_count": 19,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 237,
@@ -115208,6 +115208,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-521e020bb493",
+        "idea_version": "IDEAV-011016c6c4f9b10f",
+        "idea_version_started_at": "2026-09-06T21:54:21Z",
+        "ticker": "AMZN",
+        "company": "Amazon",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Anthropic has committed over $100 billion to AWS, which is a significant revenue driver for Amazon's cloud computing segment.",
+        "why_now": "The scale of the commitment and potential for further details was highlighted on September 6, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f0f79d3813bc"
+        ],
+        "primary_source_event_id": "EVT-f0f79d3813bc",
+        "source_headlines": [
+          "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract"
+        ],
+        "source_headline": "Anthropic Has Committed More Than $100 Billion to AWS, and Its Prospectus Could Reveal More Details About This Contract",
+        "source_url": "https://www.fool.com/investing/2026/09/06/anthropic-has-committed-more-than-usd100-billion-to-aws-and-its-prospectus-could-reveal-more-details-about-this-contract/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T21:23:01Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/AMZN_2026-07-20",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-06T21:54:21Z",
+        "updated_at": "2026-09-06T21:54:21Z",
+        "decay_at": "2026-09-08T09:23:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T09:23:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8e3889fc0c2a",
         "idea_version": "IDEAV-cbe9aace503d2bc0",
@@ -148785,81 +148858,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-12d47aae327a",
-        "idea_version": "IDEAV-297e1cf014b93211",
-        "idea_version_started_at": "2026-08-22T00:28:31Z",
-        "ticker": "03991",
-        "company": "Changhong Jiahua Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is undergoing a privatization scheme of arrangement which typically trades toward the offer price as the process advances.",
-        "why_now": "The monthly update on 2026-08-21 confirms the ongoing status of the privatization and delisting proposal.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5100cdfc032e"
-        ],
-        "primary_source_event_id": "EVT-5100cdfc032e",
-        "source_headlines": [
-          "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - MONTHLY UPDATE IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED"
-        ],
-        "source_headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - MONTHLY UPDATE IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101001.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T10:43:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T00:28:31Z",
-        "updated_at": "2026-08-22T00:28:31Z",
-        "decay_at": "2026-08-22T22:43:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T12:14:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-41743209e9d8",
         "idea_version": "IDEAV-3476b33f212d274a",
         "idea_version_started_at": "2026-08-21T14:23:00Z",
@@ -151379,7 +151377,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 603,
-    "live_count": 96,
+    "live_count": 95,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151398,9 +151396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 279142,
-    "news_picked_today": 683,
-    "news_dropped_today": 5179
+    "news_seen_today": 324211,
+    "news_picked_today": 701,
+    "news_dropped_today": 5353
   },
   "book_momentum": {
     "live_count": 8,
