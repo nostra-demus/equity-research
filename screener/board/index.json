@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T10:01:34Z",
+  "generated_at": "2026-09-08T10:16:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-388",
@@ -441,6 +441,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-398",
+      "headline": "Poste sweetens cash offer in Telecom Italia takeover bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T09:53:22Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Poste Italiane has increased its takeover offer for Telecom Italia, indicating a major M&A development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poste Italiane has increased its takeover offer for Telecom Italia, indicating a major M&A development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telecom Italia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1982,6 @@
           "name": "Qantas Airways",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-300",
-      "headline": "Mistral AI raises at $31 billion valuation in Samsung-led round",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/mistral-ai-raises-at-31-billion-valuation-in-samsung-led-round",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T06:34:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Mistral AI raised capital at a $31 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Mistral AI raised capital at a $31 billion valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mistral AI",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -151385,9 +151385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 389745,
-    "news_picked_today": 727,
-    "news_dropped_today": 5495
+    "news_seen_today": 442659,
+    "news_picked_today": 735,
+    "news_dropped_today": 5583
   },
   "book_momentum": {
     "live_count": 8,
