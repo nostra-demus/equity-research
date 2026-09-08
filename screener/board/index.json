@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T02:21:48Z",
+  "generated_at": "2026-09-08T02:26:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-093",
@@ -280,6 +280,60 @@
       "companies": [
         {
           "name": "Qantas Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-125",
+      "headline": "Anthropic reportedly walks away from acquisition of US$6 billion AI startup Decart",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/startups-tech/technology/anthropic-reportedly-walks-away-acquisition-us6-billion-ai-startup-decart",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:23:43Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Anthropic has reportedly abandoned a potential US$6 billion acquisition of Decart, signaling a change in M&A strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic has reportedly abandoned a potential US$6 billion acquisition of Decart, signaling a change in M&A strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Decart",
           "ticker": null,
           "listing_country": null
         }
@@ -1082,6 +1136,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-124",
+      "headline": "IAEA warns over Iran nuclear access as Western powers push UN referral",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/9/8/iaea-warns-over-iran-nuclear-access-as-western-powers-push-un-referral?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-08T01:50:37Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The IAEA warning regarding Iran's nuclear access increases geopolitical risk and potential for future sanctions or conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The IAEA warning regarding Iran's nuclear access increases geopolitical risk and potential for future sanctions or conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-056",
       "headline": "Ukraine's chief prosecutor resigns over call centre corruption scandal",
       "headline_en": null,
@@ -1834,104 +1931,6 @@
           "name": "Glass Wall Systems",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-061",
-      "headline": "Kanohar Electricals IPO opens September 8: Price band, GMP, brokerage views and key details",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/kanohar-electricals-ipo-subscription-opens-september-8-price-band-gmp-brokerage-views-and-key-details-19986088.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:18:40Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Kanohar Electricals is launching an IPO, representing a new capital market entry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Kanohar Electricals is launching an IPO, representing a new capital market entry.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kanohar Electricals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-016",
-      "headline": "Kuwait's Dawraty secures $2 million seed backed by Qatar Development Bank",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/09/kuwaits-dawraty-secures-2-million-seed-backed-qatar-development-bank",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:14:41Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Dawraty secured $2 million in seed funding, providing capital for growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Dawraty secured $2 million in seed funding, providing capital for growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dawraty",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -105708,76 +105707,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41676c4142cc",
-      "idea_version": "IDEAV-524a4a78236aa0ce",
-      "idea_version_started_at": "2026-09-06T15:09:06Z",
-      "ticker": "EVR",
-      "company": "Evercore",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Anticipated downward revisions to third-quarter investment banking and trading guidance suggest a slowdown in deal flow and market activity.",
-      "why_now": "The specific warning regarding softer Q3 guidance on September 6, 2026, creates immediate downward pressure ahead of the actual reporting period.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b411b09fcdb"
-      ],
-      "primary_source_event_id": "EVT-8b411b09fcdb",
-      "source_headlines": [
-        "Evercore expects softer third-quarter investment banking and trading guidance"
-      ],
-      "source_headline": "Evercore expects softer third-quarter investment banking and trading guidance",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-06T14:23:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T15:09:06Z",
-      "updated_at": "2026-09-06T15:09:06Z",
-      "decay_at": "2026-09-08T02:23:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a5f02f963a8e",
       "idea_version": "IDEAV-f2d7373e8d8eb218",
       "idea_version_started_at": "2026-09-08T02:01:33Z",
@@ -111225,6 +111154,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-41676c4142cc",
+      "idea_version": "IDEAV-524a4a78236aa0ce",
+      "idea_version_started_at": "2026-09-06T15:09:06Z",
+      "ticker": "EVR",
+      "company": "Evercore",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Anticipated downward revisions to third-quarter investment banking and trading guidance suggest a slowdown in deal flow and market activity.",
+      "why_now": "The specific warning regarding softer Q3 guidance on September 6, 2026, creates immediate downward pressure ahead of the actual reporting period.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b411b09fcdb"
+      ],
+      "primary_source_event_id": "EVT-8b411b09fcdb",
+      "source_headlines": [
+        "Evercore expects softer third-quarter investment banking and trading guidance"
+      ],
+      "source_headline": "Evercore expects softer third-quarter investment banking and trading guidance",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-06T14:23:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T15:09:06Z",
+      "updated_at": "2026-09-06T15:09:06Z",
+      "decay_at": "2026-09-08T02:23:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-04738164be6f",
       "idea_version": "IDEAV-66987093c8e398fb",
       "idea_version_started_at": "2026-09-06T04:54:50Z",
@@ -113979,8 +113978,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 499,
-    "shown_count": 485,
+    "total_count": 500,
+    "shown_count": 486,
     "hidden_count": 14,
     "side_counts": {
       "long": {
@@ -113989,8 +113988,8 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 235,
-        "shown_count": 235,
+        "total_count": 236,
+        "shown_count": 236,
         "hidden_count": 0
       }
     },
@@ -114010,6 +114009,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-41676c4142cc",
+        "idea_version": "IDEAV-524a4a78236aa0ce",
+        "idea_version_started_at": "2026-09-06T15:09:06Z",
+        "ticker": "EVR",
+        "company": "Evercore",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Anticipated downward revisions to third-quarter investment banking and trading guidance suggest a slowdown in deal flow and market activity.",
+        "why_now": "The specific warning regarding softer Q3 guidance on September 6, 2026, creates immediate downward pressure ahead of the actual reporting period.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b411b09fcdb"
+        ],
+        "primary_source_event_id": "EVT-8b411b09fcdb",
+        "source_headlines": [
+          "Evercore expects softer third-quarter investment banking and trading guidance"
+        ],
+        "source_headline": "Evercore expects softer third-quarter investment banking and trading guidance",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-06T14:23:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T15:09:06Z",
+        "updated_at": "2026-09-06T15:09:06Z",
+        "decay_at": "2026-09-08T02:23:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T02:23:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f4e90eacafe1",
         "idea_version": "IDEAV-d1d9374b13cd68bd",
@@ -150034,7 +150106,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 587,
-    "live_count": 86,
+    "live_count": 85,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -150053,9 +150125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 573,
-    "news_picked_today": 137,
-    "news_dropped_today": 436
+    "news_seen_today": 590,
+    "news_picked_today": 140,
+    "news_dropped_today": 450
   },
   "book_momentum": {
     "live_count": 8,
