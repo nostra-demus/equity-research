@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T02:05:27Z",
+  "generated_at": "2026-09-08T02:12:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-093",
@@ -339,6 +339,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-111",
+      "headline": "[Special Report] 포스코 브라질 법인 파산, ‘모회사 책임’ 논란 속 현지 법안 발의와 OECD 책임경영 이슈로 확산",
+      "headline_en": "[Special Report] POSCO Brazil subsidiary bankruptcy, controversy over 'parent company responsibility' spreads to local legislation and OECD responsible management issues",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276393",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:37:03Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "POSCO's Brazilian subsidiary bankruptcy and associated legal/OECD issues create significant reputational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "POSCO's Brazilian subsidiary bankruptcy and associated legal/OECD issues create significant reputational and financial risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POSCO",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-001",
       "headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -585,6 +634,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-117",
+      "headline": "NH농협은행, 블랙스톤과 AI 데이터센터 투자전략 논의",
+      "headline_en": "NH NongHyup Bank discusses AI data center investment strategy with Blackstone",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276391",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:56:20Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "NH NongHyup Bank is discussing investment strategies for AI data centers with Blackstone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "NH NongHyup Bank is discussing investment strategies for AI data centers with Blackstone.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NH NongHyup Bank",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-108",
+      "headline": "Trump threatens to block Bombardier jets from US market as Canada’s retaliatory tariffs set to take effect",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/trump-threatens-to-block-bombardier-jets-from-us-market-as-canadas-retaliatory-tariffs-set-to-take-effect-19985661.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:09:01Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Trump's threat to block Bombardier jets from the US market creates significant operational and regulatory risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Trump's threat to block Bombardier jets from the US market creates significant operational and regulatory risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bombardier",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-090",
       "headline": "Hydrogen train gets a speed push: Railways eyes 110 kmph operation",
       "headline_en": null,
@@ -728,6 +875,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-114",
+      "headline": "Willis Lease Finance eyes Asia-Pacific engine repair growth with new Malaysia centre",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/willis-lease-finance-eyes-asia-pacific-engine-repair-growth-with-new-malaysia-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:01:53Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Willis Lease Finance is expanding its operational footprint in the Asia-Pacific region with a new engine repair center in Malaysia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Willis Lease Finance is expanding its operational footprint in the Asia-Pacific region with a new engine repair center in Malaysia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Willis Lease Finance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1695,235 +1891,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-078",
-      "headline": "ERL: Response to ASX Price Query [price-sensitive]",
+      "inbox_id": "INB-20260908-105",
+      "headline": "AIV: Exciting Rare Earth Element Results - Aramac Queensland [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ERL?key=2924-03133049-6A1342739",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIV?key=2924-03133058-2A1696068",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T01:37:30Z",
+      "found_at": "2026-09-08T02:04:20Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "The company is responding to an ASX price query, which is a formal regulatory requirement regarding unusual trading activity.",
+      "prelim_note": "Aramac rare earth exploration results indicate potential resource expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 73,
-      "triage_reason": "The company is responding to an ASX price query, which is a formal regulatory requirement regarding unusual trading activity.",
+      "triage_reason": "Aramac rare earth exploration results indicate potential resource expansion.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 0,
+        "event": 0,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": null,
+        "size_bucket": "small"
       },
       "event_types": [
-        "regulatory"
+        "product"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ERL",
+          "name": "AIV",
           "ticker": null,
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-049",
-      "headline": "Brent crude oil nears $100 as US-Iran war chokes Hormuz, rattles oil markets",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/energy/brent-crude-oil-nears-100-as-us-iran-war-chokes-hormuz-rattles-oil-markets-1.500666538",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:35:25Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Geopolitical conflict in the Strait of Hormuz is driving Brent crude oil prices toward $100, creating a major global supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Geopolitical conflict in the Strait of Hormuz is driving Brent crude oil prices toward $100, creating a major global supply shock.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-028",
-      "headline": "Samsung Buyback Highlights Korea’s 45% Preferred Stock Discount",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-08/samsung-buyback-highlights-korea-s-45-preferred-stock-discount",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:19:36Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Samsung's buyback announcement highlights a significant valuation gap in its preferred shares, impacting capital allocation expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Samsung's buyback announcement highlights a significant valuation gap in its preferred shares, impacting capital allocation expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-101",
-      "headline": "Bombardier points out U.S. footprint after Trump says aerospace giant must build in America",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/07/trump-bombardier-cant-sell-in-us-unless-canada-aerospace-giant-builds-there.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:01:12Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Bombardier is responding to political pressure regarding its U.S. manufacturing footprint, which creates operational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Bombardier is responding to political pressure regarding its U.S. manufacturing footprint, which creates operational and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-071",
-      "headline": "UK recognises India’s carbon credit scheme under CBAM, easing tax burden for exporters",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/uk-recognises-india-s-carbon-credit-scheme-under-cbam-easing-tax-burden-for-exporters-11788830116654.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:28:53Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "The UK's recognition of India's carbon credit scheme reduces the tax burden for Indian exporters under CBAM.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "The UK's recognition of India's carbon credit scheme reduces the tax burden for Indian exporters under CBAM.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149826,9 +149837,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 506,
-    "news_picked_today": 115,
-    "news_dropped_today": 391
+    "news_seen_today": 540,
+    "news_picked_today": 128,
+    "news_dropped_today": 412
   },
   "book_momentum": {
     "live_count": 8,
