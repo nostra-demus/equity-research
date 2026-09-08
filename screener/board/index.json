@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T08:32:58Z",
+  "generated_at": "2026-09-08T08:36:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -1749,6 +1749,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-337",
+      "headline": "Old Mutual first-half earnings fall 30% as Middle East tensions hit investment returns",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/africa/old-mutual-first-half-earnings-fall-30-middle-east-tensions-hit-investment-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T08:08:50Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Old Mutual reported a 30% decline in first-half earnings due to regional geopolitical tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Old Mutual reported a 30% decline in first-half earnings due to regional geopolitical tensions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Old Mutual",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-306",
       "headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
           "name": "EIQ",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-212",
-      "headline": "Donear Industries Limited: The Exchange has sought clarification from Donear Industries Limited for the quarter ended 30-Jun-2026 with respect to Regulation 33 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015. On basis of above the Company is required to clarify the following: The response of the Company is awaited.",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=DONEAR&seq=106774104",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T04:37:22Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "BSE/NSE exchange seeks written clarification from Donear Industries Limited on Q1 FY27 (30-Jun-2026) quarterly-results filing under SEBI Regulation 33 (quarterly disclosure requirements), signaling potential accounting, disclosure, or reporting anomalies in announced results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "BSE/NSE exchange seeks written clarification from Donear Industries Limited on Q1 FY27 (30-Jun-2026) quarterly-results filing under SEBI Regulation 33 (quarterly disclosure requirements), signaling potential accounting, disclosure, or reporting anomalies in announced results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Donear Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -151400,9 +151400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 165122,
-    "news_picked_today": 600,
-    "news_dropped_today": 4854
+    "news_seen_today": 173633,
+    "news_picked_today": 611,
+    "news_dropped_today": 4867
   },
   "book_momentum": {
     "live_count": 8,
