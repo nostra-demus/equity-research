@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-08T13:52:43Z",
+  "generated_at": "2026-09-08T14:02:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-580",
+      "headline": "Pitti Engineering Limited: Pitti Engineering Limited has informed the Exchange about Scheme of Amalgamation approved by the Hon'ble NCLT",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PITTIENG_08092026190745_NCLTORDER.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T13:38:02Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "NCLT approval of a scheme of amalgamation is a major corporate restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT approval of a scheme of amalgamation is a major corporate restructuring event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pitti Engineering Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-577",
       "headline": "DOMAINE POWER (00442): DISCLOSEABLE AND CONNECTED TRANSACTION PROPOSED VAX ACQUISITION UNDER THE VAX SALE AND PURCHASE AGREEMENT AND VAX SALE AND PURCHASE SUPPLEMENTAL AGREEMENT INVOLVING ISSUE OF CONSIDERATION CONVERTIBLE BONDS UNDER SPECIFIC MANDATE",
@@ -740,6 +789,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-583",
+      "headline": "GE Aerospace To Buy Key Industry Castings Supplier CPP For Nearly $12 Billion",
+      "headline_en": null,
+      "url": "https://www.investors.com/news/ge-aerospace-acquisition-precision-products-castings-capacity-deal-ge-stock/?src=A00220&yptr=yahoo",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T13:28:38Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Aerospace to acquire CPP for $12 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace to acquire CPP for $12 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,114 +1995,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-365",
-      "headline": "Novartis India acquires Pfizer brands for $132m",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/novartis-india-acquires-pfizer-brands-085150122.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T08:51:50Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Novartis India is acquiring Pfizer brands for $132 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis India is acquiring Pfizer brands for $132 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Pfizer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-364",
-      "headline": "Qualitas Energy to buy Cero Generation’s 5.8GW European platform",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/qualitas-energy-buy-cero-generation-084348043.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T08:43:48Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Qualitas Energy is acquiring a 5.8GW renewable energy platform from Cero Generation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualitas Energy is acquiring a 5.8GW renewable energy platform from Cero Generation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualitas Energy",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cero Generation",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108502,78 +108492,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e28ce99f344d",
-      "idea_version": "IDEAV-b6b25379f08032a3",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "ING",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
-      "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ab7cb9e8649"
-      ],
-      "primary_source_event_id": "EVT-5ab7cb9e8649",
-      "source_headlines": [
-        "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
-      ],
-      "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
-      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T02:01:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:01:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b8cfb6be47e3",
       "idea_version": "IDEAV-ee5553cd5f3c92e7",
       "idea_version_started_at": "2026-09-07T03:26:40Z",
@@ -111128,6 +111046,78 @@
       "surfaced_at": "2026-09-07T00:24:17Z",
       "updated_at": "2026-09-07T16:59:16Z",
       "decay_at": "2026-09-08T11:37:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e28ce99f344d",
+      "idea_version": "IDEAV-b6b25379f08032a3",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ING",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
+      "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ab7cb9e8649"
+      ],
+      "primary_source_event_id": "EVT-5ab7cb9e8649",
+      "source_headlines": [
+        "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
+      ],
+      "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
+      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:01:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:01:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114966,14 +114956,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 495,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       },
       "short": {
         "total_count": 245,
@@ -114997,6 +114987,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e28ce99f344d",
+        "idea_version": "IDEAV-b6b25379f08032a3",
+        "idea_version_started_at": "2026-09-07T03:45:17Z",
+        "ticker": "ING",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Ingenia Communities Group's shares jumped after it rejected a takeover bid from Warburg Pincus, indicating potential for a higher offer or continued independent value creation.",
+        "why_now": "The company's rejection of the bid and subsequent share price jump occurred on 2026-09-07, making this a live event.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5ab7cb9e8649"
+        ],
+        "primary_source_event_id": "EVT-5ab7cb9e8649",
+        "source_headlines": [
+          "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump"
+        ],
+        "source_headline": "Australia's Ingenia rejects Warburg Pincus takeover bid; shares jump",
+        "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T02:01:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T03:45:17Z",
+        "updated_at": "2026-09-07T03:45:17Z",
+        "decay_at": "2026-09-08T14:01:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T14:01:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f69625cadec8",
         "idea_version": "IDEAV-d68ad6f60ccae3bb",
@@ -147409,80 +147474,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7b62c8f5cbf9",
-        "idea_version": "IDEAV-e031ae136abc1b10",
-        "idea_version_started_at": "2026-08-24T23:28:07Z",
-        "ticker": "AEU",
-        "company": "Aussie Equity Uranium",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has secured the Madaouela uranium project, which significantly expands its resource base and long-term production potential.",
-        "why_now": "The filing was released on August 23, 2026, making this a fresh development for the company's asset portfolio.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5aa0def742b5"
-        ],
-        "primary_source_event_id": "EVT-5aa0def742b5",
-        "source_headlines": [
-          "AEU: AEU Secures Madaouela Project [price-sensitive]"
-        ],
-        "source_headline": "AEU: AEU Secures Madaouela Project [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AEU?key=2924-03124575-6A1339776",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T22:06:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T23:28:07Z",
-        "updated_at": "2026-08-24T23:28:07Z",
-        "decay_at": "2026-08-25T10:06:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T22:23:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-137047b4543b",
         "idea_version": "IDEAV-2d67a2b15ec5b565",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -151779,7 +151770,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 607,
-    "live_count": 75,
+    "live_count": 74,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151798,9 +151789,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1420597,
-    "news_picked_today": 1098,
-    "news_dropped_today": 6924
+    "news_seen_today": 1474404,
+    "news_picked_today": 1108,
+    "news_dropped_today": 6986
   },
   "book_momentum": {
     "live_count": 8,
