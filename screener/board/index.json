@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T03:37:33Z",
+  "generated_at": "2026-09-08T03:41:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -96,6 +96,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-169",
+      "headline": "HORNBACH Holding Q2 Preliminary Net Sales Up 7.3%; Backs FY Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hornbach-holding-q2-preliminary-net-sales-73-backs-fy-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T03:24:34Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "HORNBACH Holding reported a 7.3% increase in Q2 preliminary net sales and reaffirmed its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HORNBACH Holding reported a 7.3% increase in Q2 preliminary net sales and reaffirmed its full-year outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HORNBACH Holding",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,49 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-124",
-      "headline": "IAEA warns over Iran nuclear access as Western powers push UN referral",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/9/8/iaea-warns-over-iran-nuclear-access-as-western-powers-push-un-referral?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-08T01:50:37Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "The IAEA warning regarding Iran's nuclear access increases geopolitical risk and potential for future sanctions or conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The IAEA warning regarding Iran's nuclear access increases geopolitical risk and potential for future sanctions or conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150596,9 +150603,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 912,
-    "news_picked_today": 234,
-    "news_dropped_today": 678
+    "news_seen_today": 928,
+    "news_picked_today": 239,
+    "news_dropped_today": 689
   },
   "book_momentum": {
     "live_count": 8,
