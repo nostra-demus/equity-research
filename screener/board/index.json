@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T14:22:05Z",
+  "generated_at": "2026-09-08T14:37:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-584",
@@ -786,6 +786,55 @@
           "name": "AKA",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-594",
+      "headline": "Mistral raises €3B as sovereign AI becomes big business",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T14:17:48Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Mistral AI raises €3B in funding to support sovereign AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mistral AI raises €3B in funding to support sovereign AI infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mistral",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1953,60 +2002,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-390",
-      "headline": "Tamarack Valley to Buy Headwater Exploration in All-Stock Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-08/tamarack-valley-to-buy-headwater-exploration-in-all-stock-deal-mtsgmgke",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T09:21:11Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Tamarack Valley to acquire Headwater Exploration in an all-stock deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tamarack Valley to acquire Headwater Exploration in an all-stock deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tamarack Valley",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Headwater Exploration",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105359,76 +105354,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-759cf3b531e6",
-      "idea_version": "IDEAV-4ade98d402d9122a",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
-      "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89191f47ab8e"
-      ],
-      "primary_source_event_id": "EVT-89191f47ab8e",
-      "source_headlines": [
-        "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
-      ],
-      "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
-      "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T02:23:27Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:23:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-e15ec643a0a42a39",
       "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -109077,78 +109002,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-9363c87dbbf9fb45",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
-      "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c87ff9d466f3"
-      ],
-      "primary_source_event_id": "EVT-c87ff9d466f3",
-      "source_headlines": [
-        "Austal confirms counterbid talks for its US arm by mystery Florida firm"
-      ],
-      "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
-      "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-07T02:25:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:25:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d45c5c6a293c",
       "idea_version": "IDEAV-4c3423f52b003f7e",
       "idea_version_started_at": "2026-09-08T08:32:35Z",
@@ -110079,6 +109932,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-759cf3b531e6",
+      "idea_version": "IDEAV-4ade98d402d9122a",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
+      "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-89191f47ab8e"
+      ],
+      "primary_source_event_id": "EVT-89191f47ab8e",
+      "source_headlines": [
+        "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
+      ],
+      "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
+      "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T02:23:27Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:23:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-e6f71ab27180",
@@ -112867,6 +112790,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-9363c87dbbf9fb45",
+      "idea_version_started_at": "2026-09-07T03:45:17Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
+      "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c87ff9d466f3"
+      ],
+      "primary_source_event_id": "EVT-c87ff9d466f3",
+      "source_headlines": [
+        "Austal confirms counterbid talks for its US arm by mystery Florida firm"
+      ],
+      "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
+      "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-07T02:25:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-07T03:45:17Z",
+      "decay_at": "2026-09-08T14:25:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5e3b0ec8d5d9",
       "idea_version": "IDEAV-7c943781b4f123b1",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -115180,18 +115175,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
-    "shown_count": 495,
-    "hidden_count": 37,
+    "total_count": 534,
+    "shown_count": 496,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
-        "total_count": 245,
-        "shown_count": 245,
+        "total_count": 246,
+        "shown_count": 246,
         "hidden_count": 0
       }
     },
@@ -115211,6 +115206,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a6b4b796e78e",
+        "idea_version": "IDEAV-9363c87dbbf9fb45",
+        "idea_version_started_at": "2026-09-07T03:45:17Z",
+        "ticker": "ASB",
+        "company": "Austal",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
+        "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c87ff9d466f3"
+        ],
+        "primary_source_event_id": "EVT-c87ff9d466f3",
+        "source_headlines": [
+          "Austal confirms counterbid talks for its US arm by mystery Florida firm"
+        ],
+        "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
+        "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 95,
+        "newest_source_at": "2026-09-07T02:25:26Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T03:45:17Z",
+        "updated_at": "2026-09-07T03:45:17Z",
+        "decay_at": "2026-09-08T14:25:26Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T14:25:26Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-759cf3b531e6",
+        "idea_version": "IDEAV-4ade98d402d9122a",
+        "idea_version_started_at": "2026-09-07T03:45:17Z",
+        "ticker": "AMZN",
+        "company": "Amazon",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An Amazon cargo aircraft overrunning a runway, striking vehicles, and bursting into flames, resulting in 5 fatalities and 5 injuries, could lead to operational disruptions, increased insurance costs, and potential reputational damage for its logistics operations.",
+        "why_now": "The plane crash occurred on 2026-09-07, creating an immediate negative operational event for Amazon.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-89191f47ab8e"
+        ],
+        "primary_source_event_id": "EVT-89191f47ab8e",
+        "source_headlines": [
+          "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch"
+        ],
+        "source_headline": "Miami Airport Plane Crash: 5 Killed, 5 Injured After Amazon Cargo Aircraft Overruns Runway, Strikes Vehicles And Bursts Into Flames | Watch",
+        "source_url": "https://www.freepressjournal.in/world/miami-airport-plane-crash-5-killed-5-injured-after-amazon-cargo-aircraft-overruns-runway-strikes-vehicles-and-bursts-into-flames-watch",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T02:23:27Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/AMZN_2026-07-20",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-07T03:45:17Z",
+        "updated_at": "2026-09-07T03:45:17Z",
+        "decay_at": "2026-09-08T14:23:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T14:23:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b8cfb6be47e3",
         "idea_version": "IDEAV-ee5553cd5f3c92e7",
@@ -147625,81 +147768,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d0f443774a32",
-        "idea_version": "IDEAV-53a39543bc7bbc87",
-        "idea_version_started_at": "2026-08-23T23:13:49Z",
-        "ticker": "ALD",
-        "company": "Ampol",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a record half-year profit with a four-fold increase in earnings, signaling significant margin expansion and operational efficiency.",
-        "why_now": "The results were released on 2026-08-23.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-05195c47ea86"
-        ],
-        "primary_source_event_id": "EVT-05195c47ea86",
-        "source_headlines": [
-          "Australia's Ampol logs record half-year profit with more than four-fold rise"
-        ],
-        "source_headline": "Australia's Ampol logs record half-year profit with more than four-fold rise",
-        "source_url": "https://www.reuters.com/business/energy/australias-ampol-logs-record-half-year-profit-with-more-than-four-fold-rise-2026-08-23/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T22:42:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T23:13:49Z",
-        "updated_at": "2026-08-23T23:13:49Z",
-        "decay_at": "2026-08-25T10:42:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T23:18:36Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-137047b4543b",
         "idea_version": "IDEAV-2d67a2b15ec5b565",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -151996,7 +152064,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 611,
-    "live_count": 77,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152015,9 +152083,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1573171,
-    "news_picked_today": 1120,
-    "news_dropped_today": 7118
+    "news_seen_today": 1662577,
+    "news_picked_today": 1135,
+    "news_dropped_today": 7247
   },
   "book_momentum": {
     "live_count": 8,
