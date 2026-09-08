@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T10:21:13Z",
+  "generated_at": "2026-09-08T10:26:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-388",
@@ -1506,6 +1506,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-408",
+      "headline": "SHIMAO GROUP (00813): Further information on Winding-up petition",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800500.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T09:31:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Shimao Group provided further information regarding an ongoing winding-up petition, indicating continued financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Shimao Group provided further information regarding an ongoing winding-up petition, indicating continued financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimao Group",
+          "ticker": "00813",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-133",
       "headline": "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition",
       "headline_en": null,
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-260",
-      "headline": "Torrent Power Limited: Torrent Power Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Torrent Green Energy commissions landmark 322 MWp decentralized solar projects in Maharashtra under MSKVY PM-KUSUM scheme\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TORNTPOWER_08092026110523_Media_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T05:35:32Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Torrent Power commissioned 322 MWp of solar projects in Maharashtra.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Torrent Power commissioned 322 MWp of solar projects in Maharashtra.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Torrent Power Limited",
-          "ticker": "532779",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151385,9 +151385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 453773,
-    "news_picked_today": 744,
-    "news_dropped_today": 5598
+    "news_seen_today": 470715,
+    "news_picked_today": 759,
+    "news_dropped_today": 5631
   },
   "book_momentum": {
     "live_count": 8,
