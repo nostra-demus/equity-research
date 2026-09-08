@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T03:52:06Z",
+  "generated_at": "2026-09-08T03:57:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -1042,6 +1042,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-185",
+      "headline": "Larsen & Toubro plans ₹500 crore tokenised bond issue, first by private-sector company",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/larsen-toubro-plans-500-crore-tokenised-bond-issue-first-by-private-sector-company/article71441201.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T03:47:12Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Larsen & Toubro is planning a 500 crore tokenised bond issue, a first for a private-sector company in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Larsen & Toubro is planning a 500 crore tokenised bond issue, a first for a private-sector company in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-165",
       "headline": "Reliance set to return to bond market after 3 years, eyes Rs 12,500 crore raise: Reports",
       "headline_en": null,
@@ -1685,20 +1734,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-170",
-      "headline": "GE Vernova T&D shares jump 6% after large Power Grid order; Analysts raise price targets",
+      "inbox_id": "INB-20260908-184",
+      "headline": "GE Vernova T&D shares jump 8% after large Power Grid order; Analysts raise price targets",
       "headline_en": null,
       "url": "https://www.cnbctv18.com/market/ge-vernova-td-share-price-l1-for-major-power-grid-order-target-raised-nomura-citi-returns-19986097.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T03:42:09Z",
+      "found_at": "2026-09-08T03:47:35Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE Vernova T&D secured a large order from Power Grid, leading to a 6% share price increase and analyst upgrades.",
+      "prelim_note": "GE Vernova T&D secured a large order from Power Grid, leading to analyst upgrades.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "GE Vernova T&D secured a large order from Power Grid, leading to a 6% share price increase and analyst upgrades.",
+      "triage_reason": "GE Vernova T&D secured a large order from Power Grid, leading to analyst upgrades.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1723,7 +1772,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GE Vernova T&D",
+          "name": "GE Vernova T&D India",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-090",
-      "headline": "Hydrogen train gets a speed push: Railways eyes 110 kmph operation",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/hydrogen-train-gets-a-speed-push-railways-eyes-110-kmph-operation-553692-2026-09-08?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:10:03Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Indian Railways is upgrading operational capacity for hydrogen trains to 110 kmph.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Indian Railways is upgrading operational capacity for hydrogen trains to 110 kmph.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Railways",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150597,9 +150597,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 990,
-    "news_picked_today": 254,
-    "news_dropped_today": 736
+    "news_seen_today": 1017,
+    "news_picked_today": 258,
+    "news_dropped_today": 759
   },
   "book_momentum": {
     "live_count": 8,
