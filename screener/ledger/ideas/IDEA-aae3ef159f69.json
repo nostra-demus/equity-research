@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-aae3ef159f69",
+  "idea_version": "IDEAV-2bf6c570a54fd687",
+  "idea_version_started_at": "2026-09-08T15:48:21Z",
+  "ticker": "BSX",
+  "company": "Boston Scientific",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company faces a compounding negative impact from a cyberattack disrupting operations and a major product recall involving over 1,000 serious injuries, both of which threaten near-term earnings and long-term liability costs.",
+  "why_now": "The guidance warning and recall news were released on 2026-09-08, creating immediate downward pressure on margins and potential litigation risk.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-847ed4a3fddf",
+    "EVT-e5e4a1031d29",
+    "EVT-8087a61dacd2"
+  ],
+  "primary_source_event_id": "EVT-847ed4a3fddf",
+  "source_headlines": [
+    "Boston Scientific Warns of Financial Hit from Cyber Attack",
+    "Boston Scientific ‘Unlikely to Meet’ Earnings Guidance After Cyberattack. Stock Falls.",
+    "Boston Scientific recalls spinal cord implant in wake of more than 1k serious injuries"
+  ],
+  "source_headline": "Boston Scientific Warns of Financial Hit from Cyber Attack",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-09-08/boston-scientific-unlikely-to-meet-forecasts-after-cyber-attack-mtsjf03g",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-08T12:34:20Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-08T15:48:21Z",
+  "updated_at": "2026-09-08T15:48:21Z",
+  "decay_at": "2026-09-10T00:34:20Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
