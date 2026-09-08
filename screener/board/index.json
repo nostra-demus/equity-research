@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T21:19:39Z",
+  "generated_at": "2026-09-08T21:24:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -881,6 +881,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-706",
+      "headline": "Stock Market Today, Sept. 8: IonQ Raises 2026 Revenue Guidance on Investor Day",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/09/08/stock-market-today-sept-8-ionq-raises-2026-revenue-guidance-on-investor-day/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T20:46:07Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "IonQ raised its 2026 revenue guidance during its Investor Day.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IonQ raised its 2026 revenue guidance during its Investor Day.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IonQ",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
           "name": "Marlan Space",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-640",
-      "headline": "Zoetis (ZTS) Shares Drop After Earnings Revision",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/healthcare/articles/zoetis-zts-shares-drop-earnings-145103070.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:51:03Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Zoetis shares dropped following a downward revision to earnings guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zoetis shares dropped following a downward revision to earnings guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zoetis",
-          "ticker": "ZTS",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -152438,9 +152438,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4089015,
-    "news_picked_today": 1462,
-    "news_dropped_today": 10304
+    "news_seen_today": 4102791,
+    "news_picked_today": 1474,
+    "news_dropped_today": 10316
   },
   "book_momentum": {
     "live_count": 8,
