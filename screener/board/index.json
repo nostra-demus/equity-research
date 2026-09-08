@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-08T09:47:33Z",
+  "generated_at": "2026-09-08T09:51:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-388",
+      "headline": "PACIFIC LEGEND (08547): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0908/2026090800520.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T09:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Pacific Legend issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pacific Legend issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacific Legend",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-369",
       "headline": "CHINA ECOTOUR (01371): Dismissal of Winding-Up Petition",
@@ -397,31 +446,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-377",
-      "headline": "Tamarack Valley, Headwater Exploration agree $7.2 billion all-stock merger",
+      "inbox_id": "INB-20260908-390",
+      "headline": "Tamarack Valley to Buy Headwater Exploration in All-Stock Deal",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/tamarack-valley-headwater-exploration-agree-72-billion-all-stock-merger-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/tamarack-valley-to-buy-headwater-exploration-in-all-stock-deal-mtsgmgke",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T09:20:35Z",
+      "found_at": "2026-09-08T09:21:11Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Large $7.2 billion all-stock merger announcement.",
+      "prelim_note": "Tamarack Valley to acquire Headwater Exploration in an all-stock deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Large $7.2 billion all-stock merger announcement.",
+      "triage_reason": "Tamarack Valley to acquire Headwater Exploration in an all-stock deal.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -435,14 +484,14 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tamarack Valley Energy",
+          "name": "Tamarack Valley",
           "ticker": null,
-          "listing_country": "CA"
+          "listing_country": null
         },
         {
           "name": "Headwater Exploration",
           "ticker": null,
-          "listing_country": "CA"
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1933,60 +1982,6 @@
           "name": "Mistral AI",
           "ticker": null,
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-125",
-      "headline": "Anthropic reportedly walks away from acquisition of US$6 billion AI startup Decart",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/startups-tech/technology/anthropic-reportedly-walks-away-acquisition-us6-billion-ai-startup-decart",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:23:43Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Anthropic has reportedly abandoned a potential US$6 billion acquisition of Decart, signaling a change in M&A strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Anthropic has reportedly abandoned a potential US$6 billion acquisition of Decart, signaling a change in M&A strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Decart",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -151390,9 +151385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 351909,
-    "news_picked_today": 713,
-    "news_dropped_today": 5413
+    "news_seen_today": 361368,
+    "news_picked_today": 723,
+    "news_dropped_today": 5427
   },
   "book_momentum": {
     "live_count": 8,
