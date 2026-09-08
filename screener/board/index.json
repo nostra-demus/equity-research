@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:15:46Z",
+  "generated_at": "2026-09-08T00:21:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -339,6 +339,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-018",
+      "headline": "Japan’s GDP Growth Revised Higher, Backing BOJ Hike Case",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-07/japan-s-gdp-growth-revised-higher-backing-boj-rate-hike-case",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T23:57:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Japan's GDP revision supports the Bank of Japan's case for interest rate hikes, impacting monetary policy expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Japan's GDP revision supports the Bank of Japan's case for interest rate hikes, impacting monetary policy expectations.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-016",
       "headline": "Kuwait's Dawraty secures $2 million seed backed by Qatar Development Bank",
       "headline_en": null,
@@ -527,6 +570,55 @@
           "name": "Grocery Outlet",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-019",
+      "headline": "한진, 아이치·나고야 아시안게임 방송장비 국제운송 전담",
+      "headline_en": "Hanjin to handle international transport of broadcasting equipment for the Aichi-Nagoya Asian Games",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276374",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:05:10Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Hanjin secured a contract to handle international logistics for broadcasting equipment for the Aichi-Nagoya Asian Games.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Hanjin secured a contract to handle international logistics for broadcasting equipment for the Aichi-Nagoya Asian Games.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanjin Transportation",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "mid",
@@ -148203,7 +148295,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2144,
+    "inbox_unconsumed": 2146,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -148212,9 +148304,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 93,
-    "news_picked_today": 17,
-    "news_dropped_today": 76
+    "news_seen_today": 109,
+    "news_picked_today": 19,
+    "news_dropped_today": 90
   },
   "book_momentum": {
     "live_count": 8,
