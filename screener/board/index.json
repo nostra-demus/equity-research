@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T08:26:52Z",
+  "generated_at": "2026-09-08T08:31:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -901,6 +901,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-330",
+      "headline": "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/biotech/novartis-centerpiece-12b-avidity-buyout-flunks-crucial-phase-3-test",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T08:19:20Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Novartis' phase 3 trial failure for a key asset in a $12B acquisition context is a major clinical and financial setback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Novartis' phase 3 trial failure for a key asset in a $12B acquisition context is a major clinical and financial setback.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-219",
       "headline": "HMM secures 4.7 tln-won shipping contract with Brazil's Vale",
       "headline_en": null,
@@ -1244,6 +1293,65 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-331",
+      "headline": "Brookfield seeks IC greenlight to buy KKR, CBA’s Colonial First State",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/brookfield-seeks-ic-greenlight-to-buy-kkr-cba-s-colonial-first-state-20260908-p60vdm?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T08:05:41Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Brookfield is seeking regulatory approval to acquire Colonial First State, a major asset management firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Brookfield is seeking regulatory approval to acquire Colonial First State, a major asset management firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Colonial First State",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,110 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-246",
-      "headline": "Shiprocket Share Price Jumps Over 6% After Q1 Net Loss Narrows, Revenue Surges",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/shiprocket-share-price-jumps-over-6-percent-after-q1-net-loss-narrows-revenue-surges-12016019#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:02:25Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Shiprocket shares jumped over 6% after reporting a narrowed Q1 net loss and surging revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Shiprocket shares jumped over 6% after reporting a narrowed Q1 net loss and surging revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shiprocket",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-232",
-      "headline": "L’imad unit’s offer for Abu Dhabi Ports clears key conditions, settlement by October 9",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/limad-units-offer-for-abu-dhabi-ports-clears-key-conditions-settlement-by-october-9",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:01:47Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "L'imad's offer for Abu Dhabi Ports clears regulatory conditions with settlement by October 9, de-risking M&A completion timeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "L'imad's offer for Abu Dhabi Ports clears regulatory conditions with settlement by October 9, de-risking M&A completion timeline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abu Dhabi Ports",
-          "ticker": "ADPORTS",
-          "listing_country": "AE"
-        },
-        {
-          "name": "L'imad",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151252,9 +151256,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 160899,
-    "news_picked_today": 590,
-    "news_dropped_today": 4840
+    "news_seen_today": 165122,
+    "news_picked_today": 600,
+    "news_dropped_today": 4854
   },
   "book_momentum": {
     "live_count": 8,
