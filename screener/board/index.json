@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T16:52:12Z",
+  "generated_at": "2026-09-08T17:02:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -1040,6 +1040,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-652",
+      "headline": "UiPath Slides 24% After Q2 Earnings: Is PATH Stock a Buy?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/uipath-slides-24-after-q2-earnings-path-stock-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T15:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "UiPath shares fell 24% following its Q2 earnings report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UiPath shares fell 24% following its Q2 earnings report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UiPath",
+          "ticker": "PATH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-644",
       "headline": "Rubis Turns Expensive Oil Into a Guidance Upgrade",
       "headline_en": null,
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-481",
-      "headline": "Mistral AI raises €3 billion in Samsung-led Series D round",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/technology/ai/articles/mistral-ai-raises-3-billion-111824280.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T11:18:24Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Mistral AI raised 3 billion euros in a Series D funding round.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mistral AI raised 3 billion euros in a Series D funding round.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mistral AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105353,76 +105353,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f8811cd4e8f2",
-      "idea_version": "IDEAV-d5e245c9bae889eb",
-      "idea_version_started_at": "2026-09-07T05:58:37Z",
-      "ticker": "TTD",
-      "company": "The Trade Desk",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The adtech company is laying off 15% of its global workforce, signaling potential headwinds in its business operations and revenue growth.",
-      "why_now": "The layoffs are a current event indicating immediate operational adjustments.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-813629d1c263"
-      ],
-      "primary_source_event_id": "EVT-813629d1c263",
-      "source_headlines": [
-        "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected"
-      ],
-      "source_headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
-      "source_url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T04:53:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T05:58:37Z",
-      "updated_at": "2026-09-07T05:58:37Z",
-      "decay_at": "2026-09-08T16:53:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-e15ec643a0a42a39",
       "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -105767,77 +105697,6 @@
       "surfaced_at": "2026-09-08T03:17:19Z",
       "updated_at": "2026-09-08T03:17:19Z",
       "decay_at": "2026-09-09T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-84ea9b6e944a",
-      "idea_version": "IDEAV-0429ceca0d873c9b",
-      "idea_version_started_at": "2026-09-07T06:29:09Z",
-      "ticker": "PVRINOX.NS",
-      "company": "PVR Inox",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shares fell due to an alleged Rs 200 crore kickback investigation and the exit of a senior executive.",
-      "why_now": "The investigation and executive exit were reported today, causing an immediate share price drop.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-91a6b422e0f3"
-      ],
-      "primary_source_event_id": "EVT-91a6b422e0f3",
-      "source_headlines": [
-        "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light"
-      ],
-      "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T04:56:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T06:29:09Z",
-      "updated_at": "2026-09-07T06:29:09Z",
-      "decay_at": "2026-09-08T16:56:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109210,6 +109069,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f8811cd4e8f2",
+      "idea_version": "IDEAV-d5e245c9bae889eb",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "TTD",
+      "company": "The Trade Desk",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The adtech company is laying off 15% of its global workforce, signaling potential headwinds in its business operations and revenue growth.",
+      "why_now": "The layoffs are a current event indicating immediate operational adjustments.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813629d1c263"
+      ],
+      "primary_source_event_id": "EVT-813629d1c263",
+      "source_headlines": [
+        "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected"
+      ],
+      "source_headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
+      "source_url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:53:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T16:53:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-759cf3b531e6",
       "idea_version": "IDEAV-4ade98d402d9122a",
       "idea_version_started_at": "2026-09-07T03:45:17Z",
@@ -110044,6 +109973,77 @@
       "surfaced_at": "2026-09-06T04:20:13Z",
       "updated_at": "2026-09-06T04:20:13Z",
       "decay_at": "2026-09-07T15:30:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84ea9b6e944a",
+      "idea_version": "IDEAV-0429ceca0d873c9b",
+      "idea_version_started_at": "2026-09-07T06:29:09Z",
+      "ticker": "PVRINOX.NS",
+      "company": "PVR Inox",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Shares fell due to an alleged Rs 200 crore kickback investigation and the exit of a senior executive.",
+      "why_now": "The investigation and executive exit were reported today, causing an immediate share price drop.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-91a6b422e0f3"
+      ],
+      "primary_source_event_id": "EVT-91a6b422e0f3",
+      "source_headlines": [
+        "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light"
+      ],
+      "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:56:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T06:29:09Z",
+      "updated_at": "2026-09-07T06:29:09Z",
+      "decay_at": "2026-09-08T16:56:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115165,9 +115165,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
-    "shown_count": 499,
-    "hidden_count": 49,
+    "total_count": 550,
+    "shown_count": 500,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
         "total_count": 299,
@@ -115175,9 +115175,9 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 249,
-        "shown_count": 249,
-        "hidden_count": 0
+        "total_count": 251,
+        "shown_count": 250,
+        "hidden_count": 1
       }
     },
     "retention": {
@@ -115196,6 +115196,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-84ea9b6e944a",
+        "idea_version": "IDEAV-0429ceca0d873c9b",
+        "idea_version_started_at": "2026-09-07T06:29:09Z",
+        "ticker": "PVRINOX.NS",
+        "company": "PVR Inox",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Shares fell due to an alleged Rs 200 crore kickback investigation and the exit of a senior executive.",
+        "why_now": "The investigation and executive exit were reported today, causing an immediate share price drop.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-91a6b422e0f3"
+        ],
+        "primary_source_event_id": "EVT-91a6b422e0f3",
+        "source_headlines": [
+          "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light"
+        ],
+        "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T04:56:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T06:29:09Z",
+        "updated_at": "2026-09-07T06:29:09Z",
+        "decay_at": "2026-09-08T16:56:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T16:56:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f8811cd4e8f2",
+        "idea_version": "IDEAV-d5e245c9bae889eb",
+        "idea_version_started_at": "2026-09-07T05:58:37Z",
+        "ticker": "TTD",
+        "company": "The Trade Desk",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The adtech company is laying off 15% of its global workforce, signaling potential headwinds in its business operations and revenue growth.",
+        "why_now": "The layoffs are a current event indicating immediate operational adjustments.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-813629d1c263"
+        ],
+        "primary_source_event_id": "EVT-813629d1c263",
+        "source_headlines": [
+          "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected"
+        ],
+        "source_headline": "US adtech giant The Trade Desk lays off 15% of global workforce; Singapore team affected",
+        "source_url": "https://www.straitstimes.com/business/us-adtech-giant-the-trade-desk-lays-off-15-of-global-workforce-singapore-team-affected",
+        "source_name": "The Straits Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T04:53:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T05:58:37Z",
+        "updated_at": "2026-09-07T05:58:37Z",
+        "decay_at": "2026-09-08T16:53:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T16:53:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e5a0e1444d94",
         "idea_version": "IDEAV-85dbb1bef1230e5d",
@@ -152206,85 +152353,12 @@
         "archived_at": "2026-08-20T01:31:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4c2faef06d80",
-        "idea_version": "IDEAV-2606c4267b621a1a",
-        "idea_version_started_at": "2026-08-12T13:29:28Z",
-        "ticker": "01302.HK",
-        "company": "Lifetech SCI",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning signals a sharp decline in expected earnings and margins for Lifetech SCI, reducing its cash flow outlook.",
-        "why_now": "The profit warning was announced on 2026-08-12, creating an immediate negative catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 44,
-        "trade_score_basis": "evidence_gate_v1",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 15,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "live price, liquidity, and consensus",
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-22a0faa37408"
-        ],
-        "primary_source_event_id": "EVT-22a0faa37408",
-        "source_headlines": [
-          "LIFETECH SCI (01302): PROFIT WARNING"
-        ],
-        "source_headline": "LIFETECH SCI (01302): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0812/2026081201269.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-12T13:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-12T13:29:28Z",
-        "updated_at": "2026-08-12T13:29:28Z",
-        "decay_at": "2026-08-14T01:08:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-20T01:31:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 614,
-    "live_count": 64,
+    "live_count": 62,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152303,9 +152377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2412789,
-    "news_picked_today": 1298,
-    "news_dropped_today": 8212
+    "news_seen_today": 2462029,
+    "news_picked_today": 1304,
+    "news_dropped_today": 8278
   },
   "book_momentum": {
     "live_count": 8,
