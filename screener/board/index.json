@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T19:57:08Z",
+  "generated_at": "2026-09-08T20:12:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -832,6 +832,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-690",
+      "headline": "Bally’s CFO resigns weeks after going concern warning",
+      "headline_en": null,
+      "url": "https://www.constructiondive.com/news/ballys-cfo-resigns-weeks-going-concern-warning/829798/",
+      "source_name": "Construction Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T19:52:24Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Bally's CFO resigned shortly after the company issued a going concern warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bally's CFO resigned shortly after the company issued a going concern warning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bally's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,60 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-605",
-      "headline": "EverBank and WaFd announce $3.9 billion reverse merger",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/everbank-wafd-announce-3-9-140818394.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:08:18Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "EverBank and WaFd announce a $3.9 billion reverse merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EverBank and WaFd announce a $3.9 billion reverse merger.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EverBank",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "WaFd",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152312,9 +152308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3458075,
-    "news_picked_today": 1388,
-    "news_dropped_today": 9682
+    "news_seen_today": 3547748,
+    "news_picked_today": 1393,
+    "news_dropped_today": 9797
   },
   "book_momentum": {
     "live_count": 8,
