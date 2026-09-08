@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-08T03:57:05.054Z
+- stopped_at_utc: 2026-09-08T05:19:09.767Z
 
 ## Modules completed
 
@@ -20,21 +20,20 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-nd pre-mortem both cleared their checks first.
+ission, master memo/dossier not regenerated, `RUN_METADATA.md` not refreshed from sealed state |
+| Step 10 commit | **Not run.** Bytes are preserved on disk under `/Users/admin/nostra-prod/analyses/NVT_2026-09-07/`. |
 
-This is a contract gap, not an agent deviation: `.claude/commands/research/expectations-gap.md` specifies only `"performed_at": ""` with no format guidance, so both the v1 and v2 expectations-gap runs are compliant with the command as written. `pre-mortem.md` is equally silent and only happened to emit `2026-09-08T03:23:13Z`. Fixing it means editing `.claude/commands/**`, which is the **code** stream under §28 — branch + PR + review, not a data-run edit, and outside what you asked for here.
+Markers `.defer_module_memos` and `.requires_idea_publication` are deliberately left in place — the second is the server's proof publication did not finish.
 
-Per 10B.4 I stopped without repairing in place: no market capture, no re-projection, no freezer, no derived-output recovery, **no commit**.
+**Thesis verdict:** Avoid · conviction 33 (post-review 25) · basket Rejected · rating cap "Watchlist" from §24 Filter 4. Published PROVISIONAL/UNVERIFIED.
 
-### State left on disk
-- `idea_projection_manifest.json` / `idea_admission.json` — **absent** (run correctly unsealed)
-- `.requires_idea_publication` and `.defer_module_memos` — **left in place** (the markers are the server's proof publication did not finish; the deferral marker is only removed after all seven Step 9B items)
-- Master `memo.md` and `audit_dossier.md` — **not regenerated** (9B item 6 is downstream of the stop)
-- `idea_3_6m.json` — still the **preliminary pre-audit** wrapper, `not_assessable`
+### One finding worth your attention before this run is sealed
 
-**Intake receipt:** none (3-token form). **Commit SHA:** none — nothing was committed or queued.
+All three final audits independently landed on the same defect. The dossier asserts, four times and as an absolute, that *"no filed backlog series exists at any level in any period"* — and builds kill criterion 2, the §17 trigger test, a Claim-Quality-Ledger downgrade, forecast `FC-NVT-BACKLOG-2026Q3` and a `data_needs` item on that absence. The FY24 10-K in the run's own frozen corpus has a *"Backlog of Orders by Segment"* table (total $749.3m vs $462.8m, +61.9%), and the CIQ balance-sheet tab in the same generation carries an annual Order Backlog row ($749.3m → $2,349.9m). Both point up. It is a §20 bad-extraction error hardened into a §3 strong-verdict claim, and it sits under the run's only Critical red flag. The Avoid's *direction* survives all three audits (the reverse-DCF requires +21.8% FCF growth for nine years against a disclosed 10.0% WACC); its *urgency* does not.
 
-Two things worth your attention. First, this chain cannot be completed in place: 10B.4 forbids repairing the audit and retrying this dated projection, so once the command-file timestamp contract is fixed via PR, NVT needs a genuinely new dated `/research:full` run. Second, both final audits independently flagged the same load-bearing defect in the thesis — a claim that no filed backlog series exists "at any level in any period", repeated nine times, contradicted by a "Backlog of Orders by Segment" table in the FY2024 10-K inside the run's own frozen pool. That one is a research defect, separate from the admission failure, and it drives the kill criteria, the forecast ledger, and the edge proof.
+Two smaller items also stayed open across both verification passes: the §24 Filter 4 line `$3,017.2m ÷ $2,091m = 158.3%` is mixed-basis (144.3% on that denominator), and a §6 peer row labelled "Net debt / EBITDA 1.51x" reconciles only to *gross* debt / EBITDA against canonical net leverage of 1.15x strict.
+
+Sealing as-is would freeze those into the ex-ante forecast record. Fixing them requires a new dated run, not an in-place edit — so it is worth deciding that before you widen the sandbox and let me resume.
 ```
 
 ## Resume
