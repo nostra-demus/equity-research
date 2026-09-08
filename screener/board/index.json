@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T03:46:52Z",
+  "generated_at": "2026-09-08T03:52:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -1734,6 +1734,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-183",
+      "headline": "포스코, 창사 58년 만의 첫 파업 위기",
+      "headline_en": "POSCO Faces First Strike Crisis in 58 Years Since Founding",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276422",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T03:39:20Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "POSCO faces its first potential strike in 58 years, posing a significant risk to production and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "POSCO faces its first potential strike in 58 years, posing a significant risk to production and operations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POSCO",
+          "ticker": "005490",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-137",
       "headline": "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US",
       "headline_en": null,
@@ -1925,56 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-050",
-      "headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:53:20Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Trump's threat to restrict market access for Bombardier unless they build jets in the US creates significant operational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Trump's threat to restrict market access for Bombardier unless they build jets in the US creates significant operational and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150598,9 +150597,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 950,
-    "news_picked_today": 243,
-    "news_dropped_today": 707
+    "news_seen_today": 990,
+    "news_picked_today": 254,
+    "news_dropped_today": 736
   },
   "book_momentum": {
     "live_count": 8,
