@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T03:01:49Z",
+  "generated_at": "2026-09-08T03:06:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -677,6 +677,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-152",
+      "headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BIOCON_08092026083042_Pressrelease08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T03:01:17Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Biocon secured a 10-year supply contract for Pertuzumab in Brazil, providing long-term revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Biocon secured a 10-year supply contract for Pertuzumab in Brazil, providing long-term revenue visibility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Biocon Limited",
+          "ticker": "532523",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1954,6 @@
           "name": "Arm Holdings",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-092",
-      "headline": "Samsung SDS to expand partnerships with OpenAI, Anthropic to drive AI transformation",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260908003100320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:43:53Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Samsung SDS is expanding AI partnerships with OpenAI and Anthropic to drive digital transformation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Samsung SDS is expanding AI partnerships with OpenAI and Anthropic to drive digital transformation.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung SDS",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -150359,9 +150359,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 770,
-    "news_picked_today": 193,
-    "news_dropped_today": 577
+    "news_seen_today": 795,
+    "news_picked_today": 200,
+    "news_dropped_today": 595
   },
   "book_momentum": {
     "live_count": 8,
