@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-09-08T19:23:20Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-52d5d226425f",
+    "idea_version": "IDEAV-6eec8179783540c8",
+    "idea_version_started_at": "2026-09-06T19:20:01Z",
+    "ticker": "ATI",
+    "company": "ATI Inc.",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "ATI Inc. raised its full-year 2026 guidance, indicating improved revenue and profitability prospects due to extended strategic agreements.",
+    "why_now": "The company announced the guidance raise on September 5, 2026, driven by recently extended strategic agreements.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 61,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 6,
+      "expression": 6,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f8005218c37b"
+    ],
+    "primary_source_event_id": "EVT-f8005218c37b",
+    "source_headlines": [
+      "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)"
+    ],
+    "source_headline": "Extended Strategic Agreements to Support Management’s Full-Year 2026 Guidance Raise for ATI Inc. (ATI)",
+    "source_url": "https://finance.yahoo.com/markets/stocks/articles/extended-strategic-agreements-support-management-175418389.html",
+    "source_name": "Yahoo Finance",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-05T17:54:18Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-05T18:21:47Z",
+    "updated_at": "2026-09-06T19:20:01Z",
+    "decay_at": "2026-09-07T05:54:18Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
