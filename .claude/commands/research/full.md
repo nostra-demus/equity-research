@@ -418,7 +418,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -617,6 +617,31 @@ if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
 viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
 viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
 viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
+# checks AA/AB — §18/§13 module verdict-lock caps (live pre-publish; mirrors eval.py checks AA/AB
+# via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). CLAUDE.md §18
+# states two hard caps enforced until now only by prompt instruction to the synthesizer: a
+# balance-sheet-survival (BSS) synthesis verdict of "Distress risk", or a management-governance
+# (MG) synthesis verdict of "Serious governance concerns", must cap the headline decision at
+# Watchlist or lower (check AA) — and CLAUDE.md §13's disqualifier-scan verdict-lock (a
+# business-model synthesis verdict of "Low-quality business") must do the same with no exception
+# (check AB, completing the module verdict-lock trilogy). AA/AB existed in eval.py since
+# 2026-06-23/24 — before AC/AD/AE/AF/AQ even existed — but were never moved into an importable
+# module, so the live gate could never call them: a conviction rating could ship despite an
+# upstream module's OWN synthesis stating the company is in distress, has serious governance
+# concerns, or was disqualifier-scan-locked, print GATE: PASS, and commit straight to `main`
+# (CLAUDE.md §25/§28), undetected until a later manual `/research:eval` run — the exact hole
+# already closed for the newer §24/§13 caps below. Moving them into rating_caps.py closes it for
+# these two, longest-standing, unwired checks. Uses `ddte` (decision_date), matching the sibling
+# checks that read this same module-synthesis-verdict shape (AC/AD/AE/AF above, AQ below) — not
+# `_live_date` (the AJ/BB/BD/BE/... family): a `/research:rerun` regenerates every downstream
+# module synthesis AND the master decision before the folder is re-committed, so `ddte`'s existing
+# pre-gate/post-gate semantics are unchanged and stay faithful to eval.py's retrospective grading.
+_bss_txt = _read_orb("balance-sheet-survival", "99_*-synthesis.md")
+_bss_verdict = rc.extract_synthesis_verdict(_bss_txt)
+_mg_verdict = rc.extract_synthesis_verdict(_mg_txt)
+_bm_verdict = rc.extract_synthesis_verdict(_bm_txt)
+viol.extend(rc.eval_aa_module_verdict_lock(dec, ddte, _bss_verdict, _mg_verdict, _tt24) or [])
+viol.extend(rc.eval_ab_bm_verdict_lock(dec, ddte, _bm_verdict) or [])
 # check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
 # BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when
@@ -670,7 +695,7 @@ viol.extend(rc.eval_be_driver_attribution_residual(_live_date, _e02_txt, _e03_tx
 # management-governance modules (RF-EQ-001/002, RF-OBS-001, RF-DISC-001/002, RF-REG-002).
 _aq_synth = {
     "earnings": _read_orb("earnings", "99_*-synthesis.md"),
-    "balance-sheet-survival": _read_orb("balance-sheet-survival", "99_*-synthesis.md"),
+    "balance-sheet-survival": _bss_txt,  # already read above (check AA); same file, avoid a duplicate glob/read
     "management-governance": _mg_txt,  # already read above; same file, avoid a duplicate glob/read
 }
 _aq_spec = {
@@ -870,7 +895,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema all satisfied")
 PY
 ```
 

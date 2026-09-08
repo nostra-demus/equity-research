@@ -538,111 +538,19 @@ def eval_forecast_entry_completeness(entry):
         errs.append("missing or empty: evidence_today")
     return errs
 
-# ── Check AA (§18 module verdict-lock caps) — module-level so `eval.py selftest` can drive it ──
-# CLAUDE.md §18 mandates two hard verdict-lock caps that the master synthesizer's PROMPT states but
-# nothing mechanically verifies. Gap: when the balance-sheet-survival (BSS) module synthesis contains
-# "Distress risk", or the management-governance (MG) synthesis contains "Serious governance concerns",
-# the final decision must NOT be in HIGH_CONVICTION_DECISIONS — unless the BSS cap's §18 exception
-# applies (thesis_type includes "Balance-sheet survival"). The MG cap has no exception.
-# This check reads the committed synthesis files, extracts the first **Verdict:** line via regex,
-# and returns a list of violations (empty list = pass) or None (N/A).
-# Landing date: 2026-06-23 (forward-looking; pre-gate runs are N/A so the golden suite stays green).
-AA_DATE = "2026-06-23"
-BSS_CAP_VERDICT = "Distress risk"
-MG_CAP_VERDICT  = "Serious governance concerns"
-
-def eval_aa_module_verdict_lock(decision, decision_date, bss_verdict, mg_verdict, thesis_type):
-    """Core of check AA. Returns list of violations (empty=pass) or None (N/A).
-    bss_verdict: extracted Solvency Verdict string from BSS 99_*-synthesis.md, or None (absent).
-    mg_verdict:  extracted Stewardship Verdict string from MG 99_*-synthesis.md, or None (absent).
-    thesis_type: decision_record.thesis_type list (the §14 classification).
-    Side-effect-free + module-level so `eval.py selftest` can exercise it without run fixtures."""
-    if not (isdate(decision_date) and decision_date >= AA_DATE):
-        return None  # forward-looking; pre-gate runs are N/A
-    if bss_verdict is None and mg_verdict is None:
-        return None  # neither module synthesis present; N/A
-    violations = []
-    if bss_verdict and BSS_CAP_VERDICT in bss_verdict:
-        # §18: "A balance-sheet 'Distress risk' verdict caps the headline at Watchlist or lower,
-        # unless the thesis is an explicit distressed or special-situation play."
-        is_distress_play = isinstance(thesis_type, list) and "Balance-sheet survival" in thesis_type
-        if decision in HIGH_CONVICTION_DECISIONS and not is_distress_play:
-            violations.append(
-                f"BSS synthesis verdict contains '{BSS_CAP_VERDICT}' but decision={decision!r} "
-                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
-                f"(exception applies only when thesis_type includes 'Balance-sheet survival'; "
-                f"got {thesis_type!r})"
-            )
-    if mg_verdict and MG_CAP_VERDICT in mg_verdict:
-        # §18: "A governance hard disqualifier or critical flag caps the headline at Watchlist or lower."
-        # No exception: the governance cap applies regardless of thesis type.
-        if decision in HIGH_CONVICTION_DECISIONS:
-            violations.append(
-                f"MG synthesis verdict contains '{MG_CAP_VERDICT}' but decision={decision!r} "
-                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
-                f"(no exception: the governance cap applies regardless of thesis type)"
-            )
-    return violations
-
-def extract_synthesis_verdict(text):
-    """Pull the verdict category from a module 99_*-synthesis.md body. The synthesis renders it as
-    `- **Verdict:** <category>` — the colon is INSIDE the bold, and the value may itself be double-
-    bolded (e.g. `- **Verdict:** **Adequate**`). Returns the verdict text (surrounding markdown left
-    in place — callers substring-match the §18 category) or None. Module-level + pure so the selftest
-    drives the ACTUAL regex over real rendered lines (a helper-only test can't catch a regex bug)."""
-    if not isinstance(text, str):
-        return None
-    m = re.search(r'\*\*Verdict:?\*\*\s*:?\s*([^\n]+)', text)
-    return m.group(1).strip() if m else None
-
-# ── Check AB (§13 BM disqualifier verdict-lock) — module-level so `eval.py selftest` drives it ──
-# CLAUDE.md §13 hard rule: "a critical governance, solvency, accounting, fraud, or going-concern
-# red flag must cap the final rating." The disqualifier-scan (01_disqualifier-scan.md) checks 8
-# hard facts that — when triggered — lock the BM synthesis verdict to
-# "Low-quality business — avoid deeper work". Check AA covers BSS ("Distress risk") and MG
-# ("Serious governance concerns"); AB closes the gap by covering the BM disqualifier verdict-lock,
-# completing the module verdict-lock trilogy.
-#
-# No exception: unlike the BSS cap (which the distressed-play thesis_type can bypass), the BM
-# disqualifier cap has no exception — a disqualified company cannot receive conviction in any
-# direction. The disqualifier identifies companies where data quality or fraud/going-concern risk is
-# severe enough that the analysis base is unreliable; conviction in either direction must not ship.
-# This matches the MG cap treatment (no exception, consistent with HIGH_CONVICTION_DECISIONS logic).
-#
-# Landing date: 2026-06-24 (forward-looking; pre-gate golden fixtures predate → N/A → suite green).
-AB_DATE = "2026-06-24"
-BM_CAP_VERDICT = "Low-quality business"
-
-def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
-    """Core of check AB. Returns list of violations (empty=pass) or None (N/A).
-    bm_verdict: extracted Business-model Verdict string from BM 99_*-synthesis.md, or None (absent).
-    Side-effect-free + module-level so `eval.py selftest` exercises it without run fixtures."""
-    if not (isdate(decision_date) and decision_date >= AB_DATE):
-        return None  # forward-looking; pre-gate runs are N/A
-    if bm_verdict is None:
-        return None  # BM module did not run; cap cannot fire — N/A
-    violations = []
-    if BM_CAP_VERDICT in bm_verdict:
-        # Disqualifier-scan verdict-lock fired: BM synthesis says "Low-quality business".
-        # CLAUDE.md §13 caps conviction — no thesis-type exception (contrast BSS cap §18).
-        if decision in HIGH_CONVICTION_DECISIONS:
-            violations.append(
-                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier-scan verdict-lock) "
-                f"but decision={decision!r} is a conviction rating — a disqualified business must "
-                f"not receive a conviction rating; CLAUDE.md §13 caps at Watchlist or lower "
-                f"regardless of thesis type (disqualifier-scan: 'Low-quality business — avoid "
-                f"deeper work')"
-            )
-    return violations
-
-# ── Checks AC/AD/AE/AF (§24 rejector-filter conviction caps: Filters 2, 4+6, 5, 1) ─────────────
+# ── Checks AA/AB (§18/§13 module verdict-lock caps) and AC/AD/AE/AF (§24 rejector-filter
+# conviction caps: Filters 2, 4+6, 5, 1) ─────────────────────────────────────────────────────
 # Detection logic extracted to scripts/rating_caps.py (importable, side-effect-free) so the SAME
 # functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
-# not only when someone remembers to run this eval harness afterward. See rating_caps.py's module
-# docstring for the full doctrine rationale and the EMAAR_2026-07-03 case that motivated this.
+# not only when someone remembers to run this eval harness afterward. AA/AB were the last two
+# rejector/verdict-lock-family checks still defined only here (never movable into the live gate);
+# see rating_caps.py's module docstring for the full doctrine rationale and the EMAAR_2026-07-03
+# case that motivated this pattern for AC/AD/AE/AF.
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # rating_caps.py is the single source of the detection logic, imported by both callers.
 from rating_caps import (
+    AA_DATE, BSS_CAP_VERDICT, MG_CAP_VERDICT, eval_aa_module_verdict_lock, extract_synthesis_verdict,
+    AB_DATE, BM_CAP_VERDICT, eval_ab_bm_verdict_lock,
     AC_DATE, TURNAROUND_TYPE, ABOVE_STARTER_AC, eval_ac_turnaround_cap,
     AD_DATE, CAP4_TAG, CAP6_TAG, eval_ad_filter_4_6_cap,
     _tag_fired_standalone,
