@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-08T00:14:16.819Z
+- stopped_at_utc: 2026-09-08T01:25:11.386Z
 
 ## Modules completed
 
@@ -20,19 +20,25 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-it set, the post-audit projection manifest, and `freeze_idea_admission.py`, which must create `idea_admission.json` and take a directory lock on the run root
+remediation pass → **`GATE: PASS`**, stamped `integrity_gate` |
+| Step 9A module memos | 7/7 written |
+| 9B.1 `RUN_METADATA.md` | backfilled |
+| 9B.2 audit trio | `GATE-VERIFY: PROVISIONAL` · `GATE-EXPECTATIONS: PASS` · haircut 44.2 → 36.2 |
+| 9B.3 route gate | `DATA-NEEDS-PREWRITE: PASS` |
+| 9B.4 final immutable audits | `verification_report_v2` / `pre_mortem_v2` / `expectations_gap_v2` written |
+| 9B.5–7 | **blocked** |
 
-Per the command's hard rule, a per-module chain with no valid `idea_admission.json` is incomplete and must never be reported as done, and a freezer that cannot run is a STOP before commit. So I ran no `commit-run.sh` and there is **no commit SHA**. `.requires_idea_publication` and `.defer_module_memos` both remain in place — the server's own proof that publication did not finish.
+**Verdict:** **Avoid** — Understanding 57.2 / Conviction 44.2 (post-review 36.2), basket Rejected. Thesis carries a PROVISIONAL banner: verify-evidence returned *Material issues*. The v2 audits agreed the direction is sound but the magnitude is not — the 22.06x peer median carrying 67% of the $128.24 base fair value has zero hits in the frozen corpus, and the independent edge read is `Weak` / `is_exploitable: false`.
 
-`eval.py` confirms the state: the only failing check is `A_structural` (missing `RUN_METADATA.md`); `L_three_tiers` and `Q_module_tiers` now pass.
+The one gate break I remediated was structural, not numeric: a blank Bull Evidence cell in the Decision Audit Trail. No figure moved.
 
-## Two things you should know
+## State left on disk
 
-**Five module dossiers are stubs, not dossiers.** Module dossiers were missing across all 7 modules (the pipeline's Step 4.9B tier, which should have been produced during each module's own run). I generated them; `catalyst` and `competitive-intel` are genuine. The other five exceeded the single-write ceiling once Bash was denied, and the sub-agent left honestly-labelled `ASSEMBLY FAILED — this file is NOT the dossier` stubs (1.7–2.5 KB) at those paths. They are not misleading to a reader, but they **do satisfy `eval` check Q by existence alone**, so that check's PASS overstates the run. This attempt also cost roughly $38 of the session budget for little return — the fix is a config change, not more model work: add `analyses/**/*_dossier.md` to the Bash sandbox write allowlist, after which one deterministic `python3` run rebuilds all seven in seconds with zero model involvement.
+Markers `.defer_module_memos` and `.requires_idea_publication` are intact — the latter is the server's proof publication did not finish. No partial seal exists. `final_thesis.md` and `decision_record.json` are byte-identical to what the final audits pinned (`1fb81edb…`, `e83855a8…`). Nothing was committed or queued. `memo.md` and `audit_dossier.md` are absent by design — 9B.6 regenerates them *from the sealed state*, which does not exist yet. I removed a 0-byte `audit_dossier.md` my boundary probe created.
 
-**Two retrospective advisories** on this run (informational, not gating): `forecast_ledger[5]` came due 2026-09-07 and is still open, and `kill_criteria[4]`'s 2026-03-31 monitor event passed unchecked.
+## To finish
 
-To finish the chain, either re-launch this master step with the write grant widened to the run root, or have the supervisor perform the projection/admission and metadata steps itself.
+Re-run `/research:rerun master synthesizer NVT` with the cockpit sandbox write scope widened to the run directory (`analyses/NVT_2026-09-07/**`) rather than the four-file list. Steps 8/8A/9A/9B.1–9B.4 are complete and idempotent; the resume picks up at manifest creation. Note that 9B.4's audits pin the current bytes by digest, so nothing may rewrite the thesis or decision record before the manifest is created — otherwise the final audit set must be re-run first.
 ```
 
 ## Resume
