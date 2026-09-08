@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:11:51Z",
+  "generated_at": "2026-09-08T09:16:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-348",
@@ -1891,21 +1891,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-343",
-      "headline": "ING: Becoming a substantial holder",
+      "inbox_id": "INB-20260908-362",
+      "headline": "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) initiated or orders passed",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ING?key=2924-03133234-2A1696168",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/SEDEMAC2007_08092026140719_20260908-IntimationofGSTSearch.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:06:31Z",
+      "found_at": "2026-09-08T08:37:29Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "ING has become a substantial holder in an ASX-listed entity, indicating a significant change in ownership structure.",
+      "prelim_note": "Company disclosed regulatory action or orders passed against it, which may impact operations or compliance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "ING has become a substantial holder in an ASX-listed entity, indicating a significant change in ownership structure.",
-      "region": "OTHER",
+      "triage_reason": "Company disclosed regulatory action or orders passed against it, which may impact operations or compliance.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
@@ -1920,18 +1920,18 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
+        "event_id": "litigation_enforcement",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "ownership_activist"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ING",
+          "name": "SEDEMAC Mechatronics Limited",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1940,50 +1940,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-328",
-      "headline": "MMS: Change in substantial holding from PPT",
+      "inbox_id": "INB-20260908-363",
+      "headline": "Honasa Consumer Limited: Update on Senior Management",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MMS?key=2924-03133177-3A701315",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/HONASA16_08092026135919_UpdateonSeniorManagement_F.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T06:55:01Z",
+      "found_at": "2026-09-08T08:30:06Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Perpetual Limited (PPT) disclosed a change in its substantial holding in MMS.",
+      "prelim_note": "Update on senior management at a consumer company often signals potential strategic or operational shifts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Perpetual Limited (PPT) disclosed a change in its substantial holding in MMS.",
-      "region": "OTHER",
+      "triage_reason": "Update on senior management at a consumer company often signals potential strategic or operational shifts.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 0,
+        "event": 4,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "large"
       },
       "event_types": [
-        "ownership_activist"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MMS",
+          "name": "Honasa Consumer Limited",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151388,9 +151388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 260859,
-    "news_picked_today": 671,
-    "news_dropped_today": 5095
+    "news_seen_today": 274510,
+    "news_picked_today": 676,
+    "news_dropped_today": 5138
   },
   "book_momentum": {
     "live_count": 8,
