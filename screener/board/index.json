@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T13:03:51Z",
+  "generated_at": "2026-09-08T13:17:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -647,6 +647,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-535",
+      "headline": "GE to buy Consolidated Precision Products for US$11.75 billion",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/ge-buy-consolidated-precision-products-us11-75-billion",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T12:49:12Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE to acquire Consolidated Precision Products for US$11.75 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE to acquire Consolidated Precision Products for US$11.75 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-537",
+      "headline": "L’IMAD clears key conditions for ADQ’s $2.13 billion AD Ports takeover offer at $1.70 a share",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/limad-clears-key-conditions-for-adqs-2-13-billion-ad-ports-takeover-offer-at-1-70-a-share/?utm_source=rss&utm_medium=rss&utm_campaign=limad-clears-key-conditions-for-adqs-2-13-billion-ad-ports-takeover-offer-at-1-70-a-share",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T12:48:21Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "ADQ's $2.13 billion takeover offer for AD Ports clears key conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ADQ's $2.13 billion takeover offer for AD Ports clears key conditions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-525",
       "headline": "Boston Scientific recalls spinal cord implant in wake of more than 1k serious injuries",
       "headline_en": null,
@@ -735,60 +833,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-515",
-      "headline": "GE Aerospace to Buy Consolidated Precision Products for $11.75 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/ge-aerospace-to-buy-consolidated-precision-products-for-11-75-billion-ed7c8fc8?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T12:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion, a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Aerospace",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Consolidated Precision Products",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2006,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-305",
-      "headline": "Poste boosts cash offer in Telecom Italia takeover bid",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T06:17:35Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Poste increased its cash offer for Telecom Italia, directly impacting the deal valuation and potential acquisition outcome.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poste increased its cash offer for Telecom Italia, directly impacting the deal valuation and potential acquisition outcome.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telecom Italia",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109443,78 +109438,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-01a845d16719",
-      "idea_version": "IDEAV-9cf383317237f9d3",
-      "idea_version_started_at": "2026-09-07T03:26:40Z",
-      "ticker": "9984",
-      "company": "SoftBank Group Corp.",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful issuance of a ¥1 trillion retail bond significantly strengthens the company's liquidity position and demonstrates strong domestic appetite for its debt, lowering refinancing risks.",
-      "why_now": "The scale of the bond issuance is rejuvenating the Japanese debt market as of September 7, 2026, providing SoftBank with a massive cash cushion for future Vision Fund investments.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b36bc16bb317"
-      ],
-      "primary_source_event_id": "EVT-b36bc16bb317",
-      "source_headlines": [
-        "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market"
-      ],
-      "source_headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
-      "source_url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
-      "source_name": "The Japan Times",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-07T01:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:26:40Z",
-      "updated_at": "2026-09-07T03:26:40Z",
-      "decay_at": "2026-09-08T13:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85224f632c88",
       "idea_version": "IDEAV-87f9e3fd785ba495",
       "idea_version_started_at": "2026-09-07T03:06:44Z",
@@ -113520,6 +113443,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-01a845d16719",
+      "idea_version": "IDEAV-9cf383317237f9d3",
+      "idea_version_started_at": "2026-09-07T03:26:40Z",
+      "ticker": "9984",
+      "company": "SoftBank Group Corp.",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The successful issuance of a ¥1 trillion retail bond significantly strengthens the company's liquidity position and demonstrates strong domestic appetite for its debt, lowering refinancing risks.",
+      "why_now": "The scale of the bond issuance is rejuvenating the Japanese debt market as of September 7, 2026, providing SoftBank with a massive cash cushion for future Vision Fund investments.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "liquidity_positioning",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b36bc16bb317"
+      ],
+      "primary_source_event_id": "EVT-b36bc16bb317",
+      "source_headlines": [
+        "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market"
+      ],
+      "source_headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
+      "source_url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
+      "source_name": "The Japan Times",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-07T01:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:26:40Z",
+      "updated_at": "2026-09-07T03:26:40Z",
+      "decay_at": "2026-09-08T13:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1e4418649180",
       "idea_version": "IDEAV-dec86f5bf9ababfe",
       "idea_version_started_at": "2026-09-06T04:54:50Z",
@@ -114972,14 +114967,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 495,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 33
       },
       "short": {
         "total_count": 245,
@@ -115003,6 +114998,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-01a845d16719",
+        "idea_version": "IDEAV-9cf383317237f9d3",
+        "idea_version_started_at": "2026-09-07T03:26:40Z",
+        "ticker": "9984",
+        "company": "SoftBank Group Corp.",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The successful issuance of a ¥1 trillion retail bond significantly strengthens the company's liquidity position and demonstrates strong domestic appetite for its debt, lowering refinancing risks.",
+        "why_now": "The scale of the bond issuance is rejuvenating the Japanese debt market as of September 7, 2026, providing SoftBank with a massive cash cushion for future Vision Fund investments.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "liquidity_positioning",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b36bc16bb317"
+        ],
+        "primary_source_event_id": "EVT-b36bc16bb317",
+        "source_headlines": [
+          "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market"
+        ],
+        "source_headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
+        "source_url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
+        "source_name": "The Japan Times",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-07T01:09:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T03:26:40Z",
+        "updated_at": "2026-09-07T03:26:40Z",
+        "decay_at": "2026-09-08T13:09:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T13:09:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7f0cb5a0adaa",
         "idea_version": "IDEAV-be92643744795d0e",
@@ -147413,79 +147483,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4b467da5d4b8",
-        "idea_version": "IDEAV-f852604dee153321",
-        "idea_version_started_at": "2026-08-23T16:33:16Z",
-        "ticker": "TSM",
-        "company": "Taiwan Semiconductor Manufacturing Company",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "AMD's $10 billion investment in advanced chip packaging directly secures and expands TSMC's high-margin foundry and packaging revenue stream.",
-        "why_now": "The capital expenditure commitment was announced on 2026-08-23, signaling immediate long-term capacity utilization for TSMC.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e6b4ede32e87"
-        ],
-        "primary_source_event_id": "EVT-e6b4ede32e87",
-        "source_headlines": [
-          "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money."
-        ],
-        "source_headline": "AMD Is Investing More Than $10 Billion in Taiwan to Build Advanced Chip Packaging With TSMC. Here's What Lisa Su Is Actually Buying With That Money.",
-        "source_url": "https://finance.yahoo.com/technology/articles/amd-investing-more-10-billion-155000045.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T15:50:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T16:33:16Z",
-        "updated_at": "2026-08-23T16:33:16Z",
-        "decay_at": "2026-08-25T03:50:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T17:19:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-137047b4543b",
         "idea_version": "IDEAV-2d67a2b15ec5b565",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -151782,7 +151779,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 607,
-    "live_count": 78,
+    "live_count": 77,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151801,9 +151798,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1127674,
-    "news_picked_today": 999,
-    "news_dropped_today": 6663
+    "news_seen_today": 1213227,
+    "news_picked_today": 1017,
+    "news_dropped_today": 6741
   },
   "book_momentum": {
     "live_count": 8,
