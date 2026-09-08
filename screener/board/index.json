@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T17:12:33Z",
+  "generated_at": "2026-09-08T17:22:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -832,6 +832,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-658",
+      "headline": "GE Aerospace to buy castings supplier for nearly $12 billion to tackle engine bottleneck",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T16:57:37Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Aerospace is acquiring a castings supplier for nearly $12 billion to resolve engine supply bottlenecks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace is acquiring a castings supplier for nearly $12 billion to resolve engine supply bottlenecks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,60 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-483",
-      "headline": "GE Aerospace to buy castings maker CPP for nearly $12 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/ge-aerospace-buy-castings-maker-cpp-nearly-12-billion-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T11:39:01Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE Aerospace is acquiring CPP for 12 billion dollars.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Aerospace is acquiring CPP for 12 billion dollars.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Aerospace",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "CPP",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105423,76 +105418,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7f632fc10e45",
-      "idea_version": "IDEAV-81d0e989a85aab37",
-      "idea_version_started_at": "2026-09-07T06:29:09Z",
-      "ticker": "HFCL.NS",
-      "company": "HFCL",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company's order book for FY26 has surged 113% to Rs 21,206 crore, indicating strong commercial growth.",
-      "why_now": "The surge in the order book was reported today, providing a clear catalyst for a potential stock price increase.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-11c7570d57f7"
-      ],
-      "primary_source_event_id": "EVT-11c7570d57f7",
-      "source_headlines": [
-        "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore"
-      ],
-      "source_headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-07T05:13:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T06:29:09Z",
-      "updated_at": "2026-09-07T06:29:09Z",
-      "decay_at": "2026-09-08T17:13:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2ea7d99a44dc",
       "idea_version": "IDEAV-fe7705376ef9eade",
       "idea_version_started_at": "2026-09-08T06:57:56Z",
@@ -109693,6 +109618,76 @@
       "surfaced_at": "2026-09-06T00:49:26Z",
       "updated_at": "2026-09-06T18:05:43Z",
       "decay_at": "2026-09-07T10:03:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7f632fc10e45",
+      "idea_version": "IDEAV-81d0e989a85aab37",
+      "idea_version_started_at": "2026-09-07T06:29:09Z",
+      "ticker": "HFCL.NS",
+      "company": "HFCL",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company's order book for FY26 has surged 113% to Rs 21,206 crore, indicating strong commercial growth.",
+      "why_now": "The surge in the order book was reported today, providing a clear catalyst for a potential stock price increase.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11c7570d57f7"
+      ],
+      "primary_source_event_id": "EVT-11c7570d57f7",
+      "source_headlines": [
+        "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore"
+      ],
+      "source_headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-07T05:13:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T06:29:09Z",
+      "updated_at": "2026-09-07T06:29:09Z",
+      "decay_at": "2026-09-08T17:13:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115165,14 +115160,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 299,
+        "total_count": 300,
         "shown_count": 250,
-        "hidden_count": 49
+        "hidden_count": 50
       },
       "short": {
         "total_count": 251,
@@ -115196,6 +115191,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7f632fc10e45",
+        "idea_version": "IDEAV-81d0e989a85aab37",
+        "idea_version_started_at": "2026-09-07T06:29:09Z",
+        "ticker": "HFCL.NS",
+        "company": "HFCL",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company's order book for FY26 has surged 113% to Rs 21,206 crore, indicating strong commercial growth.",
+        "why_now": "The surge in the order book was reported today, providing a clear catalyst for a potential stock price increase.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-11c7570d57f7"
+        ],
+        "primary_source_event_id": "EVT-11c7570d57f7",
+        "source_headlines": [
+          "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore"
+        ],
+        "source_headline": "HFCL shares jump 5% as FY26 order book surges 113% to Rs 21,206 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/hfcl-shares-jump-5-as-fy26-order-book-surges-113-to-rs-21206-crore/articleshow/133864767.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-07T05:13:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T06:29:09Z",
+        "updated_at": "2026-09-07T06:29:09Z",
+        "decay_at": "2026-09-08T17:13:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T17:13:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-84ea9b6e944a",
         "idea_version": "IDEAV-0429ceca0d873c9b",
@@ -146948,81 +147016,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5eb83f28e809",
-        "idea_version": "IDEAV-edc735557a877cff",
-        "idea_version_started_at": "2026-08-24T19:00:25Z",
-        "ticker": "01070",
-        "company": "TCL Electronics",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Potential spin-off and separate listing of its photovoltaic business could unlock value for shareholders.",
-        "why_now": "The company announced this potential spin-off on August 24, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-00b8ceaa13f5"
-        ],
-        "primary_source_event_id": "EVT-00b8ceaa13f5",
-        "source_headlines": [
-          "TCL ELECTRONICS (01070): INSIDE INFORMATION IN RELATION TO THE POTENTIAL SPIN-OFF AND SEPARATE LISTING OF PHOTOVOLTAIC BUSINESS"
-        ],
-        "source_headline": "TCL ELECTRONICS (01070): INSIDE INFORMATION IN RELATION TO THE POTENTIAL SPIN-OFF AND SEPARATE LISTING OF PHOTOVOLTAIC BUSINESS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0824/2026082401763.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T14:12:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T16:24:36Z",
-        "updated_at": "2026-08-24T19:00:25Z",
-        "decay_at": "2026-08-26T02:12:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T16:07:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a4c0ac39922d",
         "idea_version": "IDEAV-e0f1ef97e94c311a",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -152358,7 +152351,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 614,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152377,9 +152370,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2536109,
-    "news_picked_today": 1307,
-    "news_dropped_today": 8371
+    "news_seen_today": 2585840,
+    "news_picked_today": 1315,
+    "news_dropped_today": 8459
   },
   "book_momentum": {
     "live_count": 8,
