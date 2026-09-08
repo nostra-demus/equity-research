@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T06:38:27Z",
+  "generated_at": "2026-09-08T06:41:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -142,6 +142,55 @@
           "name": "POSCO",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-275",
+      "headline": "AD Ports set to delist after L’imad unit acquires 100% stake",
+      "headline_en": null,
+      "url": "https://www.agbi.com/logistics/2026/09/ad-ports-set-to-delist-after-limad-unit-acquires-100-stake/",
+      "source_name": "AGBI — Arabian Gulf Business Insight",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T06:12:47Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "AD Ports is set to delist following a 100% acquisition by a unit of L'imad.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AD Ports is set to delist following a 100% acquisition by a unit of L'imad.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports",
+          "ticker": null,
+          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -1925,55 +1974,6 @@
           "name": "Shinhan Bank",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-185",
-      "headline": "Larsen & Toubro plans ₹500 crore tokenised bond issue, first by private-sector company",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/larsen-toubro-plans-500-crore-tokenised-bond-issue-first-by-private-sector-company/article71441201.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T03:47:12Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Larsen & Toubro is planning a 500 crore tokenised bond issue, a first for a private-sector company in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Larsen & Toubro is planning a 500 crore tokenised bond issue, a first for a private-sector company in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larsen & Toubro",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -151027,9 +151027,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10119,
-    "news_picked_today": 489,
-    "news_dropped_today": 3933
+    "news_seen_today": 12886,
+    "news_picked_today": 494,
+    "news_dropped_today": 3952
   },
   "book_momentum": {
     "live_count": 8,
