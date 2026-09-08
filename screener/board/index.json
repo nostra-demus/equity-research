@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:31:41Z",
+  "generated_at": "2026-09-08T00:35:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -621,6 +621,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-028",
+      "headline": "Samsung Buyback Highlights Korea’s 45% Preferred Stock Discount",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/samsung-buyback-highlights-korea-s-45-preferred-stock-discount",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:19:36Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Samsung's buyback announcement highlights a significant valuation gap in its preferred shares, impacting capital allocation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Samsung's buyback announcement highlights a significant valuation gap in its preferred shares, impacting capital allocation expectations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-008",
       "headline": "FAL: Change in substantial holding - T Goyder",
       "headline_en": null,
@@ -1001,6 +1050,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-031",
+      "headline": "Radware COO Gabriel Malka Sells 6,500 Shares for $195,000",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/09/07/radware-coo-gabriel-malka-sells-6500-shares-for-195000/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:05:01Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "COO sold 6,500 shares worth $195,000, a routine insider transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "COO sold 6,500 shares worth $195,000, a routine insider transaction.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Radware",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-002",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -1179,6 +1277,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-029",
+      "headline": "Uvedením 22 kW obojsmernej DC nabíjačky V2X prináša spoločnosť Hoymiles na trh plne integrovaný ekosystém domácej energie",
+      "headline_en": "By introducing a 22 kW bidirectional V2X DC charger, Hoymiles brings a fully integrated home energy ecosystem to the market",
+      "url": "https://www.prnewswire.com/news-releases/uvedenim-22-kw-obojsmernej-dc-nabijaky-v2x-prinaa-spolonos-hoymiles-na-trh-plne-integrovany-ekosystem-domacej-energie-302871767.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-08T00:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Hoymiles launched a new 22 kW bidirectional V2X DC charger, expanding its product portfolio in the home energy ecosystem.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Hoymiles launched a new 22 kW bidirectional V2X DC charger, expanding its product portfolio in the home energy ecosystem.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hoymiles",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-015",
       "headline": "Hoymiles wprowadza ładowarkę V2X DC 22 kW, uzupełniając zintegrowany ekosystem energetyczny domu",
       "headline_en": "Hoymiles introduces 22 kW V2X DC charger, completing the integrated home energy ecosystem",
@@ -1264,6 +1411,49 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-030",
+      "headline": "AI, chip firms among bidders for flagship Northern Metropolis tech hub at border",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/hong-kong/hong-kong-economy/article/3366667/ai-chip-firms-among-bidders-flagship-northern-metropolis-tech-hub-border?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:30:06Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Multiple AI and chip firms are bidding for a major tech hub development, indicating significant sector-specific capital investment interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Multiple AI and chip firms are bidding for a major tech hub development, indicating significant sector-specific capital investment interest.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -148803,7 +148993,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2154,
+    "inbox_unconsumed": 2158,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -148812,9 +149002,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 143,
-    "news_picked_today": 27,
-    "news_dropped_today": 116
+    "news_seen_today": 164,
+    "news_picked_today": 31,
+    "news_dropped_today": 133
   },
   "book_momentum": {
     "live_count": 8,
