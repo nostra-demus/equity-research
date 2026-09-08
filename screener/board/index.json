@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T22:29:13Z",
+  "generated_at": "2026-09-08T22:34:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -837,6 +837,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-730",
+      "headline": "Future uncertain as LIV Golf files for bankruptcy protection",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/middle-east/future-uncertain-as-liv-golf-files-for-bankruptcy-protection-20260909-p60vnt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T22:21:29Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "LIV Golf has filed for bankruptcy protection, indicating a major financial distress event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf has filed for bankruptcy protection, indicating a major financial distress event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-725",
       "headline": "LIV Golf files for bankruptcy protection as it tries to survive in a smaller version",
       "headline_en": null,
@@ -930,55 +979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-716",
-      "headline": "LIV Golf files for bankruptcy, with post-Saudi future uncertain",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/sport/2026/09/08/liv-golf-files-for-bankruptcy-with-post-saudi-future-uncertain/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T21:38:27Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "LIV Golf filed for bankruptcy protection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf filed for bankruptcy protection.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152584,9 +152584,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4558999,
-    "news_picked_today": 1523,
-    "news_dropped_today": 10795
+    "news_seen_today": 4586864,
+    "news_picked_today": 1530,
+    "news_dropped_today": 10836
   },
   "book_momentum": {
     "live_count": 8,
