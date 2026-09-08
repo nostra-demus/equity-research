@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T01:36:53Z",
+  "generated_at": "2026-09-08T01:41:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -536,6 +536,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-081",
+      "headline": "India’s National Stock Exchange to list after finally clearing IPO hurdles",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/32bee3d5-f018-4e8e-86cf-7ebe37f6c4a3?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:30:06Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The National Stock Exchange of India has cleared regulatory hurdles to proceed with its IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The National Stock Exchange of India has cleared regulatory hurdles to proceed with its IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Stock Exchange of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-011",
       "headline": "CapitaLand targets US$500 million for third Asian credit fund",
       "headline_en": null,
@@ -1057,6 +1106,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-078",
+      "headline": "ERL: Response to ASX Price Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ERL?key=2924-03133049-6A1342739",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T01:37:30Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The company is responding to an ASX price query, which is a formal regulatory requirement regarding unusual trading activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The company is responding to an ASX price query, which is a formal regulatory requirement regarding unusual trading activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ERL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-049",
       "headline": "Brent crude oil nears $100 as US-Iran war chokes Hormuz, rattles oil markets",
       "headline_en": null,
@@ -1334,6 +1432,92 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-080",
+      "headline": "Oil rises as risks of prolonged Mid-East conflict heighten supply worries",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/oil-rises-as-risks-of-prolonged-mid-east-conflict-heighten-supply-worries",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Renewed Middle East conflict risks are driving global oil supply concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Renewed Middle East conflict risks are driving global oil supply concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-079",
+      "headline": "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:32:32Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Escalation of hostilities in the Middle East is driving oil prices higher due to supply disruption concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Escalation of hostilities in the Middle East is driving oil prices higher due to supply disruption concerns.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1701,203 +1885,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-072",
-      "headline": "Ghanda boss snaps up 6pc KMD stake as Rip Curl owner fends off bids",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/retail/ghanda-boss-snaps-up-6pc-kmd-stake-as-rip-curl-owner-fends-off-bids-20260908-p60vbl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:30:13Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "A director at Ghanda acquired a 6% stake in KMD Brands.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "A director at Ghanda acquired a 6% stake in KMD Brands.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KMD Brands",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-008",
-      "headline": "FAL: Change in substantial holding - T Goyder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAL?key=2924-03133016-6A1342733",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T00:03:05Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Routine disclosure of a change in substantial shareholding by a director.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine disclosure of a change in substantial shareholding by a director.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Falcon Metals",
-          "ticker": "FAL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-004",
-      "headline": "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T22:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Inclusion in Stock Connect improves liquidity access for mainland investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Inclusion in Stock Connect improves liquidity access for mainland investors.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UISEE Tech",
-          "ticker": "01511",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-047",
-      "headline": "SK바이오팜, MD 비중 20% 확대…현장중심 R&D 리더십 강화",
-      "headline_en": "SK Biopharmaceuticals expands MD proportion to 20%... strengthens field-oriented R&D leadership",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276387",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:49:38Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "SK Biopharmaceuticals is increasing its focus on medical device R&D to 20% of its portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "SK Biopharmaceuticals is increasing its focus on medical device R&D to 20% of its portfolio.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Biopharmaceuticals",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105600,76 +105587,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-eb060c74b320",
-      "idea_version": "IDEAV-73302f8265cf3a1b",
-      "idea_version_started_at": "2026-09-06T14:50:47Z",
-      "ticker": "MUSA",
-      "company": "Murphy USA",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Murphy USA delivered strong second-quarter earnings driven by surging retail fuel margins and higher merchandise sales.",
-      "why_now": "The stock is highly actionable following the immediate release of its Q2 earnings report on September 6, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-664cbbd16fd9"
-      ],
-      "primary_source_event_id": "EVT-664cbbd16fd9",
-      "source_headlines": [
-        "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins"
-      ],
-      "source_headline": "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/murphy-usa-musa-delivers-robust-133715978.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-06T13:37:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T14:50:47Z",
-      "updated_at": "2026-09-06T14:50:47Z",
-      "decay_at": "2026-09-08T01:37:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-84ea9b6e944a",
       "idea_version": "IDEAV-0429ceca0d873c9b",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -110620,6 +110537,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-eb060c74b320",
+      "idea_version": "IDEAV-73302f8265cf3a1b",
+      "idea_version_started_at": "2026-09-06T14:50:47Z",
+      "ticker": "MUSA",
+      "company": "Murphy USA",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Murphy USA delivered strong second-quarter earnings driven by surging retail fuel margins and higher merchandise sales.",
+      "why_now": "The stock is highly actionable following the immediate release of its Q2 earnings report on September 6, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-664cbbd16fd9"
+      ],
+      "primary_source_event_id": "EVT-664cbbd16fd9",
+      "source_headlines": [
+        "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins"
+      ],
+      "source_headline": "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/murphy-usa-musa-delivers-robust-133715978.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-06T13:37:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T14:50:47Z",
+      "updated_at": "2026-09-06T14:50:47Z",
+      "decay_at": "2026-09-08T01:37:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-52d5d226425f",
       "idea_version": "IDEAV-6eec8179783540c8",
       "idea_version_started_at": "2026-09-06T19:20:01Z",
@@ -113513,14 +113500,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 497,
+    "total_count": 498,
     "shown_count": 485,
-    "hidden_count": 12,
+    "hidden_count": 13,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       },
       "short": {
         "total_count": 235,
@@ -113544,6 +113531,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-eb060c74b320",
+        "idea_version": "IDEAV-73302f8265cf3a1b",
+        "idea_version_started_at": "2026-09-06T14:50:47Z",
+        "ticker": "MUSA",
+        "company": "Murphy USA",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Murphy USA delivered strong second-quarter earnings driven by surging retail fuel margins and higher merchandise sales.",
+        "why_now": "The stock is highly actionable following the immediate release of its Q2 earnings report on September 6, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-664cbbd16fd9"
+        ],
+        "primary_source_event_id": "EVT-664cbbd16fd9",
+        "source_headlines": [
+          "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins"
+        ],
+        "source_headline": "Murphy USA (MUSA) Delivers Robust Second-Quarter Earnings on Surging Fuel Margins",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/murphy-usa-musa-delivers-robust-133715978.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 93,
+        "newest_source_at": "2026-09-06T13:37:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T14:50:47Z",
+        "updated_at": "2026-09-06T14:50:47Z",
+        "decay_at": "2026-09-08T01:37:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T01:37:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-82f2f46d0183",
         "idea_version": "IDEAV-a7832e8c3aa071c0",
@@ -147792,79 +147852,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c5134362e1e7",
-        "idea_version": "IDEAV-877be2abe1c1ce23",
-        "idea_version_started_at": "2026-08-20T22:38:44Z",
-        "ticker": "JHX",
-        "company": "James Hardie",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The divestiture of European operations for €840 million allows the company to focus capital on its higher-margin North American and Australian core markets.",
-        "why_now": "The divestiture was announced on 2026-08-20.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eb12b707a11d"
-        ],
-        "primary_source_event_id": "EVT-eb12b707a11d",
-        "source_headlines": [
-          "James Hardie Announces Strategic Divestiture of European Operations, Including Sale of Fermacell to Holcim for €840 Million | JHX Stock News"
-        ],
-        "source_headline": "James Hardie Announces Strategic Divestiture of European Operations, Including Sale of Fermacell to Holcim for €840 Million | JHX Stock News",
-        "source_url": "https://www.stocktitan.net/news/JHX/james-hardie-announces-strategic-divestiture-of-european-operations-nqyyqe86ay0l.html",
-        "source_name": "Stock Titan — Latest News",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-20T20:33:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T22:38:44Z",
-        "updated_at": "2026-08-20T22:38:44Z",
-        "decay_at": "2026-08-22T08:33:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T20:50:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fbaf750de821",
         "idea_version": "IDEAV-ff5f45ada49cdaf6",
         "idea_version_started_at": "2026-08-20T21:32:56Z",
@@ -149567,7 +149554,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 581,
-    "live_count": 82,
+    "live_count": 81,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -149586,9 +149573,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 380,
-    "news_picked_today": 76,
-    "news_dropped_today": 304
+    "news_seen_today": 394,
+    "news_picked_today": 82,
+    "news_dropped_today": 312
   },
   "book_momentum": {
     "live_count": 8,
