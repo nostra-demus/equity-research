@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:35:57Z",
+  "generated_at": "2026-09-08T00:41:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -670,6 +670,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-032",
+      "headline": "BAS: PESA NSW/ACT Presentation incl Triassic Study Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BAS?key=2924-03133036-3A701282",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T00:32:55Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Company released a technical presentation regarding a study update which the company explicitly flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Company released a technical presentation regarding a study update which the company explicitly flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bass Oil",
+          "ticker": "BAS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-034",
+      "headline": "W Health Ventures closes Fund II at ₹700 crore, aims to build 8-10 healthcare startups",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/w-health-ventures-closes-fund-ii-at-700-crore-aims-to-build-8-10-healthcare-startups-hospitals-11788781933662.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:30:58Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "W Health Ventures raised ₹700 crore for a new fund to invest in 8-10 healthcare startups.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "W Health Ventures raised ₹700 crore for a new fund to invest in 8-10 healthcare startups.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "W Health Ventures",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-008",
       "headline": "FAL: Change in substantial holding - T Goyder",
       "headline_en": null,
@@ -1148,6 +1246,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-036",
+      "headline": "Hamas accuses Israel of attempts at 'obliterating evidence' of crimes in Gaza",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/hamas-accuses-israel-attempts-obliterating-evidence-crimes-gaza",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:35:33Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Ongoing military conflict escalation in Gaza continues to pose significant geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Ongoing military conflict escalation in Gaza continues to pose significant geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-023",
       "headline": "North Korea’s New Defense Minister Warns US Over Military Drills",
       "headline_en": null,
@@ -1413,6 +1554,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-035",
+      "headline": "ASX falls; Ampol, Santos gain on rising oil",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-copper-resets-record-high-in-london-trading-20260908-p60v9p?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:35:19Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Ampol and Santos shares rose due to an increase in oil prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Ampol and Santos shares rose due to an increase in oil prices.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Ampol",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Santos",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148993,7 +149188,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2158,
+    "inbox_unconsumed": 2162,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -149002,9 +149197,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 164,
-    "news_picked_today": 31,
-    "news_dropped_today": 133
+    "news_seen_today": 200,
+    "news_picked_today": 36,
+    "news_dropped_today": 164
   },
   "book_momentum": {
     "live_count": 8,
