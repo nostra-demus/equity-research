@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T12:21:52Z",
+  "generated_at": "2026-09-08T12:36:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -641,6 +641,49 @@
           "listing_country": "AU"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-524",
+      "headline": "Biotech filed for bankruptcy 11 weeks before its big FDA decision",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/biotech-filed-bankruptcy-11-weeks-120300807.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T12:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Biotech company filed for bankruptcy shortly before a major FDA decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Biotech company filed for bankruptcy shortly before a major FDA decision.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1964,55 +2007,6 @@
           "name": "AD Ports",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-272",
-      "headline": "POSCO to invest 480 bln won in automotive steel plant by 2028",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260908006200320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:40:15Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "POSCO announced a 480 billion won investment in an automotive steel plant, representing a significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "POSCO announced a 480 billion won investment in an automotive steel plant, representing a significant capacity expansion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "POSCO",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -110030,78 +110024,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5efadd64af04",
-      "idea_version": "IDEAV-7bc4af4526cc06bc",
-      "idea_version_started_at": "2026-09-07T01:32:16Z",
-      "ticker": "8306",
-      "company": "Mitsubishi UFJ Financial Group",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A key reflationist aide to LDP leadership candidate Takaichi is projecting a Bank of Japan rate hike in September, which expands net interest margins for major Japanese lenders.",
-      "why_now": "The specific projection of a September 2024 rate hike creates a immediate tradeable window ahead of the BOJ meeting.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-335005633280"
-      ],
-      "primary_source_event_id": "EVT-335005633280",
-      "source_headlines": [
-        "Takaichi's reflationist aide projects Bank of Japan rate hike in September"
-      ],
-      "source_headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
-      "source_url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 82,
-      "newest_source_at": "2026-09-07T00:27:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:32:16Z",
-      "updated_at": "2026-09-07T01:32:16Z",
-      "decay_at": "2026-09-08T12:27:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e06edd203829",
       "idea_version": "IDEAV-9b9372e59e4ce7c4",
       "idea_version_started_at": "2026-09-08T01:22:05Z",
@@ -114605,6 +114527,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5efadd64af04",
+      "idea_version": "IDEAV-7bc4af4526cc06bc",
+      "idea_version_started_at": "2026-09-07T01:32:16Z",
+      "ticker": "8306",
+      "company": "Mitsubishi UFJ Financial Group",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A key reflationist aide to LDP leadership candidate Takaichi is projecting a Bank of Japan rate hike in September, which expands net interest margins for major Japanese lenders.",
+      "why_now": "The specific projection of a September 2024 rate hike creates a immediate tradeable window ahead of the BOJ meeting.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-335005633280"
+      ],
+      "primary_source_event_id": "EVT-335005633280",
+      "source_headlines": [
+        "Takaichi's reflationist aide projects Bank of Japan rate hike in September"
+      ],
+      "source_headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
+      "source_url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 82,
+      "newest_source_at": "2026-09-07T00:27:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:32:16Z",
+      "updated_at": "2026-09-07T01:32:16Z",
+      "decay_at": "2026-09-08T12:27:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-99383b893cfe",
       "idea_version": "IDEAV-51e5699e56ff490e",
       "idea_version_started_at": "2026-09-06T03:55:04Z",
@@ -115049,14 +115043,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 493,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 243,
@@ -115080,6 +115074,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5efadd64af04",
+        "idea_version": "IDEAV-7bc4af4526cc06bc",
+        "idea_version_started_at": "2026-09-07T01:32:16Z",
+        "ticker": "8306",
+        "company": "Mitsubishi UFJ Financial Group",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A key reflationist aide to LDP leadership candidate Takaichi is projecting a Bank of Japan rate hike in September, which expands net interest margins for major Japanese lenders.",
+        "why_now": "The specific projection of a September 2024 rate hike creates a immediate tradeable window ahead of the BOJ meeting.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "macro_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-335005633280"
+        ],
+        "primary_source_event_id": "EVT-335005633280",
+        "source_headlines": [
+          "Takaichi's reflationist aide projects Bank of Japan rate hike in September"
+        ],
+        "source_headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
+        "source_url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 82,
+        "newest_source_at": "2026-09-07T00:27:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:32:16Z",
+        "updated_at": "2026-09-07T01:32:16Z",
+        "decay_at": "2026-09-08T12:27:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:27:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0fa4dca8ab30",
         "idea_version": "IDEAV-e69cf06ea094710d",
@@ -147555,81 +147624,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-55af6da37991",
-        "idea_version": "IDEAV-05559eac3d03d00b",
-        "idea_version_started_at": "2026-08-23T05:09:09Z",
-        "ticker": "AGL",
-        "company": "AGL Energy",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The divestment of $400 million in wind assets allows the company to unlock capital and focus on its core transition strategy.",
-        "why_now": "The sale process is active as of August 23, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0d5d1a2d0e0a"
-        ],
-        "primary_source_event_id": "EVT-0d5d1a2d0e0a",
-        "source_headlines": [
-          "AGL-run South Australian wind farms up for sale with $400m price tag"
-        ],
-        "source_headline": "AGL-run South Australian wind farms up for sale with $400m price tag",
-        "source_url": "https://www.afr.com/street-talk/agl-run-south-australian-wind-farms-up-for-sale-with-400m-price-tag-20260823-p60qp6?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T03:36:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T05:09:09Z",
-        "updated_at": "2026-08-23T05:09:09Z",
-        "decay_at": "2026-08-24T15:36:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T04:01:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-83741fd2591e",
         "idea_version": "IDEAV-c6b66d0e8c72d50a",
         "idea_version_started_at": "2026-08-23T04:34:35Z",
@@ -151703,7 +151697,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 605,
-    "live_count": 80,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151722,9 +151716,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 903767,
-    "news_picked_today": 931,
-    "news_dropped_today": 6371
+    "news_seen_today": 990195,
+    "news_picked_today": 958,
+    "news_dropped_today": 6464
   },
   "book_momentum": {
     "live_count": 8,
