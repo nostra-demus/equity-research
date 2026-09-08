@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T22:43:49Z",
+  "generated_at": "2026-09-08T22:45:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -104568,6 +104568,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ec6bbb848a36",
+      "idea_version": "IDEAV-0e1ffa758b014fb5",
+      "idea_version_started_at": "2026-09-08T22:44:52Z",
+      "ticker": "CTSH",
+      "company": "Cognizant",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The suspension of green-card filings due to a visa-fraud probe threatens the company's ability to staff and execute on high-margin IT service contracts.",
+      "why_now": "The regulatory action was reported today, September 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-638f19bb37a7"
+      ],
+      "primary_source_event_id": "EVT-638f19bb37a7",
+      "source_headlines": [
+        "US suspends Cognizant’s green-card filings amid visa-fraud probe"
+      ],
+      "source_headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
+      "source_url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T18:31:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T22:44:52Z",
+      "updated_at": "2026-09-08T22:44:52Z",
+      "decay_at": "2026-09-10T06:31:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1e21975df7c3",
       "idea_version": "IDEAV-e826bd2e34cc78c9",
       "idea_version_started_at": "2026-09-08T21:38:42Z",
@@ -105964,6 +106034,77 @@
       "surfaced_at": "2026-09-08T00:45:36Z",
       "updated_at": "2026-09-08T00:45:36Z",
       "decay_at": "2026-09-09T11:15:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-523a4ee7d93a",
+      "idea_version": "IDEAV-6111ce52e34a3cb7",
+      "idea_version_started_at": "2026-09-08T22:44:52Z",
+      "ticker": "BALY",
+      "company": "Bally's",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of the CFO shortly after a going concern warning signals severe liquidity stress and potential failure to meet debt obligations.",
+      "why_now": "The executive departure was announced today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2d07e3b9d442"
+      ],
+      "primary_source_event_id": "EVT-2d07e3b9d442",
+      "source_headlines": [
+        "Bally’s CFO resigns weeks after going concern warning"
+      ],
+      "source_headline": "Bally’s CFO resigns weeks after going concern warning",
+      "source_url": "https://www.constructiondive.com/news/ballys-cfo-resigns-weeks-going-concern-warning/829798/",
+      "source_name": "Construction Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T19:52:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T22:44:52Z",
+      "updated_at": "2026-09-08T22:44:52Z",
+      "decay_at": "2026-09-10T07:52:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109681,76 +109822,6 @@
       "surfaced_at": "2026-09-04T05:44:07Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:07:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-4d13e431ef8d7fcf",
-      "idea_version_started_at": "2026-09-06T18:05:43Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AMD's $5 billion commitment to Anthropic provides a massive valuation anchor and strategic compute partnership ahead of Anthropic's imminent public listing.",
-      "why_now": "Anthropic's IPO prospectus is reportedly expected within days of September 5, 2026, which serves as a major valuation catalyst for AMD's stake.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-26fb50ee7ce6"
-      ],
-      "primary_source_event_id": "EVT-26fb50ee7ce6",
-      "source_headlines": [
-        "AMD Committed Up to $5 Billion to Anthropic, and Anthropic's IPO Prospectus Is Reportedly Days Away"
-      ],
-      "source_headline": "AMD Committed Up to $5 Billion to Anthropic, and Anthropic's IPO Prospectus Is Reportedly Days Away",
-      "source_url": "https://www.nasdaq.com/articles/amd-committed-5-billion-anthropic-and-anthropics-ipo-prospectus-reportedly-days-away",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T22:03:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:49:26Z",
-      "updated_at": "2026-09-06T18:05:43Z",
-      "decay_at": "2026-09-07T10:03:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115363,7 +115434,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 469,
+      "file_count": 470,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -121743,8 +121814,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T10:03:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-08T22:44:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -152564,8 +152635,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 620,
-    "live_count": 65,
+    "surfaced_total": 622,
+    "live_count": 67,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
