@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T07:03:18Z",
+  "generated_at": "2026-09-08T07:13:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -150,6 +150,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-285",
+      "headline": "Anthropic Walks Away From ₹52,800 Crore Deal To Acquire Decart AI: Report",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/anthropic-walks-away-from-52800-crore-deal-to-acquire-decart-ai-report",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T06:26:40Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Anthropic has reportedly abandoned a 528 billion INR acquisition of Decart AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic has reportedly abandoned a 528 billion INR acquisition of Decart AI.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Decart AI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-305",
+      "headline": "Poste boosts cash offer in Telecom Italia takeover bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T06:17:35Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Poste increased its cash offer for Telecom Italia, directly impacting the deal valuation and potential acquisition outcome.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poste increased its cash offer for Telecom Italia, directly impacting the deal valuation and potential acquisition outcome.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telecom Italia",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-275",
       "headline": "AD Ports set to delist after L’imad unit acquires 100% stake",
       "headline_en": null,
@@ -240,6 +343,55 @@
           "name": "POSCO",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-324",
+      "headline": "Old Mutual Profit Drops as US-Iran War Fallout Curbs Investments",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/old-mutual-profit-drops-us-iran-war-fallout-curbs-investments",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T05:25:10Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Old Mutual reported a profit drop directly attributed to geopolitical conflict fallout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Old Mutual reported a profit drop directly attributed to geopolitical conflict fallout.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Old Mutual",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -846,6 +998,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-300",
+      "headline": "Mistral AI raises at $31 billion valuation in Samsung-led round",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/mistral-ai-raises-at-31-billion-valuation-in-samsung-led-round",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T06:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Mistral AI raised capital at a $31 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Mistral AI raised capital at a $31 billion valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mistral AI",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-125",
       "headline": "Anthropic reportedly walks away from acquisition of US$6 billion AI startup Decart",
       "headline_en": null,
@@ -1047,6 +1248,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-304",
+      "headline": "‎National Gypsum misses extended deadline for H1 results",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934873",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "National Gypsum missed the extended deadline for H1 results, signaling a significant reporting failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "National Gypsum missed the extended deadline for H1 results, signaling a significant reporting failure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Gypsum",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-302",
+      "headline": "‎National Gypsum unable to publish H1 results",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1934873",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T09:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "National Gypsum failed to publish H1 financial results, indicating a potential accounting or operational issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "National Gypsum failed to publish H1 financial results, indicating a potential accounting or operational issue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Gypsum",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-258",
       "headline": "‎Takween completes acquisition of JOFO’s 70% stake in SAAF",
       "headline_en": null,
@@ -1194,6 +1493,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-306",
+      "headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T05:44:16Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "HSBC issued a report warning of a 46% downside for Vodafone Idea, citing it as a key overhang.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "HSBC issued a report warning of a 46% downside for Vodafone Idea, citing it as a key overhang.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone Idea",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-224",
       "headline": "Mistral AI Raises €3 Bln With Samsung Leading the Round (Video)",
       "headline_en": null,
@@ -1336,55 +1684,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-284",
-      "headline": "Old Mutual profit drops as US-Iran war fallout curbs investments",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/old-mutual-profit-drops-as-us-iran-war-fallout-curbs-investments/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T06:07:16Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Old Mutual reports a drop in profit as geopolitical fallout from US-Iran tensions curbs investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Old Mutual reports a drop in profit as geopolitical fallout from US-Iran tensions curbs investments.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Old Mutual Limited",
-          "ticker": "OMU",
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1673,310 +1972,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-145",
-      "headline": "Canada Set To Hit Back At Trump Tariffs, Risking Wider Trade War",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/canada-set-to-hit-back-at-trump-tariffs-risking-wider-trade-war-12015729#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:28:58Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Canada's potential retaliation against US tariffs signals a significant escalation in trade tensions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Canada's potential retaliation against US tariffs signals a significant escalation in trade tensions.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-111",
-      "headline": "[Special Report] 포스코 브라질 법인 파산, ‘모회사 책임’ 논란 속 현지 법안 발의와 OECD 책임경영 이슈로 확산",
-      "headline_en": "[Special Report] POSCO Brazil subsidiary bankruptcy, controversy over 'parent company responsibility' spreads to local legislation and OECD responsible management issues",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276393",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:37:03Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "POSCO's Brazilian subsidiary bankruptcy and associated legal/OECD issues create significant reputational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "POSCO's Brazilian subsidiary bankruptcy and associated legal/OECD issues create significant reputational and financial risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "POSCO",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-152",
-      "headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BIOCON_08092026083042_Pressrelease08092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T03:01:17Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Biocon secured a 10-year supply contract for Pertuzumab in Brazil, providing long-term revenue visibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Biocon secured a 10-year supply contract for Pertuzumab in Brazil, providing long-term revenue visibility.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Biocon Limited",
-          "ticker": "532523",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-262",
-      "headline": "Rio Tinto to acquire Aurukun bauxite project from Glencore, Mitsubishi Development",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/rio-tinto-acquire-aurukun-bauxite-project-glencore-mitsubishi-development-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T05:38:18Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Rio Tinto acquires Aurukun bauxite project from Glencore and Mitsubishi Development; bauxite is a key commodity input, acquirer is mega-cap miner, but deal value not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Rio Tinto acquires Aurukun bauxite project from Glencore and Mitsubishi Development; bauxite is a key commodity input, acquirer is mega-cap miner, but deal value not disclosed.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": "RIO",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Glencore",
-          "ticker": "GLEN",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Mitsubishi Development",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-162",
-      "headline": "Australia's Firmus inks compute deal with OpenAI for Malaysian data centers",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/australia-s-firmus-inks-compute-deal-with-openai-for-malaysian-data-centers",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T03:24:22Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Firmus signed a compute deal with OpenAI for data centers in Malaysia, representing a significant infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Firmus signed a compute deal with OpenAI for data centers in Malaysia, representing a significant infrastructure investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": "MY"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-191",
-      "headline": "Suzlon Energy Limited: Suzlon Energy Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SUZLON1_08092026092626_Suzlon_08-09-2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T03:57:03Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Suzlon Energy secured new orders/contracts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Suzlon Energy secured new orders/contracts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzlon Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105539,76 +105534,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-fa3fd6df5c04a20d",
-      "idea_version_started_at": "2026-09-06T20:29:47Z",
-      "ticker": "NVDA",
-      "company": "NVIDIA",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The deployment of $20 billion in AI infrastructure via Groq integration accelerates the monetization of NVIDIA's hardware ecosystem through increased data center throughput.",
-      "why_now": "The rollout of these new AI racks is scheduled to go live within the 2026 calendar year.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1216f28a2253"
-      ],
-      "primary_source_event_id": "EVT-1216f28a2253",
-      "source_headlines": [
-        "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks"
-      ],
-      "source_headline": "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks",
-      "source_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-20-billion-groq-190737433.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T19:07:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T05:44:07Z",
-      "updated_at": "2026-09-06T20:29:47Z",
-      "decay_at": "2026-09-08T07:07:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7f632fc10e45",
       "idea_version": "IDEAV-81d0e989a85aab37",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -111556,6 +111481,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-fa3fd6df5c04a20d",
+      "idea_version_started_at": "2026-09-06T20:29:47Z",
+      "ticker": "NVDA",
+      "company": "NVIDIA",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The deployment of $20 billion in AI infrastructure via Groq integration accelerates the monetization of NVIDIA's hardware ecosystem through increased data center throughput.",
+      "why_now": "The rollout of these new AI racks is scheduled to go live within the 2026 calendar year.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1216f28a2253"
+      ],
+      "primary_source_event_id": "EVT-1216f28a2253",
+      "source_headlines": [
+        "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks"
+      ],
+      "source_headline": "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks",
+      "source_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-20-billion-groq-190737433.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T19:07:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-04T05:44:07Z",
+      "updated_at": "2026-09-06T20:29:47Z",
+      "decay_at": "2026-09-08T07:07:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-9fc5a70d33aecf8e",
       "idea_version_started_at": "2026-09-06T18:59:32Z",
@@ -115016,14 +115011,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 501,
+    "total_count": 502,
     "shown_count": 487,
-    "hidden_count": 14,
+    "hidden_count": 15,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 237,
@@ -115047,6 +115042,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-90b902d53889",
+        "idea_version": "IDEAV-fa3fd6df5c04a20d",
+        "idea_version_started_at": "2026-09-06T20:29:47Z",
+        "ticker": "NVDA",
+        "company": "NVIDIA",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The deployment of $20 billion in AI infrastructure via Groq integration accelerates the monetization of NVIDIA's hardware ecosystem through increased data center throughput.",
+        "why_now": "The rollout of these new AI racks is scheduled to go live within the 2026 calendar year.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1216f28a2253"
+        ],
+        "primary_source_event_id": "EVT-1216f28a2253",
+        "source_headlines": [
+          "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks"
+        ],
+        "source_headline": "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks",
+        "source_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-20-billion-groq-190737433.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T19:07:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T05:44:07Z",
+        "updated_at": "2026-09-06T20:29:47Z",
+        "decay_at": "2026-09-08T07:07:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T07:07:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-26a4a64ef76e",
         "idea_version": "IDEAV-124b5d2aa2b3b853",
@@ -149374,78 +149442,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-97c0d311e2dc",
-        "idea_version": "IDEAV-f4e88ee1220867d5",
-        "idea_version_started_at": "2026-08-21T00:59:07Z",
-        "ticker": "EQT",
-        "company": "EQT Holdings",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has received a formal takeover proposal from BGH Capital, which typically triggers a premium to the current trading price.",
-        "why_now": "The proposal was filed with the ASX on 2026-08-20.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0a196fb007b1"
-        ],
-        "primary_source_event_id": "EVT-0a196fb007b1",
-        "source_headlines": [
-          "EQT: Takeover proposal from BGH Capital [price-sensitive]"
-        ],
-        "source_headline": "EQT: Takeover proposal from BGH Capital [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQT?key=2924-03124102-3A699401",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-20T23:32:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T00:59:07Z",
-        "updated_at": "2026-08-21T00:59:07Z",
-        "decay_at": "2026-08-22T11:32:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T23:49:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-21c21ede9213",
         "idea_version": "IDEAV-28bd6904c7b57388",
         "idea_version_started_at": "2026-08-21T00:59:07Z",
@@ -151222,7 +151218,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 601,
-    "live_count": 98,
+    "live_count": 97,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151241,9 +151237,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 37787,
-    "news_picked_today": 524,
-    "news_dropped_today": 4258
+    "news_seen_today": 43446,
+    "news_picked_today": 575,
+    "news_dropped_today": 4687
   },
   "book_momentum": {
     "live_count": 8,
