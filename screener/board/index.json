@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T13:24:12Z",
+  "generated_at": "2026-09-08T13:42:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -647,20 +647,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-535",
-      "headline": "GE to buy Consolidated Precision Products for US$11.75 billion",
+      "inbox_id": "INB-20260908-576",
+      "headline": "Liberty Global seals €669mn towers sale ahead of Ziggo spin-off",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/ge-buy-consolidated-precision-products-us11-75-billion",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.ft.com/content/3892b29e-f905-4082-9a2c-4969970d3d35?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T12:49:12Z",
+      "found_at": "2026-09-08T13:29:18Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE to acquire Consolidated Precision Products for US$11.75 billion.",
+      "prelim_note": "Liberty Global sold its towers business for €669 million to streamline operations ahead of a spin-off.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "GE to acquire Consolidated Precision Products for US$11.75 billion.",
+      "triage_reason": "Liberty Global sold its towers business for €669 million to streamline operations ahead of a spin-off.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liberty Global",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-560",
+      "headline": "GE Aerospace acquires Consolidated Precision Products for $11.75B",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-acquires-consolidated-precision-130946949.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T13:09:46Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace is acquiring Consolidated Precision Products for $11.75 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -672,7 +721,7 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -685,7 +734,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GE",
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Consolidated Precision Products",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1949,55 +2003,6 @@
           "name": "Computacenter",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-172",
-      "headline": "POSCO Faces First Strike In 58 Years",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276419",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T06:58:29Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "POSCO is facing its first strike in 58 years, posing a significant operational risk to production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "POSCO is facing its first strike in 58 years, posing a significant operational risk to production.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "POSCO",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -108787,78 +108792,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f69625cadec8",
-      "idea_version": "IDEAV-d68ad6f60ccae3bb",
-      "idea_version_started_at": "2026-09-07T02:31:45Z",
-      "ticker": "MYNT",
-      "company": "Mynt",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
-      "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-146e2faafdc6"
-      ],
-      "primary_source_event_id": "EVT-146e2faafdc6",
-      "source_headlines": [
-        "Philippines regulator clears Mynt for up to $1.5 billion IPO"
-      ],
-      "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
-      "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-07T01:36:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T02:31:45Z",
-      "updated_at": "2026-09-07T02:31:45Z",
-      "decay_at": "2026-09-08T13:36:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-513ec330d65a",
       "idea_version": "IDEAV-9ebe5fda6444d094",
       "idea_version_started_at": "2026-09-07T05:58:37Z",
@@ -109427,78 +109360,6 @@
       "surfaced_at": "2026-09-08T00:06:31Z",
       "updated_at": "2026-09-08T00:06:31Z",
       "decay_at": "2026-09-09T11:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-85224f632c88",
-      "idea_version": "IDEAV-87f9e3fd785ba495",
-      "idea_version_started_at": "2026-09-07T03:06:44Z",
-      "ticker": "COFORGE",
-      "company": "Coforge Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Management has reiterated high confidence in reaching its $5 billion revenue target well ahead of FY30 while actively dismissing concerns over AI-driven pricing deflation.",
-      "why_now": "The company's public reassurance on September 7, 2026, serves as a near-term sentiment catalyst against prevailing sector-wide AI deflation fears.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aee4bd922b7d"
-      ],
-      "primary_source_event_id": "EVT-aee4bd922b7d",
-      "source_headlines": [
-        "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears"
-      ],
-      "source_headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
-      "source_url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
-      "source_name": "Mint",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-07T01:30:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:06:44Z",
-      "updated_at": "2026-09-07T03:06:44Z",
-      "decay_at": "2026-09-08T13:30:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -112361,6 +112222,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f69625cadec8",
+      "idea_version": "IDEAV-d68ad6f60ccae3bb",
+      "idea_version_started_at": "2026-09-07T02:31:45Z",
+      "ticker": "MYNT",
+      "company": "Mynt",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
+      "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-146e2faafdc6"
+      ],
+      "primary_source_event_id": "EVT-146e2faafdc6",
+      "source_headlines": [
+        "Philippines regulator clears Mynt for up to $1.5 billion IPO"
+      ],
+      "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
+      "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-07T01:36:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T02:31:45Z",
+      "updated_at": "2026-09-07T02:31:45Z",
+      "decay_at": "2026-09-08T13:36:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f7dcbd0ed944",
       "idea_version": "IDEAV-c5e424bc38c43638",
       "idea_version_started_at": "2026-09-06T23:24:56Z",
@@ -113576,6 +113509,78 @@
       "surfaced_at": "2026-09-05T17:14:18Z",
       "updated_at": "2026-09-06T04:54:50Z",
       "decay_at": "2026-09-07T16:17:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-85224f632c88",
+      "idea_version": "IDEAV-87f9e3fd785ba495",
+      "idea_version_started_at": "2026-09-07T03:06:44Z",
+      "ticker": "COFORGE",
+      "company": "Coforge Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Management has reiterated high confidence in reaching its $5 billion revenue target well ahead of FY30 while actively dismissing concerns over AI-driven pricing deflation.",
+      "why_now": "The company's public reassurance on September 7, 2026, serves as a near-term sentiment catalyst against prevailing sector-wide AI deflation fears.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aee4bd922b7d"
+      ],
+      "primary_source_event_id": "EVT-aee4bd922b7d",
+      "source_headlines": [
+        "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears"
+      ],
+      "source_headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
+      "source_url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
+      "source_name": "Mint",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-07T01:30:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:06:44Z",
+      "updated_at": "2026-09-07T03:06:44Z",
+      "decay_at": "2026-09-08T13:30:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114962,14 +114967,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 530,
     "shown_count": 495,
-    "hidden_count": 33,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 35
       },
       "short": {
         "total_count": 245,
@@ -114993,6 +114998,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f69625cadec8",
+        "idea_version": "IDEAV-d68ad6f60ccae3bb",
+        "idea_version_started_at": "2026-09-07T02:31:45Z",
+        "ticker": "MYNT",
+        "company": "Mynt",
+        "exchange": null,
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
+        "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-146e2faafdc6"
+        ],
+        "primary_source_event_id": "EVT-146e2faafdc6",
+        "source_headlines": [
+          "Philippines regulator clears Mynt for up to $1.5 billion IPO"
+        ],
+        "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
+        "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-09-07T01:36:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T02:31:45Z",
+        "updated_at": "2026-09-07T02:31:45Z",
+        "decay_at": "2026-09-08T13:36:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T13:36:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-85224f632c88",
+        "idea_version": "IDEAV-87f9e3fd785ba495",
+        "idea_version_started_at": "2026-09-07T03:06:44Z",
+        "ticker": "COFORGE",
+        "company": "Coforge Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Management has reiterated high confidence in reaching its $5 billion revenue target well ahead of FY30 while actively dismissing concerns over AI-driven pricing deflation.",
+        "why_now": "The company's public reassurance on September 7, 2026, serves as a near-term sentiment catalyst against prevailing sector-wide AI deflation fears.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-aee4bd922b7d"
+        ],
+        "primary_source_event_id": "EVT-aee4bd922b7d",
+        "source_headlines": [
+          "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears"
+        ],
+        "source_headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
+        "source_url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
+        "source_name": "Mint",
+        "materiality_max": 89,
+        "newest_source_at": "2026-09-07T01:30:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T03:06:44Z",
+        "updated_at": "2026-09-07T03:06:44Z",
+        "decay_at": "2026-09-08T13:30:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T13:30:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-01a845d16719",
         "idea_version": "IDEAV-9cf383317237f9d3",
@@ -147329,155 +147484,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-385f3be837d6",
-        "idea_version": "IDEAV-97a36208cf226312",
-        "idea_version_started_at": "2026-08-24T19:00:25Z",
-        "ticker": "TGN",
-        "company": "TGN",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Appointment of a debt advisor signals progress in the company's funding strategy, potentially improving its financial stability.",
-        "why_now": "The announcement regarding the debt advisor was made on August 23, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0765f1ca8137"
-        ],
-        "primary_source_event_id": "EVT-0765f1ca8137",
-        "source_headlines": [
-          "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]"
-        ],
-        "source_headline": "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGN?key=2924-03124531-6A1339746",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T22:01:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T19:00:25Z",
-        "updated_at": "2026-08-24T19:00:25Z",
-        "decay_at": "2026-08-25T10:01:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T22:23:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fc282053abf5",
-        "idea_version": "IDEAV-5a3ae5d61bb05c09",
-        "idea_version_started_at": "2026-08-24T21:21:24Z",
-        "ticker": "NXL",
-        "company": "Nuix",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Nuix reported strong FY26 results driven by momentum in its Nuix Neo platform, indicating successful product adoption and revenue growth.",
-        "why_now": "The catalyst is the official FY26 results release dated August 23, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7bfbe726602a"
-        ],
-        "primary_source_event_id": "EVT-7bfbe726602a",
-        "source_headlines": [
-          "NXL: Nuix Neo momentum underpins strong FY26 result [price-sensitive]"
-        ],
-        "source_headline": "NXL: Nuix Neo momentum underpins strong FY26 result [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NXL?key=2924-03124506-2A1691211",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T21:48:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T21:21:24Z",
-        "updated_at": "2026-08-24T21:21:24Z",
-        "decay_at": "2026-08-25T09:48:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T22:23:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-137047b4543b",
         "idea_version": "IDEAV-2d67a2b15ec5b565",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -151774,7 +151780,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 607,
-    "live_count": 77,
+    "live_count": 75,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151793,9 +151799,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1243207,
-    "news_picked_today": 1041,
-    "news_dropped_today": 6789
+    "news_seen_today": 1356939,
+    "news_picked_today": 1090,
+    "news_dropped_today": 6860
   },
   "book_momentum": {
     "live_count": 8,
