@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T18:17:31Z",
+  "generated_at": "2026-09-08T18:22:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -829,6 +829,60 @@
           "name": "AKA",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-680",
+      "headline": "AEVEX Completes $600 Million Acquisition Of USV Manufacturer BlackSea",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/aevex-completes-600-million-acquisition-of-usv-manufacturer-blacksea/unmanned-systems/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T18:08:36Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "AEVEX acquired USV manufacturer BlackSea for $600 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AEVEX acquired USV manufacturer BlackSea for $600 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AEVEX Aerospace",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BlackSea",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1950,55 +2004,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-583",
-      "headline": "GE Aerospace To Buy Key Industry Castings Supplier CPP For Nearly $12 Billion",
-      "headline_en": null,
-      "url": "https://www.investors.com/news/ge-aerospace-acquisition-precision-products-castings-capacity-deal-ge-stock/?src=A00220&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T13:28:38Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "GE Aerospace to acquire CPP for $12 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Aerospace to acquire CPP for $12 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Aerospace",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152373,9 +152378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2912499,
-    "news_picked_today": 1347,
-    "news_dropped_today": 8883
+    "news_seen_today": 2925213,
+    "news_picked_today": 1349,
+    "news_dropped_today": 8905
   },
   "book_momentum": {
     "live_count": 8,
