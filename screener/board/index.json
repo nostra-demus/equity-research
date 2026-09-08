@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:27:25Z",
+  "generated_at": "2026-09-08T00:31:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -425,6 +425,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-027",
+      "headline": "Firmus lands OpenAI deal for Malaysian data centres",
+      "headline_en": null,
+      "url": "https://www.afr.com/technology/firmus-lands-openai-deal-for-malaysian-data-centres-20260908-p60vdb?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:28:44Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Firmus secured a significant deal with OpenAI for data center infrastructure in Malaysia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Firmus secured a significant deal with OpenAI for data center infrastructure in Malaysia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-025",
+      "headline": "CR3: Investor Presentation - Nova JV Namibia",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CR3?key=2924-03133029-2A1696055",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T00:22:15Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Investor presentation regarding a joint venture project in Namibia indicates potential growth or asset development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Investor presentation regarding a joint venture project in Namibia indicates potential growth or asset development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CR3",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-016",
       "headline": "Kuwait's Dawraty secures $2 million seed backed by Qatar Development Bank",
       "headline_en": null,
@@ -469,6 +567,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-024",
+      "headline": "BSR: Half Yearly Report and Accounts",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSR?key=2924-03133030-6A1342735",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T00:24:45Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Routine half-yearly financial reporting for an ASX-listed entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Routine half-yearly financial reporting for an ASX-listed entity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -811,6 +958,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-026",
+      "headline": "Oil Rises Amid Fears of More Supply Disruptions in Middle East",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/commodities-futures/oil-rises-amid-fears-of-more-supply-disruptions-in-middle-east-97f4225b?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Rising oil prices due to Middle East supply disruption fears impact global energy costs and inflation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Rising oil prices due to Middle East supply disruption fears impact global energy costs and inflation expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-002",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -855,6 +1045,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-023",
+      "headline": "North Korea’s New Defense Minister Warns US Over Military Drills",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/north-korea-s-new-defense-minister-warns-us-over-military-drills",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:11:36Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Geopolitical escalation involving North Korea and the US poses a risk to regional stability and global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving North Korea and the US poses a risk to regional stability and global markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -990,6 +1223,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-022",
+      "headline": "Satya Niketan collapse: CJP puts 7 demands before Govt – PG ‘mafia’ probe, ₹1 cr aid, more DU hostels | Full List",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/satya-niketan-collapse-cjp-7-demands-pg-mafia-probe-safety-audits-1-cr-aid-more-du-hostels-full-list-rekha-gupta-11788824979387.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:28:14Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Local infrastructure and policy demands are not material to broader investment decisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Local infrastructure and policy demands are not material to broader investment decisions.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108146,78 +108422,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-82f2f46d0183",
-      "idea_version": "IDEAV-a7832e8c3aa071c0",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "ANDHRAPAP",
-      "company": "Andhra Paper Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Andhra Pradesh Pollution Control Board has imposed a ₹21 crore environmental penalty on Andhra Paper, which will directly hit the company's operating margins.",
-      "why_now": "The penalty was officially snapped on September 6, 2026, presenting an immediate cash outflow and regulatory headwind.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7eeec39c7496"
-      ],
-      "primary_source_event_id": "EVT-7eeec39c7496",
-      "source_headlines": [
-        "APPCB snaps ₹21 crore penalty on Andhra Paper"
-      ],
-      "source_headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
-      "source_url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-06T12:28:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T13:06:32Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-08T00:28:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f4e90eacafe1",
       "idea_version": "IDEAV-d1d9374b13cd68bd",
       "idea_version_started_at": "2026-09-06T19:44:58Z",
@@ -111581,6 +111785,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-82f2f46d0183",
+      "idea_version": "IDEAV-a7832e8c3aa071c0",
+      "idea_version_started_at": "2026-09-06T19:44:58Z",
+      "ticker": "ANDHRAPAP",
+      "company": "Andhra Paper Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Andhra Pradesh Pollution Control Board has imposed a ₹21 crore environmental penalty on Andhra Paper, which will directly hit the company's operating margins.",
+      "why_now": "The penalty was officially snapped on September 6, 2026, presenting an immediate cash outflow and regulatory headwind.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7eeec39c7496"
+      ],
+      "primary_source_event_id": "EVT-7eeec39c7496",
+      "source_headlines": [
+        "APPCB snaps ₹21 crore penalty on Andhra Paper"
+      ],
+      "source_headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
+      "source_url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-06T12:28:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T13:06:32Z",
+      "updated_at": "2026-09-06T19:44:58Z",
+      "decay_at": "2026-09-08T00:28:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-05d90ddf6fa2",
       "idea_version": "IDEAV-a93c78f4b847651b",
       "idea_version_started_at": "2026-09-06T12:16:05Z",
@@ -112463,8 +112739,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 496,
-    "shown_count": 484,
+    "total_count": 497,
+    "shown_count": 485,
     "hidden_count": 12,
     "side_counts": {
       "long": {
@@ -112473,8 +112749,8 @@
         "hidden_count": 12
       },
       "short": {
-        "total_count": 234,
-        "shown_count": 234,
+        "total_count": 235,
+        "shown_count": 235,
         "hidden_count": 0
       }
     },
@@ -112494,6 +112770,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-82f2f46d0183",
+        "idea_version": "IDEAV-a7832e8c3aa071c0",
+        "idea_version_started_at": "2026-09-06T19:44:58Z",
+        "ticker": "ANDHRAPAP",
+        "company": "Andhra Paper Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Andhra Pradesh Pollution Control Board has imposed a ₹21 crore environmental penalty on Andhra Paper, which will directly hit the company's operating margins.",
+        "why_now": "The penalty was officially snapped on September 6, 2026, presenting an immediate cash outflow and regulatory headwind.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7eeec39c7496"
+        ],
+        "primary_source_event_id": "EVT-7eeec39c7496",
+        "source_headlines": [
+          "APPCB snaps ₹21 crore penalty on Andhra Paper"
+        ],
+        "source_headline": "APPCB snaps ₹21 crore penalty on Andhra Paper",
+        "source_url": "https://www.thehindubusinessline.com/companies/appcb-snaps-21-crore-penalty-on-andhra-paper/article71435193.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-06T12:28:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T13:06:32Z",
+        "updated_at": "2026-09-06T19:44:58Z",
+        "decay_at": "2026-09-08T00:28:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T00:28:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-017c2840c012",
         "idea_version": "IDEAV-9bab0c9a5ed01973",
@@ -148442,7 +148793,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 578,
-    "live_count": 80,
+    "live_count": 79,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -148452,7 +148803,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2148,
+    "inbox_unconsumed": 2154,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -148461,9 +148812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 121,
-    "news_picked_today": 21,
-    "news_dropped_today": 100
+    "news_seen_today": 143,
+    "news_picked_today": 27,
+    "news_dropped_today": 116
   },
   "book_momentum": {
     "live_count": 8,
