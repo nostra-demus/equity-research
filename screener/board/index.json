@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T02:46:55Z",
+  "generated_at": "2026-09-08T02:51:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-093",
@@ -540,6 +540,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-145",
+      "headline": "Canada Set To Hit Back At Trump Tariffs, Risking Wider Trade War",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/canada-set-to-hit-back-at-trump-tariffs-risking-wider-trade-war-12015729#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:28:58Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Canada's potential retaliation against US tariffs signals a significant escalation in trade tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Canada's potential retaliation against US tariffs signals a significant escalation in trade tensions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-111",
       "headline": "[Special Report] 포스코 브라질 법인 파산, ‘모회사 책임’ 논란 속 현지 법안 발의와 OECD 책임경영 이슈로 확산",
       "headline_en": "[Special Report] POSCO Brazil subsidiary bankruptcy, controversy over 'parent company responsibility' spreads to local legislation and OECD responsible management issues",
@@ -873,6 +916,60 @@
       "companies": [
         {
           "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-141",
+      "headline": "HAL, BEL Key Beneficiaries Of Rs 1.10 Lakh Crore Defence Acquisition Proposals: Kotak Equities",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/hal-bel-key-beneficiaries-of-rs-1-10-lakh-crore-defence-acquisition-proposals-kotak-equities-12015724#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:24:52Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The Indian government approved Rs 1.10 lakh crore in defense acquisition proposals, benefiting HAL and BEL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The Indian government approved Rs 1.10 lakh crore in defense acquisition proposals, benefiting HAL and BEL.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Hindustan Aeronautics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bharat Electronics Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1570,6 +1667,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-142",
+      "headline": "Nvidia supplier Wistron's shares drop after it announces $1.5 billion global stock sale",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/08/nvidia-supplier-wistron-share-sale.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:44:16Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Wistron announced a $1.5 billion global stock sale, leading to share price dilution concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Wistron announced a $1.5 billion global stock sale, leading to share price dilution concerns.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wistron",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-126",
       "headline": "GE Vernova emerges lowest bidder for Power Grid project; Share price target raised by analysts",
       "headline_en": null,
@@ -1807,147 +1953,6 @@
           "name": "CapitaLand",
           "ticker": null,
           "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-128",
-      "headline": "MultiChoice cuts DStv Premium to R799, with a catch",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/multichoice-cuts-dstv-premium-to-r799-with-a-catch/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:02:31Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "MultiChoice is adjusting pricing for its premium service, which impacts revenue and subscriber retention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "MultiChoice is adjusting pricing for its premium service, which impacts revenue and subscriber retention.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MultiChoice",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-007",
-      "headline": "Japan’s GDP Growth Revised Higher, Backing BOJ Rate Hike Case",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-07/japan-s-gdp-growth-revised-higher-backing-boj-rate-hike-case",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T23:57:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Japan's Q2 GDP was revised up to 1.4% annualized, supporting the Bank of Japan's case for further interest rate hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Japan's Q2 GDP was revised up to 1.4% annualized, supporting the Bank of Japan's case for further interest rate hikes.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-041",
-      "headline": "Canva now has a Google AI rival, just a month after $10b wipeout",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/canva-preps-new-ai-model-as-google-pics-eyes-business-users-20260907-p60v3y?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Canva is launching a new AI product to compete with Google, following a significant valuation adjustment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Canva is launching a new AI product to compete with Google, following a significant valuation adjustment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canva",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -150283,9 +150288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 678,
-    "news_picked_today": 167,
-    "news_dropped_today": 511
+    "news_seen_today": 715,
+    "news_picked_today": 184,
+    "news_dropped_today": 531
   },
   "book_momentum": {
     "live_count": 8,
