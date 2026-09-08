@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T12:37:35Z",
+  "generated_at": "2026-09-08T12:47:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -642,6 +642,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-525",
+      "headline": "Boston Scientific recalls spinal cord implant in wake of more than 1k serious injuries",
+      "headline_en": null,
+      "url": "https://www.fiercebiotech.com/medtech/boston-scientific-recalls-spinal-cord-implant-wake-more-1k-serious-injuries",
+      "source_name": "FierceBiotech",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T12:34:20Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Boston Scientific is recalling a spinal cord implant linked to over 1,000 serious injuries, posing significant legal and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific is recalling a spinal cord implant linked to over 1,000 serious injuries, posing significant legal and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1958,55 +2008,6 @@
           "name": "Telecom Italia",
           "ticker": null,
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-275",
-      "headline": "AD Ports set to delist after L’imad unit acquires 100% stake",
-      "headline_en": null,
-      "url": "https://www.agbi.com/logistics/2026/09/ad-ports-set-to-delist-after-limad-unit-acquires-100-stake/",
-      "source_name": "AGBI — Arabian Gulf Business Insight",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T06:12:47Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "AD Ports is set to delist following a 100% acquisition by a unit of L'imad.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AD Ports is set to delist following a 100% acquisition by a unit of L'imad.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AD Ports",
-          "ticker": null,
-          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -108659,78 +108660,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-61fc8091add8",
-      "idea_version": "IDEAV-0c85c13f2a8d7ca8",
-      "idea_version_started_at": "2026-09-07T01:51:35Z",
-      "ticker": "08168",
-      "company": "Amasse Capital",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced the removal of its CEO and executive director alongside a suspension of trading, indicating severe governance and potential solvency issues.",
-      "why_now": "The official exchange filing was released on September 7, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-111976633c89"
-      ],
-      "primary_source_event_id": "EVT-111976633c89",
-      "source_headlines": [
-        "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES"
-      ],
-      "source_headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700005.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T00:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:51:35Z",
-      "updated_at": "2026-09-07T01:51:35Z",
-      "decay_at": "2026-09-08T12:44:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -111428,6 +111357,78 @@
       "surfaced_at": "2026-09-07T00:24:17Z",
       "updated_at": "2026-09-07T16:59:16Z",
       "decay_at": "2026-09-08T11:37:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-61fc8091add8",
+      "idea_version": "IDEAV-0c85c13f2a8d7ca8",
+      "idea_version_started_at": "2026-09-07T01:51:35Z",
+      "ticker": "08168",
+      "company": "Amasse Capital",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company announced the removal of its CEO and executive director alongside a suspension of trading, indicating severe governance and potential solvency issues.",
+      "why_now": "The official exchange filing was released on September 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-111976633c89"
+      ],
+      "primary_source_event_id": "EVT-111976633c89",
+      "source_headlines": [
+        "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES"
+      ],
+      "source_headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T00:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T01:51:35Z",
+      "updated_at": "2026-09-07T01:51:35Z",
+      "decay_at": "2026-09-08T12:44:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114973,8 +114974,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
-    "shown_count": 493,
+    "total_count": 526,
+    "shown_count": 494,
     "hidden_count": 32,
     "side_counts": {
       "long": {
@@ -114983,8 +114984,8 @@
         "hidden_count": 32
       },
       "short": {
-        "total_count": 243,
-        "shown_count": 243,
+        "total_count": 244,
+        "shown_count": 244,
         "hidden_count": 0
       }
     },
@@ -115004,6 +115005,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-61fc8091add8",
+        "idea_version": "IDEAV-0c85c13f2a8d7ca8",
+        "idea_version_started_at": "2026-09-07T01:51:35Z",
+        "ticker": "08168",
+        "company": "Amasse Capital",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company announced the removal of its CEO and executive director alongside a suspension of trading, indicating severe governance and potential solvency issues.",
+        "why_now": "The official exchange filing was released on September 7, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-111976633c89"
+        ],
+        "primary_source_event_id": "EVT-111976633c89",
+        "source_headlines": [
+          "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES"
+        ],
+        "source_headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700005.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T00:44:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T01:51:35Z",
+        "updated_at": "2026-09-07T01:51:35Z",
+        "decay_at": "2026-09-08T12:44:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T12:44:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b287a5dccf6f",
         "idea_version": "IDEAV-3ed9c7bd15e1c551",
@@ -151627,7 +151703,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 606,
-    "live_count": 79,
+    "live_count": 78,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151646,9 +151722,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 990195,
-    "news_picked_today": 958,
-    "news_dropped_today": 6464
+    "news_seen_today": 1044605,
+    "news_picked_today": 983,
+    "news_dropped_today": 6511
   },
   "book_momentum": {
     "live_count": 8,
