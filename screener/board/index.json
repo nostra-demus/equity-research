@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T21:12:28Z",
+  "generated_at": "2026-09-08T21:19:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -837,6 +837,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-703",
+      "headline": "LIV Golf files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/08/liv-golf-chapter-11-bankruptcy.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T21:00:23Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "LIV Golf has filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf has filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-702",
+      "headline": "LIV players will have option to leave after bankruptcy case filing",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/sport/golf/articles/ce8x39wj5p1o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T20:43:26Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "LIV Golf has filed for Chapter 11 bankruptcy, creating significant operational and contractual uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf has filed for Chapter 11 bankruptcy, creating significant operational and contractual uncertainty.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-695",
       "headline": "LIV Golf Files for Bankruptcy With Post-Saudi Future Uncertain",
       "headline_en": null,
@@ -881,6 +979,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-698",
+      "headline": "The Trade Desk cuts 15% of workforce",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/trade-desk-cuts-15-workforce/829838/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T19:59:22Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The Trade Desk is cutting 15% of its workforce, a significant operational change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Trade Desk is cutting 15% of its workforce, a significant operational change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Trade Desk",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,168 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-621",
-      "headline": "Circle agrees to buy cross-border payments firm Tazapay for $400 million",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/09/08/circle-agrees-to-buy-cross-border-payments-firm-tazapay-for-usd400-million",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:40:46Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Circle agreed to acquire Tazapay for $400 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Circle agreed to acquire Tazapay for $400 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Circle",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tazapay",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-618",
-      "headline": "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/energy/articles/tamarack-valley-headwater-exploration-agree-143534074.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:35:34Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Tamarack Valley and Headwater Exploration agreed to a $7.2 billion all-stock merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tamarack Valley and Headwater Exploration agreed to a $7.2 billion all-stock merger.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tamarack Valley",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Headwater Exploration",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-604",
-      "headline": "Qualcomm issues Amazon warrants to acquire $4 billion worth of chipmaker's stock as part of AI infrastructure deal",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/08/qualcomm-amazon-data-center-infrastructure-deal.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:29:07Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Qualcomm issues $4 billion in warrants to Amazon as part of a strategic AI infrastructure deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualcomm issues $4 billion in warrants to Amazon as part of a strategic AI infrastructure deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -105985,6 +105970,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7e55579cb4be",
+      "idea_version": "IDEAV-6527540977b72ae7",
+      "idea_version_started_at": "2026-09-08T21:12:44Z",
+      "ticker": "RUBF.PA",
+      "company": "Rubis",
+      "exchange": "Euronext Paris",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has successfully leveraged high oil prices to improve its margins, resulting in an upward revision to its financial guidance.",
+      "why_now": "The guidance upgrade was reported on 2026-09-08, reflecting improved operational performance in the current energy price environment.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a9b4dba9b149"
+      ],
+      "primary_source_event_id": "EVT-a9b4dba9b149",
+      "source_headlines": [
+        "Rubis Turns Expensive Oil Into a Guidance Upgrade"
+      ],
+      "source_headline": "Rubis Turns Expensive Oil Into a Guidance Upgrade",
+      "source_url": "https://finance.yahoo.com/energy/articles/rubis-turns-expensive-oil-guidance-150910219.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T15:09:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T21:12:44Z",
+      "updated_at": "2026-09-08T21:12:44Z",
+      "decay_at": "2026-09-10T03:09:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6b01e61cc52b",
       "idea_version": "IDEAV-04aef4d99ccab1e9",
       "idea_version_started_at": "2026-09-08T20:12:32Z",
@@ -152361,8 +152418,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 617,
-    "live_count": 63,
+    "surfaced_total": 618,
+    "live_count": 64,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152381,9 +152438,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4075256,
-    "news_picked_today": 1451,
-    "news_dropped_today": 10267
+    "news_seen_today": 4089015,
+    "news_picked_today": 1462,
+    "news_dropped_today": 10304
   },
   "book_momentum": {
     "live_count": 8,
