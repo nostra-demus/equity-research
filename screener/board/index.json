@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T01:22:25Z",
+  "generated_at": "2026-09-08T01:26:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -1241,6 +1241,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-064",
+      "headline": "Oil holds near $100 as traders await Iran-Oman deal on Strait of Hormuz shipping",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/brent-oil-near-100-as-iran-says-hormuz-deal-with-oman-close-11788829819840.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:10:19Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Geopolitical tension in the Strait of Hormuz represents a major supply shock risk for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Geopolitical tension in the Strait of Hormuz represents a major supply shock risk for global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-057",
       "headline": "Iran war news LIVE: Oil prices extend gains as Iran says a deal with Oman on Hormuz is just days away",
       "headline_en": null,
@@ -1584,6 +1627,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-065",
+      "headline": "Sebi eases FPI compliance rules for G-Sec bets",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/sebi-eases-fpi-compliance-rules-for-g-sec-bets/articleshow/133902425.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:06:22Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Easing FPI compliance rules for government securities is expected to increase foreign capital inflows into the Indian bond market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Easing FPI compliance rules for government securities is expected to increase foreign capital inflows into the Indian bond market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-040",
       "headline": "Interactive Brokers Earns Interest on $182 Billion of Its Clients' Idle Cash. Will Anthropic's IPO Drain It?",
       "headline_en": null,
@@ -1780,142 +1866,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-039",
-      "headline": "Deepa Jewellers IPO listing today: GMP at ₹25.5; Share price prediction ahead of NSE, BSE debut",
+      "inbox_id": "INB-20260908-067",
+      "headline": "Travelers Chief Risk Officer Sells 6,000 Shares for $2.2 Million",
       "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/deepa-jewellers-ipo-listing-today-gmp-at-rs-25-5-share-price-prediction-ahead-of-nse-bse-debut-11788796202339.html",
-      "source_name": "Mint",
+      "url": "https://www.fool.com/coverage/filings/2026/09/07/travelers-chief-risk-officer-sells-6000-shares-for-22-million/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:37:03Z",
+      "found_at": "2026-09-08T01:00:01Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "IPO listing of Deepa Jewellers provides new market data and liquidity for the entity.",
+      "prelim_note": "A $2.2 million sale by a CRO is a routine insider transaction and not indicative of a material shift in company outlook.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 55,
-      "triage_reason": "IPO listing of Deepa Jewellers provides new market data and liquidity for the entity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
+      "triage_reason": "A $2.2 million sale by a CRO is a routine insider transaction and not indicative of a material shift in company outlook.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 45,
+        "materiality": 40,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": -1,
+        "event": 2,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "insider_transaction"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Deepa Jewellers",
+          "name": "Travelers",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-013",
-      "headline": "Quebec courts restrict judges’ use of generative AI",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/canada/article-quebec-courts-restrict-judges-use-ai-guidelines/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-07T23:00:01Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Quebec courts have restricted the use of generative AI by judges, reflecting a broader regulatory trend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Quebec courts have restricted the use of generative AI by judges, reflecting a broader regulatory trend.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-003",
-      "headline": "AGY: Share Purchase Plan (SPP) - Access Letter",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGY?key=2924-03133013-6A1342731",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-07T23:59:30Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Routine share purchase plan access letter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Routine share purchase plan access letter.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Argosy Minerals",
-          "ticker": "AGY",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149604,9 +149598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 334,
-    "news_picked_today": 62,
-    "news_dropped_today": 272
+    "news_seen_today": 349,
+    "news_picked_today": 67,
+    "news_dropped_today": 282
   },
   "book_momentum": {
     "live_count": 8,
