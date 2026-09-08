@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T10:42:29Z",
+  "generated_at": "2026-09-08T11:06:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-416",
@@ -544,6 +544,266 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-434",
+      "headline": "Aeroflex Industries expects to beat 35% growth guidance, says MD Asad Daud",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/aeroflex-industries-beat-35-percent-growth-guidance-md-asad-daud-q2-results-q3-earnings-exports-steel-prices-19986556.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:45:17Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The company expects to exceed its 35% growth guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company expects to exceed its 35% growth guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aeroflex Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-429",
+      "headline": "Telecom Italia management tenders shares for Poste Italiane's public takeover of company",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/telecom-italia-management-tenders-shares-for-poste-italianes-public-takeover-of-company/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:35:06Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Telecom Italia management tendering shares for a takeover is a significant corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Telecom Italia management tendering shares for a takeover is a significant corporate action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telecom Italia",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Poste Italiane",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-430",
+      "headline": "Zim Integrated Shipping Shares Rise as Hapag-Lloyd Revises Takeover Proposal",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/zim-integrated-shipping-shares-rise-102129105.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:21:29Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "A revised takeover proposal is a material event for the target company's valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A revised takeover proposal is a material event for the target company's valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zim Integrated Shipping",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hapag-Lloyd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-427",
+      "headline": "Franklin Templeton to Buy European Real Assets Firm Stoneshield",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/franklin-templeton-to-buy-european-real-assets-firm-stoneshield",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:07:17Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Franklin Templeton is acquiring a real assets firm, representing a significant strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Franklin Templeton is acquiring a real assets firm, representing a significant strategic expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franklin Templeton",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-433",
+      "headline": "80 Mile share price climbs 7% as Greenland Energy sets merger terms",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/80-mile-share-price-climbs-100000209.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Setting merger terms is a definitive step in an M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Setting merger terms is a definitive step in an M&A process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "80 Mile",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Greenland Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1744,251 +2004,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-378",
-      "headline": "CONTINENTAL H (00513): DELAY IN DESPATCH OF CIRCULAR IN RELATION TO VERY SUBSTANTIAL DISPOSAL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800448.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T09:13:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Delay in circular for a very substantial disposal indicates potential regulatory or procedural hurdles for a major transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Delay in circular for a very substantial disposal indicates potential regulatory or procedural hurdles for a major transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CONTINENTAL H",
-          "ticker": "00513",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-351",
-      "headline": "LENOVO GROUP LENOVO B2908 LENOVO GROUP-R (00992 05440 80992): PARTIAL CONVERSION AND CANCELLATION OF US$675 MILLION 2.50% CONVERTIBLE BONDS DUE 2029",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800168.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Lenovo Group announced the partial conversion and cancellation of US$675 million in convertible bonds due 2029.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Lenovo Group announced the partial conversion and cancellation of US$675 million in convertible bonds due 2029.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lenovo Group",
-          "ticker": "00992",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-330",
-      "headline": "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/biotech/novartis-centerpiece-12b-avidity-buyout-flunks-crucial-phase-3-test",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T08:19:20Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Novartis' phase 3 trial failure for a key asset in a $12B acquisition context is a major clinical and financial setback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Novartis' phase 3 trial failure for a key asset in a $12B acquisition context is a major clinical and financial setback.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-219",
-      "headline": "HMM secures 4.7 tln-won shipping contract with Brazil's Vale",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260908005300320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T04:42:57Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "HMM secured a significant shipping contract worth 4.7 trillion won with Vale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "HMM secured a significant shipping contract worth 4.7 trillion won with Vale.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HMM",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-349",
-      "headline": "KLS: Tourism Portfolio divestment receives ACCC approval [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLS?key=2924-03133259-2A1696184",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:50:11Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Regulatory approval for a divestment is a key step in a strategic asset sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Regulatory approval for a divestment is a key step in a strategic asset sale.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KLS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -105342,76 +105357,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e6f71ab27180",
-      "idea_version": "IDEAV-f2cc9003c6d9acbb",
-      "idea_version_started_at": "2026-09-06T23:49:29Z",
-      "ticker": "ESI",
-      "company": "Element Solutions",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The termination of the $14.5 billion merger agreement with Solstice removes the strategic combination premium and growth runway expected from the deal.",
-      "why_now": "The termination of the transaction was reported on September 6, 2026, creating an immediate negative catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28ba76ec5a60"
-      ],
-      "primary_source_event_id": "EVT-28ba76ec5a60",
-      "source_headlines": [
-        "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
-      ],
-      "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T23:05:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T23:49:29Z",
-      "updated_at": "2026-09-06T23:49:29Z",
-      "decay_at": "2026-09-08T11:05:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-e15ec643a0a42a39",
       "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -107327,78 +107272,6 @@
       "surfaced_at": "2026-09-07T17:16:42Z",
       "updated_at": "2026-09-07T17:16:42Z",
       "decay_at": "2026-09-08T23:55:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-cb3e3c4cc481",
-      "idea_version": "IDEAV-3fcedbc25bac741f",
-      "idea_version_started_at": "2026-09-07T17:16:42Z",
-      "ticker": "SOLS",
-      "company": "Solstice",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The termination of the $14.5 billion merger removes the acquisition premium and potential synergies, likely leading to a re-rating of the stock to its standalone valuation.",
-      "why_now": "The deal was officially called off on 2026-09-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28ba76ec5a60"
-      ],
-      "primary_source_event_id": "EVT-28ba76ec5a60",
-      "source_headlines": [
-        "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
-      ],
-      "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T23:05:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T17:16:42Z",
-      "updated_at": "2026-09-07T17:16:42Z",
-      "decay_at": "2026-09-08T11:05:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111361,6 +111234,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e6f71ab27180",
+      "idea_version": "IDEAV-f2cc9003c6d9acbb",
+      "idea_version_started_at": "2026-09-06T23:49:29Z",
+      "ticker": "ESI",
+      "company": "Element Solutions",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the $14.5 billion merger agreement with Solstice removes the strategic combination premium and growth runway expected from the deal.",
+      "why_now": "The termination of the transaction was reported on September 6, 2026, creating an immediate negative catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ba76ec5a60"
+      ],
+      "primary_source_event_id": "EVT-28ba76ec5a60",
+      "source_headlines": [
+        "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
+      ],
+      "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T23:05:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T23:49:29Z",
+      "updated_at": "2026-09-06T23:49:29Z",
+      "decay_at": "2026-09-08T11:05:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-521e020bb493",
       "idea_version": "IDEAV-011016c6c4f9b10f",
       "idea_version_started_at": "2026-09-06T21:54:21Z",
@@ -112479,6 +112422,78 @@
       "surfaced_at": "2026-09-06T00:30:20Z",
       "updated_at": "2026-09-06T00:30:20Z",
       "decay_at": "2026-09-06T23:17:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cb3e3c4cc481",
+      "idea_version": "IDEAV-3fcedbc25bac741f",
+      "idea_version_started_at": "2026-09-07T17:16:42Z",
+      "ticker": "SOLS",
+      "company": "Solstice",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The termination of the $14.5 billion merger removes the acquisition premium and potential synergies, likely leading to a re-rating of the stock to its standalone valuation.",
+      "why_now": "The deal was officially called off on 2026-09-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ba76ec5a60"
+      ],
+      "primary_source_event_id": "EVT-28ba76ec5a60",
+      "source_headlines": [
+        "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
+      ],
+      "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T23:05:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T17:16:42Z",
+      "updated_at": "2026-09-07T17:16:42Z",
+      "decay_at": "2026-09-08T11:05:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115244,8 +115259,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 507,
-    "shown_count": 487,
+    "total_count": 509,
+    "shown_count": 489,
     "hidden_count": 20,
     "side_counts": {
       "long": {
@@ -115254,8 +115269,8 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 237,
-        "shown_count": 237,
+        "total_count": 239,
+        "shown_count": 239,
         "hidden_count": 0
       }
     },
@@ -115275,6 +115290,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e6f71ab27180",
+        "idea_version": "IDEAV-f2cc9003c6d9acbb",
+        "idea_version_started_at": "2026-09-06T23:49:29Z",
+        "ticker": "ESI",
+        "company": "Element Solutions",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The termination of the $14.5 billion merger agreement with Solstice removes the strategic combination premium and growth runway expected from the deal.",
+        "why_now": "The termination of the transaction was reported on September 6, 2026, creating an immediate negative catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-28ba76ec5a60"
+        ],
+        "primary_source_event_id": "EVT-28ba76ec5a60",
+        "source_headlines": [
+          "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
+        ],
+        "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T23:05:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T23:49:29Z",
+        "updated_at": "2026-09-06T23:49:29Z",
+        "decay_at": "2026-09-08T11:05:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T11:05:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cb3e3c4cc481",
+        "idea_version": "IDEAV-3fcedbc25bac741f",
+        "idea_version_started_at": "2026-09-07T17:16:42Z",
+        "ticker": "SOLS",
+        "company": "Solstice",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The termination of the $14.5 billion merger removes the acquisition premium and potential synergies, likely leading to a re-rating of the stock to its standalone valuation.",
+        "why_now": "The deal was officially called off on 2026-09-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-28ba76ec5a60"
+        ],
+        "primary_source_event_id": "EVT-28ba76ec5a60",
+        "source_headlines": [
+          "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination"
+        ],
+        "source_headline": "Solstice (SOLS) and Element Solutions (ESI) Call Off Their $14.5 Billion Combination",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/solstice-sols-element-solutions-esi-230510085.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T23:05:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T17:16:42Z",
+        "updated_at": "2026-09-07T17:16:42Z",
+        "decay_at": "2026-09-08T11:05:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T11:05:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5364e3f8a882",
         "idea_version": "IDEAV-eb5e9fb99b46e938",
@@ -151445,7 +151608,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 604,
-    "live_count": 95,
+    "live_count": 93,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151464,9 +151627,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 510484,
-    "news_picked_today": 776,
-    "news_dropped_today": 5830
+    "news_seen_today": 605229,
+    "news_picked_today": 797,
+    "news_dropped_today": 5929
   },
   "book_momentum": {
     "live_count": 8,
