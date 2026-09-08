@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:11:00Z",
+  "generated_at": "2026-09-08T00:15:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-014",
+      "headline": "AQZ: Change in substantial holding - Kiowa",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AQZ?key=2924-03133020-2A1696050",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T00:11:15Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "A substantial shareholder change in AQZ indicates a shift in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "A substantial shareholder change in AQZ indicates a shift in ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qantas Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -290,6 +339,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-016",
+      "headline": "Kuwait's Dawraty secures $2 million seed backed by Qatar Development Bank",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/09/kuwaits-dawraty-secures-2-million-seed-backed-qatar-development-bank",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:14:41Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Dawraty secured $2 million in seed funding, providing capital for growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Dawraty secured $2 million in seed funding, providing capital for growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dawraty",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-008",
       "headline": "FAL: Change in substantial holding - T Goyder",
       "headline_en": null,
@@ -380,6 +478,55 @@
           "name": "UISEE Tech",
           "ticker": "01511",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-017",
+      "headline": "Grocery Outlet Director Jaros Buys 15,000 Shares at $11.70",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/grocery-outlet-director-jaros-buys-15000-shares-1170",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-07T23:15:01Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "A director purchased 15,000 shares of Grocery Outlet, signaling confidence in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "A director purchased 15,000 shares of Grocery Outlet, signaling confidence in the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grocery Outlet",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -616,6 +763,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-015",
+      "headline": "Hoymiles wprowadza ładowarkę V2X DC 22 kW, uzupełniając zintegrowany ekosystem energetyczny domu",
+      "headline_en": "Hoymiles introduces 22 kW V2X DC charger, completing the integrated home energy ecosystem",
+      "url": "https://www.prnewswire.com/news-releases/hoymiles-wprowadza-adowark-v2x-dc-22-kw-uzupeniajc-zintegrowany-ekosystem-energetyczny-domu-302871759.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-08T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Hoymiles is launching a new V2X DC charger, expanding its product portfolio in the energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Hoymiles is launching a new V2X DC charger, expanding its product portfolio in the energy sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hoymiles",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148007,7 +148203,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2140,
+    "inbox_unconsumed": 2144,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -148016,9 +148212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 73,
-    "news_picked_today": 13,
-    "news_dropped_today": 60
+    "news_seen_today": 93,
+    "news_picked_today": 17,
+    "news_dropped_today": 76
   },
   "book_momentum": {
     "live_count": 8,
