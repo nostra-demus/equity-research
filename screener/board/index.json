@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T16:16:57Z",
+  "generated_at": "2026-09-08T16:22:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -837,6 +837,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-646",
+      "headline": "Qualcomm strikes AI chip deal with Amazon, offers right to buy about $4 billion in stock",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/qualcomm-strikes-ai-chip-deal-with-amazon-offers-right-to-buy-about-4-billion-in-stock",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T16:00:49Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Qualcomm announced a $4 billion stock purchase agreement and AI chip deal with Amazon.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm announced a $4 billion stock purchase agreement and AI chip deal with Amazon.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": "QCOM",
+          "listing_country": "US"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-642",
       "headline": "Boston Scientific cyberattack likely to have ‘material impact’ on financial results",
       "headline_en": null,
@@ -1137,61 +1192,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-626",
-      "headline": "Qualcomm strikes AI chip deal with Amazon, offers right to buy about $4 billion in stock",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/qualcomm-amazon-develop-custom-chips-ai-data-centers-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T14:38:50Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Qualcomm secured an AI chip deal with Amazon involving a $4 billion stock purchase agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Qualcomm secured an AI chip deal with Amazon involving a $4 billion stock purchase agreement.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108073,78 +108073,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e5a0e1444d94",
-      "idea_version": "IDEAV-85dbb1bef1230e5d",
-      "idea_version_started_at": "2026-09-07T05:58:37Z",
-      "ticker": "JAGLF",
-      "company": "Jaguar Land Rover",
-      "exchange": "OTC",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The UK government has ruled out a bailout, and the company is planning significant job cuts amid rising costs, indicating severe financial distress and operational challenges.",
-      "why_now": "The government's decision and planned layoffs are immediate negative catalysts.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-31b202d35008"
-      ],
-      "primary_source_event_id": "EVT-31b202d35008",
-      "source_headlines": [
-        "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs"
-      ],
-      "source_headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
-      "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T04:17:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T05:58:37Z",
-      "updated_at": "2026-09-07T05:58:37Z",
-      "decay_at": "2026-09-08T16:17:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -110622,6 +110550,78 @@
       "surfaced_at": "2026-09-07T05:58:37Z",
       "updated_at": "2026-09-07T05:58:37Z",
       "decay_at": "2026-09-08T16:09:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e5a0e1444d94",
+      "idea_version": "IDEAV-85dbb1bef1230e5d",
+      "idea_version_started_at": "2026-09-07T05:58:37Z",
+      "ticker": "JAGLF",
+      "company": "Jaguar Land Rover",
+      "exchange": "OTC",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The UK government has ruled out a bailout, and the company is planning significant job cuts amid rising costs, indicating severe financial distress and operational challenges.",
+      "why_now": "The government's decision and planned layoffs are immediate negative catalysts.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-31b202d35008"
+      ],
+      "primary_source_event_id": "EVT-31b202d35008",
+      "source_headlines": [
+        "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs"
+      ],
+      "source_headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+      "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T04:17:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T05:58:37Z",
+      "updated_at": "2026-09-07T05:58:37Z",
+      "decay_at": "2026-09-08T16:17:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115319,8 +115319,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
-    "shown_count": 498,
+    "total_count": 548,
+    "shown_count": 499,
     "hidden_count": 49,
     "side_counts": {
       "long": {
@@ -115329,8 +115329,8 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 248,
-        "shown_count": 248,
+        "total_count": 249,
+        "shown_count": 249,
         "hidden_count": 0
       }
     },
@@ -115350,6 +115350,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e5a0e1444d94",
+        "idea_version": "IDEAV-85dbb1bef1230e5d",
+        "idea_version_started_at": "2026-09-07T05:58:37Z",
+        "ticker": "JAGLF",
+        "company": "Jaguar Land Rover",
+        "exchange": "OTC",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The UK government has ruled out a bailout, and the company is planning significant job cuts amid rising costs, indicating severe financial distress and operational challenges.",
+        "why_now": "The government's decision and planned layoffs are immediate negative catalysts.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-31b202d35008"
+        ],
+        "primary_source_event_id": "EVT-31b202d35008",
+        "source_headlines": [
+          "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs"
+        ],
+        "source_headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
+        "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T04:17:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T05:58:37Z",
+        "updated_at": "2026-09-07T05:58:37Z",
+        "decay_at": "2026-09-08T16:17:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T16:17:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7d9e4fcfb73c",
         "idea_version": "IDEAV-a46e11b59dc622b4",
@@ -152363,7 +152438,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 614,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152382,9 +152457,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2193732,
-    "news_picked_today": 1255,
-    "news_dropped_today": 7919
+    "news_seen_today": 2230326,
+    "news_picked_today": 1267,
+    "news_dropped_today": 7955
   },
   "book_momentum": {
     "live_count": 8,
