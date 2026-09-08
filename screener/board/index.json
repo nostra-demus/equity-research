@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T02:26:48Z",
+  "generated_at": "2026-09-08T02:31:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-093",
@@ -1326,6 +1326,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-126",
+      "headline": "GE Vernova emerges lowest bidder for Power Grid project; Share price target raised by analysts",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/ge-vernova-td-share-price-l1-for-major-power-grid-order-target-raised-nomura-citi-returns-19986097.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:14:14Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Vernova has been identified as the lowest bidder for a Power Grid project, which is a significant commercial win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "GE Vernova has been identified as the lowest bidder for a Power Grid project, which is a significant commercial win.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-103",
       "headline": "Arm debuts next-gen semi-custom Neoverse CSS N4 ‘Ranger’ platform — compute subsystem packs up to 128 cores per die on TSMC N3P",
       "headline_en": null,
@@ -1885,55 +1934,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-096",
-      "headline": "Glass Wall Systems IPO opens today: Should you subscribe to the ₹428 crore issue?",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/glass-wall-systems-ipo-opens-today-should-you-subscribe-to-428-crore-issue-gmp-price-band-19986095.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:53:31Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Glass Wall Systems is launching an IPO worth 428 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Glass Wall Systems is launching an IPO worth 428 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glass Wall Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150125,9 +150125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 590,
-    "news_picked_today": 140,
-    "news_dropped_today": 450
+    "news_seen_today": 615,
+    "news_picked_today": 149,
+    "news_dropped_today": 466
   },
   "book_momentum": {
     "live_count": 8,
