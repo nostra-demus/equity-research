@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T01:56:27Z",
+  "generated_at": "2026-09-08T02:01:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-093",
@@ -733,6 +733,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-100",
+      "headline": "Nvidia-backed AI firm Firmus signs deal with OpenAI for Malaysia data centre capacity",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/startups-tech/technology/nvidia-backed-ai-firm-firmus-signs-deal-openai-malaysia-data-centre-capacity",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T01:59:16Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Firmus signed a deal with OpenAI for data center capacity in Malaysia, indicating significant infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Firmus signed a deal with OpenAI for data center capacity in Malaysia, indicating significant infrastructure expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-056",
       "headline": "Ukraine's chief prosecutor resigns over call centre corruption scandal",
       "headline_en": null,
@@ -1347,60 +1402,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-087",
-      "headline": "Nvidia-backed Firmus signs deal with OpenAI for Malaysia data centre capacity",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/nvidia-backed-firmus-signs-deal-with-openai-malaysia-data-centre-capacity-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:40:55Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Firmus signed a deal with OpenAI for data center capacity in Malaysia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Firmus signed a deal with OpenAI for data center capacity in Malaysia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109149,78 +109150,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f4e90eacafe1",
-      "idea_version": "IDEAV-d1d9374b13cd68bd",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "HEG",
-      "company": "HEG Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The demerger of HEG Advanced Materials is projected to unlock and add approximately ₹4,000 crore in market capitalization for shareholders.",
-      "why_now": "The details of the value-unlocking demerger were publicized on September 6, 2026, presenting a fresh corporate catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b137a9c275b"
-      ],
-      "primary_source_event_id": "EVT-1b137a9c275b",
-      "source_headlines": [
-        "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation"
-      ],
-      "source_headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
-      "source_url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-06T14:01:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T14:26:13Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-08T02:01:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-db76bcbae044",
       "idea_version": "IDEAV-8aff9bce6dbab3c7",
       "idea_version_started_at": "2026-09-08T00:06:31Z",
@@ -112798,6 +112727,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f4e90eacafe1",
+      "idea_version": "IDEAV-d1d9374b13cd68bd",
+      "idea_version_started_at": "2026-09-06T19:44:58Z",
+      "ticker": "HEG",
+      "company": "HEG Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The demerger of HEG Advanced Materials is projected to unlock and add approximately ₹4,000 crore in market capitalization for shareholders.",
+      "why_now": "The details of the value-unlocking demerger were publicized on September 6, 2026, presenting a fresh corporate catalyst.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1b137a9c275b"
+      ],
+      "primary_source_event_id": "EVT-1b137a9c275b",
+      "source_headlines": [
+        "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation"
+      ],
+      "source_headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
+      "source_url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 92,
+      "newest_source_at": "2026-09-06T14:01:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T14:26:13Z",
+      "updated_at": "2026-09-06T19:44:58Z",
+      "decay_at": "2026-09-08T02:01:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-05d90ddf6fa2",
       "idea_version": "IDEAV-a93c78f4b847651b",
       "idea_version_started_at": "2026-09-06T12:16:05Z",
@@ -113680,14 +113681,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 498,
+    "total_count": 499,
     "shown_count": 485,
-    "hidden_count": 13,
+    "hidden_count": 14,
     "side_counts": {
       "long": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       },
       "short": {
         "total_count": 235,
@@ -113711,6 +113712,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f4e90eacafe1",
+        "idea_version": "IDEAV-d1d9374b13cd68bd",
+        "idea_version_started_at": "2026-09-06T19:44:58Z",
+        "ticker": "HEG",
+        "company": "HEG Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The demerger of HEG Advanced Materials is projected to unlock and add approximately ₹4,000 crore in market capitalization for shareholders.",
+        "why_now": "The details of the value-unlocking demerger were publicized on September 6, 2026, presenting a fresh corporate catalyst.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1b137a9c275b"
+        ],
+        "primary_source_event_id": "EVT-1b137a9c275b",
+        "source_headlines": [
+          "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation"
+        ],
+        "source_headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
+        "source_url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 92,
+        "newest_source_at": "2026-09-06T14:01:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T14:26:13Z",
+        "updated_at": "2026-09-06T19:44:58Z",
+        "decay_at": "2026-09-08T02:01:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T02:01:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-eb060c74b320",
         "idea_version": "IDEAV-73302f8265cf3a1b",
@@ -147884,80 +147960,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-20ce0852f442",
-        "idea_version": "IDEAV-1cd1e2e7d196bd93",
-        "idea_version_started_at": "2026-08-21T00:59:07Z",
-        "ticker": "P1E",
-        "company": "P1E",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported strong gas shows in its Venus 2H well, indicating successful operational progress in its exploration target.",
-        "why_now": "The operational update was released via ASX filing on 2026-08-20.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1c7f0ef0c208"
-        ],
-        "primary_source_event_id": "EVT-1c7f0ef0c208",
-        "source_headlines": [
-          "P1E: Strong Gas Shows in Venus 2H as it intersects target coal [price-sensitive]"
-        ],
-        "source_headline": "P1E: Strong Gas Shows in Venus 2H as it intersects target coal [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.P1E?key=2924-03124076-2A1690996",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-20T23:11:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T00:59:07Z",
-        "updated_at": "2026-08-21T00:59:07Z",
-        "decay_at": "2026-08-22T11:11:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T23:13:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-21c21ede9213",
         "idea_version": "IDEAV-28bd6904c7b57388",
         "idea_version_started_at": "2026-08-21T00:59:07Z",
@@ -149734,7 +149736,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 583,
-    "live_count": 83,
+    "live_count": 82,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -149753,9 +149755,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 457,
-    "news_picked_today": 103,
-    "news_dropped_today": 354
+    "news_seen_today": 469,
+    "news_picked_today": 107,
+    "news_dropped_today": 362
   },
   "book_momentum": {
     "live_count": 8,
