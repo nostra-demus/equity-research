@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:16:50Z",
+  "generated_at": "2026-09-08T09:22:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-348",
@@ -385,6 +385,114 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-365",
+      "headline": "Novartis India acquires Pfizer brands for $132m",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/novartis-india-acquires-pfizer-brands-085150122.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T08:51:50Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Novartis India is acquiring Pfizer brands for $132 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis India is acquiring Pfizer brands for $132 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Pfizer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-364",
+      "headline": "Qualitas Energy to buy Cero Generation’s 5.8GW European platform",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/energy/articles/qualitas-energy-buy-cero-generation-084348043.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T08:43:48Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Qualitas Energy is acquiring a 5.8GW renewable energy platform from Cero Generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualitas Energy is acquiring a 5.8GW renewable energy platform from Cero Generation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualitas Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cero Generation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1386,6 +1494,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-368",
+      "headline": "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding 'Release HCLTech launches Advanced Semiconductor Lab with Rs. 185 crore investment'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HCLTECH_08092026141830_Release8September2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T08:48:51Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "HCL Technologies is investing Rs. 185 crore to launch an Advanced Semiconductor Lab.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "HCL Technologies is investing Rs. 185 crore to launch an Advanced Semiconductor Lab.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCL Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-327",
       "headline": "RBL Bank Limited: RBL Bank Limited has informed the Exchange that the Bank has established its US $1,000,000,000 (USD one billion) Euro Medium Term Note Programme and submitted the offering circular.",
       "headline_en": null,
@@ -1832,153 +1989,6 @@
       "companies": [
         {
           "name": "REC Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-347",
-      "headline": "PNB Gilts Limited: PNB GILTS LTD. has informed the Exchange regarding Change in Auditors of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PNBGILTS_08092026141338_Stx08092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:44:11Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Change in auditors is a significant governance event that can signal accounting or operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Change in auditors is a significant governance event that can signal accounting or operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PNB Gilts Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-362",
-      "headline": "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) initiated or orders passed",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SEDEMAC2007_08092026140719_20260908-IntimationofGSTSearch.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:37:29Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Company disclosed regulatory action or orders passed against it, which may impact operations or compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Company disclosed regulatory action or orders passed against it, which may impact operations or compliance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEDEMAC Mechatronics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-363",
-      "headline": "Honasa Consumer Limited: Update on Senior Management",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HONASA16_08092026135919_UpdateonSeniorManagement_F.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T08:30:06Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Update on senior management at a consumer company often signals potential strategic or operational shifts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Update on senior management at a consumer company often signals potential strategic or operational shifts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honasa Consumer Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -151388,9 +151398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 274510,
-    "news_picked_today": 676,
-    "news_dropped_today": 5138
+    "news_seen_today": 279142,
+    "news_picked_today": 683,
+    "news_dropped_today": 5179
   },
   "book_momentum": {
     "live_count": 8,
