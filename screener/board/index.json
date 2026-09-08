@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T15:02:02Z",
+  "generated_at": "2026-09-08T15:11:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-584",
@@ -789,6 +789,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-630",
+      "headline": "Abu Dhabi’s IHC to acquire 80% stake in UAE’s Marlan Space",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/abu-dhabis-ihc-to-acquire-80-stake-in-uaes-marlan-space",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T14:54:46Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "International Holding Company (IHC) is acquiring an 80% stake in Marlan Space, representing a significant capital deployment and expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "International Holding Company (IHC) is acquiring an 80% stake in Marlan Space, representing a significant capital deployment and expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Holding Company",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Marlan Space",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,60 +2017,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-430",
-      "headline": "Zim Integrated Shipping Shares Rise as Hapag-Lloyd Revises Takeover Proposal",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/zim-integrated-shipping-shares-rise-102129105.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T10:21:29Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "A revised takeover proposal is a material event for the target company's valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A revised takeover proposal is a material event for the target company's valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zim Integrated Shipping",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hapag-Lloyd",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108154,150 +108154,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a025b73a32d6",
-      "idea_version": "IDEAV-191232abad28680e",
-      "idea_version_started_at": "2026-09-07T05:16:41Z",
-      "ticker": "TATAMOTORS",
-      "company": "Tata Motors",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a tender offer to acquire Iveco Group for an enterprise value of €3.82 billion, which will expand its commercial vehicle footprint globally.",
-      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate catalyst for share price movement.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f5b245ac061"
-      ],
-      "primary_source_event_id": "EVT-8f5b245ac061",
-      "source_headlines": [
-        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:04:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T10:25:28Z",
-      "updated_at": "2026-09-07T05:16:41Z",
-      "decay_at": "2026-09-08T15:04:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1093d003f5d3",
-      "idea_version": "IDEAV-76712455695529dd",
-      "idea_version_started_at": "2026-09-07T05:00:01Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors is launching a tender offer for Iveco Group, signaling a significant expansion of its commercial vehicle footprint in Europe.",
-      "why_now": "The tender offer was announced today, September 7, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f5b245ac061"
-      ],
-      "primary_source_event_id": "EVT-8f5b245ac061",
-      "source_headlines": [
-        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:04:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T23:52:55Z",
-      "updated_at": "2026-09-07T05:00:01Z",
-      "decay_at": "2026-09-08T15:04:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-febecdcab4bc",
       "idea_version": "IDEAV-eb2ab6011fca55a2",
       "idea_version_started_at": "2026-09-07T05:00:01Z",
@@ -108364,294 +108220,6 @@
       "surfaced_at": "2026-09-07T05:00:01Z",
       "updated_at": "2026-09-07T05:00:01Z",
       "decay_at": "2026-09-08T16:09:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-122637bff5ac",
-      "idea_version": "IDEAV-628c6ced57c82bb9",
-      "idea_version_started_at": "2026-09-07T04:42:15Z",
-      "ticker": "TATA.NS",
-      "company": "Tata Motors",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors is launching a tender offer for Iveco Group, valuing the company at €3.82 billion, which would be a strategic acquisition for Tata Motors.",
-      "why_now": "The tender offer was announced on September 7, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f5b245ac061"
-      ],
-      "primary_source_event_id": "EVT-8f5b245ac061",
-      "source_headlines": [
-        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:04:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T04:42:15Z",
-      "updated_at": "2026-09-07T04:42:15Z",
-      "decay_at": "2026-09-08T15:04:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3a23128a09e2",
-      "idea_version": "IDEAV-222848955cb0ed5c",
-      "idea_version_started_at": "2026-09-07T04:42:15Z",
-      "ticker": "4714.T",
-      "company": "Oricon Inc.",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Oricon Inc. is facing delisting from the Tokyo Stock Exchange, indicating severe financial distress or non-compliance.",
-      "why_now": "The decision on delisting was announced on September 7, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-11eb67755ea6"
-      ],
-      "primary_source_event_id": "EVT-11eb67755ea6",
-      "source_headlines": [
-        "[TSE]Decision on Delisting, etc.: Oricon Inc."
-      ],
-      "source_headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
-      "source_url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T04:42:15Z",
-      "updated_at": "2026-09-07T04:42:15Z",
-      "decay_at": "2026-09-08T15:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e35461f60911",
-      "idea_version": "IDEAV-9106403afff5a766",
-      "idea_version_started_at": "2026-09-07T04:42:15Z",
-      "ticker": "IVC",
-      "company": "Iveco Group",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Iveco Group is the target of a tender offer from Tata Motors at €3.82 billion, suggesting a potential sale and exit for current shareholders at a specific price.",
-      "why_now": "The tender offer was announced on September 7, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f5b245ac061"
-      ],
-      "primary_source_event_id": "EVT-8f5b245ac061",
-      "source_headlines": [
-        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:04:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T04:42:15Z",
-      "updated_at": "2026-09-07T04:42:15Z",
-      "decay_at": "2026-09-08T15:04:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-493e94dd58a9cc9e",
-      "idea_version_started_at": "2026-09-07T04:21:47Z",
-      "ticker": "IVG",
-      "company": "Iveco Group NV",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a tender offer to acquire the company at a valuation of €3.82 billion, providing a clear floor and premium for shareholders.",
-      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate arbitrage or exit window.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f5b245ac061"
-      ],
-      "primary_source_event_id": "EVT-8f5b245ac061",
-      "source_headlines": [
-        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
-      ],
-      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:04:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-02T12:20:12Z",
-      "updated_at": "2026-09-07T04:21:47Z",
-      "decay_at": "2026-09-08T15:04:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111208,6 +110776,438 @@
       "surfaced_at": "2026-09-07T00:24:17Z",
       "updated_at": "2026-09-07T16:59:16Z",
       "decay_at": "2026-09-08T11:37:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a025b73a32d6",
+      "idea_version": "IDEAV-191232abad28680e",
+      "idea_version_started_at": "2026-09-07T05:16:41Z",
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a tender offer to acquire Iveco Group for an enterprise value of €3.82 billion, which will expand its commercial vehicle footprint globally.",
+      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate catalyst for share price movement.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T10:25:28Z",
+      "updated_at": "2026-09-07T05:16:41Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1093d003f5d3",
+      "idea_version": "IDEAV-76712455695529dd",
+      "idea_version_started_at": "2026-09-07T05:00:01Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, signaling a significant expansion of its commercial vehicle footprint in Europe.",
+      "why_now": "The tender offer was announced today, September 7, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-05T23:52:55Z",
+      "updated_at": "2026-09-07T05:00:01Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-122637bff5ac",
+      "idea_version": "IDEAV-628c6ced57c82bb9",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "TATA.NS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is launching a tender offer for Iveco Group, valuing the company at €3.82 billion, which would be a strategic acquisition for Tata Motors.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3a23128a09e2",
+      "idea_version": "IDEAV-222848955cb0ed5c",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "4714.T",
+      "company": "Oricon Inc.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Oricon Inc. is facing delisting from the Tokyo Stock Exchange, indicating severe financial distress or non-compliance.",
+      "why_now": "The decision on delisting was announced on September 7, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11eb67755ea6"
+      ],
+      "primary_source_event_id": "EVT-11eb67755ea6",
+      "source_headlines": [
+        "[TSE]Decision on Delisting, etc.: Oricon Inc."
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e35461f60911",
+      "idea_version": "IDEAV-9106403afff5a766",
+      "idea_version_started_at": "2026-09-07T04:42:15Z",
+      "ticker": "IVC",
+      "company": "Iveco Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Iveco Group is the target of a tender offer from Tata Motors at €3.82 billion, suggesting a potential sale and exit for current shareholders at a specific price.",
+      "why_now": "The tender offer was announced on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:42:15Z",
+      "updated_at": "2026-09-07T04:42:15Z",
+      "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-67edac5436ac",
+      "idea_version": "IDEAV-493e94dd58a9cc9e",
+      "idea_version_started_at": "2026-09-07T04:21:47Z",
+      "ticker": "IVG",
+      "company": "Iveco Group NV",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors has launched a tender offer to acquire the company at a valuation of €3.82 billion, providing a clear floor and premium for shareholders.",
+      "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate arbitrage or exit window.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f5b245ac061"
+      ],
+      "primary_source_event_id": "EVT-8f5b245ac061",
+      "source_headlines": [
+        "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+      ],
+      "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:04:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-02T12:20:12Z",
+      "updated_at": "2026-09-07T04:21:47Z",
+      "decay_at": "2026-09-08T15:04:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115190,18 +115190,18 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
-    "shown_count": 496,
-    "hidden_count": 38,
+    "total_count": 540,
+    "shown_count": 498,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 42
       },
       "short": {
-        "total_count": 246,
-        "shown_count": 246,
+        "total_count": 248,
+        "shown_count": 248,
         "hidden_count": 0
       }
     },
@@ -115221,6 +115221,456 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3a23128a09e2",
+        "idea_version": "IDEAV-222848955cb0ed5c",
+        "idea_version_started_at": "2026-09-07T04:42:15Z",
+        "ticker": "4714.T",
+        "company": "Oricon Inc.",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Oricon Inc. is facing delisting from the Tokyo Stock Exchange, indicating severe financial distress or non-compliance.",
+        "why_now": "The decision on delisting was announced on September 7, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-11eb67755ea6"
+        ],
+        "primary_source_event_id": "EVT-11eb67755ea6",
+        "source_headlines": [
+          "[TSE]Decision on Delisting, etc.: Oricon Inc."
+        ],
+        "source_headline": "[TSE]Decision on Delisting, etc.: Oricon Inc.",
+        "source_url": "https://www.jpx.co.jp/english/news/1023/20260907-11.html",
+        "source_name": "Japan Exchange Group (JPX) — Market News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T04:42:15Z",
+        "updated_at": "2026-09-07T04:42:15Z",
+        "decay_at": "2026-09-08T15:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1093d003f5d3",
+        "idea_version": "IDEAV-76712455695529dd",
+        "idea_version_started_at": "2026-09-07T05:00:01Z",
+        "ticker": "TTM",
+        "company": "Tata Motors",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors is launching a tender offer for Iveco Group, signaling a significant expansion of its commercial vehicle footprint in Europe.",
+        "why_now": "The tender offer was announced today, September 7, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f5b245ac061"
+        ],
+        "primary_source_event_id": "EVT-8f5b245ac061",
+        "source_headlines": [
+          "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+        ],
+        "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:04:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T23:52:55Z",
+        "updated_at": "2026-09-07T05:00:01Z",
+        "decay_at": "2026-09-08T15:04:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:04:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-122637bff5ac",
+        "idea_version": "IDEAV-628c6ced57c82bb9",
+        "idea_version_started_at": "2026-09-07T04:42:15Z",
+        "ticker": "TATA.NS",
+        "company": "Tata Motors",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors is launching a tender offer for Iveco Group, valuing the company at €3.82 billion, which would be a strategic acquisition for Tata Motors.",
+        "why_now": "The tender offer was announced on September 7, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f5b245ac061"
+        ],
+        "primary_source_event_id": "EVT-8f5b245ac061",
+        "source_headlines": [
+          "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+        ],
+        "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:04:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T04:42:15Z",
+        "updated_at": "2026-09-07T04:42:15Z",
+        "decay_at": "2026-09-08T15:04:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:04:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-67edac5436ac",
+        "idea_version": "IDEAV-493e94dd58a9cc9e",
+        "idea_version_started_at": "2026-09-07T04:21:47Z",
+        "ticker": "IVG",
+        "company": "Iveco Group NV",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors has launched a tender offer to acquire the company at a valuation of €3.82 billion, providing a clear floor and premium for shareholders.",
+        "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate arbitrage or exit window.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f5b245ac061"
+        ],
+        "primary_source_event_id": "EVT-8f5b245ac061",
+        "source_headlines": [
+          "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+        ],
+        "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:04:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-02T12:20:12Z",
+        "updated_at": "2026-09-07T04:21:47Z",
+        "decay_at": "2026-09-08T15:04:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:04:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a025b73a32d6",
+        "idea_version": "IDEAV-191232abad28680e",
+        "idea_version_started_at": "2026-09-07T05:16:41Z",
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tata Motors has launched a tender offer to acquire Iveco Group for an enterprise value of €3.82 billion, which will expand its commercial vehicle footprint globally.",
+        "why_now": "The tender offer was officially launched on September 7, 2026, creating an immediate catalyst for share price movement.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f5b245ac061"
+        ],
+        "primary_source_event_id": "EVT-8f5b245ac061",
+        "source_headlines": [
+          "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+        ],
+        "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:04:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-05T10:25:28Z",
+        "updated_at": "2026-09-07T05:16:41Z",
+        "decay_at": "2026-09-08T15:04:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:04:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e35461f60911",
+        "idea_version": "IDEAV-9106403afff5a766",
+        "idea_version_started_at": "2026-09-07T04:42:15Z",
+        "ticker": "IVC",
+        "company": "Iveco Group",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Iveco Group is the target of a tender offer from Tata Motors at €3.82 billion, suggesting a potential sale and exit for current shareholders at a specific price.",
+        "why_now": "The tender offer was announced on September 7, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f5b245ac061"
+        ],
+        "primary_source_event_id": "EVT-8f5b245ac061",
+        "source_headlines": [
+          "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion"
+        ],
+        "source_headline": "Tata Motors shares in focus as firm launches tender offer for Iveco Group; values company at €3.82 billion",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/tata-motors-shares-in-focus-as-firm-launches-tender-offer-for-iveco-group-values-company-at-3-82-billion/articleshow/133861110.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:04:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T04:42:15Z",
+        "updated_at": "2026-09-07T04:42:15Z",
+        "decay_at": "2026-09-08T15:04:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:04:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a6b4b796e78e",
         "idea_version": "IDEAV-9363c87dbbf9fb45",
@@ -147262,80 +147712,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5a9ca4fb38f7",
-        "idea_version": "IDEAV-263be349d509651b",
-        "idea_version_started_at": "2026-08-24T09:24:19Z",
-        "ticker": "VERANDA",
-        "company": "Veranda Learning Solutions Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has received approval for the demerger of its commerce vertical.",
-        "why_now": "The press release confirming NCLT approval was dated August 24, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f984ae965c94"
-        ],
-        "primary_source_event_id": "EVT-f984ae965c94",
-        "source_headlines": [
-          "Veranda Learning Solutions Limited: Veranda Learning Solutions Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"Veranda Learning Receives NCLT Approval for Commerce Vertical Demerger\"."
-        ],
-        "source_headline": "Veranda Learning Solutions Limited: Veranda Learning Solutions Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"Veranda Learning Receives NCLT Approval for Commerce Vertical Demerger\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/Verandaipo_24082026091037_REG30PR.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T03:40:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T09:24:19Z",
-        "updated_at": "2026-08-24T09:24:19Z",
-        "decay_at": "2026-08-25T15:40:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T03:47:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6ae80c60359d",
         "idea_version": "IDEAV-7df99974729aad2c",
         "idea_version_started_at": "2026-08-24T08:35:35Z",
@@ -147485,81 +147861,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8d2029e4bf90",
-        "idea_version": "IDEAV-a18491000407de79",
-        "idea_version_started_at": "2026-08-24T08:35:35Z",
-        "ticker": "009540",
-        "company": "HD Korea Shipbuilding & Offshore Engineering",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing a 515.4 billion won contract for 4 LPG carriers provides immediate revenue visibility and confirms strong demand in the high-value shipbuilding segment.",
-        "why_now": "The contract was announced on August 24, 2026, providing a fresh catalyst for order book growth.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-00cc246f4c39"
-        ],
-        "primary_source_event_id": "EVT-00cc246f4c39",
-        "source_headlines": [
-          "HD KSOE secures 515.4 bln-won contract for 4 LPG carriers"
-        ],
-        "source_headline": "HD KSOE secures 515.4 bln-won contract for 4 LPG carriers",
-        "source_url": "https://en.yna.co.kr/view/AEN20260824003300320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T02:15:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T08:35:35Z",
-        "updated_at": "2026-08-24T08:35:35Z",
-        "decay_at": "2026-08-25T14:15:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T03:07:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c965aee2d06a",
         "idea_version": "IDEAV-3f87f0dae61817dd",
         "idea_version_started_at": "2026-08-24T09:24:19Z",
@@ -147631,154 +147932,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-27T02:10:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-14770c0627c1",
-        "idea_version": "IDEAV-35c8d2ad8208e5f3",
-        "idea_version_started_at": "2026-08-24T09:24:19Z",
-        "ticker": "JTLIND",
-        "company": "JTL Industries Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is expanding its narrow-width HR coil manufacturing capacity through its subsidiary.",
-        "why_now": "The press release announcing the expansion was dated August 24, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1504574ab347"
-        ],
-        "primary_source_event_id": "EVT-1504574ab347",
-        "source_headlines": [
-          "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated August 24, 2026, titled \"Expansion of Narrow-width HR Coil manufacturing capacity by Subsidiary Company\"."
-        ],
-        "source_headline": "JTL INDUSTRIES LIMITED: JTL INDUSTRIES LIMITED has informed the Exchange regarding a press release dated August 24, 2026, titled \"Expansion of Narrow-width HR Coil manufacturing capacity by Subsidiary Company\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/JTLIND_24082026070033_PressReleaseExpansionByJTLEngineering24082026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T01:31:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T09:24:19Z",
-        "updated_at": "2026-08-24T09:24:19Z",
-        "decay_at": "2026-08-25T13:31:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T02:10:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-426fc9a01704",
-        "idea_version": "IDEAV-92ddadd9113bc726",
-        "idea_version_started_at": "2026-08-24T23:28:07Z",
-        "ticker": "COI",
-        "company": "Comet Ridge",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The completion of the Mahalo Gas Project acquisition allows the company to move toward development and monetization of its gas assets.",
-        "why_now": "The acquisition completion was announced on August 23, 2026, providing immediate clarity on the company's asset base.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-661f20809ec9"
-        ],
-        "primary_source_event_id": "EVT-661f20809ec9",
-        "source_headlines": [
-          "COI: Acquisition of Mahalo Gas Project completes"
-        ],
-        "source_headline": "COI: Acquisition of Mahalo Gas Project completes",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.COI?key=2924-03124733-2A1691313",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-23T23:05:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-23T23:13:49Z",
-        "updated_at": "2026-08-24T23:28:07Z",
-        "decay_at": "2026-08-25T11:05:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-26T23:18:36Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -152079,7 +152232,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 611,
-    "live_count": 75,
+    "live_count": 69,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152098,9 +152251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1777259,
-    "news_picked_today": 1180,
-    "news_dropped_today": 7346
+    "news_seen_today": 1847498,
+    "news_picked_today": 1197,
+    "news_dropped_today": 7401
   },
   "book_momentum": {
     "live_count": 8,
