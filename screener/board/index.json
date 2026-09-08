@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-08T02:51:55Z",
+  "generated_at": "2026-09-08T02:56:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-146",
+      "headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03133064-6A1342747",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T02:50:15Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "FRS completed a capital raise and the acquisition of the Edna May asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FRS completed a capital raise and the acquisition of the Edna May asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ramelius Resources",
+          "ticker": "RMS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-093",
       "headline": "AKA: Investor Update Webinar - Acquisition of High Grade Holdings",
@@ -1667,6 +1717,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-149",
+      "headline": "CapitaLand targets US$500 million for third Asian credit fund: Bloomberg",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/capitaland-targets-us500-million-third-asian-credit-fund-bloomberg",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T02:49:48Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "CapitaLand is raising US$500 million for a new Asian credit fund, indicating expansion of its investment management business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "CapitaLand is raising US$500 million for a new Asian credit fund, indicating expansion of its investment management business.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CapitaLand",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-142",
       "headline": "Nvidia supplier Wistron's shares drop after it announces $1.5 billion global stock sale",
       "headline_en": null,
@@ -1855,104 +1954,6 @@
           "name": "Samsung SDS",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-081",
-      "headline": "India’s National Stock Exchange to list after finally clearing IPO hurdles",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/32bee3d5-f018-4e8e-86cf-7ebe37f6c4a3?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T01:30:06Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "The National Stock Exchange of India has cleared regulatory hurdles to proceed with its IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The National Stock Exchange of India has cleared regulatory hurdles to proceed with its IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-011",
-      "headline": "CapitaLand targets US$500 million for third Asian credit fund",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/capitaland-targets-us500-million-for-third-asian-credit-fund",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "CapitaLand is targeting US$500 million for a new Asian credit fund, expanding its capital base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "CapitaLand is targeting US$500 million for a new Asian credit fund, expanding its capital base.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CapitaLand",
-          "ticker": null,
-          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -150288,9 +150289,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 715,
-    "news_picked_today": 184,
-    "news_dropped_today": 531
+    "news_seen_today": 750,
+    "news_picked_today": 188,
+    "news_dropped_today": 562
   },
   "book_momentum": {
     "live_count": 8,
