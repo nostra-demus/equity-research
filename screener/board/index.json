@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T16:47:20Z",
+  "generated_at": "2026-09-08T16:48:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -104584,32 +104584,33 @@
   "ideas": [
     {
       "idea_id": "IDEA-aae3ef159f69",
-      "idea_version": "IDEAV-2bf6c570a54fd687",
-      "idea_version_started_at": "2026-09-08T15:48:21Z",
+      "idea_version": "IDEAV-ce8b659cd3253436",
+      "idea_version_started_at": "2026-09-08T16:47:40Z",
       "ticker": "BSX",
       "company": "Boston Scientific",
       "exchange": "NYSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company faces a compounding negative impact from a cyberattack disrupting operations and a major product recall involving over 1,000 serious injuries, both of which threaten near-term earnings and long-term liability costs.",
-      "why_now": "The guidance warning and recall news were released on 2026-09-08, creating immediate downward pressure on margins and potential litigation risk.",
-      "conviction": 85,
+      "reason": "The recall of a spinal cord implant due to over 1,000 serious injuries creates significant legal liability and potential revenue loss for the company's neuromodulation segment.",
+      "why_now": "The news of the recall and the scale of injuries was reported today, September 8, 2026.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 62,
       "trade_score_basis": "evidence_gate_v2",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 6,
-        "corroboration": 10,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -104626,19 +104627,15 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-847ed4a3fddf",
-        "EVT-e5e4a1031d29",
         "EVT-8087a61dacd2"
       ],
-      "primary_source_event_id": "EVT-847ed4a3fddf",
+      "primary_source_event_id": "EVT-8087a61dacd2",
       "source_headlines": [
-        "Boston Scientific Warns of Financial Hit from Cyber Attack",
-        "Boston Scientific ‘Unlikely to Meet’ Earnings Guidance After Cyberattack. Stock Falls.",
         "Boston Scientific recalls spinal cord implant in wake of more than 1k serious injuries"
       ],
-      "source_headline": "Boston Scientific Warns of Financial Hit from Cyber Attack",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-08/boston-scientific-unlikely-to-meet-forecasts-after-cyber-attack-mtsjf03g",
-      "source_name": "Bloomberg",
+      "source_headline": "Boston Scientific recalls spinal cord implant in wake of more than 1k serious injuries",
+      "source_url": "https://www.fiercebiotech.com/medtech/boston-scientific-recalls-spinal-cord-implant-wake-more-1k-serious-injuries",
+      "source_name": "FierceBiotech",
       "materiality_max": 100,
       "newest_source_at": "2026-09-08T12:34:20Z",
       "prior_coverage": {
@@ -104648,7 +104645,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-08T15:48:21Z",
-      "updated_at": "2026-09-08T15:48:21Z",
+      "updated_at": "2026-09-08T16:47:40Z",
       "decay_at": "2026-09-10T00:34:20Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -111779,79 +111776,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-be2010792483",
-      "idea_version": "IDEAV-de0b1021b593e033",
-      "idea_version_started_at": "2026-09-06T18:32:33Z",
-      "ticker": "SPI",
-      "company": "Spire Healthcare",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has agreed to a £1.03 billion acquisition by Toscafund and other investors, which typically aligns the market price with the offer terms.",
-      "why_now": "The acquisition agreement was announced on 2026-09-05.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c148e6ef6fe1"
-      ],
-      "primary_source_event_id": "EVT-c148e6ef6fe1",
-      "source_headlines": [
-        "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others"
-      ],
-      "source_headline": "Spire Healthcare agrees £1.03 billion takeover by Toscafund and others",
-      "source_url": "https://www.reuters.com/legal/litigation/spire-healthcare-agrees-103-billion-takeover-by-toscafund-others-2026-09-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:47:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-06T18:32:33Z",
-      "decay_at": "2026-09-07T04:47:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ddeb10a10dec",
       "idea_version": "IDEAV-c80451360011b6f6",
       "idea_version_started_at": "2026-09-06T18:05:43Z",
@@ -112132,78 +112056,6 @@
       "surfaced_at": "2026-09-06T05:50:29Z",
       "updated_at": "2026-09-06T05:50:29Z",
       "decay_at": "2026-09-07T17:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-69be6242b6c3",
-      "idea_version": "IDEAV-1dbf69985b06a3b9",
-      "idea_version_started_at": "2026-09-05T16:54:01Z",
-      "ticker": "OLAELEC",
-      "company": "Ola Electric Mobility",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden departure of Chief Operating Officer Hyun Shik Park alongside plans to raise up to Rs 1,500 crore in fresh capital signals operational instability and imminent equity dilution.",
-      "why_now": "The executive exit and capital raise plans were announced on September 5, 2026, presenting an immediate negative catalyst as the market digests the management shakeup.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ecdd297dc910"
-      ],
-      "primary_source_event_id": "EVT-ecdd297dc910",
-      "source_headlines": [
-        "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down"
-      ],
-      "source_headline": "Ola Electric Plans To Raise Up To Rs 1,500 Crore, COO Hyun Shik Park Steps Down",
-      "source_url": "https://www.ndtvprofit.com/markets/ola-electric-plans-to-raise-up-to-rs-1-500-crore-coo-hyun-shik-park-steps-down-12006862#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-05T16:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T16:54:01Z",
-      "updated_at": "2026-09-05T16:54:01Z",
-      "decay_at": "2026-09-07T04:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115307,7 +115159,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 464,
+      "file_count": 466,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -121610,8 +121462,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T04:47:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-08T16:47:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121685,8 +121537,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T04:22:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-08T16:47:42Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
