@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T06:46:47Z",
+  "generated_at": "2026-09-08T06:56:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -895,6 +895,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-276",
+      "headline": "Gaja Alternative Asset Management Limited: Gaja Alternative Asset Management Limited has informed the Exchange about Resignation of Statutory Auditor",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GAJA_ROSA_98106_KMP_Doc.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T06:14:53Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The resignation of a statutory auditor is a significant corporate governance red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The resignation of a statutory auditor is a significant corporate governance red flag.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gaja Alternative Asset Management Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-209",
-      "headline": "신한은행, 6억 유로 규모 그린 커버드본드 발행 성공",
-      "headline_en": "Shinhan Bank successfully issues 600 million euro green covered bonds",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276424",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T03:50:04Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Shinhan Bank successfully issued 600 million euros in green covered bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Shinhan Bank successfully issued 600 million euros in green covered bonds.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shinhan Bank",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151027,9 +151027,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21148,
-    "news_picked_today": 497,
-    "news_dropped_today": 3997
+    "news_seen_today": 34910,
+    "news_picked_today": 503,
+    "news_dropped_today": 4063
   },
   "book_momentum": {
     "live_count": 8,
