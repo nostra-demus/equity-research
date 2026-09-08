@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-08T11:21:52Z",
+  "generated_at": "2026-09-08T11:31:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-458",
+      "headline": "Vivimed Labs Limited: Vivimed Labs Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VIVIMEDLAB_08092026163612_Notice_of_committee_of_Creditors.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T11:06:33Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Vivimed Labs Limited has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vivimed Labs Limited has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vivimed Labs Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-437",
       "headline": "SMC ELECTRIC (02381): JOINT ANNOUNCEMENT - (1) COMPLETION OF ACQUISITION OF SALE SHARES BY MEGA NOVA HOLDINGS LIMITED (2) MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES)",
@@ -789,6 +838,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-461",
+      "headline": "Boston Scientific Warns of Financial Hit from Cyber Attack",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-08/boston-scientific-unlikely-to-meet-forecasts-after-cyber-attack-mtsjf03g",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T10:39:22Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Boston Scientific confirmed a cyber attack that will have a negative financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific confirmed a cyber attack that will have a negative financial impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,114 +2007,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-154",
-      "headline": "Rio Buys Australian Bauxite Project From Glencore and Mitsubishi",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-08/rio-buys-australian-bauxite-project-from-glencore-and-mitsubishi",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T03:06:27Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Rio Tinto is acquiring a bauxite project from Glencore and Mitsubishi, representing a clear M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rio Tinto is acquiring a bauxite project from Glencore and Mitsubishi, representing a clear M&A transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Glencore",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Mitsubishi",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-123",
-      "headline": "Anthropic said to walk away from $6 billion Decart acquisition",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/anthropic-said-to-walk-away-from-usd-6-billion-decart-acquisition-19986124.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:10:10Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Anthropic has reportedly abandoned a $6 billion acquisition of Decart, signaling a change in M&A strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic has reportedly abandoned a $6 billion acquisition of Decart, signaling a change in M&A strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151639,9 +151629,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 661989,
-    "news_picked_today": 831,
-    "news_dropped_today": 5991
+    "news_seen_today": 707736,
+    "news_picked_today": 854,
+    "news_dropped_today": 6064
   },
   "book_momentum": {
     "live_count": 8,
