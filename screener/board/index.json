@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-09-08T15:11:58Z",
+  "generated_at": "2026-09-08T15:22:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-636",
+      "headline": "OFAC SDN LIst Update: Iran-related Designations; Counter Terrorism Designations; Updates to Iran-related General Licenses; Issuance of Counter Terrorism General License",
+      "headline_en": null,
+      "url": "https://content.govdelivery.com/accounts/USTREAS/bulletins/428edff",
+      "source_name": "U.S. Treasury / OFAC — Recent Actions & Sanctions (SDN, GLs, enforcement)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-08T14:44:42Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "New OFAC sanctions and designations related to Iran and counter-terrorism increase compliance and operational risk for global firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New OFAC sanctions and designations related to Iran and counter-terrorism increase compliance and operational risk for global firms.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-584",
       "headline": "LOTUS HORIZON (06063): (1) COMPLETION OF THE SALE AND PURCHASE OF THE SALE SHARES (2) MANDATORY UNCONDITIONAL CASH OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF VICTOR XU LIMITED TO ACQUIRE ALL OF THE ISSUED SHARES OF LOTUS HORIZON HOLDINGS LIMITED (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER TO THE INDEPENDENT BOARD COMMITTEE AND (4) RESUMPTION OF TRADING IN SHARES",
@@ -1959,61 +2002,6 @@
           "name": "Poste Italiane",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-451",
-      "headline": "Sun Pharma gets ratings boost from Moody's, S&P over USD 11.75-bn Organon & Co acquisition bid",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/sun-pharma-gets-ratings-boost-from-moodys-sp-over-usd-11-75-bn-organon-co-acquisition-bid/articleshow/133920411.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T10:32:54Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Sun Pharma is pursuing a USD 11.75-bn acquisition of Organon & Co, which has triggered positive credit rating actions from Moody's and S&P.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sun Pharma is pursuing a USD 11.75-bn acquisition of Organon & Co, which has triggered positive credit rating actions from Moody's and S&P.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sun Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Organon & Co",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -108226,77 +108214,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-894c196d214b",
-      "idea_version": "IDEAV-bab79fcfa8ee1fd0",
-      "idea_version_started_at": "2026-09-07T04:21:47Z",
-      "ticker": "MOREPENLAB",
-      "company": "Morepen Laboratories Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The completion of the first phase of manufacturing capacity expansion ahead of schedule accelerates the company's ability to scale revenue and meet demand.",
-      "why_now": "The business update confirming early completion was filed with the exchange on September 7, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e520e1d28f6a"
-      ],
-      "primary_source_event_id": "EVT-e520e1d28f6a",
-      "source_headlines": [
-        "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule"
-      ],
-      "source_headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
-      "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_07092026084840_SEIntimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T03:18:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T04:21:47Z",
-      "updated_at": "2026-09-07T04:21:47Z",
-      "decay_at": "2026-09-08T15:18:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -111208,6 +111125,77 @@
       "surfaced_at": "2026-09-02T12:20:12Z",
       "updated_at": "2026-09-07T04:21:47Z",
       "decay_at": "2026-09-08T15:04:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-894c196d214b",
+      "idea_version": "IDEAV-bab79fcfa8ee1fd0",
+      "idea_version_started_at": "2026-09-07T04:21:47Z",
+      "ticker": "MOREPENLAB",
+      "company": "Morepen Laboratories Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The completion of the first phase of manufacturing capacity expansion ahead of schedule accelerates the company's ability to scale revenue and meet demand.",
+      "why_now": "The business update confirming early completion was filed with the exchange on September 7, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e520e1d28f6a"
+      ],
+      "primary_source_event_id": "EVT-e520e1d28f6a",
+      "source_headlines": [
+        "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule"
+      ],
+      "source_headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
+      "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_07092026084840_SEIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T03:18:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T04:21:47Z",
+      "updated_at": "2026-09-07T04:21:47Z",
+      "decay_at": "2026-09-08T15:18:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115190,14 +115178,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 498,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
         "total_count": 248,
@@ -115221,6 +115209,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-894c196d214b",
+        "idea_version": "IDEAV-bab79fcfa8ee1fd0",
+        "idea_version_started_at": "2026-09-07T04:21:47Z",
+        "ticker": "MOREPENLAB",
+        "company": "Morepen Laboratories Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The completion of the first phase of manufacturing capacity expansion ahead of schedule accelerates the company's ability to scale revenue and meet demand.",
+        "why_now": "The business update confirming early completion was filed with the exchange on September 7, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e520e1d28f6a"
+        ],
+        "primary_source_event_id": "EVT-e520e1d28f6a",
+        "source_headlines": [
+          "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule"
+        ],
+        "source_headline": "Morepen Laboratories Limited: Business Update First Phase of Manufacturing Capacity Expansion Completed Ahead of Schedule",
+        "source_url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_07092026084840_SEIntimation.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T03:18:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T04:21:47Z",
+        "updated_at": "2026-09-07T04:21:47Z",
+        "decay_at": "2026-09-08T15:18:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T15:18:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a23128a09e2",
         "idea_version": "IDEAV-222848955cb0ed5c",
@@ -147638,80 +147700,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f35e5ebaba95",
-        "idea_version": "IDEAV-9ea68c94d1a6172e",
-        "idea_version_started_at": "2026-08-24T09:24:19Z",
-        "ticker": "OOHL",
-        "company": "Oriental Hotels Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Oriental Hotels Limited is set to merge with Indian Hotels Company Limited (IHCL).",
-        "why_now": "The announcement of the merger was made on August 24, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-76b34f47c6b8"
-        ],
-        "primary_source_event_id": "EVT-76b34f47c6b8",
-        "source_headlines": [
-          "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\"."
-        ],
-        "source_headline": "Oriental Hotels Limited: Oriental Hotels Limited has informed the Exchange regarding a press release dated August 24, 2026, titled \"IHCL AND ORIENTAL HOTELS LIMITED ANNOUNCE MERGER\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TAJORIENTAL_24082026091305_SEPressRelease.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-24T03:43:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-24T09:24:19Z",
-        "updated_at": "2026-08-24T09:24:19Z",
-        "decay_at": "2026-08-25T15:43:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-27T03:47:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6ae80c60359d",
         "idea_version": "IDEAV-7df99974729aad2c",
         "idea_version_started_at": "2026-08-24T08:35:35Z",
@@ -152232,7 +152220,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 611,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152251,9 +152239,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1847498,
-    "news_picked_today": 1197,
-    "news_dropped_today": 7401
+    "news_seen_today": 1906709,
+    "news_picked_today": 1204,
+    "news_dropped_today": 7490
   },
   "book_momentum": {
     "live_count": 8,
