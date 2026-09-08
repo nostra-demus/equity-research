@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T15:22:04Z",
+  "generated_at": "2026-09-08T15:32:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -883,6 +883,55 @@
           "name": "Marlan Space",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-640",
+      "headline": "Zoetis (ZTS) Shares Drop After Earnings Revision",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/healthcare/articles/zoetis-zts-shares-drop-earnings-145103070.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T14:51:03Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Zoetis shares dropped following a downward revision to earnings guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zoetis shares dropped following a downward revision to earnings guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zoetis",
+          "ticker": "ZTS",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1951,60 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-429",
-      "headline": "Telecom Italia management tenders shares for Poste Italiane's public takeover of company",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/telecom-italia-management-tenders-shares-for-poste-italianes-public-takeover-of-company/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T10:35:06Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Telecom Italia management tendering shares for a takeover is a significant corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Telecom Italia management tendering shares for a takeover is a significant corporate action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telecom Italia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Poste Italiane",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152239,9 +152234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1906709,
-    "news_picked_today": 1204,
-    "news_dropped_today": 7490
+    "news_seen_today": 1977947,
+    "news_picked_today": 1215,
+    "news_dropped_today": 7623
   },
   "book_momentum": {
     "live_count": 8,
