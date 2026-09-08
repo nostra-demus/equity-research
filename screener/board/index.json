@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-08T14:12:57Z",
+  "generated_at": "2026-09-08T14:22:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260908-584",
+      "headline": "LOTUS HORIZON (06063): (1) COMPLETION OF THE SALE AND PURCHASE OF THE SALE SHARES (2) MANDATORY UNCONDITIONAL CASH OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF VICTOR XU LIMITED TO ACQUIRE ALL OF THE ISSUED SHARES OF LOTUS HORIZON HOLDINGS LIMITED (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER TO THE INDEPENDENT BOARD COMMITTEE AND (4) RESUMPTION OF TRADING IN SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090801195.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T14:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Lotus Horizon Holdings is subject to a mandatory unconditional cash offer for all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lotus Horizon Holdings is subject to a mandatory unconditional cash offer for all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lotus Horizon Holdings",
+          "ticker": "06063",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-580",
       "headline": "Pitti Engineering Limited: Pitti Engineering Limited has informed the Exchange about Scheme of Amalgamation approved by the Hon'ble NCLT",
@@ -740,6 +789,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-586",
+      "headline": "Qualcomm issues Amazon warrants to buy $4 billion worth of chipmaker's stock as part of AI infrastructure deal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/08/qualcomm-amazon-data-center-infrastructure-deal.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T14:07:25Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Qualcomm and Amazon entered a $4 billion AI infrastructure deal involving stock warrants.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Qualcomm and Amazon entered a $4 billion AI infrastructure deal involving stock warrants.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1900,98 +2004,6 @@
           "name": "Headwater Exploration",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-357",
-      "headline": "Biotech filed for bankruptcy 11 weeks before its big FDA decision",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/biotech-filed-for-bankruptcy-11-weeks-before-its-big-fda-decision",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T09:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "A biotech company filing for bankruptcy shortly before a major FDA decision represents a total loss of equity value and operational failure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A biotech company filing for bankruptcy shortly before a major FDA decision represents a total loss of equity value and operational failure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-360",
-      "headline": "Stoke Space raises $1B to expand its footprint and upsize its fully reusable Nova rocket",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/stoke-space-billion-upsize-nova-rocket/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Stoke Space raised $1 billion in funding to expand its rocket manufacturing capacity, a major capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stoke Space raised $1 billion in funding to expand its rocket manufacturing capacity, a major capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stoke Space",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -152003,9 +152015,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1528911,
-    "news_picked_today": 1113,
-    "news_dropped_today": 7053
+    "news_seen_today": 1573171,
+    "news_picked_today": 1120,
+    "news_dropped_today": 7118
   },
   "book_momentum": {
     "live_count": 8,
