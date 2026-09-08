@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T18:43:19Z",
+  "generated_at": "2026-09-08T18:48:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-636",
@@ -832,6 +832,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-686",
+      "headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T18:31:55Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "The US government suspended green-card filings for Cognizant due to a visa-fraud investigation, impacting operational capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US government suspended green-card filings for Cognizant due to a visa-fraud investigation, impacting operational capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,55 +2002,6 @@
           "name": "WaFd",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-576",
-      "headline": "Liberty Global seals €669mn towers sale ahead of Ziggo spin-off",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/3892b29e-f905-4082-9a2c-4969970d3d35?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T13:29:18Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Liberty Global sold its towers business for €669 million to streamline operations ahead of a spin-off.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Liberty Global sold its towers business for €669 million to streamline operations ahead of a spin-off.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Liberty Global",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -152378,9 +152379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3064179,
-    "news_picked_today": 1360,
-    "news_dropped_today": 9086
+    "news_seen_today": 3089591,
+    "news_picked_today": 1368,
+    "news_dropped_today": 9102
   },
   "book_momentum": {
     "live_count": 8,
