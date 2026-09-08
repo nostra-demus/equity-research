@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T00:41:12Z",
+  "generated_at": "2026-09-08T00:45:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-006",
@@ -285,6 +285,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-037",
+      "headline": "Pherous shadow looms over Corporate Travel as former CEO lifts stake",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/pherous-shadow-looms-over-corporate-travel-as-former-ceo-lifts-stake-20260908-p60vbh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:41:48Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Former CEO increasing stake in Corporate Travel Management signals confidence in the company's outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Former CEO increasing stake in Corporate Travel Management signals confidence in the company's outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corporate Travel Management",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1013,6 +1062,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260908-039",
+      "headline": "Deepa Jewellers IPO listing today: GMP at ₹25.5; Share price prediction ahead of NSE, BSE debut",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/deepa-jewellers-ipo-listing-today-gmp-at-rs-25-5-share-price-prediction-ahead-of-nse-bse-debut-11788796202339.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:37:03Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "IPO listing of Deepa Jewellers provides new market data and liquidity for the entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "IPO listing of Deepa Jewellers provides new market data and liquidity for the entity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deepa Jewellers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260908-013",
       "headline": "Quebec courts restrict judges’ use of generative AI",
       "headline_en": null,
@@ -1241,6 +1339,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-038",
+      "headline": "Iran warns U.S. energy assets in Gulf are vulnerable after latest clashes",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/09/08/world/iran-us-energy-assets-gulf/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T00:43:00Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "Geopolitical escalation in the Gulf region threatens energy supply infrastructure and global market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation in the Gulf region threatens energy supply infrastructure and global market stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149188,7 +149329,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2162,
+    "inbox_unconsumed": 2165,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -149197,9 +149338,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 200,
-    "news_picked_today": 36,
-    "news_dropped_today": 164
+    "news_seen_today": 211,
+    "news_picked_today": 39,
+    "news_dropped_today": 172
   },
   "book_momentum": {
     "live_count": 8,
