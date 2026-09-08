@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T04:32:44Z",
+  "generated_at": "2026-09-08T04:33:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -109465,6 +109465,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-135e84119497",
+      "idea_version": "IDEAV-d415ad58fe9170f7",
+      "idea_version_started_at": "2026-09-08T04:32:58Z",
+      "ticker": "SHIPROCKET",
+      "company": "Shiprocket",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a significant narrowing of net losses to Rs 14 crore alongside a 34% YoY revenue increase, signaling improved operating leverage post-IPO.",
+      "why_now": "The earnings results were released on 2026-09-08.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-19b445fb338a"
+      ],
+      "primary_source_event_id": "EVT-19b445fb338a",
+      "source_headlines": [
+        "Shiprocket shares in focus as Q1 net loss narrows to Rs 14 crore in first earnings post IPO; revenue up 34% YoY"
+      ],
+      "source_headline": "Shiprocket shares in focus as Q1 net loss narrows to Rs 14 crore in first earnings post IPO; revenue up 34% YoY",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/shiprocket-shares-in-focus-as-q1-net-loss-narrows-to-rs-14-crore-in-first-earnings-post-ipo-revenue-up-34-yoy/articleshow/133905012.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-08T03:11:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T04:32:58Z",
+      "updated_at": "2026-09-08T04:32:58Z",
+      "decay_at": "2026-09-09T15:11:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0fa4dca8ab30",
       "idea_version": "IDEAV-e69cf06ea094710d",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -150777,8 +150849,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 595,
-    "live_count": 92,
+    "surfaced_total": 596,
+    "live_count": 93,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
