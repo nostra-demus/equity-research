@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T04:17:44Z",
+  "generated_at": "2026-09-08T04:21:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-146",
@@ -743,6 +743,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-202",
+      "headline": "GE Vernova shares surge 8% as firm declared lowest bidder for Power Grid project; Nomura raises target price",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/ge-vernova-shares-surge-8-as-firm-declared-lowest-bidder-for-power-grid-project-nomura-raises-target-price/articleshow/133906695.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T04:15:13Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "GE Vernova was declared the lowest bidder for a Power Grid project, leading to an 8% share price increase and a target price hike by Nomura.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "GE Vernova was declared the lowest bidder for a Power Grid project, leading to an 8% share price increase and a target price hike by Nomura.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Vernova",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-137",
-      "headline": "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/no-more-selling-bombardier-trump-threatens-to-stop-sale-of-canadian-jets-in-us-11788833996402.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T02:34:09Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Political threat to block sales of Bombardier jets in the US creates significant operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Political threat to block sales of Bombardier jets in the US creates significant operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150809,9 +150809,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1354,
-    "news_picked_today": 303,
-    "news_dropped_today": 883
+    "news_seen_today": 1373,
+    "news_picked_today": 307,
+    "news_dropped_today": 898
   },
   "book_momentum": {
     "live_count": 8,
