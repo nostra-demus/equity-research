@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T11:31:55Z",
+  "generated_at": "2026-09-08T11:41:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260908-458",
@@ -647,20 +647,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260908-449",
-      "headline": "Boston Scientific Won’t Meet Guidance Due to Cyberattack",
+      "inbox_id": "INB-20260908-464",
+      "headline": "Boston Scientific ‘Unlikely to Meet’ Earnings Guidance After Cyberattack. Stock Falls.",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/boston-scientific-wont-meet-guidance-due-to-cyberattack-feb29ee1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.barrons.com/articles/boston-scientific-stock-earnings-guidance-cyberattack-bd0e8c0b?siteid=yhoof2&yptr=yahoo",
+      "source_name": "Yahoo Finance",
       "input_nature": "news_headline",
-      "found_at": "2026-09-08T10:58:00Z",
+      "found_at": "2026-09-08T11:06:00Z",
       "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Boston Scientific announced it will not meet guidance due to a cyberattack.",
+      "prelim_note": "Boston Scientific is unlikely to meet earnings guidance due to a cyberattack.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Boston Scientific announced it will not meet guidance due to a cyberattack.",
+      "triage_reason": "Boston Scientific is unlikely to meet earnings guidance due to a cyberattack.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -677,7 +677,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "guidance_change",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "guidance_change",
@@ -691,7 +691,7 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107280,78 +107280,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-a4143a46412cfa02",
-      "idea_version_started_at": "2026-09-07T16:59:16Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The rejection of a $1.4 billion buyout bid signals that the board believes the company's intrinsic value and future cash flows significantly exceed the offer price.",
-      "why_now": "The rejection was reported on 2026-09-06.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b57029e2a11c"
-      ],
-      "primary_source_event_id": "EVT-b57029e2a11c",
-      "source_headlines": [
-        "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus"
-      ],
-      "source_headline": "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus",
-      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T23:37:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T00:24:17Z",
-      "updated_at": "2026-09-07T16:59:16Z",
-      "decay_at": "2026-09-08T11:37:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1338cc3158ad",
       "idea_version": "IDEAV-f0ae682103ed125c",
       "idea_version_started_at": "2026-09-07T12:27:09Z",
@@ -112431,6 +112359,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-a4143a46412cfa02",
+      "idea_version_started_at": "2026-09-07T16:59:16Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The rejection of a $1.4 billion buyout bid signals that the board believes the company's intrinsic value and future cash flows significantly exceed the offer price.",
+      "why_now": "The rejection was reported on 2026-09-06.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b57029e2a11c"
+      ],
+      "primary_source_event_id": "EVT-b57029e2a11c",
+      "source_headlines": [
+        "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus"
+      ],
+      "source_headline": "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus",
+      "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-06T23:37:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T00:24:17Z",
+      "updated_at": "2026-09-07T16:59:16Z",
+      "decay_at": "2026-09-08T11:37:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5364e3f8a882",
       "idea_version": "IDEAV-eb5e9fb99b46e938",
       "idea_version_started_at": "2026-09-06T22:59:37Z",
@@ -115261,14 +115261,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 510,
+    "total_count": 511,
     "shown_count": 489,
-    "hidden_count": 21,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 239,
@@ -115292,6 +115292,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-a4143a46412cfa02",
+        "idea_version_started_at": "2026-09-07T16:59:16Z",
+        "ticker": "INA",
+        "company": "Ingenia Communities",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The rejection of a $1.4 billion buyout bid signals that the board believes the company's intrinsic value and future cash flows significantly exceed the offer price.",
+        "why_now": "The rejection was reported on 2026-09-06.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b57029e2a11c"
+        ],
+        "primary_source_event_id": "EVT-b57029e2a11c",
+        "source_headlines": [
+          "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus"
+        ],
+        "source_headline": "Australia's Ingenia Communities rejects $1.4 billion buyout bid from Warburg Pincus",
+        "source_url": "https://www.reuters.com/business/australias-ingenia-communities-rejects-14-billion-buyout-bid-warburg-pincus-2026-09-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-06T23:37:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T00:24:17Z",
+        "updated_at": "2026-09-07T16:59:16Z",
+        "decay_at": "2026-09-08T11:37:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T11:37:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f7dcbd0ed944",
         "idea_version": "IDEAV-c5e424bc38c43638",
@@ -148055,80 +148130,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b9965ae2da06",
-        "idea_version": "IDEAV-6abcee7015dafe4c",
-        "idea_version_started_at": "2026-08-22T00:28:31Z",
-        "ticker": "00195",
-        "company": "Greentech Technology International Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The unconditional voluntary cash partial offer provides a liquidity event and price floor for shareholders as Yellowstone International increases its stake.",
-        "why_now": "The offer is now unconditional and documents are available as of 2026-08-21.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4464b7af9dbb"
-        ],
-        "primary_source_event_id": "EVT-4464b7af9dbb",
-        "source_headlines": [
-          "GREENTECH INTL (00195): ANNOUNCEMENT - UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY QUAM CAPITAL LIMITED FOR AND ON BEHALF OF YELLOWSTONE INTERNATIONAL LIMITED TO ACQUIRE UP TO 230,000,000 SHARES IN GREENTECH TECHNOLOGY INTERNATIONAL LIMITED (OTHER THAN THOSE ALREADY OWNED BY YELLOWSTONE INTERNATIONAL LIMITED AND PARTIES ACTING IN CONCERT WITH IT) - Availability of Documents Relating to the Partial Offer"
-        ],
-        "source_headline": "GREENTECH INTL (00195): ANNOUNCEMENT - UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY QUAM CAPITAL LIMITED FOR AND ON BEHALF OF YELLOWSTONE INTERNATIONAL LIMITED TO ACQUIRE UP TO 230,000,000 SHARES IN GREENTECH TECHNOLOGY INTERNATIONAL LIMITED (OTHER THAN THOSE ALREADY OWNED BY YELLOWSTONE INTERNATIONAL LIMITED AND PARTIES ACTING IN CONCERT WITH IT) - Availability of Documents Relating to the Partial Offer",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082102023.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-21T14:13:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-21T15:07:01Z",
-        "updated_at": "2026-08-22T00:28:31Z",
-        "decay_at": "2026-08-23T02:13:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-24T15:27:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5965b36c8542",
         "idea_version": "IDEAV-ecf49e7124126690",
         "idea_version_started_at": "2026-08-22T00:54:27Z",
@@ -151610,7 +151611,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 604,
-    "live_count": 92,
+    "live_count": 91,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -151629,9 +151630,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 707736,
-    "news_picked_today": 854,
-    "news_dropped_today": 6064
+    "news_seen_today": 741177,
+    "news_picked_today": 868,
+    "news_dropped_today": 6122
   },
   "book_momentum": {
     "live_count": 8,
