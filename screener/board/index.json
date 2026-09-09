@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T09:16:49Z",
+  "generated_at": "2026-09-09T09:26:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-199",
@@ -1874,6 +1874,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-200",
+      "headline": "IVP Limited: IVP Limited has informed the Exchange regarding 'Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements), Regulations, 2015 update on fraud by Employee of the Company.'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IVP_09092026143810_BSENSE090926.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T09:12:25Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "IVP Limited reported a fraud committed by an employee.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "IVP Limited reported a fraud committed by an employee.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IVP Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-184",
       "headline": "TRE: Half Year Accounts",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-174",
-      "headline": "Airworthiness Directives; Airbus SAS Airplanes",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/09/09/2026-18375/airworthiness-directives-airbus-sas-airplanes",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Airworthiness directive for Airbus aircraft mandates inspections or repairs, impacting operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Airworthiness directive for Airbus aircraft mandates inspections or repairs, impacting operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbus SAS",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154394,9 +154394,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3318836,
-    "news_picked_today": 343,
-    "news_dropped_today": 8345
+    "news_seen_today": 3354183,
+    "news_picked_today": 351,
+    "news_dropped_today": 8721
   },
   "book_momentum": {
     "live_count": 8,
