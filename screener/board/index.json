@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T18:46:54Z",
+  "generated_at": "2026-09-09T18:56:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-418",
@@ -799,6 +799,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-427",
+      "headline": "Comcast Slides After CFO Says Broadband User Losses to Persist",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/comcast-slides-after-cfo-says-broadband-user-losses-to-persist-11788978748252.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T18:32:27Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Comcast shares declined after the CFO provided negative guidance, stating that broadband user losses are expected to persist.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Comcast shares declined after the CFO provided negative guidance, stating that broadband user losses are expected to persist.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comcast",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,56 +2001,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-267",
-      "headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T11:14:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Signet Jewelers raised its outlook after reporting a quarterly profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Signet Jewelers raised its outlook after reporting a quarterly profit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signet Jewelers",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153998,9 +153997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6761890,
-    "news_picked_today": 982,
-    "news_dropped_today": 16898
+    "news_seen_today": 6780408,
+    "news_picked_today": 992,
+    "news_dropped_today": 17032
   },
   "book_momentum": {
     "live_count": 8,
