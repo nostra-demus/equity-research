@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T01:28:42Z",
+  "generated_at": "2026-09-09T01:39:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -887,6 +887,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-056",
+      "headline": "AWJ: Proposed issue of securities - AWJ",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AWJ?key=2924-03133564-6A1342965",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T01:12:04Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Proposed issue of securities by AWJ indicates a potential capital raise or equity issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Proposed issue of securities by AWJ indicates a potential capital raise or equity issuance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AWJ",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-051",
       "headline": "FOS: Placement of shares [price-sensitive]",
       "headline_en": null,
@@ -1660,6 +1709,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-058",
+      "headline": "CONCORD HC GP (02453): ANNOUNCEMENT PLEDGE OF SHARES BY CONTROLLING SHAREHOLDER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090801027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T12:21:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Controlling shareholder pledged shares (no number).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Controlling shareholder pledged shares (no number).",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Concord HC GP",
+          "ticker": "02453",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-034",
       "headline": "SG-AMZN@RC2609A SG-S&P @EC2609A SG-GEG @EC2609A SG-AAC @EC2609A SGSMORE@EC2609A SG-CHQG@EC2609A SG-ICBC@EC2609A SG#S&P RC2609C SG#DJIA RC2609A SG#DJIA RC2609B SG#NQ100RC2609C SG#HSI RC2609N SG#HUAHORC2609A SG#HUAHORC2609E SG#HKEX RC2609A SG#HSI RC2609C (11070 11121 26453 26649 27328 27329 28183 49518 49986 49988 49991 55829 55869 60285 64178 67877): EXCHANGE NOTICE - SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1845,92 +1943,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-031",
-      "headline": "Iran's IRGC warns oil tankers off Kuwait, Bahrain 'will be targeted'",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/irans-irgc-warns-oil-tankers-kuwait-bahrain-will-be-targeted",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:43:22Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Threats by the IRGC to target oil tankers in the Persian Gulf represent a significant escalation in regional conflict and a potential supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Threats by the IRGC to target oil tankers in the Persian Gulf represent a significant escalation in regional conflict and a potential supply shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-041",
-      "headline": "Gold holds decline as Mideast tensions bolster rate hike case",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/gold-holds-decline-mideast-tensions-bolster-rate-hike-case",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:46:17Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Geopolitical tensions in the Middle East are influencing market expectations for interest rates and commodity prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Geopolitical tensions in the Middle East are influencing market expectations for interest rates and commodity prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -110051,78 +110063,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c72c1e88a94b",
-      "idea_version": "IDEAV-31cddb974a599481",
-      "idea_version_started_at": "2026-09-07T18:37:04Z",
-      "ticker": "NEULANDLAB",
-      "company": "Neuland Laboratories",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing ₹126 crore to acquire 134 acres of land, signaling a significant expansion of manufacturing capacity to meet future API demand.",
-      "why_now": "The investment was approved and announced on September 7, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-97bd89a353b2"
-      ],
-      "primary_source_event_id": "EVT-97bd89a353b2",
-      "source_headlines": [
-        "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion"
-      ],
-      "source_headline": "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion",
-      "source_url": "https://www.freepressjournal.in/business/neuland-laboratories-approves-126-crore-investment-buys-134-acres-for-future-expansion",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T13:28:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T18:37:04Z",
-      "updated_at": "2026-09-07T18:37:04Z",
-      "decay_at": "2026-09-09T01:28:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -112385,6 +112325,78 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c72c1e88a94b",
+      "idea_version": "IDEAV-31cddb974a599481",
+      "idea_version_started_at": "2026-09-07T18:37:04Z",
+      "ticker": "NEULANDLAB",
+      "company": "Neuland Laboratories",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing ₹126 crore to acquire 134 acres of land, signaling a significant expansion of manufacturing capacity to meet future API demand.",
+      "why_now": "The investment was approved and announced on September 7, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-97bd89a353b2"
+      ],
+      "primary_source_event_id": "EVT-97bd89a353b2",
+      "source_headlines": [
+        "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion"
+      ],
+      "source_headline": "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion",
+      "source_url": "https://www.freepressjournal.in/business/neuland-laboratories-approves-126-crore-investment-buys-134-acres-for-future-expansion",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T13:28:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T18:37:04Z",
+      "updated_at": "2026-09-07T18:37:04Z",
+      "decay_at": "2026-09-09T01:28:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117443,14 +117455,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 555,
+    "total_count": 556,
     "shown_count": 500,
-    "hidden_count": 55,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 304,
+        "total_count": 305,
         "shown_count": 250,
-        "hidden_count": 54
+        "hidden_count": 55
       },
       "short": {
         "total_count": 251,
@@ -117474,6 +117486,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c72c1e88a94b",
+        "idea_version": "IDEAV-31cddb974a599481",
+        "idea_version_started_at": "2026-09-07T18:37:04Z",
+        "ticker": "NEULANDLAB",
+        "company": "Neuland Laboratories",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing ₹126 crore to acquire 134 acres of land, signaling a significant expansion of manufacturing capacity to meet future API demand.",
+        "why_now": "The investment was approved and announced on September 7, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-97bd89a353b2"
+        ],
+        "primary_source_event_id": "EVT-97bd89a353b2",
+        "source_headlines": [
+          "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion"
+        ],
+        "source_headline": "Neuland Laboratories Approves ₹126 Crore Investment, Buys 134 Acres For Future Expansion",
+        "source_url": "https://www.freepressjournal.in/business/neuland-laboratories-approves-126-crore-investment-buys-134-acres-for-future-expansion",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T13:28:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T18:37:04Z",
+        "updated_at": "2026-09-07T18:37:04Z",
+        "decay_at": "2026-09-09T01:28:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T01:28:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9f47945c8197",
         "idea_version": "IDEAV-2f6f250091412bd5",
@@ -148781,79 +148868,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4b8102f69455",
-        "idea_version": "IDEAV-ff99366965afb179",
-        "idea_version_started_at": "2026-08-25T06:14:06Z",
-        "ticker": "NVTS",
-        "company": "Navitas Semiconductor",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Claros expands the company's AI infrastructure capabilities, specifically in grid-to-xPU power management, which is a high-growth segment.",
-        "why_now": "The acquisition was announced on August 25, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e45326b7afdf"
-        ],
-        "primary_source_event_id": "EVT-e45326b7afdf",
-        "source_headlines": [
-          "Navitas To Acquire Claros, Advancing AI Infrastructure with VPD & IVR Technology for Grid-to-xPU | NVTS Stock News"
-        ],
-        "source_headline": "Navitas To Acquire Claros, Advancing AI Infrastructure with VPD & IVR Technology for Grid-to-xPU | NVTS Stock News",
-        "source_url": "https://www.stocktitan.net/news/NVTS/navitas-to-acquire-claros-advancing-ai-infrastructure-with-vpd-ivr-21gfpxxmkfpe.html",
-        "source_name": "Stock Titan — Latest News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T03:42:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T06:14:06Z",
-        "updated_at": "2026-08-25T06:14:06Z",
-        "decay_at": "2026-08-26T15:42:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-28T03:48:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a0a147ac1188",
         "idea_version": "IDEAV-4b5375bcc0cc434c",
         "idea_version_started_at": "2026-08-25T06:14:06Z",
@@ -154639,7 +154653,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 623,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154658,9 +154672,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 707939,
-    "news_picked_today": 60,
-    "news_dropped_today": 732
+    "news_seen_today": 789119,
+    "news_picked_today": 64,
+    "news_dropped_today": 824
   },
   "book_momentum": {
     "live_count": 8,
