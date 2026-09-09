@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T09:26:09Z",
+  "generated_at": "2026-09-09T09:40:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-199",
@@ -1487,6 +1487,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-211",
+      "headline": "GOLDSTONE CAP (01160): SHAREHOLDER'S REQUISITION IN RELATION TO PROPOSED REMOVAL AND APPOINTMENT OF DIRECTORS AND NOTICE OF SPECIAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900352.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Shareholder-requisitioned removal and appointment of directors with special general meeting signals governance challenge that can alter strategic direction and capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Shareholder-requisitioned removal and appointment of directors with special general meeting signals governance challenge that can alter strategic direction and capital allocation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goldstone Cap",
+          "ticker": "01160",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-190",
       "headline": "‎IHC to acquire 80% stake in space firm",
       "headline_en": null,
@@ -1574,6 +1624,104 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-216",
+      "headline": "ELS: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ELS?key=2924-03133783-3A701438",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T08:38:15Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "A shareholder disclosed as acquiring a 5%+ stake, but headline does not name the buyer, state their intent, or provide stake size, leaving direction unclear.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A shareholder disclosed as acquiring a 5%+ stake, but headline does not name the buyer, state their intent, or provide stake size, leaving direction unclear.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ELS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-217",
+      "headline": "BSL: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSL?key=2924-03133781-3A701437",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T08:37:20Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "A change to a 5%+ stake is disclosed, but headline does not identify the holder, direction of change, or any stated intent, leaving impact unclear.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A change to a 5%+ stake is disclosed, but headline does not identify the holder, direction of change, or any stated intent, leaving impact unclear.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1820,153 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-078",
-      "headline": "RIL to tap local bond market after 3 years, lines up Rs 12,500 crore issue",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/ril-to-tap-local-bond-market-after-3-years-lines-up-12-5k-crore-issue/articleshow/133948121.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:27:05Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Reliance Industries is planning to raise Rs 12,500 crore through a local bond issue after three years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Reliance Industries is planning to raise Rs 12,500 crore through a local bond issue after three years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-200",
-      "headline": "IVP Limited: IVP Limited has informed the Exchange regarding 'Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements), Regulations, 2015 update on fraud by Employee of the Company.'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IVP_09092026143810_BSENSE090926.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T09:12:25Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "IVP Limited reported a fraud committed by an employee.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "IVP Limited reported a fraud committed by an employee.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IVP Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-184",
-      "headline": "TRE: Half Year Accounts",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TRE?key=2924-03133679-6A1343009",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T06:17:35Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Release of half-year financial accounts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Release of half-year financial accounts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TRE",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109660,79 +109661,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-671ed28cb051",
-      "idea_version": "IDEAV-6b8a7dd33e0fae29",
-      "idea_version_started_at": "2026-09-07T22:41:30Z",
-      "ticker": "TTM",
-      "company": "Tata Motors",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Subsidiary Jaguar Land Rover is cutting 4,000 jobs amid a broader European automotive downturn, signaling severe margin pressure and weakening demand.",
-      "why_now": "The layoff announcement on September 7, 2024, confirms the severity of the operational headwinds facing the group.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-345ec94b81fa"
-      ],
-      "primary_source_event_id": "EVT-345ec94b81fa",
-      "source_headlines": [
-        "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids"
-      ],
-      "source_headline": "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids",
-      "source_url": "https://japantoday.com/category/business/jaguar-land-rover-to-cut-4-000-jobs-as-european-car-sector-hits-skids",
-      "source_name": "Japan Today",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T21:38:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T11:28:01Z",
-      "updated_at": "2026-09-07T22:41:30Z",
-      "decay_at": "2026-09-09T09:38:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -112278,6 +112206,79 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-671ed28cb051",
+      "idea_version": "IDEAV-6b8a7dd33e0fae29",
+      "idea_version_started_at": "2026-09-07T22:41:30Z",
+      "ticker": "TTM",
+      "company": "Tata Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Subsidiary Jaguar Land Rover is cutting 4,000 jobs amid a broader European automotive downturn, signaling severe margin pressure and weakening demand.",
+      "why_now": "The layoff announcement on September 7, 2024, confirms the severity of the operational headwinds facing the group.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-345ec94b81fa"
+      ],
+      "primary_source_event_id": "EVT-345ec94b81fa",
+      "source_headlines": [
+        "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids"
+      ],
+      "source_headline": "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids",
+      "source_url": "https://japantoday.com/category/business/jaguar-land-rover-to-cut-4-000-jobs-as-european-car-sector-hits-skids",
+      "source_name": "Japan Today",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T21:38:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T11:28:01Z",
+      "updated_at": "2026-09-07T22:41:30Z",
+      "decay_at": "2026-09-09T09:38:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117185,9 +117186,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
         "total_count": 311,
@@ -117195,9 +117196,9 @@
         "hidden_count": 61
       },
       "short": {
-        "total_count": 252,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 2
+        "hidden_count": 3
       }
     },
     "retention": {
@@ -117216,6 +117217,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-671ed28cb051",
+        "idea_version": "IDEAV-6b8a7dd33e0fae29",
+        "idea_version_started_at": "2026-09-07T22:41:30Z",
+        "ticker": "TTM",
+        "company": "Tata Motors",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Subsidiary Jaguar Land Rover is cutting 4,000 jobs amid a broader European automotive downturn, signaling severe margin pressure and weakening demand.",
+        "why_now": "The layoff announcement on September 7, 2024, confirms the severity of the operational headwinds facing the group.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-345ec94b81fa"
+        ],
+        "primary_source_event_id": "EVT-345ec94b81fa",
+        "source_headlines": [
+          "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids"
+        ],
+        "source_headline": "Jaguar Land Rover to cut 4,000 jobs as European car sector hits skids",
+        "source_url": "https://japantoday.com/category/business/jaguar-land-rover-to-cut-4-000-jobs-as-european-car-sector-hits-skids",
+        "source_name": "Japan Today",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T21:38:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T11:28:01Z",
+        "updated_at": "2026-09-07T22:41:30Z",
+        "decay_at": "2026-09-09T09:38:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T09:38:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7cd73abe309e",
         "idea_version": "IDEAV-71da18ed92e22625",
@@ -154296,86 +154373,12 @@
         "archived_at": "2026-08-22T07:11:19Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d96978ca6af1",
-        "idea_version": "IDEAV-e55adc8d6b3fae5b",
-        "idea_version_started_at": "2026-08-14T14:57:25Z",
-        "ticker": "06899",
-        "company": "OurGame International Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "OurGame International Limited faces a winding up petition, winding up order, and appointment of joint official liquidators, which plausibly harms its revenue and cash flow.",
-        "why_now": "The event occurred on August 13, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 24,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f1cf6ae1d218"
-        ],
-        "primary_source_event_id": "EVT-f1cf6ae1d218",
-        "source_headlines": [
-          "OURGAME (06899): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO RESUMPTION GUIDANCE ANNOUNCEMENT; SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO WINDING UP PETITION, WINDING UP ORDER AND APPOINTMENT OF JOINT OFFICIAL LIQUIDATORS OF THE COMPANY; AND CONTINUED SUSPENSION OF TRADING"
-        ],
-        "source_headline": "OURGAME (06899): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO RESUMPTION GUIDANCE ANNOUNCEMENT; SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO WINDING UP PETITION, WINDING UP ORDER AND APPOINTMENT OF JOINT OFFICIAL LIQUIDATORS OF THE COMPANY; AND CONTINUED SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0813/2026081300109.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-13T04:01:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-14T02:35:25Z",
-        "updated_at": "2026-08-14T14:57:25Z",
-        "decay_at": "2026-08-14T16:01:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-20T01:31:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 628,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154394,9 +154397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3354183,
-    "news_picked_today": 351,
-    "news_dropped_today": 8721
+    "news_seen_today": 3406117,
+    "news_picked_today": 377,
+    "news_dropped_today": 8935
   },
   "book_momentum": {
     "live_count": 8,
