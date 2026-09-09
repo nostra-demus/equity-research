@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-09T17:19:08.151Z
+- stopped_at_utc: 2026-09-09T18:47:09.093Z
 
 ## Modules completed
 
@@ -20,15 +20,24 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-I stopped before commit,** per Step 9B.5 and the hard rule that a per-module chain with no valid `idea_admission.json` is incomplete and must never be reported as done. `IDEA-ADMISSION: error (environment — manifest creation blocked by sandbox write policy)`. Not done: 9B.5 admission, 9B.6 master memo + audit dossier, 9B.7 metadata refresh, Step 10 commit. Both markers are intentionally left in place; `RUN_FAILURE.md` was not written.
+ess §31 prohibits.
 
-### One defect in my own execution, which needs fixing before this seals
+Per 10B.4 I therefore stopped **before** market capture, final re-projection, the freezer, and derived-output recovery:
 
-`decision_record.json` carries `integrity_gate.status = "pass"`, but the thesis ships the **PROVISIONAL** banner. 10B.1b says to re-run the stamp after 10B.2 changes the banner; I ran it only after 10B.1a. I did not correct it now because rewriting `decision_record.json` would invalidate the digest pins the three v2 audits just took, and manifest creation is blocked regardless — so the fix belongs in the resumed sequence, not as a stranded mutation.
+- **`IDEA-ADMISSION: error`** — `[Errno 1] Operation not permitted` creating `idea_projection_manifest.json`
+- **No commit.** Step 9B item 5 requires a stop before commit on a missing admission.
+- `.defer_module_memos` and `.requires_idea_publication` **left in place** — they are the server's proof publication did not finish.
+- **`memo.md` / `audit_dossier.md` not generated** (10B.4 forbids derived-output recovery past this point). I removed the two zero-byte placeholders my writability probe had created so they cannot read as failed outputs.
 
-**To finish, once the sandbox allows writes under `analyses/NVT_2026-09-07/`:** re-run 10B.1b (stamps `provisional`), re-run the three v2 audits to re-pin the changed digests, then 10B.4 manifest → final re-projection → `freeze_idea_admission.py`, then the master memo + dossier, `RUN_METADATA.md` refresh, marker removal, and the single commit.
+**Commit SHA: none.** Nothing was pushed or queued. All completed work is preserved on disk.
 
-Worth flagging on the substance, not just the plumbing: the two independent audit passes both landed on the same unrepaired defects — a guidance-stub math break (`$5.05 + $0.10–0.15` does not give `~$5.11`) that sits inside a kill criterion and a falsification trigger, a §6 cell publishing a web-sourced *gross* Debt/EBITDA of 1.51x labelled "Net leverage", and two in-pool management statements that Q3 orders started strongly which appear nowhere in the thesis despite contradicting its central bear observation. Integrity fell 37 → 9 between passes as the second auditor found more. Those are repairs for the synthesizer, and they will not clear themselves by re-running the seal.
+### To unblock
+
+Grant this run's process write access to the run-root **directory** (not just the four files) so `create_idea_projection_manifest.py` and `freeze_idea_admission.py` can run, then re-invoke. Everything through 10B.3A is done and byte-stable; resumption starts at manifest creation. **This chain is incomplete and must not be reported as done.**
+
+### Two findings worth your attention regardless
+
+Both final audits independently verified, from the frozen corpus, that the thesis's load-bearing claim — that order/backlog figures "exist nowhere in any filing, at any level, in any period," asserted ~10 times — is **false**. The FY2024 10-K Item 1 carries a segment backlog table ($749.3m vs $462.8m), CIQ carries FY2025 at $2,349.9m, and the expectations-gap audit found a filed quarterly RPO series in both 10-Qs. The filed series reads 462.8 → 749.3 → 2,349.9 → ~2,500, which the "the demand series has turned" verdict never adjudicates. Separately, the §6 "Peer Median ROIC 13–16%" row is one peer's band; the run's own seven-peer table gives a 10.99% median against nVent's 11.93% — the opposite sign. Neither overturns the Avoid, but both are in the published thesis under the PROVISIONAL banner.
 ```
 
 ## Resume
