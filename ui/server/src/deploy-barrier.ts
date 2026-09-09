@@ -23,13 +23,16 @@ export type DeploymentStatus = {
   authorizedCodeSha: string | null
   pendingSince: number | null
   checkedAt: number
-  reason: 'observed' | 'dirty_nondata' | 'ci_not_green' | 'authorization_ready' | 'deploying'
+  // `data_only`: main moved past the deployed program only through the engine's own research data
+  // (analyses/, screener/, commodity/, watchlist/). The program is current, so that record is CURRENT
+  // even though its two SHAs differ — every other current record names the exact deployed target.
+  reason: 'observed' | 'data_only' | 'dirty_nondata' | 'ci_not_green' | 'authorization_ready' | 'deploying'
     | 'deployed' | 'local_diverged' | 'build_failed' | 'audit_pending'
 }
 
 const SHA = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/
 const DEPLOYMENT_REASONS = new Set<DeploymentStatus['reason']>([
-  'observed', 'dirty_nondata', 'ci_not_green', 'authorization_ready', 'deploying',
+  'observed', 'data_only', 'dirty_nondata', 'ci_not_green', 'authorization_ready', 'deploying',
   'deployed', 'local_diverged', 'build_failed', 'audit_pending',
 ])
 
@@ -69,7 +72,8 @@ export async function readDeploymentStatus(stateDir = STATE_DIR): Promise<Deploy
       || !pendingSinceValid || typeof value.checkedAt !== 'number' || !Number.isSafeInteger(value.checkedAt)
       || value.checkedAt <= 0 || typeof value.reason !== 'string'
       || !DEPLOYMENT_REASONS.has(value.reason as DeploymentStatus['reason'])) return null
-    if (value.status === 'current' && value.deployedSha !== value.targetSha) return null
+    if (value.status === 'current' && value.deployedSha !== value.targetSha && value.reason !== 'data_only') return null
+    if (value.reason === 'data_only' && (value.status !== 'current' || value.deployedSha === null)) return null
     if (value.status === 'pending' && value.deployedSha === value.targetSha) return null
     return value as DeploymentStatus
   } catch {

@@ -9,6 +9,12 @@ commits only when they change the autonomous data roots and leave the approved p
 The helper mints a short-lived GitHub App token through an owner-controlled command and holds it only in
 memory. It never prints or stores credentials. ``check`` is the fail-closed runtime gate; ``audit`` writes a
 tamper-evident, hash-chained outcome ledger outside Git.
+
+A receipt is short-lived. Two narrow lanes keep that from wedging the watcher forever: ``check
+--min-remaining-seconds`` lets the watcher replace a receipt that no longer covers a whole release, and
+``audit --late`` / ``consume --allow-expired`` let a RETRIED append record a release that already ran —
+accepted only when that release started before the receipt expired. Nothing else about the receipt is
+relaxed: the approved commit, the exact program digest, the worktree binding, and the shape all still hold.
 """
 
 from __future__ import annotations
@@ -329,7 +335,9 @@ def stable_read(path: pathlib.Path) -> tuple[dict[str, Any], tuple[int, ...]]:
     return value, identity(after)
 
 
-def validate_shape(value: dict[str, Any], repo: pathlib.Path, now: int) -> tuple[str, str]:
+def validate_shape(
+    value: dict[str, Any], repo: pathlib.Path, now: int, *, allow_expired: bool = False
+) -> tuple[str, str]:
     expected_keys = {
         "schema_version",
         "repository",
@@ -365,7 +373,9 @@ def validate_shape(value: dict[str, Any], repo: pathlib.Path, now: int) -> tuple
         raise AuthorizationError("deployment receipt manifest is malformed")
     if not isinstance(count, int) or isinstance(count, bool) or count <= 0:
         raise AuthorizationError("deployment receipt program count is invalid")
-    if not isinstance(expires, int) or isinstance(expires, bool) or now >= expires:
+    if not isinstance(expires, int) or isinstance(expires, bool):
+        raise AuthorizationError("deployment receipt expiry is malformed")
+    if now >= expires and not allow_expired:
         raise AuthorizationError("deployment authorization has expired")
     source = value.get("authorization_source")
     if source not in {"explicit_manual", "exact_main_push_ci"}:
@@ -638,12 +648,19 @@ def authorize_ci(args: argparse.Namespace) -> int:
     return 0
 
 
-def checked(args: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any], str, tuple[int, ...]]:
+def checked(
+    args: argparse.Namespace, *, allow_expired: bool = False, min_remaining: int = 0
+) -> tuple[pathlib.Path, dict[str, Any], str, tuple[int, ...]]:
     repo = require_repo(args.repo)
     target = require_commit(repo, args.target)
     path = receipt_path(args.state_dir)
     value, receipt_identity = stable_read(path)
-    approved, expected_digest = validate_shape(value, repo, int(time.time()))
+    now = int(time.time())
+    approved, expected_digest = validate_shape(value, repo, now, allow_expired=allow_expired)
+    if min_remaining < 0:
+        raise AuthorizationError("minimum remaining validity must not be negative")
+    if min_remaining and value["expires_at_epoch"] - now < min_remaining:
+        raise AuthorizationError("deployment authorization expires too soon to cover a whole release")
     require_commit(repo, approved)
     if not git_is_ancestor(repo, approved, target):
         raise AuthorizationError("target does not descend from the approved commit")
@@ -654,13 +671,15 @@ def checked(args: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any], str
 
 
 def check_receipt(args: argparse.Namespace) -> int:
-    _, _, approved, _ = checked(args)
+    _, _, approved, _ = checked(args, min_remaining=args.min_remaining_seconds)
     print(f"AUTHORIZED_COMMIT={approved}")
     return 0
 
 
 def consume(args: argparse.Namespace) -> int:
-    path, _, approved, receipt_identity = checked(args)
+    # --allow-expired: deleting a receipt that already expired is harmless; the retried close of a release
+    # that ran under it must not stay wedged behind the expiry it can no longer satisfy.
+    path, _, approved, receipt_identity = checked(args, allow_expired=args.allow_expired)
     if args.approved_commit != approved:
         raise AuthorizationError("consume request disagrees with the checked authorization")
     named = path.lstat()
@@ -904,7 +923,11 @@ def audit(args: argparse.Namespace) -> int:
     repo = require_repo(args.repo)
     target = require_commit(repo, args.target)
     deployed = require_commit(repo, args.deployed_commit)
-    _, receipt, approved, _ = checked(args)
+    # --late: a retried append for a release that already ran. The audit is a record of that fact, so the
+    # receipt may have expired since — but only if the release STARTED while the receipt was still valid.
+    _, receipt, approved, _ = checked(args, allow_expired=args.late)
+    if args.late and args.started_at_epoch >= int(receipt["expires_at_epoch"]):
+        raise AuthorizationError("late audit refused: the deployment did not start before its authorization expired")
     if args.approved_commit != approved:
         raise AuthorizationError("audit request disagrees with the checked authorization")
     if args.health_result not in {"healthy", "failed"}:
@@ -980,12 +1003,17 @@ def parser() -> argparse.ArgumentParser:
     verify.add_argument("--repo", required=True)
     verify.add_argument("--state-dir", required=True)
     verify.add_argument("--target", required=True)
+    verify.add_argument(
+        "--min-remaining-seconds", type=int, default=0,
+        help="also refuse a receipt that expires sooner than this (0 = only refuse an expired one)",
+    )
     verify.set_defaults(handler=check_receipt)
     used = subparsers.add_parser("consume", help="delete the receipt after a successful deployment")
     used.add_argument("--repo", required=True)
     used.add_argument("--state-dir", required=True)
     used.add_argument("--target", required=True)
     used.add_argument("--approved-commit", required=True)
+    used.add_argument("--allow-expired", action="store_true", help="delete the receipt even if it has expired")
     used.set_defaults(handler=consume)
     record = subparsers.add_parser("audit", help="append one hash-chained deployment outcome")
     record.add_argument("--repo", required=True)
@@ -997,6 +1025,10 @@ def parser() -> argparse.ArgumentParser:
     record.add_argument("--health-result", required=True)
     record.add_argument("--rollback-result", required=True)
     record.add_argument("--deployed-commit", required=True)
+    record.add_argument(
+        "--late", action="store_true",
+        help="retried append for a release that already ran; its receipt may have expired since it started",
+    )
     record.set_defaults(handler=audit)
     return result
 

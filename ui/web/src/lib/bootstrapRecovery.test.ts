@@ -229,8 +229,17 @@ try {
     authorizedCodeSha: null, pendingSince: Date.now() - 600_000, checkedAt: Date.now(), reason: 'ci_not_green',
   }
   const blockedCopy = deploymentLagBanner({ ...laggedDeployment, reason: 'dirty_nondata' }, laggedDeployment.pendingSince + 600_000)
-  assert.equal(blockedCopy.cta, 'refresh', 'a deployment blocker offers a truthful status refresh, not a fake retry')
-  assert.match(blockedCopy.body, /unexpected local files/, 'a dirty production checkout gives an actionable reason')
+  assert.equal(blockedCopy?.cta, 'refresh', 'a deployment blocker offers a truthful status refresh, not a fake retry')
+  assert.match(blockedCopy?.body ?? '', /unexpected local files/, 'a dirty production checkout gives an actionable reason')
+  const stuckAudit = deploymentLagBanner({ ...laggedDeployment, reason: 'audit_pending' }, laggedDeployment.pendingSince + 600_000)
+  assert.match(stuckAudit?.title ?? '', /needs a repair/, 'a stuck audit is named as a repair, never as a mere delay')
+  assert.equal(stuckAudit?.activity, 'blocked', 'a stuck audit does not pretend to be checking')
+  assert.equal(deploymentLagBanner({ ...laggedDeployment, reason: 'observed' }, laggedDeployment.pendingSince + 60_000), null,
+    'the watcher\'s between-steps baseline inside one tick is not a delay')
+  assert.match(deploymentLagBanner({ ...laggedDeployment, reason: 'observed' }, laggedDeployment.pendingSince + 600_000)?.title ?? '', /delayed/,
+    'a wait that outlives a whole watcher tick still surfaces')
+  assert.equal(deploymentLagBanner({ ...laggedDeployment, reason: 'ci_not_green' }, laggedDeployment.pendingSince + 1_000)?.activity, 'checking',
+    'a specific blocker is never held back by the grace window')
   globalThis.fetch = async () => new Response(JSON.stringify({
     ok: true, deploymentPending: false, deployment: laggedDeployment,
   }), { status: 200, headers: { 'content-type': 'application/json' } })
@@ -244,6 +253,12 @@ try {
   }), { status: 200, headers: { 'content-type': 'application/json' } })
   await useStore.getState()._tickHealth()
   assert.equal(useStore.getState().deploymentLag, null, 'a current production receipt clears the lag banner')
+  globalThis.fetch = async () => new Response(JSON.stringify({
+    ok: true, deploymentPending: false, deployment: { ...laggedDeployment, status: 'current', pendingSince: null, reason: 'data_only' },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+  await useStore.getState()._tickHealth()
+  assert.equal(useStore.getState().deploymentLag, null, 'the engine\'s own research publications never read as a production delay')
+  assert.equal(useStore.getState().health, 'online', 'a data-only tip keeps the cockpit plainly live')
 
   api.swarms = async () => { throw Object.assign(new Error('gateway before Access check'), { status: 503 }) }
   useStore.setState({ activeSwarm: 'screener', swarms: [], health: 'online' })

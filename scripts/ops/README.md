@@ -334,6 +334,19 @@ ticks retry only that exact audit/consume transaction—never `npm`, a rebuild, 
 research admissions. A later code release remains blocked until the ledger is repaired. Do not delete or
 recreate the ledger/anchor pair. Restore both from the owner backup or inspect and repair them explicitly;
 the deploy log now prints the precise safe helper error instead of collapsing every failure into “CI red”.
+The retried append may use a receipt that has expired since the release started (`audit --late`,
+`consume --allow-expired`) — accepted only when the release began while the receipt was still valid, with
+nothing else relaxed — so a slow close can no longer wedge the watcher for good. While a retry is pending the
+cockpit shows **Production update needs a repair** (status reason `audit_pending`), never a generic delay.
+Before starting a release the watcher also replaces a receipt that would expire within
+`NOSTRA_DEPLOY_AUTHORIZATION_MIN_REMAINING` seconds (default 900) from the same exact-CI proof.
+
+The watcher publishes its view for the cockpit in `ui/server/.state/deployment-status.json` (read by
+`/api/health`). Research data the engine publishes to `main` from this very checkout is recorded as
+`data_only` — a *current* program, no lag clock — so the engine's own publications never show as a pending
+production update, even while a research run holds the deploy barrier and the marker cannot advance. Only a
+real program change starts the clock, and the cockpit names the specific blocker (checks not green, dirty
+checkout, local divergence, failed build, stuck audit) instead of a one-size "delayed".
 
 The first rollout is intentionally different: the installed watcher still understands only explicit manual
 receipts, so it cannot authorize its own upgrade. Grant the GitHub App `Actions: read`, then perform one
