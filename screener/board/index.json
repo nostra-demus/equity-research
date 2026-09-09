@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T06:10:45Z",
+  "generated_at": "2026-09-09T06:15:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -1624,6 +1624,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-176",
+      "headline": "Chime To Acquire Stride Bank",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/chime-acquire-stride-bank",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T05:26:44Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chime is acquiring Stride Bank, a significant consolidation in the fintech banking space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Chime is acquiring Stride Bank, a significant consolidation in the fintech banking space.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chime",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Stride Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-123",
       "headline": "Adani Enterprises to sell up to 5.54% stake in airport unit to Temasek, BlackRock",
       "headline_en": null,
@@ -1924,56 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-021",
-      "headline": "[Special Report] POSCO Brazil Bankruptcy Sparks Legislative, OECD Backlash",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276487",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:41:21Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "POSCO's Brazil unit bankruptcy is triggering legislative and OECD backlash, creating reputational and regulatory risk for the parent company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "POSCO's Brazil unit bankruptcy is triggering legislative and OECD backlash, creating reputational and regulatory risk for the parent company.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "POSCO",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154403,9 +154407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2552185,
-    "news_picked_today": 238,
-    "news_dropped_today": 3218
+    "news_seen_today": 2601427,
+    "news_picked_today": 240,
+    "news_dropped_today": 3264
   },
   "book_momentum": {
     "live_count": 8,
