@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T07:36:00Z",
+  "generated_at": "2026-09-09T07:56:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-177",
@@ -346,6 +346,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-194",
+      "headline": "Victrex lifts profit guidance on aerospace and electronics demand",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/victrex-lifts-profit-guidance-on-aerospace-and-electronics-demand/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T06:35:03Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Victrex lifts profit guidance citing strong aerospace and electronics demand, a confirmed positive guidance revision from a named listed company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Victrex lifts profit guidance citing strong aerospace and electronics demand, a confirmed positive guidance revision from a named listed company.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victrex",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1340,6 +1389,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-190",
+      "headline": "‎IHC to acquire 80% stake in space firm",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1935149",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T10:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Announced 80% stake acquisition in space firm represents major capital deployment, though deal value and target company unnamed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Announced 80% stake acquisition in space firm represents major capital deployment, though deal value and target company unnamed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 71,
+      "rank_factors": {
+        "materiality": 71,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IHC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-169",
       "headline": "US targets Iran's aviation sector with sweeping new sanctions",
       "headline_en": null,
@@ -1525,6 +1624,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-192",
+      "headline": "Arcil Sets The Stage For ₹733 Crore IPO, Raises ₹220 Crore From Anchor Investors Ahead Of Subscription",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/arcil-sets-the-stage-for-733-crore-ipo-raises-220-crore-from-anchor-investors-ahead-of-subscription",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T07:08:28Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Arcil IPO with named offer size of ₹733 crore and ₹220 crore anchor investment, a quantified capital raise and public-listing event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Arcil IPO with named offer size of ₹733 crore and ₹220 crore anchor investment, a quantified capital raise and public-listing event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arcil",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1817,169 +1965,6 @@
           "name": "Cognizant",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-176",
-      "headline": "Chime To Acquire Stride Bank",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/chime-acquire-stride-bank",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T05:26:44Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Chime is acquiring Stride Bank, a significant consolidation in the fintech banking space.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Chime is acquiring Stride Bank, a significant consolidation in the fintech banking space.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chime",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Stride Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-123",
-      "headline": "Adani Enterprises to sell up to 5.54% stake in airport unit to Temasek, BlackRock",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/adani-enterprises-to-sell-up-to-554-stake-in-airport-unit-to-temasek-blackrock/article71445493.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:15:07Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Adani Enterprises is selling a stake in its airport unit to significant investors, which could impact its capital structure and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Adani Enterprises is selling a stake in its airport unit to significant investors, which could impact its capital structure and valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Temasek",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "BlackRock",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-102",
-      "headline": "US suspends green-card filings by Cognizant amid visa-fraud probe: ‘Threats to American workers…’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/us-suspends-green-card-filings-by-cognizant-amid-visa-fraud-probe-threats-to-american-workers-11788917800925.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:30:52Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Cognizant faces a suspension of green-card filings due to a visa-fraud probe, creating significant operational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Cognizant faces a suspension of green-card filings due to a visa-fraud probe, creating significant operational and legal risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cognizant",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -154412,9 +154397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2853252,
-    "news_picked_today": 277,
-    "news_dropped_today": 6347
+    "news_seen_today": 2950343,
+    "news_picked_today": 294,
+    "news_dropped_today": 6546
   },
   "book_momentum": {
     "live_count": 8,
