@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-09T03:36:32Z",
+  "generated_at": "2026-09-09T04:00:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-138",
+      "headline": "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange regarding a press release dated September 09, 2026, titled \"Adani Airports to raise USD 1 billion of primary equity from marquee global investors\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/nishant_joshi_adani_com_09092026090527_AELIntimationMediaRelease09092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T03:35:34Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Adani Enterprises is raising USD 1 billion in primary equity for its airport division.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Enterprises is raising USD 1 billion in primary equity for its airport division.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260909-050",
       "headline": "AWJ: Union Jack Acquisition and Major Resource Upgrade [price-sensitive]",
@@ -1197,6 +1246,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-139",
+      "headline": "AMCO UNITED (00630): DISCLOSEABLE TRANSACTION DISPOSAL OF LISTED SECURITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800997.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T12:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Amco United announced a discloseable transaction involving the disposal of listed securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Amco United announced a discloseable transaction involving the disposal of listed securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amco United",
+          "ticker": "00630",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-021",
       "headline": "[Special Report] POSCO Brazil Bankruptcy Sparks Legislative, OECD Backlash",
       "headline_en": null,
@@ -1881,104 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-061",
-      "headline": "CVC hires TPG’s second-in-command Todd Sisitsky as co-CEO",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/2b171670-c0ce-442f-85a0-2d475369ffa3?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:27:02Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "CVC Capital Partners has appointed a new co-CEO, Todd Sisitsky, from TPG.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "CVC Capital Partners has appointed a new co-CEO, Todd Sisitsky, from TPG.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVC Capital Partners",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-042",
-      "headline": "CVC names insider, TPG executive as co-CEOs to succeed Lucas in 2028",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/cvc-names-todd-sisitsky-peter-rutland-co-ceos-effective-2028-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:51:42Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "CVC Capital Partners announced a long-term leadership succession plan for 2028.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "CVC Capital Partners announced a long-term leadership succession plan for 2028.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVC Capital Partners",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154624,9 +154624,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1428655,
-    "news_picked_today": 156,
-    "news_dropped_today": 1884
+    "news_seen_today": 1623982,
+    "news_picked_today": 158,
+    "news_dropped_today": 2050
   },
   "book_momentum": {
     "live_count": 8,
