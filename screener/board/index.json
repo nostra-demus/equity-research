@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T00:58:41Z",
+  "generated_at": "2026-09-09T01:08:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-035",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-040",
+      "headline": "M3M emerges highest bidder for 12.5-acre Noida land parcel at ₹1,850 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/real-estate/m3m-emerges-highest-bidder-for-125-acre-noida-land-parcel-at-1850-crore/article71445364.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:54:15Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "M3M won a bid for a land parcel for 18.5 billion INR, representing a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "M3M won a bid for a land parcel for 18.5 billion INR, representing a significant capital commitment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "M3M",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -690,6 +739,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-042",
+      "headline": "CVC names insider, TPG executive as co-CEOs to succeed Lucas in 2028",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/cvc-names-todd-sisitsky-peter-rutland-co-ceos-effective-2028-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:51:42Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "CVC Capital Partners announced a long-term leadership succession plan for 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "CVC Capital Partners announced a long-term leadership succession plan for 2028.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVC Capital Partners",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-019",
       "headline": "Coforge Chairman Om Prakash Bhatt resigns after board evaluation audit",
       "headline_en": null,
@@ -777,6 +875,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-043",
+      "headline": "OpenAI offers AI for chip design, touts cost advantage over open-source, CFO says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/openai-offers-ai-chip-design-touts-cost-advantage-over-open-source-cfo-says-2026-09-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:44:01Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "OpenAI is expanding into AI-driven chip design tools, potentially impacting the semiconductor design software market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "OpenAI is expanding into AI-driven chip design tools, potentially impacting the semiconductor design software market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1353,6 +1500,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-041",
+      "headline": "Gold holds decline as Mideast tensions bolster rate hike case",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/gold-holds-decline-mideast-tensions-bolster-rate-hike-case",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:46:17Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Geopolitical tensions in the Middle East are influencing market expectations for interest rates and commodity prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Geopolitical tensions in the Middle East are influencing market expectations for interest rates and commodity prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-029",
       "headline": "Yen Strengthens on Prospects of Two BOJ Rate Hikes by Year-End",
       "headline_en": null,
@@ -1391,6 +1581,104 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-044",
+      "headline": "CHINASOFT INT'L (00354): VOLUNTARY ANNOUNCEMENT - Chinasoft Wins RMB35.5 Million Pan-Home-Furnishing OpenHarmony Artificial Intelligence Innovation Centre Project \"AI + OpenHarmony\" Strategy Accelerates Scaled Implementation",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090801063.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T12:41:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chinasoft International has won a project contract valued at RMB 35.5 million for the Pan-Home-Furnishing OpenHarmony Artificial Intelligence Innovation Centre.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Chinasoft International has won a project contract valued at RMB 35.5 million for the Pan-Home-Furnishing OpenHarmony Artificial Intelligence Innovation Centre.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chinasoft International Limited",
+          "ticker": "00354",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-045",
+      "headline": "CM BANK (03968): APPROVAL OF THE APPOINTMENT QUALIFICATION OF INDEPENDENT DIRECTOR AND ADJUSTMENT TO THE COMPOSITION OF THE SPECIALIZED COMMITTEES OF THE BOARD",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090801053.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T12:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "China Merchants Bank announced the appointment of an independent director and committee reshuffle.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "China Merchants Bank announced the appointment of an independent director and committee reshuffle.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Merchants Bank",
+          "ticker": "03968",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1641,196 +1929,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-015",
-      "headline": "4 - AFLAC INC (0000004977) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/4977/000110465926105721/0001104659-26-105721-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-08T13:00:24Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Routine Form 4 filing for insider transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine Form 4 filing for insider transaction.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AFLAC INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-018",
-      "headline": "Defence stocks rally as DAC clears Rs 1.10 lakh crore acquisition proposals",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/defence-stocks-rally-as-dac-clears-rs-1-10-lakh-crore-acquisition-proposals/articleshow/133946794.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:18:25Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The Indian Defence Acquisition Council cleared Rs 1.10 lakh crore in acquisition proposals, providing a significant demand tailwind for the domestic defense sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "The Indian Defence Acquisition Council cleared Rs 1.10 lakh crore in acquisition proposals, providing a significant demand tailwind for the domestic defense sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-028",
-      "headline": "Everllence and Damen Sign Landmark Framework Agreement for 175D Engine",
-      "headline_en": null,
-      "url": "https://maritime-executive.com/article/everllence-and-damen-sign-landmark-framework-agreement-for-175d-engine",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-09-09T00:17:51Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Everllence and Damen signed a framework agreement for the 175D engine, indicating a new commercial partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Everllence and Damen signed a framework agreement for the 175D engine, indicating a new commercial partnership.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Damen Shipyards Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-014",
-      "headline": "4 - NETSTREIT Corp. (0001798100) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1798100/000162828026060814/0001628280-26-060814-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-08T13:01:09Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Routine Form 4 filing for insider transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Routine Form 4 filing for insider transaction.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NETSTREIT Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154480,7 +154578,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2205,
+    "inbox_unconsumed": 2207,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154489,9 +154587,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 491089,
-    "news_picked_today": 41,
-    "news_dropped_today": 487
+    "news_seen_today": 572401,
+    "news_picked_today": 48,
+    "news_dropped_today": 600
   },
   "book_momentum": {
     "live_count": 8,
