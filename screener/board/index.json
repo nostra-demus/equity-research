@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T00:38:40Z",
+  "generated_at": "2026-09-09T00:48:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-016",
@@ -1266,6 +1266,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-028",
+      "headline": "Everllence and Damen Sign Landmark Framework Agreement for 175D Engine",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/everllence-and-damen-sign-landmark-framework-agreement-for-175d-engine",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-09-09T00:17:51Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Everllence and Damen signed a framework agreement for the 175D engine, indicating a new commercial partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Everllence and Damen signed a framework agreement for the 175D engine, indicating a new commercial partnership.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Damen Shipyards Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -153965,7 +154014,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2194,
+    "inbox_unconsumed": 2195,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -153974,9 +154023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 327865,
-    "news_picked_today": 28,
-    "news_dropped_today": 332
+    "news_seen_today": 409581,
+    "news_picked_today": 29,
+    "news_dropped_today": 427
   },
   "book_momentum": {
     "live_count": 8,
