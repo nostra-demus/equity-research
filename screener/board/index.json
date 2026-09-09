@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T15:47:31Z",
+  "generated_at": "2026-09-09T15:51:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -641,6 +641,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-392",
+      "headline": "Francesca’s Ch. 11 liquidation plan confirmed",
+      "headline_en": null,
+      "url": "https://www.retaildive.com/news/francescas-ch-11-liquidation-plan-confirmed-bankruptcy/829911/",
+      "source_name": "Retail Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T15:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Francesca's confirmed a Chapter 11 liquidation plan, signaling a total loss of equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Francesca's confirmed a Chapter 11 liquidation plan, signaling a total loss of equity value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Francesca's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-391",
+      "headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T15:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Academy Sports + Outdoors raised its annual profit forecast due to cost discipline and e-commerce growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Academy Sports + Outdoors raised its annual profit forecast due to cost discipline and e-commerce growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Academy Sports + Outdoors",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,105 +1991,6 @@
       "companies": [
         {
           "name": "Adani Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-160",
-      "headline": "Coforge Share Price Slumps 8% After Chairman OP Bhatt Resigns Post Internal Audit Review",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/coforge-share-price-slumps-8-after-chairman-op-bhatt-resigns-post-internal-audit-review-12021230#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:53:21Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The chairman resigned following an internal audit review, causing an 8% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The chairman resigned following an internal audit review, causing an 8% share price decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-148",
-      "headline": "Coforge shares crash 9% after Chairman Om Prakash Bhatt resigns post audit",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/coforge-shares-in-focus-as-chairman-om-prakash-bhatt-resigns-after-audit-heres-why/articleshow/133951301.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:43:10Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Chairman Om Prakash Bhatt resigned following an audit, triggering a 9% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chairman Om Prakash Bhatt resigned following an audit, triggering a 9% share price decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -153496,9 +153495,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5944303,
-    "news_picked_today": 817,
-    "news_dropped_today": 13703
+    "news_seen_today": 5964228,
+    "news_picked_today": 824,
+    "news_dropped_today": 13720
   },
   "book_momentum": {
     "live_count": 8,
