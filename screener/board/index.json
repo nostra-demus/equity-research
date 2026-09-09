@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T01:39:31Z",
+  "generated_at": "2026-09-09T01:48:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -194,6 +194,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-062",
+      "headline": "Wildcat Infrastructure offers to buy Austal's US operations for up to $1.35 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/wildcat-infrastructure-offers-buy-austals-us-operations-up-135-billion-2026-09-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T01:24:21Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Wildcat Infrastructure has made a $1.35 billion acquisition offer for Austal's US operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wildcat Infrastructure has made a $1.35 billion acquisition offer for Austal's US operations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austal",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Wildcat Infrastructure",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -789,6 +843,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-064",
+      "headline": "TGM: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGM?key=2924-03133570-6A1342967",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T01:27:29Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Trading halt pending a price-sensitive announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Trading halt pending a price-sensitive announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Theta Gold Mines",
+          "ticker": "TGM",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-027",
       "headline": "CP8: Drilling extends phosphate mineralisation strike to 9km [price-sensitive]",
       "headline_en": null,
@@ -1029,6 +1132,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-061",
+      "headline": "CVC hires TPG’s second-in-command Todd Sisitsky as co-CEO",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/2b171670-c0ce-442f-85a0-2d475369ffa3?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T01:27:02Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "CVC Capital Partners has appointed a new co-CEO, Todd Sisitsky, from TPG.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "CVC Capital Partners has appointed a new co-CEO, Todd Sisitsky, from TPG.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVC Capital Partners",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1796,153 +1948,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-006",
-      "headline": "DEEPZERO (02723): VOLUNTARY ANNOUNCEMENT INCLUSION AS A CONSTITUENT STOCK OF THE HKEX TECH 100 INDEX AND THE HKEX TECH & US TECH 100 INDEX",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900033.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T00:04:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Inclusion in the HKEX Tech 100 index is a positive mechanical flow event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Inclusion in the HKEX Tech 100 index is a positive mechanical flow event.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "index_rebalance",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "index_rebalance"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DEEPZERO",
-          "ticker": "02723",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-004",
-      "headline": "SCHEDULE 13D/A - American Ventures LLC, Series XXIV XWELL (0002112711) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2112711/000121390026098164/0001213900-26-098164-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T00:00:13Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Routine 13D/A filing indicating a change in ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Routine 13D/A filing indicating a change in ownership stake.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XWELL, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-005",
-      "headline": "SCHEDULE 13D/A - XWELL, Inc. (0001410428) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1410428/000121390026098164/0001213900-26-098164-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T00:00:13Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Routine 13D/A filing indicating a change in ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Routine 13D/A filing indicating a change in ownership stake.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XWELL, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109919,150 +109924,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-389774d04c52",
-      "idea_version": "IDEAV-63b8a35feed523ed",
-      "idea_version_started_at": "2026-09-07T20:15:06Z",
-      "ticker": "NOVARTISIN",
-      "company": "Novartis India Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of established BP drug trademarks from Pfizer provides an immediate revenue stream and expands the company's portfolio in a high-margin therapeutic area.",
-      "why_now": "The deal was announced on September 07, 2026, and is currently in the initial market digestion phase.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3fa6d955602b"
-      ],
-      "primary_source_event_id": "EVT-3fa6d955602b",
-      "source_headlines": [
-        "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
-      ],
-      "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
-      "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T13:42:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T20:15:06Z",
-      "updated_at": "2026-09-07T20:15:06Z",
-      "decay_at": "2026-09-09T01:42:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-25acb1424522",
-      "idea_version": "IDEAV-0155b5a0c7afca09",
-      "idea_version_started_at": "2026-09-07T18:37:04Z",
-      "ticker": "NOVARTIS",
-      "company": "Novartis India Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of blood pressure drug trademarks from Pfizer for ₹1,250 crore expands the company's domestic portfolio in a high-volume therapeutic category.",
-      "why_now": "The acquisition was reported on September 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3fa6d955602b"
-      ],
-      "primary_source_event_id": "EVT-3fa6d955602b",
-      "source_headlines": [
-        "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
-      ],
-      "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
-      "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T13:42:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T18:37:04Z",
-      "updated_at": "2026-09-07T18:37:04Z",
-      "decay_at": "2026-09-09T01:42:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -112325,6 +112186,150 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-389774d04c52",
+      "idea_version": "IDEAV-63b8a35feed523ed",
+      "idea_version_started_at": "2026-09-07T20:15:06Z",
+      "ticker": "NOVARTISIN",
+      "company": "Novartis India Ltd",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of established BP drug trademarks from Pfizer provides an immediate revenue stream and expands the company's portfolio in a high-margin therapeutic area.",
+      "why_now": "The deal was announced on September 07, 2026, and is currently in the initial market digestion phase.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3fa6d955602b"
+      ],
+      "primary_source_event_id": "EVT-3fa6d955602b",
+      "source_headlines": [
+        "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
+      ],
+      "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
+      "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T13:42:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T20:15:06Z",
+      "updated_at": "2026-09-07T20:15:06Z",
+      "decay_at": "2026-09-09T01:42:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-25acb1424522",
+      "idea_version": "IDEAV-0155b5a0c7afca09",
+      "idea_version_started_at": "2026-09-07T18:37:04Z",
+      "ticker": "NOVARTIS",
+      "company": "Novartis India Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of blood pressure drug trademarks from Pfizer for ₹1,250 crore expands the company's domestic portfolio in a high-volume therapeutic category.",
+      "why_now": "The acquisition was reported on September 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3fa6d955602b"
+      ],
+      "primary_source_event_id": "EVT-3fa6d955602b",
+      "source_headlines": [
+        "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
+      ],
+      "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
+      "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T13:42:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T18:37:04Z",
+      "updated_at": "2026-09-07T18:37:04Z",
+      "decay_at": "2026-09-09T01:42:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117455,14 +117460,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
-        "total_count": 305,
+        "total_count": 307,
         "shown_count": 250,
-        "hidden_count": 55
+        "hidden_count": 57
       },
       "short": {
         "total_count": 251,
@@ -117486,6 +117491,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-25acb1424522",
+        "idea_version": "IDEAV-0155b5a0c7afca09",
+        "idea_version_started_at": "2026-09-07T18:37:04Z",
+        "ticker": "NOVARTIS",
+        "company": "Novartis India Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of blood pressure drug trademarks from Pfizer for ₹1,250 crore expands the company's domestic portfolio in a high-volume therapeutic category.",
+        "why_now": "The acquisition was reported on September 7, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3fa6d955602b"
+        ],
+        "primary_source_event_id": "EVT-3fa6d955602b",
+        "source_headlines": [
+          "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
+        ],
+        "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
+        "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T13:42:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T18:37:04Z",
+        "updated_at": "2026-09-07T18:37:04Z",
+        "decay_at": "2026-09-09T01:42:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T01:42:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-389774d04c52",
+        "idea_version": "IDEAV-63b8a35feed523ed",
+        "idea_version_started_at": "2026-09-07T20:15:06Z",
+        "ticker": "NOVARTISIN",
+        "company": "Novartis India Ltd",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of established BP drug trademarks from Pfizer provides an immediate revenue stream and expands the company's portfolio in a high-margin therapeutic area.",
+        "why_now": "The deal was announced on September 07, 2026, and is currently in the initial market digestion phase.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3fa6d955602b"
+        ],
+        "primary_source_event_id": "EVT-3fa6d955602b",
+        "source_headlines": [
+          "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore"
+        ],
+        "source_headline": "Novartis India Ltd to acquire BP drug trademarks from Pfizer Inc, for ₹1,250 crore",
+        "source_url": "https://www.thehindubusinessline.com/companies/novartis-india-ltd-to-acquire-bp-drug-trademarks-from-pfizer-inc-for-1250-crore/article71438937.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T13:42:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T20:15:06Z",
+        "updated_at": "2026-09-07T20:15:06Z",
+        "decay_at": "2026-09-09T01:42:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T01:42:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c72c1e88a94b",
         "idea_version": "IDEAV-31cddb974a599481",
@@ -148122,80 +148277,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-10d3707d292c",
-        "idea_version": "IDEAV-f8fbf9f9881048c9",
-        "idea_version_started_at": "2026-08-26T00:07:40Z",
-        "ticker": "GANDHITUBE",
-        "company": "Gandhi Special Tubes Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is executing a share buyback at INR 900 per share, providing a floor and potential premium for existing shareholders.",
-        "why_now": "The letter of offer and tender form were officially filed on 2026-08-25.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-80356be59882"
-        ],
-        "primary_source_event_id": "EVT-80356be59882",
-        "source_headlines": [
-          "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form"
-        ],
-        "source_headline": "Gandhi Special Tubes Limited: Gandhi Special Tubes Limited has informed the Exchange about Buyback- Update regarding the Buyback Offer of up to 8,68,100 fully paid-up Equity Shares of Face Value of Rs. 5/- each of Gandhi Special Tubes Limited ( the Company ) at a price of INR 900/- per Equity Share through tender offer route ( Buyback Offer ) -Copy of Letter of Offer and Tender Form",
-        "source_url": "https://nsearchives.nseindia.com/corporate/GANDHITUBE_25082026200827_LOF.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T14:38:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T00:07:40Z",
-        "updated_at": "2026-08-26T00:07:40Z",
-        "decay_at": "2026-08-27T02:38:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c3365d772313",
         "idea_version": "IDEAV-6082786c91a4db9a",
         "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -148636,83 +148717,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8431f766b3ed",
-        "idea_version": "IDEAV-f04415eb6299e5c8",
-        "idea_version_started_at": "2026-08-25T10:04:28Z",
-        "ticker": "ENR",
-        "company": "Siemens Energy",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is actively pursuing the divestment of its steam turbine business, which would streamline operations and provide a significant cash injection to improve its balance sheet.",
-        "why_now": "The strategic review and preparation for the sale were confirmed in reports on 2026-08-25.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2eb8f7213858",
-          "EVT-b6c4428f1c97"
-        ],
-        "primary_source_event_id": "EVT-2eb8f7213858",
-        "source_headlines": [
-          "Billion-euro deal: Siemens Energy prepares sale of steam turbine business",
-          "Billion-euro deal: Siemens Energy prepares for potential sale of steam turbine business"
-        ],
-        "source_headline": "Milliardendeal: Siemens Energy bereitet Verkauf von Dampfturbinen-Geschäft vor",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/milliardendeal-siemens-energy-bereitet-verkauf-von-dampfturbinen-geschaeft-vor/100249453.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T06:37:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T10:04:28Z",
-        "updated_at": "2026-08-25T10:04:28Z",
-        "decay_at": "2026-08-26T18:37:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-28T06:50:07Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -154653,7 +154657,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 623,
-    "live_count": 65,
+    "live_count": 63,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154672,9 +154676,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 789119,
-    "news_picked_today": 64,
-    "news_dropped_today": 824
+    "news_seen_today": 843086,
+    "news_picked_today": 70,
+    "news_dropped_today": 890
   },
   "book_momentum": {
     "live_count": 8,
