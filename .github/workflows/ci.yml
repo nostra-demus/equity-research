@@ -116,6 +116,9 @@ jobs:
       - name: Live finish-gate AJ regression (Step 10B.1 gates Decision Audit Trail on _live_date, not decision_date)
         run: python3 scripts/test_live_gate_aj.py
 
+      - name: Live finish-gate AA/AB regression (Step 10B.1 §18/§13 verdict-lock caps gate on _live_date; fully-bolded verdicts; forensic short exempt)
+        run: python3 scripts/test_live_gate_aa_ab.py
+
       - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
         run: python3 scripts/test_screener_score_breakdown.py
 

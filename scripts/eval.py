@@ -1559,11 +1559,14 @@ if scope=="selftest":
         ("Strong Buy","not-a-date","Distress risk",None,["Company-specific"],"na"),
         # both modules absent: N/A (neither ran, so neither cap can fire)
         ("Strong Buy","2026-06-23",None,None,["Company-specific"],"na"),
-        # BSS "Distress risk" + conviction decision → fail
+        # BSS "Distress risk" + conviction LONG above Watchlist → fail
         ("Strong Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
         ("Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
         ("Starter Position Only","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
-        ("Short Candidate","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        # Short Candidate intentionally NOT capped: §18's "Watchlist or lower" is directional and a
+        # Short ranks BELOW Watchlist; a forensic short on a distressed name is valid (cf. synthesizer.md
+        # governance verdict-lock + sibling checks AC/AE/AF/AQ, all of which exempt a forensic short).
+        ("Short Candidate","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
         # BSS "Distress risk" substring in a longer verdict string → fail (substring match)
         ("Buy","2026-06-23","Stretched / Distress risk",None,["Company-specific"],"fail"),
         # BSS "Distress risk" + distress-play exception → pass
@@ -1572,10 +1575,15 @@ if scope=="selftest":
         # BSS "Distress risk" + non-conviction decision → pass (below the Watchlist ceiling)
         ("Watchlist","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
         ("Avoid","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
-        # MG "Serious governance concerns" + conviction decision → fail
+        # MG "Serious governance concerns" + conviction LONG above Watchlist → fail
         ("Strong Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
         ("Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
-        ("Short Candidate","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        ("Starter Position Only","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        # Short Candidate intentionally NOT capped: synthesizer.md's governance verdict-lock says in as
+        # many words that "a forensic short built on the same evidence remains a valid 'Short Candidate'
+        # — the lock guards conviction longs". A Short is below Watchlist, so §18's "Watchlist or lower"
+        # is already satisfied (the exact bug that previously flagged a valid forensic governance short).
+        ("Short Candidate","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
         # MG "Serious governance concerns" + non-conviction decision → pass
         ("Watchlist","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
         ("Avoid","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
@@ -1597,8 +1605,12 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AA({dec_!r},{dt_!r},{bss_!r},{mg_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aabad
     # check AA EXTRACTOR — drive the ACTUAL verdict regex over real rendered lines. The aacases above
-    # pass pre-parsed strings and so CANNOT catch a regex bug; these lock the `- **Verdict:** <cat>`
-    # rendering contract (colon INSIDE the bold; value optionally double-bolded) the synthesis emits.
+    # pass pre-parsed strings and so CANNOT catch a regex bug; these lock the THREE verdict renderings
+    # real committed syntheses emit: `- **Verdict:** <cat>` (colon inside bold, value outside),
+    # `- **Verdict: <cat>**` (colon AND value inside one bold span), and `- **Verdict**: <cat>` (colon
+    # outside). The fully-bolded form is NOT hypothetical — 35+ committed syntheses use it, incl. the
+    # two real cap-triggering lines pinned below; missing it reads as "absent" → N/A → a silently
+    # skipped §18/§13 cap on exactly the runs that need it.
     EV=extract_synthesis_verdict
     evcases=[  # (markdown, expected substring in result, or None for "no verdict extracted")
         ("- **Verdict:** Distress risk", "Distress risk"),
@@ -1608,7 +1620,14 @@ if scope=="selftest":
         ("- **Verdict:** **Aligned & competent** (watch flag)", "Aligned & competent"),
         ("## 1. Solvency Verdict\n\n- **Verdict:** Distress risk\n- Net leverage 5x", "Distress risk"),
         ("- **Verdict**: Standard / mixed", "Standard / mixed"),  # tolerate colon OUTSIDE the bold too
+        # fully-bolded form `- **Verdict: <cat>**` — verbatim from committed artifacts
+        # (analyses/INDIAMART_2026-08-22 MG, analyses/DHER_2026-08-12 BM). MUST still extract the
+        # cap-triggering category, or the live gate silently skips the cap (regression for PR#688 review).
+        ("- **Verdict: Serious governance concerns** (gate-forced floor; closer to \"Standard / mixed\")", "Serious governance concerns"),
+        ("- **Verdict: Low-quality business — avoid deeper work** (disqualifier-lock, per `01_disqualifier-scan.md`)", "Low-quality business"),
+        ("- **Verdict: Mixed earnings setup**", "Mixed earnings setup"),
         ("## 6. What Would Change The Solvency Verdict?", None),  # a header is NOT the bolded verdict line
+        ("- **Verdict:**\n- Net leverage 5x", None),  # bare label, value on the NEXT line → absent (not a stray '*')
         ("no verdict here at all", None),
         (None, None),  # non-string input → None, no crash
     ]

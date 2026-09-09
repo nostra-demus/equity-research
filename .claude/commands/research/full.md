@@ -631,17 +631,25 @@ viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or 
 # concerns, or was disqualifier-scan-locked, print GATE: PASS, and commit straight to `main`
 # (CLAUDE.md §25/§28), undetected until a later manual `/research:eval` run — the exact hole
 # already closed for the newer §24/§13 caps below. Moving them into rating_caps.py closes it for
-# these two, longest-standing, unwired checks. Uses `ddte` (decision_date), matching the sibling
-# checks that read this same module-synthesis-verdict shape (AC/AD/AE/AF above, AQ below) — not
-# `_live_date` (the AJ/BB/BD/BE/... family): a `/research:rerun` regenerates every downstream
-# module synthesis AND the master decision before the folder is re-committed, so `ddte`'s existing
-# pre-gate/post-gate semantics are unchanged and stay faithful to eval.py's retrospective grading.
+# these two, longest-standing, unwired checks. Gate on `_live_date` (today's execution date), NOT
+# on `ddte` (decision_date) — the exact AJ/BB/BD/BE `_live_date` precedent. A standalone
+# `/research:rerun` regenerates every downstream module synthesis AND the master decision, but the
+# run folder's `decision_date` stays pinned to its ORIGINAL YYYY-MM-DD suffix (synthesizer.md) — it
+# never advances on rerun. So a folder first created before AA/AB's 2026-06-23/24 landing date,
+# re-run today over a freshly regenerated "Distress risk" / "Serious governance concerns" /
+# "Low-quality business" verdict, would evaluate `ddte < AA_DATE` → N/A and ship a conviction rating
+# with GATE: PASS — the very bypass this live wiring exists to close (CLAUDE.md §11: caps are
+# applied, never silently overridden). `_live_date` (always >= AA_DATE/AB_DATE) keeps the cap live
+# on every rerun; retrospective eval.py checks AA/AB correctly keep the true `decision_date`, so
+# historical fixtures retain their intended pre-landing-date N/A applicability. Defined here (first
+# live-gate use) and reused by the BB / AT/AU/AV blocks below.
+_live_date = datetime.date.today().isoformat()
 _bss_txt = _read_orb("balance-sheet-survival", "99_*-synthesis.md")
 _bss_verdict = rc.extract_synthesis_verdict(_bss_txt)
 _mg_verdict = rc.extract_synthesis_verdict(_mg_txt)
 _bm_verdict = rc.extract_synthesis_verdict(_bm_txt)
-viol.extend(rc.eval_aa_module_verdict_lock(dec, ddte, _bss_verdict, _mg_verdict, _tt24) or [])
-viol.extend(rc.eval_ab_bm_verdict_lock(dec, ddte, _bm_verdict) or [])
+viol.extend(rc.eval_aa_module_verdict_lock(dec, _live_date, _bss_verdict, _mg_verdict, _tt24) or [])
+viol.extend(rc.eval_ab_bm_verdict_lock(dec, _live_date, _bm_verdict) or [])
 # check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
 # BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when
@@ -661,8 +669,7 @@ _v99_txt = _read_orb("valuation", "99_*-synthesis.md")
 # under today's prompts) and 99 states a confidence above 55, silently bypassing the very cap this check
 # exists to enforce (CLAUDE.md §11: caps are applied, never silently overridden). This mirrors the exact
 # AT/AU/AV `_live_date` precedent below; retrospective eval.py check BB correctly keeps the true
-# decision_date. Defined here (first live-gate use) and reused by the AT/AU/AV block below.
-_live_date = datetime.date.today().isoformat()
+# decision_date. `_live_date` is already defined above at the AA/AB block (its first live-gate use).
 viol.extend(rc.eval_bb_sector_cycle_compounding_cap(_live_date, _v02_txt, _v03_txt, _v99_txt) or [])
 # check BD — §16 Cost-of-Capital Reality Test escalation (live pre-publish; mirrors eval.py check BD
 # via scripts/rating_caps.py, same shared detection module as BB above). Mechanizes
