@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-09T20:54:12Z",
+  "generated_at": "2026-09-09T21:04:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-443",
+      "headline": "S-4 - UNIVERSAL INSURANCE HOLDINGS, INC. (0000891166) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/891166/000119312526386466/0001193125-26-386466-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-09T20:16:12Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Universal Insurance Holdings filed an S-4 registration statement, which is a standard precursor for M&A or exchange offers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Universal Insurance Holdings filed an S-4 registration statement, which is a standard precursor for M&A or exchange offers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UNIVERSAL INSURANCE HOLDINGS, INC.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260909-418",
       "headline": "Capri Global Capital Limited: Capri Global Capital Limited has informed the Exchange about Others - Allotment and settlement of the U.S.$ 300,000,000 7.55% senior secured notes due December 2029 ( Notes )",
@@ -1962,60 +2011,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-282",
-      "headline": "Chime to buy Stride Bank in $590m deal",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/small-business/articles/chime-buy-stride-bank-590m-113059169.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T11:30:59Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Chime is acquiring Stride Bank in a $590 million deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chime is acquiring Stride Bank in a $590 million deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chime",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Stride Bank",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154015,9 +154010,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7363808,
-    "news_picked_today": 1097,
-    "news_dropped_today": 19927
+    "news_seen_today": 7471996,
+    "news_picked_today": 1115,
+    "news_dropped_today": 20005
   },
   "book_momentum": {
     "live_count": 8,
