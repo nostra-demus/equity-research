@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T11:25:51Z",
+  "generated_at": "2026-09-09T11:31:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-224",
@@ -1644,6 +1644,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-272",
+      "headline": "BILIBILI-W (09626): COMPLETION OF THE MARKETED NOTES OFFERING, THE CONCURRENT DELTA REPURCHASE AND THE CONCURRENT EQUITY PLACEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900961.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T11:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Company completed a complex financing package involving notes, repurchases, and equity placement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company completed a complex financing package involving notes, repurchases, and equity placement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BILIBILI-W",
+          "ticker": "09626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-165",
       "headline": "IIFL Finance Limited: The Exchange has sought clarification from IIFL Finance Limited with respect to recent news item captioned Fairfax plans IIFL Finance exit to fund IDBI Bank bid. The response from the Company is attached.",
       "headline_en": null,
@@ -1935,55 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-240",
-      "headline": "Gujarat Ambuja Exports Limited: Gujarat Ambuja Exports Limited has informed the Exchange about proposed to setup 850 TPD Greenfield Corn Wet Milling Plant at Hubli, Karnataka",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GAEL_09092026154306_850_TPD_Hubli.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T10:13:14Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Company announces a new 850 TPD Greenfield Corn Wet Milling Plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Company announces a new 850 TPD Greenfield Corn Wet Milling Plant.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gujarat Ambuja Exports Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153552,9 +153553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4455879,
-    "news_picked_today": 486,
-    "news_dropped_today": 9738
+    "news_seen_today": 4514409,
+    "news_picked_today": 493,
+    "news_dropped_today": 9779
   },
   "book_momentum": {
     "live_count": 8,
