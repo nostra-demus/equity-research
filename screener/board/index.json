@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T14:53:22Z",
+  "generated_at": "2026-09-09T15:02:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -646,6 +646,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-373",
+      "headline": "Peter Thiel-Backed AI Startup Cognition Raises Funds at $48 Billion Valuation",
+      "headline_en": null,
+      "url": "https://www.wsj.com/pro/private-equity/peter-thiel-backed-ai-startup-cognition-raises-funds-at-48-billion-valuation-41b41b85?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T14:44:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Private funding round at a $48 billion valuation is a major capital event for the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Private funding round at a $48 billion valuation is a major capital event for the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognition",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-370",
       "headline": "Adani group sells 5.5% stake in airports business, raises $1 billion at $18 billion valuation",
       "headline_en": null,
@@ -842,6 +891,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-377",
+      "headline": "DBS faces $1.3b lawsuit in alleged 1MDB-linked claim",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/banking/liquidators-of-1mdb-linked-companies-sue-dbs-for-1-3b",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T13:15:07Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "DBS faces a quantified $1.3 billion lawsuit related to 1MDB, posing significant legal and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DBS faces a quantified $1.3 billion lawsuit related to 1MDB, posing significant legal and financial risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DBS",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,104 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-153",
-      "headline": "Nvidia Earnings Blow Everyone Away",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/08/nvidia-earnings-blow-everyone-away/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:35:01Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Nvidia reported earnings that significantly exceeded market expectations, impacting the broader semiconductor sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia reported earnings that significantly exceeded market expectations, impacting the broader semiconductor sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-146",
-      "headline": "LIV Golf files for bankruptcy protection",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/sports/2026/09/09/liv-golf-bankruptcy/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Company filed for bankruptcy protection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company filed for bankruptcy protection.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109699,77 +109699,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f4f9a8ac79c2",
-      "idea_version": "IDEAV-075d0b8fb4aa7bcb",
-      "idea_version_started_at": "2026-09-08T05:19:17Z",
-      "ticker": "532523",
-      "company": "Biocon Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing a 10-year supply contract for Pertuzumab in Brazil provides long-term revenue visibility and strengthens the company's biosimilars footprint in emerging markets.",
-      "why_now": "The contract was announced via an exchange filing on September 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-16dc2fd7772b"
-      ],
-      "primary_source_event_id": "EVT-16dc2fd7772b",
-      "source_headlines": [
-        "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\"."
-      ],
-      "source_headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BIOCON_08092026083042_Pressrelease08092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-08T03:01:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T05:19:17Z",
-      "updated_at": "2026-09-08T05:19:17Z",
-      "decay_at": "2026-09-09T15:01:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -114696,6 +114625,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f4f9a8ac79c2",
+      "idea_version": "IDEAV-075d0b8fb4aa7bcb",
+      "idea_version_started_at": "2026-09-08T05:19:17Z",
+      "ticker": "532523",
+      "company": "Biocon Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing a 10-year supply contract for Pertuzumab in Brazil provides long-term revenue visibility and strengthens the company's biosimilars footprint in emerging markets.",
+      "why_now": "The contract was announced via an exchange filing on September 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16dc2fd7772b"
+      ],
+      "primary_source_event_id": "EVT-16dc2fd7772b",
+      "source_headlines": [
+        "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\"."
+      ],
+      "source_headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BIOCON_08092026083042_Pressrelease08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-08T03:01:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T05:19:17Z",
+      "updated_at": "2026-09-08T05:19:17Z",
+      "decay_at": "2026-09-09T15:01:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-63df24688f316fda",
       "idea_version_started_at": "2026-09-08T02:17:11Z",
@@ -116280,14 +116280,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 574,
+    "total_count": 575,
     "shown_count": 500,
-    "hidden_count": 74,
+    "hidden_count": 75,
     "side_counts": {
       "long": {
-        "total_count": 312,
+        "total_count": 313,
         "shown_count": 250,
-        "hidden_count": 62
+        "hidden_count": 63
       },
       "short": {
         "total_count": 262,
@@ -116311,6 +116311,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f4f9a8ac79c2",
+        "idea_version": "IDEAV-075d0b8fb4aa7bcb",
+        "idea_version_started_at": "2026-09-08T05:19:17Z",
+        "ticker": "532523",
+        "company": "Biocon Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Securing a 10-year supply contract for Pertuzumab in Brazil provides long-term revenue visibility and strengthens the company's biosimilars footprint in emerging markets.",
+        "why_now": "The contract was announced via an exchange filing on September 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-16dc2fd7772b"
+        ],
+        "primary_source_event_id": "EVT-16dc2fd7772b",
+        "source_headlines": [
+          "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\"."
+        ],
+        "source_headline": "Biocon Limited: Biocon Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Biocon Secures 10-Year Supply Contract for Pertuzumab in Brazil\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BIOCON_08092026083042_Pressrelease08092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 91,
+        "newest_source_at": "2026-09-08T03:01:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T05:19:17Z",
+        "updated_at": "2026-09-08T05:19:17Z",
+        "decay_at": "2026-09-09T15:01:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T15:01:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-adcb076f23d8",
         "idea_version": "IDEAV-64a35162fa06fe25",
@@ -146790,83 +146864,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-edef9dd12a1c",
-        "idea_version": "IDEAV-f97c9af85de4d0a3",
-        "idea_version_started_at": "2026-08-27T10:54:29Z",
-        "ticker": "ZEEL",
-        "company": "Zee Entertainment Enterprises",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Subhash Chandra's ₹6.5 crore payout plan has been approved by NCLT, settling ₹22,006 crore dues, which could remove a significant overhang on Zee Entertainment Enterprises.",
-        "why_now": "The NCLT clearance for the repayment plan was granted on August 27, 2026, providing a fresh catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-693031621b26",
-          "EVT-621fe50afd27"
-        ],
-        "primary_source_event_id": "EVT-693031621b26",
-        "source_headlines": [
-          "Subhash Chandra gets NCLT clearance for ₹6.5 crore payout to settle ₹22,006 crore dues; Vijay Mallya reacts",
-          "NCLT approves Subhash Chandra's ₹6.5 cr repayment plan; creditors face 99.97% haircut"
-        ],
-        "source_headline": "Subhash Chandra gets NCLT clearance for ₹6.5 crore payout to settle ₹22,006 crore dues; Vijay Mallya reacts",
-        "source_url": "https://www.cnbctv18.com/business/nclt-clears-subhash-chandras-6-5-crore-rupees-payout-to-settle-22006-crore-rupees-dues-with-nearly-99-97-haircut-19977977.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T04:59:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T10:54:29Z",
-        "updated_at": "2026-08-27T10:54:29Z",
-        "decay_at": "2026-08-28T16:59:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T05:00:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8839eeba27cf",
         "idea_version": "IDEAV-d8864c0931efb631",
         "idea_version_started_at": "2026-08-27T05:24:46Z",
@@ -153477,7 +153474,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 636,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153496,9 +153493,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5569961,
-    "news_picked_today": 744,
-    "news_dropped_today": 13320
+    "news_seen_today": 5648028,
+    "news_picked_today": 753,
+    "news_dropped_today": 13407
   },
   "book_momentum": {
     "live_count": 8,
