@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-23T23:49:27Z",
+  "archived_at": "2026-09-09T19:31:57Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-97c0d311e2dc",
-    "idea_version": "IDEAV-f4e88ee1220867d5",
-    "idea_version_started_at": "2026-08-21T00:59:07Z",
-    "ticker": "EQT",
-    "company": "EQT Holdings",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-90b902d53889",
+    "idea_version": "IDEAV-fa3fd6df5c04a20d",
+    "idea_version_started_at": "2026-09-06T20:29:47Z",
+    "ticker": "NVDA",
+    "company": "NVIDIA",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "The company has received a formal takeover proposal from BGH Capital, which typically triggers a premium to the current trading price.",
-    "why_now": "The proposal was filed with the ASX on 2026-08-20.",
-    "conviction": 85,
+    "reason": "The deployment of $20 billion in AI infrastructure via Groq integration accelerates the monetization of NVIDIA's hardware ecosystem through increased data center throughput.",
+    "why_now": "The rollout of these new AI racks is scheduled to go live within the 2026 calendar year.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 62,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 21,
+      "evidence": 14,
+      "impact": 19,
       "specificity": 15,
       "timing": 10,
       "expression": 6,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -50,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-0a196fb007b1"
+      "EVT-1216f28a2253"
     ],
-    "primary_source_event_id": "EVT-0a196fb007b1",
+    "primary_source_event_id": "EVT-1216f28a2253",
     "source_headlines": [
-      "EQT: Takeover proposal from BGH Capital [price-sensitive]"
+      "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks"
     ],
-    "source_headline": "EQT: Takeover proposal from BGH Capital [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQT?key=2924-03124102-3A699401",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks",
+    "source_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-20-billion-groq-190737433.html",
+    "source_name": "Yahoo Finance",
     "materiality_max": 100,
-    "newest_source_at": "2026-08-20T23:32:51Z",
+    "newest_source_at": "2026-09-06T19:07:37Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-21T00:59:07Z",
-    "updated_at": "2026-08-21T00:59:07Z",
-    "decay_at": "2026-08-22T11:32:51Z",
+    "surfaced_at": "2026-09-04T05:44:07Z",
+    "updated_at": "2026-09-06T20:29:47Z",
+    "decay_at": "2026-09-08T07:07:37Z",
     "status": "live",
     "promoted_signal_id": null
   }

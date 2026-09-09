@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T19:31:37Z",
+  "generated_at": "2026-09-09T19:32:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-418",
@@ -106583,6 +106583,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ed1237cf4982",
+      "idea_version": "IDEAV-3a25d61b702ed2f1",
+      "idea_version_started_at": "2026-09-09T19:31:54Z",
+      "ticker": "CASY",
+      "company": "Casey's General Stores",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a Q1 earnings beat supported by strong performance in both inside store sales and fuel margins.",
+      "why_now": "The Q1 results were released on 2026-09-09, confirming the effectiveness of their current retail strategy.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d4397ddbfec0"
+      ],
+      "primary_source_event_id": "EVT-d4397ddbfec0",
+      "source_headlines": [
+        "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains"
+      ],
+      "source_headline": "CASY Q1 Earnings Beat Estimates on Inside and Fuel Gains",
+      "source_url": "https://www.nasdaq.com/articles/casy-q1-earnings-beat-estimates-inside-and-fuel-gains",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T15:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T19:31:54Z",
+      "updated_at": "2026-09-09T19:31:54Z",
+      "decay_at": "2026-09-11T03:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ddc523ea3e44",
       "idea_version": "IDEAV-e78a1a89cd8f5a8e",
       "idea_version_started_at": "2026-09-09T17:32:12Z",
@@ -110690,76 +110760,6 @@
       "surfaced_at": "2026-09-06T21:14:05Z",
       "updated_at": "2026-09-06T21:14:05Z",
       "decay_at": "2026-09-08T08:43:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-fa3fd6df5c04a20d",
-      "idea_version_started_at": "2026-09-06T20:29:47Z",
-      "ticker": "NVDA",
-      "company": "NVIDIA",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The deployment of $20 billion in AI infrastructure via Groq integration accelerates the monetization of NVIDIA's hardware ecosystem through increased data center throughput.",
-      "why_now": "The rollout of these new AI racks is scheduled to go live within the 2026 calendar year.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1216f28a2253"
-      ],
-      "primary_source_event_id": "EVT-1216f28a2253",
-      "source_headlines": [
-        "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks"
-      ],
-      "source_headline": "NVIDIA (NVDA)’s $20 Billion Groq Bet Goes Live This Year With New AI Racks",
-      "source_url": "https://finance.yahoo.com/technology/ai/articles/nvidia-nvda-20-billion-groq-190737433.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T19:07:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-04T05:44:07Z",
-      "updated_at": "2026-09-06T20:29:47Z",
-      "decay_at": "2026-09-08T07:07:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116793,14 +116793,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 583,
+    "total_count": 582,
     "shown_count": 500,
-    "hidden_count": 83,
+    "hidden_count": 82,
     "side_counts": {
       "long": {
-        "total_count": 320,
+        "total_count": 319,
         "shown_count": 250,
-        "hidden_count": 70
+        "hidden_count": 69
       },
       "short": {
         "total_count": 263,
@@ -116810,12 +116810,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 14,
+      "evicted_count": 15,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 14,
-          "oldest_retained_at": "2026-08-22T11:32:51Z"
+          "evicted_count": 15,
+          "oldest_retained_at": "2026-08-22T17:44:00Z"
         },
         "short": {
           "evicted_count": 0,
@@ -124038,8 +124038,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T07:07:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T19:31:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153990,8 +153990,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 644,
-    "live_count": 45,
+    "surfaced_total": 645,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
