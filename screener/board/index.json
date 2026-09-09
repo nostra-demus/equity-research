@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T11:51:40Z",
+  "generated_at": "2026-09-09T12:01:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-224",
@@ -493,6 +493,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-281",
+      "headline": "John Marshall agrees $253m all-stock merger with Eagle Financial",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/john-marshall-agrees-253m-stock-113315408.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T11:33:15Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "John Marshall agreed to a $253 million all-stock merger with Eagle Financial.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "John Marshall agreed to a $253 million all-stock merger with Eagle Financial.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "John Marshall",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Eagle Financial",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-282",
+      "headline": "Chime to buy Stride Bank in $590m deal",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/small-business/articles/chime-buy-stride-bank-590m-113059169.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T11:30:59Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chime is acquiring Stride Bank in a $590 million deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chime is acquiring Stride Bank in a $590 million deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chime",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Stride Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,104 +1995,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-137",
-      "headline": "Adani Airports To Raise $1 Billion Of Primary Equity From Marquee Global Investors",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/adani-airports-to-raise-1-billion-of-primary-equity-from-marquee-global-investors-12021096#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:10:09Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Adani Airports is raising $1 billion in primary equity, a significant capital injection for the infrastructure unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Adani Airports is raising $1 billion in primary equity, a significant capital injection for the infrastructure unit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Airports",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-243",
-      "headline": "Clean Max Enviro Energy Solutions Limited: Clean Max Enviro Energy Solutions Limited has informed the Exchange about Sale or disposal",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CLEANMAX_09092026153049_CMES_Reg_30_Dynamis.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T10:16:18Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Clean Max Enviro Energy Solutions Limited has announced a sale or disposal of assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Clean Max Enviro Energy Solutions Limited has announced a sale or disposal of assets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Clean Max Enviro Energy Solutions Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109901,77 +109911,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-db76bcbae044",
-      "idea_version": "IDEAV-8aff9bce6dbab3c7",
-      "idea_version_started_at": "2026-09-08T00:06:31Z",
-      "ticker": "02889",
-      "company": "Pateo",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a placing of new H shares under a general mandate, which will dilute existing shareholders and put immediate downward pressure on the stock price.",
-      "why_now": "The placement filing was published on September 7, 2026, creating immediate supply overhang.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-93369a48abe0"
-      ],
-      "primary_source_event_id": "EVT-93369a48abe0",
-      "source_headlines": [
-        "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-07T23:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T00:06:31Z",
-      "updated_at": "2026-09-08T00:06:31Z",
-      "decay_at": "2026-09-09T11:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -115333,6 +115272,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-db76bcbae044",
+      "idea_version": "IDEAV-8aff9bce6dbab3c7",
+      "idea_version_started_at": "2026-09-08T00:06:31Z",
+      "ticker": "02889",
+      "company": "Pateo",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a placing of new H shares under a general mandate, which will dilute existing shareholders and put immediate downward pressure on the stock price.",
+      "why_now": "The placement filing was published on September 7, 2026, creating immediate supply overhang.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-93369a48abe0"
+      ],
+      "primary_source_event_id": "EVT-93369a48abe0",
+      "source_headlines": [
+        "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-09-07T23:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T00:06:31Z",
+      "updated_at": "2026-09-08T00:06:31Z",
+      "decay_at": "2026-09-09T11:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-01a845d16719",
       "idea_version": "IDEAV-9cf383317237f9d3",
       "idea_version_started_at": "2026-09-07T03:26:40Z",
@@ -116342,9 +116352,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 565,
     "shown_count": 500,
-    "hidden_count": 64,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
         "total_count": 308,
@@ -116352,9 +116362,9 @@
         "hidden_count": 58
       },
       "short": {
-        "total_count": 256,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 6
+        "hidden_count": 7
       }
     },
     "retention": {
@@ -116373,6 +116383,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-db76bcbae044",
+        "idea_version": "IDEAV-8aff9bce6dbab3c7",
+        "idea_version_started_at": "2026-09-08T00:06:31Z",
+        "ticker": "02889",
+        "company": "Pateo",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is executing a placing of new H shares under a general mandate, which will dilute existing shareholders and put immediate downward pressure on the stock price.",
+        "why_now": "The placement filing was published on September 7, 2026, creating immediate supply overhang.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-93369a48abe0"
+        ],
+        "primary_source_event_id": "EVT-93369a48abe0",
+        "source_headlines": [
+          "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+        ],
+        "source_headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800031.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-07T23:57:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T00:06:31Z",
+        "updated_at": "2026-09-08T00:06:31Z",
+        "decay_at": "2026-09-09T11:57:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T11:57:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9dcb830cc86c",
         "idea_version": "IDEAV-7863a0061b902af7",
@@ -153455,86 +153539,12 @@
         "archived_at": "2026-08-22T09:26:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-dad42101a772",
-        "idea_version": "IDEAV-8289fcdb956a4426",
-        "idea_version_started_at": "2026-08-20T07:13:16Z",
-        "ticker": "00031",
-        "company": "China Aerospace International Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued an official profit warning indicating a significant drop in expected earnings.",
-        "why_now": "The inside information profit warning was filed on August 19, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-de05e6cbbe6c"
-        ],
-        "primary_source_event_id": "EVT-de05e6cbbe6c",
-        "source_headlines": [
-          "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900550.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T08:57:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T03:43:44Z",
-        "updated_at": "2026-08-20T07:13:16Z",
-        "decay_at": "2026-08-20T20:57:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T09:06:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 629,
-    "live_count": 55,
+    "live_count": 54,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153553,9 +153563,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4750082,
-    "news_picked_today": 520,
-    "news_dropped_today": 10016
+    "news_seen_today": 4789405,
+    "news_picked_today": 539,
+    "news_dropped_today": 10165
   },
   "book_momentum": {
     "live_count": 8,
