@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T05:55:40Z",
+  "generated_at": "2026-09-09T06:05:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -1476,6 +1476,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-174",
+      "headline": "Airworthiness Directives; Airbus SAS Airplanes",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/09/09/2026-18375/airworthiness-directives-airbus-sas-airplanes",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-09T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Airworthiness directive for Airbus aircraft mandates inspections or repairs, impacting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Airworthiness directive for Airbus aircraft mandates inspections or repairs, impacting operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbus SAS",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-173",
+      "headline": "Airworthiness Directives; Bombardier, Inc. Airplanes",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/09/09/2026-18376/airworthiness-directives-bombardier-inc-airplanes",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-09T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Airworthiness directive for Bombardier aircraft mandates inspections or repairs, impacting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Airworthiness directive for Bombardier aircraft mandates inspections or repairs, impacting operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bombardier, Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-123",
       "headline": "Adani Enterprises to sell up to 5.54% stake in airport unit to Temasek, BlackRock",
       "headline_en": null,
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-013",
-      "headline": "JINTAI ENERGY H (02728): CHANGE OF CHAIRMAN OF THE BOARD AND NOMINATION COMMITTEE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T22:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The company announced a change in the Chairman of the Board and the Nomination Committee.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The company announced a change in the Chairman of the Board and the Nomination Committee.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JINTAI ENERGY H",
-          "ticker": "02728",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-166",
-      "headline": "Larsen & Toubro Limited: Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PAM_09092026100141_PressRelease09092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T04:32:02Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Larsen & Toubro has secured new orders, which is a standard but positive indicator of business momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Larsen & Toubro has secured new orders, which is a standard but positive indicator of business momentum.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larsen & Toubro Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154402,9 +154402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2435599,
-    "news_picked_today": 222,
-    "news_dropped_today": 3114
+    "news_seen_today": 2507467,
+    "news_picked_today": 237,
+    "news_dropped_today": 3195
   },
   "book_momentum": {
     "live_count": 8,
