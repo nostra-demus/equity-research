@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T04:30:46Z",
+  "generated_at": "2026-09-09T04:40:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -243,6 +243,153 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-161",
+      "headline": "India's Coforge slides nearly 9% after chairman resigns over board evaluation concerns",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T04:23:32Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chairman resigned due to board evaluation concerns, leading to a 9% share price drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chairman resigned due to board evaluation concerns, leading to a 9% share price drop.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-158",
+      "headline": "Adani group sells 5.5% stake in airports business, raises $1 billion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/adani-group-sells-55-stake-in-airports-business-raises-1-billion/article71445554.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T04:13:06Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Adani group raised $1 billion through a 5.5% stake sale in its airports business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani group raised $1 billion through a 5.5% stake sale in its airports business.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-160",
+      "headline": "Coforge Share Price Slumps 8% After Chairman OP Bhatt Resigns Post Internal Audit Review",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/coforge-share-price-slumps-8-after-chairman-op-bhatt-resigns-post-internal-audit-review-12021230#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T03:53:21Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "The chairman resigned following an internal audit review, causing an 8% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The chairman resigned following an internal audit review, causing an 8% share price decline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1831,153 +1978,6 @@
       "companies": [
         {
           "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-056",
-      "headline": "AWJ: Proposed issue of securities - AWJ",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AWJ?key=2924-03133564-6A1342965",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T01:12:04Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Proposed issue of securities by AWJ indicates a potential capital raise or equity issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Proposed issue of securities by AWJ indicates a potential capital raise or equity issuance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AWJ",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-051",
-      "headline": "FOS: Placement of shares [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FOS?key=2924-03133556-3A701385",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T00:58:14Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The company is conducting a share placement, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The company is conducting a share placement, which is dilutive to existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FOS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-150",
-      "headline": "L Catterton-Led Consortium Acquires Majority Stake in Hyrox",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-09/l-catterton-led-consortium-acquires-majority-stake-in-hyrox",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T04:03:24Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "L Catterton-led consortium acquired a majority stake in fitness race brand Hyrox.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "L Catterton-led consortium acquired a majority stake in fitness race brand Hyrox.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyrox",
           "ticker": null,
           "listing_country": null
         }
@@ -107325,76 +107325,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-df5674b1722e",
-      "idea_version": "IDEAV-00c36aa7aaa8ed4a",
-      "idea_version_started_at": "2026-09-07T21:35:59Z",
-      "ticker": "NTAP",
-      "company": "NetApp",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "NetApp's Q1 earnings beat and raised guidance indicate stronger-than-expected demand for its AI storage solutions, which should drive revenue and margin growth.",
-      "why_now": "The company reported its Q1 earnings and raised guidance on September 7, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bf4c45272f7"
-      ],
-      "primary_source_event_id": "EVT-6bf4c45272f7",
-      "source_headlines": [
-        "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus"
-      ],
-      "source_headline": "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus",
-      "source_url": "https://www.nasdaq.com/articles/netapp-q1-beat-and-raised-guidance-put-ai-storage-growth-focus",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T16:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T21:35:59Z",
-      "updated_at": "2026-09-07T21:35:59Z",
-      "decay_at": "2026-09-09T04:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-e15ec643a0a42a39",
       "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -111178,6 +111108,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-df5674b1722e",
+      "idea_version": "IDEAV-00c36aa7aaa8ed4a",
+      "idea_version_started_at": "2026-09-07T21:35:59Z",
+      "ticker": "NTAP",
+      "company": "NetApp",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NetApp's Q1 earnings beat and raised guidance indicate stronger-than-expected demand for its AI storage solutions, which should drive revenue and margin growth.",
+      "why_now": "The company reported its Q1 earnings and raised guidance on September 7, 2026, providing a fresh catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6bf4c45272f7"
+      ],
+      "primary_source_event_id": "EVT-6bf4c45272f7",
+      "source_headlines": [
+        "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus"
+      ],
+      "source_headline": "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus",
+      "source_url": "https://www.nasdaq.com/articles/netapp-q1-beat-and-raised-guidance-put-ai-storage-growth-focus",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T16:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T21:35:59Z",
+      "updated_at": "2026-09-07T21:35:59Z",
+      "decay_at": "2026-09-09T04:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-3832437dcd8b",
@@ -117416,14 +117416,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 59
       },
       "short": {
         "total_count": 252,
@@ -117447,6 +117447,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-df5674b1722e",
+        "idea_version": "IDEAV-00c36aa7aaa8ed4a",
+        "idea_version_started_at": "2026-09-07T21:35:59Z",
+        "ticker": "NTAP",
+        "company": "NetApp",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "NetApp's Q1 earnings beat and raised guidance indicate stronger-than-expected demand for its AI storage solutions, which should drive revenue and margin growth.",
+        "why_now": "The company reported its Q1 earnings and raised guidance on September 7, 2026, providing a fresh catalyst for the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6bf4c45272f7"
+        ],
+        "primary_source_event_id": "EVT-6bf4c45272f7",
+        "source_headlines": [
+          "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus"
+        ],
+        "source_headline": "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus",
+        "source_url": "https://www.nasdaq.com/articles/netapp-q1-beat-and-raised-guidance-put-ai-storage-growth-focus",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T16:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T21:35:59Z",
+        "updated_at": "2026-09-07T21:35:59Z",
+        "decay_at": "2026-09-09T04:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T04:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3832437dcd8b",
         "idea_version": "IDEAV-c87e4cbd52652ff3",
@@ -148229,80 +148302,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c56cd7fabf5d",
-        "idea_version": "IDEAV-e298fc8d653164e4",
-        "idea_version_started_at": "2026-08-26T00:07:40Z",
-        "ticker": "SLTS",
-        "company": "Selectis Health, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
-        "why_now": "The filing was made on 2026-08-25.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-745dbd29e5af"
-        ],
-        "primary_source_event_id": "EVT-745dbd29e5af",
-        "source_headlines": [
-          "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
-        ],
-        "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T20:35:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T00:07:40Z",
-        "updated_at": "2026-08-26T00:07:40Z",
-        "decay_at": "2026-08-27T08:35:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c3365d772313",
         "idea_version": "IDEAV-6082786c91a4db9a",
         "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -154609,7 +154608,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 627,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154628,9 +154627,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1795329,
-    "news_picked_today": 178,
-    "news_dropped_today": 2318
+    "news_seen_today": 1875820,
+    "news_picked_today": 184,
+    "news_dropped_today": 2480
   },
   "book_momentum": {
     "live_count": 8,
