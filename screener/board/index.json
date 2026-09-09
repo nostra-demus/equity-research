@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T11:41:41Z",
+  "generated_at": "2026-09-09T11:51:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-224",
@@ -493,6 +493,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-277",
+      "headline": "Dangote refinery cuts debt to $5.7bn ahead of record IPO",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/africa/dangote-refinery-cuts-debt-to-5-7bn-ahead-of-record-ipo/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T11:18:32Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Dangote refinery reduced debt to $5.7bn, improving balance sheet health ahead of a major IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dangote refinery reduced debt to $5.7bn, improving balance sheet health ahead of a major IPO.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dangote Refinery",
+          "ticker": null,
+          "listing_country": "NG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,56 +1982,6 @@
           "name": "Clean Max Enviro Energy Solutions Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-211",
-      "headline": "GOLDSTONE CAP (01160): SHAREHOLDER'S REQUISITION IN RELATION TO PROPOSED REMOVAL AND APPOINTMENT OF DIRECTORS AND NOTICE OF SPECIAL GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900352.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T08:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Shareholder-requisitioned removal and appointment of directors with special general meeting signals governance challenge that can alter strategic direction and capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Shareholder-requisitioned removal and appointment of directors with special general meeting signals governance challenge that can alter strategic direction and capital allocation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goldstone Cap",
-          "ticker": "01160",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -153553,9 +153553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4612525,
-    "news_picked_today": 511,
-    "news_dropped_today": 9833
+    "news_seen_today": 4750082,
+    "news_picked_today": 520,
+    "news_dropped_today": 10016
   },
   "book_momentum": {
     "live_count": 8,
