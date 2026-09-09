@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T15:17:23Z",
+  "generated_at": "2026-09-09T15:21:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -641,6 +641,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-390",
+      "headline": "Independence Realty Trust To Buy Centerspace, Creating $8.1B REIT",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/independence-realty-trust-buy-centerspace-145608519.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T14:56:08Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Independence Realty Trust to acquire Centerspace in a deal creating an $8.1 billion REIT.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Independence Realty Trust to acquire Centerspace in a deal creating an $8.1 billion REIT.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Independence Realty Trust",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Centerspace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1994,6 @@
           "name": "Coforge",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-112",
-      "headline": "[Special Report] POSCO Brazil Bankruptcy Sparks Legislative, OECD Backrush",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276487",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:41:21Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "POSCO's Brazil unit has filed for bankruptcy, triggering international regulatory and OECD scrutiny.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "POSCO's Brazil unit has filed for bankruptcy, triggering international regulatory and OECD scrutiny.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "POSCO",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -153493,9 +153498,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5746164,
-    "news_picked_today": 764,
-    "news_dropped_today": 13468
+    "news_seen_today": 5785740,
+    "news_picked_today": 781,
+    "news_dropped_today": 13499
   },
   "book_momentum": {
     "live_count": 8,
