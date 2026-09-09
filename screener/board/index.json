@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-09T23:23:51Z",
+  "generated_at": "2026-09-09T23:51:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-454",
+      "headline": "GNC: Transformation update and reconfirmation of FY26 guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GNC?key=2924-03133959-2A1696443",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T23:08:33Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "The company reconfirmed its FY26 guidance, providing clarity on future financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reconfirmed its FY26 guidance, providing clarity on future financial expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GNC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260909-443",
       "headline": "S-4 - UNIVERSAL INSURANCE HOLDINGS, INC. (0000891166) (Filer)",
@@ -1957,55 +2006,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-331",
-      "headline": "LIV Golf Files For Bankruptcy: Jon Rahm, DeChambeau Among Stars Owed Millions",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/sports/liv-golf-files-for-bankruptcy-jon-rahm-dechambeau-among-stars-owed-millions-12023561#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T12:47:16Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "LIV Golf has filed for bankruptcy, indicating a major financial distress event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf has filed for bankruptcy, indicating a major financial distress event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153801,9 +153801,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8128745,
-    "news_picked_today": 1207,
-    "news_dropped_today": 23321
+    "news_seen_today": 8239208,
+    "news_picked_today": 1248,
+    "news_dropped_today": 23712
   },
   "book_momentum": {
     "live_count": 8,
