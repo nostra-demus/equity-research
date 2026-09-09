@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T14:36:56Z",
+  "generated_at": "2026-09-09T14:42:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -646,6 +646,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-370",
+      "headline": "Adani group sells 5.5% stake in airports business, raises $1 billion at $18 billion valuation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/adani-group-sells-55-stake-in-airports-business-raises-1-billion/article71445554.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T14:30:43Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Adani group raised $1 billion by selling a 5.5% stake in its airports business at an $18 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani group raised $1 billion by selling a 5.5% stake in its airports business at an $18 billion valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-364",
       "headline": "Silver Lake merges Cegid and Silae in 10 billion euro bet on AI-era software",
       "headline_en": null,
@@ -685,6 +734,60 @@
       "companies": [
         {
           "name": "Silver Lake",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-368",
+      "headline": "Analog Devices to acquire Alif Semiconductor for $1.35 billion",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/analog-devices-acquire-alif-semiconductor-141638032.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T14:16:38Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Analog Devices is acquiring Alif Semiconductor for $1.35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Analog Devices is acquiring Alif Semiconductor for $1.35 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Analog Devices",
+          "ticker": "ADI",
+          "listing_country": "US"
+        },
+        {
+          "name": "Alif Semiconductor",
           "ticker": null,
           "listing_country": null
         }
@@ -1886,109 +1989,6 @@
           "name": "LIV Golf",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-062",
-      "headline": "Wildcat Infrastructure offers to buy Austal's US operations for up to $1.35 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/wildcat-infrastructure-offers-buy-austals-us-operations-up-135-billion-2026-09-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:24:21Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Wildcat Infrastructure has made a $1.35 billion acquisition offer for Austal's US operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wildcat Infrastructure has made a $1.35 billion acquisition offer for Austal's US operations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Austal",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Wildcat Infrastructure",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-049",
-      "headline": "LIV Golf files for bankruptcy protection as it tries to survive in a smaller version",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/liv-golf-files-for-bankruptcy-protection-as-it-tries-to-survive-in-a-smaller-version-11788915832189.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:03:51Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "LIV Golf has filed for bankruptcy protection as it attempts to restructure its operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LIV Golf has filed for bankruptcy protection as it attempts to restructure its operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -109341,78 +109341,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-841758969e76",
-      "idea_version": "IDEAV-d59e7b53b8401bd6",
-      "idea_version_started_at": "2026-09-08T03:57:59Z",
-      "ticker": "SARTELE",
-      "company": "Sar Televentures",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The cancellation of the Tikona Infinet acquisition removes a key inorganic growth catalyst and signals potential integration or financing hurdles.",
-      "why_now": "The acquisition was officially called off on 2026-09-08.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6faa79a4df79"
-      ],
-      "primary_source_event_id": "EVT-6faa79a4df79",
-      "source_headlines": [
-        "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition"
-      ],
-      "source_headline": "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/sar-televentures-calls-off-669-crore-tikona-infinet-acquisition/article71441092.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-08T02:40:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T03:57:59Z",
-      "updated_at": "2026-09-08T03:57:59Z",
-      "decay_at": "2026-09-09T14:40:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-78e2c3fff636",
       "idea_version": "IDEAV-82ac7f09e7f3a740",
       "idea_version_started_at": "2026-09-08T06:57:56Z",
@@ -113978,6 +113906,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-841758969e76",
+      "idea_version": "IDEAV-d59e7b53b8401bd6",
+      "idea_version_started_at": "2026-09-08T03:57:59Z",
+      "ticker": "SARTELE",
+      "company": "Sar Televentures",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The cancellation of the Tikona Infinet acquisition removes a key inorganic growth catalyst and signals potential integration or financing hurdles.",
+      "why_now": "The acquisition was officially called off on 2026-09-08.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6faa79a4df79"
+      ],
+      "primary_source_event_id": "EVT-6faa79a4df79",
+      "source_headlines": [
+        "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition"
+      ],
+      "source_headline": "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/sar-televentures-calls-off-669-crore-tikona-infinet-acquisition/article71441092.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-08T02:40:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T03:57:59Z",
+      "updated_at": "2026-09-08T03:57:59Z",
+      "decay_at": "2026-09-09T14:40:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fdef9c56cf5c",
       "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
       "idea_version_started_at": "2026-09-07T00:24:17Z",
@@ -116281,9 +116281,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 312,
@@ -116291,9 +116291,9 @@
         "hidden_count": 62
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -116312,6 +116312,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-841758969e76",
+        "idea_version": "IDEAV-d59e7b53b8401bd6",
+        "idea_version_started_at": "2026-09-08T03:57:59Z",
+        "ticker": "SARTELE",
+        "company": "Sar Televentures",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The cancellation of the Tikona Infinet acquisition removes a key inorganic growth catalyst and signals potential integration or financing hurdles.",
+        "why_now": "The acquisition was officially called off on 2026-09-08.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6faa79a4df79"
+        ],
+        "primary_source_event_id": "EVT-6faa79a4df79",
+        "source_headlines": [
+          "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition"
+        ],
+        "source_headline": "Sar Televentures calls off ₹669 crore Tikona Infinet acquisition",
+        "source_url": "https://www.thehindubusinessline.com/info-tech/sar-televentures-calls-off-669-crore-tikona-infinet-acquisition/article71441092.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-08T02:40:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T03:57:59Z",
+        "updated_at": "2026-09-08T03:57:59Z",
+        "decay_at": "2026-09-09T14:40:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T14:40:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-67c9257a5dbd",
         "idea_version": "IDEAV-27458b8c2211c6a0",
@@ -153401,86 +153476,12 @@
         "archived_at": "2026-08-22T10:37:52Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3d4e23998000",
-        "idea_version": "IDEAV-5058a8e7ba6029ff",
-        "idea_version_started_at": "2026-08-20T06:40:08Z",
-        "ticker": "06958",
-        "company": "ZHENRO SERVICES",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning signals deteriorating operational performance and margin compression in the property services sector.",
-        "why_now": "The filing was released on 2026-08-19.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9573466723c6"
-        ],
-        "primary_source_event_id": "EVT-9573466723c6",
-        "source_headlines": [
-          "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900847.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T10:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T06:40:08Z",
-        "updated_at": "2026-08-20T06:40:08Z",
-        "decay_at": "2026-08-20T22:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T10:18:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 634,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153499,9 +153500,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5453304,
-    "news_picked_today": 738,
-    "news_dropped_today": 13230
+    "news_seen_today": 5472763,
+    "news_picked_today": 744,
+    "news_dropped_today": 13272
   },
   "book_momentum": {
     "live_count": 8,
