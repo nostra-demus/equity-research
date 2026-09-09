@@ -659,7 +659,9 @@ def checked(
     approved, expected_digest = validate_shape(value, repo, now, allow_expired=allow_expired)
     if min_remaining < 0:
         raise AuthorizationError("minimum remaining validity must not be negative")
-    if min_remaining and value["expires_at_epoch"] - now < min_remaining:
+    # An explicitly allowed expired receipt has no remaining validity to measure; the margin applies only
+    # to a receipt that must still be live (a fresh `check` before a release starts).
+    if not allow_expired and min_remaining and value["expires_at_epoch"] - now < min_remaining:
         raise AuthorizationError("deployment authorization expires too soon to cover a whole release")
     require_commit(repo, approved)
     if not git_is_ancestor(repo, approved, target):
