@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T10:55:58Z",
+  "generated_at": "2026-09-09T11:00:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-224",
@@ -498,6 +498,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-255",
+      "headline": "US suspends Cognizant, Cloudera green card filings amid visa fraud probe",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/jobs-and-careers/us-suspends-cognizant-cloudera-green-card-filings-amid-visa-fraud-probe-4140406",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T10:50:12Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "US authorities suspended green card filings for Cognizant and Cloudera due to a visa fraud probe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US authorities suspended green card filings for Cognizant and Cloudera due to a visa fraud probe.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Cloudera",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-236",
       "headline": "LIV Golf Just Filed for Bankruptcy. Bryson DeChambeau and Jon Rahm Are Owed Millions After Saudi Arabia Pulled Its Funding",
       "headline_en": null,
@@ -542,6 +597,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-251",
+      "headline": "Chime Financial shares rise 10.5% after $590 million Stride Bank acquisition agreement",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/chime-financial-shares-rise-10-102722980.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T10:27:22Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chime Financial is acquiring Stride Bank for $590 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chime Financial is acquiring Stride Bank for $590 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chime Financial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Stride Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1832,142 +1941,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260909-169",
-      "headline": "US targets Iran's aviation sector with sweeping new sanctions",
+      "inbox_id": "INB-20260909-252",
+      "headline": "Dangote Refinery Cuts Debt to $5.7 Billion Ahead of Record IPO",
       "headline_en": null,
-      "url": "https://www.emirates247.com/world/us-targets-iran-aviation-sector-with-36-new-sanctions-aiming-to-ground-mahan-air-and-disrupt-procurement-networks/5410",
-      "source_name": "Emirates 24|7 — Flash News (general)",
+      "url": "https://www.bloomberg.com/news/articles/2026-09-09/dangote-refinery-cuts-debt-to-5-7-billion-ahead-of-record-ipo",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-09-09T05:23:00Z",
+      "found_at": "2026-09-09T10:34:54Z",
       "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The US has imposed sweeping new sanctions on Iran's aviation sector, which is a significant geopolitical escalation.",
+      "prelim_note": "Dangote Refinery reduced debt to $5.7 billion ahead of a planned IPO.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "The US has imposed sweeping new sanctions on Iran's aviation sector, which is a significant geopolitical escalation.",
-      "region": "GLOBAL",
+      "triage_reason": "Dangote Refinery reduced debt to $5.7 billion ahead of a planned IPO.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "debt_credit",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-216",
-      "headline": "ELS: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ELS?key=2924-03133783-3A701438",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T08:38:15Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "A shareholder disclosed as acquiring a 5%+ stake, but headline does not name the buyer, state their intent, or provide stake size, leaving direction unclear.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A shareholder disclosed as acquiring a 5%+ stake, but headline does not name the buyer, state their intent, or provide stake size, leaving direction unclear.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ELS",
+          "name": "Dangote Refinery",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-217",
-      "headline": "BSL: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSL?key=2924-03133781-3A701437",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T08:37:20Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "A change to a 5%+ stake is disclosed, but headline does not identify the holder, direction of change, or any stated intent, leaving impact unclear.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A change to a 5%+ stake is disclosed, but headline does not identify the holder, direction of change, or any stated intent, leaving impact unclear.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BSL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154398,9 +154415,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4146393,
-    "news_picked_today": 438,
-    "news_dropped_today": 9546
+    "news_seen_today": 4184551,
+    "news_picked_today": 451,
+    "news_dropped_today": 9581
   },
   "book_momentum": {
     "live_count": 8,
