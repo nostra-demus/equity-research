@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T12:43:31Z",
+  "generated_at": "2026-09-09T12:54:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-297",
@@ -591,6 +591,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-299",
+      "headline": "Abu Dhabi’s IHC to acquire 80 percent stake in Marlan Space as UAE space ambitions accelerate",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/abu-dhabis-ihc-to-acquire-80-percent-stake-marlan-space-as-uae-space-ambitions-accelerate/?utm_source=rss&utm_medium=rss&utm_campaign=abu-dhabis-ihc-to-acquire-80-percent-stake-marlan-space-as-uae-space-ambitions-accelerate",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T12:15:15Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "International Holding Company (IHC) is acquiring an 80 percent stake in Marlan Space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "International Holding Company (IHC) is acquiring an 80 percent stake in Marlan Space.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Holding Company",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-307",
+      "headline": "LIV Golf could soon be majority player-owned as organization files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://thehill.com/business/6077526-liv-golf-chapter-11-bankruptcy-new-model/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T12:09:19Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "LIV Golf files for Chapter 11 bankruptcy, a survival event that wipes out equity and signals severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf files for Chapter 11 bankruptcy, a survival event that wipes out equity and signals severe financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,105 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-165",
-      "headline": "IIFL Finance Limited: The Exchange has sought clarification from IIFL Finance Limited with respect to recent news item captioned Fairfax plans IIFL Finance exit to fund IDBI Bank bid. The response from the Company is attached.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IIFL_09092026104532_Clarification_NSE.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T05:16:17Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The exchange has requested clarification on a potential stake sale by Fairfax in IIFL Finance to fund a bid for IDBI Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The exchange has requested clarification on a potential stake sale by Fairfax in IIFL Finance to fund a bid for IDBI Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance",
-          "ticker": "532636",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-007",
-      "headline": "ASB: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133524-6A1342956",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-08T23:56:49Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement is a significant operational event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Trading halt pending a price-sensitive announcement is a significant operational event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASB",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -107612,76 +107611,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a5f02f963a8e",
-      "idea_version": "IDEAV-f2d7373e8d8eb218",
-      "idea_version_started_at": "2026-09-08T02:01:33Z",
-      "ticker": "BDRBF",
-      "company": "Bombardier",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The threat of losing US market access for its jets creates a significant regulatory risk to the company's primary revenue stream.",
-      "why_now": "The statement was made on 2026-09-08, creating immediate political and regulatory uncertainty.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0536f0f6b818"
-      ],
-      "primary_source_event_id": "EVT-0536f0f6b818",
-      "source_headlines": [
-        "Trump says Canada's Bombardier must build jets in US or lose market access"
-      ],
-      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-08T00:53:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T02:01:33Z",
-      "updated_at": "2026-09-08T02:01:33Z",
-      "decay_at": "2026-09-09T12:53:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-523a4ee7d93a",
       "idea_version": "IDEAV-6111ce52e34a3cb7",
       "idea_version_started_at": "2026-09-08T22:44:52Z",
@@ -110121,150 +110050,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-07281f29d7fc",
-      "idea_version": "IDEAV-97fd7ed17ba5e6f1",
-      "idea_version_started_at": "2026-09-08T02:17:11Z",
-      "ticker": "BBD",
-      "company": "Bombardier Inc.",
-      "exchange": "TSX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Former President Trump's threat to block market access for Bombardier unless it builds jets in the US could significantly harm its sales and operations.",
-      "why_now": "The threat was made by former President Trump on September 8, 2026, creating immediate uncertainty around Bombardier's US market access.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0536f0f6b818"
-      ],
-      "primary_source_event_id": "EVT-0536f0f6b818",
-      "source_headlines": [
-        "Trump says Canada's Bombardier must build jets in US or lose market access"
-      ],
-      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-08T00:53:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T02:17:11Z",
-      "updated_at": "2026-09-08T02:17:11Z",
-      "decay_at": "2026-09-09T12:53:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e2b6f8b71b42",
-      "idea_version": "IDEAV-d74557514d1a8cfd",
-      "idea_version_started_at": "2026-09-08T01:42:54Z",
-      "ticker": "BBY",
-      "company": "Bombardier Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The U.S. government mandate requiring Bombardier to build jets in the United States creates new commercial demand, supporting revenue and margins.",
-      "why_now": "This regulatory directive was announced today (2026-09-08), providing an immediate tailwind for the company.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0536f0f6b818"
-      ],
-      "primary_source_event_id": "EVT-0536f0f6b818",
-      "source_headlines": [
-        "Trump says Canada's Bombardier must build jets in US or lose market access"
-      ],
-      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-08T00:53:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T01:42:54Z",
-      "updated_at": "2026-09-08T01:42:54Z",
-      "decay_at": "2026-09-09T12:53:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-74aa08d7979a",
       "idea_version": "IDEAV-e5ea164234857d69",
       "idea_version_started_at": "2026-09-08T02:17:11Z",
@@ -111592,6 +111377,76 @@
       "surfaced_at": "2026-09-06T15:09:06Z",
       "updated_at": "2026-09-06T15:09:06Z",
       "decay_at": "2026-09-08T02:23:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a5f02f963a8e",
+      "idea_version": "IDEAV-f2d7373e8d8eb218",
+      "idea_version_started_at": "2026-09-08T02:01:33Z",
+      "ticker": "BDRBF",
+      "company": "Bombardier",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The threat of losing US market access for its jets creates a significant regulatory risk to the company's primary revenue stream.",
+      "why_now": "The statement was made on 2026-09-08, creating immediate political and regulatory uncertainty.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0536f0f6b818"
+      ],
+      "primary_source_event_id": "EVT-0536f0f6b818",
+      "source_headlines": [
+        "Trump says Canada's Bombardier must build jets in US or lose market access"
+      ],
+      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-08T00:53:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T02:01:33Z",
+      "updated_at": "2026-09-08T02:01:33Z",
+      "decay_at": "2026-09-09T12:53:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115267,6 +115122,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-07281f29d7fc",
+      "idea_version": "IDEAV-97fd7ed17ba5e6f1",
+      "idea_version_started_at": "2026-09-08T02:17:11Z",
+      "ticker": "BBD",
+      "company": "Bombardier Inc.",
+      "exchange": "TSX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Former President Trump's threat to block market access for Bombardier unless it builds jets in the US could significantly harm its sales and operations.",
+      "why_now": "The threat was made by former President Trump on September 8, 2026, creating immediate uncertainty around Bombardier's US market access.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0536f0f6b818"
+      ],
+      "primary_source_event_id": "EVT-0536f0f6b818",
+      "source_headlines": [
+        "Trump says Canada's Bombardier must build jets in US or lose market access"
+      ],
+      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-08T00:53:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T02:17:11Z",
+      "updated_at": "2026-09-08T02:17:11Z",
+      "decay_at": "2026-09-09T12:53:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e2b6f8b71b42",
+      "idea_version": "IDEAV-d74557514d1a8cfd",
+      "idea_version_started_at": "2026-09-08T01:42:54Z",
+      "ticker": "BBY",
+      "company": "Bombardier Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The U.S. government mandate requiring Bombardier to build jets in the United States creates new commercial demand, supporting revenue and margins.",
+      "why_now": "This regulatory directive was announced today (2026-09-08), providing an immediate tailwind for the company.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0536f0f6b818"
+      ],
+      "primary_source_event_id": "EVT-0536f0f6b818",
+      "source_headlines": [
+        "Trump says Canada's Bombardier must build jets in US or lose market access"
+      ],
+      "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-08T00:53:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T01:42:54Z",
+      "updated_at": "2026-09-08T01:42:54Z",
+      "decay_at": "2026-09-09T12:53:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-98f5ab3a4fab",
       "idea_version": "IDEAV-babf068505b2027b",
       "idea_version_started_at": "2026-09-07T01:06:48Z",
@@ -116134,19 +116133,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 564,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 64,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 307,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 57
+        "hidden_count": 58
       },
       "short": {
-        "total_count": 257,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -116165,6 +116164,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a5f02f963a8e",
+        "idea_version": "IDEAV-f2d7373e8d8eb218",
+        "idea_version_started_at": "2026-09-08T02:01:33Z",
+        "ticker": "BDRBF",
+        "company": "Bombardier",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The threat of losing US market access for its jets creates a significant regulatory risk to the company's primary revenue stream.",
+        "why_now": "The statement was made on 2026-09-08, creating immediate political and regulatory uncertainty.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0536f0f6b818"
+        ],
+        "primary_source_event_id": "EVT-0536f0f6b818",
+        "source_headlines": [
+          "Trump says Canada's Bombardier must build jets in US or lose market access"
+        ],
+        "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-08T00:53:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T02:01:33Z",
+        "updated_at": "2026-09-08T02:01:33Z",
+        "decay_at": "2026-09-09T12:53:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T12:53:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-07281f29d7fc",
+        "idea_version": "IDEAV-97fd7ed17ba5e6f1",
+        "idea_version_started_at": "2026-09-08T02:17:11Z",
+        "ticker": "BBD",
+        "company": "Bombardier Inc.",
+        "exchange": "TSX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Former President Trump's threat to block market access for Bombardier unless it builds jets in the US could significantly harm its sales and operations.",
+        "why_now": "The threat was made by former President Trump on September 8, 2026, creating immediate uncertainty around Bombardier's US market access.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0536f0f6b818"
+        ],
+        "primary_source_event_id": "EVT-0536f0f6b818",
+        "source_headlines": [
+          "Trump says Canada's Bombardier must build jets in US or lose market access"
+        ],
+        "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-08T00:53:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T02:17:11Z",
+        "updated_at": "2026-09-08T02:17:11Z",
+        "decay_at": "2026-09-09T12:53:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T12:53:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e2b6f8b71b42",
+        "idea_version": "IDEAV-d74557514d1a8cfd",
+        "idea_version_started_at": "2026-09-08T01:42:54Z",
+        "ticker": "BBY",
+        "company": "Bombardier Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The U.S. government mandate requiring Bombardier to build jets in the United States creates new commercial demand, supporting revenue and margins.",
+        "why_now": "This regulatory directive was announced today (2026-09-08), providing an immediate tailwind for the company.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0536f0f6b818"
+        ],
+        "primary_source_event_id": "EVT-0536f0f6b818",
+        "source_headlines": [
+          "Trump says Canada's Bombardier must build jets in US or lose market access"
+        ],
+        "source_headline": "Trump says Canada's Bombardier must build jets in US or lose market access",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/trump-says-canadas-bombardier-cannot-sell-us-unless-it-builds-there-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-08T00:53:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T01:42:54Z",
+        "updated_at": "2026-09-08T01:42:54Z",
+        "decay_at": "2026-09-09T12:53:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T12:53:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-53205b605f3a",
         "idea_version": "IDEAV-ce3df47642c52ad5",
@@ -146723,78 +146945,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e2e8adffa9c4",
-        "idea_version": "IDEAV-f88b600677b122ca",
-        "idea_version_started_at": "2026-08-26T23:18:30Z",
-        "ticker": "PRU",
-        "company": "Prudential plc",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Prudential plc is selling a stake in ICICI Prudential Asset Management to meet public float requirements, which could unlock value and improve capital efficiency.",
-        "why_now": "The announcement of the stake sale was made on August 26, 2026, indicating an active corporate action.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b3f2732415d4"
-        ],
-        "primary_source_event_id": "EVT-b3f2732415d4",
-        "source_headlines": [
-          "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements"
-        ],
-        "source_headline": "PRU (02378): Prudential plc announces sale of up to a 2.0 per cent stake in ICICI Prudential Asset Management to support India public float requirements",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0826/2026082600823.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-26T10:09:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T23:18:30Z",
-        "updated_at": "2026-08-26T23:18:30Z",
-        "decay_at": "2026-08-27T22:09:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T10:43:36Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1e44ade2951b",
         "idea_version": "IDEAV-1bcdcec0f4e1ceee",
         "idea_version_started_at": "2026-08-26T10:48:25Z",
@@ -153176,160 +153326,12 @@
         "archived_at": "2026-08-22T09:59:55Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5ba85ca48117",
-        "idea_version": "IDEAV-2433b03bb5317e63",
-        "idea_version_started_at": "2026-08-20T06:23:48Z",
-        "ticker": "01971",
-        "company": "Rsun Services Group Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning suggests a negative shift in profitability, which is a primary driver for equity valuation in the property services sector.",
-        "why_now": "The profit warning was filed on 2026-08-19.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6a7de0d8b54f"
-        ],
-        "primary_source_event_id": "EVT-6a7de0d8b54f",
-        "source_headlines": [
-          "RSUN SER (01971): PROFIT WARNING"
-        ],
-        "source_headline": "RSUN SER (01971): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900698.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T09:27:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T06:23:48Z",
-        "updated_at": "2026-08-20T06:23:48Z",
-        "decay_at": "2026-08-20T21:27:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T09:44:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aad352e81aca",
-        "idea_version": "IDEAV-882fefc51376a0e7",
-        "idea_version_started_at": "2026-08-20T06:40:08Z",
-        "ticker": "00082",
-        "company": "CRAZY SPORTS",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning indicates a negative shift in guidance, suggesting the company is failing to meet its growth targets.",
-        "why_now": "The filing was released on 2026-08-19.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-afaf304d778c"
-        ],
-        "primary_source_event_id": "EVT-afaf304d778c",
-        "source_headlines": [
-          "CRAZY SPORTS (00082): PROFIT WARNING"
-        ],
-        "source_headline": "CRAZY SPORTS (00082): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900576.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T09:19:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T06:40:08Z",
-        "updated_at": "2026-08-20T06:40:08Z",
-        "decay_at": "2026-08-20T21:19:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T09:26:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 631,
-    "live_count": 53,
+    "live_count": 50,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153348,9 +153350,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4945442,
-    "news_picked_today": 583,
-    "news_dropped_today": 10985
+    "news_seen_today": 5024598,
+    "news_picked_today": 608,
+    "news_dropped_today": 11056
   },
   "book_momentum": {
     "live_count": 8,
