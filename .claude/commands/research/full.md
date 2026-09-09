@@ -648,8 +648,14 @@ _bss_txt = _read_orb("balance-sheet-survival", "99_*-synthesis.md")
 _bss_verdict = rc.extract_synthesis_verdict(_bss_txt)
 _mg_verdict = rc.extract_synthesis_verdict(_mg_txt)
 _bm_verdict = rc.extract_synthesis_verdict(_bm_txt)
+# The BM verdict CATEGORY text alone ("Low-quality business") is not proof the §13 disqualifier-scan
+# lock fired — the BM template lists that category as one of five ordinary picks an analyst may
+# choose on business-quality grounds, paired with its own explicit `Disqualifier triggered: Y/N`
+# field. Read that field from the same already-fetched _bm_txt and pass it alongside the verdict;
+# eval_ab_bm_verdict_lock stands down only on a confirmed N (see rating_caps.py docstring).
+_bm_disq = rc.extract_bm_disqualifier_triggered(_bm_txt)
 viol.extend(rc.eval_aa_module_verdict_lock(dec, _live_date, _bss_verdict, _mg_verdict, _tt24) or [])
-viol.extend(rc.eval_ab_bm_verdict_lock(dec, _live_date, _bm_verdict) or [])
+viol.extend(rc.eval_ab_bm_verdict_lock(dec, _live_date, _bm_verdict, _bm_disq) or [])
 # check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
 # BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when

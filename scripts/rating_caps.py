@@ -148,13 +148,21 @@ def extract_synthesis_verdict(text):
     (`:`, `*`, spaces/tabs — NOT newlines, so a bare label with the value on the next line still
     reads as absent), then capture the rest of the line. Surrounding markdown / trailing `**` is
     left in place — callers substring-match the §18 category, so a trailing `**` is harmless.
+    `re.search` returns the FIRST match in the document, so the label must not fire on an unrelated
+    bolded phrase that merely starts with "Verdict" — e.g. a prose heading like `**Verdict-level
+    tension (the real one)**` (verbatim from a committed BSS dossier) sitting earlier in the file
+    than the real verdict line, which would otherwise hijack the match and mask or fabricate the
+    §18/§13 category. A negative lookahead rejects "Verdict" immediately followed by a word
+    character or hyphen, so only the bare label (followed by `:`, `*`, whitespace, or end of bold)
+    is treated as the verdict line.
     Module-level + pure so the selftest drives the ACTUAL regex over real rendered lines (a
     helper-only test can't catch a regex bug)."""
     if not isinstance(text, str):
         return None
     # First captured char must be a real value char (not another separator), so a bare
     # `**Verdict:**` with the value on the NEXT line reads as absent rather than grabbing a stray `*`.
-    m = re.search(r'\*\*Verdict[:*\t ]*([^\n:*\t ][^\n]*)', text)
+    # `(?![\w-])` rejects "Verdict" as a prefix of a longer word/phrase (e.g. "Verdict-level").
+    m = re.search(r'\*\*Verdict(?![\w-])[:*\t ]*([^\n:*\t ][^\n]*)', text)
     return m.group(1).strip() if m else None
 
 
@@ -173,18 +181,47 @@ AB_DATE = "2026-06-24"
 BM_CAP_VERDICT = "Low-quality business"
 
 
-def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
+def extract_bm_disqualifier_triggered(text):
+    """Pull the explicit Y/N disqualifier-scan trigger flag from a BM 99_*-synthesis.md body.
+    Returns True (Y), False (N), or None (field absent / unparseable).
+    The verdict CATEGORY string alone is not proof the §13 disqualifier-scan actually fired: the BM
+    template's own Verdict block lists "Low-quality business — avoid deeper work" as one of five
+    ordinary picks an analyst may select on business-quality grounds alone, paired with its own
+    explicit `Disqualifier triggered: Y / N (if Y, name it/them)` field — the field, not the category
+    text, is the authoritative record of whether `01_disqualifier-scan.md` locked the verdict.
+    Recognises `- Disqualifier triggered: Y`, `- **Disqualifier triggered:** N`, and a bolded value
+    (`: **Y**`); tolerant of the `:`/`*`/whitespace separators the template's renderings use.
+    Module-level + pure so the selftest drives the ACTUAL regex over real rendered lines."""
+    if not isinstance(text, str):
+        return None
+    m = re.search(r'Disqualifier triggered[:*\s]*([YN])\b', text)
+    if not m:
+        return None
+    return m.group(1) == "Y"
+
+
+def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict, bm_disqualifier_triggered):
     """Core of check AB. Returns list of violations (empty=pass) or None (N/A).
     bm_verdict: extracted Business-model Verdict string from BM 99_*-synthesis.md, or None (absent).
+    bm_disqualifier_triggered: extracted explicit Y/N disqualifier-scan flag
+      (extract_bm_disqualifier_triggered) — True, False, or None (unparseable/absent). The verdict
+      CATEGORY text matching BM_CAP_VERDICT does not by itself prove the §13 disqualifier-scan lock
+      fired (see extract_bm_disqualifier_triggered docstring); AB only stands DOWN when the flag is
+      confirmed False (an analyst legitimately picked "Low-quality business" on business-quality
+      grounds with no disqualifier). An unparseable/absent flag (None) is treated conservatively as
+      NOT disproven — CLAUDE.md §4's conservative-default rule — so a stale run whose synthesis omits
+      the field still gets capped rather than silently waved through.
     Side-effect-free + module-level so `eval.py selftest` exercises it without run fixtures."""
     if not (isdate(decision_date) and decision_date >= AB_DATE):
         return None  # forward-looking; pre-gate runs are N/A
     if bm_verdict is None:
         return None  # BM module did not run; cap cannot fire — N/A
     violations = []
-    if BM_CAP_VERDICT in bm_verdict:
-        # Disqualifier-scan verdict-lock fired: BM synthesis says "Low-quality business".
-        # CLAUDE.md §13 caps conviction — no thesis-type exception (contrast BSS cap §18).
+    if BM_CAP_VERDICT in bm_verdict and bm_disqualifier_triggered is not False:
+        # Disqualifier-scan verdict-lock fired (or the explicit flag is missing/unparseable, treated
+        # conservatively as not disproven): BM synthesis says "Low-quality business" AND the
+        # disqualifier field does not read confirmed N. CLAUDE.md §13 caps conviction — no
+        # thesis-type exception (contrast BSS cap §18).
         # NOTE: unlike AA, AB deliberately uses the full HIGH_CONVICTION_DECISIONS (it INCLUDES
         # "Short Candidate"). AA exempts a forensic short because "Watchlist or lower" is directional;
         # AB does not, because a §13 disqualifier means the analysis base itself is unreliable — you
@@ -192,11 +229,11 @@ def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
         # different set: this asymmetry between AA and AB is intentional.
         if decision in HIGH_CONVICTION_DECISIONS:
             violations.append(
-                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier-scan verdict-lock) "
-                f"but decision={decision!r} is a conviction rating — a disqualified business must "
-                f"not receive a conviction rating; CLAUDE.md §13 caps at Watchlist or lower "
-                f"regardless of thesis type (disqualifier-scan: 'Low-quality business — avoid "
-                f"deeper work')"
+                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier flag="
+                f"{bm_disqualifier_triggered!r}, not confirmed N) but decision={decision!r} is a "
+                f"conviction rating — a disqualified business must not receive a conviction rating; "
+                f"CLAUDE.md §13 caps at Watchlist or lower regardless of thesis type "
+                f"(disqualifier-scan: 'Low-quality business — avoid deeper work')"
             )
     return violations
 

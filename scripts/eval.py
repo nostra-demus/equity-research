@@ -550,7 +550,7 @@ def eval_forecast_entry_completeness(entry):
 # rating_caps.py is the single source of the detection logic, imported by both callers.
 from rating_caps import (
     AA_DATE, BSS_CAP_VERDICT, MG_CAP_VERDICT, eval_aa_module_verdict_lock, extract_synthesis_verdict,
-    AB_DATE, BM_CAP_VERDICT, eval_ab_bm_verdict_lock,
+    AB_DATE, BM_CAP_VERDICT, eval_ab_bm_verdict_lock, extract_bm_disqualifier_triggered,
     AC_DATE, TURNAROUND_TYPE, ABOVE_STARTER_AC, eval_ac_turnaround_cap,
     AD_DATE, CAP4_TAG, CAP6_TAG, eval_ad_filter_4_6_cap,
     _tag_fired_standalone,
@@ -1630,6 +1630,14 @@ if scope=="selftest":
         ("- **Verdict:**\n- Net leverage 5x", None),  # bare label, value on the NEXT line → absent (not a stray '*')
         ("no verdict here at all", None),
         (None, None),  # non-string input → None, no crash
+        # boundary fix (P2 review, PR#688): a bolded phrase that merely STARTS with "Verdict" must
+        # not hijack the match — verbatim from a committed BSS dossier's Reconciliation table, which
+        # sits BEFORE the real verdict line would in a hypothetical reordered document; re.search
+        # finds the FIRST match, so an unguarded label here would mask or fabricate the §18 category.
+        ("**Verdict-level tension (the real one)** | `02`, `03` and `06` all reach the bridge tenor", None),
+        # the real verdict line still extracts correctly when a "Verdict-..." false lead precedes it
+        ("**Verdict-level tension (the real one)** | some finding\n\n- **Verdict:** Distress risk",
+         "Distress risk"),
     ]
     evbad=0
     for txt_,exp in evcases:
@@ -1641,40 +1649,73 @@ if scope=="selftest":
     # check AB — BM disqualifier verdict-lock. Every committed fixture predates AB_DATE → N/A in
     # the main loop; drive all branches here: disqualifier BM verdict + conviction → fail;
     # non-conviction → pass; absent BM module (None) → N/A; pre-gate → N/A; clean verdict → pass.
+    # bm_disq drives the P2-review fix: the verdict CATEGORY text alone ("Low-quality business") is
+    # NOT proof the §13 disqualifier-scan lock fired — the BM template lists that category as one of
+    # five ordinary picks an analyst may choose on business-quality grounds, paired with its own
+    # `Disqualifier triggered: Y/N` field. AB fires unless that field reads confirmed False (N);
+    # True or None (unparseable/absent — conservative default per CLAUDE.md §4) still cap.
     AB=eval_ab_bm_verdict_lock
-    abcases=[  # (decision, decision_date, bm_verdict, expect: "na"|"pass"|"fail")
+    abcases=[  # (decision, decision_date, bm_verdict, bm_disq, expect: "na"|"pass"|"fail")
         # pre-gate: always N/A regardless of verdict
-        ("Strong Buy","2026-06-23","Low-quality business — avoid deeper work","na"),
-        ("Strong Buy","not-a-date","Low-quality business","na"),
+        ("Strong Buy","2026-06-23","Low-quality business — avoid deeper work",True,"na"),
+        ("Strong Buy","not-a-date","Low-quality business",True,"na"),
         # BM module absent (did not run in this analysis): N/A — cap cannot fire
-        ("Strong Buy","2026-06-24",None,"na"),
-        ("Watchlist","2026-06-24",None,"na"),
-        # "Low-quality business" + conviction decision → fail (no exception for any thesis type)
-        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Starter Position Only","2026-06-24","Low-quality business — avoid deeper work","fail"),
-        ("Short Candidate","2026-06-24","Low-quality business — avoid deeper work","fail"),  # no exception
+        ("Strong Buy","2026-06-24",None,None,"na"),
+        ("Watchlist","2026-06-24",None,None,"na"),
+        # "Low-quality business" + disqualifier confirmed Y + conviction decision → fail (no exception)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Buy","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Starter Position Only","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),
+        ("Short Candidate","2026-06-24","Low-quality business — avoid deeper work",True,"fail"),  # no exception
         # substring match inside a longer or markdown-decorated verdict string
-        ("Buy","2026-06-24","**Low-quality business** — avoid deeper work","fail"),
-        ("Strong Buy","2026-06-24","Verdict: Low-quality business. Disqualifier: promoter pledge.","fail"),
-        # "Low-quality business" + non-conviction decision → pass
-        ("Watchlist","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Avoid","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Insufficient Data — Refuse To Rate","2026-06-24","Low-quality business — avoid deeper work","pass"),
-        ("Pair Trade / Hedge Required","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        ("Buy","2026-06-24","**Low-quality business** — avoid deeper work",True,"fail"),
+        ("Strong Buy","2026-06-24","Verdict: Low-quality business. Disqualifier: promoter pledge.",True,"fail"),
+        # disqualifier field UNPARSEABLE/ABSENT (None) — conservative default still caps (P2 fix:
+        # the old code capped on the verdict text alone; the new code must still cap here, since the
+        # field being missing is not proof of "no disqualifier" — only a confirmed N disproves it)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",None,"fail"),
+        # disqualifier field CONFIRMED N — analyst picked "Low-quality business" on ordinary
+        # business-quality grounds, no disqualifier-scan lock fired → AB must NOT cap (P2 fix: this
+        # is the exact false-positive the review flagged against the old text-only substring check)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work",False,"pass"),
+        ("Buy","2026-06-24","Low-quality business — avoid deeper work",False,"pass"),
+        # "Low-quality business" + non-conviction decision → pass regardless of the disqualifier flag
+        ("Watchlist","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Avoid","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Insufficient Data — Refuse To Rate","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
+        ("Pair Trade / Hedge Required","2026-06-24","Low-quality business — avoid deeper work",True,"pass"),
         # clean BM verdict + conviction → pass (no "Low-quality business" substring)
-        ("Strong Buy","2026-06-24","High-quality franchise — proceed","pass"),
-        ("Buy","2026-06-24","Cyclical business — worth deeper work only with timing edge","pass"),
-        ("Strong Buy","2026-06-24","","pass"),  # empty verdict → no substring match → pass
+        ("Strong Buy","2026-06-24","High-quality franchise — proceed",False,"pass"),
+        ("Buy","2026-06-24","Cyclical business — worth deeper work only with timing edge",False,"pass"),
+        ("Strong Buy","2026-06-24","",None,"pass"),  # empty verdict → no substring match → pass
     ]
     abbad=0
-    for dec_,dt_,bm_,exp in abcases:
-        raw=AB(dec_,dt_,bm_)
+    for dec_,dt_,bm_,disq_,exp in abcases:
+        raw=AB(dec_,dt_,bm_,disq_)
         got="na" if raw is None else ("pass" if not raw else "fail"); ok=(got==exp)
         if not ok: abbad+=1
         bm_r=(bm_[:40]+"…" if isinstance(bm_,str) and len(bm_)>40 else bm_)
-        print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+        print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r},{disq_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=abbad
+    # check AB EXTRACTOR — drive the ACTUAL disqualifier-flag regex over real rendered lines (the
+    # abcases above pass pre-parsed booleans and so cannot catch a regex bug in
+    # extract_bm_disqualifier_triggered itself).
+    EBD=extract_bm_disqualifier_triggered
+    ebdcases=[  # (markdown, expected)
+        ("- Disqualifier triggered: Y", True),
+        ("- Disqualifier triggered: N", False),
+        ("- **Disqualifier triggered:** N", False),
+        ("- Disqualifier triggered: **Y** — #1, auditor going-concern note", True),
+        ("no disqualifier field here", None),
+        (None, None),  # non-string input → None, no crash
+    ]
+    ebdbad=0
+    for txt_,exp in ebdcases:
+        got=EBD(txt_)
+        ok=(got is exp)
+        if not ok: ebdbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] EBD({(txt_ or '')[:42]!r}) -> {got!r}"+("" if ok else f"  EXPECTED {exp!r}"))
+    bad+=ebdbad
     # check AC — §24 Filter 2 turnaround conviction cap. All golden fixtures predate AC_DATE
     # → always N/A in the main loop; drive every branch here.
     AC=eval_ac_turnaround_cap
@@ -4438,11 +4479,14 @@ for drp in runs:
     #   synthesizer's PROMPT — this check closes the gap by reading the committed module synthesis files
     #   and FAILing when a capping verdict coexists with a conviction decision that §18 forbids.
     if isdate(ddte) and ddte>=AA_DATE:
-        def _read_synthesis_verdict(mod_dir):
+        def _read_synthesis_text(mod_dir):
             ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
             if not ss: return None
-            try: txt=open(ss[0],encoding="utf-8").read()
+            try: return open(ss[0],encoding="utf-8").read()
             except: return None
+        def _read_synthesis_verdict(mod_dir):
+            txt=_read_synthesis_text(mod_dir)
+            if txt is None: return None
             return extract_synthesis_verdict(txt)
         bss_v=_read_synthesis_verdict("balance-sheet-survival")
         mg_v =_read_synthesis_verdict("management-governance")
@@ -4466,16 +4510,22 @@ for drp in runs:
     #   can bypass), this cap has no exception — a disqualified company cannot receive conviction
     #   in any direction; the analysis base is unreliable and deeper work must come first.
     #   Since AB_DATE > AA_DATE, any run where ddte >= AB_DATE has already entered the AA block
-    #   above, so _read_synthesis_verdict() is defined and accessible here.
+    #   above, so _read_synthesis_verdict()/_read_synthesis_text() are defined and accessible here.
+    #   The verdict CATEGORY text alone does not prove the disqualifier-scan lock actually fired —
+    #   see extract_bm_disqualifier_triggered — so the explicit Y/N field is read from the same file
+    #   and passed alongside the verdict text; AB stands down only on a confirmed N.
     if isdate(ddte) and ddte>=AB_DATE:
         bm_v=_read_synthesis_verdict("business-model")
-        abresult=eval_ab_bm_verdict_lock(dec,ddte,bm_v)
+        bm_txt=_read_synthesis_text("business-model")
+        bm_disq=extract_bm_disqualifier_triggered(bm_txt) if bm_txt is not None else None
+        abresult=eval_ab_bm_verdict_lock(dec,ddte,bm_v,bm_disq)
         if abresult is None:
             add("AB_bm_disqualifier_lock",True,
-                f"BM verdict={bm_v!r}; BM module absent — N/A",na=True)
+                f"BM verdict={bm_v!r}; disqualifier flag={bm_disq!r}; BM module absent — N/A",na=True)
         elif not abresult:
             add("AB_bm_disqualifier_lock",True,
-                f"BM verdict={bm_v!r}; decision={dec!r} — BM disqualifier cap satisfied")
+                f"BM verdict={bm_v!r}; disqualifier flag={bm_disq!r}; decision={dec!r} — "
+                f"BM disqualifier cap satisfied")
         else:
             add("AB_bm_disqualifier_lock",False,"; ".join(abresult))
     else:

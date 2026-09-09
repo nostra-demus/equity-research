@@ -29,6 +29,14 @@ functions that `eval.py selftest` already covers. It locks down THREE PR#688-rev
      AA violation is absent. (AB deliberately still caps a short — different rationale
      — but AB is not exercised by the short control.)
 
+  4. (finding: "check the disqualifier flag before applying the BM lock") The BM
+     verdict CATEGORY text ("Low-quality business") is not by itself proof the §13
+     disqualifier-scan lock fired — the BM template lists that category as one of five
+     ordinary picks an analyst may choose on business-quality grounds alone, paired
+     with its own explicit `Disqualifier triggered: Y/N` field. A fixture with the
+     matching verdict text AND a confirmed `Disqualifier triggered: N` line must NOT
+     be capped by AB live.
+
 Assertions check presence/absence of the AA/AB-SPECIFIC violation substrings in the
 GATE line, so unrelated checks firing on the fixture never give a false result.
 Expected behaviour is pinned to CLAUDE.md §18/§13 and synthesizer.md's governance
@@ -91,10 +99,13 @@ def extract_step_10b1_block(md_text):
     return "\n".join(lines[start:end])
 
 
-def write_fixture(root, decision, bss_verdict=None, mg_verdict=None, bm_verdict=None):
+def write_fixture(root, decision, bss_verdict=None, mg_verdict=None, bm_verdict=None,
+                   bm_disqualifier_line=None):
     """Write a pre-cutoff record plus optional module syntheses carrying a verdict line.
     Module verdict lines use the fully-bolded `- **Verdict: <cat>**` form on purpose, so the
-    test also exercises the broadened extract_synthesis_verdict regex in the live path."""
+    test also exercises the broadened extract_synthesis_verdict regex in the live path.
+    bm_disqualifier_line, if given, is appended to the BM synthesis as the template's own
+    `Disqualifier triggered: Y/N` field, exercising extract_bm_disqualifier_triggered live."""
     os.makedirs(root, exist_ok=True)
     rec = {
         "ticker": "TEST", "decision_date": PRE_CUTOFF_DATE, "decision": decision,
@@ -131,6 +142,8 @@ def write_fixture(root, decision, bss_verdict=None, mg_verdict=None, bm_verdict=
         with open(os.path.join(d, f"99_{mod}-synthesis.md"), "w", encoding="utf-8") as f:
             # fully-bolded rendering (colon AND value inside the bold span)
             f.write(f"## Verdict\n\n- **Verdict: {verdict}**\n")
+            if mod == "business-model" and bm_disqualifier_line is not None:
+                f.write(f"- Disqualifier triggered: {bm_disqualifier_line}\n")
 
 
 def run_block(block_path, run_root):
@@ -169,21 +182,35 @@ def main():
             print(f"  [XX] full.md Step 10B.1 {name} call does NOT gate on `_live_date` "
                   f"(a pre-landing-date rerun would bypass the §18/§13 verdict-lock cap)")
 
-    # (decision, bss, mg, bm, substrings that MUST be in GATE line, substrings that must NOT be)
+    # (decision, bss, mg, bm, bm_disqualifier_line, substrings that MUST be in GATE line,
+    #  substrings that must NOT be)
     cases = [
         # conviction long + each cap verdict (fully-bolded) on a PRE-cutoff folder → the cap must
-        # fire live (proves both _live_date gating AND the fully-bolded-verdict regex).
-        ("Buy, BSS distress", "Buy", "Distress risk", None, None, [AA_BSS_MSG], []),
-        ("Buy, MG concerns (bolded)", "Buy", None, "Serious governance concerns", None, [AA_MG_MSG], []),
+        # fire live (proves both _live_date gating AND the fully-bolded-verdict regex). No BM
+        # disqualifier line given here (None → extract_bm_disqualifier_triggered returns None,
+        # conservative default → the cap still fires, per (4) below).
+        ("Buy, BSS distress", "Buy", "Distress risk", None, None, None, [AA_BSS_MSG], []),
+        ("Buy, MG concerns (bolded)", "Buy", None, "Serious governance concerns", None, None,
+         [AA_MG_MSG], []),
         ("Strong Buy, BM low-quality (bolded)", "Strong Buy", None, None,
-         "Low-quality business — avoid deeper work", [AB_BM_MSG], []),
+         "Low-quality business — avoid deeper work", None, [AB_BM_MSG], []),
         # forensic short on the same evidence → AA must NOT fire (synthesizer.md governance lock).
         ("Short, MG concerns → exempt", "Short Candidate", None, "Serious governance concerns", None,
-         [], [AA_MG_MSG]),
-        ("Short, BSS distress → exempt", "Short Candidate", "Distress risk", None, None, [], [AA_BSS_MSG]),
+         None, [], [AA_MG_MSG]),
+        ("Short, BSS distress → exempt", "Short Candidate", "Distress risk", None, None, None,
+         [], [AA_BSS_MSG]),
         # non-conviction decision → neither cap fires.
         ("Watchlist, all cap verdicts", "Watchlist", "Distress risk", "Serious governance concerns",
-         "Low-quality business", [], [AA_BSS_MSG, AA_MG_MSG, AB_BM_MSG]),
+         "Low-quality business", None, [], [AA_BSS_MSG, AA_MG_MSG, AB_BM_MSG]),
+        # (4) BM verdict text matches BUT the disqualifier-scan field is a confirmed N — an analyst
+        # legitimately picked "Low-quality business" on ordinary business-quality grounds, no
+        # disqualifier fired. AB must NOT cap (the exact false-positive the P2 review flagged
+        # against the old text-only substring check).
+        ("Strong Buy, BM low-quality but disqualifier=N → exempt", "Strong Buy", None, None,
+         "Low-quality business — avoid deeper work", "N", [], [AB_BM_MSG]),
+        # same verdict text with the disqualifier field explicitly Y → still caps (control).
+        ("Strong Buy, BM low-quality, disqualifier=Y", "Strong Buy", None, None,
+         "Low-quality business — avoid deeper work", "Y", [AB_BM_MSG], []),
     ]
 
     tmp = tempfile.mkdtemp(prefix="aa_ab_live_gate_")
@@ -191,9 +218,9 @@ def main():
         block_path = os.path.join(tmp, "step10b1.py")
         with open(block_path, "w", encoding="utf-8") as f:
             f.write(block)
-        for index, (name, decision, bss, mg, bm, must, mustnot) in enumerate(cases):
+        for index, (name, decision, bss, mg, bm, bm_disq_line, must, mustnot) in enumerate(cases):
             run_root = os.path.join(tmp, f"case{index}", f"TEST_{PRE_CUTOFF_DATE}")
-            write_fixture(run_root, decision, bss, mg, bm)
+            write_fixture(run_root, decision, bss, mg, bm, bm_disq_line)
             gl = gate_line(run_block(block_path, run_root))
             ok = bool(gl) and all(m in gl for m in must) and all(m not in gl for m in mustnot)
             if ok:
