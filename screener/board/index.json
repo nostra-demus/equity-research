@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T16:21:48Z",
+  "generated_at": "2026-09-09T16:22:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -107480,6 +107480,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-488ad3e42649",
+      "idea_version": "IDEAV-f6e5f16dab3afcde",
+      "idea_version_started_at": "2026-09-09T16:22:05Z",
+      "ticker": "PVRINOX",
+      "company": "PVR INOX Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has initiated a buyback program, which will reduce the share count and provide price support for the stock.",
+      "why_now": "The settlement schedule for the buyback was announced on September 9, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-674bb1413181"
+      ],
+      "primary_source_event_id": "EVT-674bb1413181",
+      "source_headlines": [
+        "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED"
+      ],
+      "source_headline": "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED",
+      "source_url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260909-19/20260909-19.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T11:54:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T16:22:05Z",
+      "updated_at": "2026-09-09T16:22:05Z",
+      "decay_at": "2026-09-10T23:54:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e32181ac5b3e",
       "idea_version": "IDEAV-877af4f46ed7ef70",
       "idea_version_started_at": "2026-09-09T15:47:10Z",
@@ -153473,8 +153545,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 637,
-    "live_count": 41,
+    "surfaced_total": 638,
+    "live_count": 42,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
