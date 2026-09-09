@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T17:41:52Z",
+  "generated_at": "2026-09-09T18:23:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -641,6 +641,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-410",
+      "headline": "Porsche Raises €1 Billion With Completion of Bugatti Stake Sale",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-09/porsche-raises-1-billion-with-completion-of-bugatti-stake-sale",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T17:17:02Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Porsche raised €1 billion through the sale of its stake in Bugatti, a significant capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Porsche raised €1 billion through the sale of its stake in Bugatti, a significant capital event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-408",
+      "headline": "DOJ issues second request in Fox-Roku $22 billion merger review",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/media-advertising/articles/doj-issues-second-request-fox-170856609.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T17:08:56Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "The DOJ issued a second request for a $22 billion merger, indicating a significant regulatory hurdle for the deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The DOJ issued a second request for a $22 billion merger, indicating a significant regulatory hurdle for the deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fox",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Roku",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,104 +2002,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-194",
-      "headline": "Victrex lifts profit guidance on aerospace and electronics demand",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/victrex-lifts-profit-guidance-on-aerospace-and-electronics-demand/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T06:35:03Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Victrex lifts profit guidance citing strong aerospace and electronics demand, a confirmed positive guidance revision from a named listed company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Victrex lifts profit guidance citing strong aerospace and electronics demand, a confirmed positive guidance revision from a named listed company.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Victrex",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-164",
-      "headline": "Coforge share price cracks 9% after Chairman OP Bhatt resigns following audit | Other IT stocks also in red",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/coforge-share-price-cracks-9-after-chairman-op-bhatt-resigns-following-audit-other-it-stocks-also-in-red-11788930116417.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T05:13:30Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Chairman OP Bhatt resigned following an audit, causing a 9% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Chairman OP Bhatt resigned following an audit, causing a 9% share price decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109771,78 +109777,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d45c5c6a293c",
-      "idea_version": "IDEAV-4c3423f52b003f7e",
-      "idea_version_started_at": "2026-09-08T08:32:35Z",
-      "ticker": "IDEA",
-      "company": "Vodafone Idea",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces significant financial pressure and potential dilution, with analysts projecting a 46% downside due to persistent debt and competitive headwinds.",
-      "why_now": "HSBC issued a fresh warning on September 8, 2026, highlighting the overhang on the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e8e352ebf5d1"
-      ],
-      "primary_source_event_id": "EVT-e8e352ebf5d1",
-      "source_headlines": [
-        "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside"
-      ],
-      "source_headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
-      "source_url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-08T05:44:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T08:32:35Z",
-      "updated_at": "2026-09-08T08:32:35Z",
-      "decay_at": "2026-09-09T17:44:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2cc481c57534",
       "idea_version": "IDEAV-31ac134097738c56",
       "idea_version_started_at": "2026-09-09T02:15:22Z",
@@ -114836,6 +114770,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d45c5c6a293c",
+      "idea_version": "IDEAV-4c3423f52b003f7e",
+      "idea_version_started_at": "2026-09-08T08:32:35Z",
+      "ticker": "IDEA",
+      "company": "Vodafone Idea",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces significant financial pressure and potential dilution, with analysts projecting a 46% downside due to persistent debt and competitive headwinds.",
+      "why_now": "HSBC issued a fresh warning on September 8, 2026, highlighting the overhang on the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e8e352ebf5d1"
+      ],
+      "primary_source_event_id": "EVT-e8e352ebf5d1",
+      "source_headlines": [
+        "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside"
+      ],
+      "source_headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
+      "source_url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-08T05:44:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T08:32:35Z",
+      "updated_at": "2026-09-08T08:32:35Z",
+      "decay_at": "2026-09-09T17:44:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5e3b0ec8d5d9",
       "idea_version": "IDEAV-7c943781b4f123b1",
       "idea_version_started_at": "2026-09-07T00:07:53Z",
@@ -116777,9 +116783,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 581,
+    "total_count": 582,
     "shown_count": 500,
-    "hidden_count": 81,
+    "hidden_count": 82,
     "side_counts": {
       "long": {
         "total_count": 319,
@@ -116787,9 +116793,9 @@
         "hidden_count": 69
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -116808,6 +116814,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d45c5c6a293c",
+        "idea_version": "IDEAV-4c3423f52b003f7e",
+        "idea_version_started_at": "2026-09-08T08:32:35Z",
+        "ticker": "IDEA",
+        "company": "Vodafone Idea",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces significant financial pressure and potential dilution, with analysts projecting a 46% downside due to persistent debt and competitive headwinds.",
+        "why_now": "HSBC issued a fresh warning on September 8, 2026, highlighting the overhang on the stock.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e8e352ebf5d1"
+        ],
+        "primary_source_event_id": "EVT-e8e352ebf5d1",
+        "source_headlines": [
+          "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside"
+        ],
+        "source_headline": "This is likely to remain a key overhang on the Vodafone Idea stock, HSBC warns of 46% downside",
+        "source_url": "https://www.cnbctv18.com/market/vodafone-idea-share-price-falls-hsbc-sees-downside-cites-spectrum-payment-overhang-19986350.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-08T05:44:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T08:32:35Z",
+        "updated_at": "2026-09-08T08:32:35Z",
+        "decay_at": "2026-09-09T17:44:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T17:44:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-78e2c3fff636",
         "idea_version": "IDEAV-82ac7f09e7f3a740",
@@ -153893,86 +153974,12 @@
         "archived_at": "2026-08-22T10:37:52Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-171fe9432ace",
-        "idea_version": "IDEAV-ac1f37b899dfb6e3",
-        "idea_version_started_at": "2026-08-20T06:23:48Z",
-        "ticker": "03933",
-        "company": "The United Laboratories International Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning signals deteriorating margins or revenue growth, necessitating a re-rating of the stock.",
-        "why_now": "The profit warning was filed on 2026-08-19.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4368940503e7"
-        ],
-        "primary_source_event_id": "EVT-4368940503e7",
-        "source_headlines": [
-          "UNITED LAB (03933): PROFIT WARNING"
-        ],
-        "source_headline": "UNITED LAB (03933): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901011.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T10:25:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T02:14:56Z",
-        "updated_at": "2026-08-20T06:23:48Z",
-        "decay_at": "2026-08-20T22:25:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T10:37:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 644,
-    "live_count": 47,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153991,9 +153998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6519834,
-    "news_picked_today": 907,
-    "news_dropped_today": 15533
+    "news_seen_today": 6705941,
+    "news_picked_today": 941,
+    "news_dropped_today": 16507
   },
   "book_momentum": {
     "live_count": 8,
