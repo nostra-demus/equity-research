@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T05:15:44Z",
+  "generated_at": "2026-09-09T05:21:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-163",
+      "headline": "IHC moves to acquire 80% of Marlan Space in major UAE satellite push",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/ihc-moves-to-acquire-80-of-marlan-space-in-major-uae-satellite-push-1.500668012",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T04:47:11Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "International Holding Company (IHC) is acquiring an 80% stake in Marlan Space, representing a significant capital deployment and strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "International Holding Company (IHC) is acquiring an 80% stake in Marlan Space, representing a significant capital deployment and strategic expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Holding Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-155",
-      "headline": "LIV Golf bankruptcy: What went wrong with Saudi Arabia’s $5bn breakaway league?",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/liv-golf-bankruptcy-what-went-wrong-with-saudi-arabias-5bn-breakaway-league",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T04:11:47Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Reports of bankruptcy for LIV Golf highlight significant financial distress for the venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Reports of bankruptcy for LIV Golf highlight significant financial distress for the venture.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIV Golf",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154412,9 +154412,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2091032,
-    "news_picked_today": 189,
-    "news_dropped_today": 2715
+    "news_seen_today": 2134140,
+    "news_picked_today": 191,
+    "news_dropped_today": 2761
   },
   "book_momentum": {
     "live_count": 8,
