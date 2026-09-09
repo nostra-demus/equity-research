@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-09T07:07:34.101Z
+- stopped_at_utc: 2026-09-09T08:12:47.821Z
 
 ## Modules completed
 
@@ -20,17 +20,19 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-s the identical denial, so it is a sandbox-policy limit, not an agent-scope one.
+{"status": "error", "error": "[Errno 1] Operation not permitted:
+ '/Users/admin/nostra-prod/analyses/NVT_2026-09-07/.idea-projection-manifest-rvpter3h.json'"}
+```
 
-This is an **environment failure, not a semantic audit failure** — the audit set itself is internally consistent and passed the prewrite gate. I did not work around it: no hand-written manifest, no fabricated admission, no `not_applicable` substitution, and I left both `.requires_idea_publication` and `.defer_module_memos` in place (only the freezer may remove the former). The pinned bytes are unchanged since 10B.3A. **Nothing was committed** — a per-module chain with no valid `idea_admission.json` is incomplete and I will not report it as done.
+Bash writes into this run root are permitted for exactly four files — `final_thesis.md`, `decision_record.json`, `memo.md`, `audit_dossier.md`. Any other path is denied (I tested both the workspace and resolved forms). `create_idea_projection_manifest.py` and `freeze_idea_admission.py` both need to create new files there and neither accepts an alternate output path. The audit reports only landed because sub-agents wrote them with the Write tool, which isn't under the Bash sandbox.
 
-**To unblock:** grant Bash write access to `analyses/NVT_2026-09-07/` (or at least new-file creation in it), then items 5–7 and the single commit can run to completion. I skipped 9B.6 (master memo + dossier) deliberately — doctrine requires those be generated *from the sealed final state*, so producing them now would freeze the preliminary Ideas state as final.
+The likely cause: the sandbox was provisioned for the *standalone* rerun path (Steps 8/8A/9/10, whose writes are exactly those four files), but `.defer_module_memos` is present in the run folder, which routes this into the per-module-chain path and its publication writes.
 
-### One finding worth your attention regardless
+Per 10B.4 I stopped there rather than work around it: a missing projection seal cannot honestly become `not_applicable`, and I did not hand-reproduce the freezer's atomic first-writer-wins semantics. So **Step 9B items 6–7 were not run** (no `memo.md`, no `audit_dossier.md`, no final `RUN_METADATA` refresh), **no commit was made**, and both markers are intact — `.defer_module_memos` and `.requires_idea_publication` still present, which is the server's correct proof that publication did not finish. No run artifact was mutated after the final audits pinned their digests.
 
-The thesis ships **PROVISIONAL/UNVERIFIED**. All three final audits independently converged on the same defect: the thesis asserts the backlog series "exists in no filing at any level, in any period," but the frozen pool contains a filed FY2024 10-K *Backlog of Orders by Segment* table ($749.3m vs $462.8m) — and the thesis's own "3.3x" is computed from it. The filed series also reads **+6.4%** from $2,349.9m (2025-12-31) to ~$2.5bn (2026-06-30), against the thesis's "the order book has already turned," and is never adjudicated by name (§3). `verification_report_v2` scores integrity 0/100 (floored, from 39), and `expectations_gap_v2` cuts `edge_score` 45 → 31 after stripping the `$77.41` Maverick leg, which `valuation/03` had explicitly labelled "**not** offered as a fair value."
+Intake receipt: `none` (3-token form). Commit SHA: none — nothing was published.
 
-The **Avoid direction survives all three audits** — every method lands below the price. What is not sound as written is the edge argument that gates conviction.
+**To finish this run,** the sandbox needs write access to `analyses/NVT_2026-09-07/` broadly (or at minimum `idea_projection_manifest.json`, `idea_admission.json`, and their atomic temp files). Re-invoke the same command afterwards: Steps 8–9B.4 are idempotent-safe to redo, though the audits are append-only and would produce `_v3` versions, so the cheaper path is to grant the access and have me resume from 10B.4.
 ```
 
 ## Resume
