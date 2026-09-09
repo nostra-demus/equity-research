@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-08T23:54:13Z",
+  "generated_at": "2026-09-09T00:08:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-001",
+      "headline": "6-K - ASTRAZENECA PLC (0000901832) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/901832/000165495426008172/0001654954-26-008172-index.htm",
+      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-08T13:04:44Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "AstraZeneca filed a 6-K, which is a routine regulatory disclosure for foreign private issuers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "AstraZeneca filed a 6-K, which is a routine regulatory disclosure for foreign private issuers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-002",
+      "headline": "6-K - YPF SOCIEDAD ANONIMA (0000904851) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/904851/000155485526001968/0001554855-26-001968-index.htm",
+      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-08T13:02:50Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "YPF filed a 6-K, which is a routine regulatory disclosure for foreign private issuers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "YPF filed a 6-K, which is a routine regulatory disclosure for foreign private issuers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YPF Sociedad Anonima",
+          "ticker": null,
+          "listing_country": "AR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260908-733",
       "headline": "WGX: FY27 Guidance and Three-Year Outlook [price-sensitive]",
@@ -927,6 +1025,55 @@
           "name": "AKA",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260908-763",
+      "headline": "LIV Golf Declares Bankruptcy—These Top Players Are Owed Millions",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/antoniopequenoiv/2026/09/08/liv-golf-declares-bankruptcy-these-top-players-are-owed-millions/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-08T23:08:45Z",
+      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
+      "prelim_note": "LIV Golf has filed for bankruptcy, creating significant credit risk for stakeholders and players.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf has filed for bankruptcy, creating significant credit risk for stakeholders and players.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1937,56 +2084,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260908-642",
-      "headline": "Boston Scientific cyberattack likely to have ‘material impact’ on financial results",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/medtech/boston-scientific-making-strong-progress-restoring-its-operations-post-cyberattack",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-08T15:49:34Z",
-      "sweep_file": "screener/inbox/2026-09-08_sweep.json",
-      "prelim_note": "Boston Scientific confirmed a cyberattack will have a material impact on financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boston Scientific confirmed a cyberattack will have a material impact on financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boston Scientific",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -108261,78 +108358,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e336b525ce4",
-      "idea_version": "IDEAV-b3cf65b0db5542d5",
-      "idea_version_started_at": "2026-09-07T17:16:42Z",
-      "ticker": "ADANIPOWER",
-      "company": "Adani Power",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 330 MW hydro power plant adds immediate generation capacity and aligns with the company's strategy to expand its energy portfolio.",
-      "why_now": "The Letter of Intent was received on 2026-09-07.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75ba08b3f643"
-      ],
-      "primary_source_event_id": "EVT-75ba08b3f643",
-      "source_headlines": [
-        "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant"
-      ],
-      "source_headline": "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant",
-      "source_url": "https://www.cnbctv18.com/business/companies/adani-power-receives-loi-to-acquire-gvk-energys-330-mw-hydro-power-plant-19985760.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T11:55:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T17:16:42Z",
-      "updated_at": "2026-09-07T17:16:42Z",
-      "decay_at": "2026-09-08T23:55:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -110455,6 +110480,78 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9e336b525ce4",
+      "idea_version": "IDEAV-b3cf65b0db5542d5",
+      "idea_version_started_at": "2026-09-07T17:16:42Z",
+      "ticker": "ADANIPOWER",
+      "company": "Adani Power",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 330 MW hydro power plant adds immediate generation capacity and aligns with the company's strategy to expand its energy portfolio.",
+      "why_now": "The Letter of Intent was received on 2026-09-07.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-75ba08b3f643"
+      ],
+      "primary_source_event_id": "EVT-75ba08b3f643",
+      "source_headlines": [
+        "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant"
+      ],
+      "source_headline": "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant",
+      "source_url": "https://www.cnbctv18.com/business/companies/adani-power-receives-loi-to-acquire-gvk-energys-330-mw-hydro-power-plant-19985760.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T11:55:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T17:16:42Z",
+      "updated_at": "2026-09-07T17:16:42Z",
+      "decay_at": "2026-09-08T23:55:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115441,14 +115538,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 553,
     "shown_count": 500,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
-        "total_count": 301,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 51
+        "hidden_count": 52
       },
       "short": {
         "total_count": 251,
@@ -115472,6 +115569,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9e336b525ce4",
+        "idea_version": "IDEAV-b3cf65b0db5542d5",
+        "idea_version_started_at": "2026-09-07T17:16:42Z",
+        "ticker": "ADANIPOWER",
+        "company": "Adani Power",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a 330 MW hydro power plant adds immediate generation capacity and aligns with the company's strategy to expand its energy portfolio.",
+        "why_now": "The Letter of Intent was received on 2026-09-07.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-75ba08b3f643"
+        ],
+        "primary_source_event_id": "EVT-75ba08b3f643",
+        "source_headlines": [
+          "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant"
+        ],
+        "source_headline": "Adani Power receives LoI to acquire GVK Energy's 330 MW hydro power plant",
+        "source_url": "https://www.cnbctv18.com/business/companies/adani-power-receives-loi-to-acquire-gvk-energys-330-mw-hydro-power-plant-19985760.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T11:55:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T17:16:42Z",
+        "updated_at": "2026-09-07T17:16:42Z",
+        "decay_at": "2026-09-08T23:55:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-08T23:55:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-944ea5e8ab2b",
         "idea_version": "IDEAV-528910e6e1b240f0",
@@ -146856,79 +147028,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bb6c79ef8ffe",
-        "idea_version": "IDEAV-b5b37f571dad8a76",
-        "idea_version_started_at": "2026-08-25T03:44:44Z",
-        "ticker": "BA",
-        "company": "Boeing",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a massive $131.2 billion ceiling value contract for the F-15 program, providing significant long-term revenue visibility and defense backlog support.",
-        "why_now": "The contract award was announced on August 25, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7d66ec36e8b3"
-        ],
-        "primary_source_event_id": "EVT-7d66ec36e8b3",
-        "source_headlines": [
-          "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program"
-        ],
-        "source_headline": "Boeing awarded contract with ceiling value of $131.2 billion for F-15 program",
-        "source_url": "https://www.reuters.com/business/aerospace-defense/boeing-awarded-contract-with-ceiling-value-1312-billion-f-15-program-2026-08-24/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-08-25T00:50:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-25T03:44:44Z",
-        "updated_at": "2026-08-25T03:44:44Z",
-        "decay_at": "2026-08-26T12:50:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-28T00:58:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-aaaaf1fc1368",
         "idea_version": "IDEAV-3c2e59d52bf37f43",
         "idea_version_started_at": "2026-08-24T19:00:25Z",
@@ -152638,7 +152737,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 622,
-    "live_count": 68,
+    "live_count": 67,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -152648,7 +152747,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2167,
+    "inbox_unconsumed": 2169,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -152657,9 +152756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5098298,
-    "news_picked_today": 1636,
-    "news_dropped_today": 11450
+    "news_seen_today": 68463,
+    "news_picked_today": 2,
+    "news_dropped_today": 118
   },
   "book_momentum": {
     "live_count": 8,
