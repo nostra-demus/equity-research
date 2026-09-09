@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T10:05:51Z",
+  "generated_at": "2026-09-09T10:25:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-199",
@@ -1537,6 +1537,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-220",
+      "headline": ": Notice of Listing on The Stock Exchange of Hong Kong Limited - U.S.$20,000,000,000 Medium Term Note Programme of the Airport Authority",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900695.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T09:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Airport Authority listed a $20,000,000,000 Medium Term Note Programme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Airport Authority listed a $20,000,000,000 Medium Term Note Programme.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airport Authority Hong Kong",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-190",
       "headline": "‎IHC to acquire 80% stake in space firm",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-091",
-      "headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:02:02Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "A former auditor has alleged suspicious accounting maneuvers at a Bidvest subsidiary, raising significant governance and financial integrity risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A former auditor has alleged suspicious accounting maneuvers at a Bidvest subsidiary, raising significant governance and financial integrity risks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bidvest",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154397,9 +154397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3615008,
-    "news_picked_today": 393,
-    "news_dropped_today": 9135
+    "news_seen_today": 3843836,
+    "news_picked_today": 402,
+    "news_dropped_today": 9294
   },
   "book_momentum": {
     "live_count": 8,
