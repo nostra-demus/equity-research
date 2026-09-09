@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T03:20:44Z",
+  "generated_at": "2026-09-09T03:26:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -842,6 +842,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-123",
+      "headline": "Adani Enterprises to sell up to 5.54% stake in airport unit to Temasek, BlackRock",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/adani-enterprises-to-sell-up-to-554-stake-in-airport-unit-to-temasek-blackrock/article71445493.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T03:15:07Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Adani Enterprises is selling a stake in its airport unit to significant investors, which could impact its capital structure and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Adani Enterprises is selling a stake in its airport unit to significant investors, which could impact its capital structure and valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Temasek",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BlackRock",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-102",
       "headline": "US suspends green-card filings by Cognizant amid visa-fraud probe: ‘Threats to American workers…’",
       "headline_en": null,
@@ -985,6 +1044,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-128",
+      "headline": "Part redemption of Debentures of INFINITY FINCORP SOLUTIONS PRIVATE LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260908-24/20260908-24.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-08T12:12:37Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Part redemption of debentures suggests potential financial distress or restructuring for INFINITY FINCORP SOLUTIONS PRIVATE LIMITED.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Part redemption of debentures suggests potential financial distress or restructuring for INFINITY FINCORP SOLUTIONS PRIVATE LIMITED.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "INFINITY FINCORP SOLUTIONS PRIVATE LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1383,6 +1491,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-129",
+      "headline": "Samsung opens Japan AI chip R&D hub for advanced packaging collaboration",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-opens-japan-ai-chip-r-d-hub-for-advanced-packaging-collaboration",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T03:23:14Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Samsung opening an AI chip R&D hub for collaboration signifies a significant investment in advanced technology and future growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Samsung opening an AI chip R&D hub for collaboration signifies a significant investment in advanced technology and future growth.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-009",
       "headline": "NUZ: NIH funds Expanded Access Program for NUZ-001 in ALS [price-sensitive]",
       "headline_en": null,
@@ -1427,6 +1584,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-113",
+      "headline": "Setback for Indian professionals? US suspends Cognizant green card filings in H-1B visa fraud probe",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/nri/visa/story/setback-for-indian-professionals-us-suspends-cognizant-green-card-filings-in-h-1b-visa-fraud-probe-554124-2026-09-09?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:50:04Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Suspension of green card filings for Cognizant in a visa fraud probe creates significant operational and recruitment risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Suspension of green card filings for Cognizant in a visa fraud probe creates significant operational and recruitment risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1727,21 +1934,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260909-105",
-      "headline": "Trump banning Canada's dairy products, motorcycles and many alcoholic beverages",
+      "inbox_id": "INB-20260909-115",
+      "headline": "US slaps import ban on Canadian alcohol, motorbikes and other goods",
       "headline_en": null,
-      "url": "https://thehill.com/business/6077886-trump-bans-canadian-dairy-vehicles/",
-      "source_name": "The Hill — Homenews",
+      "url": "https://www.bbc.co.uk/news/articles/c99dm1000p7o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:25:52Z",
+      "found_at": "2026-09-09T03:03:32Z",
       "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Proposed trade restrictions on Canadian dairy, motorcycles, and alcohol represent a significant shift in trade policy affecting multiple sectors.",
+      "prelim_note": "The US has imposed an import ban on several categories of Canadian goods, representing a significant trade escalation between major partners.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 86,
-      "triage_reason": "Proposed trade restrictions on Canadian dairy, motorcycles, and alcohol represent a significant shift in trade policy affecting multiple sectors.",
-      "region": "GLOBAL",
+      "triage_reason": "The US has imposed an import ban on several categories of Canadian goods, representing a significant trade escalation between major partners.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1760,202 +1967,12 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-030",
-      "headline": "US imposes fresh sanctions on Iran’s aviation industry",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/us-imposes-fresh-sanctions-on-irans-aviation-industry/article71445367.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:35:48Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "New US sanctions on Iran's aviation industry increase geopolitical risk and operational constraints for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "New US sanctions on Iran's aviation industry increase geopolitical risk and operational constraints for the sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
+        "macro_sector",
         "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-097",
-      "headline": "Pilots tried to abort landing seconds before deadly Amazon cargo plane crash that killed five",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/2026/sep/08/amazon-cargo-plane-crash-victims",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:53:52Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Fatal cargo plane crash involving Amazon-contracted operations raises operational and safety risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Fatal cargo plane crash involving Amazon-contracted operations raises operational and safety risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-098",
-      "headline": "IPO Subscription LIVE Updates: NSE likely to set IPO price band between ₹1,750 - ₹1,785, sources say",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/ipo-subscriptions-live-updates-rentomojo-arcil-kanohar-karamtara-lcc-prasol-manipal-steamhouse-gmp-subscribe-or-avoid-lot-price-liveblog-19987044.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:14:12Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "National Stock Exchange of India IPO price band reported between ₹1,750 - ₹1,785.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "National Stock Exchange of India IPO price band reported between ₹1,750 - ₹1,785.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Stock Exchange of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-093",
-      "headline": "Visa Brings Onchain Lending into Everyday Payments",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/brandhub/pr-release/visa-brings-onchain-lending-into-everyday-payments/article71445440.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:00:51Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Visa is integrating new blockchain-based lending features into its payment ecosystem.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Visa is integrating new blockchain-based lending features into its payment ecosystem.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Visa",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154749,9 +154766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1349972,
-    "news_picked_today": 128,
-    "news_dropped_today": 1696
+    "news_seen_today": 1376352,
+    "news_picked_today": 146,
+    "news_dropped_today": 1822
   },
   "book_momentum": {
     "live_count": 8,
