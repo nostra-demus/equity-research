@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T03:35:42Z",
+  "generated_at": "2026-09-09T03:36:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -106550,6 +106550,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-99b619b91ddba052",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
+      "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e520e9a9e32e"
+      ],
+      "primary_source_event_id": "EVT-e520e9a9e32e",
+      "source_headlines": [
+        "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
+      ],
+      "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
+      "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T01:00:28Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-09T03:36:02Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T13:00:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e38b2231c234",
       "idea_version": "IDEAV-729c86a7a34ac4c1",
       "idea_version_started_at": "2026-09-09T01:49:16Z",
@@ -108018,6 +108088,148 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-913d93eb2dce0907",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
+      "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-976beaeea30f"
+      ],
+      "primary_source_event_id": "EVT-976beaeea30f",
+      "source_headlines": [
+        "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
+      ],
+      "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T00:42:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T12:42:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ea37e26917fc",
+      "idea_version": "IDEAV-a04d1019e4aeab03",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "WGX",
+      "company": "Westgold Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
+      "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-41c3ce1cc890"
+      ],
+      "primary_source_event_id": "EVT-41c3ce1cc890",
+      "source_headlines": [
+        "WGX: FY27 Guidance and Three-Year Outlook Presentation"
+      ],
+      "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T00:58:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T03:36:02Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T12:58:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111944,76 +112156,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d20df5cd7aab",
-      "idea_version": "IDEAV-ab91e936f845b300",
-      "idea_version_started_at": "2026-09-06T04:20:13Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen",
-      "exchange": "OTC Markets",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has reached a restructuring agreement to slash jobs, which is expected to improve operating margins and reduce structural costs.",
-      "why_now": "The board-approved restructuring plan was announced on 2026-09-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1259bce9810e"
-      ],
-      "primary_source_event_id": "EVT-1259bce9810e",
-      "source_headlines": [
-        "VW’s surprise job-slashing deal is a big win for its bosses"
-      ],
-      "source_headline": "VW’s surprise job-slashing deal is a big win for its bosses",
-      "source_url": "https://www.hindustantimes.com/business/vws-surprise-job-slashing-deal-is-a-big-win-for-its-bosses-101788659943019.html",
-      "source_name": "Hindustan Times (Business)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-06T03:30:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T04:20:13Z",
-      "updated_at": "2026-09-06T04:20:13Z",
-      "decay_at": "2026-09-07T15:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-84ea9b6e944a",
       "idea_version": "IDEAV-0429ceca0d873c9b",
       "idea_version_started_at": "2026-09-07T06:29:09Z",
@@ -112219,76 +112361,6 @@
       "surfaced_at": "2026-09-06T04:54:50Z",
       "updated_at": "2026-09-06T04:54:50Z",
       "decay_at": "2026-09-07T16:00:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-205ed939316f",
-      "idea_version": "IDEAV-23b289b6cd7b7c5b",
-      "idea_version_started_at": "2026-09-06T03:18:09Z",
-      "ticker": "SINGY",
-      "company": "Singapore Airlines",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Volcanic eruptions at Mount Anak Krakatau have forced the suspension of flights to Jakarta, directly impacting the airline's revenue and operational capacity in a key regional hub.",
-      "why_now": "The flight suspensions are active as of 2026-09-06, creating immediate operational disruption.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0f7946a13a68"
-      ],
-      "primary_source_event_id": "EVT-0f7946a13a68",
-      "source_headlines": [
-        "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions"
-      ],
-      "source_headline": "SIA affected as ash from Mount Anak Krakatau eruption leads to Jakarta airport flight suspensions",
-      "source_url": "https://www.businesstimes.com.sg/international/asean/sia-affected-ash-mount-anak-krakatau-eruption-leads-jakarta-airport-flight-suspensions",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-06T02:54:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:18:09Z",
-      "updated_at": "2026-09-06T03:18:09Z",
-      "decay_at": "2026-09-07T14:54:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114891,78 +114963,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f9e57ac4023c",
-      "idea_version": "IDEAV-356ce18b87b89dd9",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "CON",
-      "company": "Continental AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Continental AG is convening an extraordinary Sunday board meeting to finalize and approve the sale of its 'mycar' business unit to a new owner.",
-      "why_now": "The board meeting is scheduled for Sunday, September 6, 2026, indicating an official transaction announcement is imminent.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74abcdb05d21"
-      ],
-      "primary_source_event_id": "EVT-74abcdb05d21",
-      "source_headlines": [
-        "Continetal AG calls Sunday board huddle to anoint mycar’s new owner"
-      ],
-      "source_headline": "Continetal AG calls Sunday board huddle to anoint mycar’s new owner",
-      "source_url": "https://www.afr.com/street-talk/continetal-ag-calls-sunday-board-huddle-to-anoint-mycar-s-new-owner-20260906-p60uuf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-06T03:19:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:55:04Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-07T15:19:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9908603014ee",
       "idea_version": "IDEAV-fb3e9ebbd19dfd8d",
       "idea_version_started_at": "2026-09-06T10:27:02Z",
@@ -115243,78 +115243,6 @@
       "surfaced_at": "2026-09-05T10:44:15Z",
       "updated_at": "2026-09-07T05:00:01Z",
       "decay_at": "2026-09-08T15:32:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-9363c87dbbf9fb45",
-      "idea_version_started_at": "2026-09-07T03:45:17Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
-      "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c87ff9d466f3"
-      ],
-      "primary_source_event_id": "EVT-c87ff9d466f3",
-      "source_headlines": [
-        "Austal confirms counterbid talks for its US arm by mystery Florida firm"
-      ],
-      "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
-      "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-07T02:25:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-07T03:45:17Z",
-      "decay_at": "2026-09-08T14:25:26Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117190,81 +117118,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-99383b893cfe",
-      "idea_version": "IDEAV-51e5699e56ff490e",
-      "idea_version_started_at": "2026-09-06T03:55:04Z",
-      "ticker": "USO",
-      "company": "United States Oil Fund LP",
-      "exchange": "NYSE Arca",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Direct military engagement involving the US Navy striking Iranian oil tankers in the Strait of Hormuz creates an immediate supply-side risk premium and disruption to global crude transit.",
-      "why_now": "The escalation reached a kinetic phase on September 6, 2026, with confirmed US strikes on tankers following threats from the Defense Secretary.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e22818ca95",
-        "EVT-a632221c2c6a",
-        "EVT-176bb6e5e1b3"
-      ],
-      "primary_source_event_id": "EVT-46e22818ca95",
-      "source_headlines": [
-        "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
-        "US will ‘destroy and sink’ Iranian oil tankers if Navy ships attacked, Defence Secy Hegseth warns",
-        "US strikes 3 Iranian oil tankers after Navy ships targeted; Hegseth warns more could be sunk"
-      ],
-      "source_headline": "IRGC targets 3 oil tankers, 3 US-linked vessels on 'unauthorised' Hormuz routes",
-      "source_url": "https://gulfnews.com/world/mena/irgc-targets-3-oil-tankers-3-us-linked-vessels-on-unauthorised-hormuz-routes-1.500664640",
-      "source_name": "Gulf News",
-      "materiality_max": 73,
-      "newest_source_at": "2026-09-06T03:24:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T03:55:04Z",
-      "updated_at": "2026-09-06T03:55:04Z",
-      "decay_at": "2026-09-07T15:24:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5ba954274621",
       "idea_version": "IDEAV-8dd7b4128bc81d8f",
       "idea_version_started_at": "2026-09-07T00:24:17Z",
@@ -117553,20 +117406,20 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 471,
+      "file_count": 475,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 309,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 59
+        "hidden_count": 58
       },
       "short": {
         "total_count": 252,
@@ -119598,81 +119451,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-08T15:04:42Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a6b4b796e78e",
-        "idea_version": "IDEAV-9363c87dbbf9fb45",
-        "idea_version_started_at": "2026-09-07T03:45:17Z",
-        "ticker": "ASB",
-        "company": "Austal",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Austal's confirmation of counterbid talks for its US arm by a mystery firm suggests potential for a higher valuation or a strategic divestment that could unlock shareholder value.",
-        "why_now": "The counterbid talks were confirmed on 2026-09-07, creating an immediate catalyst for the stock.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c87ff9d466f3"
-        ],
-        "primary_source_event_id": "EVT-c87ff9d466f3",
-        "source_headlines": [
-          "Austal confirms counterbid talks for its US arm by mystery Florida firm"
-        ],
-        "source_headline": "Austal confirms counterbid talks for its US arm by mystery Florida firm",
-        "source_url": "https://www.afr.com/companies/manufacturing/austal-confirms-counterbid-talks-for-its-us-arm-by-mystery-florida-firm-20260907-p60v1c?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 95,
-        "newest_source_at": "2026-09-07T02:25:26Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T03:45:17Z",
-        "updated_at": "2026-09-07T03:45:17Z",
-        "decay_at": "2026-09-08T14:25:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T14:25:26Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -124148,8 +123926,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T15:30:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T03:36:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -124226,8 +124004,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T15:24:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T03:36:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -124301,8 +124079,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T15:19:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T03:36:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -124374,8 +124152,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T14:54:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T03:36:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -148447,6 +148225,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-c56cd7fabf5d",
+        "idea_version": "IDEAV-e298fc8d653164e4",
+        "idea_version_started_at": "2026-08-26T00:07:40Z",
+        "ticker": "SLTS",
+        "company": "Selectis Health, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
+        "why_now": "The filing was made on 2026-08-25.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-745dbd29e5af"
+        ],
+        "primary_source_event_id": "EVT-745dbd29e5af",
+        "source_headlines": [
+          "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
+        ],
+        "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
+        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-25T20:35:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-26T00:07:40Z",
+        "updated_at": "2026-08-26T00:07:40Z",
+        "decay_at": "2026-08-27T08:35:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-29T08:47:42Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-c3365d772313",
         "idea_version": "IDEAV-6082786c91a4db9a",
         "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -154752,8 +154604,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 625,
-    "live_count": 62,
+    "surfaced_total": 627,
+    "live_count": 65,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
