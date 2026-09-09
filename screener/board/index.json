@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T06:05:50Z",
+  "generated_at": "2026-09-09T06:10:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -1574,6 +1574,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-175",
+      "headline": "US Suspends Cognizant’s Green Card Filings Amid Visa Fraud Probe; Indian IT Firms Face Closer Scrutiny",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-indian-it-firms-face-closer-scrutiny",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T05:40:58Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Cognizant faces a suspension of green card filings due to a visa fraud probe, creating significant operational and recruitment risk for the company and the broader Indian IT sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Cognizant faces a suspension of green card filings due to a visa fraud probe, creating significant operational and recruitment risk for the company and the broader Indian IT sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-123",
       "headline": "Adani Enterprises to sell up to 5.54% stake in airport unit to Temasek, BlackRock",
       "headline_en": null,
@@ -1924,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-074",
-      "headline": "TGM: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGM?key=2924-03133576-6A1342970",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T01:56:34Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "TGM has announced a price-sensitive trading halt, indicating a pending material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "TGM has announced a price-sensitive trading halt, indicating a pending material announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TGM",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154402,9 +154403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2507467,
-    "news_picked_today": 237,
-    "news_dropped_today": 3195
+    "news_seen_today": 2552185,
+    "news_picked_today": 238,
+    "news_dropped_today": 3218
   },
   "book_momentum": {
     "live_count": 8,
