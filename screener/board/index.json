@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T02:45:46Z",
+  "generated_at": "2026-09-09T02:50:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -793,6 +793,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-102",
+      "headline": "US suspends green-card filings by Cognizant amid visa-fraud probe: ‘Threats to American workers…’",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/us-suspends-green-card-filings-by-cognizant-amid-visa-fraud-probe-threats-to-american-workers-11788917800925.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:30:52Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Cognizant faces a suspension of green-card filings due to a visa-fraud probe, creating significant operational and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Cognizant faces a suspension of green-card filings due to a visa-fraud probe, creating significant operational and legal risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-103",
+      "headline": "Australia Pension Faces $22 Million Fine on Death Claims Mishaps",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-09/australia-pension-faces-22-million-fine-on-death-claims-mishaps",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T01:07:35Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "An Australian pension fund faces a $22 million fine for mishandling death claims.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "An Australian pension fund faces a $22 million fine for mishandling death claims.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Australian Pension Fund",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-038",
       "headline": "425 - John Marshall Bancorp, Inc. (0001710482) (Subject)",
       "headline_en": null,
@@ -1284,6 +1383,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-107",
+      "headline": "Kenya withdraws Tata Group’s century-old soda ash mining concession",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/commodities/kenya-withdraws-tata-groups-century-old-soda-ash-mining-concession/article71445461.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:30:49Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Kenya has revoked a century-old mining concession held by Tata Group, impacting operational assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Kenya has revoked a century-old mining concession held by Tata Group, impacting operational assets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-104",
+      "headline": "The North West Company Inc. Bottom Line Climbs In Q2",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/north-west-company-inc-bottom-line-climbs-q2",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:02:54Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "The North West Company reported an increase in its Q2 bottom line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The North West Company reported an increase in its Q2 bottom line.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The North West Company Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-092",
       "headline": "Coda welcomes Bombay High Court judgment in its favor",
       "headline_en": null,
@@ -1475,6 +1673,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-105",
+      "headline": "Trump banning Canada's dairy products, motorcycles and many alcoholic beverages",
+      "headline_en": null,
+      "url": "https://thehill.com/business/6077886-trump-bans-canadian-dairy-vehicles/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:25:52Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Proposed trade restrictions on Canadian dairy, motorcycles, and alcohol represent a significant shift in trade policy affecting multiple sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Proposed trade restrictions on Canadian dairy, motorcycles, and alcohol represent a significant shift in trade policy affecting multiple sectors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1711,252 +1953,6 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-068",
-      "headline": "ASB: Clarification to announcement of NBIO from Wildcat",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133574-6A1342968",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T01:34:19Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Clarification regarding a non-binding offer (NBIO) announcement for Wildcat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Clarification regarding a non-binding offer (NBIO) announcement for Wildcat.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wildcat",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-017",
-      "headline": "US increases pressure on Iran with sanctions targeting aviation sector",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/9/8/us-increases-pressure-on-iran-with-sanctions-targeting-aviation-sector?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-08T23:51:29Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The US has imposed new sanctions on Iran's aviation sector, increasing geopolitical risk and operational constraints for affected entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The US has imposed new sanctions on Iran's aviation sector, increasing geopolitical risk and operational constraints for affected entities.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-100",
-      "headline": "Forus secures $150M series C to grow AI-powered medication access platform",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/health-tech/forus-secures-150m-series-c-3b-valuation",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:33:10Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Forus secured $150M in Series C funding to expand its platform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Forus secured $150M in Series C funding to expand its platform.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Forus",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-067",
-      "headline": "SCHEDULE 13D/A - MARINEMAX INC (0001057060) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1057060/000121390026098183/0001213900-26-098183-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T01:45:11Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Schedule 13D/A filing indicates a change in significant ownership for MarineMax Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Schedule 13D/A filing indicates a change in significant ownership for MarineMax Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MarineMax Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-089",
-      "headline": "Japan lens maker Tamron weighs Sony bid as China rivals close in",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/companies/japan-lens-maker-tamron-weighs-sony-bid-as-china-rivals-close-in",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:11:44Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Tamron weighing a bid for Sony's camera business could lead to a significant M&A event, impacting both companies and the competitive landscape.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Tamron weighing a bid for Sony's camera business could lead to a significant M&A event, impacting both companies and the competitive landscape.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tamron",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Sony",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -107302,146 +107298,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3832437dcd8b",
-      "idea_version": "IDEAV-c87e4cbd52652ff3",
-      "idea_version_started_at": "2026-09-07T20:52:28Z",
-      "ticker": "ZIM",
-      "company": "ZIM Integrated Shipping Services",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hapag-Lloyd is improving its acquisition bid for ZIM, which provides a floor and potential premium for shareholders.",
-      "why_now": "The news of the improved bid was reported today, 2026-09-07.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9855fd07010a"
-      ],
-      "primary_source_event_id": "EVT-9855fd07010a",
-      "source_headlines": [
-        "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM"
-      ],
-      "source_headline": "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM",
-      "source_url": "https://www.reuters.com/world/middle-east/hapag-lloyd-plans-improvements-42-billion-bid-israels-zim-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T14:49:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T20:52:28Z",
-      "updated_at": "2026-09-07T20:52:28Z",
-      "decay_at": "2026-09-09T02:49:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e616b8c1138f",
-      "idea_version": "IDEAV-531b4a0532361583",
-      "idea_version_started_at": "2026-09-07T20:32:15Z",
-      "ticker": "SGML",
-      "company": "Sigma Lithium Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Brazilian judge suspended the company's mine licenses and operations, halting production and revenue generation indefinitely.",
-      "why_now": "The suspension order was reported on 2026-09-07.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eff35c6e14bc"
-      ],
-      "primary_source_event_id": "EVT-eff35c6e14bc",
-      "source_headlines": [
-        "Brazilian judge suspends Sigma Lithium mine licences and operations"
-      ],
-      "source_headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
-      "source_url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T14:46:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T00:49:26Z",
-      "updated_at": "2026-09-07T20:32:15Z",
-      "decay_at": "2026-09-09T02:46:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-e15ec643a0a42a39",
       "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -111085,6 +110941,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3832437dcd8b",
+      "idea_version": "IDEAV-c87e4cbd52652ff3",
+      "idea_version_started_at": "2026-09-07T20:52:28Z",
+      "ticker": "ZIM",
+      "company": "ZIM Integrated Shipping Services",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hapag-Lloyd is improving its acquisition bid for ZIM, which provides a floor and potential premium for shareholders.",
+      "why_now": "The news of the improved bid was reported today, 2026-09-07.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9855fd07010a"
+      ],
+      "primary_source_event_id": "EVT-9855fd07010a",
+      "source_headlines": [
+        "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM"
+      ],
+      "source_headline": "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM",
+      "source_url": "https://www.reuters.com/world/middle-east/hapag-lloyd-plans-improvements-42-billion-bid-israels-zim-2026-09-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T14:49:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T20:52:28Z",
+      "updated_at": "2026-09-07T20:52:28Z",
+      "decay_at": "2026-09-09T02:49:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ab96b799316",
       "idea_version": "IDEAV-2a1f1c272c1525d5",
       "idea_version_started_at": "2026-09-07T20:32:15Z",
@@ -111219,6 +111145,76 @@
       "surfaced_at": "2026-09-07T20:32:15Z",
       "updated_at": "2026-09-07T20:32:15Z",
       "decay_at": "2026-09-09T02:26:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e616b8c1138f",
+      "idea_version": "IDEAV-531b4a0532361583",
+      "idea_version_started_at": "2026-09-07T20:32:15Z",
+      "ticker": "SGML",
+      "company": "Sigma Lithium Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A Brazilian judge suspended the company's mine licenses and operations, halting production and revenue generation indefinitely.",
+      "why_now": "The suspension order was reported on 2026-09-07.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eff35c6e14bc"
+      ],
+      "primary_source_event_id": "EVT-eff35c6e14bc",
+      "source_headlines": [
+        "Brazilian judge suspends Sigma Lithium mine licences and operations"
+      ],
+      "source_headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
+      "source_url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T14:46:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-06T00:49:26Z",
+      "updated_at": "2026-09-07T20:32:15Z",
+      "decay_at": "2026-09-09T02:46:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117540,19 +117536,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 59
       },
       "short": {
-        "total_count": 251,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 1
+        "hidden_count": 2
       }
     },
     "retention": {
@@ -117571,6 +117567,152 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3832437dcd8b",
+        "idea_version": "IDEAV-c87e4cbd52652ff3",
+        "idea_version_started_at": "2026-09-07T20:52:28Z",
+        "ticker": "ZIM",
+        "company": "ZIM Integrated Shipping Services",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Hapag-Lloyd is improving its acquisition bid for ZIM, which provides a floor and potential premium for shareholders.",
+        "why_now": "The news of the improved bid was reported today, 2026-09-07.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9855fd07010a"
+        ],
+        "primary_source_event_id": "EVT-9855fd07010a",
+        "source_headlines": [
+          "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM"
+        ],
+        "source_headline": "Hapag-Lloyd plans improvements to $4.2 billion bid for Israel's ZIM",
+        "source_url": "https://www.reuters.com/world/middle-east/hapag-lloyd-plans-improvements-42-billion-bid-israels-zim-2026-09-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T14:49:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T20:52:28Z",
+        "updated_at": "2026-09-07T20:52:28Z",
+        "decay_at": "2026-09-09T02:49:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T02:49:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e616b8c1138f",
+        "idea_version": "IDEAV-531b4a0532361583",
+        "idea_version_started_at": "2026-09-07T20:32:15Z",
+        "ticker": "SGML",
+        "company": "Sigma Lithium Corporation",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A Brazilian judge suspended the company's mine licenses and operations, halting production and revenue generation indefinitely.",
+        "why_now": "The suspension order was reported on 2026-09-07.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eff35c6e14bc"
+        ],
+        "primary_source_event_id": "EVT-eff35c6e14bc",
+        "source_headlines": [
+          "Brazilian judge suspends Sigma Lithium mine licences and operations"
+        ],
+        "source_headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
+        "source_url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T14:46:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T00:49:26Z",
+        "updated_at": "2026-09-07T20:32:15Z",
+        "decay_at": "2026-09-09T02:46:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T02:46:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b467da5d4b8",
         "idea_version": "IDEAV-9bb312c14b68b563",
@@ -148282,80 +148424,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c56cd7fabf5d",
-        "idea_version": "IDEAV-e298fc8d653164e4",
-        "idea_version_started_at": "2026-08-26T00:07:40Z",
-        "ticker": "SLTS",
-        "company": "Selectis Health, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A third-party tender offer (SC TO-T) indicates an acquisition attempt, typically driving the stock price toward the offer price.",
-        "why_now": "The filing was made on 2026-08-25.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-745dbd29e5af"
-        ],
-        "primary_source_event_id": "EVT-745dbd29e5af",
-        "source_headlines": [
-          "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)"
-        ],
-        "source_headline": "SC TO-T/A - SELECTIS HEALTH, INC. (0000727346) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/727346/000092189526002309/0000921895-26-002309-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-25T20:35:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T00:07:40Z",
-        "updated_at": "2026-08-26T00:07:40Z",
-        "decay_at": "2026-08-27T08:35:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c3365d772313",
         "idea_version": "IDEAV-6082786c91a4db9a",
         "idea_version_started_at": "2026-08-25T10:36:18Z",
@@ -154657,86 +154725,12 @@
         "archived_at": "2026-08-20T01:31:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-637f6e30c086",
-        "idea_version": "IDEAV-94ae81353d906c42",
-        "idea_version_started_at": "2026-08-14T14:57:25Z",
-        "ticker": "00232",
-        "company": "Con Aero Tech Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Con Aero Tech Limited issued a profit warning, which plausibly harms its revenue and margins.",
-        "why_now": "The event occurred on August 13, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b3b5cd11d814"
-        ],
-        "primary_source_event_id": "EVT-b3b5cd11d814",
-        "source_headlines": [
-          "CON AERO TECH (00232): UPDATE ON PROFIT WARNING"
-        ],
-        "source_headline": "CON AERO TECH (00232): UPDATE ON PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0813/2026081300143.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-08-13T04:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-14T14:57:25Z",
-        "updated_at": "2026-08-14T14:57:25Z",
-        "decay_at": "2026-08-14T16:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-20T01:31:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 625,
-    "live_count": 64,
+    "live_count": 62,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154755,9 +154749,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1164669,
-    "news_picked_today": 114,
-    "news_dropped_today": 1398
+    "news_seen_today": 1177911,
+    "news_picked_today": 122,
+    "news_dropped_today": 1438
   },
   "book_momentum": {
     "live_count": 8,
