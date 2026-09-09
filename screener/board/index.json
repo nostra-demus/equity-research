@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T14:42:07Z",
+  "generated_at": "2026-09-09T14:53:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -106563,6 +106563,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-822f1593587e",
+      "idea_version": "IDEAV-446a7090aedcb397",
+      "idea_version_started_at": "2026-09-09T14:52:59Z",
+      "ticker": "SIG",
+      "company": "Signet Jewelers",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a return to profitability and raised its forward outlook, suggesting improved operational efficiency and consumer demand.",
+      "why_now": "The announcement was made today, September 9, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-075c60ad478b"
+      ],
+      "primary_source_event_id": "EVT-075c60ad478b",
+      "source_headlines": [
+        "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit"
+      ],
+      "source_headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
+      "source_url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T11:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T14:52:59Z",
+      "updated_at": "2026-09-09T14:52:59Z",
+      "decay_at": "2026-09-10T23:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-99b619b91ddba052",
       "idea_version_started_at": "2026-09-09T03:36:02Z",
@@ -107540,6 +107610,77 @@
       "surfaced_at": "2026-09-08T21:38:42Z",
       "updated_at": "2026-09-08T21:38:42Z",
       "decay_at": "2026-09-10T03:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ab31901fa897",
+      "idea_version": "IDEAV-7614be235044d7a8",
+      "idea_version_started_at": "2026-09-09T14:52:59Z",
+      "ticker": "02293",
+      "company": "Bamboos Health Care Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material decline in earnings performance for the period.",
+      "why_now": "The warning was filed today, September 9, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-87c557b5d769"
+      ],
+      "primary_source_event_id": "EVT-87c557b5d769",
+      "source_headlines": [
+        "BAMBOOSHEALTH (02293): PROFIT WARNING"
+      ],
+      "source_headline": "BAMBOOSHEALTH (02293): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900364.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T08:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T14:52:59Z",
+      "updated_at": "2026-09-09T14:52:59Z",
+      "decay_at": "2026-09-10T20:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -109270,77 +109411,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-adcb076f23d8",
-      "idea_version": "IDEAV-64a35162fa06fe25",
-      "idea_version_started_at": "2026-09-08T04:17:20Z",
-      "ticker": "RMS",
-      "company": "Ramelius Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful acquisition of Edna May and completion of capital raising removes uncertainty and expands the company's production base.",
-      "why_now": "The filing was released on 2026-09-08, confirming the immediate closure of the transaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-db67329fff70"
-      ],
-      "primary_source_event_id": "EVT-db67329fff70",
-      "source_headlines": [
-        "ZNC: FRS Completes Capital Raising and Edna May Acquisition"
-      ],
-      "source_headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03133064-6A1342747",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T02:50:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T04:17:20Z",
-      "updated_at": "2026-09-08T04:17:20Z",
-      "decay_at": "2026-09-09T14:50:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-78e2c3fff636",
       "idea_version": "IDEAV-82ac7f09e7f3a740",
       "idea_version_started_at": "2026-09-08T06:57:56Z",
@@ -111032,76 +111102,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-41676c4142cc",
-      "idea_version": "IDEAV-524a4a78236aa0ce",
-      "idea_version_started_at": "2026-09-06T15:09:06Z",
-      "ticker": "EVR",
-      "company": "Evercore",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Anticipated downward revisions to third-quarter investment banking and trading guidance suggest a slowdown in deal flow and market activity.",
-      "why_now": "The specific warning regarding softer Q3 guidance on September 6, 2026, creates immediate downward pressure ahead of the actual reporting period.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b411b09fcdb"
-      ],
-      "primary_source_event_id": "EVT-8b411b09fcdb",
-      "source_headlines": [
-        "Evercore expects softer third-quarter investment banking and trading guidance"
-      ],
-      "source_headline": "Evercore expects softer third-quarter investment banking and trading guidance",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-06T14:23:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T15:09:06Z",
-      "updated_at": "2026-09-06T15:09:06Z",
-      "decay_at": "2026-09-08T02:23:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-51545e32c8e0",
       "idea_version": "IDEAV-2935068337cebbe6",
       "idea_version_started_at": "2026-09-08T02:38:26Z",
@@ -111448,6 +111448,77 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-adcb076f23d8",
+      "idea_version": "IDEAV-64a35162fa06fe25",
+      "idea_version_started_at": "2026-09-08T04:17:20Z",
+      "ticker": "RMS",
+      "company": "Ramelius Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The successful acquisition of Edna May and completion of capital raising removes uncertainty and expands the company's production base.",
+      "why_now": "The filing was released on 2026-09-08, confirming the immediate closure of the transaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-db67329fff70"
+      ],
+      "primary_source_event_id": "EVT-db67329fff70",
+      "source_headlines": [
+        "ZNC: FRS Completes Capital Raising and Edna May Acquisition"
+      ],
+      "source_headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03133064-6A1342747",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T02:50:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T04:17:20Z",
+      "updated_at": "2026-09-08T04:17:20Z",
+      "decay_at": "2026-09-09T14:50:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114625,78 +114696,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f4e90eacafe1",
-      "idea_version": "IDEAV-d1d9374b13cd68bd",
-      "idea_version_started_at": "2026-09-06T19:44:58Z",
-      "ticker": "HEG",
-      "company": "HEG Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The demerger of HEG Advanced Materials is projected to unlock and add approximately ₹4,000 crore in market capitalization for shareholders.",
-      "why_now": "The details of the value-unlocking demerger were publicized on September 6, 2026, presenting a fresh corporate catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b137a9c275b"
-      ],
-      "primary_source_event_id": "EVT-1b137a9c275b",
-      "source_headlines": [
-        "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation"
-      ],
-      "source_headline": "HEG Advanced Materials demerger to add ₹4,000 crore market capitalisation",
-      "source_url": "https://www.thehindubusinessline.com/companies/heg-advanced-materials-demerger-to-add-4000-crore-market-capitalisation/article71432636.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 92,
-      "newest_source_at": "2026-09-06T14:01:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T14:26:13Z",
-      "updated_at": "2026-09-06T19:44:58Z",
-      "decay_at": "2026-09-08T02:01:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-63df24688f316fda",
       "idea_version_started_at": "2026-09-08T02:17:11Z",
@@ -116275,7 +116274,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 485,
+      "file_count": 486,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -116298,12 +116297,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 13,
+      "evicted_count": 14,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 13,
-          "oldest_retained_at": "2026-08-22T11:11:46Z"
+          "evicted_count": 14,
+          "oldest_retained_at": "2026-08-22T11:32:51Z"
         },
         "short": {
           "evicted_count": 0,
@@ -116312,6 +116311,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-adcb076f23d8",
+        "idea_version": "IDEAV-64a35162fa06fe25",
+        "idea_version_started_at": "2026-09-08T04:17:20Z",
+        "ticker": "RMS",
+        "company": "Ramelius Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The successful acquisition of Edna May and completion of capital raising removes uncertainty and expands the company's production base.",
+        "why_now": "The filing was released on 2026-09-08, confirming the immediate closure of the transaction.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-db67329fff70"
+        ],
+        "primary_source_event_id": "EVT-db67329fff70",
+        "source_headlines": [
+          "ZNC: FRS Completes Capital Raising and Edna May Acquisition"
+        ],
+        "source_headline": "ZNC: FRS Completes Capital Raising and Edna May Acquisition",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03133064-6A1342747",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T02:50:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T04:17:20Z",
+        "updated_at": "2026-09-08T04:17:20Z",
+        "decay_at": "2026-09-09T14:50:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T14:50:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-841758969e76",
         "idea_version": "IDEAV-d59e7b53b8401bd6",
@@ -122933,8 +123006,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T02:23:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T14:53:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123008,8 +123081,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T02:01:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T14:53:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146869,83 +146942,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0d5c620d657b",
-        "idea_version": "IDEAV-0089198b8b97e62f",
-        "idea_version_started_at": "2026-08-27T04:40:06Z",
-        "ticker": "GLB",
-        "company": "Global Data Centre Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company released its price-sensitive FY2026 full-year statutory accounts and results, which will drive immediate revaluation based on actual performance metrics.",
-        "why_now": "The official FY2026 results were filed with the ASX on August 27, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2863d26d95f7",
-          "EVT-e015161ac7ce"
-        ],
-        "primary_source_event_id": "EVT-2863d26d95f7",
-        "source_headlines": [
-          "GLB: Appendix 4E - Full Year Statutory Accounts FY2026 [price-sensitive]",
-          "GLB: ASX Announcement - Full Year Results FY2026"
-        ],
-        "source_headline": "GLB: Appendix 4E - Full Year Statutory Accounts FY2026 [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GLB?key=2924-03127359-3A700080",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T02:20:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T04:40:06Z",
-        "updated_at": "2026-08-27T04:40:06Z",
-        "decay_at": "2026-08-28T14:20:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T02:20:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-baf9e41cf166",
         "idea_version": "IDEAV-e630aa4f46b33c69",
         "idea_version_started_at": "2026-08-27T03:27:43Z",
@@ -153480,8 +153476,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 634,
-    "live_count": 45,
+    "surfaced_total": 636,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153500,9 +153496,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5472763,
+    "news_seen_today": 5569961,
     "news_picked_today": 744,
-    "news_dropped_today": 13272
+    "news_dropped_today": 13320
   },
   "book_momentum": {
     "live_count": 8,
