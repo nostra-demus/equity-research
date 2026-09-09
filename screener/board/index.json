@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T04:10:50Z",
+  "generated_at": "2026-09-09T04:20:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -243,6 +243,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-148",
+      "headline": "Coforge shares crash 9% after Chairman Om Prakash Bhatt resigns post audit",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/coforge-shares-in-focus-as-chairman-om-prakash-bhatt-resigns-after-audit-heres-why/articleshow/133951301.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T03:43:10Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Chairman Om Prakash Bhatt resigned following an audit, triggering a 9% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chairman Om Prakash Bhatt resigned following an audit, triggering a 9% share price decline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1344,55 +1394,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260909-141",
-      "headline": "Coforge shares in focus as Chairman Om Prakash Bhatt resigns after audit. Here’s why",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/coforge-shares-in-focus-as-chairman-om-prakash-bhatt-resigns-after-audit-heres-why/articleshow/133951301.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T03:43:10Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Chairman resigned following an audit, signaling potential governance or accounting concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Chairman resigned following an audit, signaling potential governance or accounting concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260909-021",
       "headline": "[Special Report] POSCO Brazil Bankruptcy Sparks Legislative, OECD Backlash",
       "headline_en": null,
@@ -1786,6 +1787,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-150",
+      "headline": "L Catterton-Led Consortium Acquires Majority Stake in Hyrox",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-09/l-catterton-led-consortium-acquires-majority-stake-in-hyrox",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T04:03:24Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "L Catterton-led consortium acquired a majority stake in fitness race brand Hyrox.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "L Catterton-led consortium acquired a majority stake in fitness race brand Hyrox.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyrox",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-129",
       "headline": "Samsung opens Japan AI chip R&D hub for advanced packaging collaboration",
       "headline_en": null,
@@ -1928,56 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-113",
-      "headline": "Setback for Indian professionals? US suspends Cognizant green card filings in H-1B visa fraud probe",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/nri/visa/story/setback-for-indian-professionals-us-suspends-cognizant-green-card-filings-in-h-1b-visa-fraud-probe-554124-2026-09-09?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T02:50:04Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Suspension of green card filings for Cognizant in a visa fraud probe creates significant operational and recruitment risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Suspension of green card filings for Cognizant in a visa fraud probe creates significant operational and recruitment risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cognizant",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154623,9 +154623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1676199,
-    "news_picked_today": 169,
-    "news_dropped_today": 2135
+    "news_seen_today": 1742397,
+    "news_picked_today": 173,
+    "news_dropped_today": 2227
   },
   "book_momentum": {
     "live_count": 8,
