@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T12:54:59Z",
+  "generated_at": "2026-09-09T13:21:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-297",
@@ -1944,51 +1944,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260909-272",
-      "headline": "BILIBILI-W (09626): COMPLETION OF THE MARKETED NOTES OFFERING, THE CONCURRENT DELTA REPURCHASE AND THE CONCURRENT EQUITY PLACEMENT",
+      "inbox_id": "INB-20260909-315",
+      "headline": "425 - CENTERSPACE (0000798359) (Subject)",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900961.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T11:19:00Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/798359/000114036126035987/0001140361-26-035987-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-09T12:37:17Z",
       "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Company completed a complex financing package involving notes, repurchases, and equity placement.",
+      "prelim_note": "Centerspace is filing communications related to a business combination, indicating ongoing M&A activity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "Company completed a complex financing package involving notes, repurchases, and equity placement.",
-      "region": "CN",
+      "triage_reason": "Centerspace is filing communications related to a business combination, indicating ongoing M&A activity.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "capital_actions",
-        "debt_credit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BILIBILI-W",
-          "ticker": "09626",
-          "listing_country": "CN"
+          "name": "Centerspace",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153494,9 +153493,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5024598,
-    "news_picked_today": 608,
-    "news_dropped_today": 11056
+    "news_seen_today": 5123793,
+    "news_picked_today": 640,
+    "news_dropped_today": 11720
   },
   "book_momentum": {
     "live_count": 8,
