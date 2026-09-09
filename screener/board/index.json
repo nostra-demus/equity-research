@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T19:32:16Z",
+  "generated_at": "2026-09-09T20:06:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-418",
@@ -799,6 +799,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-435",
+      "headline": "GE to Buy Consolidated Precision Products for $11.75B",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-09/ge-to-buy-consolidated-precision-products-for-11-75b-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T19:15:41Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "GE announced a definitive agreement to acquire Consolidated Precision Products for $11.75B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE announced a definitive agreement to acquire Consolidated Precision Products for $11.75B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Electric",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Consolidated Precision Products",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,56 +2016,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-277",
-      "headline": "Dangote refinery cuts debt to $5.7bn ahead of record IPO",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/africa/dangote-refinery-cuts-debt-to-5-7bn-ahead-of-record-ipo/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T11:18:32Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Dangote refinery reduced debt to $5.7bn, improving balance sheet health ahead of a major IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dangote refinery reduced debt to $5.7bn, improving balance sheet health ahead of a major IPO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dangote Refinery",
-          "ticker": null,
-          "listing_country": "NG"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109571,148 +109575,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6ba03fd21849",
-      "idea_version": "IDEAV-a9175b1085945c19",
-      "idea_version_started_at": "2026-09-08T12:03:13Z",
-      "ticker": "JWL",
-      "company": "Jupiter Wagons",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a new commercial order worth over Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
-      "why_now": "The press release was filed with the exchange today, September 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d206bf5ebfb"
-      ],
-      "primary_source_event_id": "EVT-5d206bf5ebfb",
-      "source_headlines": [
-        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
-      ],
-      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T08:06:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T12:03:13Z",
-      "updated_at": "2026-09-08T12:03:13Z",
-      "decay_at": "2026-09-09T20:06:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b15468d98102",
-      "idea_version": "IDEAV-0cb5f8ce6e5d2776",
-      "idea_version_started_at": "2026-09-08T09:47:09Z",
-      "ticker": "JUPITERWAG",
-      "company": "Jupiter Wagons Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a new commercial order worth Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
-      "why_now": "The order announcement was filed today, September 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d206bf5ebfb"
-      ],
-      "primary_source_event_id": "EVT-5d206bf5ebfb",
-      "source_headlines": [
-        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
-      ],
-      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T08:06:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T09:47:09Z",
-      "updated_at": "2026-09-08T09:47:09Z",
-      "decay_at": "2026-09-09T20:06:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9512c5197cc0",
       "idea_version": "IDEAV-895dd45d9843d7ae",
       "idea_version_started_at": "2026-09-09T05:11:41Z",
@@ -111533,6 +111395,148 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6ba03fd21849",
+      "idea_version": "IDEAV-a9175b1085945c19",
+      "idea_version_started_at": "2026-09-08T12:03:13Z",
+      "ticker": "JWL",
+      "company": "Jupiter Wagons",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a new commercial order worth over Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
+      "why_now": "The press release was filed with the exchange today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d206bf5ebfb"
+      ],
+      "primary_source_event_id": "EVT-5d206bf5ebfb",
+      "source_headlines": [
+        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
+      ],
+      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T08:06:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T12:03:13Z",
+      "updated_at": "2026-09-08T12:03:13Z",
+      "decay_at": "2026-09-09T20:06:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b15468d98102",
+      "idea_version": "IDEAV-0cb5f8ce6e5d2776",
+      "idea_version_started_at": "2026-09-08T09:47:09Z",
+      "ticker": "JUPITERWAG",
+      "company": "Jupiter Wagons Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a new commercial order worth Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
+      "why_now": "The order announcement was filed today, September 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d206bf5ebfb"
+      ],
+      "primary_source_event_id": "EVT-5d206bf5ebfb",
+      "source_headlines": [
+        "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
+      ],
+      "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T08:06:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T09:47:09Z",
+      "updated_at": "2026-09-08T09:47:09Z",
+      "decay_at": "2026-09-09T20:06:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116793,14 +116797,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 582,
+    "total_count": 584,
     "shown_count": 500,
-    "hidden_count": 82,
+    "hidden_count": 84,
     "side_counts": {
       "long": {
-        "total_count": 319,
+        "total_count": 321,
         "shown_count": 250,
-        "hidden_count": 69
+        "hidden_count": 71
       },
       "short": {
         "total_count": 263,
@@ -116824,6 +116828,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6ba03fd21849",
+        "idea_version": "IDEAV-a9175b1085945c19",
+        "idea_version_started_at": "2026-09-08T12:03:13Z",
+        "ticker": "JWL",
+        "company": "Jupiter Wagons",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a new commercial order worth over Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
+        "why_now": "The press release was filed with the exchange today, September 8, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5d206bf5ebfb"
+        ],
+        "primary_source_event_id": "EVT-5d206bf5ebfb",
+        "source_headlines": [
+          "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
+        ],
+        "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T08:06:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T12:03:13Z",
+        "updated_at": "2026-09-08T12:03:13Z",
+        "decay_at": "2026-09-09T20:06:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T20:06:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b15468d98102",
+        "idea_version": "IDEAV-0cb5f8ce6e5d2776",
+        "idea_version_started_at": "2026-09-08T09:47:09Z",
+        "ticker": "JUPITERWAG",
+        "company": "Jupiter Wagons Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a new commercial order worth Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
+        "why_now": "The order announcement was filed today, September 8, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5d206bf5ebfb"
+        ],
+        "primary_source_event_id": "EVT-5d206bf5ebfb",
+        "source_headlines": [
+          "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
+        ],
+        "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T08:06:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T09:47:09Z",
+        "updated_at": "2026-09-08T09:47:09Z",
+        "decay_at": "2026-09-09T20:06:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T20:06:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2cf05feb74ee",
         "idea_version": "IDEAV-20f279fc0534beaf",
@@ -146863,155 +147015,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-26b2131063db",
-        "idea_version": "IDEAV-3a283c2eaa9e0ad2",
-        "idea_version_started_at": "2026-08-28T06:50:04Z",
-        "ticker": "RHM",
-        "company": "Rheinmetall",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Expanding tank production and establishing a dedicated logistics and drone test center directly increases the company's manufacturing capacity and defense contract fulfillment potential.",
-        "why_now": "The expansion was reported on 2026-08-27, reflecting immediate operational scaling.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-72d5d3376b3b"
-        ],
-        "primary_source_event_id": "EVT-72d5d3376b3b",
-        "source_headlines": [
-          "Armaments: Rheinmetall expands tank production – Kassel Airport becomes a logistics and drone test center"
-        ],
-        "source_headline": "Rüstung: Rheinmetall baut Panzerproduktion aus – Flughafen Kassel wird zum Logistik- und Drohnen-Testzentrum",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/ruestung-rheinmetall-baut-panzerproduktion-in-kassel-aus/100249573.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T13:06:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T06:50:04Z",
-        "updated_at": "2026-08-28T06:50:04Z",
-        "decay_at": "2026-08-29T01:06:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T13:10:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-eb4b26f5f274",
-        "idea_version": "IDEAV-36da48601dde92a6",
-        "idea_version_started_at": "2026-08-27T14:03:31Z",
-        "ticker": "TEJASNET",
-        "company": "Tejas Networks Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a significant contract valued at Rs. 1537 Crores to supply RAN equipment for BSNL's 4G network, providing a clear boost to near-term revenue and order book visibility.",
-        "why_now": "The Letter of Intent was received and disclosed on August 27, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b2ba97b36119"
-        ],
-        "primary_source_event_id": "EVT-b2ba97b36119",
-        "source_headlines": [
-          "Tejas Networks Limited: Tejas Networks Limited has informed the Exchange about receipt of a Letter of Intent dated August 27, 2026, from Tata Consultancy Services Limited ( TCS ) for supply of RAN equipment, accessories & installation materials for BSNL 4G mobile network for 18,685 sites, valued at Rs.1537 Crores."
-        ],
-        "source_headline": "Tejas Networks Limited: Tejas Networks Limited has informed the Exchange about receipt of a Letter of Intent dated August 27, 2026, from Tata Consultancy Services Limited ( TCS ) for supply of RAN equipment, accessories & installation materials for BSNL 4G mobile network for 18,685 sites, valued at Rs.1537 Crores.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TEJASNET_27082026183323_Intimation-Letter_of_Intent_from_TCS.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T13:03:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T14:03:31Z",
-        "updated_at": "2026-08-27T14:03:31Z",
-        "decay_at": "2026-08-29T01:03:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T13:10:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-eca4f9742c9b",
         "idea_version": "IDEAV-416c47135182b874",
         "idea_version_started_at": "2026-08-27T14:03:31Z",
@@ -153991,7 +153994,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 645,
-    "live_count": 46,
+    "live_count": 44,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154010,9 +154013,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6941918,
-    "news_picked_today": 1012,
-    "news_dropped_today": 18428
+    "news_seen_today": 7080616,
+    "news_picked_today": 1024,
+    "news_dropped_today": 19520
   },
   "book_momentum": {
     "live_count": 8,
