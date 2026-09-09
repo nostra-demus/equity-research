@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T01:23:48Z",
+  "generated_at": "2026-09-09T01:28:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-054",
+      "headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T01:00:28Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Meta Platforms is paying an $18 billion settlement for a major lawsuit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta Platforms is paying an $18 billion settlement for a major lawsuit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1859,49 +1908,6 @@
       "triage_score": 67,
       "triage_reason": "Geopolitical tensions in the Middle East are influencing market expectations for interest rates and commodity prices.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-029",
-      "headline": "Yen Strengthens on Prospects of Two BOJ Rate Hikes by Year-End",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/currencies/yen-strengthens-on-prospects-of-two-boj-rate-hikes-by-year-end-c56a9483?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T00:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "The Bank of Japan is signaling a potential shift in monetary policy with two rate hikes expected by year-end, impacting currency markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The Bank of Japan is signaling a potential shift in monetary policy with two rate hikes expected by year-end, impacting currency markets.",
-      "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -154652,9 +154658,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 667308,
-    "news_picked_today": 58,
-    "news_dropped_today": 710
+    "news_seen_today": 707939,
+    "news_picked_today": 60,
+    "news_dropped_today": 732
   },
   "book_momentum": {
     "live_count": 8,
