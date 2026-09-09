@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T02:15:44Z",
+  "generated_at": "2026-09-09T02:19:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-050",
@@ -687,6 +687,55 @@
           "name": "Parker-Hannifin Corp",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-091",
+      "headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T02:02:02Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "A former auditor has alleged suspicious accounting maneuvers at a Bidvest subsidiary, raising significant governance and financial integrity risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A former auditor has alleged suspicious accounting maneuvers at a Bidvest subsidiary, raising significant governance and financial integrity risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bidvest",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1881,55 +1930,6 @@
       "launched_signal_id": null,
       "triage_score": 73,
       "triage_reason": "Silver Lake Partners V DE (AIV), L.P. filed a Form 144 indicating a proposed sale of Dell Technologies Inc. shares.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies Inc.",
-          "ticker": "DELL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-053",
-      "headline": "144 - Dell Technologies Inc. (0001571996) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1571996/000119312526385638/0001193125-26-385638-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T01:11:14Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Form 144 filing indicates a proposed insider sale of Dell Technologies Inc. shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Form 144 filing indicates a proposed insider sale of Dell Technologies Inc. shares.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -154756,9 +154756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1004930,
-    "news_picked_today": 97,
-    "news_dropped_today": 1151
+    "news_seen_today": 1018309,
+    "news_picked_today": 100,
+    "news_dropped_today": 1172
   },
   "book_momentum": {
     "live_count": 8,
