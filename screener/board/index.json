@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T14:31:44Z",
+  "generated_at": "2026-09-09T14:36:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-348",
@@ -646,31 +646,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260909-361",
-      "headline": "Silver Lake merges Cegid and Silae in €10 billion bet on AI-era software",
+      "inbox_id": "INB-20260909-364",
+      "headline": "Silver Lake merges Cegid and Silae in 10 billion euro bet on AI-era software",
       "headline_en": null,
       "url": "https://www.cnbc.com/2026/09/09/silver-lake-merges-cegid-silae-ai-software-deal.html",
       "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-09-09T14:09:44Z",
+      "found_at": "2026-09-09T14:26:10Z",
       "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Silver Lake is executing a €10 billion merger of Cegid and Silae to scale its software operations.",
+      "prelim_note": "Silver Lake is merging Cegid and Silae in a 10 billion euro deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Silver Lake is executing a €10 billion merger of Cegid and Silae to scale its software operations.",
+      "triage_reason": "Silver Lake is merging Cegid and Silae in a 10 billion euro deal.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -686,7 +686,7 @@
         {
           "name": "Silver Lake",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -734,6 +734,55 @@
       "companies": [
         {
           "name": "Signet Jewelers",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-367",
+      "headline": "ArcBest sees tonnage growth accelerate in August; raises Q3 asset-light guide",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/arcbest-sees-august-tonnage-growth-131129684.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T13:11:29Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "ArcBest reported accelerating tonnage growth and raised its Q3 asset-light guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ArcBest reported accelerating tonnage growth and raised its Q3 asset-light guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcBest",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1943,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-054",
-      "headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T01:00:28Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Meta Platforms is paying an $18 billion settlement for a major lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta Platforms is paying an $18 billion settlement for a major lawsuit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109843,78 +109843,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-67c9257a5dbd",
-      "idea_version": "IDEAV-27458b8c2211c6a0",
-      "idea_version_started_at": "2026-09-08T04:17:20Z",
-      "ticker": "BBD.B",
-      "company": "Bombardier",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Threats of a US import ban on Canadian jets directly jeopardize a significant portion of the company's addressable market and revenue stream.",
-      "why_now": "The threat was reported on 2026-09-08, creating immediate regulatory and commercial uncertainty.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-afa4c4da71f3"
-      ],
-      "primary_source_event_id": "EVT-afa4c4da71f3",
-      "source_headlines": [
-        "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US"
-      ],
-      "source_headline": "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US",
-      "source_url": "https://www.livemint.com/news/us-news/no-more-selling-bombardier-trump-threatens-to-stop-sale-of-canadian-jets-in-us-11788833996402.html",
-      "source_name": "Mint",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-08T02:34:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T03:37:13Z",
-      "updated_at": "2026-09-08T04:17:20Z",
-      "decay_at": "2026-09-09T14:34:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7cd73abe309e",
       "idea_version": "IDEAV-71da18ed92e22625",
       "idea_version_started_at": "2026-09-07T21:35:59Z",
@@ -115198,6 +115126,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-67c9257a5dbd",
+      "idea_version": "IDEAV-27458b8c2211c6a0",
+      "idea_version_started_at": "2026-09-08T04:17:20Z",
+      "ticker": "BBD.B",
+      "company": "Bombardier",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Threats of a US import ban on Canadian jets directly jeopardize a significant portion of the company's addressable market and revenue stream.",
+      "why_now": "The threat was reported on 2026-09-08, creating immediate regulatory and commercial uncertainty.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-afa4c4da71f3"
+      ],
+      "primary_source_event_id": "EVT-afa4c4da71f3",
+      "source_headlines": [
+        "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US"
+      ],
+      "source_headline": "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US",
+      "source_url": "https://www.livemint.com/news/us-news/no-more-selling-bombardier-trump-threatens-to-stop-sale-of-canadian-jets-in-us-11788833996402.html",
+      "source_name": "Mint",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-08T02:34:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T03:37:13Z",
+      "updated_at": "2026-09-08T04:17:20Z",
+      "decay_at": "2026-09-09T14:34:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-07281f29d7fc",
       "idea_version": "IDEAV-97fd7ed17ba5e6f1",
       "idea_version_started_at": "2026-09-08T02:17:11Z",
@@ -116281,9 +116281,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
         "total_count": 312,
@@ -116291,9 +116291,9 @@
         "hidden_count": 62
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -116312,6 +116312,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-67c9257a5dbd",
+        "idea_version": "IDEAV-27458b8c2211c6a0",
+        "idea_version_started_at": "2026-09-08T04:17:20Z",
+        "ticker": "BBD.B",
+        "company": "Bombardier",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Threats of a US import ban on Canadian jets directly jeopardize a significant portion of the company's addressable market and revenue stream.",
+        "why_now": "The threat was reported on 2026-09-08, creating immediate regulatory and commercial uncertainty.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-afa4c4da71f3"
+        ],
+        "primary_source_event_id": "EVT-afa4c4da71f3",
+        "source_headlines": [
+          "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US"
+        ],
+        "source_headline": "'No more selling Bombardier': Trump threatens to stop sale of Canadian jets in US",
+        "source_url": "https://www.livemint.com/news/us-news/no-more-selling-bombardier-trump-threatens-to-stop-sale-of-canadian-jets-in-us-11788833996402.html",
+        "source_name": "Mint",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-08T02:34:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T03:37:13Z",
+        "updated_at": "2026-09-08T04:17:20Z",
+        "decay_at": "2026-09-09T14:34:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T14:34:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2baef68b6b28",
         "idea_version": "IDEAV-cab4b8cddc0f481d",
@@ -153400,86 +153475,12 @@
         "archived_at": "2026-08-22T10:18:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ddb66d71a44e",
-        "idea_version": "IDEAV-883c9eab2f8d9b2a",
-        "idea_version_started_at": "2026-08-20T06:23:48Z",
-        "ticker": "06158",
-        "company": "Zhenro Properties Group Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A profit warning from a property developer in the current environment typically reflects severe liquidity or debt-servicing challenges.",
-        "why_now": "The profit warning was filed on 2026-08-19.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-73e2be237e47"
-        ],
-        "primary_source_event_id": "EVT-73e2be237e47",
-        "source_headlines": [
-          "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING"
-        ],
-        "source_headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900849.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T10:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T06:23:48Z",
-        "updated_at": "2026-08-20T06:23:48Z",
-        "decay_at": "2026-08-20T22:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T10:18:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 634,
-    "live_count": 47,
+    "live_count": 46,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153498,9 +153499,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5433856,
-    "news_picked_today": 730,
-    "news_dropped_today": 13190
+    "news_seen_today": 5453304,
+    "news_picked_today": 738,
+    "news_dropped_today": 13230
   },
   "book_momentum": {
     "live_count": 8,
