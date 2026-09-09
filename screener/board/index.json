@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-09T00:48:50Z",
+  "generated_at": "2026-09-09T00:58:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-035",
+      "headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:42:49Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Austal received a non-binding indicative offer from Wildcat, signaling potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Austal received a non-binding indicative offer from Wildcat, signaling potential M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austal",
+          "ticker": "ASB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260909-016",
       "headline": "E-HOUSE ENT (02048): NOTICE OF FILING OF THE VERIFIED PETITION FOR (I) RECOGNITION OF FOREIGN MAIN PROCEEDING, (II) RECOGNITION OF FOREIGN REPRESENTATIVE, AND (III) CERTAIN RELATED RELIEF WITH THE UNITED STATES BANKRUPTCY COURT FOR THE SOUTHERN DISTRICT OF NEW YORK",
@@ -346,6 +395,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-038",
+      "headline": "425 - John Marshall Bancorp, Inc. (0001710482) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1710482/000155278126000473/0001552781-26-000473-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-08T12:45:40Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Filing of 425 indicates ongoing M&A activity or business combination communications for John Marshall Bancorp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Filing of 425 indicates ongoing M&A activity or business combination communications for John Marshall Bancorp.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "John Marshall Bancorp, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-021",
       "headline": "[Special Report] POSCO Brazil Bankruptcy Sparks Legislative, OECD Backlash",
       "headline_en": null,
@@ -641,6 +739,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-030",
+      "headline": "US imposes fresh sanctions on Iran’s aviation industry",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/us-imposes-fresh-sanctions-on-irans-aviation-industry/article71445367.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:35:48Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "New US sanctions on Iran's aviation industry increase geopolitical risk and operational constraints for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "New US sanctions on Iran's aviation industry increase geopolitical risk and operational constraints for the sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-017",
       "headline": "US increases pressure on Iran with sanctions targeting aviation sector",
       "headline_en": null,
@@ -729,6 +870,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-033",
+      "headline": "PUBLIC FIN HOLD (00626): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900071.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Resumption of trading for Public Financial Holdings indicates the resolution of a regulatory or information disclosure issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Resumption of trading for Public Financial Holdings indicates the resolution of a regulatory or information disclosure issue.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Public Financial Holdings",
+          "ticker": "00626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-032",
+      "headline": "LOTUS HORIZON (06063): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900073.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Resumption of trading for Lotus Horizon indicates the resolution of a regulatory or information disclosure issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Resumption of trading for Lotus Horizon indicates the resolution of a regulatory or information disclosure issue.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lotus Horizon",
+          "ticker": "06063",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-036",
+      "headline": "WSI: Response to ASX Query Letter [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WSI?key=2924-03133550-6A1342959",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:38:29Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Response to an ASX query letter regarding price-sensitive information is a standard regulatory compliance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Response to an ASX query letter regarding price-sensitive information is a standard regulatory compliance event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WSI",
+          "ticker": "WSI",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -827,6 +1115,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-034",
+      "headline": "SG-AMZN@RC2609A SG-S&P @EC2609A SG-GEG @EC2609A SG-AAC @EC2609A SGSMORE@EC2609A SG-CHQG@EC2609A SG-ICBC@EC2609A SG#S&P RC2609C SG#DJIA RC2609A SG#DJIA RC2609B SG#NQ100RC2609C SG#HSI RC2609N SG#HUAHORC2609A SG#HUAHORC2609E SG#HKEX RC2609A SG#HSI RC2609C (11070 11121 26453 26649 27328 27329 28183 49518 49986 49988 49991 55829 55869 60285 64178 67877): EXCHANGE NOTICE - SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900069.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Multiple derivative products suspended from trading on the HKEX, impacting liquidity for these specific instruments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Multiple derivative products suspended from trading on the HKEX, impacting liquidity for these specific instruments.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -979,6 +1310,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-031",
+      "headline": "Iran's IRGC warns oil tankers off Kuwait, Bahrain 'will be targeted'",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/irans-irgc-warns-oil-tankers-kuwait-bahrain-will-be-targeted",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:43:22Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Threats by the IRGC to target oil tankers in the Persian Gulf represent a significant escalation in regional conflict and a potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Threats by the IRGC to target oil tankers in the Persian Gulf represent a significant escalation in regional conflict and a potential supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-029",
+      "headline": "Yen Strengthens on Prospects of Two BOJ Rate Hikes by Year-End",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/currencies/yen-strengthens-on-prospects-of-two-boj-rate-hikes-by-year-end-c56a9483?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T00:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "The Bank of Japan is signaling a potential shift in monetary policy with two rate hikes expected by year-end, impacting currency markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The Bank of Japan is signaling a potential shift in monetary policy with two rate hikes expected by year-end, impacting currency markets.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-008",
       "headline": "G11: Zig Zag Copper / Gold Project Exploration Update [price-sensitive]",
       "headline_en": null,
@@ -1069,6 +1486,55 @@
           "name": "ROG",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-037",
+      "headline": "RLC: Proposed issue of securities - RLC",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RLC?key=2924-03133548-3A701396",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T00:36:54Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Proposed issue of securities by RLC represents a potential capital raise or equity issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Proposed issue of securities by RLC represents a potential capital raise or equity issuance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RLC",
+          "ticker": "RLC",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -154014,7 +154480,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 2195,
+    "inbox_unconsumed": 2205,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -154023,9 +154489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 409581,
-    "news_picked_today": 29,
-    "news_dropped_today": 427
+    "news_seen_today": 491089,
+    "news_picked_today": 41,
+    "news_dropped_today": 487
   },
   "book_momentum": {
     "live_count": 8,
