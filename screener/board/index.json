@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-09T10:25:51Z",
+  "generated_at": "2026-09-09T10:45:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260909-224",
+      "headline": "FOUNTAIN SET (00420): MAJOR TRANSACTION PROPOSED ACQUISITION OF 81% CAPITAL CONTRIBUTION INTEREST IN A VIETNAMESE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900829.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Fountain Set announced a major transaction to acquire an 81% capital contribution interest in a Vietnamese company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fountain Set announced a major transaction to acquire an 81% capital contribution interest in a Vietnamese company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fountain Set (Holdings) Limited",
+          "ticker": "00420",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260909-199",
       "headline": "BAMBOOSHEALTH (02293): PROFIT WARNING",
@@ -444,6 +493,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-236",
+      "headline": "LIV Golf Just Filed for Bankruptcy. Bryson DeChambeau and Jon Rahm Are Owed Millions After Saudi Arabia Pulled Its Funding",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/09/liv-golf-just-filed-for-bankruptcy-bryson-dechambeau-and-jon-rahm-are-owed-millions-after-saudi-arabia-pulled-its-funding/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T10:28:48Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "LIV Golf filed for bankruptcy following a funding withdrawal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LIV Golf filed for bankruptcy following a funding withdrawal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LIV Golf",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1487,6 +1585,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260909-243",
+      "headline": "Clean Max Enviro Energy Solutions Limited: Clean Max Enviro Energy Solutions Limited has informed the Exchange about Sale or disposal",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CLEANMAX_09092026153049_CMES_Reg_30_Dynamis.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T10:16:18Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Clean Max Enviro Energy Solutions Limited has announced a sale or disposal of assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Clean Max Enviro Energy Solutions Limited has announced a sale or disposal of assets.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clean Max Enviro Energy Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260909-211",
       "headline": "GOLDSTONE CAP (01160): SHAREHOLDER'S REQUISITION IN RELATION TO PROPOSED REMOVAL AND APPOINTMENT OF DIRECTORS AND NOTICE OF SPECIAL GENERAL MEETING",
       "headline_en": null,
@@ -1532,6 +1679,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-240",
+      "headline": "Gujarat Ambuja Exports Limited: Gujarat Ambuja Exports Limited has informed the Exchange about proposed to setup 850 TPD Greenfield Corn Wet Milling Plant at Hubli, Karnataka",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GAEL_09092026154306_850_TPD_Hubli.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-09T10:13:14Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Company announces a new 850 TPD Greenfield Corn Wet Milling Plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Company announces a new 850 TPD Greenfield Corn Wet Milling Plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gujarat Ambuja Exports Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1769,202 +1965,6 @@
           "name": "BSL",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-025",
-      "headline": "SCHEDULE 13D/A - MOROUN MATTHEW T (0001030743) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1030743/000168316826007022/0001683168-26-007022-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T00:26:14Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Matthew T. Moroun filed an amended 13D/A, indicating a significant ownership stake change or update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Matthew T. Moroun filed an amended 13D/A, indicating a significant ownership stake change or update.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PAMT Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-026",
-      "headline": "SCHEDULE 13D/A - PAMT CORP (0000798287) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/798287/000168316826007022/0001683168-26-007022-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-09T00:26:14Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "PAMT Corp is the subject of an amended 13D/A filing regarding ownership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "PAMT Corp is the subject of an amended 13D/A filing regarding ownership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PAMT Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-023",
-      "headline": "424B2 - Parker-Hannifin Corp (0000076334) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/76334/000119312526384467/0001193125-26-384467-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-08T12:54:29Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Parker-Hannifin filed a shelf prospectus for potential future debt issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Parker-Hannifin filed a shelf prospectus for potential future debt issuance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Parker-Hannifin Corp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-192",
-      "headline": "Arcil Sets The Stage For ₹733 Crore IPO, Raises ₹220 Crore From Anchor Investors Ahead Of Subscription",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/arcil-sets-the-stage-for-733-crore-ipo-raises-220-crore-from-anchor-investors-ahead-of-subscription",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T07:08:28Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "Arcil IPO with named offer size of ₹733 crore and ₹220 crore anchor investment, a quantified capital raise and public-listing event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Arcil IPO with named offer size of ₹733 crore and ₹220 crore anchor investment, a quantified capital raise and public-listing event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arcil",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -109376,78 +109376,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-815cbc7f3212",
-      "idea_version": "IDEAV-42635029d1772aaa",
-      "idea_version_started_at": "2026-09-07T23:46:49Z",
-      "ticker": "GCI",
-      "company": "Gryphon Capital Income Trust",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The completion of a large $86.25M wholesale placement typically creates immediate downward pressure on the share price as new supply hits the market at a discount.",
-      "why_now": "The placement completion was announced on 2026-09-07, marking the point where new shares are issued and secondary market digestion begins.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-815b42714107"
-      ],
-      "primary_source_event_id": "EVT-815b42714107",
-      "source_headlines": [
-        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
-      ],
-      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T22:42:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T23:46:49Z",
-      "updated_at": "2026-09-07T23:46:49Z",
-      "decay_at": "2026-09-09T10:42:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9dcb830cc86c",
       "idea_version": "IDEAV-7863a0061b902af7",
       "idea_version_started_at": "2026-09-07T23:26:05Z",
@@ -109513,77 +109441,6 @@
       "surfaced_at": "2026-09-07T23:26:05Z",
       "updated_at": "2026-09-07T23:26:05Z",
       "decay_at": "2026-09-09T11:19:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-24262cdd95f2",
-      "idea_version": "IDEAV-f25fe8fb0faa22c1",
-      "idea_version_started_at": "2026-09-07T23:01:43Z",
-      "ticker": "GCI",
-      "company": "GCI",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
-      "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-815b42714107"
-      ],
-      "primary_source_event_id": "EVT-815b42714107",
-      "source_headlines": [
-        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
-      ],
-      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T22:42:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T23:01:43Z",
-      "updated_at": "2026-09-07T23:01:43Z",
-      "decay_at": "2026-09-09T10:42:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -112064,6 +111921,149 @@
       "surfaced_at": "2026-09-06T20:29:47Z",
       "updated_at": "2026-09-06T20:29:47Z",
       "decay_at": "2026-09-08T07:35:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-815cbc7f3212",
+      "idea_version": "IDEAV-42635029d1772aaa",
+      "idea_version_started_at": "2026-09-07T23:46:49Z",
+      "ticker": "GCI",
+      "company": "Gryphon Capital Income Trust",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The completion of a large $86.25M wholesale placement typically creates immediate downward pressure on the share price as new supply hits the market at a discount.",
+      "why_now": "The placement completion was announced on 2026-09-07, marking the point where new shares are issued and secondary market digestion begins.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "liquidity_positioning",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-815b42714107"
+      ],
+      "primary_source_event_id": "EVT-815b42714107",
+      "source_headlines": [
+        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+      ],
+      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T22:42:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T23:46:49Z",
+      "updated_at": "2026-09-07T23:46:49Z",
+      "decay_at": "2026-09-09T10:42:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-24262cdd95f2",
+      "idea_version": "IDEAV-f25fe8fb0faa22c1",
+      "idea_version_started_at": "2026-09-07T23:01:43Z",
+      "ticker": "GCI",
+      "company": "GCI",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
+      "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-815b42714107"
+      ],
+      "primary_source_event_id": "EVT-815b42714107",
+      "source_headlines": [
+        "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+      ],
+      "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-07T22:42:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T23:01:43Z",
+      "updated_at": "2026-09-07T23:01:43Z",
+      "decay_at": "2026-09-09T10:42:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117186,19 +117186,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 566,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 66,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 313,
+        "total_count": 314,
         "shown_count": 250,
-        "hidden_count": 63
+        "hidden_count": 64
       },
       "short": {
-        "total_count": 253,
+        "total_count": 254,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 4
       }
     },
     "retention": {
@@ -117217,6 +117217,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-24262cdd95f2",
+        "idea_version": "IDEAV-f25fe8fb0faa22c1",
+        "idea_version_started_at": "2026-09-07T23:01:43Z",
+        "ticker": "GCI",
+        "company": "GCI",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
+        "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-815b42714107"
+        ],
+        "primary_source_event_id": "EVT-815b42714107",
+        "source_headlines": [
+          "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+        ],
+        "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T22:42:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T23:01:43Z",
+        "updated_at": "2026-09-07T23:01:43Z",
+        "decay_at": "2026-09-09T10:42:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T10:42:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-815cbc7f3212",
+        "idea_version": "IDEAV-42635029d1772aaa",
+        "idea_version_started_at": "2026-09-07T23:46:49Z",
+        "ticker": "GCI",
+        "company": "Gryphon Capital Income Trust",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The completion of a large $86.25M wholesale placement typically creates immediate downward pressure on the share price as new supply hits the market at a discount.",
+        "why_now": "The placement completion was announced on 2026-09-07, marking the point where new shares are issued and secondary market digestion begins.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "liquidity_positioning",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-815b42714107"
+        ],
+        "primary_source_event_id": "EVT-815b42714107",
+        "source_headlines": [
+          "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+        ],
+        "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-07T22:42:24Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T23:46:49Z",
+        "updated_at": "2026-09-07T23:46:49Z",
+        "decay_at": "2026-09-09T10:42:24Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T10:42:24Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b86fb8ac7f1",
         "idea_version": "IDEAV-cb8808d4da7aa5a9",
@@ -147849,80 +147998,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-dbb0c0af5d7a",
-        "idea_version": "IDEAV-598a128eedd3f0f6",
-        "idea_version_started_at": "2026-08-26T06:46:12Z",
-        "ticker": "SEPC",
-        "company": "SEPC Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Acquiring Wintality Petroleum expands its portfolio and revenue base.",
-        "why_now": "In-principle approval for acquisition announced on 26 Aug 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-10f21601cc2c"
-        ],
-        "primary_source_event_id": "EVT-10f21601cc2c",
-        "source_headlines": [
-          "SEPC Limited: We hereby informed the exchange of the press release titled \" SEPC Receives In-Principle Approval to Enter UAE Petroleum Trading with 100% Acquisition of Wintality Petroleum FZE\". Detailed letter is enclosed."
-        ],
-        "source_headline": "SEPC Limited: We hereby informed the exchange of the press release titled \" SEPC Receives In-Principle Approval to Enter UAE Petroleum Trading with 100% Acquisition of Wintality Petroleum FZE\". Detailed letter is enclosed.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SHRIRAMEPC_26082026093857_Intimation_to_SE_Press_Release_UAE_Acquisition_by_SEPC_FZEv2sd.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-26T04:09:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-26T06:46:12Z",
-        "updated_at": "2026-08-26T06:46:12Z",
-        "decay_at": "2026-08-27T16:09:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-29T08:47:42Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-49a2653dd307",
         "idea_version": "IDEAV-bbf0f9c9aff71064",
         "idea_version_started_at": "2026-08-26T04:56:22Z",
@@ -154299,86 +154374,12 @@
         "archived_at": "2026-08-22T08:49:10Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f0b7aaadad7d",
-        "idea_version": "IDEAV-c0f14b83d2178899",
-        "idea_version_started_at": "2026-08-20T06:23:48Z",
-        "ticker": "ADVIKCAP",
-        "company": "Advik Capital Ltd",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The resignation of a statutory auditor is a significant governance red flag that often precedes further negative disclosures or regulatory scrutiny.",
-        "why_now": "The resignation was announced on 2026-08-19.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6a9941666303"
-        ],
-        "primary_source_event_id": "EVT-6a9941666303",
-        "source_headlines": [
-          "Advik Capital Ltd: Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Resignation of Statutory Auditor"
-        ],
-        "source_headline": "Advik Capital Ltd: Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Resignation of Statutory Auditor",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/94671121-de23-4e9d-99da-d97156009770.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-19T07:10:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T02:14:56Z",
-        "updated_at": "2026-08-20T06:23:48Z",
-        "decay_at": "2026-08-20T19:10:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-22T07:11:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 628,
-    "live_count": 59,
+    "live_count": 57,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -154397,9 +154398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3843836,
-    "news_picked_today": 402,
-    "news_dropped_today": 9294
+    "news_seen_today": 4051546,
+    "news_picked_today": 434,
+    "news_dropped_today": 9478
   },
   "book_momentum": {
     "live_count": 8,
