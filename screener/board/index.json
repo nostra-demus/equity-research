@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T18:56:59Z",
+  "generated_at": "2026-09-09T19:31:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-418",
@@ -848,6 +848,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260909-432",
+      "headline": "Circle to buy Tazapay for $400M",
+      "headline_en": null,
+      "url": "https://www.bankingdive.com/news/circle-to-buy-tazapay-for-400m/829954/",
+      "source_name": "Banking Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-09T18:30:43Z",
+      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
+      "prelim_note": "Circle is acquiring Tazapay for $400M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Circle is acquiring Tazapay for $400M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Circle",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tazapay",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1958,49 +2012,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260909-269",
-      "headline": "Loan default puts 41-restaurant Mexican chain at risk",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/loan-default-puts-41-restaurant-qdoba-mexican-chain-at-risk",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T11:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-09_sweep.json",
-      "prelim_note": "A 41-restaurant chain is at risk of default.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A 41-restaurant chain is at risk of default.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109632,78 +109643,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2cf05feb74ee",
-      "idea_version": "IDEAV-20f279fc0534beaf",
-      "idea_version_started_at": "2026-09-08T08:32:35Z",
-      "ticker": "CCC",
-      "company": "Computacenter",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported an 87% surge in profit driven by strong demand for AI infrastructure and subsequently raised its forward guidance.",
-      "why_now": "The earnings and guidance update was released on September 8, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3fc151325ac5"
-      ],
-      "primary_source_event_id": "EVT-3fc151325ac5",
-      "source_headlines": [
-        "Computacenter profit surges 87% on AI infrastructure demand, raises outlook"
-      ],
-      "source_headline": "Computacenter profit surges 87% on AI infrastructure demand, raises outlook",
-      "source_url": "https://ukinvestormagazine.co.uk/computacenter-profit-surges-87-on-ai-infrastructure-demand-raises-outlook/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T07:14:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T08:32:35Z",
-      "updated_at": "2026-09-08T08:32:35Z",
-      "decay_at": "2026-09-09T19:14:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9512c5197cc0",
       "idea_version": "IDEAV-895dd45d9843d7ae",
       "idea_version_started_at": "2026-09-09T05:11:41Z",
@@ -111594,6 +111533,78 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2cf05feb74ee",
+      "idea_version": "IDEAV-20f279fc0534beaf",
+      "idea_version_started_at": "2026-09-08T08:32:35Z",
+      "ticker": "CCC",
+      "company": "Computacenter",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported an 87% surge in profit driven by strong demand for AI infrastructure and subsequently raised its forward guidance.",
+      "why_now": "The earnings and guidance update was released on September 8, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3fc151325ac5"
+      ],
+      "primary_source_event_id": "EVT-3fc151325ac5",
+      "source_headlines": [
+        "Computacenter profit surges 87% on AI infrastructure demand, raises outlook"
+      ],
+      "source_headline": "Computacenter profit surges 87% on AI infrastructure demand, raises outlook",
+      "source_url": "https://ukinvestormagazine.co.uk/computacenter-profit-surges-87-on-ai-infrastructure-demand-raises-outlook/",
+      "source_name": "UK Investor Magazine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T07:14:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T08:32:35Z",
+      "updated_at": "2026-09-08T08:32:35Z",
+      "decay_at": "2026-09-09T19:14:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116782,14 +116793,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 582,
+    "total_count": 583,
     "shown_count": 500,
-    "hidden_count": 82,
+    "hidden_count": 83,
     "side_counts": {
       "long": {
-        "total_count": 319,
+        "total_count": 320,
         "shown_count": 250,
-        "hidden_count": 69
+        "hidden_count": 70
       },
       "short": {
         "total_count": 263,
@@ -116813,6 +116824,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2cf05feb74ee",
+        "idea_version": "IDEAV-20f279fc0534beaf",
+        "idea_version_started_at": "2026-09-08T08:32:35Z",
+        "ticker": "CCC",
+        "company": "Computacenter",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported an 87% surge in profit driven by strong demand for AI infrastructure and subsequently raised its forward guidance.",
+        "why_now": "The earnings and guidance update was released on September 8, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3fc151325ac5"
+        ],
+        "primary_source_event_id": "EVT-3fc151325ac5",
+        "source_headlines": [
+          "Computacenter profit surges 87% on AI infrastructure demand, raises outlook"
+        ],
+        "source_headline": "Computacenter profit surges 87% on AI infrastructure demand, raises outlook",
+        "source_url": "https://ukinvestormagazine.co.uk/computacenter-profit-surges-87-on-ai-infrastructure-demand-raises-outlook/",
+        "source_name": "UK Investor Magazine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T07:14:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T08:32:35Z",
+        "updated_at": "2026-09-08T08:32:35Z",
+        "decay_at": "2026-09-09T19:14:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T19:14:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d45c5c6a293c",
         "idea_version": "IDEAV-4c3423f52b003f7e",
@@ -147074,79 +147160,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-00d8e75528b1",
-        "idea_version": "IDEAV-894653a9197177b3",
-        "idea_version_started_at": "2026-08-27T13:17:25Z",
-        "ticker": "DG",
-        "company": "Dollar General",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its annual comparable sales forecast, indicating that its value-oriented retail model is capturing market share as consumers trade down.",
-        "why_now": "The positive guidance revision was released today, August 27, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9ed7ecef7754"
-        ],
-        "primary_source_event_id": "EVT-9ed7ecef7754",
-        "source_headlines": [
-          "Dollar General raises annual comparable sales forecast on steady demand, shares jump"
-        ],
-        "source_headline": "Dollar General raises annual comparable sales forecast on steady demand, shares jump",
-        "source_url": "https://www.reuters.com/business/retail-consumer/dollar-general-raises-annual-comparable-sales-forecast-2026-08-27/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-27T11:11:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T13:17:25Z",
-        "updated_at": "2026-08-27T13:17:25Z",
-        "decay_at": "2026-08-28T23:11:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-30T11:20:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f55bf31e25a",
         "idea_version": "IDEAV-5d771201ad67cf74",
         "idea_version_started_at": "2026-08-27T11:49:33Z",
@@ -153978,7 +153991,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 644,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153997,9 +154010,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6780408,
-    "news_picked_today": 992,
-    "news_dropped_today": 17032
+    "news_seen_today": 6941918,
+    "news_picked_today": 1012,
+    "news_dropped_today": 18428
   },
   "book_momentum": {
     "live_count": 8,
