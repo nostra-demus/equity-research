@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T05:10:39Z",
+  "generated_at": "2026-09-09T05:12:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260909-138",
@@ -110107,6 +110107,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9512c5197cc0",
+      "idea_version": "IDEAV-895dd45d9843d7ae",
+      "idea_version_started_at": "2026-09-09T05:11:41Z",
+      "ticker": "BVT",
+      "company": "Bidvest",
+      "exchange": "JSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Allegations of suspicious payments and accounting maneuvers at a subsidiary create significant governance risk and potential for earnings restatements or regulatory fines.",
+      "why_now": "The allegations surfaced in a report on 2026-09-09.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4b63acc1d970"
+      ],
+      "primary_source_event_id": "EVT-4b63acc1d970",
+      "source_headlines": [
+        "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary"
+      ],
+      "source_headline": "Former auditor alleges suspicious ‘payments and accounting manoeuvres’ at Bidvest subsidiary",
+      "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/former-auditor-alleges-suspicious-payments-and-accounting-manoeuvres-at-bidvest-subsidiary/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-09T02:02:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T05:11:41Z",
+      "updated_at": "2026-09-09T05:11:41Z",
+      "decay_at": "2026-09-10T14:02:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d45c5c6a293c",
       "idea_version": "IDEAV-4c3423f52b003f7e",
       "idea_version_started_at": "2026-09-08T08:32:35Z",
@@ -112301,76 +112373,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-04738164be6f",
-      "idea_version": "IDEAV-66987093c8e398fb",
-      "idea_version_started_at": "2026-09-06T04:54:50Z",
-      "ticker": "MC.PA",
-      "company": "LVMH",
-      "exchange": "Paris",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The luxury sector is experiencing a sharp decline in demand as the 'feelgood factor' fades, directly impacting LVMH's revenue growth and margin expansion.",
-      "why_now": "The report on 2026-09-06 highlights a structural shift in consumer behavior that is currently being repriced by the market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fc6dc4ad0c77"
-      ],
-      "primary_source_event_id": "EVT-fc6dc4ad0c77",
-      "source_headlines": [
-        "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades"
-      ],
-      "source_headline": "LVMH sheds boom-time gains as luxury ‘feelgood factor’ fades",
-      "source_url": "https://www.ft.com/content/02f36de6-b6ce-4a17-a474-bd5fa000f1a1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-06T04:00:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T04:54:50Z",
-      "updated_at": "2026-09-06T04:54:50Z",
-      "decay_at": "2026-09-07T16:00:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-40daa458c3f6",
       "idea_version": "IDEAV-f50b43f7ea84c8ba",
       "idea_version_started_at": "2026-09-06T20:29:47Z",
@@ -114535,78 +114537,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-77bccc5c9aab",
-      "idea_version": "IDEAV-3f5801aa7b843e1f",
-      "idea_version_started_at": "2026-09-06T05:50:29Z",
-      "ticker": "DPW",
-      "company": "DP World",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "DP World is investing AED4 billion across its Middle East, Europe, and Africa operations, which should enhance its port infrastructure and logistics capabilities, supporting revenue growth.",
-      "why_now": "The company has announced a significant capital expenditure of AED4 billion, indicating active expansion and potential for future revenue increases.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ed33faf8015b"
-      ],
-      "primary_source_event_id": "EVT-ed33faf8015b",
-      "source_headlines": [
-        "DP World invests AED4 billion across Middle East, Europe and Africa as regional revenue rises"
-      ],
-      "source_headline": "DP World invests AED4 billion across Middle East, Europe and Africa as regional revenue rises",
-      "source_url": "https://www.emirates247.com/business/dp-world-invests-aed4-billion-across-middle-east-europe-and-africa-as-regional-revenue-rises/5279",
-      "source_name": "Emirates 24|7 — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-06T05:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T05:50:29Z",
-      "updated_at": "2026-09-06T05:50:29Z",
-      "decay_at": "2026-09-07T17:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fdef9c56cf5c",
       "idea_version": "IDEAV-6f2fcb2dcb2fdd91",
       "idea_version_started_at": "2026-09-07T00:24:17Z",
@@ -116042,78 +115972,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1e4418649180",
-      "idea_version": "IDEAV-dec86f5bf9ababfe",
-      "idea_version_started_at": "2026-09-06T04:54:50Z",
-      "ticker": "GLAND",
-      "company": "Gland Pharma",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
-      "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6958bd3121b"
-      ],
-      "primary_source_event_id": "EVT-c6958bd3121b",
-      "source_headlines": [
-        "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
-      ],
-      "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
-      "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
-      "source_name": "Free Press Journal",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-06T04:17:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-05T17:14:18Z",
-      "updated_at": "2026-09-06T04:54:50Z",
-      "decay_at": "2026-09-07T16:17:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-85224f632c88",
       "idea_version": "IDEAV-87f9e3fd785ba495",
       "idea_version_started_at": "2026-09-07T03:06:44Z",
@@ -116833,79 +116691,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-aaed0a1c84fe",
-      "idea_version": "IDEAV-9e5a19a904e69bf3",
-      "idea_version_started_at": "2026-09-06T05:34:45Z",
-      "ticker": "QAN",
-      "company": "Qantas Airways",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
-      "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-406bd580d8cb"
-      ],
-      "primary_source_event_id": "EVT-406bd580d8cb",
-      "source_headlines": [
-        "Flames burst from Qantas plane engine after New Zealand takeoff"
-      ],
-      "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
-      "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-06T05:02:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-06T05:34:45Z",
-      "updated_at": "2026-09-06T05:34:45Z",
-      "decay_at": "2026-09-07T17:02:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b287a5dccf6f",
       "idea_version": "IDEAV-3ed9c7bd15e1c551",
       "idea_version_started_at": "2026-09-07T01:32:16Z",
@@ -117410,20 +117195,20 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 475,
+      "file_count": 478,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 309,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 59
+        "hidden_count": 58
       },
       "short": {
         "total_count": 252,
@@ -117432,13 +117217,13 @@
       }
     },
     "retention": {
-      "truncated": false,
-      "evicted_count": 0,
+      "truncated": true,
+      "evicted_count": 1,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 0,
-          "oldest_retained_at": "2026-08-14T01:21:33Z"
+          "evicted_count": 1,
+          "oldest_retained_at": "2026-08-14T05:35:49Z"
         },
         "short": {
           "evicted_count": 0,
@@ -123706,8 +123491,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T17:10:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T05:11:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123782,8 +123567,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T17:02:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T05:11:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123857,8 +123642,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T16:17:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T05:11:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123930,8 +123715,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-07T16:00:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-09T05:11:44Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -154607,8 +154392,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 627,
-    "live_count": 64,
+    "surfaced_total": 628,
+    "live_count": 65,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
