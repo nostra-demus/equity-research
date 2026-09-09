@@ -63,6 +63,10 @@ DEPLOY_TOKEN_COMMAND="${NOSTRA_DEPLOY_TOKEN_COMMAND:-$OPS/gh-app-token.sh}"
 DEPLOY_AUDIT_LEDGER="${NOSTRA_DEPLOY_AUDIT_LEDGER:-$OPS/deploy-audit/events.jsonl}"
 DEPLOY_AUDIT_PENDING="$OPS/.deploy.audit-pending"
 DEPLOY_AUTHORIZATION_ERROR="$OPS/.deploy-authorization.err"
+# A reused receipt must still cover a whole release (build + health checks + the closing audit). One that
+# expires sooner is replaced up front from the same exact-CI proof, so the audit that closes the release
+# can never find its authorization already expired.
+DEPLOY_AUTHORIZATION_MIN_REMAINING="${NOSTRA_DEPLOY_AUTHORIZATION_MIN_REMAINING:-900}"
 DEPLOY_AUDIT_ERROR="$OPS/.deploy-audit.err"
 DEPLOY_STARTED_AT=0
 DEPLOY_AUDIT_BLOCKED=0
@@ -133,13 +137,18 @@ valid_git_sha() { [[ "${1:-}" =~ ^[0-9a-f]{40}$ || "${1:-}" =~ ^[0-9a-f]{64}$ ]]
 # admission barrier; this separate record also covers terminal blockers (dirty code, red/missing CI, local
 # divergence) without pretending a deploy is actively draining runs. pendingSince survives watcher ticks for
 # the same target, so a two-minute poll cannot reset or hide a multi-hour release delay.
+# `data_only` is the one non-alarming shape: origin/main moved past the deployed marker only through the
+# engine's own research publications (analyses/, screener/, commodity/, watchlist/). The deployed PROGRAM is
+# exactly what main carries, so that record is published as CURRENT and starts no lag clock — otherwise the
+# cockpit would show a "production update delayed" strip for the whole length of every research run, since
+# a run's shared lease keeps this watcher from advancing the marker until the run ends.
 write_deploy_status() {
   local target="${1:-}" deployed="${2:-}" approved="${3:-}" reason="${4:-observed}"
   valid_git_sha "$target" || return 1
   [ -z "$deployed" ] || valid_git_sha "$deployed" || return 1
   [ -z "$approved" ] || valid_git_sha "$approved" || return 1
   case "$reason" in
-    observed|dirty_nondata|ci_not_green|authorization_ready|deploying|deployed|local_diverged|build_failed|audit_pending) ;;
+    observed|data_only|dirty_nondata|ci_not_green|authorization_ready|deploying|deployed|local_diverged|build_failed|audit_pending) ;;
     *) return 1 ;;
   esac
   "$PYTHON" -I - "$DEPLOY_STATUS" "$target" "$deployed" "$approved" "$reason" <<'PYSTATUS'
@@ -172,7 +181,8 @@ except (UnicodeError, json.JSONDecodeError, OSError):
     raise SystemExit(1)
 
 now = time.time_ns() // 1_000_000
-current = bool(deployed) and target == deployed
+# A data-only delta leaves the deployed program current even though the two SHAs differ.
+current = bool(deployed) and (target == deployed or reason == "data_only")
 pending_since = None
 if not current:
     if (isinstance(previous, dict) and previous.get("status") == "pending"
@@ -1392,12 +1402,16 @@ PYPROVIDERDELTA
 # data commits. Missing helpers/receipts, stale receipts, rewritten history, malformed JSON, and later code
 # all fail closed. Nothing sensitive is stored in the receipt.
 deploy_authorization_allows() {
-  local target="${1:-}" output approved
+  local target="${1:-}" min_remaining="${2:-0}" output approved
+  local -a margin=()
   valid_git_sha "$target" || return 1
+  case "$min_remaining" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$min_remaining" -eq 0 ] || margin=(--min-remaining-seconds "$min_remaining")
   [ -f "$DEPLOY_AUTHORIZATION_HELPER" ] && [ ! -L "$DEPLOY_AUTHORIZATION_HELPER" ] \
     || return 1
   output="$($PYTHON -I "$DEPLOY_AUTHORIZATION_HELPER" check \
-    --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" --target "$target" 2>/dev/null)" \
+    --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" --target "$target" \
+    ${margin[@]+"${margin[@]}"} 2>/dev/null)" \
     || return 1
   approved="$(printf '%s\n' "$output" | awk -F= '/^AUTHORIZED_COMMIT=/{print $2; exit}')"
   valid_git_sha "$approved" || return 1
@@ -1409,12 +1423,15 @@ deploy_authorization_allows() {
 # successful push workflow and all five named jobs are green. stdout remains the approved commit only;
 # credentials and API diagnostics never reach the deploy log.
 ensure_deploy_authorization() {
-  local target="${1:-}" output approved detail
+  local target="${1:-}" output approved detail short_lived=""
   valid_git_sha "$target" || return 1
-  if approved="$(deploy_authorization_allows "$target")"; then
+  if approved="$(deploy_authorization_allows "$target" "$DEPLOY_AUTHORIZATION_MIN_REMAINING")"; then
     printf '%s\n' "$approved"
     return 0
   fi
+  # Still valid but about to expire: prefer a fresh receipt from the same exact-CI proof; keep the short
+  # one only as a fallback when fresh proof is unreachable (the late-audit lane then covers the close).
+  short_lived="$(deploy_authorization_allows "$target" 2>/dev/null || true)"
   [ -f "$DEPLOY_TOKEN_COMMAND" ] && [ ! -L "$DEPLOY_TOKEN_COMMAND" ] || return 1
   umask 077
   : > "$DEPLOY_AUTHORIZATION_ERROR" 2>/dev/null || return 1
@@ -1424,6 +1441,12 @@ ensure_deploy_authorization() {
       --repository "$DEPLOY_GITHUB_REPOSITORY" --token-command "$DEPLOY_TOKEN_COMMAND" \
       --api-base "$DEPLOY_GITHUB_API_BASE" 2>"$DEPLOY_AUTHORIZATION_ERROR")"; then
     detail="$(tail -1 "$DEPLOY_AUTHORIZATION_ERROR" 2>/dev/null || true)"
+    if valid_git_sha "$short_lived"; then
+      rm -f "$DEPLOY_AUTHORIZATION_ERROR" 2>/dev/null || true
+      log "  WARN reusing a receipt that expires within ${DEPLOY_AUTHORIZATION_MIN_REMAINING}s — fresh exact-CI proof unavailable: ${detail:-no diagnostic}"
+      printf '%s\n' "$short_lived"
+      return 0
+    fi
     log "  exact-CI authorization refused: ${detail:-verification helper failed without a diagnostic}"
     return 1
   fi
@@ -1436,8 +1459,12 @@ ensure_deploy_authorization() {
 
 record_deploy_audit() {
   local target="${1:-}" approved="${2:-}" started="${3:-}" health="${4:-}" rollback="${5:-}" deployed="${6:-}" detail
+  local -a late=()
   valid_git_sha "$target" && valid_git_sha "$approved" && valid_git_sha "$deployed" || return 1
   case "$started" in ''|*[!0-9]*) return 1 ;; esac
+  # `late`: a retried append for a release that already ran. Its receipt may have expired since; the helper
+  # accepts that only when the release STARTED while the receipt was still valid, and relaxes nothing else.
+  [ "${7:-}" != late ] || late=(--late)
   umask 077
   : > "$DEPLOY_AUDIT_ERROR" 2>/dev/null || return 1
   chmod 600 "$DEPLOY_AUDIT_ERROR" 2>/dev/null || return 1
@@ -1445,7 +1472,7 @@ record_deploy_audit() {
     --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" \
     --target "$target" --approved-commit "$approved" --ledger "$DEPLOY_AUDIT_LEDGER" \
     --started-at-epoch "$started" --health-result "$health" --rollback-result "$rollback" \
-    --deployed-commit "$deployed" >/dev/null 2>"$DEPLOY_AUDIT_ERROR"; then
+    --deployed-commit "$deployed" ${late[@]+"${late[@]}"} >/dev/null 2>"$DEPLOY_AUDIT_ERROR"; then
     rm -f "$DEPLOY_AUDIT_ERROR" 2>/dev/null || true
     return 0
   fi
@@ -1456,10 +1483,12 @@ record_deploy_audit() {
 
 consume_deploy_authorization() {
   local target="${1:-}" approved="${2:-}"
+  local -a expired=()
   valid_git_sha "$target" && valid_git_sha "$approved" || return 1
+  [ "${3:-}" != late ] || expired=(--allow-expired)
   "$PYTHON" -I "$DEPLOY_AUTHORIZATION_HELPER" consume \
     --repo "$PROD" --state-dir "$DEPLOY_AUTHORIZATION_DIR" \
-    --target "$target" --approved-commit "$approved" >/dev/null 2>&1
+    --target "$target" --approved-commit "$approved" ${expired[@]+"${expired[@]}"} >/dev/null 2>&1
 }
 
 # A healthy process may already be serving the target when the separate audit append fails (disk full,
@@ -1495,11 +1524,11 @@ retry_pending_deploy_audit() {
     healthy:not_needed|failed:restored_last_good|failed:failed_or_unverified) ;;
     *) return 1 ;;
   esac
-  record_deploy_audit "$target" "$approved" "$started" "$health" "$rollback" "$deployed" || return 1
+  record_deploy_audit "$target" "$approved" "$started" "$health" "$rollback" "$deployed" late || return 1
   if [ "$health" = healthy ]; then
     [ "$(cat "$MARK" 2>/dev/null || true)" = "$target" ] \
       || { log "  audited healthy target disagrees with deployed marker — manual repair required"; return 1; }
-    consume_deploy_authorization "$target" "$approved" \
+    consume_deploy_authorization "$target" "$approved" late \
       || { log "  audit recovered but its one-shot authorization could not be consumed"; return 1; }
     write_deploy_success "$target" || { log "  audit recovered but healthy deployment receipt could not be written"; return 1; }
     rm -f "$FAILMARK" 2>/dev/null || true
@@ -1688,6 +1717,8 @@ reconcile_build() {
   if [ -f "$FAILMARK" ]; then
     read -r fsha fts < "$FAILMARK" 2>/dev/null || true
     if [ "${fsha:-}" = "$target" ] && [ "$(( $(date +%s) - ${fts:-0} ))" -lt "$FAIL_BACKOFF" ]; then
+      write_deploy_status "$target" "$(cat "$MARK" 2>/dev/null || true)" "${AUTHORIZED_CODE_COMMIT:-}" build_failed \
+        || log "  WARN could not publish failed-release backoff status"
       log "  SKIP rebuild of ${target:0:9} — a prior build failed <${FAIL_BACKOFF}s ago; backing off"
       return 0
     fi
@@ -1901,8 +1932,17 @@ LOCAL_HINT="$("$GIT" rev-parse HEAD 2>/dev/null || true)"
 MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
 REMOTE_HINT="$("$GIT" rev-parse origin/main 2>/dev/null || true)"
 HINT_AUTHORIZED_COMMIT=""
+# Classify what main carries beyond the deployed marker BEFORE publishing the observation. The engine
+# publishes research data to main every few minutes from this very checkout; that delta never needs a
+# build, restart, or release, so it is `data_only` (published as current). Anything else — a program
+# change, a missing or rolled-back marker, unreadable history — stays `observed` (pending) as before.
+HINT_OBSERVED_REASON=observed
+if valid_git_sha "$REMOTE_HINT" && valid_git_sha "$MARKER_HINT" && [ "$MARKER_HINT" != "$REMOTE_HINT" ] \
+    && ! provider_barrier_delta_required "$MARKER_HINT" "$REMOTE_HINT"; then
+  HINT_OBSERVED_REASON=data_only
+fi
 if valid_git_sha "$REMOTE_HINT"; then
-  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" observed \
+  write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" "$HINT_OBSERVED_REASON" \
     || log "WARN could not publish deployment status observation"
 fi
 # Audit recovery is deliberately before writer intent and before any build decision. A failed append may
@@ -1913,6 +1953,11 @@ if [ -e "$DEPLOY_AUDIT_PENDING" ]; then
     MARKER_HINT="$(cat "$MARK" 2>/dev/null || true)"
   else
     clear_deploy_intent
+    # Tell the cockpit the truth: a stuck audit that needs a repair, not a release that is merely "delayed".
+    if valid_git_sha "$REMOTE_HINT"; then
+      write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "" audit_pending \
+        || log "WARN could not publish stuck-audit deployment status"
+    fi
     log "BLOCKED deployment audit remains unresolved — no checkout, build, restart, or admission pause attempted"
     exit 0
   fi
@@ -1968,6 +2013,8 @@ elif valid_git_sha "$REMOTE_HINT" && valid_git_sha "$LOCAL_HINT"; then
         if [ "${_hint_failed_sha:-}" = "$REMOTE_HINT" ] \
             && [ "$(( $(date +%s) - _hint_failed_at ))" -lt "$FAIL_BACKOFF" ]; then
           intent_needed=0
+          write_deploy_status "$REMOTE_HINT" "$MARKER_HINT" "$HINT_AUTHORIZED_COMMIT" build_failed \
+            || log "WARN could not publish failed-release backoff status"
         fi ;;
     esac
   fi

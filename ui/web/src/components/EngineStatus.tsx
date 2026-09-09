@@ -22,8 +22,9 @@ export function EngineStatusPill() {
   const staticMode = useStore((s) => s.staticMode)
   const checkNow = useStore((s) => s.checkHealthNow)
   if (staticMode) return null // read-only showcase has no live engine to be offline
-  const m = health === 'online' && deploymentLag
-    ? { label: 'Live · update delayed', color: 'var(--accent)', pulse: true }
+  const lag = health === 'online' && deploymentLag ? deploymentLagBanner(deploymentLag) : null
+  const m = lag
+    ? { label: lag.pill, color: 'var(--accent)', pulse: lag.activity !== 'blocked' }
     : PILL[health]
   return (
     <button className="estatus" onClick={() => checkNow()} title="Engine connection — click to re-check">
@@ -33,7 +34,8 @@ export function EngineStatusPill() {
   )
 }
 
-type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' | 'refresh'; activity?: 'checking' | 'blocked' }
+type BannerMeta = { title: string; body: string; cta: 'retry' | 'reload' | 'refresh'; activity?: 'checking' | 'blocked'; pill?: string }
+type LagBanner = BannerMeta & { pill: string }
 const BANNER: Partial<Record<HealthState, BannerMeta>> = {
   updating: {
     title: 'Engine updating',
@@ -57,20 +59,31 @@ const BANNER: Partial<Record<HealthState, BannerMeta>> = {
   },
 }
 
-export function deploymentLagBanner(lag: DeploymentLag, now = Date.now()): BannerMeta {
-  const minutes = Math.max(1, Math.floor((now - lag.pendingSince) / 60_000))
+// The watcher republishes its baseline `observed` record at the top of every two-minute tick, before it
+// classifies the delta. A health poll that lands inside that one tick is not a delay; only a wait that
+// outlives a whole tick is. (Specific blockers below are never held back by this grace.)
+export const DEPLOYMENT_LAG_GRACE_MS = 3 * 60_000
+
+export function deploymentLagBanner(lag: DeploymentLag, now = Date.now()): LagBanner | null {
+  const waited = now - lag.pendingSince
+  const minutes = Math.max(1, Math.floor(waited / 60_000))
   const age = `${minutes} minute${minutes === 1 ? '' : 's'}`
   switch (lag.reason) {
     case 'dirty_nondata':
-      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has unexpected local files; move them outside the production folder, then refresh this status.`, cta: 'refresh', activity: 'blocked' }
+      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has unexpected local files; move them outside the production folder, then refresh this status.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update blocked' }
     case 'local_diverged':
-      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has a local commit that is not on main; publish or recover it safely, then refresh this status.`, cta: 'refresh', activity: 'blocked' }
+      return { title: 'Production update blocked', body: `Main has waited ${age}. Production has a local commit that is not on main; publish or recover it safely, then refresh this status.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update blocked' }
     case 'build_failed':
-      return { title: 'Production update failed', body: `Main has waited ${age}. The production build failed and needs a code fix before it can continue.`, cta: 'refresh', activity: 'blocked' }
+      return { title: 'Production update failed', body: `Main has waited ${age}. The production build failed and needs a code fix before it can continue.`, cta: 'refresh', activity: 'blocked', pill: 'Live · update failed' }
+    case 'audit_pending':
+      // The release itself installed; what is stuck is its audit record. Say so plainly — a person has to
+      // repair it, and nothing will install after it until they do.
+      return { title: 'Production update needs a repair', body: `The last update installed, but its audit record could not be written. Nothing more installs until this is repaired; main has waited ${age}.`, cta: 'refresh', activity: 'blocked', pill: 'Live · needs repair' }
     case 'ci_not_green':
-      return { title: 'Production update waiting for checks', body: `Main has waited ${age}. One or more required checks have not passed; inspect the main checks, then refresh this status.`, cta: 'refresh', activity: 'checking' }
+      return { title: 'Production update waiting for checks', body: `Main has waited ${age}. One or more required checks have not passed; inspect the main checks, then refresh this status.`, cta: 'refresh', activity: 'checking', pill: 'Live · update waiting' }
     default:
-      return { title: 'Production update delayed', body: `Main has waited ${age} to reach production. The engine is still live; refresh to read the watcher's latest status.`, cta: 'refresh', activity: 'checking' }
+      if (waited < DEPLOYMENT_LAG_GRACE_MS) return null
+      return { title: 'Production update delayed', body: `Main has waited ${age} to reach production. The engine is still live; refresh to read the watcher's latest status.`, cta: 'refresh', activity: 'checking', pill: 'Live · update delayed' }
   }
 }
 

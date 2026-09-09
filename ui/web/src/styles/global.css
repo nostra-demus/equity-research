@@ -228,11 +228,12 @@ a { color: inherit; }
 }
 @keyframes offlinebar-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 .offlinebar__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bad); flex: none; box-shadow: 0 0 8px var(--offline-glow); }
-.offlinebar__title { font-weight: 600; color: var(--text); }
-.offlinebar__body { color: var(--text-muted); }
+/* Only the body may wrap on a narrow pane: the title, the activity word, and the button stay whole. */
+.offlinebar__title { font-weight: 600; color: var(--text); white-space: nowrap; flex: none; }
+.offlinebar__body { color: var(--text-muted); min-width: 0; }
 .offlinebar__spacer { flex: 1; }
-.offlinebar__retry { display: inline-flex; align-items: center; gap: 7px; color: var(--text-faint); font-size: 11.5px; }
-.offlinebar__btn { height: 28px; padding: 0 12px; }
+.offlinebar__retry { display: inline-flex; align-items: center; gap: 7px; color: var(--text-faint); font-size: 11.5px; white-space: nowrap; flex: none; }
+.offlinebar__btn { height: 28px; padding: 0 12px; white-space: nowrap; flex: none; }
 
 /* plan-usage rows */
 .usagerow { padding: 7px 2px; }

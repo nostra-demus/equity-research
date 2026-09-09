@@ -67,6 +67,44 @@ assert value["targetSha"] == sys.argv[2] and value["deployedSha"] == sys.argv[2]
 assert value["pendingSince"] is None and value["reason"] == "deployed"
 PY
 
+# The engine publishes research data to main every few minutes from the production checkout. A tip that
+# moved only through that data leaves the deployed program current: the record is CURRENT (no lag clock)
+# even though its two SHAs differ, and a later program delta then starts a FRESH clock instead of inheriting
+# a research run's worth of "waiting".
+write_status "$TARGET" "$DEPLOYED" data_only
+python3 -I - "$STATUS" "$TARGET" "$DEPLOYED" <<'PY'
+import json, sys
+value = json.load(open(sys.argv[1], encoding="utf-8"))
+assert value["status"] == "current" and value["reason"] == "data_only"
+assert value["targetSha"] == sys.argv[2] and value["deployedSha"] == sys.argv[3]
+assert value["pendingSince"] is None
+PY
+
+write_status "$TARGET" "$DEPLOYED" observed
+fresh_since="$(python3 -I - "$STATUS" "$first_since" <<'PY'
+import json, sys
+value = json.load(open(sys.argv[1], encoding="utf-8"))
+assert value["status"] == "pending" and value["reason"] == "observed"
+assert value["pendingSince"] > int(sys.argv[2]), "a program delta after a data-only tip must start a fresh clock"
+print(value["pendingSince"])
+PY
+)"
+
+# A stuck audit is published as its own reason (the cockpit names it as a repair) on the same clock.
+write_status "$TARGET" "$DEPLOYED" audit_pending
+python3 -I - "$STATUS" "$fresh_since" <<'PY'
+import json, sys
+value = json.load(open(sys.argv[1], encoding="utf-8"))
+assert value["status"] == "pending" and value["reason"] == "audit_pending"
+assert value["pendingSince"] == int(sys.argv[2])
+PY
+
+# The reason vocabulary is a contract with ui/server/src/deploy-barrier.ts: an unknown reason is refused.
+if write_status "$TARGET" "$DEPLOYED" run_active; then
+  echo "FAIL unknown deployment-status reason was accepted" >&2
+  exit 1
+fi
+
 rm -f "$STATUS"
 printf 'do not replace\n' > "$TEST_TMP/outside"
 ln -s "$TEST_TMP/outside" "$STATUS"
@@ -76,4 +114,4 @@ if write_status "$TARGET" "$DEPLOYED" observed; then
 fi
 grep -qx 'do not replace' "$TEST_TMP/outside"
 
-echo "test-deploy-status.sh: lag age persists, recovery clears it, and unsafe paths fail closed"
+echo "test-deploy-status.sh: lag age persists, recovery clears it, data-only tips are current, a stuck audit is named, and unsafe paths fail closed"

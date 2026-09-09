@@ -50,6 +50,25 @@ try {
   assert.equal(await readDeploymentStatus(root), null, 'deployment status never follows a symlink')
   fs.unlinkSync(deploymentStatusPath(root))
 
+  // The engine publishes research data to main every few minutes from the production checkout. That delta
+  // leaves the deployed program current, so the watcher publishes it as CURRENT with differing SHAs — the
+  // cockpit must read it (no lag strip), while every other mismatched-current or pending-data_only shape
+  // still fails closed.
+  const dataOnly = {
+    schemaVersion: 1, status: 'current', targetSha: target, deployedSha: deployed,
+    authorizedCodeSha: null, pendingSince: null, checkedAt: 3, reason: 'data_only',
+  }
+  const writeStatus = (value: unknown) => fs.writeFileSync(deploymentStatusPath(root), JSON.stringify(value) + '\n', { mode: 0o600 })
+  writeStatus(dataOnly)
+  assert.deepEqual(await readDeploymentStatus(root), dataOnly, 'a data-only tip is a current program, not a pending release')
+  writeStatus({ ...dataOnly, reason: 'observed' })
+  assert.equal(await readDeploymentStatus(root), null, 'only data_only may be current with differing SHAs')
+  writeStatus({ ...dataOnly, status: 'pending', pendingSince: 1 })
+  assert.equal(await readDeploymentStatus(root), null, 'data_only is never a pending release')
+  writeStatus({ ...dataOnly, deployedSha: null })
+  assert.equal(await readDeploymentStatus(root), null, 'data_only needs a real deployed program')
+  fs.unlinkSync(deploymentStatusPath(root))
+
   const incumbent = acquireProviderRunDeployLease(root)
   fs.writeFileSync(providerDeployIntentPath(root), 'a'.repeat(40) + ' 1\n', { mode: 0o600 })
   assert.throws(() => acquireProviderRunDeployLease(root), (error: any) =>

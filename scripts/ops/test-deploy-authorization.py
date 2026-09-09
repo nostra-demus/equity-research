@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -323,4 +324,58 @@ with tempfile.TemporaryDirectory(prefix="deploy-authorization-test-") as tempora
     assert npm_calls.read_text(encoding="utf-8").splitlines() == ["npm"]
     assert audit_ledger.exists() and audit_ledger.with_name("events.jsonl.anchor.json").exists()
 
-print("test-deploy-authorization.py: trusted preflight, dirty-before-token, audit-only recovery, exact program, and one-shot safety passed")
+    # ── late audit + receipt margin ────────────────────────────────────────────────────────────────
+    # A receipt is short-lived. A RETRIED audit for a release that already ran may use a receipt that expired
+    # since — but only when that release started before the expiry — and the watcher may replace a receipt
+    # that no longer covers a whole release. Nothing else about the receipt is relaxed.
+    late_state = root / "late-state"
+    run(
+        sys.executable, str(HELPER), "authorize", "--repo", str(repo), "--state-dir", str(late_state),
+        "--commit", approved, "--authorization-reference", "PR-TEST late audit fixture",
+        "--authorized-by", "fixture-owner", "--ttl-seconds", "3600", cwd=repo,
+    )
+    late_receipt = late_state / "deploy-authorization.json"
+    covered = run(
+        sys.executable, str(HELPER), "check", "--repo", str(repo), "--state-dir", str(late_state),
+        "--target", data_target, "--min-remaining-seconds", "600", cwd=repo,
+    )
+    assert f"AUTHORIZED_COMMIT={approved}" in covered.stdout
+    too_short = run(
+        sys.executable, str(HELPER), "check", "--repo", str(repo), "--state-dir", str(late_state),
+        "--target", data_target, "--min-remaining-seconds", "7200", cwd=repo, ok=False,
+    )
+    assert too_short.returncode == 1 and "expires too soon" in too_short.stderr
+
+    receipt_value = json.loads(late_receipt.read_text(encoding="utf-8"))
+    expired_at = int(time.time()) - 120
+    receipt_value["expires_at_epoch"] = expired_at
+    late_receipt.write_text(json.dumps(receipt_value, sort_keys=True) + "\n", encoding="utf-8")
+    late_receipt.chmod(0o600)
+    late_ledger_dir = root / "late-audit"
+    late_ledger_dir.mkdir(mode=0o700)
+    late_ledger = late_ledger_dir / "events.jsonl"
+    audit_args = [
+        sys.executable, str(HELPER), "audit", "--repo", str(repo), "--state-dir", str(late_state),
+        "--target", data_target, "--approved-commit", approved, "--ledger", str(late_ledger),
+        "--health-result", "healthy", "--rollback-result", "not_needed", "--deployed-commit", data_target,
+    ]
+    refused = run(*audit_args, "--started-at-epoch", str(expired_at - 60), cwd=repo, ok=False)
+    assert refused.returncode == 1 and "has expired" in refused.stderr, "a first-time audit still needs a live receipt"
+    started_after = run(*audit_args, "--started-at-epoch", str(expired_at + 30), "--late", cwd=repo, ok=False)
+    assert started_after.returncode == 1 and "did not start before" in started_after.stderr
+    assert not late_ledger.exists()
+    recorded = run(*audit_args, "--started-at-epoch", str(expired_at - 60), "--late", cwd=repo)
+    assert "AUDIT_EVENT_SHA256=" in recorded.stdout
+    assert len(late_ledger.read_text(encoding="utf-8").splitlines()) == 1
+    still_held = run(
+        sys.executable, str(HELPER), "consume", "--repo", str(repo), "--state-dir", str(late_state),
+        "--target", data_target, "--approved-commit", approved, cwd=repo, ok=False,
+    )
+    assert still_held.returncode == 1 and "has expired" in still_held.stderr
+    released = run(
+        sys.executable, str(HELPER), "consume", "--repo", str(repo), "--state-dir", str(late_state),
+        "--target", data_target, "--approved-commit", approved, "--allow-expired", cwd=repo,
+    )
+    assert f"CONSUMED_COMMIT={approved}" in released.stdout and not late_receipt.exists()
+
+print("test-deploy-authorization.py: trusted preflight, dirty-before-token, audit-only recovery, late audit + receipt margin, exact program, and one-shot safety passed")
