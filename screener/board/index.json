@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T11:57:17Z",
+  "generated_at": "2026-09-10T12:01:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-441",
@@ -438,6 +438,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-451",
+      "headline": "Swarmer To Buy Ukraine's Ratel Robotics In $224 Mln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/swarmer-buy-ukraines-ratel-robotics-224-mln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T11:22:23Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Swarmer is acquiring Ratel Robotics for $224 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Swarmer is acquiring Ratel Robotics for $224 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Swarmer",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Ratel Robotics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,56 +1963,6 @@
           "name": "HWORLD-S",
           "ticker": "01179",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-351",
-      "headline": "Varun Beverages’ Kiva Spirits in advanced talks to acquire spirits maker Alcobrew for ₹2,000-2,500 crore",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/varun-beverages-kiva-spirits-alcobrew-acquisition-11788974351052.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T07:25:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Varun Beverages in advanced acquisition talks for Alcobrew valued ₹2,000–2,500 crore signals capital deployment and portfolio expansion into spirits category.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Varun Beverages in advanced acquisition talks for Alcobrew valued ₹2,000–2,500 crore signals capital deployment and portfolio expansion into spirits category.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Varun Beverages",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -153456,9 +153460,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3214429,
-    "news_picked_today": 970,
-    "news_dropped_today": 11702
+    "news_seen_today": 3244369,
+    "news_picked_today": 975,
+    "news_dropped_today": 11721
   },
   "book_momentum": {
     "live_count": 8,
