@@ -5,7 +5,7 @@
 - status: FAILED — stopped mid-run before the final thesis
 - stopped_at: master
 - reason: publication_failed
-- stopped_at_utc: 2026-09-09T23:27:33.287Z
+- stopped_at_utc: 2026-09-10T00:58:39.255Z
 
 ## Modules completed
 
@@ -20,17 +20,19 @@
 ## Error (last 2000 chars of the engine stderr, secrets redacted)
 
 ```
-esolve outside the workspace. This session's Bash sandbox permits creating only four filenames there (`final_thesis.md`, `decision_record.json`, `memo.md`, `audit_dossier.md`). `create_idea_projection_manifest.py:241` and `freeze_idea_admission.py:393` both `mkstemp(dir=...)` + `os.replace` inside the run root, so neither can run. `git` is blocked too, so Step 10 could not have committed regardless. This is an environment capability gap, not a research defect.
+ouched. No `memo.md` or `audit_dossier.md` was written, deliberately — generating them now would freeze the pre-admission state.
 
-I did not hand-write the manifest (that would reproduce the canonical hashing by hand and bypass the first-writer-wins lock), did not record `not_applicable` (the command forbids it for a missing seal), and left `.requires_idea_publication` and `.defer_module_memos` in place. Diagnosis written to `analyses/NVT_2026-09-07/RUN_FAILURE.md`.
+I did not hand-roll the manifest or the freezer, and did not touch the markers.
 
-## Two things worth your attention
+### Three things you need to decide on
 
-**The thesis is PROVISIONAL and the audits are adverse.** Standing decision is **Avoid** (Rejected basket, conviction 23.2, post-review 17.2). Both verify-evidence passes returned *Material issues*.
+1. **The sandbox blocks admission.** Either grant write access to `analyses/NVT_2026-09-07/` (the run root, for the atomic temp file) and re-run from 10B.3A, or run 10B.4 outside this sandbox. This is the only real blocker.
 
-**A real defect was found, corrected, and then partly recreated.** The thesis asserted four times that no filed order/backlog series existed; the FY2024 10-K carries a `Backlog of Orders by Segment` table ($749.3m vs $462.8m) and the correction cut *against* the thesis (`edge_score` 38 → 30). But `pre_mortem_v2` then found the corrected text's new absolute — "no filed *quarterly* series" — is also false: RPO of $2,591.0m (2026-03-31) and $2.5bn (2026-06-30) sit in consecutive 10-Qs. Step 10B.3A forbids any writer after the final audit set, so this stands unacted-on by design. The load-bearing demand claim has now been mis-graded twice, which is a §20 bad-extraction pattern rather than a slip.
+2. **I left a stray file I cannot delete:** `analyses/NVT_2026-09-07/business-model/_wtest.md` (436 bytes, self-labelled "STRAY FILE — DELETE ME"). A delegated agent created it as a write-permission probe before discovering bash writes were denied there; `rm` is denied in that folder and no tool deletes files. **Delete it before anything runs the dossier assembly**, or it gets concatenated as if it were a specialist output. My call to delegate that probe caused this.
 
-To finish: re-run this master step where the sandbox permits the manifest/admission writers and `git` inside the run folder. If the pinned bytes need to change to address those findings, that requires a new dated run — not an in-place repair of this one.
+3. **Ordering defect I made, now corrected.** I ran 10B.1b (the `integrity_gate` stamp) after 10B.1a but not again after 10B.2's verify stamp changed the banner, which the command requires. `pre_mortem_v2` independently caught it — it charged 1.0 of its 3.2 haircut for `decision_record.json` claiming `integrity_gate: pass` while the thesis shipped PROVISIONAL. I have since re-run 10B.1b, so the record now reads `status: provisional` with the verify-evidence violation. **Consequence: `decision_record.json` is now `f1c97f47…`, not the `c7e5b203…` the three `_v2` audits pinned — so the final audit set must be re-run (10B.3A) before admission.** That re-run was required anyway once the sandbox issue is fixed.
+
+Also unresolved: **module dossiers are 0/7**. The per-module chain never wrote them (`MODULE_PIPELINE` 4.9B says deferral suppresses only the memo), and the same sandbox denial blocks rebuilding them. They are a derived tier and not prescribed for a master-target rerun, but `eval.py` check `Q_module_tiers` will fail until they exist.
 ```
 
 ## Resume
