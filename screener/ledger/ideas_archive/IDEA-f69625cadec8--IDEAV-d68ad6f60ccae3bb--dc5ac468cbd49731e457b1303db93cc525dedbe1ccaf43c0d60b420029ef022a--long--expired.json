@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-08-26T22:23:27Z",
+  "archived_at": "2026-09-10T01:49:19Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-385f3be837d6",
-    "idea_version": "IDEAV-97a36208cf226312",
-    "idea_version_started_at": "2026-08-24T19:00:25Z",
-    "ticker": "TGN",
-    "company": "TGN",
-    "exchange": "ASX",
+    "idea_id": "IDEA-f69625cadec8",
+    "idea_version": "IDEAV-d68ad6f60ccae3bb",
+    "idea_version_started_at": "2026-09-07T02:31:45Z",
+    "ticker": "MYNT",
+    "company": "Mynt",
+    "exchange": null,
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Appointment of a debt advisor signals progress in the company's funding strategy, potentially improving its financial stability.",
-    "why_now": "The announcement regarding the debt advisor was made on August 23, 2026.",
-    "conviction": 50,
+    "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
+    "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "evidence_gate_v2",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-0765f1ca8137"
+      "EVT-146e2faafdc6"
     ],
-    "primary_source_event_id": "EVT-0765f1ca8137",
+    "primary_source_event_id": "EVT-146e2faafdc6",
     "source_headlines": [
-      "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]"
+      "Philippines regulator clears Mynt for up to $1.5 billion IPO"
     ],
-    "source_headline": "TGN: Watershed Funding Strategy Advances - Debt Advisor Appointed [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGN?key=2924-03124531-6A1339746",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-08-23T22:01:09Z",
+    "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
+    "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
+    "source_name": "Reuters — Latest (news sitemap)",
+    "materiality_max": 98,
+    "newest_source_at": "2026-09-07T01:36:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-08-24T19:00:25Z",
-    "updated_at": "2026-08-24T19:00:25Z",
-    "decay_at": "2026-08-25T10:01:09Z",
+    "surfaced_at": "2026-09-07T02:31:45Z",
+    "updated_at": "2026-09-07T02:31:45Z",
+    "decay_at": "2026-09-08T13:36:45Z",
     "status": "live",
     "promoted_signal_id": null
   }

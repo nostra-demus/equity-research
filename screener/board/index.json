@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T01:48:56Z",
+  "generated_at": "2026-09-10T01:49:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-125",
@@ -109669,6 +109669,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b34fe82f77a4",
+      "idea_version": "IDEAV-71be0192807ccf28",
+      "idea_version_started_at": "2026-09-10T01:49:10Z",
+      "ticker": "2588.HK",
+      "company": "BOC Aviation",
+      "exchange": "Hong Kong",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The purchase and long-term lease of twelve Airbus A320neo aircraft secures long-term revenue streams and expands the company's asset base.",
+      "why_now": "The transaction was disclosed in an official filing on September 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5734a64b48f0"
+      ],
+      "primary_source_event_id": "EVT-5734a64b48f0",
+      "source_headlines": [
+        "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT"
+      ],
+      "source_headline": "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000077.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-10T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T01:49:10Z",
+      "updated_at": "2026-09-10T01:49:10Z",
+      "decay_at": "2026-09-11T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0e754328b539",
       "idea_version": "IDEAV-848eb9acfa328652",
       "idea_version_started_at": "2026-09-09T20:06:47Z",
@@ -109876,6 +109945,77 @@
       "surfaced_at": "2026-09-08T21:38:42Z",
       "updated_at": "2026-09-08T21:38:42Z",
       "decay_at": "2026-09-10T03:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4ece4730a2ad",
+      "idea_version": "IDEAV-17ed68561aa96839",
+      "idea_version_started_at": "2026-09-10T01:49:10Z",
+      "ticker": "LH",
+      "company": "Labcorp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of MLM Medical Labs increases Labcorp's laboratory footprint and strengthens its position in the clinical trial support market.",
+      "why_now": "The acquisition was reported on September 9, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a304b7307532"
+      ],
+      "primary_source_event_id": "EVT-a304b7307532",
+      "source_headlines": [
+        "Labcorp snaps up MLM Medical Labs to boost laboratory footprint"
+      ],
+      "source_headline": "Labcorp snaps up MLM Medical Labs to boost laboratory footprint",
+      "source_url": "https://www.fiercebiotech.com/medtech/labcorp-snaps-mlm-medical-labs-boost-laboratory-footprint",
+      "source_name": "FierceBiotech",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-09T23:56:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T01:49:10Z",
+      "updated_at": "2026-09-10T01:49:10Z",
+      "decay_at": "2026-09-11T11:56:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111169,6 +111309,77 @@
       "surfaced_at": "2026-09-09T05:11:41Z",
       "updated_at": "2026-09-09T05:11:41Z",
       "decay_at": "2026-09-10T14:02:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ad732217d75c",
+      "idea_version": "IDEAV-afa12f274e316088",
+      "idea_version_started_at": "2026-09-10T01:49:10Z",
+      "ticker": "1609.HK",
+      "company": "Star Sports Med Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Obtaining EU MDR certification and product registration approvals allows the company to expand its addressable market into European and other international territories.",
+      "why_now": "The regulatory approval was announced via a voluntary filing on September 10, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9173db28db8a"
+      ],
+      "primary_source_event_id": "EVT-9173db28db8a",
+      "source_headlines": [
+        "STAR SPORTS MED (01609): VOLUNTARY ANNOUNCEMENT OBTAINING EU MDR CERTIFICATION AND PRODUCT REGISTRATION APPROVALS IN MULTIPLE OVERSEAS MARKETS"
+      ],
+      "source_headline": "STAR SPORTS MED (01609): VOLUNTARY ANNOUNCEMENT OBTAINING EU MDR CERTIFICATION AND PRODUCT REGISTRATION APPROVALS IN MULTIPLE OVERSEAS MARKETS",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-10T00:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T01:49:10Z",
+      "updated_at": "2026-09-10T01:49:10Z",
+      "decay_at": "2026-09-11T12:01:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -115593,156 +115804,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7f0cb5a0adaa",
-      "idea_version": "IDEAV-be92643744795d0e",
-      "idea_version_started_at": "2026-09-07T02:31:45Z",
-      "ticker": "BGL",
-      "company": "Bathla Group",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Bathla Group is facing a severe debt crisis, with escalating funding issues and staff layoffs, suggesting a high risk of default or significant financial distress.",
-      "why_now": "Multiple reports on September 7, 2026, detail the deepening debt crisis and the need for stopgap funding.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 6,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec9c6737acab",
-        "EVT-b0a65951d027",
-        "EVT-3f2a332122ea",
-        "EVT-d1c1aeaedcdc",
-        "EVT-92eb3226a6e7"
-      ],
-      "primary_source_event_id": "EVT-ec9c6737acab",
-      "source_headlines": [
-        "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-        "Morgan Stanley Banker in Australia Says Bathla Is ‘Hammer Blow’",
-        "Bathla Group Faces Funding Talks as $2.5 Billion Debt Crisis Deepens",
-        "Bathla Gets Stopgap Funding as Longer-Term Debt Crisis Lingers"
-      ],
-      "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T00:47:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T02:31:45Z",
-      "updated_at": "2026-09-07T02:31:45Z",
-      "decay_at": "2026-09-08T12:47:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-61fc8091add8",
-      "idea_version": "IDEAV-0c85c13f2a8d7ca8",
-      "idea_version_started_at": "2026-09-07T01:51:35Z",
-      "ticker": "08168",
-      "company": "Amasse Capital",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced the removal of its CEO and executive director alongside a suspension of trading, indicating severe governance and potential solvency issues.",
-      "why_now": "The official exchange filing was released on September 7, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-111976633c89"
-      ],
-      "primary_source_event_id": "EVT-111976633c89",
-      "source_headlines": [
-        "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES"
-      ],
-      "source_headline": "AMASSE CAPITAL (08168): INSIDE INFORMATION: REMOVAL OF EXECUTIVE DIRECTOR AND CHIEF EXECUTIVE OFFICER AND SUSPENSION IN TRADING OF SHARES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0907/2026090700005.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T00:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:51:35Z",
-      "updated_at": "2026-09-07T01:51:35Z",
-      "decay_at": "2026-09-08T12:44:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -115881,78 +115942,6 @@
       "surfaced_at": "2026-09-08T06:57:56Z",
       "updated_at": "2026-09-08T06:57:56Z",
       "decay_at": "2026-09-09T16:42:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f69625cadec8",
-      "idea_version": "IDEAV-d68ad6f60ccae3bb",
-      "idea_version_started_at": "2026-09-07T02:31:45Z",
-      "ticker": "MYNT",
-      "company": "Mynt",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Philippine regulators have cleared Mynt for an Initial Public Offering of up to $1.5 billion, paving the way for a significant capital raise.",
-      "why_now": "The regulatory clearance was announced on September 7, 2026, making the IPO imminent.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-146e2faafdc6"
-      ],
-      "primary_source_event_id": "EVT-146e2faafdc6",
-      "source_headlines": [
-        "Philippines regulator clears Mynt for up to $1.5 billion IPO"
-      ],
-      "source_headline": "Philippines regulator clears Mynt for up to $1.5 billion IPO",
-      "source_url": "https://www.reuters.com/business/retail-consumer/philippines-regulator-clears-mynt-up-15-billion-ipo-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-07T01:36:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T02:31:45Z",
-      "updated_at": "2026-09-07T02:31:45Z",
-      "decay_at": "2026-09-08T13:36:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116461,150 +116450,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-01a845d16719",
-      "idea_version": "IDEAV-9cf383317237f9d3",
-      "idea_version_started_at": "2026-09-07T03:26:40Z",
-      "ticker": "9984",
-      "company": "SoftBank Group Corp.",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful issuance of a ¥1 trillion retail bond significantly strengthens the company's liquidity position and demonstrates strong domestic appetite for its debt, lowering refinancing risks.",
-      "why_now": "The scale of the bond issuance is rejuvenating the Japanese debt market as of September 7, 2026, providing SoftBank with a massive cash cushion for future Vision Fund investments.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "liquidity_positioning",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b36bc16bb317"
-      ],
-      "primary_source_event_id": "EVT-b36bc16bb317",
-      "source_headlines": [
-        "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market"
-      ],
-      "source_headline": "SoftBank’s ¥1 trillion retail bond rejuvenates Japan debt market",
-      "source_url": "https://www.japantimes.co.jp/business/2026/09/07/companies/softbank-retail-bond-japan-debt-market/",
-      "source_name": "The Japan Times",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-07T01:09:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:26:40Z",
-      "updated_at": "2026-09-07T03:26:40Z",
-      "decay_at": "2026-09-08T13:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-85224f632c88",
-      "idea_version": "IDEAV-87f9e3fd785ba495",
-      "idea_version_started_at": "2026-09-07T03:06:44Z",
-      "ticker": "COFORGE",
-      "company": "Coforge Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Management has reiterated high confidence in reaching its $5 billion revenue target well ahead of FY30 while actively dismissing concerns over AI-driven pricing deflation.",
-      "why_now": "The company's public reassurance on September 7, 2026, serves as a near-term sentiment catalyst against prevailing sector-wide AI deflation fears.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aee4bd922b7d"
-      ],
-      "primary_source_event_id": "EVT-aee4bd922b7d",
-      "source_headlines": [
-        "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears"
-      ],
-      "source_headline": "Coforge confident of hitting $5 billion revenue target well before FY30, brushes off AI deflation fears",
-      "source_url": "https://www.livemint.com/companies/news/coforge-ceo-sudhir-singh-interview-ai-revenue-target-11788685575295.html",
-      "source_name": "Mint",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-07T01:30:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:06:44Z",
-      "updated_at": "2026-09-07T03:06:44Z",
-      "decay_at": "2026-09-08T13:30:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-67c9257a5dbd",
       "idea_version": "IDEAV-27458b8c2211c6a0",
       "idea_version_started_at": "2026-09-08T04:17:20Z",
@@ -116893,78 +116738,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b287a5dccf6f",
-      "idea_version": "IDEAV-3ed9c7bd15e1c551",
-      "idea_version_started_at": "2026-09-07T01:32:16Z",
-      "ticker": "42C",
-      "company": "iX Biopharma",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is nearing US military approval for its sublingual ketamine wafer (Wafermine) for acute pain, which would open a high-volume, non-opioid procurement channel.",
-      "why_now": "News of closing in on approval surfaced September 7, 2024, providing a specific regulatory catalyst window.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a5f6ee31497"
-      ],
-      "primary_source_event_id": "EVT-6a5f6ee31497",
-      "source_headlines": [
-        "iX Biopharma closes in on US military approval for pain drug"
-      ],
-      "source_headline": "iX Biopharma closes in on US military approval for pain drug",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/ix-biopharma-closes-us-military-approval-pain-drug",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 84,
-      "newest_source_at": "2026-09-07T00:37:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:32:16Z",
-      "updated_at": "2026-09-07T01:32:16Z",
-      "decay_at": "2026-09-08T12:37:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-74aa08d7979a",
       "idea_version": "IDEAV-e5ea164234857d69",
       "idea_version_started_at": "2026-09-08T02:17:11Z",
@@ -117031,78 +116804,6 @@
       "surfaced_at": "2026-09-08T02:17:11Z",
       "updated_at": "2026-09-08T02:17:11Z",
       "decay_at": "2026-09-09T13:30:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5efadd64af04",
-      "idea_version": "IDEAV-7bc4af4526cc06bc",
-      "idea_version_started_at": "2026-09-07T01:32:16Z",
-      "ticker": "8306",
-      "company": "Mitsubishi UFJ Financial Group",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A key reflationist aide to LDP leadership candidate Takaichi is projecting a Bank of Japan rate hike in September, which expands net interest margins for major Japanese lenders.",
-      "why_now": "The specific projection of a September 2024 rate hike creates a immediate tradeable window ahead of the BOJ meeting.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-335005633280"
-      ],
-      "primary_source_event_id": "EVT-335005633280",
-      "source_headlines": [
-        "Takaichi's reflationist aide projects Bank of Japan rate hike in September"
-      ],
-      "source_headline": "Takaichi's reflationist aide projects Bank of Japan rate hike in September",
-      "source_url": "https://www.reuters.com/world/asia-pacific/takaichis-reflationist-aide-projects-bank-japan-rate-hike-september-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 82,
-      "newest_source_at": "2026-09-07T00:27:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T01:32:16Z",
-      "updated_at": "2026-09-07T01:32:16Z",
-      "decay_at": "2026-09-08T12:27:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -117397,20 +117098,20 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 494,
+      "file_count": 496,
       "suppression_count": 1,
       "corrupt_count": 0,
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 578,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 78,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 313,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 63
+        "hidden_count": 58
       },
       "short": {
         "total_count": 265,
@@ -117420,12 +117121,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 30,
+      "evicted_count": 35,
       "oldest_retained_at": "2026-08-14T01:08:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 30,
-          "oldest_retained_at": "2026-08-24T15:36:48Z"
+          "evicted_count": 35,
+          "oldest_retained_at": "2026-08-25T10:06:05Z"
         },
         "short": {
           "evicted_count": 0,
@@ -123306,8 +123007,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T13:36:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123381,8 +123082,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T13:30:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123456,8 +123157,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T13:09:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123537,8 +123238,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T12:47:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123612,8 +123313,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T12:44:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123687,8 +123388,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T12:37:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -123762,8 +123463,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-08T12:27:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T01:49:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -154608,8 +154309,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 648,
-    "live_count": 38,
+    "surfaced_total": 651,
+    "live_count": 41,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
