@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T12:01:48Z",
+  "generated_at": "2026-09-10T12:11:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-441",
@@ -443,6 +443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-452",
+      "headline": "Macy's raises annual forecasts as Bloomingdale's drives growth",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/macys-raises-annual-targets-upscale-chains-drive-growth-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T11:52:02Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Macy's raised its annual financial forecasts driven by growth at Bloomingdale's.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macy's raised its annual financial forecasts driven by growth at Bloomingdale's.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-451",
       "headline": "Swarmer To Buy Ukraine's Ratel Robotics In $224 Mln Deal",
       "headline_en": null,
@@ -590,55 +639,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-437",
-      "headline": "Macy's raises annual targets as Bloomingdale's drives growth",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/macys-raises-annual-targets-upscale-chains-drive-growth-2026-09-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T10:59:22Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Macy's raised its annual financial targets, indicating better-than-expected performance driven by Bloomingdale's.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Macy's raised its annual financial targets, indicating better-than-expected performance driven by Bloomingdale's.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Macy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153460,9 +153460,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3244369,
-    "news_picked_today": 975,
-    "news_dropped_today": 11721
+    "news_seen_today": 3318089,
+    "news_picked_today": 981,
+    "news_dropped_today": 11811
   },
   "book_momentum": {
     "live_count": 8,
