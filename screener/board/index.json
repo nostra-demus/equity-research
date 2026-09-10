@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T12:17:55Z",
+  "generated_at": "2026-09-10T12:21:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-441",
@@ -438,6 +438,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-458",
+      "headline": "Bending Spoons Agrees to Buy Miro for $1.36 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/bending-spoons-agrees-to-buy-workspace-miro-for-1-36-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:03:22Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Bending Spoons agreed to acquire Miro for $1.36 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bending Spoons agreed to acquire Miro for $1.36 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bending Spoons",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Miro",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-025",
-      "headline": "HWORLD-S (01179): PRICING OF CNY3.35 BILLION CNY-DENOMINATED SENIOR BONDS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "CNY3.35 billion senior-bond issuance priced; quantified debt capital action affecting leverage, net cash, and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "CNY3.35 billion senior-bond issuance priced; quantified debt capital action affecting leverage, net cash, and capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HWORLD-S",
-          "ticker": "01179",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153460,9 +153465,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3348074,
-    "news_picked_today": 996,
-    "news_dropped_today": 11844
+    "news_seen_today": 3363078,
+    "news_picked_today": 1002,
+    "news_dropped_today": 11862
   },
   "book_momentum": {
     "live_count": 8,
