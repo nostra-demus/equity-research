@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T21:40:02Z",
+  "generated_at": "2026-09-10T22:08:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -1964,50 +1964,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260910-564",
-      "headline": "8-K - ACV Auctions Inc. (0001637873) (Filer)",
+      "inbox_id": "INB-20260910-568",
+      "headline": "425 - newcleo plc (0002131813) (Filed by)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1637873/000095010326013780/0000950103-26-013780-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2131813/000095010326013784/0000950103-26-013784-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-09-10T21:19:51Z",
+      "found_at": "2026-09-10T21:22:11Z",
       "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "ACV Auctions filed an 8-K, which is a standard disclosure for material corporate events.",
+      "prelim_note": "Newcleo plc filed business combination communications related to a potential M&A transaction.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "ACV Auctions filed an 8-K, which is a standard disclosure for material corporate events.",
+      "triage_score": 97,
+      "triage_reason": "Newcleo plc filed business combination communications related to a potential M&A transaction.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "debt_credit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ACV Auctions Inc.",
+          "name": "newcleo plc",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153366,9 +153366,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6550303,
-    "news_picked_today": 1599,
-    "news_dropped_today": 17049
+    "news_seen_today": 6840639,
+    "news_picked_today": 1613,
+    "news_dropped_today": 17275
   },
   "book_momentum": {
     "live_count": 8,
