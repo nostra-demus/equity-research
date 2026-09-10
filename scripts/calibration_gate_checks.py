@@ -91,7 +91,8 @@ def _calib_summary_asof(decision_date):
     if best is None:
         return None
     try:
-        return json.load(open(best))
+        with open(best, encoding="utf-8") as f:
+            return json.load(f)
     except Exception:
         return None
 
