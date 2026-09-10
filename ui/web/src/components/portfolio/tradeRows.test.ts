@@ -3,8 +3,8 @@
 // presentation — every total must survive it untouched.
 // Run: npx tsx src/components/portfolio/tradeRows.test.ts
 import assert from 'node:assert/strict'
-import { foldRoundTrips, groupByIdea } from './tradeRows'
-import type { PortfolioClosure, PortfolioIdeaBook } from '../../lib/types'
+import { fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, foldRoundTrips, groupByIdea } from './tradeRows'
+import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 let passed = 0
 const fails: string[] = []
@@ -326,6 +326,107 @@ check('an idea whose legs could not all be valued says the total is partial', ()
 check('a fully valued idea reports no missing legs', () => {
   const rows = foldRoundTrips([closure({ symbol: 'CANE', quantity: 100, realizedBase: 10, closeTradeID: 'a' })])
   assert.equal(groupByIdea(rows, ideaBook([['sugar', 'Sugar']], { a: 'sugar' }))[0]!.unvalued, 0)
+})
+
+// ---------- every fill: the blotter ----------
+// A round trip exists only once something is sold, so the round-trip table could never show a buy still
+// held. These pin how the screen reads the fills the engine sends.
+function fill(o: Partial<PortfolioExecution> & { id: string; executedAt: string }): PortfolioExecution {
+  return {
+    key: 'conid:1', symbol: 'GLDM', currency: 'USD', side: 'buy', quantity: 10, price: 50, multiplier: 1,
+    commission: -1, positionBefore: 0, positionAfter: 10, effect: 'open', openedQuantity: 10, stillOpen: 10,
+    unmatchedQuantity: 0, realizedLocal: null,
+    ...o,
+  }
+}
+
+check('every fill is listed newest first, the buys still held included', () => {
+  const rows = fillRows([
+    fill({ id: 'a', executedAt: '2026-05-15T10:00:00' }),
+    fill({ id: 'b', executedAt: '2026-06-02T10:00:00', effect: 'add', positionBefore: 10, positionAfter: 15, quantity: 5, openedQuantity: 5, stillOpen: 5 }),
+  ])
+  assert.deepEqual(rows.map((r) => r.id), ['b', 'a'])
+  assert.ok(rows.every((r) => r.current), 'both built the position still held')
+})
+
+check('open positions keeps only the fills since the name last went flat', () => {
+  // Bought in May, sold out in July, bought again in August: only August is part of what is held.
+  const rows = fillRows([
+    fill({ id: 'may', symbol: 'SGOV', key: 'conid:2', executedAt: '2026-05-11T10:00:00', quantity: 100, positionAfter: 100, openedQuantity: 100, stillOpen: 0 }),
+    fill({ id: 'jul', symbol: 'SGOV', key: 'conid:2', executedAt: '2026-07-30T10:00:00', side: 'sell', effect: 'close', quantity: 100, positionBefore: 100, positionAfter: 0, openedQuantity: 0, stillOpen: 0, realizedLocal: 97.37 }),
+    fill({ id: 'aug', symbol: 'SGOV', key: 'conid:2', executedAt: '2026-08-04T10:00:00', quantity: 50, positionAfter: 50, openedQuantity: 50, stillOpen: 50 }),
+  ])
+  assert.deepEqual(filterFills(rows, 'open', null).map((r) => r.id), ['aug'])
+  assert.deepEqual(filterFills(rows, 'all', null).map((r) => r.id), ['aug', 'jul', 'may'])
+})
+
+check('a name sold out completely has nothing under open positions', () => {
+  const rows = fillRows([
+    fill({ id: 'buy', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-07T10:00:00' }),
+    fill({ id: 'sell', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-20T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
+  ])
+  assert.equal(filterFills(rows, 'open', null).length, 0)
+})
+
+check('a short still open is an open position, and reads as one', () => {
+  const rows = fillRows([fill({ id: 's', symbol: 'DDD', key: 'conid:4', executedAt: '2026-02-12T10:00:00', side: 'sell', positionAfter: -30, quantity: 30, openedQuantity: 30, stillOpen: 30 })])
+  assert.equal(rows[0]!.current, true)
+  assert.equal(fillAction(rows[0]!), 'opened short')
+})
+
+check('two contracts sharing a symbol keep separate histories', () => {
+  // A symbol is not a contract: two futures expiries share a root. The flat one's fills are history.
+  const rows = fillRows([
+    fill({ id: 'mar', symbol: 'CL', key: 'conid:10', executedAt: '2026-01-05T10:00:00' }),
+    fill({ id: 'marx', symbol: 'CL', key: 'conid:10', executedAt: '2026-02-05T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
+    fill({ id: 'jun', symbol: 'CL', key: 'conid:11', executedAt: '2026-02-06T10:00:00' }),
+  ])
+  assert.deepEqual(filterFills(rows, 'open', 'CL').map((r) => r.id), ['jun'])
+})
+
+check('the name filter and the scope compose', () => {
+  const rows = fillRows([
+    fill({ id: 'g', executedAt: '2026-05-15T10:00:00' }),
+    fill({ id: 'n', symbol: 'NHYDY', key: 'conid:5', executedAt: '2026-07-22T10:00:00' }),
+  ])
+  assert.deepEqual(filterFills(rows, 'all', 'NHYDY').map((r) => r.id), ['n'])
+  assert.deepEqual(filterFills(rows, 'open', 'GLDM').map((r) => r.id), ['g'])
+})
+
+check('a buy reads as held, partly sold or sold from what is still open', () => {
+  assert.equal(fillStatus({ openedQuantity: 100, stillOpen: 100 }), 'held')
+  assert.equal(fillStatus({ openedQuantity: 100, stillOpen: 50 }), 'part')
+  assert.equal(fillStatus({ openedQuantity: 100, stillOpen: 0 }), 'sold')
+  assert.equal(fillStatus({ openedQuantity: 0, stillOpen: 0 }), null, 'a pure sale has no remainder to report')
+})
+
+check('the action words follow what the fill did', () => {
+  const at = '2026-01-01T10:00:00'
+  assert.equal(fillAction(fill({ id: '1', executedAt: at })), 'opened')
+  assert.equal(fillAction(fill({ id: '2', executedAt: at, effect: 'add' })), 'added')
+  assert.equal(fillAction(fill({ id: '3', executedAt: at, side: 'sell', effect: 'reduce' })), 'trimmed')
+  assert.equal(fillAction(fill({ id: '4', executedAt: at, side: 'sell', effect: 'close' })), 'closed')
+  assert.equal(fillAction(fill({ id: '5', executedAt: at, side: 'sell', effect: 'flip', positionAfter: -50 })), 'reversed to short')
+  assert.equal(fillAction(fill({ id: '6', executedAt: at, side: 'sell', effect: 'unmatched', positionAfter: 0 })), 'no open lot')
+})
+
+check('the summary counts exactly the rows shown', () => {
+  const rows = fillRows([
+    fill({ id: 'o', executedAt: '2026-05-15T10:00:00' }),
+    fill({ id: 'a1', executedAt: '2026-06-01T10:00:00', effect: 'add', positionBefore: 10, positionAfter: 20 }),
+    fill({ id: 'a2', executedAt: '2026-06-02T10:00:00', effect: 'add', positionBefore: 20, positionAfter: 30 }),
+    fill({ id: 't', executedAt: '2026-06-03T10:00:00', side: 'sell', effect: 'reduce', positionBefore: 30, positionAfter: 25, openedQuantity: 0, stillOpen: 0 }),
+  ])
+  assert.deepEqual(fillSummary(rows), { fills: 4, buys: 3, sells: 1, adds: 2, positions: 1 })
+})
+
+check('the name list marks which names are still held', () => {
+  const rows = fillRows([
+    fill({ id: 'g', executedAt: '2026-05-15T10:00:00' }),
+    fill({ id: 'c1', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-07T10:00:00' }),
+    fill({ id: 'c2', symbol: 'CANE', key: 'conid:3', executedAt: '2026-08-20T10:00:00', side: 'sell', effect: 'close', positionBefore: 10, positionAfter: 0, openedQuantity: 0, stillOpen: 0 }),
+  ])
+  assert.deepEqual(fillSymbols(rows), [{ symbol: 'CANE', fills: 2, held: false }, { symbol: 'GLDM', fills: 1, held: true }])
 })
 
 console.log(`\n${passed} passed, ${fails.length} failed`)

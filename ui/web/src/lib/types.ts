@@ -2205,6 +2205,36 @@ export interface PortfolioClosure {
   closeTradeID: string | null
 }
 
+/** One broker execution — every buy and sell the statements carry, open positions included. The round
+ *  trips cannot list a buy that has not been sold, nor an add to a position still held. */
+export interface PortfolioExecution {
+  /** tradeID, else transactionID — the identity a closure carries as closeTradeID. */
+  id: string | null
+  /** Contract identity: one position per key, however many contracts share a symbol. */
+  key: string
+  symbol: string | null
+  currency: string | null
+  executedAt: string | null
+  side: 'buy' | 'sell'
+  /** ABSOLUTE size; the direction is in `side`. */
+  quantity: number
+  price: number
+  multiplier: number
+  /** Commission plus taxes, negative as a cost. Null when the broker left it blank: unknown, not zero. */
+  commission: number | null
+  /** Signed position in the contract immediately before and after this fill. */
+  positionBefore: number
+  positionAfter: number
+  effect: 'open' | 'add' | 'reduce' | 'close' | 'flip' | 'unmatched'
+  /** How much this fill opened, and how much of that is still open as of the last statement. */
+  openedQuantity: number
+  stillOpen: number
+  /** The part of a closing fill that had no open lot to close. */
+  unmatchedQuantity: number
+  /** Realised by the lots this fill closed, net of commission on both legs. Null when it closed nothing. */
+  realizedLocal: number | null
+}
+
 export interface PortfolioBook {
   accountId: string | null
   baseCurrency: string | null
@@ -2213,8 +2243,12 @@ export interface PortfolioBook {
   sectionsPresent: string[]
   sectionsUnmodelled: string[]
   positions: PortfolioPosition[]
-  /** Closed round trips, recovered by FIFO matching — the trade history. */
+  /** Closed round trips, recovered by FIFO matching — what each sale realised. */
   closures: PortfolioClosure[]
+  /** Every fill, oldest first: the trade history, open positions included. OPTIONAL on purpose
+   *  (DESIGN.md §5) — an engine that predates it sends nothing, and the screen must say so rather than
+   *  read the absence as "no trades". */
+  executions?: PortfolioExecution[]
   openLots: { symbol: string | null; quantity: number; price: number; openedAt: string | null }[]
   corporateActions: { type: string | null; symbol: string | null; actionDescription: string | null; dateTime: string | null }[]
   flows: { date: string | null; currency: string | null; amount: number; amountBase: number | null; description: string | null }[]

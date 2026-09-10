@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { foldRoundTrips, type TradeRowData } from './tradeRows'
+import {
+  fillAction, fillRows, fillStatus, fillSummary, fillSymbols, filterFills, foldRoundTrips,
+  type FillRow, type FillScope, type TradeRowData,
+} from './tradeRows'
 import { motion, useReducedMotion } from 'framer-motion'
 import { api } from '../../lib/api'
 import type {
   PortfolioBook, PortfolioClosure, PortfolioLiveMark, PortfolioManualRead, PortfolioPerformance,
-  PortfolioIdeaBook, PortfolioPosition, PortfolioRead,
+  PortfolioExecution, PortfolioIdeaBook, PortfolioPosition, PortfolioRead,
 } from '../../lib/types'
 import { useStore } from '../../lib/store'
 import { GrowthChart, UnderwaterChart } from './charts'
@@ -159,7 +162,14 @@ export function PortfolioStage() {
   const tabs: { id: Tab; label: string; count?: number }[] = [
     { id: 'holdings', label: 'Holdings', count: book?.positions.length },
     { id: 'performance', label: 'Returns & risk' },
-    { id: 'trades', label: 'Trade history', count: (book?.closures.length ?? 0) + manual.live },
+    // What the tab LISTS: every fill in the book plus the hand-logged ones no statement covers yet. It
+    // counted lot-level closures before — 47 on the real book, above a table of 13 round trips that could
+    // not show the 40 buys still held. An engine that predates the blotter lists round trips only, so
+    // that is what the badge counts there.
+    {
+      id: 'trades', label: 'Trade history',
+      count: (book ? (book.executions ? book.executions.length : foldRoundTrips(book.closures).length) : 0) + manual.live,
+    },
   ]
 
   return (
@@ -292,7 +302,7 @@ function ReconcileBadge({ book, onInspect }: { book: PortfolioBook; onInspect: (
 // ---------- what an import changed ----------
 
 interface Snapshot {
-  statements: number; trades: number; closures: number; positions: number
+  statements: number; trades: number; closures: number; roundTrips: number; positions: number
   navPoints: number; nav: number | null; realised: number | null; from: string | null; to: string | null
 }
 export interface ImportDelta { before: Snapshot; after: Snapshot; nothingMoved: boolean }
@@ -304,6 +314,9 @@ function snapshot(read: PortfolioRead | null): Snapshot {
     statements: read?.statements.length ?? 0,
     trades: (read?.statements ?? []).reduce((a, s) => a + s.trades, 0),
     closures: b?.closures.length ?? 0,
+    // What the round-trip table shows. `closures` is per LOT (47 on the real book, over 13 rows): right
+    // for noticing that something moved, wrong as a count of round trips.
+    roundTrips: b ? foldRoundTrips(b.closures).length : 0,
     positions: b?.positions.length ?? 0,
     navPoints: b?.navSeries.length ?? 0,
     nav: b && b.navSeries.length ? b.navSeries[b.navSeries.length - 1]!.total : null,
@@ -1413,10 +1426,15 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
     </div>
   )
 
+  // Every fill, open positions included. Rendered on BOTH paths: a book whose positions are all still
+  // held has no round trips at all, and that is exactly the book on which this tab showed nothing.
+  const allTrades = <AllTrades executions={book.executions} />
+
   if (rows.length === 0) {
     return (
       <>
         {manualPanel}
+        {allTrades}
         <div className="fundbook__empty">
           <strong>No closed trades yet</strong>
           <span>A round trip appears once a position has been closed and matched against the lot that opened it.</span>
@@ -1449,6 +1467,8 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
       </div>
 
       {manualPanel}
+
+      {allTrades}
 
       {ideas && (
         <div className="fundbook__panel">
@@ -1600,6 +1620,113 @@ function Trades({ book, manual, onChanged, ideas, cashEquivalents, importOpen, o
   )
 }
 
+/** EVERY FILL, open positions included — the blotter.
+ *
+ *  The round-trip table can list only what has been SOLD, so a buy still held, and every add to a held
+ *  position, had no row anywhere on this tab (40 of 62 buys on the real book). This lists every
+ *  execution the statements carry, newest first, with what it did to the position and what is left of
+ *  it, so "did we buy more, and when" is one filter away. */
+function AllTrades({ executions }: { executions: PortfolioExecution[] | undefined }) {
+  const [scope, setScope] = useState<FillScope>('all')
+  const [symbol, setSymbol] = useState<string | null>(null)
+  const rows = useMemo(() => fillRows(executions ?? []), [executions])
+  const symbols = useMemo(() => fillSymbols(rows), [rows])
+  // A name picked before a re-import that no longer carries it would filter to nothing, silently.
+  const active = symbol !== null && symbols.some((s) => s.symbol === symbol) ? symbol : null
+  const shown = useMemo(() => filterFills(rows, scope, active), [rows, scope, active])
+  const summary = useMemo(() => fillSummary(shown), [shown])
+  const mixedCurrency = useMemo(() => new Set(rows.map((r) => r.currency ?? '—')).size > 1, [rows])
+  const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
+
+  return (
+    <div className="fundbook__panel">
+      <div className="fundbook__panelhead">
+        <div>
+          <strong>Every trade</strong>
+          <small>Each fill the broker executed, newest first — buys still held included, with what each one did to the position</small>
+        </div>
+        {rows.length > 0 && (
+          <div className="fundbook__fillctl">
+            <div className="fundbook__ranges" role="group" aria-label="Which trades to show">
+              <button type="button" className={`fundbook__range${scope === 'all' ? ' is-on' : ''}`} aria-pressed={scope === 'all'} onClick={() => setScope('all')}>All</button>
+              <button type="button" className={`fundbook__range${scope === 'open' ? ' is-on' : ''}`} aria-pressed={scope === 'open'} onClick={() => setScope('open')}
+                title="Only the fills of positions still open, each since it was last flat">Open positions</button>
+            </div>
+            <select className="fundbook__select" aria-label="Show one name" value={active ?? ''} onChange={(e) => setSymbol(e.target.value || null)}>
+              <option value="">All names</option>
+              {symbols.map((s) => (
+                <option key={s.symbol} value={s.symbol}>{`${s.symbol} · ${plural(s.fills, 'fill')}${s.held ? ' · held' : ''}`}</option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
+      {executions === undefined ? (
+        // DESIGN.md §5: absent is not empty. An engine that predates the blotter sends no field at all.
+        <div className="fundbook__none">The engine serving this page predates the full trade list. It appears once the engine restarts.</div>
+      ) : rows.length === 0 ? (
+        <div className="fundbook__none">These statements carry no trades.</div>
+      ) : shown.length === 0 ? (
+        <div className="fundbook__none">
+          {active ? `${active} has no open position` : 'No position is open'} — choose All to see {active ? 'its' : 'every'} trade{active ? 's' : ''}.
+        </div>
+      ) : (
+        <div className="fundbook__scroll">
+          <div className="fundbook__row fundbook__row--fills fundbook__row--head">
+            <span>Date</span><span>Symbol</span><span>Ccy</span><span>Trade</span>
+            <span className="num">Qty</span><span className="num">Price</span>
+            <span className="num" title="Quantity × price × contract multiplier">Value</span>
+            <span className="num">Costs</span><span className="num">Position after</span>
+            <span className="num">Realised</span>
+            <span title="What is left of what this fill opened, as of the last statement">Status</span>
+          </div>
+          {shown.map((r, i) => <FillLine key={`${r.id ?? 'no-id'}-${i}`} r={r} />)}
+        </div>
+      )}
+      {executions !== undefined && shown.length > 0 && (
+        <div className="fundbook__foot">
+          {plural(summary.fills, 'fill')}: {plural(summary.buys, 'buy')} and {plural(summary.sells, 'sell')}
+          {summary.adds > 0 && `, ${summary.adds} of them adding to a position already open`}.
+          {scope === 'open' && ` That is the history of the ${plural(summary.positions, 'position')} still open, each since it was last flat.`}
+          {' '}Status is as of the last statement; realised is net of commission on both legs
+          {mixedCurrency ? ', and every figure is in the trade’s own currency' : ''}.
+        </div>
+      )}
+    </div>
+  )
+}
+
+function FillLine({ r }: { r: FillRow }) {
+  const status = fillStatus(r)
+  // A short is opened by a sale, so what remains of it is "short", and what closed it was a cover.
+  const [open, gone] = r.side === 'buy' ? ['Held', 'Sold'] : ['Short', 'Covered']
+  const statusText = status === 'held' ? open
+    : status === 'part' ? `${open} ${fmtQty(r.stillOpen)} of ${fmtQty(r.openedQuantity)}`
+      : status === 'sold' ? gone : '—'
+  const unmatched = r.unmatchedQuantity > 0
+    ? `${fmtQty(r.unmatchedQuantity)} of this fill had no open lot to close — the statements begin after that position was opened`
+    : undefined
+  return (
+    <div className="fundbook__row fundbook__row--fills">
+      <span className="dim mono">{(r.executedAt ?? '—').slice(0, 10)}</span>
+      <strong className="mono">{r.symbol ?? '—'}</strong>
+      <span className="dim">{r.currency ?? '—'}</span>
+      <span title={unmatched}>
+        <b className="fundbook__side">{r.side === 'buy' ? 'Buy' : 'Sell'}</b>{' '}
+        <span className="dim">{fillAction(r)}</span>
+        {unmatched && <small className="fundbook__lots">{fmtQty(r.unmatchedQuantity)} unmatched</small>}
+      </span>
+      <span className="num">{fmtQty(r.quantity)}</span>
+      <span className="num dim">{fmtNum(r.price)}</span>
+      <span className="num">{fmtSmallMoney(r.quantity * r.price * r.multiplier)}</span>
+      <span className="num dim">{fmtSmallMoney(r.commission)}</span>
+      <span className="num">{fmtQty(r.positionAfter)}</span>
+      <span className="num" style={{ color: toneOf(r.realizedLocal) }}>{fmtSmallMoney(r.realizedLocal)}</span>
+      <span className={status === 'held' || status === 'part' ? undefined : 'dim'}>{statusText}</span>
+    </div>
+  )
+}
+
 function TradeRow({ c, grossRealised, ideas, onChanged }: {
   c: TradeRowData; grossRealised: number
   ideas?: PortfolioIdeaBook; onChanged?: (r: PortfolioRead) => void
@@ -1697,7 +1824,7 @@ function ImportTab({ read, onFiles, onChanged, busy, progress, notes, firstRun, 
             <div className="fundbook__cards fundbook__cards--tight">
               <Delta label="Statements" before={changed.before.statements} after={changed.after.statements} />
               <Delta label="Trades read" before={changed.before.trades} after={changed.after.trades} />
-              <Delta label="Closed round trips" before={changed.before.closures} after={changed.after.closures} />
+              <Delta label="Closed round trips" before={changed.before.roundTrips} after={changed.after.roundTrips} />
               <Delta label="Open positions" before={changed.before.positions} after={changed.after.positions} />
               <Delta label="Valued days" before={changed.before.navPoints} after={changed.after.navPoints} />
               <Delta label="Covered through" beforeText={changed.before.to ?? '—'} afterText={changed.after.to ?? '—'} />

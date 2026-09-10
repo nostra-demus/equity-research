@@ -683,5 +683,135 @@ check('BASE_SUMMARY is a reporting label, not a currency', () => {
 })
 
 
+// ---------- the blotter: every fill, open positions included ----------
+// A round trip exists only once something is sold, so closures alone could never list a buy still held,
+// nor an add to a held position. The blotter is every fill the lot engine applied, in order.
+
+check('every fill is listed, open positions included, in the order the book applied them', () => {
+  // T1–T10 are executions; T-SUM is a SUMMARY row and is not a fill.
+  assert.deepEqual(book.executions.map((e) => e.id), ['T10', 'T1', 'T4', 'T2', 'T5', 'T7', 'T9', 'T3', 'T8', 'T6'])
+})
+
+check('each fill says what it did to the position', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  // AAA: buy 100 opens, buy 100 adds, sell 150 trims to 50.
+  assert.deepEqual([by.get('T1')!.effect, by.get('T2')!.effect, by.get('T3')!.effect], ['open', 'add', 'reduce'])
+  assert.deepEqual([by.get('T2')!.positionBefore, by.get('T2')!.positionAfter], [100, 200])
+  assert.deepEqual([by.get('T3')!.positionBefore, by.get('T3')!.positionAfter], [200, 50])
+  // DDD: a sell opens the short and a buy closes it.
+  assert.deepEqual([by.get('T7')!.side, by.get('T7')!.effect, by.get('T7')!.positionAfter], ['sell', 'open', -30])
+  assert.deepEqual([by.get('T8')!.side, by.get('T8')!.effect, by.get('T8')!.positionAfter], ['buy', 'close', 0])
+})
+
+check('a buy reads as held, partly sold or sold from what is still open', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  // The 150-share sale consumed all of T1 and half of T2, oldest first.
+  assert.deepEqual([by.get('T1')!.openedQuantity, by.get('T1')!.stillOpen], [100, 0])
+  assert.deepEqual([by.get('T2')!.openedQuantity, by.get('T2')!.stillOpen], [100, 50])
+  assert.deepEqual([by.get('T9')!.openedQuantity, by.get('T9')!.stillOpen], [200, 200], 'EEE was never sold')
+  assert.equal(by.get('T3')!.openedQuantity, 0, 'a pure sale opens nothing')
+})
+
+check('a sale carries what it realised, and the blotter ties to the round trips', () => {
+  const by = new Map(book.executions.map((e) => [e.id, e]))
+  assert.ok(near(by.get('T3')!.realizedLocal!, 646.5, 1e-4), `AAA sale realised ${by.get('T3')!.realizedLocal}`)
+  assert.ok(near(by.get('T8')!.realizedLocal!, 148), `DDD cover realised ${by.get('T8')!.realizedLocal}`)
+  assert.ok(near(by.get('T6')!.realizedLocal!, 19992), `CCC sale realised ${by.get('T6')!.realizedLocal}`)
+  assert.equal(by.get('T1')!.realizedLocal, null, 'a buy realises nothing')
+  const blotter = book.executions.reduce((a, e) => a + (e.realizedLocal ?? 0), 0)
+  const trips = book.closures.reduce((a, c) => a + c.realizedLocal, 0)
+  assert.ok(near(blotter, trips), `blotter ${blotter} vs round trips ${trips}`)
+})
+
+check('what the blotter says is open is exactly what the lots and the broker hold', () => {
+  const lastByKey = new Map<string, number>()
+  const stillOpenByKey = new Map<string, number>()
+  for (const e of book.executions) {
+    lastByKey.set(e.key, e.positionAfter)
+    stillOpenByKey.set(e.key, (stillOpenByKey.get(e.key) ?? 0) + e.stillOpen)
+  }
+  const lotsByKey = new Map<string, number>()
+  for (const l of book.openLots) lotsByKey.set(l.key, (lotsByKey.get(l.key) ?? 0) + l.quantity)
+  assert.ok(lotsByKey.size > 0)
+  for (const [key, held] of lotsByKey) {
+    assert.ok(near(lastByKey.get(key)!, held), `${key}: the last fill leaves ${lastByKey.get(key)}, the lots hold ${held}`)
+    assert.ok(near(stillOpenByKey.get(key)!, Math.abs(held)), `${key}: fills credit ${stillOpenByKey.get(key)} as open, the lots hold ${held}`)
+  }
+  for (const p of book.positions.filter((x) => x.quantity !== null)) {
+    const last = lastByKey.get(`conid:${p.conid}`) ?? 0
+    assert.ok(near(last, p.quantity!), `${p.symbol}: blotter ${last} vs broker ${p.quantity}`)
+  }
+})
+
+check('a blank commission is unknown, not zero', () => {
+  assert.equal(book.executions.find((e) => e.id === 'T4')!.commission, null)
+  assert.equal(book.executions.find((e) => e.id === 'T1')!.commission, -1)
+})
+
+check('a C;O flip closes the long and reopens short, and the blotter says so', () => {
+  const base = { ...doc.trades[0]!, symbol: 'FLP', conid: '66', levelOfDetail: 'EXECUTION', multiplier: 1, ibCommission: 0, taxes: 0, fxRateToBase: 1 }
+  const { executions, closures } = runFifo([
+    { ...base, tradeID: 'F1', transactionID: 'FX1', quantity: 100, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'F2', transactionID: 'FX2', quantity: -150, tradePrice: 12, openCloseIndicator: 'C;O', dateTime: '2026-02-01T10:00:00' },
+  ])
+  const flip = executions[1]!
+  assert.equal(flip.effect, 'flip')
+  assert.deepEqual([flip.positionBefore, flip.positionAfter], [100, -50])
+  assert.deepEqual([flip.openedQuantity, flip.stillOpen], [50, 50], 'the new short is still open')
+  assert.ok(near(flip.realizedLocal!, closures[0]!.realizedLocal), 'and it carries what the closing half realised')
+  assert.ok(near(flip.realizedLocal!, 200), `100 x $2 with no costs = 200, got ${flip.realizedLocal}`)
+  assert.equal(executions[0]!.stillOpen, 0, 'the long it closed is gone')
+})
+
+check('a close with nothing to close is listed as unmatched, not dropped', () => {
+  const { executions } = runFifo([
+    { ...doc.trades[0]!, tradeID: 'Z1', symbol: 'ZZZ', conid: '99', quantity: -10, tradePrice: 5, openCloseIndicator: 'C', dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' },
+  ])
+  assert.equal(executions.length, 1, 'the fill still appears in the blotter')
+  assert.equal(executions[0]!.effect, 'unmatched')
+  assert.equal(executions[0]!.unmatchedQuantity, 10)
+  assert.deepEqual([executions[0]!.positionBefore, executions[0]!.positionAfter], [0, 0])
+  assert.equal(executions[0]!.realizedLocal, null)
+})
+
+check('a sale larger than the position closes what it can and reports the rest as unmatched', () => {
+  const base = { ...doc.trades[0]!, symbol: 'OVR', conid: '88', levelOfDetail: 'EXECUTION', multiplier: 1 }
+  const { executions } = runFifo([
+    { ...base, tradeID: 'O1', transactionID: 'OX1', quantity: 5, tradePrice: 10, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00' },
+    { ...base, tradeID: 'O2', transactionID: 'OX2', quantity: -8, tradePrice: 12, openCloseIndicator: 'C', dateTime: '2026-02-01T10:00:00' },
+  ])
+  assert.equal(executions[1]!.effect, 'close')
+  assert.equal(executions[1]!.unmatchedQuantity, 3)
+})
+
+check('with a blank open/close indicator the effect is read off the position', () => {
+  const buy = { ...doc.trades[0]!, tradeID: 'B1', symbol: 'BLK', conid: '55', quantity: 100, tradePrice: 10, openCloseIndicator: null, dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' }
+  const sell = { ...buy, tradeID: 'B2', quantity: -60, tradePrice: 15, dateTime: '2026-02-01T10:00:00' }
+  const { executions } = runFifo([buy, sell])
+  assert.deepEqual(executions.map((e) => e.effect), ['open', 'reduce'])
+  assert.equal(executions[0]!.stillOpen, 40)
+})
+
+check('a fill the broker gave no id still owns what it opened', () => {
+  const { executions } = runFifo([
+    { ...doc.trades[0]!, tradeID: null, transactionID: null, symbol: 'NID', conid: '44', quantity: 7, tradePrice: 3, openCloseIndicator: 'O', dateTime: '2026-01-01T10:00:00', levelOfDetail: 'EXECUTION' },
+  ])
+  assert.equal(executions[0]!.id, null)
+  assert.equal(executions[0]!.stillOpen, 7)
+})
+
+check('a restated trade appears once, as its replacement', () => {
+  const pre = { ...doc.trades[0]!, tradeID: 'S-PRE', transactionID: 'SX-PRE', symbol: 'SPL', conid: '77', quantity: 100, tradePrice: 50, openCloseIndicator: 'O', dateTime: '2026-02-01T10:00:00', levelOfDetail: 'EXECUTION', origTradeID: null, origTransactionID: null }
+  const post = { ...pre, tradeID: 'S-POST', transactionID: 'SX-POST', quantity: 200, tradePrice: 25, origTradeID: 'S-PRE', origTransactionID: 'SX-PRE' }
+  const restated = buildBook([{ ...doc, trades: [pre, post], openPositions: [], cashTransactions: [], equitySummary: [], changeInNav: null }])
+  assert.deepEqual(restated.executions.map((e) => [e.id, e.quantity]), [['S-POST', 200]])
+})
+
+check('re-importing an overlapping export does not duplicate a fill', () => {
+  const twice = buildBook([doc, parseFlexXml(xml)])
+  assert.deepEqual(twice.executions.map((e) => e.id), book.executions.map((e) => e.id))
+})
+
+
 console.log(`\n${passed} passed, ${fails.length} failed`)
 if (fails.length) { console.error('FAILED: ' + fails.join(', ')); process.exit(1) }

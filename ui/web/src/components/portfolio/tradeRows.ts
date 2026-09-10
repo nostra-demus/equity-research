@@ -1,7 +1,7 @@
 // Turning FIFO bookkeeping back into trades. Extracted from the component so the arithmetic can be
 // tested directly: it is a two-stage aggregation over real money, and a fold that quietly drops or
 // double-counts a leg would misstate realised P&L on screen with nothing to catch it.
-import type { PortfolioClosure, PortfolioIdeaBook } from '../../lib/types'
+import type { PortfolioClosure, PortfolioExecution, PortfolioIdeaBook } from '../../lib/types'
 
 export interface TradeRowData {
   symbol: string | null
@@ -263,4 +263,90 @@ export function groupByIdea(
   named.sort((a, b) => Math.abs(b.realized) - Math.abs(a.realized))
   rest.sort((a, b) => a.label.localeCompare(b.label))
   return [...named, ...rest]
+}
+
+// ---------------------------------------------------------------------------------------------
+// Every fill — the blotter the round trips cannot be.
+//
+// A round trip exists only once something has been SOLD, so the round-trip table can never show a buy
+// still held, nor an add to a held position. On the real book that hid 40 of 62 buys, 36 of them adds.
+// The engine now sends every execution with what it did to the position; these read it for the screen.
+
+const QTY_EPS = 1e-9
+
+export interface FillRow extends PortfolioExecution {
+  /** Part of a position still open now: filled after its contract last went flat, in a contract that is
+   *  not flat at the end. A name bought in May, sold out in July and bought again in August has only its
+   *  August fills here — the earlier round trip is history, not part of what is held. */
+  current: boolean
+}
+
+export type FillScope = 'all' | 'open'
+
+/** Newest first, each fill marked with whether it belongs to a position still open. Keyed on the
+ *  CONTRACT, not the symbol: two futures expiries share a root, and one going flat says nothing about
+ *  the other. */
+export function fillRows(executions: PortfolioExecution[]): FillRow[] {
+  const lastFlat = new Map<string, number>()
+  const final = new Map<string, number>()
+  executions.forEach((e, i) => {
+    if (Math.abs(e.positionAfter) <= QTY_EPS) lastFlat.set(e.key, i)
+    final.set(e.key, e.positionAfter)
+  })
+  return executions
+    .map((e, i) => ({ ...e, current: Math.abs(final.get(e.key) ?? 0) > QTY_EPS && i > (lastFlat.get(e.key) ?? -1) }))
+    .reverse()
+}
+
+export function filterFills(rows: FillRow[], scope: FillScope, symbol: string | null): FillRow[] {
+  return rows.filter((r) => (scope === 'all' || r.current) && (symbol === null || r.symbol === symbol))
+}
+
+/** The names the filter offers: how many fills each has, and whether any of them is still held. */
+export function fillSymbols(rows: FillRow[]): { symbol: string; fills: number; held: boolean }[] {
+  const by = new Map<string, { symbol: string; fills: number; held: boolean }>()
+  for (const r of rows) {
+    if (!r.symbol) continue
+    const cur = by.get(r.symbol) ?? { symbol: r.symbol, fills: 0, held: false }
+    cur.fills += 1
+    if (r.current) cur.held = true
+    by.set(r.symbol, cur)
+  }
+  return [...by.values()].sort((a, b) => a.symbol.localeCompare(b.symbol))
+}
+
+/** What a fill did to the position, in words. */
+export function fillAction(r: Pick<PortfolioExecution, 'side' | 'effect' | 'positionAfter'>): string {
+  switch (r.effect) {
+    case 'open': return r.side === 'sell' ? 'opened short' : 'opened'
+    case 'add': return 'added'
+    case 'reduce': return 'trimmed'
+    case 'close': return 'closed'
+    case 'flip': return r.positionAfter < 0 ? 'reversed to short' : 'reversed to long'
+    case 'unmatched': return 'no open lot'
+  }
+}
+
+/** What is left of what a fill opened: all of it, part of it, or none. Null for a fill that opened
+ *  nothing — a pure sale has no remainder to report. */
+export function fillStatus(r: Pick<PortfolioExecution, 'openedQuantity' | 'stillOpen'>): 'held' | 'part' | 'sold' | null {
+  if (r.openedQuantity <= QTY_EPS) return null
+  if (r.stillOpen >= r.openedQuantity - QTY_EPS) return 'held'
+  if (r.stillOpen > QTY_EPS) return 'part'
+  return 'sold'
+}
+
+/** The counts under the table, over exactly the rows shown. */
+export function fillSummary(rows: FillRow[]): { fills: number; buys: number; sells: number; adds: number; positions: number } {
+  let buys = 0
+  let sells = 0
+  let adds = 0
+  const open = new Set<string>()
+  for (const r of rows) {
+    if (r.side === 'buy') buys += 1
+    else sells += 1
+    if (r.effect === 'add') adds += 1
+    if (r.current) open.add(r.key)
+  }
+  return { fills: rows.length, buys, sells, adds, positions: open.size }
 }

@@ -5163,6 +5163,13 @@ a { color: inherit; }
    shows open holdings, so a finished idea (sugar, in the real book) had no control anywhere. */
 .fundbook__row--trades { grid-template-columns: 104px 132px 48px 92px 92px 54px 82px 78px 78px 88px 74px 92px 58px; min-width: 1072px; }
 .fundbook__lots { display: block; color: var(--text-faint); font-size: 8px; letter-spacing: 0.2px; text-transform: uppercase; }
+/* Every fill: the blotter. The Trade cell carries the side AND what the fill did to the position (opened,
+   added, trimmed, closed), which is the question the table exists to answer. */
+.fundbook__row--fills { grid-template-columns: 88px 92px 44px minmax(132px, 1.3fr) 70px 78px 90px 66px 92px 86px minmax(120px, 1fr); min-width: 1068px; }
+.fundbook__side { font-weight: 700; color: var(--text); }
+/* The blotter's filters sit in the panel head beside its title; the chart-range buttons are the toggle. */
+.fundbook__fillctl { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.fundbook__fillctl .fundbook__ranges { padding: 0; }
 .fundbook__row--checks { grid-template-columns: minmax(240px, 2.4fr) 1fr 1fr 1fr 74px; min-width: 700px; }
 /* By idea — the declared grouping. Same row grammar as the other blotter grids so it reads as part of
    the same table, not a bolted-on panel. Full width, NOT inside .fundbook__split: six columns in a
