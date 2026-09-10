@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T20:13:38Z",
+  "generated_at": "2026-09-10T20:28:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -585,6 +585,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-542",
+      "headline": "Copart Nears Agreement to Buy ACV Auctions for Almost $2 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/copart-nears-agreement-to-buy-acv-auctions-for-almost-2-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T20:01:16Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Copart is nearing an agreement to acquire ACV Auctions for nearly $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Copart is nearing an agreement to acquire ACV Auctions for nearly $2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Copart",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ACV Auctions",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,55 +2001,6 @@
           "name": "The Boring Company",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-384",
-      "headline": "Dilip Buildcon Divests Mekhali Power Project For ₹2,914 Crore, Alpha Alternatives To Acquire 51% Equity",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/dilip-buildcon-divests-mekhali-power-project-for-2914-crore-alpha-alternatives-to-acquire-51-equity",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T07:55:02Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Dilip Buildcon is divesting its Mekhali Power project for 29.14 billion INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dilip Buildcon is divesting its Mekhali Power project for 29.14 billion INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dilip Buildcon",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -153502,9 +153507,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5880633,
-    "news_picked_today": 1488,
-    "news_dropped_today": 16416
+    "news_seen_today": 5999875,
+    "news_picked_today": 1499,
+    "news_dropped_today": 16525
   },
   "book_momentum": {
     "live_count": 8,
