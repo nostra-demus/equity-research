@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T10:39:52Z",
+  "generated_at": "2026-09-10T10:56:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-421",
+      "headline": "EMPEROR CULTURE (00491): Positive Profit Alert - Turnaround to Net Profit",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, indicating a turnaround to net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, indicating a turnaround to net profit.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emperor Culture Group Limited",
+          "ticker": "00491",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-404",
       "headline": "HATCHER GROUP (08365): UPDATE ON ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUANCE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
@@ -1426,6 +1475,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-420",
+      "headline": "Share India Securities Limited: Pursuant to Regulation 30 of SEBI (LODR) Regulation, 2015, please be informed that the Company has undertaken Partial Redemption of Face value of NCD Series A and NCD Second Issue.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SISL_10092026152128_Reg30Redemption10092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T09:54:33Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The company announced a partial redemption of non-convertible debentures, affecting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company announced a partial redemption of non-convertible debentures, affecting its capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Share India Securities Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-390",
       "headline": "SOLIS HOLDINGS (02227): DELAY IN DESPATCH OF CIRCULAR FOR MAJOR TRANSACTION",
       "headline_en": null,
@@ -1864,103 +1962,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-344",
-      "headline": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/pakistan-turkey-back-arab-endorsement-uks-settlement-sanctions",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T07:01:33Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-294",
-      "headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T04:25:45Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Apple's entry into the foldable market directly challenges Samsung's dominance in a high-margin smartphone segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Apple's entry into the foldable market directly challenges Samsung's dominance in a high-margin smartphone segment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": "AAPL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -110600,78 +110601,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5d986322cea5",
-      "idea_version": "IDEAV-79017cdc6b24b553",
-      "idea_version_started_at": "2026-09-09T01:49:16Z",
-      "ticker": "COFORGE",
-      "company": "Coforge",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of the chairman following audit concerns regarding board evaluation signals potential governance failures and internal control risks that typically lead to valuation de-rating.",
-      "why_now": "The resignation was reported on 2026-09-08, creating immediate uncertainty regarding the company's leadership and financial oversight.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f767b2436add"
-      ],
-      "primary_source_event_id": "EVT-f767b2436add",
-      "source_headlines": [
-        "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation"
-      ],
-      "source_headline": "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation",
-      "source_url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T22:54:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T01:49:16Z",
-      "updated_at": "2026-09-09T01:49:16Z",
-      "decay_at": "2026-09-10T10:54:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-75af08a2bada8d89",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -112989,6 +112918,78 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5d986322cea5",
+      "idea_version": "IDEAV-79017cdc6b24b553",
+      "idea_version_started_at": "2026-09-09T01:49:16Z",
+      "ticker": "COFORGE",
+      "company": "Coforge",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of the chairman following audit concerns regarding board evaluation signals potential governance failures and internal control risks that typically lead to valuation de-rating.",
+      "why_now": "The resignation was reported on 2026-09-08, creating immediate uncertainty regarding the company's leadership and financial oversight.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f767b2436add"
+      ],
+      "primary_source_event_id": "EVT-f767b2436add",
+      "source_headlines": [
+        "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation"
+      ],
+      "source_headline": "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation",
+      "source_url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T22:54:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T01:49:16Z",
+      "updated_at": "2026-09-09T01:49:16Z",
+      "decay_at": "2026-09-10T10:54:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116160,9 +116161,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
+    "total_count": 570,
     "shown_count": 500,
-    "hidden_count": 69,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
         "total_count": 299,
@@ -116170,9 +116171,9 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -116191,6 +116192,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5d986322cea5",
+        "idea_version": "IDEAV-79017cdc6b24b553",
+        "idea_version_started_at": "2026-09-09T01:49:16Z",
+        "ticker": "COFORGE",
+        "company": "Coforge",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of the chairman following audit concerns regarding board evaluation signals potential governance failures and internal control risks that typically lead to valuation de-rating.",
+        "why_now": "The resignation was reported on 2026-09-08, creating immediate uncertainty regarding the company's leadership and financial oversight.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f767b2436add"
+        ],
+        "primary_source_event_id": "EVT-f767b2436add",
+        "source_headlines": [
+          "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation"
+        ],
+        "source_headline": "India's Coforge chairman Bhatt resigns after audit finds concerns in board evaluation",
+        "source_url": "https://www.reuters.com/world/india/indias-coforge-chairman-bhatt-resigns-after-audit-finds-concerns-board-2026-09-08/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T22:54:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T01:49:16Z",
+        "updated_at": "2026-09-09T01:49:16Z",
+        "decay_at": "2026-09-10T10:54:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T10:54:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c9da0ae18daf",
         "idea_version": "IDEAV-046465d9694605bc",
@@ -153284,86 +153360,12 @@
         "archived_at": "2026-08-23T20:30:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3cfa47125f65",
-        "idea_version": "IDEAV-64638a1412f2ffb5",
-        "idea_version_started_at": "2026-08-22T07:11:14Z",
-        "ticker": "WMT",
-        "company": "Walmart",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Walmart's stock is under pressure after the company issued a disappointing outlook that missed Wall Street expectations, signaling potential margin compression or slowing consumer demand.",
-        "why_now": "The stock tumbled 9% following the immediate release of its disappointing guidance on August 20, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c114ed8b317"
-        ],
-        "primary_source_event_id": "EVT-4c114ed8b317",
-        "source_headlines": [
-          "Walmart stock tumbles 9% after outlook disappoints Wall Street"
-        ],
-        "source_headline": "Walmart stock tumbles 9% after outlook disappoints Wall Street",
-        "source_url": "https://www.cnbc.com/2026/08/20/walmart-wmt-q2-2027-earnings.html",
-        "source_name": "CNBC",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-20T20:01:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-22T07:11:14Z",
-        "updated_at": "2026-08-22T07:11:14Z",
-        "decay_at": "2026-08-22T08:01:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T20:13:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 659,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153382,9 +153384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2836464,
-    "news_picked_today": 863,
-    "news_dropped_today": 10969
+    "news_seen_today": 2923236,
+    "news_picked_today": 881,
+    "news_dropped_today": 11167
   },
   "book_momentum": {
     "live_count": 8,
