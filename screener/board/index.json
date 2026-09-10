@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T20:58:07Z",
+  "generated_at": "2026-09-10T20:58:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -108583,6 +108583,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-55c58018f9d8",
+      "idea_version": "IDEAV-0631760f4eac4184",
+      "idea_version_started_at": "2026-09-10T20:58:23Z",
+      "ticker": "CPRT",
+      "company": "Copart",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.9 billion acquisition of ACV Auctions allows Copart to integrate digital auction capabilities into its existing vehicle remarketing business, creating a more comprehensive platform.",
+      "why_now": "The deal was announced today, September 10, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3904c70b14d6"
+      ],
+      "primary_source_event_id": "EVT-3904c70b14d6",
+      "source_headlines": [
+        "Copart to buy ACV Auctions in $1.9 billion deal"
+      ],
+      "source_headline": "Copart to buy ACV Auctions in $1.9 billion deal",
+      "source_url": "https://www.reuters.com/business/copart-buy-acv-auctions-19-billion-deal-2026-09-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T20:23:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-10T20:58:23Z",
+      "updated_at": "2026-09-10T20:58:23Z",
+      "decay_at": "2026-09-12T08:23:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2c6e860326a2",
       "idea_version": "IDEAV-d91d9e62528ed64c",
       "idea_version_started_at": "2026-09-10T20:09:28Z",
@@ -109699,6 +109769,78 @@
       "surfaced_at": "2026-09-10T02:28:33Z",
       "updated_at": "2026-09-10T02:28:33Z",
       "decay_at": "2026-09-11T12:17:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8785cce22dea",
+      "idea_version": "IDEAV-02774348257066fe",
+      "idea_version_started_at": "2026-09-10T20:58:23Z",
+      "ticker": "ORCL",
+      "company": "Oracle",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Oracle's cloud infrastructure revenue more than doubling indicates successful execution in the high-growth AI and cloud services market, driving significant earnings upside.",
+      "why_now": "The earnings beat was reported today, September 10, 2026, triggering a 7% stock jump.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 6,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f9df968ecc72",
+        "EVT-9721e2d6567f"
+      ],
+      "primary_source_event_id": "EVT-f9df968ecc72",
+      "source_headlines": [
+        "Oracle's stock jumps 7% on earnings beat as cloud infrastructure revenue more than doubles",
+        "Oracle Beats on Earnings, Sales Rise to $19.3 Billion"
+      ],
+      "source_headline": "Oracle's stock jumps 7% on earnings beat as cloud infrastructure revenue more than doubles",
+      "source_url": "https://www.cnbc.com/2026/09/10/oracle-orcl-q1-earnings-report-2027.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-10T20:41:56Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/ORCL_2026-08-14",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-10T20:58:23Z",
+      "updated_at": "2026-09-10T20:58:23Z",
+      "decay_at": "2026-09-12T08:41:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -111759,76 +111901,6 @@
       "surfaced_at": "2026-09-08T04:17:20Z",
       "updated_at": "2026-09-08T04:17:20Z",
       "decay_at": "2026-09-09T15:06:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7cd73abe309e",
-      "idea_version": "IDEAV-71da18ed92e22625",
-      "idea_version_started_at": "2026-09-07T21:35:59Z",
-      "ticker": "WAFD",
-      "company": "WaFd",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The combination of WaFd with EverBank to create a $75 billion bank is likely to result in synergies and increased scale, potentially boosting profitability and market share.",
-      "why_now": "The announcement of the merger between EverBank and WaFd was made on September 7, 2026, creating a live M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5b769b9e350e"
-      ],
-      "primary_source_event_id": "EVT-5b769b9e350e",
-      "source_headlines": [
-        "EverBank to Combine With WaFd to Create $75 Billion Bank"
-      ],
-      "source_headline": "EverBank to Combine With WaFd to Create $75 Billion Bank",
-      "source_url": "https://www.wsj.com/business/deals/everbank-to-combine-with-wafd-to-create-75-billion-bank-e71d023c?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T20:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T21:35:59Z",
-      "updated_at": "2026-09-07T21:35:59Z",
-      "decay_at": "2026-09-09T08:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -114833,150 +114905,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3c061905fff4",
-      "idea_version": "IDEAV-3bbfa9cd6e3ec8d2",
-      "idea_version_started_at": "2026-09-07T21:57:29Z",
-      "ticker": "IIFL",
-      "company": "IIFL Finance Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Blackstone is actively in the fray to acquire a strategic stake in IIFL Finance, which would inject capital and provide a strong institutional backing to the non-banking financial company.",
-      "why_now": "Reports on September 7, 2026, indicate Blackstone is actively bidding, introducing a near-term speculative catalyst for the stock.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-284bc2ed03fc"
-      ],
-      "primary_source_event_id": "EVT-284bc2ed03fc",
-      "source_headlines": [
-        "Blackstone in fray to acquire IIFL Fin stake"
-      ],
-      "source_headline": "Blackstone in fray to acquire IIFL Fin stake",
-      "source_url": "https://timesofindia.indiatimes.com/business/international-business/blackstone-in-fray-to-acquire-iifl-fin-stake/articleshow/133896265.cms",
-      "source_name": "The Times of India (Business)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T20:26:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T21:57:29Z",
-      "updated_at": "2026-09-07T21:57:29Z",
-      "decay_at": "2026-09-09T08:26:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d45a12676caa",
-      "idea_version": "IDEAV-148a14d557a70be5",
-      "idea_version_started_at": "2026-09-07T21:35:59Z",
-      "ticker": "TIT",
-      "company": "Telecom Italia",
-      "exchange": "Borsa Italiana",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Poste Italiane's increased offer for Telecom Italia and waiver of the threshold condition suggest a higher probability of a successful acquisition, which could unlock value for TIT shareholders.",
-      "why_now": "Poste Italiane raised its offer and waived a key condition on September 7, 2026, making the M&A event more imminent.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7899c6ef5fef"
-      ],
-      "primary_source_event_id": "EVT-7899c6ef5fef",
-      "source_headlines": [
-        "Poste Italiane raises Telecom Italia offer, waives threshold condition"
-      ],
-      "source_headline": "Poste Italiane raises Telecom Italia offer, waives threshold condition",
-      "source_url": "https://www.reuters.com/business/poste-italiane-raises-telecom-italia-offer-waives-threshold-condition-2026-09-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-07T20:16:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T21:35:59Z",
-      "updated_at": "2026-09-07T21:35:59Z",
-      "decay_at": "2026-09-09T08:16:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-841758969e76",
       "idea_version": "IDEAV-d59e7b53b8401bd6",
       "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -116276,14 +116204,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
-        "total_count": 296,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 46
+        "hidden_count": 43
       },
       "short": {
         "total_count": 276,
@@ -116293,12 +116221,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 61,
+      "evicted_count": 64,
       "oldest_retained_at": "2026-08-14T16:01:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 59,
-          "oldest_retained_at": "2026-08-27T10:41:50Z"
+          "evicted_count": 62,
+          "oldest_retained_at": "2026-08-27T15:26:44Z"
         },
         "short": {
           "evicted_count": 2,
@@ -121501,8 +121429,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T08:30:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T20:58:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121576,8 +121504,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T08:26:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T20:58:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -121651,8 +121579,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-09T08:16:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-10T20:58:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153486,8 +153414,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 670,
-    "live_count": 35,
+    "surfaced_total": 672,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
