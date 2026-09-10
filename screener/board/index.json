@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T06:21:40Z",
+  "generated_at": "2026-09-10T06:28:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -537,6 +537,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-306",
+      "headline": "BAS: Half Year Results - 30 June 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BAS?key=2924-03134144-3A701503",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T05:56:44Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Company released half-year financial results for the period ending June 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Company released half-year financial results for the period ending June 30, 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,60 +1953,6 @@
           "name": "Nvidia",
           "ticker": "NVDA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-078",
-      "headline": "Volkswagen targets India growth with JSW Group joint venture plan",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/business-deals/volkswagen-targets-india-growth-with-jsw-group-joint-venture-plan",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T00:26:09Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Volkswagen is planning a joint venture with JSW Group to expand its manufacturing and growth footprint in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Volkswagen is planning a joint venture with JSW Group to expand its manufacturing and growth footprint in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "JSW Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -153175,9 +153170,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1642740,
-    "news_picked_today": 640,
-    "news_dropped_today": 3896
+    "news_seen_today": 1660221,
+    "news_picked_today": 650,
+    "news_dropped_today": 3934
   },
   "book_momentum": {
     "live_count": 8,
