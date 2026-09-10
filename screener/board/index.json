@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T07:06:30Z",
+  "generated_at": "2026-09-10T07:11:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-315",
@@ -1179,6 +1179,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-344",
+      "headline": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/pakistan-turkey-back-arab-endorsement-uks-settlement-sanctions",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T07:01:33Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Pakistan, Turkey back Arab endorsement of UK's settlement sanctions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-294",
       "headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
       "headline_en": null,
@@ -1326,6 +1369,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-338",
+      "headline": "Ice Make Refrigeration Limited: Ice Make Refrigeration Limited has informed the Exchange regarding allotment of 2367573 securities pursuant to Preferential Issue at its meeting held on September 10, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ICEMAKE_10092026122953_NSEOutcome10092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T07:00:06Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Allotment of 2367573 securities pursuant to Preferential Issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Allotment of 2367573 securities pursuant to Preferential Issue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ice Make Refrigeration Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,104 +1959,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-337",
-      "headline": "Aichi Financial Group,Inc.(7389)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Trading halt on Aichi Financial Group indicates a pending material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt on Aichi Financial Group indicates a pending material announcement.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aichi Financial Group",
-          "ticker": "7389",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-336",
-      "headline": "San ju San Financial Group,Inc. (7322)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Trading halt on San ju San Financial Group indicates a pending material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Trading halt on San ju San Financial Group indicates a pending material announcement.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "San ju San Financial Group",
-          "ticker": "7322",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153319,9 +153313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1970593,
-    "news_picked_today": 699,
-    "news_dropped_today": 4989
+    "news_seen_today": 2020071,
+    "news_picked_today": 706,
+    "news_dropped_today": 5006
   },
   "book_momentum": {
     "live_count": 8,
