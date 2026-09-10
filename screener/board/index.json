@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T16:58:12Z",
+  "generated_at": "2026-09-10T17:03:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-503",
@@ -683,6 +683,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-526",
+      "headline": "Enbridge to Acquire Tallgrass Pipelines for $2.55B",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/enbridge_to_acquire_tallgrass_pipelines_for_255b-10-sep-2026-184589-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T15:57:02Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Enbridge announced the acquisition of Tallgrass Pipelines for $2.55B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Enbridge announced the acquisition of Tallgrass Pipelines for $2.55B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enbridge",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tallgrass Pipelines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1962,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "The Boring Company raised capital at a $29 billion valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Boring Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-322",
-      "headline": "Musk's tunnel startup The Boring Company raises $3 billion at $23 billion valuation",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/musks-tunnel-startup-boring-company-raises-3-billion-23-billion-valuation-2026-09-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T06:21:20Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "The Boring Company raised $3 billion in new capital at a $23 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Boring Company raised $3 billion in new capital at a $23 billion valuation.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 70,
@@ -153350,9 +153355,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4660334,
-    "news_picked_today": 1316,
-    "news_dropped_today": 15052
+    "news_seen_today": 4687078,
+    "news_picked_today": 1321,
+    "news_dropped_today": 15095
   },
   "book_momentum": {
     "live_count": 8,
