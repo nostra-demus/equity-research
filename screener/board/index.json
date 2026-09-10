@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T12:37:28Z",
+  "generated_at": "2026-09-10T13:16:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-441",
@@ -435,6 +435,56 @@
           "name": "Lingbao Gold",
           "ticker": "03330",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260910-463",
+      "headline": "Vince Reports Q2 Gains, Raises Outlook",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T12:17:42Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Vince reported Q2 gains and raised its financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vince reported Q2 gains and raised its financial outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vince Holding Corp",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1922,55 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-390",
-      "headline": "SOLIS HOLDINGS (02227): DELAY IN DESPATCH OF CIRCULAR FOR MAJOR TRANSACTION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000388.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-10T08:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Solis Holdings files notice of delay in shareholder-vote circular for major transaction, signaling execution or regulatory complexity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Solis Holdings files notice of delay in shareholder-vote circular for major transaction, signaling execution or regulatory complexity.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solis Holdings",
-          "ticker": "02227",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109253,76 +109254,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-99b619b91ddba052",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
-      "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e520e9a9e32e"
-      ],
-      "primary_source_event_id": "EVT-e520e9a9e32e",
-      "source_headlines": [
-        "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
-      ],
-      "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
-      "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T01:00:28Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-09T03:36:02Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T13:00:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-9968a02053526a49",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -110753,148 +110684,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a6b4b796e78e",
-      "idea_version": "IDEAV-913d93eb2dce0907",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "ASB",
-      "company": "Austal",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
-      "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-976beaeea30f"
-      ],
-      "primary_source_event_id": "EVT-976beaeea30f",
-      "source_headlines": [
-        "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
-      ],
-      "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T00:42:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-07T03:45:17Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T12:42:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ea37e26917fc",
-      "idea_version": "IDEAV-a04d1019e4aeab03",
-      "idea_version_started_at": "2026-09-09T03:36:02Z",
-      "ticker": "WGX",
-      "company": "Westgold Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
-      "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-41c3ce1cc890"
-      ],
-      "primary_source_event_id": "EVT-41c3ce1cc890",
-      "source_headlines": [
-        "WGX: FY27 Guidance and Three-Year Outlook Presentation"
-      ],
-      "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-09T00:58:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-09T03:36:02Z",
-      "updated_at": "2026-09-09T03:36:02Z",
-      "decay_at": "2026-09-10T12:58:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-14e8a146693a",
       "idea_version": "IDEAV-75af08a2bada8d89",
       "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -111321,6 +111110,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-99b619b91ddba052",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
+      "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e520e9a9e32e"
+      ],
+      "primary_source_event_id": "EVT-e520e9a9e32e",
+      "source_headlines": [
+        "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
+      ],
+      "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
+      "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T01:00:28Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-09T03:36:02Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T13:00:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-e38b2231c234",
@@ -113001,6 +112860,148 @@
       "surfaced_at": "2026-09-08T01:42:54Z",
       "updated_at": "2026-09-08T01:42:54Z",
       "decay_at": "2026-09-09T12:19:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a6b4b796e78e",
+      "idea_version": "IDEAV-913d93eb2dce0907",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "ASB",
+      "company": "Austal",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
+      "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-976beaeea30f"
+      ],
+      "primary_source_event_id": "EVT-976beaeea30f",
+      "source_headlines": [
+        "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
+      ],
+      "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T00:42:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-07T03:45:17Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T12:42:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ea37e26917fc",
+      "idea_version": "IDEAV-a04d1019e4aeab03",
+      "idea_version_started_at": "2026-09-09T03:36:02Z",
+      "ticker": "WGX",
+      "company": "Westgold Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
+      "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-41c3ce1cc890"
+      ],
+      "primary_source_event_id": "EVT-41c3ce1cc890",
+      "source_headlines": [
+        "WGX: FY27 Guidance and Three-Year Outlook Presentation"
+      ],
+      "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-09T00:58:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-09T03:36:02Z",
+      "updated_at": "2026-09-09T03:36:02Z",
+      "decay_at": "2026-09-10T12:58:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116243,19 +116244,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 571,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 49
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -116274,6 +116275,227 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-301c9958417a",
+        "idea_version": "IDEAV-99b619b91ddba052",
+        "idea_version_started_at": "2026-09-09T03:36:02Z",
+        "ticker": "META",
+        "company": "Meta Platforms",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing an $18 billion settlement payment, which will directly impact cash reserves and short-term earnings per share.",
+        "why_now": "The settlement was reported on 2026-09-09, and the market will need to digest the immediate balance sheet impact.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e520e9a9e32e"
+        ],
+        "primary_source_event_id": "EVT-e520e9a9e32e",
+        "source_headlines": [
+          "Meta Platforms Settles Major Lawsuit, Pays $18 Billion"
+        ],
+        "source_headline": "Meta Platforms Settles Major Lawsuit, Pays $18 Billion",
+        "source_url": "https://www.nasdaq.com/articles/meta-platforms-settles-major-lawsuit-pays-18-billion",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T01:00:28Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/META_2026-08-31",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-09T03:36:02Z",
+        "updated_at": "2026-09-09T03:36:02Z",
+        "decay_at": "2026-09-10T13:00:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T13:00:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ea37e26917fc",
+        "idea_version": "IDEAV-a04d1019e4aeab03",
+        "idea_version_started_at": "2026-09-09T03:36:02Z",
+        "ticker": "WGX",
+        "company": "Westgold Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
+        "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-41c3ce1cc890"
+        ],
+        "primary_source_event_id": "EVT-41c3ce1cc890",
+        "source_headlines": [
+          "WGX: FY27 Guidance and Three-Year Outlook Presentation"
+        ],
+        "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T00:58:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-09T03:36:02Z",
+        "updated_at": "2026-09-09T03:36:02Z",
+        "decay_at": "2026-09-10T12:58:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T12:58:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a6b4b796e78e",
+        "idea_version": "IDEAV-913d93eb2dce0907",
+        "idea_version_started_at": "2026-09-09T03:36:02Z",
+        "ticker": "ASB",
+        "company": "Austal",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
+        "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-976beaeea30f"
+        ],
+        "primary_source_event_id": "EVT-976beaeea30f",
+        "source_headlines": [
+          "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
+        ],
+        "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-09T00:42:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-07T03:45:17Z",
+        "updated_at": "2026-09-09T03:36:02Z",
+        "decay_at": "2026-09-10T12:42:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T12:42:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2cc481c57534",
         "idea_version": "IDEAV-31ac134097738c56",
@@ -146617,79 +146839,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-90b902d53889",
-        "idea_version": "IDEAV-0bcded37d55b17e7",
-        "idea_version_started_at": "2026-08-29T13:02:30Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Nvidia is forecasting 70% sales growth due to accelerating demand for its AI chips, which directly boosts its revenue and profitability.",
-        "why_now": "Nvidia's shares surged on August 28, 2026, after the company provided strong sales growth guidance.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5a324d7abf53"
-        ],
-        "primary_source_event_id": "EVT-5a324d7abf53",
-        "source_headlines": [
-          "Nvidia Shares Surge 9% After Forecasting 70% Sales Growth As AI Chip Demand Accelerates"
-        ],
-        "source_headline": "Nvidia Shares Surge 9% After Forecasting 70% Sales Growth As AI Chip Demand Accelerates",
-        "source_url": "https://www.freepressjournal.in/business/nvidia-shares-surge-9-after-forecasting-70-sales-growth-as-ai-chip-demand-accelerates",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T06:18:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-27T03:27:43Z",
-        "updated_at": "2026-08-29T13:02:30Z",
-        "decay_at": "2026-08-29T18:18:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T07:32:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ad9e65208b35",
         "idea_version": "IDEAV-52b0bb5639279ad2",
         "idea_version_started_at": "2026-08-28T05:51:01Z",
@@ -146760,79 +146909,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-08-31T03:21:00Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6ef3d9cacc63",
-        "idea_version": "IDEAV-871bc7d2d2d4ca1c",
-        "idea_version_started_at": "2026-08-28T05:51:01Z",
-        "ticker": "000660.KS",
-        "company": "SK Hynix",
-        "exchange": "Korea",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $4 billion investment in an Indiana facility strengthens the company's US-based supply chain and aligns with regional semiconductor manufacturing incentives.",
-        "why_now": "The announcement was made on 2026-08-28, marking a significant strategic expansion into the US market.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2f11eb103002"
-        ],
-        "primary_source_event_id": "EVT-2f11eb103002",
-        "source_headlines": [
-          "SK Hynix to Invest $4 Billion in Indiana, USA"
-        ],
-        "source_headline": "SK하이닉스, 미국 인디애나에 40억 달러 투자",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275709",
-        "source_name": "Business Korea — All Articles (CDN)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-28T01:04:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-28T05:51:01Z",
-        "updated_at": "2026-08-28T05:51:01Z",
-        "decay_at": "2026-08-29T13:04:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-31T01:11:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -153369,85 +153445,12 @@
         "archived_at": "2026-08-23T23:13:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fbaf750de821",
-        "idea_version": "IDEAV-ff5f45ada49cdaf6",
-        "idea_version_started_at": "2026-08-20T21:32:56Z",
-        "ticker": "STLA",
-        "company": "Stellantis",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Repeated product recalls for the Dodge Durango increase warranty liabilities and damage brand reputation, creating a drag on operating margins.",
-        "why_now": "The latest report of recurring safety failures was published on 2026-08-20.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-129544f18305"
-        ],
-        "primary_source_event_id": "EVT-129544f18305",
-        "source_headlines": [
-          "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving"
-        ],
-        "source_headline": "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving",
-        "source_url": "https://www.carscoops.com/2026/08/dodge-duango-spoiler-recall-three/",
-        "source_name": "Carscoops",
-        "materiality_max": 88,
-        "newest_source_at": "2026-08-20T20:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T21:32:56Z",
-        "updated_at": "2026-08-20T21:32:56Z",
-        "decay_at": "2026-08-22T08:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T20:30:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 663,
-    "live_count": 39,
+    "live_count": 36,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153466,9 +153469,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3468243,
-    "news_picked_today": 1020,
-    "news_dropped_today": 11964
+    "news_seen_today": 3617134,
+    "news_picked_today": 1059,
+    "news_dropped_today": 12765
   },
   "book_momentum": {
     "live_count": 8,
