@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T06:11:51Z",
+  "generated_at": "2026-09-10T06:21:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -1713,6 +1713,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-305",
+      "headline": "The Karnataka Bank Limited: The Karnataka Bank Limited has informed the Exchange about strikes/lockouts/disturbances",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KTKBANK_10092026104210_Strike.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T05:14:02Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Karnataka Bank reported labor disturbances which may impact operational continuity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Karnataka Bank reported labor disturbances which may impact operational continuity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Karnataka Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-250",
       "headline": "OEL: Update on Gulf of America Asset Monetization Process [price-sensitive]",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-038",
-      "headline": "Labcorp snaps up MLM Medical Labs to boost laboratory footprint",
-      "headline_en": null,
-      "url": "https://www.fiercebiotech.com/medtech/labcorp-snaps-mlm-medical-labs-boost-laboratory-footprint",
-      "source_name": "FierceBiotech",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-09T23:56:07Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Labcorp is acquiring MLM Medical Labs to expand its laboratory footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Labcorp is acquiring MLM Medical Labs to expand its laboratory footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Labcorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153175,9 +153175,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1573174,
-    "news_picked_today": 636,
-    "news_dropped_today": 3828
+    "news_seen_today": 1642740,
+    "news_picked_today": 640,
+    "news_dropped_today": 3896
   },
   "book_momentum": {
     "live_count": 8,
