@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T06:29:02Z",
+  "generated_at": "2026-09-10T06:36:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260910-289",
@@ -1086,6 +1086,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-311",
+      "headline": "PAF: Group Trading Statement for the year ended 30 June 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAF?key=2924-03134148-6A1343228",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T06:03:59Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "PAF released a price-sensitive trading statement for the year ended 30 June 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "PAF released a price-sensitive trading statement for the year ended 30 June 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PAF",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-303",
       "headline": "GEM: Ceasing to be a substantial holder",
       "headline_en": null,
@@ -1529,6 +1578,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260910-307",
+      "headline": "Musk’s Boring Co. Raises Capital, Valuing Firm at $23 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-10/musk-s-boring-co-raises-capital-valuing-firm-at-23-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-10T05:35:53Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "The Boring Company raised capital at a $23 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The Boring Company raised capital at a $23 billion valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Boring Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260910-083",
       "headline": "Cerberus-Backed Stratolaunch Is Said to Seek $500 Million in IPO",
       "headline_en": null,
@@ -1856,106 +1954,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-255",
-      "headline": "Persistent Systems eyes mid-teen growth after Nagarro acquisition; fundraise plan takes shape",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/technology/persistent-systems-eyes-mid-teen-growth-after-nagarro-acquisition-fundraise-plan-takes-shape-19988119.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T04:00:57Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Persistent Systems is targeting mid-teen growth following the acquisition of Nagarro and is planning a fundraise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Persistent Systems is targeting mid-teen growth following the acquisition of Nagarro and is planning a fundraise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-242",
-      "headline": "DOJ Probes Nvidia’s License Deal With Groq on Antitrust Concerns",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-10/doj-probes-nvidia-s-license-deal-with-groq-on-antitrust-concerns",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-10T02:58:06Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "DOJ investigates Nvidia's license deal with Groq for antitrust violations, a regulatory enforcement action that poses material risk to licensing revenue and competitive AI chip strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "DOJ investigates Nvidia's license deal with Groq for antitrust violations, a regulatory enforcement action that poses material risk to licensing revenue and competitive AI chip strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -109378,76 +109376,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ec6bbb848a36",
-      "idea_version": "IDEAV-0e1ffa758b014fb5",
-      "idea_version_started_at": "2026-09-08T22:44:52Z",
-      "ticker": "CTSH",
-      "company": "Cognizant",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The suspension of green-card filings due to a visa-fraud probe threatens the company's ability to staff and execute on high-margin IT service contracts.",
-      "why_now": "The regulatory action was reported today, September 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-638f19bb37a7"
-      ],
-      "primary_source_event_id": "EVT-638f19bb37a7",
-      "source_headlines": [
-        "US suspends Cognizant’s green-card filings amid visa-fraud probe"
-      ],
-      "source_headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
-      "source_url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-08T18:31:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-08T22:44:52Z",
-      "updated_at": "2026-09-08T22:44:52Z",
-      "decay_at": "2026-09-10T06:31:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b34fe82f77a4",
       "idea_version": "IDEAV-71be0192807ccf28",
       "idea_version_started_at": "2026-09-10T01:49:10Z",
@@ -111366,6 +111294,76 @@
       "surfaced_at": "2026-09-08T15:48:21Z",
       "updated_at": "2026-09-09T01:08:50Z",
       "decay_at": "2026-09-10T05:40:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ec6bbb848a36",
+      "idea_version": "IDEAV-0e1ffa758b014fb5",
+      "idea_version_started_at": "2026-09-08T22:44:52Z",
+      "ticker": "CTSH",
+      "company": "Cognizant",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The suspension of green-card filings due to a visa-fraud probe threatens the company's ability to staff and execute on high-margin IT service contracts.",
+      "why_now": "The regulatory action was reported today, September 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-638f19bb37a7"
+      ],
+      "primary_source_event_id": "EVT-638f19bb37a7",
+      "source_headlines": [
+        "US suspends Cognizant’s green-card filings amid visa-fraud probe"
+      ],
+      "source_headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
+      "source_url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-08T18:31:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-08T22:44:52Z",
+      "updated_at": "2026-09-08T22:44:52Z",
+      "decay_at": "2026-09-10T06:31:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -116086,9 +116084,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 67,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
         "total_count": 299,
@@ -116096,9 +116094,9 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -116117,6 +116115,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ec6bbb848a36",
+        "idea_version": "IDEAV-0e1ffa758b014fb5",
+        "idea_version_started_at": "2026-09-08T22:44:52Z",
+        "ticker": "CTSH",
+        "company": "Cognizant",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The suspension of green-card filings due to a visa-fraud probe threatens the company's ability to staff and execute on high-margin IT service contracts.",
+        "why_now": "The regulatory action was reported today, September 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-638f19bb37a7"
+        ],
+        "primary_source_event_id": "EVT-638f19bb37a7",
+        "source_headlines": [
+          "US suspends Cognizant’s green-card filings amid visa-fraud probe"
+        ],
+        "source_headline": "US suspends Cognizant’s green-card filings amid visa-fraud probe",
+        "source_url": "https://www.cnbctv18.com/business/companies/us-suspends-cognizants-green-card-filings-amid-visa-fraud-probe-19987038.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-08T18:31:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-08T22:44:52Z",
+        "updated_at": "2026-09-08T22:44:52Z",
+        "decay_at": "2026-09-10T06:31:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-10T06:31:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e6d0f288bbe0",
         "idea_version": "IDEAV-e4a4ee598890e8e4",
@@ -153213,86 +153284,12 @@
         "archived_at": "2026-08-23T09:04:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5ad1780c26cb",
-        "idea_version": "IDEAV-81bf3212a1e82bad",
-        "idea_version_started_at": "2026-08-20T18:25:35Z",
-        "ticker": "00608",
-        "company": "High Fashion International",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, indicating a deterioration in earnings performance that is likely to lead to downward revisions in analyst estimates.",
-        "why_now": "The profit warning was filed on 2026-08-20.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-038cf2122d14"
-        ],
-        "primary_source_event_id": "EVT-038cf2122d14",
-        "source_headlines": [
-          "HIGH FASHION (00608): PROFIT WARNING"
-        ],
-        "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 97,
-        "newest_source_at": "2026-08-20T00:10:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-20T01:31:55Z",
-        "updated_at": "2026-08-20T18:25:35Z",
-        "decay_at": "2026-08-21T12:10:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-08-23T00:15:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 656,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -153311,9 +153308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1660221,
-    "news_picked_today": 650,
-    "news_dropped_today": 3934
+    "news_seen_today": 1712396,
+    "news_picked_today": 656,
+    "news_dropped_today": 3976
   },
   "book_momentum": {
     "live_count": 8,
