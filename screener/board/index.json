@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-10T05:22:25Z",
+  "generated_at": "2026-09-10T05:26:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260910-289",
+      "headline": "[TSE]Decision on Delisting, etc.: NISSIN SHOJI CO.,LTD.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260910-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-10T05:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
+      "prelim_note": "Nissin Shoji is being delisted from the Tokyo Stock Exchange, which is a terminal event for public shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nissin Shoji is being delisted from the Tokyo Stock Exchange, which is a terminal event for public shareholders.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nissin Shoji Co., Ltd.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260910-159",
       "headline": "SIGMA ADVANCED SYSTEMS LIMITED: SIGMA ADVANCED SYSTEMS LIMITED has informed the Exchange regarding a press release dated September 10, 2026, titled \"Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirement) Regulations, 2015 - Sigma Advanced Systems Begins Production at Sri City Aerospace Facility, Replicating UK Manufacturing Capability in India\".",
@@ -1904,55 +1953,6 @@
           "name": "LDR",
           "ticker": "LDR",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260910-005",
-      "headline": "VKA: MAIDEN DRILLING AT LINKA TUNGSTEN DELIVERS 14M @ 0.56% WO3 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VKA?key=2924-03134005-6A1343156",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-09T23:39:03Z",
-      "sweep_file": "screener/inbox/2026-09-10_sweep.json",
-      "prelim_note": "Maiden drilling results indicate 14m at 0.56% WO3, suggesting resource potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Maiden drilling results indicate 14m at 0.56% WO3, suggesting resource potential.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VKA",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -153312,9 +153312,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1166452,
-    "news_picked_today": 587,
-    "news_dropped_today": 3421
+    "news_seen_today": 1196835,
+    "news_picked_today": 595,
+    "news_dropped_today": 3437
   },
   "book_momentum": {
     "live_count": 8,
